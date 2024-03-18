@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+    storedimo:
+      container_name: storedimo
+      build:
+        context: ./
+        dockerfile: ./laravel/storedimo.dockerfile
+      volumes:
+        - ./laravel/storedimo:/var/www/html:delegated
+      ports: 
+        - '90:80'
+      env_file:
+        - ./laravel/config_laravel/datos.env
+
+    db:
+      image: postgres
+      restart: always
+      shm_size: 256mb
+      environment:
+        POSTGRES_USER: admin
+        POSTGRES_PASSWORD: softdimo
+        POSTGRES_DB: storedimo
+      volumes:
+        - ./db:/var/lib/postgresql:delegated
+
+    adminer:
+      image: adminer
+      restart: always
+      ports:
+        - 8080:8080
+      volumes:
+        - ./db:/var/lib/postgresql:delegated
