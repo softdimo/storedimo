@@ -59,6 +59,12 @@ $app->singleton(
 |
 */
 
+if ($app->environment() !== 'production') {
+    $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
+}
+
+$app->withEloquent();
+
 $app->configure('app');
 
 /*
