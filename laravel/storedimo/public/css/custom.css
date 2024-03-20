@@ -1,0 +1,17 @@
+/* header {
+    width: 100%;
+} */
+
+footer {
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    width: 100%;
+}
+
+/* @media (min-width:992px) {
+    .footer {
+        position: absolute;
+    }
+} */
+

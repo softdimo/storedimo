@@ -11,18 +11,17 @@
         @yield('css')
 
         {{-- Favicon --}}
-        {{-- <link rel="shortcut icon" href="{{asset('imagenes/logo_jgmcdigital.png')}}" type="image/x-icon"> --}}
+        <link rel="shortcut icon" href="{{asset('imagenes/favicon.png')}}" type="image/x-icon">
 
         {{-- ========================================= --}}
 
         <!-- Bootstrap CSS 5.3.2 -->
-        {{-- <link rel="stylesheet" href="{{asset('bootstrap/bootstrap.5.3.2.min.css')}}" > --}}
+        <link rel="stylesheet" href="{{asset('bootstrap/bootstrap.5.3.2.min.css')}}" >
 
         {{-- ========================================= --}}
         
         <!--  Js -->
-        {{-- <script src="{{asset('js/modernizr.custom.js')}}"></script> --}}
-        {{-- <script src="{{asset('js/jquery-3.6.0.min.js')}}"></script> --}}
+        <script src="{{asset('js/jquery-3.6.0.min.js')}}"></script>
 
         {{-- ========================================= --}}
 
@@ -32,8 +31,7 @@
         {{-- ========================================= --}}
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{asset('font-awesome-4.5.0/css/font-awesome.min.css')}}"> Necesario para el ícono del logout
-        {{-- <link rel="stylesheet" href="{{asset('css/style.css')}}"> --}}
+        <link rel="stylesheet" href="{{asset('font-awesome-4.5.0/css/font-awesome.min.css')}}"> {{-- Necesario para el ícono del logout --}}
 
 
         {{-- ========================================= --}}
@@ -75,7 +73,7 @@
         @yield('scripts')
 
         <!-- Bootstrap Bundle JS 5.3.2 -->
-        {{-- <script src="{{asset('bootstrap/bootstrap5.3.2.bundle.min.js')}}"></script> --}}
+        <script src="{{asset('bootstrap/bootstrap5.3.2.bundle.min.js')}}"></script>
 
         {{-- ========================================================================= --}}
 
@@ -85,8 +83,8 @@
         {{-- ========================================================================= --}}
 
         {{-- Sweetalert (No necesita jquery para funcionar) --}}
-        {{-- <script src="{{asset('js/sweetalert2.all.js')}}"></script> --}}
-        {{-- <script src="{{asset('js/sweetalert2.min.js')}}"></script> --}}
+        <script src="{{asset('js/sweetalert2.all.js')}}"></script>
+        <script src="{{asset('js/sweetalert2.min.js')}}"></script>
         
         <!-- SCRIPTS -->
         @include('sweetalert::alert')
