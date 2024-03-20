@@ -15,7 +15,7 @@
 
 @section('content')
     <div class="vh-100 d-flex flex-column align-items-center justify-content-center">
-        <div class="w-25 border border-1">
+        <div class="w-25 border border-1 rounded">
             <div class="d-flex justify-content-center p-1" style="background-color:#F5F5F5">
                 <img src="{{asset('imagenes/logo.png')}}" alt="logo" class="text-center" width="200" height="100">
             </div>
