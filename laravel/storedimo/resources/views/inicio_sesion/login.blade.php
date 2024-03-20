@@ -43,13 +43,13 @@
                 {{-- ============================ --}}
 
                 <div class="mt-5 d-flex justify-content-center">
-                    <button class="btn btn-primary" type="submit">Iniciar Sesión</button>
+                    <button class="btn btn-primary w-100" type="submit">Iniciar Sesión</button>
                 </div>
 
                 {{-- ============================ --}}
 
-                <div class="mt-5 d-flex justify-content-end">
-                    <a class="" href="" style="color: blue">Olvidé mi Clave</a>
+                <div class="mt-3 d-flex justify-content-center">
+                    <a class="" href="" style="color: blue">¿Olvidó la Contraseña?</a>
                 </div>
             </form>
         </div>
