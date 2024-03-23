@@ -45,9 +45,17 @@
     {{-- =========================================================================== --}}
 
     <body>
-        {{-- <div class=""> --}}
+        <div class="">
+            @if(Request()->path() == '/' || Request()->path() == "login" || Request()->path() == "logout")
+                @include('layouts.topbar_login')
+            @elseif(Request()->path() == "recuperar")
+                @include('layouts.topbar_login')
+            @else
+                @include('layouts.topbar')
+            @endif
+
             @yield('content')
-        {{-- </div> --}}
+        </div>
 
         {{-- <div class="content"> --}}
         {{-- <div class="container-fluid p-0 m-0 position-relative d-flex justify-content-center align-items-center"> --}}
