@@ -15,14 +15,14 @@
 
 @section('content')
     <div class="d-flex p-0">
-        <div class="col-2 p-0">
+        <div class="p-0" style="width: 20%">
             @include('layouts.sidebarmenu')
         </div>
 
         {{-- ======================================================================= --}}
         {{-- ======================================================================= --}}
 
-        <div class="col-10 p-3 d-flex flex-column" style="">
+        <div class="p-3 d-flex flex-column" style="width: 80%">
             <div class="text-end">
                 <a class="nav-link text-blue" href="">
                     <i class="fa fa-question-circle fa-2x" aria-hidden="true" title="Ayuda" style="color: #337AB7"></i>
