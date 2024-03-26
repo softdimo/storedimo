@@ -3,13 +3,13 @@
         <ul class="nav d-flex flex-column justify-content-center flex-nowrap navbar-nav" id="sidebarnav">
             <li class="pt-1 pb-1 d-flex justify-content-between align-items-center" style="background-color: #EEEEEE; border-bottom: 1px solid #e7e7e7">
                 <i class="fa fa-th-list text-center" style="color: #000; width: 10%"></i>
-                <a href="" class="active text-decoration-none text-start" style="width: 80%">Menú Principal</a>
+                <a href="" class="nav-link active text-decoration-none text-start" style="width: 80%">Menú Principal</a>
                 <span class="" style="width: 10%"></span>
             </li>
 
             {{-- ==================================== --}}
 
-            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item dropdown" style="border-bottom: 1px solid #e7e7e7">
+            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item" style="border-bottom: 1px solid #e7e7e7">
                 <i class="fa fa-users text-center" style="color: #000; width: 10%"></i>
                 <a href="" class="text-decoration-none" style="width: 80%" id="personas" role="button" data-bs-toggle="dropdown" aria-expanded="false">Personas</a>
                 <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
@@ -24,7 +24,7 @@
 
             {{-- ==================================== --}}
 
-            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item dropdown" style="border-bottom: 1px solid #e7e7e7">
+            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item" style="border-bottom: 1px solid #e7e7e7">
                 <i class="fa fa-database text-center" style="color: #000; width: 10%"></i>
                 <a href="" class="text-decoration-none" style="width: 80%" id="categorias" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorías</a>
                 <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
@@ -35,7 +35,7 @@
 
             {{-- ==================================== --}}
             
-            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item dropdown" style="border-bottom: 1px solid #e7e7e7">
+            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item" style="border-bottom: 1px solid #e7e7e7">
                 <i class="fa fa-cubes text-center" style="color: #000; width: 10%"></i>
                 <a href="" class="text-decoration-none" style="width: 80%" id="productos" role="button" data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
                 <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
@@ -47,7 +47,7 @@
 
             {{-- ==================================== --}}
 
-            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item dropdown" style="border-bottom: 1px solid #e7e7e7">
+            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item" style="border-bottom: 1px solid #e7e7e7">
                 <i class="fa fa-check-square-o text-center" style="color: #000; width: 10%"></i>
                 <a href="" class="text-decoration-none" style="width: 80%" id="existencias" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gestionar Existencias</a>
                 <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
@@ -60,7 +60,7 @@
 
             {{-- ==================================== --}}
 
-            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item dropdown" style="border-bottom: 1px solid #e7e7e7">
+            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item" style="border-bottom: 1px solid #e7e7e7">
                 <i class="fa fa-shopping-cart text-center" style="color: #000; width: 10%"></i>
                 <a href="" class="text-decoration-none" style="width: 80%" id="entradas" role="button" data-bs-toggle="dropdown" aria-expanded="false">Entradas</a>
                 <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
@@ -72,7 +72,7 @@
 
             {{-- ==================================== --}}
 
-            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item dropdown" style="border-bottom: 1px solid #e7e7e7">
+            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item" style="border-bottom: 1px solid #e7e7e7">
                 <i class="fa fa-usd text-center" style="color: #000; width: 10%"></i>
                 <a href="" class="text-decoration-none" style="width: 80%" id="ventas" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ventas</a>
                 <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
@@ -85,7 +85,7 @@
 
             {{-- ==================================== --}}
 
-            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item dropdown" style="border-bottom: 1px solid #e7e7e7">
+            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item" style="border-bottom: 1px solid #e7e7e7">
                 <i class="fa fa-credit-card text-center" style="color: #000; width: 10%"></i>
                 <a href="" class="text-decoration-none" style="width: 80%" id="prestamos" role="button" data-bs-toggle="dropdown" aria-expanded="false">Préstamos a Empleados</a>
                 <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
@@ -97,7 +97,7 @@
 
             {{-- ==================================== --}}
 
-            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item dropdown" style="border-bottom: 1px solid #e7e7e7">
+            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item" style="border-bottom: 1px solid #e7e7e7">
                 <i class="fa fa-money text-center" style="color: #000; width: 10%"></i>
                 <a href="" class="text-decoration-none" style="width: 80%" id="pagos" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pagos a Empleados</a>
                 <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
