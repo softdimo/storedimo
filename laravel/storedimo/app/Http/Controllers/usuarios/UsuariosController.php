@@ -47,7 +47,6 @@ class UsuariosController extends Controller
      */
     public function create()
     {
-        // return view('usuarios.crear_usuarios');
         return view('usuarios.create');
     }
 
@@ -120,5 +119,13 @@ class UsuariosController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // ======================================================================
+    // ======================================================================
+
+    public function listarProveedores()
+    {
+        return view('usuarios.listar_proveedores');
     }
 }

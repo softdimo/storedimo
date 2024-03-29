@@ -36,8 +36,7 @@ Route::group(['namespace' => 'App\Http\Controllers\home'], function () {
 // PERSONAS
 Route::group(['namespace' => 'App\Http\Controllers\usuarios'], function () {
     Route::resource('usuarios', 'UsuariosController');
-    // Route::resource('registrar_usuarios', 'UsuariosController');
-    // Route::post('crear_usuarios', 'UsuariosController@create')->name('crear_usuarios');
+    Route::get('listar_proveedores', 'UsuariosController@listarProveedores')->name('listar_proveedores');
     // Route::post('verificar_documento', 'AdministradorController@verificarDocumento')->name('verificar_documento');
     // Route::post('editar_usuario', 'AdministradorController@update')->name('editar_usuario');
 });
