@@ -128,4 +128,12 @@ class UsuariosController extends Controller
     {
         return view('usuarios.listar_proveedores');
     }
+    
+    // ======================================================================
+    // ======================================================================
+
+    public function listarClientes()
+    {
+        return view('usuarios.listar_clientes');
+    }
 }
