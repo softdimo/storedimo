@@ -32,6 +32,7 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{asset('font-awesome-4.5.0/css/font-awesome.min.css')}}"> {{-- Necesario para el ícono del logout --}}
+        <link rel="stylesheet" href="{{asset('css/custom.css')}}">
 
 
         {{-- ========================================= --}}

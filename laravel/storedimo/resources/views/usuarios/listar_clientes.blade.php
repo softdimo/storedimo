@@ -45,7 +45,7 @@
             
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered w-100" id="tbl_clientes" aria-describedby="clientes">
+                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_clientes" aria-describedby="clientes">
                             <thead>
                                 <tr class="header-table text-center">
                                     <th>Identificación</th>

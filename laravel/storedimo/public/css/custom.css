@@ -9,6 +9,27 @@ footer {
     width: 100%;
 }
 
+.dt-buttons {
+    margin-bottom: 2rem;
+}
+
+.dataTables_length  {
+    width: 50%;
+    display: inline-block;
+}
+
+.dataTables_filter {
+    width: 50%;
+    /* float: right; */
+    display: inline-block;
+    text-align: right;
+}
+
+.dataTables_scroll {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
 /* @media (min-width:992px) {
     .footer {
         position: absolute;
