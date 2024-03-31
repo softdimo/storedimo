@@ -67,11 +67,18 @@ Route::group(['namespace' => 'App\Http\Controllers\productos'], function () {
     // Route::post('editar_usuario', 'UsuariosController@update')->name('editar_usuario');
 });
 
+// ========================================================================
+// ========================================================================
+// ========================================================================
 
-
-// ========================================================================
-// ========================================================================
-// ========================================================================
+// EXISTENCIAS
+Route::group(['namespace' => 'App\Http\Controllers\existencias'], function () {
+    Route::resource('existencias', 'ExistenciasController');
+    Route::get('listar_bajas', 'ExistenciasController@listarBajas')->name('listar_bajas');
+    // Route::get('listar_clientes', 'UsuariosController@listarClientes')->name('listar_clientes');
+    // Route::post('listar_categorias', 'UsuariosController@listarCategorias')->name('listar_categorias');
+    // Route::post('editar_usuario', 'UsuariosController@update')->name('editar_usuario');
+});
 
 
 // ========================================================================
