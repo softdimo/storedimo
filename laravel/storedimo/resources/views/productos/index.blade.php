@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Usuarios')
+@section('title', 'Productos')
 
 {{-- =============================================================== --}}
 {{-- =============================================================== --}}
@@ -41,19 +41,19 @@
             {{-- =============================================================== --}}
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Usuarios-Empleados</h5>
+                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Productos</h5>
             
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_usuarios" aria-describedby="users-empleados">
+                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_productos" aria-describedby="productos">
                             <thead>
                                 <tr class="header-table text-center">
-                                    <th>Identificación</th>
-                                    <th>Nombres</th>
-                                    <th>Apellidos</th>
-                                    <th>Celular</th>
-                                    <th>Dirección</th>
-                                    <th>Tipo Empleado</th>
+                                    <th>Código</th>
+                                    <th>Nombre Producto</th>
+                                    <th>Categoría</th>
+                                    <th>Descripción</th>
+                                    <th>Cantidad</th>
+                                    <th>Stock Mínimo</th>
                                     <th>Estado</th>
                                     <th>Opciones</th>
                                 </tr>
@@ -61,13 +61,13 @@
                             {{-- ============================== --}}
                             <tbody>
                                     <tr class="text-center">
-                                        <td>Identificación</td>
-                                        <td>Nombres</td>
-                                        <td>Apellidos</td>
-                                        <td>Celular</td>
-                                        <td>Dirección</td>
-                                        <td>Tipo Empleado</td>
-                                        <td>Estado</td>
+                                        <td>2</td>
+                                        <td>jabón de baño frotex</td>
+                                        <td>Aseo</td>
+                                        <td>jabon de baño frotex de avena</td>
+                                        <td>19</td>
+                                        <td>5</td>
+                                        <td>Habilitado</td>
                                         <td>
                                             <a href="#" role="button" class="btn btn-primary rounded-circle btn-circle" title="Ver Detalles">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
@@ -77,9 +77,19 @@
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </a>
 
-                                            <a href="#" role="button" class="btn btn-warning rounded-circle btn-circle" title="Cambiar contraseña">
+                                            <a href="#" role="button" class="btn btn-warning rounded-circle btn-circle" title="Generar Código de Barras">
                                                 <i class="fa fa-key" aria-hidden="true"></i>
                                             </a>
+                                            
+                                            <a href="#" role="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado">
+                                                {{-- <i class="fa fa-arrows-rotate" aria-hidden="true"></i> --}}
+                                                {{-- <i class="fs fa-sharp fa-light fa-arrows-rotate"></i> --}}
+                                                {{-- <i class="fa fa-sharp fa-solid fa-rotate"></i> --}}
+                                                {{-- <i class="fa fa-thin fa-arrows-rotate"></i> --}}
+                                                {{-- <i class="fa fa-solid fa-arrows-rotate"></i> --}}
+                                                <i class="fa fa-solid fa-recycle"></i>
+                                            </a>
+                                        </td>
                                         </td>
                                     </tr>
                             </tbody>
@@ -94,7 +104,7 @@
                     <div class="mt-5 mb-2 d-flex justify-content-center">
                         <button class="btn btn-success rounded-2 me-3" type="submit">
                             <i class="fa fa-file-pdf-o"></i>
-                            Reporte PDF de Empleados
+                            Reporte PDF de Productos
                         </button>
                     </div>
                 </div> {{-- FIN div_campos_usuarios --}}
@@ -114,7 +124,7 @@
     <script>
         $( document ).ready(function() {
             // INICIO DataTable Lista Usuarios
-            $("#tbl_usuarios").DataTable({
+            $("#tbl_productos").DataTable({
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
                 stripe: true,

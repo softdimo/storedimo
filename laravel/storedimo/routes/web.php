@@ -54,11 +54,18 @@ Route::group(['namespace' => 'App\Http\Controllers\categorias'], function () {
     // Route::post('editar_usuario', 'UsuariosController@update')->name('editar_usuario');
 });
 
+// ========================================================================
+// ========================================================================
+// ========================================================================
 
-
-// ========================================================================
-// ========================================================================
-// ========================================================================
+// PRODUCTOS
+Route::group(['namespace' => 'App\Http\Controllers\productos'], function () {
+    Route::resource('productos', 'ProductosController');
+    // Route::get('listar_proveedores', 'UsuariosController@listarProveedores')->name('listar_proveedores');
+    // Route::get('listar_clientes', 'UsuariosController@listarClientes')->name('listar_clientes');
+    // Route::post('listar_categorias', 'UsuariosController@listarCategorias')->name('listar_categorias');
+    // Route::post('editar_usuario', 'UsuariosController@update')->name('editar_usuario');
+});
 
 
 
