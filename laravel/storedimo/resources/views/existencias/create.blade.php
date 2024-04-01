@@ -42,17 +42,17 @@
                         <div class="p-3 d-flex flex-column" style="height: 50%;">
                             <div>
                                 <label for="tipo_baja" class="form-label">Tipo de Baja <span class="text-danger">*</span></label>
-                                {!! Form::text('tipo_baja', null, ['class' => 'form-control', 'id' => 'tipo_baja']) !!}
+                                {!! Form::text('tipo_baja', null, ['class' => 'form-control', 'id' => 'tipo_baja', 'required' => 'required']) !!}
                             </div>
 
                             <div class="mt-3">
                                 <label for="producto" class="form-label">Producto <span class="text-danger">*</span></label>
-                                {!! Form::text('producto', null, ['class' => 'form-control', 'id' => 'producto']) !!}
+                                {!! Form::text('producto', null, ['class' => 'form-control', 'id' => 'producto', 'required' => 'required']) !!}
                             </div>
 
                             <div class="mt-3">
                                 <label for="cantidad" class="form-label">Cantidad <span class="text-danger">*</span></label>
-                                {!! Form::text('cantidad', null, ['class' => 'form-control', 'id' => 'cantidad']) !!}
+                                {!! Form::text('cantidad', null, ['class' => 'form-control', 'id' => 'cantidad', 'required' => 'required']) !!}
                             </div>
 
                             <div class="d-flex justify-content-end mt-3">
@@ -124,6 +124,35 @@
         // ===================================================================================
         // ===================================================================================
 
+        // INICIO - Validación Formulario Creación de usuarios "Información Personal"
+
+        form_usuarios_edit = $("#form_usuarios_edit");
+
+        form_usuarios_edit.validate({
+            rules:{
+                usu_nombre:{
+                    required:true
+                },
+                primer_apellido:{
+                    required:true
+                },
+                segundo_apellido:{
+                    required:false
+                },
+            },
+            errorPlacement: function(error, element) {
+            if ( element.hasClass('datapicker') ){
+                    error.appendTo( element.closest("div.form-group") ); 
+                }else{
+                    error.appendTo( element.parent() );
+                }
+            }
+        });
+        // FIN - Validación Formulario Creación de usuarios "Información Personal"
+
+        // ===================================================================================
+        // ===================================================================================
+
         // INICIO - Función para agregar fila x fila cada producto para dar de baja
         $("#btn_add_baja").click(function() {
 
@@ -161,6 +190,8 @@
 
         // ===================================================================================
         // ===================================================================================
+
+
     </script>
 @stop
 
