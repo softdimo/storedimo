@@ -156,29 +156,6 @@
                 '</tr>';
 
             $('#tbl_bajas').append(fila);
-
-            // window.$('.datapicker').daterangepicker(optionsDatePicker).on('apply.daterangepicker', function(ev, picker) {
-            //     $(this).val(picker.startDate.format('DD-MM-YYYY'));
-            // });
-
-            // window.$("#parentesco["+indiceSiguienteFila+"]").append(new Option("Seleccionar...", "-1"));
-            // window.$(".select2").append(new Option("Seleccionar...", "-1"));
-            
-            // $("#b option[data-cod="+cod+"]")[0].selected = true;
-
-            // $.each(parentesco, function(index, element) {
-            //     $('select[name*="parentesco_id['+indiceSiguienteFila+']"]').append(new Option(element, index));
-                
-            // });
-
-            // $.each(ocupaciones, function(index, element) {
-            //     $('select[name*="ocupacion_id['+indiceSiguienteFila+']"]').append(new Option(element, index));
-                
-            // });
-           
-            // window.$('.select2').select2({
-            //    'placeholder':'Seleccionar...'
-            // });
         });
         // FIN - Función para agregar fila x fila cada producto para dar de baja
 
