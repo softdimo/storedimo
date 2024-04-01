@@ -56,7 +56,7 @@
                             </div>
 
                             <div class="d-flex justify-content-end mt-3">
-                                <button class="btn rounded-2 me-3 text-white" type="submit" style="background-color: #337AB7">
+                                <button class="btn rounded-2 me-3 text-white" type="submit" style="background-color: #337AB7" id="btn_add_baja">
                                     <i class="fa fa-plus plus"></i>
                                     Agregar
                                 </button>
@@ -125,11 +125,15 @@
         // ===================================================================================
 
         // INICIO - Función para agregar fila x fila cada producto para dar de baja
-        $("#tbl_bajas").click(function() {
+        $("#btn_add_baja").click(function() {
 
-            let tipoBaja = ('#tipo_baja').val();
-            let producto = ('#producto').val();
-            let cantidad = ('#cantidad').val();
+            let tipoBaja = $('#tipo_baja').val();
+            let producto = $('#producto').val();
+            let cantidad = $('#cantidad').val();
+
+            console.log(tipoBaja);
+            console.log(producto);
+            console.log(cantidad);
            
             let fila = '';
             var indiceSiguienteFila = $('#tbl_bajas tr').length;
@@ -137,16 +141,25 @@
             console.log(indiceSiguienteFila);
 
             fila +=
-                '<tr name="'+indiceSiguienteFila+'" class="row ml-0">'+
-                    '<td class="col-12 col-sm-6 pl-1">'+tipoBaja+'</td>'+
+                '<tr class="" name="'+indiceSiguienteFila+'">'+
+                    '<td class="text-center">'+producto+'</td>'+
+
+                    '<td class="text-center">'+cantidad+'</td>'+
+
+                    '<td class="text-center">'+tipoBaja+'</td>'+
                     
-                    '<td class="col-12 col-sm-6 pl-1">'+producto+'</td>'+
-                    
-                    '<td class="col-12 col-sm-6 pl-1">'+cantidad+'</td>'+
+                    '<td class="text-center">'+cantidad+'</td>'+
+
+                    // '<td class="text-center">'+
+                    //     <a href="#" role="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar">+
+                    //         <i class="fa fa-trash" aria-hidden="true"></i>+
+                    //     </a>+
+                    // '</td>'+
                 '</tr>';
 
-            // $("#tabla_familiares").append(fila);
-            //     window.$('.datapicker').daterangepicker(optionsDatePicker).on('apply.daterangepicker', function(ev, picker) {
+            $('#tbl_bajas').append(fila);
+
+            // window.$('.datapicker').daterangepicker(optionsDatePicker).on('apply.daterangepicker', function(ev, picker) {
             //     $(this).val(picker.startDate.format('DD-MM-YYYY'));
             // });
 
