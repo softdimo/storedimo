@@ -68,7 +68,7 @@
                         <h5 class="border rounded-top text-white p-2 m-0" style="background-color: #337AB7">Verificación</h5>
 
                         <div class="table-responsive p-3 d-flex flex-column justify-content-between h-100" style="">
-                            <table class="table table-striped table-bordered w-100 mb-0" id="tbl_categorias" aria-describedby="categorias">
+                            <table class="table table-striped table-bordered w-100 mb-0" id="tbl_bajas" aria-describedby="categorias">
                                 <thead>
                                     <tr class="header-table text-center">
                                         <th>Producto</th>
@@ -120,6 +120,59 @@
         $( document ).ready(function() {
             // $("#username").trigger('focus');
         });
+
+        // ===================================================================================
+        // ===================================================================================
+
+        // INICIO - Función para agregar fila x fila cada producto para dar de baja
+        $("#tbl_bajas").click(function() {
+
+            let tipoBaja = ('#tipo_baja').val();
+            let producto = ('#producto').val();
+            let cantidad = ('#cantidad').val();
+           
+            let fila = '';
+            var indiceSiguienteFila = $('#tbl_bajas tr').length;
+
+            console.log(indiceSiguienteFila);
+
+            fila +=
+                '<tr name="'+indiceSiguienteFila+'" class="row ml-0">'+
+                    '<td class="col-12 col-sm-6 pl-1">'+tipoBaja+'</td>'+
+                    
+                    '<td class="col-12 col-sm-6 pl-1">'+producto+'</td>'+
+                    
+                    '<td class="col-12 col-sm-6 pl-1">'+cantidad+'</td>'+
+                '</tr>';
+
+            // $("#tabla_familiares").append(fila);
+            //     window.$('.datapicker').daterangepicker(optionsDatePicker).on('apply.daterangepicker', function(ev, picker) {
+            //     $(this).val(picker.startDate.format('DD-MM-YYYY'));
+            // });
+
+            // window.$("#parentesco["+indiceSiguienteFila+"]").append(new Option("Seleccionar...", "-1"));
+            // window.$(".select2").append(new Option("Seleccionar...", "-1"));
+            
+            // $("#b option[data-cod="+cod+"]")[0].selected = true;
+
+            // $.each(parentesco, function(index, element) {
+            //     $('select[name*="parentesco_id['+indiceSiguienteFila+']"]').append(new Option(element, index));
+                
+            // });
+
+            // $.each(ocupaciones, function(index, element) {
+            //     $('select[name*="ocupacion_id['+indiceSiguienteFila+']"]').append(new Option(element, index));
+                
+            // });
+           
+            // window.$('.select2').select2({
+            //    'placeholder':'Seleccionar...'
+            // });
+        });
+        // FIN - Función para agregar fila x fila cada producto para dar de baja
+
+        // ===================================================================================
+        // ===================================================================================
     </script>
 @stop
 
