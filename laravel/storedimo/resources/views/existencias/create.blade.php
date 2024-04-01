@@ -148,13 +148,11 @@
 
                     '<td class="text-center">'+tipoBaja+'</td>'+
                     
-                    '<td class="text-center">'+cantidad+'</td>'+
-
-                    // '<td class="text-center">'+
-                    //     <a href="#" role="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar">+
-                    //         <i class="fa fa-trash" aria-hidden="true"></i>+
-                    //     </a>+
-                    // '</td>'+
+                    '<td class="text-center">'+
+                        '<a href="#" role="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar">'+
+                            '<i class="fa fa-trash" aria-hidden="true"></i>'+
+                        '</a>'+
+                    '</td>'+
                 '</tr>';
 
             $('#tbl_bajas').append(fila);
