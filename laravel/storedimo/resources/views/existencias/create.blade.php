@@ -39,7 +39,7 @@
                     <div class="w-100-div w-48 mb-auto" style="border: solid 1px #337AB7; border-radius: 5px;">
                         <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Información de la Baja</h5>
 
-                        <div class="p-3 d-flex flex-column" style="height: 50%;">
+                        <div class="p-3 d-flex flex-column" id="form_bajas" style="height: 50%;">
                             <div>
                                 <label for="tipo_baja" class="form-label">Tipo de Baja <span class="text-danger">*</span></label>
                                 {!! Form::text('tipo_baja', null, ['class' => 'form-control', 'id' => 'tipo_baja', 'required' => 'required']) !!}
@@ -47,12 +47,12 @@
 
                             <div class="mt-3">
                                 <label for="producto" class="form-label">Producto <span class="text-danger">*</span></label>
-                                {!! Form::text('producto', null, ['class' => 'form-control', 'id' => 'producto', 'required' => 'required']) !!}
+                                {!! Form::text('producto', null, ['class' => 'form-control', 'id' => 'producto', 'required' => true]) !!}
                             </div>
 
                             <div class="mt-3">
                                 <label for="cantidad" class="form-label">Cantidad <span class="text-danger">*</span></label>
-                                {!! Form::text('cantidad', null, ['class' => 'form-control', 'id' => 'cantidad', 'required' => 'required']) !!}
+                                {!! Form::text('cantidad', null, ['class' => 'form-control', 'id' => 'cantidad', 'required']) !!}
                             </div>
 
                             <div class="d-flex justify-content-end mt-3">
@@ -84,9 +84,9 @@
                                             <td>1</td>
                                             <td>Hurto</td>
                                             <td>
-                                                <a href="#" role="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar">
+                                                <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar" onclick="delBaja()">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
-                                                </a>
+                                                </button>
                                             </td>
                                         </tr>
                                 </tbody>
@@ -118,37 +118,34 @@
 @section('scripts')
     <script>
         $( document ).ready(function() {
-            // $("#username").trigger('focus');
+            // INICIO - Validación Formulario Creación de Bajas de productos
+            // form_bajas = $("#form_bajas");
+
+            // form_bajas.validate({
+            //     rules:{
+            //         tipo_baja:{
+            //             required:true
+            //         },
+            //         producto:{
+            //             required:true
+            //         },
+            //         cantidad:{
+            //             required:false
+            //         },
+            //     },
+            //     errorPlacement: function(error, element) {
+            //     if ( element.hasClass('datapicker') ){
+            //             error.appendTo( element.closest("div.form-group") );
+            //         }else{
+            //             error.appendTo( element.parent() );
+            //         }
+            //     }
+            // });
+            // FIN - Validación Formulario Creación de Bajas de productos
+
+            // ================================================
+
         });
-
-        // ===================================================================================
-        // ===================================================================================
-
-        // INICIO - Validación Formulario Creación de usuarios "Información Personal"
-
-        form_usuarios_edit = $("#form_usuarios_edit");
-
-        form_usuarios_edit.validate({
-            rules:{
-                usu_nombre:{
-                    required:true
-                },
-                primer_apellido:{
-                    required:true
-                },
-                segundo_apellido:{
-                    required:false
-                },
-            },
-            errorPlacement: function(error, element) {
-            if ( element.hasClass('datapicker') ){
-                    error.appendTo( element.closest("div.form-group") ); 
-                }else{
-                    error.appendTo( element.parent() );
-                }
-            }
-        });
-        // FIN - Validación Formulario Creación de usuarios "Información Personal"
 
         // ===================================================================================
         // ===================================================================================
@@ -163,35 +160,49 @@
             console.log(tipoBaja);
             console.log(producto);
             console.log(cantidad);
-           
-            let fila = '';
-            var indiceSiguienteFila = $('#tbl_bajas tr').length;
 
-            console.log(indiceSiguienteFila);
+            if (tipoBaja == '' || producto == '' || cantidad == '' ) {
+                Swal.fire(
+                    'Cuidado!',
+                    'Todos los campos son obligatorios!',
+                    'error'
+                );
+            } else {
+                let fila = '';
+                var indiceSiguienteFila = $('#tbl_bajas tr').length;
 
-            fila +=
-                '<tr class="" name="'+indiceSiguienteFila+'">'+
-                    '<td class="text-center">'+producto+'</td>'+
+                console.log(indiceSiguienteFila);
 
-                    '<td class="text-center">'+cantidad+'</td>'+
+                fila +=
+                    '<tr class="" name="'+indiceSiguienteFila+'">'+
+                        '<td class="text-center">'+producto+'</td>'+
 
-                    '<td class="text-center">'+tipoBaja+'</td>'+
-                    
-                    '<td class="text-center">'+
-                        '<a href="#" role="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar">'+
-                            '<i class="fa fa-trash" aria-hidden="true"></i>'+
-                        '</a>'+
-                    '</td>'+
-                '</tr>';
+                        '<td class="text-center">'+cantidad+'</td>'+
 
-            $('#tbl_bajas').append(fila);
+                        '<td class="text-center">'+tipoBaja+'</td>'+
+                        
+                        '<td class="text-center">'+
+                            '<button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar" onclick="delBaja(indiceSiguienteFila)">'+
+                                '<i class="fa fa-trash" aria-hidden="true"></i>'+
+                            '</button>'+
+                        '</td>'+
+                    '</tr>';
+
+                $('#tbl_bajas').append(fila);
+
+                $('#tipo_baja').val('');
+                $('#producto').val('');
+                $('#cantidad').val('');
+            }
         });
         // FIN - Función para agregar fila x fila cada producto para dar de baja
 
         // ===================================================================================
         // ===================================================================================
 
-
+        function delBaja(idBaja) {
+            alert(`Id de la Baja ${idBaja}`);
+        }
     </script>
 @stop
 

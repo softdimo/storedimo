@@ -22,6 +22,7 @@
         
         <!--  Js -->
         <script src="{{asset('js/jquery-3.6.0.min.js')}}"></script>
+        <script src="{{asset('js/jquery-1.19.1.validate.min.js')}}"></script>
 
         {{-- ========================================= --}}
 
