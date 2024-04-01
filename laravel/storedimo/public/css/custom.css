@@ -102,9 +102,16 @@ footer {
     overflow-x: initial;
 }
 
-/* @media (min-width:992px) {
-    .footer {
-        position: absolute;
+@media (max-width:992px) {
+    .w-100-div {
+        width: 100%;
+        display: block;
     }
-} */
+}
+
+@media (min-width:993px) {
+    .w-48 {
+        width: 48%;
+    }
+}
 
