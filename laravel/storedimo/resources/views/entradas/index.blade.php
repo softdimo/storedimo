@@ -48,26 +48,44 @@
                         <table class="table table-striped table-bordered w-100 mb-0" id="tbl_entradas" aria-describedby="entradas">
                             <thead>
                                 <tr class="header-table text-center">
-                                    <th>Código</th>
-                                    <th>Nombre Producto</th>
-                                    <th>Categoría</th>
-                                    <th>Descripción</th>
-                                    <th>Cantidad</th>
-                                    <th>Stock Mínimo</th>
+                                    <th>Código Entrada</th>
+                                    <th>Valor Total</th>
+                                    <th>Fecha Registro Entrada</th>
+                                    <th>Identificación Proveedor</th>
+                                    <th>Nombre Proveedor</th>
+                                    <th>Estado</th>
+                                    <th>Opciones</th>
                                 </tr>
                             </thead>
                             {{-- ============================== --}}
                             <tbody>
                                     <tr class="text-center">
-                                        <td>Código</td>
-                                        <td>Nombre Producto</td>
-                                        <td>Categoría</td>
-                                        <td>Descripción</td>
-                                        <td>Cantidad</td>
-                                        <td>Stock Mínimo</td>
+                                        <td>1</td>
+                                        <td>$ 16.000</td>
+                                        <td>2024-02-17</td>
+                                        <td>11111111</td>
+                                        <td>Anónimo Anónimo</td>
+                                        <td>Activa</td>
+                                        <td>
+                                            <a href="#" role="button" class="btn rounded-circle btn-circle text-white" title="Ver Detalles" style="background-color: #286090">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                             </tbody>
                         </table>
+                    </div>
+                                        
+                    {{-- ========================================================= --}}
+                    {{-- ========================================================= --}}
+                    {{-- ========================================================= --}}
+                    {{-- ========================================================= --}}
+            
+                    <div class="mt-5 mb-2 d-flex justify-content-center">
+                        <button class="btn rounded-2 me-3 text-white" type="submit" style="background-color: #286090">
+                            <i class="fa fa-file-pdf-o"></i>
+                            Reporte Entradas
+                        </button>
                     </div>
                 </div> {{-- FIN div_campos_usuarios --}}
             </div> {{-- FIN div_crear_usuario --}}
