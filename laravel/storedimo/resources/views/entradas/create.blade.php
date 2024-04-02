@@ -49,7 +49,7 @@
                             </div>
 
                             <div class="d-flex justify-content-end w-25">
-                                <button class="btn rounded-2 text-white" type="submit" style="background-color: #337AB7" id="btn_add_pro">
+                                <button class="btn rounded-2 text-white" type="submit" style="background-color: #337AB7" id="btn_add_pro" title="Registrar producto" data-toggle="modal" data-target="#modal_registroProducto">
                                     <i class="fa fa-plus plus"></i>
                                 </button>
                             </div>
