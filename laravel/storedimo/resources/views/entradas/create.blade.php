@@ -152,9 +152,13 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
 
+                    {{-- ================================================================= --}}
+
                     <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#mod_ayuda_registroProducto" onclick="modalAyuda()">
                         <i class="fa fa-question" aria-hidden="true" title="Ayuda"></i>
                     </button>
+
+                    {{-- ================================================================= --}}
 
                     <div class="modal-header">
                         <div class="row">
@@ -164,6 +168,8 @@
                                         <span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"></span>
                                         <strong>Registrar Producto (Obligatorios *)</strong>
                                     </div> {{-- FIN panel-heading --}}
+
+                                    {{-- =================================== --}}
 
                                     <div class="modal-body">
                                         <div class="row">
@@ -201,9 +207,8 @@
                                                 <input type="text" maxlenght="8" onkeypress="return soloNumeros(event)" name="txtStock" class="form-control" id="stock" data-parsley-type="number" min="1" type="number"  max="50" placeholder="Stock Mínimo" data-parsley-required="true">
                                             </div>
                                         </div> {{-- FIN row precio detal, precio x mayor, stock mínimo --}}
-                                        <hr>
                                     </div> {{-- FIN modal-body --}}
-
+                                    {{-- =================================== --}}
                                     <div class="row">
                                         <div class="col-md-6 col-xs-6 col-lg-7">
                                             <button type="submit" name="btnguardarProducto" id="btn-guardar" onclick="ValidarNombreProducto()" class="btn btn-success active pull-right" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
@@ -212,10 +217,12 @@
                                             <button type="button" class="btn btn-danger active" onclick="cancelarRegistroProducto()" title="Cancelar"><i class="fa fa-remove" aria-hidden="true">  Cancelar</i></button>
                                         </div>
                                     </div> {{-- FIN row btns guardar y cancelar --}}
+                                    {{-- =================================== --}}
                                 </div> {{-- FIN panel panel-primary --}}
                             </div> {{-- FIN col-12 --}}
                         </div> {{-- FIN row --}}
                     </div> {{-- FIN modal-header --}}
+                    {{-- ================================================================= --}}
                 </div> {{-- FIN modal-body --}}
             </div> {{-- FIN modal-content --}}
         </div> {{-- FIN  modal-dialog --}}
