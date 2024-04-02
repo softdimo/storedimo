@@ -80,14 +80,14 @@
                                 {{-- ============================== --}}
                                 <tbody>
                                         <tr class="text-center">
-                                            <td>2 jabón de baño frotex</td>
+                                            {{-- <td>2 jabón de baño frotex</td>
                                             <td>1</td>
                                             <td>Hurto</td>
                                             <td>
                                                 <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar" onclick="delBaja()">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                 </tbody>
                             </table>
@@ -157,10 +157,6 @@
             let producto = $('#producto').val();
             let cantidad = $('#cantidad').val();
 
-            console.log(tipoBaja);
-            console.log(producto);
-            console.log(cantidad);
-
             if (tipoBaja == '' || producto == '' || cantidad == '' ) {
                 Swal.fire(
                     'Cuidado!',
@@ -182,7 +178,7 @@
                         '<td class="text-center">'+tipoBaja+'</td>'+
                         
                         '<td class="text-center">'+
-                            '<button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar" onclick="delBaja(indiceSiguienteFila)">'+
+                            '<button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar" onclick="delBaja('+indiceSiguienteFila+')">'+
                                 '<i class="fa fa-trash" aria-hidden="true"></i>'+
                             '</button>'+
                         '</td>'+
@@ -201,7 +197,9 @@
         // ===================================================================================
 
         function delBaja(idBaja) {
-            alert(`Id de la Baja ${idBaja}`);
+            // alert(`Id de la Baja ${idBaja}`);
+            $('#tbl_bajas tr[name="'+idBaja+'"]').remove();
+            // $('tr[name="' + idBaja + '"]').remove();
         }
     </script>
 @stop
