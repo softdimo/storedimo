@@ -49,7 +49,7 @@
                             </div>
 
                             <div class="d-flex justify-content-end w-25">
-                                <button class="btn rounded-2 text-white" type="submit" style="background-color: #337AB7" id="btn_add_pro" title="Registrar producto" data-toggle="modal" data-target="#modal_registroProducto">
+                                <button type="button" class="btn rounded-2 text-white" style="background-color: #337AB7" title="Registrar producto" data-bs-toggle="modal" data-bs-target="#modal_registroProducto">
                                     <i class="fa fa-plus plus"></i>
                                 </button>
                             </div>
@@ -72,8 +72,8 @@
                             </div>
                             {{-- ============ --}}
                             <div class="col-md-3 text-center">
-                                <button type="button" tabindex="4" onclick="preciosProducto()"
-                                    class="btn btn-success btn-circle btn-md" data-toggle="modal" data-target="#modal-modificarPrecios" title="Modificar">
+                                <button type="button" title="Modificar" data-bs-toggle="modal" data-bs-target="#modal_modificarPrecios" onclick="preciosProducto()"
+                                    class="btn btn-success btn-circle">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar"></i>
                                 </button>
                             </div>
@@ -133,7 +133,7 @@
                 </div>
             </div> {{-- FIN div_crear_usuario --}}
         </div>
-    </div>ç
+    </div>
 
     {{-- ==================================================================================== --}}
     {{-- ==================================================================================== --}}
@@ -142,92 +142,243 @@
     {{-- ==================================================================================== --}}
 
     {{-- INICIO MODAL REGISTRAR PRODUCTO --}}
-
-
-    <div class="modal fade" id="modal_registroProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="modal_registroProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-
-                    {{-- ================================================================= --}}
-
-                    <button type="button" class="btn btn-primary btn-circle btn-md" data-toggle="modal" data-target="#mod_ayuda_registroProducto" onclick="modalAyuda()">
+                <div class="modal-header justify-content-between border-0">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mod_ayuda_registroProducto" title="Ayuda Registrar producto">
                         <i class="fa fa-question" aria-hidden="true" title="Ayuda"></i>
                     </button>
+                    
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
 
-                    {{-- ================================================================= --}}
+                {{-- ====================================================== --}}
+                {{-- ====================================================== --}}
 
-                    <div class="modal-header">
+                <div class="modal-body ">
+                    <div class="rounded-top" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                        <h6 class="text-white p-2 m-0 text-center">Registrar Producto (Obligatorios *)</h6>
+                    </div>
+
+                    {{-- =================================== --}}
+
+                    <div class="p-3" style="border: solid 1px #337AB7;" id="campos_producto">
+                        <div class="row">
+                            <div class="col-12 col-md-4">
+                                <label for="nombre_producto" class="fw-bold" style="font-size: 12px">Nombre Producto <span class="text-danger">*</span></label>
+                                {!! Form::text('nombre_producto', null, ['class' => 'form-control', 'id' => 'nombre_producto', 'required']) !!}
+                            </div>
+
+                            <div class="col-12 col-md-4">
+                                <label for="categoria" class="fw-bold" style="font-size: 12px">Categoría <span class="text-danger">*</span></label>
+                                <select name="categoria" class="form-control" id="categoria" >
+                                    <option value="">Seleccionar</option>
+                                    <option value="">Hoga</option>
+                                    <option value="">Papelería</option>
+                                    <option value="">Aseo</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12 col-md-4">
+                                <label for="precio_unitario" class="fw-bold" style="font-size: 12px">Precio Unitario <span class="text-danger">*</span></label>
+                                {!! Form::text('precio_unitario', null, ['class' => 'form-control', 'id' => 'precio_unitario', 'required']) !!}
+                            </div>
+
+                            <div class="col-12 col-md-4 mt-3">
+                                <label for="precio_detal" class="fw-bold" style="font-size: 12px">Precio Detal <span class="text-danger">*</span></label>
+                                {!! Form::text('precio_detal', null, ['class' => 'form-control', 'id' => 'precio_detal', 'required']) !!}
+                            </div>
+
+                            <div class="col-12 col-md-4 mt-3">
+                                <label for="precio_por_mayor" class="fw-bold" style="font-size: 12px">Precio Por Mayor<span class="text-danger">*</span></label>
+                                {!! Form::text('precio_por_mayor', null, ['class' => 'form-control', 'id' => 'precio_por_mayor', 'required']) !!}
+                            </div>
+
+                            <div class="col-12 col-md-4 mt-3">
+                                <label for="stock_minimo" class="fw-bold" style="font-size: 12px">Stock Mínimo <span class="text-danger">*</span></label>
+                                {!! Form::text('stock_minimo', null, ['class' => 'form-control', 'id' => 'stock_minimo', 'required']) !!}
+                            </div>
+                        </div> {{-- FIN row nombre producto, categoría, precio unitario, precio detal, precio x mayor, stock mínimo --}}
+                    </div> {{-- FIN campos_producto --}}
+                </div> {{-- FIN modal-body --}}
+
+                {{-- ====================================================== --}}
+                {{-- ====================================================== --}}
+
+                <div class="modal-footer border-0 justify-content-center">
+                    <div class="">
+                        <button type="button" class="btn btn-success" title="Guardar" onclick="ValidarNombreProducto()"  ><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
+                    </div>
+                    <div class="">
+                        <button type="button" class="btn btn-danger" title="Cancelar" data-bs-dismiss="modal" ><i class="fa fa-remove" aria-hidden="true">  Cancelar</i></button>
+                    </div>
+                </div>
+          </div>
+        </div>
+    </div>
+    {{-- FINAL MODAL REGISTRAR PRODUCTO --}}
+
+    {{-- ==================================================================================== --}}
+    {{-- ==================================================================================== --}}
+    {{-- ==================================================================================== --}}
+    {{-- ==================================================================================== --}}
+    {{-- ==================================================================================== --}}
+
+    {{-- INICIO Modal Ayuda de Registrar Productos --}}
+    <div class="modal fade" id="mod_ayuda_registroProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header d-none"></div>
+
+                {{-- ====================================================== --}}
+                {{-- ====================================================== --}}
+
+                <div class="modal-body ">
+                    <div class="rounded-top" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                        <h6 class="text-white p-2 m-0 text-center">Ayuda de Registrar Productos</h6>
+                    </div>
+
+                    {{-- =================================== --}}
+
+                    <div class="p-3" style="border: solid 1px #337AB7;" id="campos_producto">
                         <div class="row">
                             <div class="col-12">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                                        <span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"></span>
-                                        <strong>Registrar Producto (Obligatorios *)</strong>
-                                    </div> {{-- FIN panel-heading --}}
+                                <p class="">Señor usuario a la hora de realizar un registro de un producto tener en cuenta las siguientes recomendaciones:</p>
 
-                                    {{-- =================================== --}}
+                                <ol>
+                                    <li>Los campos marcados con asterisco (*) son obligatorios, por o tanto sino se llenan el sistema no le dejará seguir.</li>
+                                    <li>Evitar ingresar nombres de productos ya existentes.</li>
+                                    <li>El precio unitario no puede ser mayor al precio al detal y precio al por mayor.</li>
+                                    <li>El precio al detal no puede ser menor al precio al por mayor.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label for="txtnombreProd">Nombre Producto <span class="obligatorio">*</span></label>
-                                                <input type="text" name="txtnombreProd" onkeypress="return soloLetras()" style="width: 100%" class="form-control" id="nombreProd" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" maxlength="50" class="form-control"  placeholder="Nombre Producto" data-parsley-required="true">
-                                            </div>
+                {{-- ====================================================== --}}
+                {{-- ====================================================== --}}
 
-                                            <div class="col-md-4">
-                                                <label for="txtCategoria">Categoría <span class="obligatorio">*</span></label>
-                                                <select name="txtCategoria" class="form-control" id="categoria" style="width: 100%" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+" maxlength="20" data-parsley-required="true">
-                                                    <option value="">Seleccionar</option>
-                                                        <option value=""></option>
-                                                </select>
-                                            </div>
+                <div class="modal-footer border-0 justify-content-end">
+                    <button type="button" class="btn text-white" style="background-color:#204d74" data-bs-dismiss="modal"><i class="fa fa-check-circle" aria-hidden="true"> Aceptar</i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- FINAL MODAL Ayuda de Registrar Productos --}}
+    
+    {{-- ==================================================================================== --}}
+    {{-- ==================================================================================== --}}
+    {{-- ==================================================================================== --}}
+    {{-- ==================================================================================== --}}
+    {{-- ==================================================================================== --}}
 
-                                            <div class="col-md-4">
-                                                <label for="txtPrecioUnitario">Precio Unitario <span class="obligatorio">*</span></label>
-                                                <input type="text" name="txtPrecioUnitario" onkeypress="return soloNumeros(event)" maxlenght="8" style="width: 100%"class="form-control" id="precioUnitario" data-parsley-type="integer" min="0" max="100000" step="10" class="form-control" placeholder="Precio Unitario" data-parsley-required="true">
-                                            </div>
-                                        </div> {{-- FIN row nombre producto, categoría, precios --}}
+    {{-- INICIO Modal Modificar Precios --}}
+    <div class="modal fade" id="modal_modificarPrecios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header justify-content-between border-0">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mod_ayuda_precios" title="Ayuda Modificar Precios">
+                        <i class="fa fa-question" aria-hidden="true" title="Ayuda"></i>
+                    </button>
+                    
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
 
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label for="txtPrecioDetal">Precio Detal <span class="obligatorio">*</span></label>
-                                                <input type="text" maxlenght="8" onkeypress="return soloNumeros()" name="txtPrecioDetal" class="form-control" style="width: 100%" id="precioDetal" data-parsley-type="integer" min="0" step="10" max="100000" placeholder="Precio Detal" data-parsley-required="true">
-                                            </div>
+                {{-- ====================================================== --}}
+                {{-- ====================================================== --}}
 
-                                            <div class="col-md-4">
-                                                <label for="txtPorMayor">Precio Por Mayor <span class="obligatorio">*</span></label>
-                                                <input type="text" maxlenght="8" onkeypress="return soloNumeros()" name="txtPorMayor"  class="form-control" id="precioMayor" data-parsley-type="integer" min="0" step="10" max="100000" placeholder="Precio por Mayor" data-parsley-required="true">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="txtStock">Stock Mínimo <span class="obligatorio">*</span></label>
-                                                <input type="text" maxlenght="8" onkeypress="return soloNumeros(event)" name="txtStock" class="form-control" id="stock" data-parsley-type="number" min="1" type="number"  max="50" placeholder="Stock Mínimo" data-parsley-required="true">
-                                            </div>
-                                        </div> {{-- FIN row precio detal, precio x mayor, stock mínimo --}}
-                                    </div> {{-- FIN modal-body --}}
-                                    {{-- =================================== --}}
-                                    <div class="row">
-                                        <div class="col-md-6 col-xs-6 col-lg-7">
-                                            <button type="submit" name="btnguardarProducto" id="btn-guardar" onclick="ValidarNombreProducto()" class="btn btn-success active pull-right" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
-                                        </div>
-                                        <div class="col-md-6 col-xs-6 col-lg-3">
-                                            <button type="button" class="btn btn-danger active" onclick="cancelarRegistroProducto()" title="Cancelar"><i class="fa fa-remove" aria-hidden="true">  Cancelar</i></button>
-                                        </div>
-                                    </div> {{-- FIN row btns guardar y cancelar --}}
-                                    {{-- =================================== --}}
-                                </div> {{-- FIN panel panel-primary --}}
-                            </div> {{-- FIN col-12 --}}
-                        </div> {{-- FIN row --}}
-                    </div> {{-- FIN modal-header --}}
-                    {{-- ================================================================= --}}
+                <div class="modal-body">
+                    <div class="rounded-top" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                        <h6 class="text-white p-2 m-0 text-center">Modificar Precios (Obligatorios *)</h6>
+                    </div>
+
+                    {{-- =================================== --}}
+
+                    <div class="p-3" style="border: solid 1px #337AB7;" id="precios">
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <label for="precio_unitario" class="fw-bold" style="font-size: 12px">Precio Unitario <span class="text-danger">*</span></label>
+                                {!! Form::text('precio_unitario', null, ['class' => 'form-control', 'id' => 'precio_unitario', 'required']) !!}
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <label for="precio_detal" class="fw-bold" style="font-size: 12px">Precio Detal <span class="text-danger">*</span></label>
+                                {!! Form::text('precio_detal', null, ['class' => 'form-control', 'id' => 'precio_detal', 'required']) !!}
+                            </div>
+
+                            <div class="col-12 col-md-6 mt-3">
+                                <label for="precio_por_mayor" class="fw-bold" style="font-size: 12px">Precio al por Mayor <span class="text-danger">*</span></label>
+                                {!! Form::text('precio_por_mayor', null, ['class' => 'form-control', 'id' => 'precio_por_mayor', 'required']) !!}
+                            </div>
+                        </div>
+                    </div> {{-- FIN campos precios --}}
+
+                    {{-- ====================================================== --}}
+                    {{-- ====================================================== --}}
+
+                    <div class="modal-footer border-0 justify-content-center">
+                        <div class="">
+                            <button type="button" class="btn btn-success" title="Guardar" onclick="ValidarNombreProducto()"><i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i></button>
+                        </div>
+
+                        <div class="">
+                            <button type="button" class="btn btn-danger" title="Cancelar" data-bs-dismiss="modal" ><i class="fa fa-remove" aria-hidden="true">  Cancelar</i></button>
+                        </div>
+                    </div>
                 </div> {{-- FIN modal-body --}}
             </div> {{-- FIN modal-content --}}
-        </div> {{-- FIN  modal-dialog --}}
-    </div> {{-- FIN modal_registroProducto --}}
-    {{-- FINAL MODAL REGISTRAR PRODUCTO --}}
+        </div> {{-- FIN modal-dialog --}}
+    </div> {{-- FINAL MODAL Modificar Precios --}}
+    
+    {{-- ==================================================================================== --}}
+    {{-- ==================================================================================== --}}
+    {{-- ==================================================================================== --}}
+    {{-- ==================================================================================== --}}
+    {{-- ==================================================================================== --}}
+
+    {{-- INICIO Modal Ayuda Modificar Precios --}}
+    <div class="modal fade" id="mod_ayuda_precios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header d-none"></div>
+
+                {{-- ====================================================== --}}
+                {{-- ====================================================== --}}
+
+                <div class="modal-body ">
+                    <div class="rounded-top" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                        <h6 class="text-white p-2 m-0 text-center">Ayuda Modificación Precios</h6>
+                    </div>
+
+                    {{-- =================================== --}}
+
+                    <div class="p-3" style="border: solid 1px #337AB7;" id="campos_producto">
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="">Tener en cuenta para la modificación de los precios lo siguiente:</p>
+
+                                <ol>
+                                    <li>El precio unitario no puede ser mayor precio al detal y precio al por mayor.</li>
+                                    <li>El precio al por mayor no puede ser menor al precio unitario, y tampoco mayor al precio al detal.</li>
+                                    <li>El precio al detal debe ser mayor al precio al por mayor y al precio unitario.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- ====================================================== --}}
+                {{-- ====================================================== --}}
+
+                <div class="modal-footer border-0 justify-content-end">
+                    <button type="button" class="btn text-white" style="background-color:#204d74" data-bs-dismiss="modal"><i class="fa fa-check-circle" aria-hidden="true"> Aceptar</i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- FINAL MODAL Ayuda Modificar Precios --}}
 @stop
 
 {{-- =============================================================== --}}
