@@ -161,57 +161,57 @@
                             <div class="col-12">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                                        <center><span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"><strong>Registrar Producto (Obligatorios *)</strong></center>
-                                        </div>
-                                        <div class="modal-body">
+                                        <span id="myModalLabel" style="text-align:center; color: #fff; font-size: 18px"></span>
+                                        <strong>Registrar Producto (Obligatorios *)</strong>
+                                    </div> {{-- FIN panel-heading --}}
+
+                                    <div class="modal-body">
                                         <div class="row">
-                                        <div class="col-md-4">
-                                        <label for="txtnombreProd">Nombre Producto <span class="obligatorio">*</span></label>
-                                        <input type="text" name="txtnombreProd" onkeypress="return soloLetras()" style="width: 100%" class="form-control" id="nombreProd" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" maxlength="50" class="form-control"  placeholder="Nombre Producto" data-parsley-required="true">
-                                        </div>
-                                        <div class="col-md-4">
-                                        <label for="txtCategoria">Categoría <span class="obligatorio">*</span></label>
-                                            <select name="txtCategoria" class="form-control" id="categoria" style="width: 100%" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+" maxlength="20" data-parsley-required="true">
-                                                <option value="">Seleccionar</option>
-                                                    <option value=""></option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-4">
-                                        <label for="txtPrecioUnitario">Precio Unitario <span class="obligatorio">*</span></label>
-                                        <input type="text" name="txtPrecioUnitario" onkeypress="return soloNumeros(event)" maxlenght="8" style="width: 100%"class="form-control" id="precioUnitario" data-parsley-type="integer" min="0" max="100000" step="10" class="form-control" placeholder="Precio Unitario" data-parsley-required="true">
-                                        </div>
-                                        </div>
-                                        <br><br>
+                                            <div class="col-md-4">
+                                                <label for="txtnombreProd">Nombre Producto <span class="obligatorio">*</span></label>
+                                                <input type="text" name="txtnombreProd" onkeypress="return soloLetras()" style="width: 100%" class="form-control" id="nombreProd" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ@\-\.\\ \/$]+" maxlength="50" class="form-control"  placeholder="Nombre Producto" data-parsley-required="true">
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <label for="txtCategoria">Categoría <span class="obligatorio">*</span></label>
+                                                <select name="txtCategoria" class="form-control" id="categoria" style="width: 100%" pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\.\?_~\\ \\()\/$]+" maxlength="20" data-parsley-required="true">
+                                                    <option value="">Seleccionar</option>
+                                                        <option value=""></option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <label for="txtPrecioUnitario">Precio Unitario <span class="obligatorio">*</span></label>
+                                                <input type="text" name="txtPrecioUnitario" onkeypress="return soloNumeros(event)" maxlenght="8" style="width: 100%"class="form-control" id="precioUnitario" data-parsley-type="integer" min="0" max="100000" step="10" class="form-control" placeholder="Precio Unitario" data-parsley-required="true">
+                                            </div>
+                                        </div> {{-- FIN row nombre producto, categoría, precios --}}
 
                                         <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="txtPrecioDetal">Precio Detal <span class="obligatorio">*</span></label>
+                                                <input type="text" maxlenght="8" onkeypress="return soloNumeros()" name="txtPrecioDetal" class="form-control" style="width: 100%" id="precioDetal" data-parsley-type="integer" min="0" step="10" max="100000" placeholder="Precio Detal" data-parsley-required="true">
+                                            </div>
 
-                                        <div class="col-md-4">
-                                            <label for="txtPrecioDetal">Precio Detal <span class="obligatorio">*</span></label>
-                                            <input type="text" maxlenght="8" onkeypress="return soloNumeros()" name="txtPrecioDetal" class="form-control" style="width: 100%" id="precioDetal" data-parsley-type="integer" min="0" step="10" max="100000" placeholder="Precio Detal" data-parsley-required="true">
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <label for="txtPorMayor">Precio Por Mayor <span class="obligatorio">*</span></label>
-                                            <input type="text" maxlenght="8" onkeypress="return soloNumeros()" name="txtPorMayor"  class="form-control" id="precioMayor" data-parsley-type="integer" min="0" step="10" max="100000" placeholder="Precio por Mayor" data-parsley-required="true">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="txtStock">Stock Mínimo <span class="obligatorio">*</span></label>
-                                            <input type="text" maxlenght="8" onkeypress="return soloNumeros(event)" name="txtStock" class="form-control" id="stock" data-parsley-type="number" min="1" type="number"  max="50" placeholder="Stock Mínimo" data-parsley-required="true">
-                                        </div>
-                                        </div>
-                                        <br>
+                                            <div class="col-md-4">
+                                                <label for="txtPorMayor">Precio Por Mayor <span class="obligatorio">*</span></label>
+                                                <input type="text" maxlenght="8" onkeypress="return soloNumeros()" name="txtPorMayor"  class="form-control" id="precioMayor" data-parsley-type="integer" min="0" step="10" max="100000" placeholder="Precio por Mayor" data-parsley-required="true">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="txtStock">Stock Mínimo <span class="obligatorio">*</span></label>
+                                                <input type="text" maxlenght="8" onkeypress="return soloNumeros(event)" name="txtStock" class="form-control" id="stock" data-parsley-type="number" min="1" type="number"  max="50" placeholder="Stock Mínimo" data-parsley-required="true">
+                                            </div>
+                                        </div> {{-- FIN row precio detal, precio x mayor, stock mínimo --}}
                                         <hr>
-                                        </div>
-                                        <br>
-                                        </div>
-                                        <div class="row">
+                                    </div> {{-- FIN modal-body --}}
+
+                                    <div class="row">
                                         <div class="col-md-6 col-xs-6 col-lg-7">
                                             <button type="submit" name="btnguardarProducto" id="btn-guardar" onclick="ValidarNombreProducto()" class="btn btn-success active pull-right" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
                                         </div>
                                         <div class="col-md-6 col-xs-6 col-lg-3">
                                             <button type="button" class="btn btn-danger active" onclick="cancelarRegistroProducto()" title="Cancelar"><i class="fa fa-remove" aria-hidden="true">  Cancelar</i></button>
                                         </div>
-                                    </div> {{-- FIN panel-heading --}}
+                                    </div> {{-- FIN row btns guardar y cancelar --}}
                                 </div> {{-- FIN panel panel-primary --}}
                             </div> {{-- FIN col-12 --}}
                         </div> {{-- FIN row --}}
