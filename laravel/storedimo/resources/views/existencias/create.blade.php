@@ -79,16 +79,7 @@
                                 </thead>
                                 {{-- ============================== --}}
                                 <tbody>
-                                        <tr class="text-center">
-                                            {{-- <td>2 jabón de baño frotex</td>
-                                            <td>1</td>
-                                            <td>Hurto</td>
-                                            <td>
-                                                <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar" onclick="delBaja()">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                                </button>
-                                            </td> --}}
-                                        </tr>
+                                        <tr class="text-center"></tr>
                                 </tbody>
                             </table>
                             {{-- ========================================== --}}
