@@ -86,8 +86,8 @@ class VentasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function listarVentas()
+    public function listarCreditoVentas()
     {
-        return view('ventas.listar_ventas');
+        return view('ventas.credito_ventas');
     }
 }

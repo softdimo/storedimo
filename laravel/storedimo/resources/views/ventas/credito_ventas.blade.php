@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Listar Ventas')
+@section('title', 'Listar Crédito Ventas')
 
 {{-- =============================================================== --}}
 {{-- =============================================================== --}}
@@ -41,27 +41,27 @@
             {{-- =============================================================== --}}
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Bajas</h5>
+                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Crédito Ventas</h5>
             
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered w-100 mb-0" id="tbl_bajas" aria-describedby="bajas">
                             <thead>
                                 <tr class="header-table text-center">
-                                    <th>Código Bajas</th>
-                                    <th>Empleado Responsable Baja</th>
-                                    <th>Estado</th>
-                                    <th>Fecha Baja</th>
-                                    <th>Anular</th>
+                                    <th>Identificación</th>
+                                    <th>Nombres</th>
+                                    <th>Apellidos</th>
+                                    <th>Tipo Cliente</th>
+                                    <th>Ver Detalles</th>
                                 </tr>
                             </thead>
                             {{-- ============================== --}}
                             <tbody>
                                     <tr class="text-center">
-                                        <td>1</td>
-                                        <td>1234567890 - Victor Gómez</td>
-                                        <td>Activo</td>
-                                        <td>2024-02-17</td>
+                                        <td>1234567890</td>
+                                        <td>Victor</td>
+                                        <td>Gómez</td>
+                                        <td>tipo Cliente</td>
                                         <td>
                                             <a href="#" role="button" class="btn rounded-circle btn-circle text-white" title="Ver Detalles" style="background-color: #286090">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
@@ -80,7 +80,7 @@
                     <div class="mt-5 mb-2 d-flex justify-content-center">
                         <button class="btn rounded-2 me-3 text-white" type="submit" style="background-color: #286090">
                             <i class="fa fa-file-pdf-o"></i>
-                            Reporte PDF de Bajas
+                            Reporte de Créditos
                         </button>
                     </div>
                 </div> {{-- FIN div_campos_usuarios --}}
