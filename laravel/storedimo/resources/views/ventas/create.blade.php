@@ -98,49 +98,79 @@
                                 Agregar
                             </button>
                         </div>
-                    </div>
+                    </div> {{-- FIN div_izquierdo registrar ventas (cliente, producto y add producto) --}}
+
                     {{-- ============================================================== --}}
-                    <div class="w-100-div w-48 mt-5 mt-md-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                        <h5 class="border rounded-top text-white p-2 m-0" style="background-color: #337AB7">Detalle Entrada</h5>
+                    {{-- ============================================================== --}}
+                    {{-- ============================================================== --}}
+
+                    <div class="w-100-div w-48 mt-5 mt-md-0">
+                        <div class="m-0 p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
+                            <h5 class="border rounded-top text-white p-2 m-0" style="background-color: #337AB7">Detalle Venta</h5>
                         
-                        <div class="">
-                            <strong class="p-3">Seleccione para agregar</strong>
-
-                            <div class="row p-3">
-                                <div class="col-12 col-md-9">
-                                    <h3>2 jabón de baño frotex</h3>
-                                    <p>Cantidad:  <span>5</span></p>
-                                    <p>Valor subtotal: <span>$ 10.000</span></p>
+                            <div class="">
+                                <strong class="p-3">Seleccione para agregar</strong>
+    
+                                <div class="row p-3">
+                                    <div class="col-12 col-md-9">
+                                        <h3>2 jabón de baño frotex</h3>
+                                        <p>Cantidad:  <span>5</span></p>
+                                        <p>Valor subtotal: <span>$ 10.000</span></p>
+                                    </div>
+                                    {{-- ========================== --}}
+                                    <div class="col-12 col-md-3">
+                                        <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                                {{-- ========================== --}}
-                                <div class="col-12 col-md-3">
-                                    <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </button>
+    
+                                <div class="" style="background-color: #F5F5F5; border-top: 1px solid #ddd;">
+                                    <p class="p-1 m-0 fw-bold" style="border-bottom: 1px solid #ddd;">Subtotal: <span class="fw-normal">$ 7.500</span></p>
+                                    <p class="p-1 m-0 fw-bold" style="border-bottom: 1px solid #ddd;">Descuento: <span class="fw-normal"> $ 0.000</span></p>
+                                    <p class="p-1 m-0 fw-bold">Total: <span class="fw-normal">$ 10.000</span></p>
                                 </div>
-                            </div>
-
-                            <div class="" style="background-color: #F5F5F5">
-                                <h3>Total: <span>$ 10.000</span></h3>
-                            </div>
-
-                            <div class="d-flex justify-content-end mb-5 p-3" style="">
-                                <button class="btn btn-success rounded-2 me-3" type="submit">
-                                    <i class="fa fa-floppy-o"></i>
-                                    Guardar
-                                </button>
-                    
-                                <button class="btn btn-danger rounded-2" type="submit">
-                                    <i class="fa fa-remove"></i>
-                                    Cancelar
-                                </button>
                             </div>
                         </div>
-                    </div> {{-- FIN div_campos_usuarios --}}
-                </div>
-            </div> {{-- FIN div_crear_usuario --}}
-        </div>
-    </div>
+                        {{-- ========================== --}}
+                        <div class="mt-3 row m-0 p-3" style="border: solid 1px #337AB7; border-radius: 5px;">
+                            {{-- <div class="col-12 col-md-6 d-flex flex-column">
+                                <label for="tipo_pago" class="fw-bold">Tipo de Pago <span class="text-danger">*</span></label>
+                                {!! Form::select('tipo_pago', ['contado' => 'Contado', 'credito' => 'Crédito'], ['class' => 'form-control', 'id' => 'tipo_pago', 'required']) !!}
+                            </div> --}}
+
+                            <div class="col-12 col-md-6 d-flex flex-column">
+                                <div class="form-group">
+                                    <label for="tipo_pago" class="fw-bold">Tipo de Pago
+                                        <span class="text-danger">*</span>
+                                    </label>
+
+                                    {!! Form::select('tipo_pago', collect(['' => 'Seleccionar...'])->union(['contado' => 'Contado', 'credito' => 'Crédito']), null, ['class' => 'form-control', 'id' => 'tipo_pago', 'required']) !!}
+                                </div>
+                            </div>
+                            
+                            <div class="col-12 col-md-6 d-flex flex-column">
+                                <label for="descuento" class="fw-bold">Descuento en Pesos <span class="text-danger">*</span></label>
+                                {!! Form::number('tipo_pago', null, ['class' => 'form-control', 'id' => 'descuento', 'required']) !!}
+                            </div>
+                        </div>
+                        {{-- ========================== --}}
+                        <div class="d-flex justify-content-end mt-4 p-3" style="">
+                            <button class="btn btn-success rounded-2 me-3" type="submit">
+                                <i class="fa fa-floppy-o"></i>
+                                Guardar
+                            </button>
+                
+                            <button class="btn btn-danger rounded-2" type="submit">
+                                <i class="fa fa-remove"></i>
+                                Cancelar
+                            </button>
+                        </div>
+                    </div> {{-- FIN div_derecho (Detalle Entrada) --}}
+                </div> {{-- FIN div_lateral derecho interno registrar ventas, cubre ambos --}}
+            </div> {{-- FIN div_registrar ventas (cubre ambos --}}
+        </div> {{-- FIN div_contenido 80% --}}
+    </div> {{-- FIN div_ppal (sidemarmenu y contenido derecho del 80%) --}}
 
     {{-- ==================================================================================== --}}
     {{-- ==================================================================================== --}}
