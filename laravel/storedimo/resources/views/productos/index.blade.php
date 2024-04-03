@@ -102,9 +102,9 @@
                     {{-- ========================================================= --}}
             
                     <div class="mt-5 mb-2 d-flex justify-content-center">
-                        <button class="btn btn-success rounded-2 me-3" type="submit">
+                        <button type="submit" class="btn rounded-2 me-3 text-white" style="background-color: #286090">
                             <i class="fa fa-file-pdf-o"></i>
-                            Reporte PDF de Productos
+                            Reporte PDF Productos
                         </button>
                     </div>
                 </div> {{-- FIN div_campos_usuarios --}}
@@ -148,7 +148,7 @@
                         }
                     }
                 ],
-                "pageLength": 25,
+                "pageLength": 10,
                 "scrollX": true,
             });
             // CIERRE DataTable Lista Usuarios
