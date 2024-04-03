@@ -5,8 +5,7 @@
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
                 <label for="tipo_persona" class="form-label">Tipo persona <span class="text-danger">*</span></label>
-                {{-- {!! Form::select('tipo_persona', collect(['' => 'Seleccionar...'])->union($tipo_persona), null, ['class' => 'form-control', 'id' => 'tipo_persona']) !!} --}}
-                {!! Form::text('tipo_persona', null, ['class' => 'form-control', 'id' => 'tipo_persona']) !!}
+                {!! Form::select('tipo_persona', collect(['' => 'Seleccionar...'])->union(['1'=>'Empleado-fijo','2'=>'Empleado-temporal','3'=>'Proveedor-natural','4'=>'Proveedor-juridico','5'=>'Cliente-frecuente','6'=>'Cliente-no-frecuente']), null, ['class' => 'form-control', 'id' => 'tipo_persona']) !!}
             </div>
         </div>
 
@@ -15,8 +14,7 @@
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
                 <label for="tipo_documento" class="form-label">Tipo de documento <span class="text-danger">*</span></label>
-                {{-- {!! Form::select('tipo_documento', collect(['' => 'Seleccionar...'])->union($tipo_documento), null, ['class' => 'form-control', 'id' => 'tipo_documento']) !!} --}}
-                {!! Form::text('tipo_documento', null, ['class' => 'form-control', 'id' => 'tipo_documento']) !!}
+                {!! Form::select('tipo_documento', collect(['' => 'Seleccionar...'])->union(['1'=>'Cédula','2'=>'Documento Extranjería']), null, ['class' => 'form-control', 'id' => 'tipo_documento']) !!}
             </div>
         </div>
 
@@ -79,9 +77,8 @@
         
         <div class="col-12 col-md-3 mt-3">
             <div class="form-group d-flex flex-column">
-                <label for="genero" class="form-label">Género <span class="text-danger">*</span></label>
-                {{-- {!! Form::select('genero', collect(['' => 'Seleccionar...'])->union($genero), null, ['class' => 'form-control', 'id' => 'genero']) !!} --}}
-                {!! Form::text('genero', null, ['class' => 'form-control', 'id' => 'genero']) !!}
+                <label for="genero" class="form-label">Género<span class="text-danger">*</span></label>
+                {!! Form::select('genero', collect(['' => 'Seleccionar...'])->union(['1'=>'Femenino','2'=>'Masculino']), null, ['class' => 'form-control', 'id' => 'genero']) !!}
             </div>
         </div>
 
@@ -91,6 +88,86 @@
             <div class="form-group d-flex flex-column">
                 <label for="direccion" class="form-label">Dirección</label>
                 {!! Form::text('direccion', null, ['class' => 'form-control', 'id' => 'direccion']) !!}
+            </div>
+        </div>
+
+        {{-- ======================= --}}
+
+        <div class="col-12 col-md-3 mt-3" id="">
+            <div class="form-group d-flex flex-column">
+                <label for="fecha_contrato" class="form-label">Fecha Contrato<span class="text-danger">*</span></label>
+                {!! Form::date('fecha_contrato', null, ['class' => 'form-control', 'id' => 'fecha_contrato']) !!}
+            </div>
+        </div>
+
+        {{-- ======================= --}}
+        
+        <div class="col-12 col-md-3 mt-3" id="">
+            <div class="form-group d-flex flex-column">
+                <label for="rol" class="form-label">Rol<span class="text-danger">*</span></label>
+                {!! Form::select('rol', collect(['' => 'Seleccionar...'])->union(['1'=>'Administrador','1'=>'Vendedor']), null, ['class' => 'form-control', 'id' => 'rol']) !!}
+            </div>
+        </div>
+
+        {{-- ======================= --}}
+        
+        <div class="col-12 col-md-3 mt-3" id="">
+            <div class="form-group d-flex flex-column">
+                <label for="nombre_usuario" class="form-label">Nombre usuario<span class="text-danger">*</span></label>
+                {!! Form::text('nombre_usuario', null, ['class' => 'form-control', 'id' => 'nombre_usuario']) !!}
+            </div>
+        </div>
+
+        {{-- ======================= --}}
+        
+        <div class="col-12 col-md-3 mt-3" id="">
+            <div class="form-group d-flex flex-column">
+                <label for="password" class="form-label">Contraseña<span class="text-danger">*</span></label>
+                {{ Form::password('password', ['class' => 'form-control', 'id' => 'password', 'minlength' => 4, 'maxlength' => 7]) }}
+            </div>
+        </div>
+
+        {{-- ======================= --}}
+        
+        <div class="col-12 col-md-3 mt-3" id="">
+            <div class="form-group d-flex flex-column">
+                <label for="confirmar_password" class="form-label">Confirmar contraseña
+                    <span class="text-danger">*</span>
+                </label>
+                {{ Form::password('confirmar_password', ['class' => 'form-control', 'id' => 'confirmar_password', 'minlength' => 4, 'maxlength' => 7]) }}
+            </div>
+        </div>
+        
+        {{-- ======================= --}}
+        
+        <div class="col-12 col-md-3 mt-3" id="">
+            <div class="form-group d-flex flex-column">
+                <label for="nit_empresa" class="form-label">Nit Empresa
+                    <span class="text-danger">*</span>
+                </label>
+                {{ Form::text('nit_empresa', null,['class' => 'form-control', 'id' => 'nit_empresa', 'minlength' => 6, 'maxlength' => 30]) }}
+            </div>
+        </div>
+        
+        {{-- ======================= --}}
+        
+        <div class="col-12 col-md-3 mt-3" id="">
+            <div class="form-group d-flex flex-column">
+                <label for="nombre_empresa" class="form-label">Nombre Empresa
+                    <span class="text-danger">*</span>
+                </label>
+                {{ Form::text('nombre_empresa', null,['class' => 'form-control', 'id' => 'nombre_empresa']) }}
+            </div>
+        </div>
+        
+        {{-- ======================= --}}
+        
+        <div class="col-12 col-md-3 mt-3" id="">
+            <div class="form-group d-flex flex-column">
+                <label for="telefono_empresa" class="form-label">Teléfono Empresa
+                    <span class="text-danger">*</span>
+                </label>
+                {{ Form::text('telefono_empresa', null,['class' => 'form-control', 'id' => 'telefono_empresa']) }}
             </div>
         </div>
 
