@@ -42,12 +42,12 @@
                         <div class="p-3 d-flex flex-column" id="form_bajas" style="height: 50%;">
                             <div>
                                 <label for="tipo_baja" class="form-label">Tipo de Baja <span class="text-danger">*</span></label>
-                                {!! Form::text('tipo_baja', null, ['class' => 'form-control', 'id' => 'tipo_baja', 'required' => 'required']) !!}
+                                {{ Form::select('tipo_baja', collect(['' => 'Seleccionar...'])->union(['1'=>'Avería','2'=>'Hurto']), null, ['class' => 'form-control', 'id' => 'tipo_baja', 'required']) }}
                             </div>
 
                             <div class="mt-3">
                                 <label for="producto" class="form-label">Producto <span class="text-danger">*</span></label>
-                                {!! Form::text('producto', null, ['class' => 'form-control', 'id' => 'producto', 'required' => true]) !!}
+                                {{ Form::select('producto', collect(['' => 'Seleccionar...'])->union(['1'=>'Jabón','2'=>'Toalla']), null, ['class' => 'form-control', 'id' => 'producto', 'required']) }}
                             </div>
 
                             <div class="mt-3">
@@ -144,9 +144,17 @@
         // INICIO - Función para agregar fila x fila cada producto para dar de baja
         $("#btn_add_baja").click(function() {
 
-            let tipoBaja = $('#tipo_baja').val();
-            let producto = $('#producto').val();
+            let idtipoBaja = $('#tipo_baja').val();
+            let tipoBaja = $('#tipo_baja option:selected').text();
+            let idProducto = $('#producto').val();
+            let producto = $('#producto option:selected').text();
             let cantidad = $('#cantidad').val();
+
+            console.log(idtipoBaja);
+            console.log(tipoBaja);
+            console.log(idProducto);
+            console.log(producto);
+            console.log(cantidad);
 
             if (tipoBaja == '' || producto == '' || cantidad == '' ) {
                 Swal.fire(

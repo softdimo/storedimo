@@ -105,7 +105,7 @@
         <div class="col-12 col-md-3 mt-3" id="">
             <div class="form-group d-flex flex-column">
                 <label for="rol" class="form-label">Rol<span class="text-danger">*</span></label>
-                {!! Form::select('rol', collect(['' => 'Seleccionar...'])->union(['1'=>'Administrador','1'=>'Vendedor']), null, ['class' => 'form-control', 'id' => 'rol']) !!}
+                {!! Form::select('rol', collect(['' => 'Seleccionar...'])->union(['1'=>'Administrador','2'=>'Vendedor']), null, ['class' => 'form-control', 'id' => 'rol']) !!}
             </div>
         </div>
 
