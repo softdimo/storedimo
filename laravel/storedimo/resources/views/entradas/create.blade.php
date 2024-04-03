@@ -39,13 +39,14 @@
                     <div class="w-100-div w-48 mb-auto" style="border: solid 1px #337AB7; border-radius: 5px;">
                         <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Proveedor <span class="text-danger">*</span></h5>
                         {{-- ============================================================== --}}
-                        {!! Form::text('proveedor', null, ['class' => 'form-control mt-4 mb-4 w-75 ms-auto me-auto', 'id' => 'proveedor', 'required', 'placeholder' => 'select Proveedor']) !!}
+                        {{ Form::select('proveedor', collect(['' => 'Seleccionar...'])->union(['1' => 'Anónimo','2' => 'Proveedor-Natural']), null, ['class' => 'form-control mt-4 mb-4 w-75 ms-auto me-auto', 'id' => 'proveedor']) }}
                         {{-- ============================================================== --}}
                         <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Producto <span class="text-danger">*</span></h5>
                         {{-- ============================================================== --}}
                         <div class="p-3 d-flex justify-content-between" id="" style="">
                             <div class="d-flex justify-content-center w-75">
-                                {!! Form::text('producto', null, ['class' => 'form-control', 'id' => 'producto', 'required', 'placeholder' => 'select Producto']) !!}
+                                {{-- {!! Form::text('producto', null, ['class' => 'form-control', 'id' => 'producto', 'required', 'placeholder' => 'select Producto']) !!} --}}
+                                {{ Form::select('producto', collect(['' => 'Seleccionar...'])->union(['1' => 'Jabón','2' => 'Toalla']), null, ['class' => 'form-control', 'id' => 'producto']) }}
                             </div>
 
                             <div class="d-flex justify-content-end w-25">
