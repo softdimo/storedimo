@@ -15,10 +15,10 @@
                 <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
 
                 <ul class="dropdown-menu" aria-labelledby="personas">
-                    <li><a class="dropdown-item" href="">Registrar Personas</a></li>
-                    <li><a class="dropdown-item" href="">Listar Usuario/Empleados</a></li>
-                    <li><a class="dropdown-item" href="">Listar Proveedores</a></li>
-                    <li><a class="dropdown-item" href="">Listar Clientes</a></li>
+                    <li><a class="dropdown-item" href="{{route('usuarios.create')}}">Registrar Personas</a></li>
+                    <li><a class="dropdown-item" href="{{route('usuarios.index')}}">Listar Usuario/Empleados</a></li>
+                    <li><a class="dropdown-item" href="{{route('listar_proveedores')}}">Listar Proveedores</a></li>
+                    <li><a class="dropdown-item" href="{{route('listar_clientes')}}">Listar Clientes</a></li>
                 </ul>
             </li>
 
@@ -29,7 +29,7 @@
                 <a href="" class="text-decoration-none" style="width: 80%" id="categorias" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorías</a>
                 <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
                 <ul class="dropdown-menu" aria-labelledby="categorias">
-                    <li><a class="dropdown-item" href="">Gestionar Categorías</a></li>
+                    <li><a class="dropdown-item" href="{{route('categorias.index')}}">Gestionar Categorías</a></li>
                 </ul>
             </li>
 
@@ -40,8 +40,8 @@
                 <a href="" class="text-decoration-none" style="width: 80%" id="productos" role="button" data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
                 <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
                 <ul class="dropdown-menu" aria-labelledby="productos">
-                    <li><a class="dropdown-item" href="">Registrar Productos</a></li>
-                    <li><a class="dropdown-item" href="">Listar Productos</a></li>
+                    <li><a class="dropdown-item" href="{{route('productos.create')}}">Registrar Productos</a></li>
+                    <li><a class="dropdown-item" href="{{route('productos.index')}}">Listar Productos</a></li>
                 </ul>
             </li>
 
@@ -52,9 +52,9 @@
                 <a href="" class="text-decoration-none" style="width: 80%" id="existencias" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gestionar Existencias</a>
                 <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
                 <ul class="dropdown-menu" aria-labelledby="existencias">
-                    <li><a class="dropdown-item" href="">Registrar Bajas</a></li>
-                    <li><a class="dropdown-item" href="">Listar Bajas</a></li>
-                    <li><a class="dropdown-item" href="">Listar Productos en stock Mínimo</a></li>
+                    <li><a class="dropdown-item" href="{{route('existencias.create')}}">Registrar Bajas</a></li>
+                    <li><a class="dropdown-item" href="{{route('existencias.index')}}">Listar Bajas</a></li>
+                    <li><a class="dropdown-item" href="{{route('stock_minimo')}}">Listar Productos en stock Mínimo</a></li>
                 </ul>
             </li>
 
@@ -65,8 +65,8 @@
                 <a href="" class="text-decoration-none" style="width: 80%" id="entradas" role="button" data-bs-toggle="dropdown" aria-expanded="false">Entradas</a>
                 <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
                 <ul class="dropdown-menu" aria-labelledby="entradas">
-                    <li><a class="dropdown-item" href="">Registrar Entradas</a></li>
-                    <li><a class="dropdown-item" href="">Listar Entradas</a></li>
+                    <li><a class="dropdown-item" href="{{route('entradas.create')}}">Registrar Entradas</a></li>
+                    <li><a class="dropdown-item" href="{{route('entradas.index')}}">Listar Entradas</a></li>
                 </ul>
             </li>
 
@@ -77,9 +77,9 @@
                 <a href="" class="text-decoration-none" style="width: 80%" id="ventas" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ventas</a>
                 <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
                 <ul class="dropdown-menu" aria-labelledby="ventas">
-                    <li><a class="dropdown-item" href="">Registrar Ventas</a></li>
-                    <li><a class="dropdown-item" href="">Listar Ventas</a></li>
-                    <li><a class="dropdown-item" href="">Listar Créditos-Abonos</a></li>
+                    <li><a class="dropdown-item" href="{{route('ventas.create')}}">Registrar Ventas</a></li>
+                    <li><a class="dropdown-item" href="{{route('ventas.index')}}">Listar Ventas</a></li>
+                    <li><a class="dropdown-item" href="{{route('credito_ventas')}}">Listar Créditos-Abonos</a></li>
                 </ul>
             </li>
 
@@ -90,8 +90,8 @@
                 <a href="" class="text-decoration-none" style="width: 80%" id="prestamos" role="button" data-bs-toggle="dropdown" aria-expanded="false">Préstamos a Empleados</a>
                 <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
                 <ul class="dropdown-menu" aria-labelledby="prestamos">
-                    <li><a class="dropdown-item" href="">Registrar Préstamos</a></li>
-                    <li><a class="dropdown-item" href="">Listar Préstamos</a></li>
+                    <li><a class="dropdown-item" href="{{route('prestamo_empleados.create')}}">Registrar Préstamos</a></li>
+                    <li><a class="dropdown-item" href="{{route('prestamo_empleados.index')}}">Listar Préstamos</a></li>
                 </ul>
             </li>
 
@@ -102,8 +102,8 @@
                 <a href="" class="text-decoration-none" style="width: 80%" id="pagos" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pagos a Empleados</a>
                 <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
                 <ul class="dropdown-menu" aria-labelledby="pagos">
-                    <li><a class="dropdown-item" href="">Registrar Pagos</a></li>
-                    <li><a class="dropdown-item" href="">Listar Pagos</a></li>
+                    <li><a class="dropdown-item" href="{{route('pago_empleados.create')}}">Registrar Pagos</a></li>
+                    <li><a class="dropdown-item" href="{{route('pago_empleados.index')}}">Listar Pagos</a></li>
                 </ul>
             </li>
         </ul>

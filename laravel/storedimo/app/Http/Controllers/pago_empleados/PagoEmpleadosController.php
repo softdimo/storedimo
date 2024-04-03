@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\existencias;
+namespace App\Http\Controllers\pago_empleados;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ExistenciasController extends Controller
+class PagoEmpleadosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class ExistenciasController extends Controller
      */
     public function index()
     {
-        return view('existencias.index');
+        return view('pago_empleados.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class ExistenciasController extends Controller
      */
     public function create()
     {
-        return view('existencias.create');
+        return view('pago_empleados.create');
     }
 
     /**
@@ -81,13 +81,5 @@ class ExistenciasController extends Controller
     public function destroy($id)
     {
         //
-    }
-    
-    // ======================================================================
-    // ======================================================================
-
-    public function stockMinimo()
-    {
-        return view('existencias.stock_minimo');
     }
 }

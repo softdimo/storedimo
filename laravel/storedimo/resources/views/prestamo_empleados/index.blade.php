@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Listar Bajas')
+@section('title', 'Préstamo Empleados')
 
 {{-- =============================================================== --}}
 {{-- =============================================================== --}}
@@ -41,30 +41,34 @@
             {{-- =============================================================== --}}
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Bajas</h5>
+                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Préstamos</h5>
             
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_bajas" aria-describedby="bajas">
+                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_prestamo_empleados" aria-describedby="prestamo_empleados">
                             <thead>
                                 <tr class="header-table text-center">
-                                    <th>Código Bajas</th>
-                                    <th>Empleado Responsable Baja</th>
-                                    <th>Estado</th>
-                                    <th>Fecha Baja</th>
-                                    <th>Anular</th>
+                                    <th>Identificación</th>
+                                    <th>Nombres</th>
+                                    <th>Apellidos</th>
+                                    <th>Tipo Empleado</th>
+                                    <th>Ver Detalles</th>
                                 </tr>
                             </thead>
                             {{-- ============================== --}}
                             <tbody>
                                     <tr class="text-center">
-                                        <td>1</td>
-                                        <td>1234567890 - Victor Gómez</td>
-                                        <td>Activo</td>
-                                        <td>2024-02-17</td>
+                                        <td>Cédula - 1234567890</td>
+                                        <td>Victor</td>
+                                        <td>Gómez</td>
+                                        <td>Empleado-fijo</td>
                                         <td>
-                                            <a href="#" role="button" class="btn rounded-circle btn-circle text-white" title="Ver Detalles" style="background-color: #286090">
+                                            <a href="#" role="button" class="btn rounded-circle btn-circle text-white" title="Detalles Préstamo" style="background-color: #286090">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
+                                            </a>
+
+                                            <a href="#" role="button" class="btn btn-success rounded-circle btn-circle text-white" title="Generar PDF">
+                                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -78,9 +82,9 @@
                     {{-- ========================================================= --}}
             
                     <div class="mt-5 mb-2 d-flex justify-content-center">
-                        <button class="btn rounded-2 me-3 text-white" type="submit" style="background-color: #286090">
+                        <button class="btn rounded-2 me-3 text-white" type="submit" style="background-color: #204D74">
                             <i class="fa fa-file-pdf-o"></i>
-                            Reporte Bajas
+                            Reporte Préstamos
                         </button>
                     </div>
                 </div> {{-- FIN div_campos_usuarios --}}
@@ -100,7 +104,7 @@
     <script>
         $( document ).ready(function() {
             // INICIO DataTable Lista Usuarios
-            $("#tbl_bajas").DataTable({
+            $("#tbl_prestamo_empleados").DataTable({
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
                 stripe: true,
@@ -124,7 +128,7 @@
                         }
                     }
                 ],
-                "pageLength": 25,
+                "pageLength": 10,
                 "scrollX": true,
             });
             // CIERRE DataTable Lista Usuarios

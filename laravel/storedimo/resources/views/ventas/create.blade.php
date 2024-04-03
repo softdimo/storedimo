@@ -133,12 +133,7 @@
                             </div>
                         </div>
                         {{-- ========================== --}}
-                        <div class="mt-3 row m-0 p-3" style="border: solid 1px #337AB7; border-radius: 5px;">
-                            {{-- <div class="col-12 col-md-6 d-flex flex-column">
-                                <label for="tipo_pago" class="fw-bold">Tipo de Pago <span class="text-danger">*</span></label>
-                                {!! Form::select('tipo_pago', ['contado' => 'Contado', 'credito' => 'Crédito'], ['class' => 'form-control', 'id' => 'tipo_pago', 'required']) !!}
-                            </div> --}}
-
+                        <div class="mt-3 row m-0 p-2" style="border: solid 1px #337AB7; border-radius: 5px;">
                             <div class="col-12 col-md-6 d-flex flex-column">
                                 <div class="form-group">
                                     <label for="tipo_pago" class="fw-bold">Tipo de Pago
