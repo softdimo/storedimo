@@ -14,8 +14,7 @@
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
                 <label for="categoria" class="form-label">Categoría <span class="text-danger">*</span></label>
-                {{-- {!! Form::select('categoria', collect(['' => 'Seleccionar...'])->union($categorias), null, ['class' => 'form-control', 'id' => 'categoria']) !!} --}}
-                {!! Form::text('categoria', null, ['class' => 'form-control', 'id' => 'categoria']) !!}
+                {!! Form::select('categoria', collect(['' => 'Seleccionar...'])->union(['1' => 'Hogar','2' => 'Papelería','3' => 'Aseo',]), null, ['class' => 'form-control', 'id' => 'categoria']) !!}
             </div>
         </div>
 
@@ -24,7 +23,7 @@
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
                 <label for="precio unitario" class="form-label">Precio Unitario <span class="text-danger">*</span></label>
-                {!! Form::text('precio unitario', null, ['class' => 'form-control', 'id' => 'precio unitario']) !!}
+                {!! Form::number('precio unitario', null, ['class' => 'form-control', 'id' => 'precio unitario', 'min' => 0, 'step' => 10, 'oninput' => 'validity.valid||(value=\'\');']) !!}
             </div>
         </div>
 
@@ -33,7 +32,7 @@
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
                 <label for="precio_detal" class="form-label">Precio al Detal <span class="text-danger">*</span></label>
-                {!! Form::text('precio_detal', null, ['class' => 'form-control', 'id' => 'precio_detal']) !!}
+                {!! Form::number('precio_detal', null, ['class' => 'form-control', 'id' => 'precio_detal', 'min' => 0, 'step' => 10, 'oninput' => 'validity.valid||(value=\'\');']) !!}
             </div>
         </div>
 
@@ -42,7 +41,7 @@
         <div class="col-12 col-md-3 mt-3">
             <div class="form-group d-flex flex-column">
                 <label for="precio_por_mayor" class="form-label">Precio al por Mayor <span class="text-danger">*</span></label>
-                {!! Form::text('precio_por_mayor', null, ['class' => 'form-control', 'id' => 'precio_por_mayor']) !!}
+                {!! Form::number('precio_por_mayor', null, ['class' => 'form-control', 'id' => 'precio_por_mayor', 'min' => 0, 'step' => 10, 'oninput' => 'validity.valid||(value=\'\');']) !!}
             </div>
         </div>
 
@@ -61,7 +60,7 @@
         <div class="col-12 col-md-3 mt-3" id="">
             <div class="form-group d-flex flex-column">
                 <label for="stock_minimo" class="form-label">Stock Mínimo <span class="text-danger">*</span></label>
-                {!! Form::number('stock_minimo', null, ['class' => 'form-control', 'id' => 'stock_minimo']) !!}
+                {!! Form::number('stock_minimo', null, ['class' => 'form-control', 'id' => 'stock_minimo', 'min' => 1, 'max' => 50, 'oninput' => 'validity.valid||(value=\'\');']) !!}
             </div>
         </div>
 
