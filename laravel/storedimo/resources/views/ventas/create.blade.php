@@ -40,7 +40,7 @@
                         <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Cliente <span class="text-danger">*</span></h5>
                         {{-- ============================================================== --}}
                         <div class="p-3 d-flex justify-content-between" id="" style="">
-                            {!! Form::text('cliente', null, ['class' => 'form-control w-75 ms-auto me-auto', 'id' => 'cliente', 'required', 'placeholder' => 'select cliente']) !!}
+                            {{ Form::select('cliente_venta', collect(['' => 'Seleccionar...'])->union(['1' => 'Anónimo-No Frecuente','2' => 'Alejandro-Frecuente']), null, ['class' => 'form-control w-75 ms-auto me-auto', 'id' => 'cliente_venta', 'required']) }}
 
                             <div class="w-25 d-flex justify-content-end">
                                 <button type="button" class="btn rounded-2 text-white" style="background-color: #337AB7" title="Registrar Cliente" data-bs-toggle="modal" data-bs-target="#modal_registroCliente">
@@ -53,7 +53,7 @@
                         {{-- ============================================================== --}}
                         <div class="p-3 d-flex justify-content-between" id="" style="">
                             <div class="d-flex justify-content-center w-100">
-                                {!! Form::text('producto', null, ['class' => 'form-control', 'id' => 'producto', 'required', 'placeholder' => 'select Producto']) !!}
+                                {{ Form::select('producto_venta', collect(['' => 'Seleccionar...'])->union(['1' => 'Jabón','2' => 'Toalla']), null, ['class' => 'form-control', 'id' => 'producto_venta']) }}
                             </div>
                         </div>
                         {{-- ============================================================== --}}
@@ -69,9 +69,9 @@
                                 {{-- ============================== --}}
                                 <tbody>
                                         <tr class="text-center align-middle">
-                                            <td>$ 2.500</td>
-                                            <td>$ 2.100</td>
-                                            <td>
+                                            <td>$ <span id="p_detal_venta">2500</span></td>
+                                            <td>$ <span id="p_x_mayor_venta">2100</span></td>
+                                            <td id="aplicar_X_mayor_venta">
                                                 {!! Form::checkbox('aplicar_por_mayor', null, ['class' => 'form-control', 'id' => 'aplicar_por_mayor', 'required']) !!}
                                             </td>
                                         </tr>
@@ -80,10 +80,10 @@
                         </div>
                         {{-- ============ --}}
                         <div class="form-group p-3 id="cant">
-                            <label for="cantidad" class="fw-bold">Cantidad <span class="text-danger">*</span></label>
+                            <label for="cantidad_venta" class="fw-bold">Cantidad <span class="text-danger">*</span></label>
                             <div class="row align-items-center p-0 m-0">
                                 <div class="col-8 p-0 m-0">
-                                    {!! Form::text('cantidad', null, ['class' => 'form-control rounded-end-0', 'id' => 'cantidad', 'required', 'min' => '1', 'maxlength' => '4']) !!}
+                                    {!! Form::text('cantidad_venta', null, ['class' => 'form-control rounded-end-0', 'id' => 'cantidad_venta', 'required', 'min' => '1', 'maxlength' => '4']) !!}
                                 </div>
                                 
                                 <div class="col-4 m-0 p-0">
@@ -93,7 +93,7 @@
                         </div>
                         {{-- ============ --}}
                         <div class="p-3 d-flex justify-content-end">
-                            <button type="button" tabindex="6" onclick="agregarProducto()" class="btn btn-primary active pull-right" id="btn-Agregar" title="Agregar">
+                            <button type="button" class="btn btn-primary active pull-right" id="btn_agregar_venta" title="Agregar">
                                 <i class="fa fa-plus plus"></i>
                                 Agregar
                             </button>
@@ -111,24 +111,24 @@
                             <div class="">
                                 <strong class="p-3">Seleccione para agregar</strong>
     
-                                <div class="row p-3">
+                                <div class="row p-3 d-none" id="div_ventas_datos_producto">
                                     <div class="col-12 col-md-9">
-                                        <h3>2 jabón de baño frotex</h3>
-                                        <p>Cantidad:  <span>5</span></p>
-                                        <p>Valor subtotal: <span>$ 10.000</span></p>
+                                        <h3 id="nombre_producto_venta"></h3>
+                                        <p>Cantidad: <span id="cantidad_producto_venta"></span></p>
+                                        <p>Valor subtotal: $<span id="valor_subTotal_venta"></span></p>
                                     </div>
                                     {{-- ========================== --}}
                                     <div class="col-12 col-md-3">
-                                        <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar">
+                                        <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar" id="btn_del_producto">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                         </button>
                                     </div>
                                 </div>
     
                                 <div class="" style="background-color: #F5F5F5; border-top: 1px solid #ddd;">
-                                    <p class="p-1 m-0 fw-bold" style="border-bottom: 1px solid #ddd;">Subtotal: <span class="fw-normal">$ 7.500</span></p>
-                                    <p class="p-1 m-0 fw-bold" style="border-bottom: 1px solid #ddd;">Descuento: <span class="fw-normal"> $ 0.000</span></p>
-                                    <p class="p-1 m-0 fw-bold">Total: <span class="fw-normal">$ 10.000</span></p>
+                                    <p class="p-1 m-0 fw-bold" style="border-bottom: 1px solid #ddd;">Subtotal: <span class="fw-normal" id="sub_total_venta">$ 7.500</span></p>
+                                    <p class="p-1 m-0 fw-bold" style="border-bottom: 1px solid #ddd;">Descuento: <span class="fw-normal" id="descuento_total_venta"> $ 0.000</span></p>
+                                    <p class="p-1 m-0 fw-bold">Total: <span class="fw-normal" id="total_venta">$ 10.000</span></p>
                                 </div>
                             </div>
                         </div>
@@ -383,53 +383,125 @@
 
             // ================================================
 
-        });
+                    // ===================================================================================
+            // ===================================================================================
+
+            // INICIO - Función agregar datos de las ventas
+            $("#btn_agregar_venta").click(function() {
+
+                // $('input[name="objeto_avaluo[]"]').prop('checked', false);
+
+                let idClienteVenta = $('#cliente_venta').val();
+                let clienteVenta = $('#cliente_venta option:selected').text();
+
+                let idProductoVenta = $('#producto_venta').val();
+                let productoVenta = $('#producto_venta option:selected').text();
+
+                let pDetalVenta = $('#p_detal_venta').text();
+                let pxMayorVenta = $('#p_x_mayor_venta').text();
+                var aplicarXMayorVenta = $('#aplicar_X_mayor_venta').is(':checked');
+
+                    // aplicarXMayorVenta = $(this).prop('checked');
+
+                let cantidadVenta = $('#cantidad_venta').val();
+
+                console.log(`Id Cliente Venta ${idClienteVenta}`);
+                console.log(`nombre Cliente Venta ${clienteVenta}`);
+
+                console.log(`Id Producto Venta ${idProductoVenta}`);
+                console.log(`nombre Producto Venta ${productoVenta}`);
+
+                console.log(`Precio Detal Venta ${pDetalVenta}`);
+                console.log(`PRecio mayor de Venta ${pxMayorVenta}`);
+                console.log(`Aplica precio al por mayor ${aplicarXMayorVenta}`);
+
+                console.log(`Cantidad Venta ${cantidadVenta}`);
+
+                if (idClienteVenta == '' || idProductoVenta == '' || cantidadVenta == '' ) {
+                    Swal.fire(
+                        'Cuidado!',
+                        'Todos los campos son obligatorios!',
+                        'error'
+                    );
+                } else {
+                    $('#div_ventas_datos_producto').removeClass('d-none');
+
+                    $('#nombre_producto_venta').html(productoVenta);
+
+                    $('#cantidad_producto_venta').html(cantidadVenta);
+
+                    // let valor_subTotal = pUnitario * cantidad;
+
+                //     $('#valor_subTotal').html(valor_subTotal);
+
+                //     let valor_total = pUnitario * cantidad;
+
+                //     $('#valor_total').html(valor_total);
+                }
+            }); // FIN - Función agregar datos de las ventas
+
+            // ===================================================================================
+            // ===================================================================================
+
+        }); // FIN Document Ready
 
         // ===================================================================================
         // ===================================================================================
 
-        // INICIO - Función para agregar fila x fila cada producto para dar de baja
-        $("#btn_add_baja").click(function() {
+        // INICIO - Función agregar datos de las ventas
+        // $("#btn_agregar_venta").click(function() {
 
-            let tipoBaja = $('#tipo_baja').val();
-            let producto = $('#producto').val();
-            let cantidad = $('#cantidad').val();
+        //     // $('input[name="objeto_avaluo[]"]').prop('checked', false);
 
-            if (tipoBaja == '' || producto == '' || cantidad == '' ) {
-                Swal.fire(
-                    'Cuidado!',
-                    'Todos los campos son obligatorios!',
-                    'error'
-                );
-            } else {
-                let fila = '';
-                var indiceSiguienteFila = $('#tbl_bajas tr').length;
+        //     let idClienteVenta = $('#cliente_venta').val();
+        //     let clienteVenta = $('#cliente_venta option:selected').text();
 
-                console.log(indiceSiguienteFila);
+        //     let idProductoVenta = $('#producto_venta').val();
+        //     let productoVenta = $('#producto_venta option:selected').text();
 
-                fila +=
-                    '<tr class="" name="'+indiceSiguienteFila+'">'+
-                        '<td class="text-center">'+producto+'</td>'+
+        //     let pDetalVenta = $('#p_detal_venta').text();
+        //     let pxMayorVenta = $('#p_x_mayor_venta').text();
+        //     var aplicarXMayorVenta = $('#aplicar_X_mayor_venta').is(':checked');
 
-                        '<td class="text-center">'+cantidad+'</td>'+
+        //         // aplicarXMayorVenta = $(this).prop('checked');
 
-                        '<td class="text-center">'+tipoBaja+'</td>'+
-                        
-                        '<td class="text-center">'+
-                            '<button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar" onclick="delBaja('+indiceSiguienteFila+')">'+
-                                '<i class="fa fa-trash" aria-hidden="true"></i>'+
-                            '</button>'+
-                        '</td>'+
-                    '</tr>';
+        //     let cantidadVenta = $('#cantidad_venta').val();
 
-                $('#tbl_bajas').append(fila);
+        //     console.log(`Id Cliente Venta ${idClienteVenta}`);
+        //     console.log(`nombre Cliente Venta ${clienteVenta}`);
 
-                $('#tipo_baja').val('');
-                $('#producto').val('');
-                $('#cantidad').val('');
-            }
-        });
-        // FIN - Función para agregar fila x fila cada producto para dar de baja
+        //     console.log(`Id Producto Venta ${idProductoVenta}`);
+        //     console.log(`nombre Producto Venta ${productoVenta}`);
+
+        //     console.log(`Precio Detal Venta ${pDetalVenta}`);
+        //     console.log(`PRecio mayor de Venta ${pxMayorVenta}`);
+        //     console.log(`Aplica precio al por mayor ${aplicarXMayorVenta}`);
+
+        //     console.log(`Cantidad Venta ${cantidadVenta}`);
+
+        //     if (idClienteVenta == '' || idProductoVenta == '' || cantidadVenta == '' ) {
+        //         Swal.fire(
+        //             'Cuidado!',
+        //             'Todos los campos son obligatorios!',
+        //             'error'
+        //         );
+        //     } else {
+        //         $('#div_ventas_datos_producto').removeClass('d-none');
+
+        //         $('#nombre_producto_venta').html(productoVenta);
+
+        //         $('#cantidad_producto_venta').html(cantidadVenta);
+
+                // let valor_subTotal = pUnitario * cantidad;
+
+            //     $('#valor_subTotal').html(valor_subTotal);
+
+            //     let valor_total = pUnitario * cantidad;
+
+            //     $('#valor_total').html(valor_total);
+        //     }
+        // });
+        // FIN - Función agregar datos de las ventas
 
         // ===================================================================================
         // ===================================================================================

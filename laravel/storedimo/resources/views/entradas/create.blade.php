@@ -45,7 +45,6 @@
                         {{-- ============================================================== --}}
                         <div class="p-3 d-flex justify-content-between" id="" style="">
                             <div class="d-flex justify-content-center w-75">
-                                {{-- {!! Form::text('producto', null, ['class' => 'form-control', 'id' => 'producto', 'required', 'placeholder' => 'select Producto']) !!} --}}
                                 {{ Form::select('producto', collect(['' => 'Seleccionar...'])->union(['1' => 'Jabón','2' => 'Toalla']), null, ['class' => 'form-control', 'id' => 'producto']) }}
                             </div>
 
@@ -428,7 +427,7 @@
         // ===================================================================================
         // ===================================================================================
 
-        // INICIO - Función para agregar fila x fila cada producto para dar de baja
+        // INICIO - Función agregar datos de la entrada
         $("#btn_add_entrada").click(function() {
 
             let idProveedor = $('#proveedor').val();
@@ -467,7 +466,7 @@
                 $('#valor_total').html(valor_total);
             }
         });
-        // FIN - Función para agregar fila x fila cada producto para dar de baja
+        // FIN - Función agregar datos de la entrada
 
         // ===================================================================================
         // ===================================================================================
