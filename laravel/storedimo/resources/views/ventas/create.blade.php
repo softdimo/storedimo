@@ -387,15 +387,23 @@
             let aplicarXMayorVenta = $('#aplicar_x_mayor_venta').is(':checked');
             console.log(aplicarXMayorVenta);
 
-            // if (aplicarXMayorVenta == false) {
-            //     // 
-            //     // aplicarXMayorVenta = $(('#aplicar_x_mayor_venta').attr('checked'));
-            //     // aplicarXMayorVenta = true;
-            //     aplicarXMayorVenta = $('#aplicar_x_mayor_venta').prop('checked', true);
-            // } else {
+            if (aplicarXMayorVenta == false) {
+                // 
+                // aplicarXMayorVenta = $(('#aplicar_x_mayor_venta').attr('checked'));
+                // aplicarXMayorVenta = true;
+                // aplicarXMayorVenta = $('#aplicar_x_mayor_venta').prop('checked', true);
+                // aplicarXMayorVenta = $('input[name="nombre_del_checkbox"]').prop('checked', true);
+                // $('input[name="nombre_del_checkbox"]').prop('checked', true);
+                aplicarXMayorVenta = $('input[name="nombre_del_checkbox"]').attr('checked', true);
+                aplicarXMayorVenta = $('input[name="nombre_del_checkbox"]').attr('checked', true);
+                // console.log(aplicarXMayorVenta);
+
+            }
+            //  else {
             //     aplicarXMayorVenta = $('#aplicar_x_mayor_venta').prop('checked', false);
-            //     // aplicarXMayorVenta = false;
             // }
+
+            // console.log(aplicarXMayorVenta);
 
 
             // // INICIO - Función agregar datos de las ventas
@@ -413,7 +421,7 @@
                 let pxMayorVenta = $('#p_x_mayor_venta').text();
                 let cantidadVenta = $('#cantidad_venta').val();
 
-                let aplicarXMayorVenta = $('#aplicar_X_mayor_venta').is(':checked');
+                // let aplicarXMayorVenta = $('#aplicar_X_mayor_venta').is(':checked');
 
                 console.log(`Id Cliente Venta ${idClienteVenta}`);
                 console.log(`nombre Cliente Venta ${clienteVenta}`);
@@ -444,16 +452,16 @@
                     if (aplicarXMayorVenta == false) {
                         let valorSubTotal = cantidadVenta * pDetalVenta;
 
-                        $('#valor_subTotal_venta').html(valor_subTotal);
-                        $('#sub_total_venta').html(valor_subTotal);
-                        $('#total_venta').html(valor_subTotal);
+                        $('#valor_subTotal_venta').html(valorSubTotal);
+                        $('#sub_total_venta').html(valorSubTotal);
+                        $('#total_venta').html(valorSubTotal);
 
                     } else {
                         let valorSubTotal = cantidadVenta * pxMayorVenta
 
-                        $('#valor_subTotal_venta').html(valor_subTotal);
-                        $('#sub_total_venta').html(valor_subTotal);
-                        $('#total_venta').html(valor_subTotal);
+                        $('#valor_subTotal_venta').html(valorSubTotal);
+                        $('#sub_total_venta').html(valorSubTotal);
+                        $('#total_venta').html(valorSubTotal);
                     }
 
 
