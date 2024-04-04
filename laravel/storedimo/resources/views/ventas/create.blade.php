@@ -71,8 +71,8 @@
                                         <tr class="text-center align-middle">
                                             <td>$ <span id="p_detal_venta">2500</span></td>
                                             <td>$ <span id="p_x_mayor_venta">2100</span></td>
-                                            <td id="aplicar_X_mayor_venta">
-                                                {!! Form::checkbox('aplicar_por_mayor', null, ['class' => 'form-control', 'id' => 'aplicar_por_mayor', 'required']) !!}
+                                            <td id="">
+                                                {{ Form::checkbox( 'aplicar_x_mayor_venta', null, ['class' => 'form-control', 'id' => 'aplicar_x_mayor_venta'] ) }}
                                             </td>
                                         </tr>
                                 </tbody>
@@ -356,6 +356,21 @@
 @section('scripts')
     <script>
         $( document ).ready(function() {
+
+            // let aplicarXMayorVenta = $('#aplicar_x_mayor_venta').is(':checked');
+
+            var aplicarXMayorVenta = $('#aplicar_por_mayor').attr('checked') === 'checked';
+            console.log(aplicarXMayorVenta);
+
+            $('#aplicar_x_mayor_venta').change(function() {
+                // Capturar el estado actualizado del checkbox
+                // let aplicarXMayorVenta = $('#aplicar_x_mayor_venta').is(':checked');
+
+                aplicarXMayorVenta = $(this).attr('checked') === 'checked';
+                
+                // Mostrar el estado actualizado en la consola
+                console.log('¿Está marcado? ' + aplicarXMayorVenta);
+            });
             // INICIO - Validación Formulario Creación de Bajas de productos
             // form_bajas = $("#form_bajas");
 
@@ -381,12 +396,10 @@
             // });
             // FIN - Validación Formulario Creación de Bajas de productos
 
-            // ================================================
-
-                    // ===================================================================================
+            // ===================================================================================
             // ===================================================================================
 
-            // INICIO - Función agregar datos de las ventas
+            // // INICIO - Función agregar datos de las ventas
             $("#btn_agregar_venta").click(function() {
 
                 // $('input[name="objeto_avaluo[]"]').prop('checked', false);
@@ -399,11 +412,22 @@
 
                 let pDetalVenta = $('#p_detal_venta').text();
                 let pxMayorVenta = $('#p_x_mayor_venta').text();
-                var aplicarXMayorVenta = $('#aplicar_X_mayor_venta').is(':checked');
-
-                    // aplicarXMayorVenta = $(this).prop('checked');
-
                 let cantidadVenta = $('#cantidad_venta').val();
+
+
+                // let aplicarXMayorVenta = $('#aplicar_X_mayor_venta').is(':checked');
+                // let aplicarXMayorVenta = $('#aplicar_X_mayor_venta').prop('checked');
+                // let aplicarXMayorVenta = $('#aplicar_X_mayor_venta').attr('checked');
+                // let aplicarXMayorVenta = $('#p_x_mayor_venta').val($(this).is(':checked'));
+                
+                // let aplicarXMayorVenta = $('#aplicar_X_mayor_venta').attr('checked') === 'checked';
+                // var aplicarXMayorVenta = $('#aplicar_X_mayor_venta')[0].checked;
+                // let aplicarXMayorVenta = isChecked('aplicar_X_mayor_venta');
+
+                // aplicarXMayorVenta = $(this).prop('checked');
+
+                // let aplicarXMayorVenta = $('#aplicar_x_mayor_venta').is(':checked');
+
 
                 console.log(`Id Cliente Venta ${idClienteVenta}`);
                 console.log(`nombre Cliente Venta ${clienteVenta}`);
@@ -448,60 +472,7 @@
         // ===================================================================================
         // ===================================================================================
 
-        // INICIO - Función agregar datos de las ventas
-        // $("#btn_agregar_venta").click(function() {
 
-        //     // $('input[name="objeto_avaluo[]"]').prop('checked', false);
-
-        //     let idClienteVenta = $('#cliente_venta').val();
-        //     let clienteVenta = $('#cliente_venta option:selected').text();
-
-        //     let idProductoVenta = $('#producto_venta').val();
-        //     let productoVenta = $('#producto_venta option:selected').text();
-
-        //     let pDetalVenta = $('#p_detal_venta').text();
-        //     let pxMayorVenta = $('#p_x_mayor_venta').text();
-        //     var aplicarXMayorVenta = $('#aplicar_X_mayor_venta').is(':checked');
-
-        //         // aplicarXMayorVenta = $(this).prop('checked');
-
-        //     let cantidadVenta = $('#cantidad_venta').val();
-
-        //     console.log(`Id Cliente Venta ${idClienteVenta}`);
-        //     console.log(`nombre Cliente Venta ${clienteVenta}`);
-
-        //     console.log(`Id Producto Venta ${idProductoVenta}`);
-        //     console.log(`nombre Producto Venta ${productoVenta}`);
-
-        //     console.log(`Precio Detal Venta ${pDetalVenta}`);
-        //     console.log(`PRecio mayor de Venta ${pxMayorVenta}`);
-        //     console.log(`Aplica precio al por mayor ${aplicarXMayorVenta}`);
-
-        //     console.log(`Cantidad Venta ${cantidadVenta}`);
-
-        //     if (idClienteVenta == '' || idProductoVenta == '' || cantidadVenta == '' ) {
-        //         Swal.fire(
-        //             'Cuidado!',
-        //             'Todos los campos son obligatorios!',
-        //             'error'
-        //         );
-        //     } else {
-        //         $('#div_ventas_datos_producto').removeClass('d-none');
-
-        //         $('#nombre_producto_venta').html(productoVenta);
-
-        //         $('#cantidad_producto_venta').html(cantidadVenta);
-
-                // let valor_subTotal = pUnitario * cantidad;
-
-            //     $('#valor_subTotal').html(valor_subTotal);
-
-            //     let valor_total = pUnitario * cantidad;
-
-            //     $('#valor_total').html(valor_total);
-        //     }
-        // });
-        // FIN - Función agregar datos de las ventas
 
         // ===================================================================================
         // ===================================================================================
