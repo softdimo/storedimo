@@ -110,7 +110,7 @@
                                     </div>
                                     {{-- ========================== --}}
                                     <div class="col-12 col-md-3">
-                                        <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar">
+                                        <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar" id="btn_del_entrada">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                         </button>
                                     </div>
@@ -472,11 +472,32 @@
         // ===================================================================================
         // ===================================================================================
 
-        function delBaja(idBaja) {
-            // alert(`Id de la Baja ${idBaja}`);
-            $('#tbl_bajas tr[name="'+idBaja+'"]').remove();
+        function delEntrada() {
+            // $('#tbl_bajas tr[name="'+idBaja+'"]').remove();
             // $('tr[name="' + idBaja + '"]').remove();
         }
+
+        $('#btn_del_entrada').on('click', function name(params) {
+            // alert(`eliminar entrada`);
+            
+            $('#nombre_producto').html('');
+            
+            $('#cantidad_producto').html('');
+            
+            $('#valor_subTotal').html('');
+            
+            $('#valor_total').html('');
+
+            $('#div_datos_producto').addClass('d-none');
+
+            $('#proveedor').val('');
+            // $('#proveedor option:selected').text();
+            $('#producto').val('');
+            // $('#producto option:selected').text();
+            // $('#p_unitario').html('');
+            $('#cantidad').val('');
+        })
+
     </script>
 @stop
 
