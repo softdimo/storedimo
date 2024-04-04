@@ -388,28 +388,12 @@
             console.log(aplicarXMayorVenta);
 
             if (aplicarXMayorVenta == false) {
-                // 
-                // aplicarXMayorVenta = $(('#aplicar_x_mayor_venta').attr('checked'));
-                // aplicarXMayorVenta = true;
-                // aplicarXMayorVenta = $('#aplicar_x_mayor_venta').prop('checked', true);
-                // aplicarXMayorVenta = $('input[name="nombre_del_checkbox"]').prop('checked', true);
-                // $('input[name="nombre_del_checkbox"]').prop('checked', true);
-                aplicarXMayorVenta = $('input[name="nombre_del_checkbox"]').attr('checked', true);
-                aplicarXMayorVenta = $('input[name="nombre_del_checkbox"]').attr('checked', true);
-                // console.log(aplicarXMayorVenta);
-
+                aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').attr('checked');
             }
-            //  else {
-            //     aplicarXMayorVenta = $('#aplicar_x_mayor_venta').prop('checked', false);
-            // }
-
-            // console.log(aplicarXMayorVenta);
 
 
-            // // INICIO - Función agregar datos de las ventas
+            // INICIO - Función agregar datos de las ventas
             $("#btn_agregar_venta").click(function() {
-
-                // $('input[name="objeto_avaluo[]"]').prop('checked', false);
 
                 let idClienteVenta = $('#cliente_venta').val();
                 let clienteVenta = $('#cliente_venta option:selected').text();
