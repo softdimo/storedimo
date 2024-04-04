@@ -59,17 +59,17 @@
                         <div class="row p-3">
                             <div class="col-md-3 text-center">
                                 <strong for="form-control fw-bold">Precio Unitario</strong>
-                                <p id="precio">0</p>
+                                <p id="precio">$ <span class="" id="p_unitario">2000</span></p>
                             </div>
                             {{-- ============ --}}
                             <div class="col-md-3 text-center">
                                 <strong for="form-control fw-bold">Precio al Detal</strong>
-                                <p id="precio2">0</p>
+                                <p id="precio2">$ <span class="" id="p_detal">2500</span></p>
                             </div>
                             {{-- ============ --}}
                             <div class="col-md-3 text-center">
                                 <strong for="form-control fw-bold">Precio por Mayor</strong>
-                                <p id="precio3">0</p>
+                                <p id="precio3">$ <span class="" id="p_x_mayor">2100</span></p>
                             </div>
                             {{-- ============ --}}
                             <div class="col-md-3 text-center">
@@ -87,9 +87,8 @@
                         </div>
                         {{-- ============ --}}
                         <div class="p-3 d-flex justify-content-end">
-                            <button type="button" tabindex="6" onclick="agregarProducto()" class="btn btn-primary active pull-right" id="btn-Agregar" title="Agregar">
-                                <i class="fa fa-plus plus"></i>
-                                Agregar
+                            <button type="button" class="btn btn-primary" id="btn_add_entrada" title="Agregar Entrada">
+                                <i class="fa fa-plus plus"></i>Agregar
                             </button>
                         </div>
                     </div>
@@ -100,23 +99,31 @@
                         <div class="">
                             <strong class="p-3">Seleccione para agregar</strong>
 
-                            <div class="row p-3">
-                                <div class="col-12 col-md-9">
-                                    <h3>2 jabón de baño frotex</h3>
-                                    <p>Cantidad:  <span>5</span></p>
-                                    <p>Valor subtotal: <span>$ 10.000</span></p>
-                                </div>
-                                {{-- ========================== --}}
-                                <div class="col-12 col-md-3">
-                                    <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </button>
+                            {{-- ============ --}}
+
+                            <div class="d-none" id="div_datos_producto">
+                                <div class="row p-3">
+                                    <div class="col-12 col-md-9">
+                                        <h3 class="" id="nombre_producto"></h3>
+                                        <p class="">Cantidad: <span id="cantidad_producto"></span></p>
+                                        <p class="">Valor subtotal: $ <span id="valor_subTotal"></span></p>
+                                    </div>
+                                    {{-- ========================== --}}
+                                    <div class="col-12 col-md-3">
+                                        <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
+                            {{-- ============ --}}
+
                             <div class="" style="background-color: #F5F5F5">
-                                <h3>Total: <span>$ 10.000</span></h3>
+                                <h3>Total: $<span id="valor_total"></span></h3>
                             </div>
+
+                            {{-- ============ --}}
 
                             <div class="d-flex justify-content-end mb-5 p-3" style="">
                                 <button class="btn btn-success rounded-2 me-3" type="submit">
@@ -422,44 +429,42 @@
         // ===================================================================================
 
         // INICIO - Función para agregar fila x fila cada producto para dar de baja
-        $("#btn_add_baja").click(function() {
+        $("#btn_add_entrada").click(function() {
 
-            let tipoBaja = $('#tipo_baja').val();
-            let producto = $('#producto').val();
+            let idProveedor = $('#proveedor').val();
+            let proveedor = $('#proveedor option:selected').text();
+            let idProducto = $('#producto').val();
+            let producto = $('#producto option:selected').text();
+            let pUnitario = $('#p_unitario').text();
             let cantidad = $('#cantidad').val();
 
-            if (tipoBaja == '' || producto == '' || cantidad == '' ) {
+            console.log(`Id proveedor ${idProveedor}`);
+            console.log(`nombre proveedor ${proveedor}`);
+            console.log(`Id Producto ${idProducto}`);
+            console.log(`nombre Producto ${producto}`);
+            console.log(`Precio Unitario ${pUnitario}`);
+            console.log(`Cantidad ${cantidad}`);
+
+            if (idProveedor == '' || idProducto == '' || cantidad == '' ) {
                 Swal.fire(
                     'Cuidado!',
                     'Todos los campos son obligatorios!',
                     'error'
                 );
             } else {
-                let fila = '';
-                var indiceSiguienteFila = $('#tbl_bajas tr').length;
+                $('#div_datos_producto').removeClass('d-none');
 
-                console.log(indiceSiguienteFila);
+                $('#nombre_producto').html(producto);
 
-                fila +=
-                    '<tr class="" name="'+indiceSiguienteFila+'">'+
-                        '<td class="text-center">'+producto+'</td>'+
+                $('#cantidad_producto').html(cantidad);
 
-                        '<td class="text-center">'+cantidad+'</td>'+
+                let valor_subTotal = pUnitario * cantidad;
 
-                        '<td class="text-center">'+tipoBaja+'</td>'+
-                        
-                        '<td class="text-center">'+
-                            '<button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar" onclick="delBaja('+indiceSiguienteFila+')">'+
-                                '<i class="fa fa-trash" aria-hidden="true"></i>'+
-                            '</button>'+
-                        '</td>'+
-                    '</tr>';
+                $('#valor_subTotal').html(valor_subTotal);
 
-                $('#tbl_bajas').append(fila);
+                let valor_total = pUnitario * cantidad;
 
-                $('#tipo_baja').val('');
-                $('#producto').val('');
-                $('#cantidad').val('');
+                $('#valor_total').html(valor_total);
             }
         });
         // FIN - Función para agregar fila x fila cada producto para dar de baja
