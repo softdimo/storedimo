@@ -72,7 +72,8 @@
                                             <td>$ <span id="p_detal_venta">2500</span></td>
                                             <td>$ <span id="p_x_mayor_venta">2100</span></td>
                                             <td id="">
-                                                {{ Form::checkbox( 'aplicar_x_mayor_venta', null, ['class' => 'form-control', 'id' => 'aplicar_x_mayor_venta'] ) }}
+                                                {{ Form::checkbox( 'aplicar_x_mayor_venta', null, ['class' => 'form-control', 'id' => 'aplicar_x_mayor_venta', 'checked' => false] ) }}
+                                                {{-- {{ Form::checkbox( 'aplicar_x_mayor_venta', null, ['class' => 'form-control', 'id' => 'aplicar_x_mayor_venta', 'default' => false] ) }} --}}
                                             </td>
                                         </tr>
                                 </tbody>
@@ -142,6 +143,11 @@
 
                                     {!! Form::select('tipo_pago', collect(['' => 'Seleccionar...'])->union(['contado' => 'Contado', 'credito' => 'Crédito']), null, ['class' => 'form-control', 'id' => 'tipo_pago', 'required']) !!}
                                 </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 d-flex flex-column">
+                                <label for="plazo_credito" class="fw-bold">Días Plazo Crédito<span class="text-danger">*</span></label>
+                                {!! Form::number('plazo_credito', null, ['class' => 'form-control', 'id' => 'plazo_credito', 'required']) !!}
                             </div>
                             
                             <div class="col-12 col-md-6 d-flex flex-column">
@@ -387,9 +393,9 @@
             let aplicarXMayorVenta = $('#aplicar_x_mayor_venta').is(':checked');
             console.log(aplicarXMayorVenta);
 
-            if (aplicarXMayorVenta == false) {
-                aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').attr('checked');
-            }
+            // if (aplicarXMayorVenta == false) {
+            //     aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').attr('checked');
+            // }
 
 
             // INICIO - Función agregar datos de las ventas
