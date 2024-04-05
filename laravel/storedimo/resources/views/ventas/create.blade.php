@@ -72,8 +72,12 @@
                                             <td>$ <span id="p_detal_venta">2500</span></td>
                                             <td>$ <span id="p_x_mayor_venta">2100</span></td>
                                             <td id="">
-                                                {{ Form::checkbox( 'aplicar_x_mayor_venta', null, ['class' => 'form-control', 'id' => 'aplicar_x_mayor_venta', 'checked' => false] ) }}
+                                                {{ Form::checkbox( 'aplicar_x_mayor_venta', null, ['class' => 'form-control', 'id' => 'aplicar_x_mayor_venta'] ) }}
+                                                {{-- {{ Form::checkbox( 'aplicar_x_mayor_venta', null, ['class' => 'form-control', 'id' => 'aplicar_x_mayor_venta', 'checked' => false] ) }} --}}
                                                 {{-- {{ Form::checkbox( 'aplicar_x_mayor_venta', null, ['class' => 'form-control', 'id' => 'aplicar_x_mayor_venta', 'default' => false] ) }} --}}
+                                                {{-- {{ Form::checkbox('aplicar_x_mayor_venta', null, ['class' => 'form-control', 'id' => 'aplicar_x_mayor_venta', 'unchecked']) }} --}}
+
+
                                             </td>
                                         </tr>
                                 </tbody>
@@ -393,9 +397,19 @@
             let aplicarXMayorVenta = $('#aplicar_x_mayor_venta').is(':checked');
             console.log(aplicarXMayorVenta);
 
-            // if (aplicarXMayorVenta == false) {
-            //     aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').attr('checked');
-            // }
+            $('input[name="aplicar_x_mayor_venta"]').prop('checked', false).removeAttr('checked');
+            // $('input[name="aplicar_x_mayor_venta"]').prop('checked', true).attr('checked');
+
+            // console.log();
+            
+            if (aplicarXMayorVenta == false) {
+                aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').prop('checked', true).attr('checked');
+                // aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').prop('checked', true).attr('checked');
+            }
+            else {
+                
+                aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').attr('checked');
+            }
 
 
             // INICIO - Función agregar datos de las ventas
