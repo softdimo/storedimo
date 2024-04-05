@@ -397,27 +397,11 @@
             let aplicarXMayorVenta = $('#aplicar_x_mayor_venta').is(':checked');
             console.log(aplicarXMayorVenta);
 
-            // $('input[name="aplicar_x_mayor_venta"]').prop('checked', false).removeAttr('checked');
-            // $('input[name="aplicar_x_mayor_venta"]').prop('checked', true).attr('checked');
-
-            // console.log();
-
-            // if (aplicarXMayorVenta == false) {
-            //     aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').attr('checked');
-            // }
-            
             if (aplicarXMayorVenta == false) {
-                aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').prop('checked', false);
-                // aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').prop('checked', false).removeAttr('checked');
-                // aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').prop('checked', true).attr('checked');
-                // aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').prop('checked', true).attr('checked');
+                aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').attr('checked');
+                // aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').removeAttr('checked');
             }
-            // else {
-                
-            //     aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').attr('checked');
-            // }
-
-
+            
             // INICIO - Función agregar datos de las ventas
             $("#btn_agregar_venta").click(function() {
 
@@ -458,26 +442,21 @@
 
                     $('#cantidad_producto_venta').html(cantidadVenta);
 
-                    
-                    if (aplicarXMayorVenta == false) {
+                    if ($('input[name="aplicar_x_mayor_venta"]').not(':checked')) {
                         let valorSubTotal = cantidadVenta * pDetalVenta;
 
                         $('#valor_subTotal_venta').html(valorSubTotal);
                         $('#sub_total_venta').html(valorSubTotal);
                         $('#total_venta').html(valorSubTotal);
-
-                    } else {
+                    }
+                    
+                    if ($('input[name="aplicar_x_mayor_venta"]').is(':checked')) {
                         let valorSubTotal = cantidadVenta * pxMayorVenta
 
                         $('#valor_subTotal_venta').html(valorSubTotal);
                         $('#sub_total_venta').html(valorSubTotal);
                         $('#total_venta').html(valorSubTotal);
                     }
-
-
-                    // let valor_total = pUnitario * cantidad;
-
-                    // $('#valor_total').html(valor_total);
                 }
             }); // FIN - Función agregar datos de las ventas
 
