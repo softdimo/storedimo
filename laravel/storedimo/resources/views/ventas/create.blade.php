@@ -73,11 +73,6 @@
                                             <td>$ <span id="p_x_mayor_venta">2100</span></td>
                                             <td id="">
                                                 {{ Form::checkbox( 'aplicar_x_mayor_venta', null, ['class' => 'form-control', 'id' => 'aplicar_x_mayor_venta'] ) }}
-                                                {{-- {{ Form::checkbox( 'aplicar_x_mayor_venta', null, ['class' => 'form-control', 'id' => 'aplicar_x_mayor_venta', 'checked' => false] ) }} --}}
-                                                {{-- {{ Form::checkbox( 'aplicar_x_mayor_venta', null, ['class' => 'form-control', 'id' => 'aplicar_x_mayor_venta', 'default' => false] ) }} --}}
-                                                {{-- {{ Form::checkbox('aplicar_x_mayor_venta', null, ['class' => 'form-control', 'id' => 'aplicar_x_mayor_venta', 'unchecked']) }} --}}
-
-
                                             </td>
                                         </tr>
                                 </tbody>
@@ -124,7 +119,7 @@
                                     </div>
                                     {{-- ========================== --}}
                                     <div class="col-12 col-md-3">
-                                        <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar" id="btn_del_producto">
+                                        <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar Venta" id="btn_del_venta">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                         </button>
                                     </div>
@@ -415,7 +410,7 @@
                 let pxMayorVenta = $('#p_x_mayor_venta').text();
                 let cantidadVenta = $('#cantidad_venta').val();
 
-                // let aplicarXMayorVenta = $('#aplicar_X_mayor_venta').is(':checked');
+                // =========================================
 
                 console.log(`Id Cliente Venta ${idClienteVenta}`);
                 console.log(`nombre Cliente Venta ${clienteVenta}`);
@@ -428,6 +423,8 @@
                 console.log(`Aplica precio al por mayor ${aplicarXMayorVenta}`);
 
                 console.log(`Cantidad Venta ${cantidadVenta}`);
+
+                // =========================================
 
                 if (idClienteVenta == '' || idProductoVenta == '' || cantidadVenta == '' ) {
                     Swal.fire(
@@ -463,6 +460,24 @@
             // ===================================================================================
             // ===================================================================================
 
+            $('#btn_del_venta').on('click', function () {
+                alert(`Eliminar Venta`);
+
+                $('#cliente_venta').val('');
+                $('#producto_venta').val('');
+                $('#cantidad_venta').val('');
+
+                $('#nombre_producto_venta').val('');
+                $('#cantidad_producto_venta').val('');
+                $('#valor_subTotal_venta').val('');
+
+                $('#sub_total_venta').val('');
+                $('#descuento_total_venta').val('');
+                $('#total_venta').val('');
+
+                $('#div_ventas_datos_producto').addClass('d-none');
+            });
+
         }); // FIN Document Ready
 
         // ===================================================================================
@@ -473,11 +488,6 @@
         // ===================================================================================
         // ===================================================================================
 
-        function delBaja(idBaja) {
-            // alert(`Id de la Baja ${idBaja}`);
-            $('#tbl_bajas tr[name="'+idBaja+'"]').remove();
-            // $('tr[name="' + idBaja + '"]').remove();
-        }
     </script>
 @stop
 
