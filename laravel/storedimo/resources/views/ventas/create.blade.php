@@ -140,11 +140,11 @@
                                         <span class="text-danger">*</span>
                                     </label>
 
-                                    {!! Form::select('tipo_pago', collect(['' => 'Seleccionar...'])->union(['contado' => 'Contado', 'credito' => 'Crédito']), null, ['class' => 'form-control', 'id' => 'tipo_pago', 'required']) !!}
+                                    {!! Form::select('tipo_pago', collect(['' => 'Seleccionar...'])->union(['1' => 'Contado', '2' => 'Crédito']), null, ['class' => 'form-control', 'id' => 'tipo_pago', 'required']) !!}
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-6 d-flex flex-column">
+                            <div class="col-12 col-md-6 d-flex flex-column d-none" id="div_plazo_credito">
                                 <label for="plazo_credito" class="fw-bold">Días Plazo Crédito<span class="text-danger">*</span></label>
                                 {!! Form::number('plazo_credito', null, ['class' => 'form-control', 'id' => 'plazo_credito', 'required']) !!}
                             </div>
@@ -412,17 +412,17 @@
 
                 // =========================================
 
-                console.log(`Id Cliente Venta ${idClienteVenta}`);
-                console.log(`nombre Cliente Venta ${clienteVenta}`);
+                // console.log(`Id Cliente Venta ${idClienteVenta}`);
+                // console.log(`nombre Cliente Venta ${clienteVenta}`);
 
-                console.log(`Id Producto Venta ${idProductoVenta}`);
-                console.log(`nombre Producto Venta ${productoVenta}`);
+                // console.log(`Id Producto Venta ${idProductoVenta}`);
+                // console.log(`nombre Producto Venta ${productoVenta}`);
 
-                console.log(`Precio Detal Venta ${pDetalVenta}`);
-                console.log(`PRecio mayor de Venta ${pxMayorVenta}`);
-                console.log(`Aplica precio al por mayor ${aplicarXMayorVenta}`);
+                // console.log(`Precio Detal Venta ${pDetalVenta}`);
+                // console.log(`PRecio mayor de Venta ${pxMayorVenta}`);
+                // console.log(`Aplica precio al por mayor ${aplicarXMayorVenta}`);
 
-                console.log(`Cantidad Venta ${cantidadVenta}`);
+                // console.log(`Cantidad Venta ${cantidadVenta}`);
 
                 // =========================================
 
@@ -477,6 +477,25 @@
 
                 $('#div_ventas_datos_producto').addClass('d-none');
             });
+
+            // ===================================================================================
+            // ===================================================================================
+
+            $('#tipo_pago').on('change', function () {
+
+                let tipoPago = $('#tipo_pago').val();
+                console.log(tipoPago);
+
+                if (tipoPago == 2) {
+                    $('#div_plazo_credito').removeClass('d-none');
+                    $('#plazo_credito').attr('required');
+                } else {
+                    $('#div_plazo_credito').addClass('d-none');
+                    $('#plazo_credito').removeAttr('required');
+                }
+            });
+
+            
 
         }); // FIN Document Ready
 
