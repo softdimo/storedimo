@@ -93,7 +93,7 @@
 
         {{-- ======================= --}}
 
-        <div class="col-12 col-md-3 mt-3" id="">
+        <div class="col-12 col-md-3 mt-3 d-none" id="div_fecha_contrato">
             <div class="form-group d-flex flex-column">
                 <label for="fecha_contrato" class="form-label">Fecha Contrato<span class="text-danger">*</span></label>
                 {!! Form::date('fecha_contrato', null, ['class' => 'form-control', 'id' => 'fecha_contrato']) !!}
@@ -102,7 +102,7 @@
 
         {{-- ======================= --}}
         
-        <div class="col-12 col-md-3 mt-3" id="">
+        <div class="col-12 col-md-3 mt-3 d-none" id="div_rol">
             <div class="form-group d-flex flex-column">
                 <label for="rol" class="form-label">Rol<span class="text-danger">*</span></label>
                 {!! Form::select('rol', collect(['' => 'Seleccionar...'])->union(['1'=>'Administrador','2'=>'Vendedor']), null, ['class' => 'form-control', 'id' => 'rol']) !!}
@@ -111,7 +111,7 @@
 
         {{-- ======================= --}}
         
-        <div class="col-12 col-md-3 mt-3" id="">
+        <div class="col-12 col-md-3 mt-3 d-none" id="div_nombre_usuario">
             <div class="form-group d-flex flex-column">
                 <label for="nombre_usuario" class="form-label">Nombre usuario<span class="text-danger">*</span></label>
                 {!! Form::text('nombre_usuario', null, ['class' => 'form-control', 'id' => 'nombre_usuario']) !!}
@@ -120,7 +120,7 @@
 
         {{-- ======================= --}}
         
-        <div class="col-12 col-md-3 mt-3" id="">
+        <div class="col-12 col-md-3 mt-3 d-none" id="div_password">
             <div class="form-group d-flex flex-column">
                 <label for="password" class="form-label">Contraseña<span class="text-danger">*</span></label>
                 {{ Form::password('password', ['class' => 'form-control', 'id' => 'password', 'minlength' => 4, 'maxlength' => 7]) }}
@@ -129,7 +129,7 @@
 
         {{-- ======================= --}}
         
-        <div class="col-12 col-md-3 mt-3" id="">
+        <div class="col-12 col-md-3 mt-3 d-none" id="div_confirmar_password">
             <div class="form-group d-flex flex-column">
                 <label for="confirmar_password" class="form-label">Confirmar contraseña
                     <span class="text-danger">*</span>
@@ -140,7 +140,7 @@
         
         {{-- ======================= --}}
         
-        <div class="col-12 col-md-3 mt-3" id="">
+        <div class="col-12 col-md-3 mt-3 d-none" id="div_nit_empresa">
             <div class="form-group d-flex flex-column">
                 <label for="nit_empresa" class="form-label">Nit Empresa
                     <span class="text-danger">*</span>
@@ -151,7 +151,7 @@
         
         {{-- ======================= --}}
         
-        <div class="col-12 col-md-3 mt-3" id="">
+        <div class="col-12 col-md-3 mt-3 d-none" id="div_nombre_empresa">
             <div class="form-group d-flex flex-column">
                 <label for="nombre_empresa" class="form-label">Nombre Empresa
                     <span class="text-danger">*</span>
@@ -162,7 +162,7 @@
         
         {{-- ======================= --}}
         
-        <div class="col-12 col-md-3 mt-3" id="">
+        <div class="col-12 col-md-3 mt-3 d-none" id="div_telefono_empresa">
             <div class="form-group d-flex flex-column">
                 <label for="telefono_empresa" class="form-label">Teléfono Empresa
                     <span class="text-danger">*</span>
