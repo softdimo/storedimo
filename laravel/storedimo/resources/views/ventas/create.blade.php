@@ -401,15 +401,19 @@
             // $('input[name="aplicar_x_mayor_venta"]').prop('checked', true).attr('checked');
 
             // console.log();
-            
+
             if (aplicarXMayorVenta == false) {
-                aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').prop('checked', true).attr('checked');
-                // aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').prop('checked', true).attr('checked');
-            }
-            else {
-                
                 aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').attr('checked');
             }
+            
+            // if (aplicarXMayorVenta == false) {
+            //     aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').prop('checked', true).attr('checked');
+            //     // aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').prop('checked', true).attr('checked');
+            // }
+            // else {
+                
+            //     aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').attr('checked');
+            // }
 
 
             // INICIO - Función agregar datos de las ventas
