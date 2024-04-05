@@ -40,7 +40,7 @@
                         <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Cliente <span class="text-danger">*</span></h5>
                         {{-- ============================================================== --}}
                         <div class="p-3 d-flex justify-content-between" id="" style="">
-                            {{ Form::select('cliente_venta', collect(['' => 'Seleccionar...'])->union(['1' => 'Anónimo-No Frecuente','2' => 'Alejandro-Frecuente']), null, ['class' => 'form-control w-75 ms-auto me-auto', 'id' => 'cliente_venta', 'required']) }}
+                            {{ Form::select('cliente_venta', collect(['' => 'Seleccionar...'])->union(['1' => 'Frecuente','2' => 'No Frecuente']), null, ['class' => 'form-control w-75 ms-auto me-auto', 'id' => 'cliente_venta', 'required']) }}
 
                             <div class="w-25 d-flex justify-content-end">
                                 <button type="button" class="btn rounded-2 text-white" style="background-color: #337AB7" title="Registrar Cliente" data-bs-toggle="modal" data-bs-target="#modal_registroCliente">
@@ -393,9 +393,23 @@
             console.log(aplicarXMayorVenta);
 
             if (aplicarXMayorVenta == false) {
-                aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').attr('checked');
-                // aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').removeAttr('checked');
+                aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').removeAttr('checked');
             }
+
+            $('#cliente_venta').change(function () {
+                let idCliVenta = $('#cliente_venta').val();
+
+                if (idCliVenta == 1) {
+                    $('input[name="aplicar_x_mayor_venta"]').attr('checked', 'checked');
+                    
+                }
+                else {
+                    $('input[name="aplicar_x_mayor_venta"]').removeAttr('checked');
+                }
+            });
+
+            // ===================================================================================
+            // ===================================================================================
             
             // INICIO - Función agregar datos de las ventas
             $("#btn_agregar_venta").click(function() {
