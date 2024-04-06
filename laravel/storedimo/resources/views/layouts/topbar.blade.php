@@ -11,10 +11,11 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                
                 <div class="collapse d-lg-flex justify-content-lg-end" id="navbarNavDropdown">
                     <ul class="navbar-nav justify-content-between">
                         <li class="nav-item dropdown">
-                            <li class="nav-item">
+                            <li class="nav-item" data-bs-toggle="modal" data-bs-target="#mod_ganancias">
                                 <a class="nav-link text-white" title="Ganancias" href="">
                                     <i class="fa fa-bar-chart fa-1x" aria-hidden="false"></i>
                                 </a>
@@ -86,3 +87,52 @@
         </div>
       </nav>
 </header>
+
+
+{{-- ==================================================================================== --}}
+{{-- ==================================================================================== --}}
+{{-- ==================================================================================== --}}
+{{-- ==================================================================================== --}}
+{{-- ==================================================================================== --}}
+
+
+{{-- INICIO Modal GANANCIAS --}}
+<div class="modal fade" id="mod_ganancias" style="border: solid 1px #337AB7;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;"">
+                <h5>Ganancias</h5>
+            </div>
+
+            {{-- ====================================================== --}}
+            {{-- ====================================================== --}}
+
+            <div class="modal-body ">
+                <div class="row m-0 p-0">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group d-flex flex-column">
+                            <label for="fecha_inicial" class="">Fecha Inicial<span class="textx-danger">*</span></label>
+                            {{ Form::date('fecha_inicial', null,['class' => 'form-control', 'id' => 'fecha_inicial']) }}
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 form-group d-flex flex-column">
+                        <div class="form-group d-flex flex-column">
+                            <label for="fecha_final" class="">Fecha Final<span class="textx-danger">*</span></label>
+                            {{ Form::date('fecha_final', null,['class' => 'form-control', 'id' => 'fecha_final']) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- ====================================================== --}}
+            {{-- ====================================================== --}}
+
+            <button type="button" class="btn btn-secondary d-flex justify-content-end" data-bs-dismiss="modal">
+                <i class="fa fa-remove" aria-hidden="true">Cerrar</i>
+            </button>
+        </div>
+    </div>
+</div>
+{{-- FINAL Modal GANANCIAS --}}
+
