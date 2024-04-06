@@ -97,7 +97,7 @@
 
 
 {{-- INICIO Modal GANANCIAS --}}
-<div class="modal fade" id="mod_ganancias" style="border: solid 1px #337AB7;">
+<div class="modal fade" id="mod_ganancias" style="border: solid 1px #337AB7;" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="true" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;"">
