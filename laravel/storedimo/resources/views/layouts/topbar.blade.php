@@ -15,7 +15,7 @@
                     <ul class="navbar-nav justify-content-between">
                         <li class="nav-item dropdown">
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="/usuarios">
+                                <a class="nav-link text-white" title="Ganancias" href="">
                                     <i class="fa fa-bar-chart fa-1x" aria-hidden="false"></i>
                                 </a>
                             </li>
@@ -24,7 +24,7 @@
                         {{-- ==================== --}}
 
                         <li class="nav-item dropdown ms-2 me-2">
-                            <a class="nav-link text-white" href="">
+                            <a class="nav-link text-white" title="Acerca de" href="">
                                 <i class="fa fa-info-circle fa-1x" aria-hidden="false"></i>
                             </a>
                         </li>
@@ -32,15 +32,19 @@
                         {{-- ==================== --}}
                         
                         <li class="nav-item dropdown">
-                            <a class="nav-link text-white" href="">
+                            <button type="button" title="Ayuda" class="nav-link text-white">
                                 <i class="fa fa-question-circle fa-1x" aria-hidden="false"></i>
-                            </a>
+                            </button>
+
+                            {{-- <a class="nav-link text-white" href="">
+                                <i class="fa fa-question-circle fa-1x" aria-hidden="false"></i>
+                            </a> --}}
                         </li>
 
                         {{-- ==================== --}}
 
                         <li class="nav-item dropdown ms-2 me-2">
-                            <a class="nav-link text-white" href="">
+                            <a href="" class="nav-link text-white"  title="Mapa Navegación">
                                 <i class="fa fa-globe fa-1x" aria-hidden="false"></i>
                             </a>
                         </li>
@@ -48,7 +52,7 @@
                         {{-- ==================== --}}
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Configuraciones">
                                 <i class="fa fa-cog fa-1x" aria-hidden="false"></i>
                             </a>
                             <ul class="dropdown-menu">
@@ -60,7 +64,7 @@
                         {{-- ==================== --}}
                         
                         <li class="nav-item dropdown ms-2 me-2">
-                            <a class="nav-link text-white" href="">
+                            <a href="" class="nav-link text-white" title="Notificaciones">
                                 <i class="fa fa-bell fa-1x" aria-hidden="false"></i>
                             </a>
                         </li>
@@ -68,7 +72,7 @@
                         {{-- ==================== --}}
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a  href="#" class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Usuario">
                                 <i class="fa fa-user fa-fw fa-1x" aria-hidden="false"></i>
                             </a>
                             <ul class="dropdown-menu">
