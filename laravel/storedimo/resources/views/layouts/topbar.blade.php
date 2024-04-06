@@ -77,7 +77,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="">SuperAdmin</a></li>
-                                <li><a class="dropdown-item" href="">Cerrar Sesión</a></li> 
+                                <li><a class="dropdown-item" href="">Cerrar Sesión</a></li>
                             </ul>
                         </li>
                     </ul>
