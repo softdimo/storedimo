@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('public.tipo_persona', function (Blueprint $table) {
+        Schema::create('pg_catalog.tipo_persona', function (Blueprint $table) {
             $table->increments('id_tipo_persona');
             $table->string('tipo_persona')->nullable();
             $table->timestamps();

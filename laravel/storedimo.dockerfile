@@ -18,7 +18,6 @@ RUN apt-get install -y php8.2-common
 RUN apt-get install -y php8.2-curl
 RUN apt-get install -y php8.2-dev
 RUN apt-get install -y php8.2-gd
-# RUN apt-get install -y php8.2-json
 RUN apt-get install -y php8.2-ldap
 RUN apt-get install -y php8.2-mbstring
 RUN apt-get install -y php8.2-odbc
@@ -32,7 +31,10 @@ RUN apt-get install -y libapache2-mod-php8.2
 RUN apt-get install -y php8.2-common
 RUN apt-get install -y php8.2-xml
 RUN apt-get install -y wkhtmltopdf
+RUN apt-get install -y nano
+RUN apt-get install -y vim
 RUN apt-get remove -y php7.*
+RUN apt-get update
 
 EXPOSE 90 
 
@@ -46,7 +48,6 @@ COPY ./laravel/config_apache/apache2.conf /etc/apache2/
 COPY ./laravel/config_php/php.ini /etc/php/8.2/apache2/
 
 RUN chmod -Rvc 777 /var/www/html
-
 WORKDIR /var/www/html/
 
 RUN a2enmod rewrite
