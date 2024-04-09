@@ -40,20 +40,28 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_configurar_ventas">
-                                    <a class="dropdown-item" href="#">Configurar Ventas</a>
+                                    <a href="#" class="dropdown-item">Configurar Ventas</a>
                                 </li>
                                 <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_configurar_pago">
-                                    <a class="dropdown-item" href="#">Configuración de Pago</a>
+                                    <a href="#" class="dropdown-item">Configuración de Pago</a>
                                 </li>
                             </ul>
                         </li>
 
                         {{-- ==================== --}}
-                        
-                        <li class="nav-item dropdown ms-2 me-2" data-bs-toggle="modal" data-bs-target="#modal_notificaciones">
-                            <a href="#" title="Notificaciones" class="nav-link text-white">
+
+                        <li class="nav-item dropdown">
+                            <a href="#" title="Notificaciones" class="nav-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-bell fa-1x" aria-hidden="false"></i>
                             </a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a href="{{route('stock_minimo')}}" class="dropdown-item">Hay productos por debajo del stock mínimo</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('listar_prestamos_empleados')}}" class="dropdown-item">Hay Préstamos a punto de vencer</a>
+                                </li>
+                            </ul>
                         </li>
 
                         {{-- ==================== --}}
@@ -63,8 +71,8 @@
                                 <i class="fa fa-user fa-fw fa-1x" aria-hidden="false"></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="">SuperAdmin</a></li>
-                                <li><a class="dropdown-item" href="">Cerrar Sesión</a></li>
+                                <li><a href="" class="dropdown-item">SuperAdmin</a></li>
+                                <li><a href="" class="dropdown-item">Cerrar Sesión</a></li>
                             </ul>
                         </li>
                     </ul>

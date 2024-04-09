@@ -82,4 +82,12 @@ class PrestamoEmpleadosController extends Controller
     {
         //
     }
+        
+    // ======================================================================
+    // ======================================================================
+
+    public function listarPrestamosEmpleados()
+    {
+        return view('prestamo_empleados.listar_prestamos_empleados');
+    }
 }

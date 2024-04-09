@@ -25,8 +25,6 @@ Route::get('/', function () {
 // HOME
 Route::group(['namespace' => 'App\Http\Controllers\home'], function () {
     Route::resource('home', 'HomeController');
-    // Route::post('verificar_documento', 'AdministradorController@verificarDocumento')->name('verificar_documento');
-    // Route::post('editar_usuario', 'AdministradorController@update')->name('editar_usuario');
 });
 
 // ========================================================================
@@ -48,10 +46,6 @@ Route::group(['namespace' => 'App\Http\Controllers\usuarios'], function () {
 // CATEGORIAS
 Route::group(['namespace' => 'App\Http\Controllers\categorias'], function () {
     Route::resource('categorias', 'CategoriasController');
-    // Route::get('listar_proveedores', 'UsuariosController@listarProveedores')->name('listar_proveedores');
-    // Route::get('listar_clientes', 'UsuariosController@listarClientes')->name('listar_clientes');
-    // Route::post('listar_categorias', 'UsuariosController@listarCategorias')->name('listar_categorias');
-    // Route::post('editar_usuario', 'UsuariosController@update')->name('editar_usuario');
 });
 
 // ========================================================================
@@ -61,10 +55,6 @@ Route::group(['namespace' => 'App\Http\Controllers\categorias'], function () {
 // PRODUCTOS
 Route::group(['namespace' => 'App\Http\Controllers\productos'], function () {
     Route::resource('productos', 'ProductosController');
-    // Route::get('listar_proveedores', 'UsuariosController@listarProveedores')->name('listar_proveedores');
-    // Route::get('listar_clientes', 'UsuariosController@listarClientes')->name('listar_clientes');
-    // Route::post('listar_categorias', 'UsuariosController@listarCategorias')->name('listar_categorias');
-    // Route::post('editar_usuario', 'UsuariosController@update')->name('editar_usuario');
 });
 
 // ========================================================================
@@ -75,9 +65,6 @@ Route::group(['namespace' => 'App\Http\Controllers\productos'], function () {
 Route::group(['namespace' => 'App\Http\Controllers\existencias'], function () {
     Route::resource('existencias', 'ExistenciasController');
     Route::get('stock_minimo', 'ExistenciasController@stockMinimo')->name('stock_minimo');
-    // Route::get('listar_clientes', 'UsuariosController@listarClientes')->name('listar_clientes');
-    // Route::post('listar_categorias', 'UsuariosController@listarCategorias')->name('listar_categorias');
-    // Route::post('editar_usuario', 'UsuariosController@update')->name('editar_usuario');
 });
 
 // ========================================================================
@@ -87,10 +74,6 @@ Route::group(['namespace' => 'App\Http\Controllers\existencias'], function () {
 // ENTRADAS
 Route::group(['namespace' => 'App\Http\Controllers\entradas'], function () {
     Route::resource('entradas', 'EntradasController');
-    // Route::get('listar_bajas', 'ExistenciasController@listarBajas')->name('listar_bajas');
-    // Route::get('listar_clientes', 'UsuariosController@listarClientes')->name('listar_clientes');
-    // Route::post('listar_categorias', 'UsuariosController@listarCategorias')->name('listar_categorias');
-    // Route::post('editar_usuario', 'UsuariosController@update')->name('editar_usuario');
 });
 
 // ========================================================================
@@ -101,9 +84,6 @@ Route::group(['namespace' => 'App\Http\Controllers\entradas'], function () {
 Route::group(['namespace' => 'App\Http\Controllers\ventas'], function () {
     Route::resource('ventas', 'VentasController');
     Route::get('credito_ventas', 'VentasController@listarCreditoVentas')->name('credito_ventas');
-    // Route::get('listar_clientes', 'UsuariosController@listarClientes')->name('listar_clientes');
-    // Route::post('listar_categorias', 'UsuariosController@listarCategorias')->name('listar_categorias');
-    // Route::post('editar_usuario', 'UsuariosController@update')->name('editar_usuario');
 });
 
 // ========================================================================
@@ -113,17 +93,10 @@ Route::group(['namespace' => 'App\Http\Controllers\ventas'], function () {
 // PRÉSTAMOS A EMPLEADOS
 Route::group(['namespace' => 'App\Http\Controllers\prestamo_empleados'], function () {
     Route::resource('prestamo_empleados', 'PrestamoEmpleadosController');
-    // Route::get('credito_ventas', 'VentasController@listarCreditoVentas')->name('credito_ventas');
-    // Route::get('listar_clientes', 'UsuariosController@listarClientes')->name('listar_clientes');
-    // Route::post('listar_categorias', 'UsuariosController@listarCategorias')->name('listar_categorias');
-    // Route::post('editar_usuario', 'UsuariosController@update')->name('editar_usuario');
+    Route::get('listar_prestamos_empleados', 'PrestamoEmpleadosController@listarPrestamosEmpleados')->name('listar_prestamos_empleados');
 });
 
 // PAGO A EMPLEADOS
 Route::group(['namespace' => 'App\Http\Controllers\pago_empleados'], function () {
     Route::resource('pago_empleados', 'PagoEmpleadosController');
-    // Route::get('credito_ventas', 'VentasController@listarCreditoVentas')->name('credito_ventas');
-    // Route::get('listar_clientes', 'UsuariosController@listarClientes')->name('listar_clientes');
-    // Route::post('listar_categorias', 'UsuariosController@listarCategorias')->name('listar_categorias');
-    // Route::post('editar_usuario', 'UsuariosController@update')->name('editar_usuario');
 });
