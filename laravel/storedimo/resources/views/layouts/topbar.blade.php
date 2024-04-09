@@ -78,10 +78,10 @@
 
 
 {{-- INICIO Modal GANANCIAS --}}
-<div class="modal fade p-3" id="modal_ganancias" tabindex="-1" data-bs-backdrop="false" data-bs-keyboard="true" aria-hidden="true">
+<div class="modal fade p-3" id="modal_ganancias" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content p-3">
-            <div class="" style="border: solid 1px #337AB7;">
+            <div class="" style="border: solid 1px #337AB7">
                 <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
                     <h5>Ganancias</h5>
                 </div>
@@ -89,7 +89,7 @@
                 {{-- ====================================================== --}}
                 {{-- ====================================================== --}}
 
-                <div class="modal-body">
+                <div class="modal-body p-3">
                     <div class="row m-0 p-0">
                         <div class="col-12 col-md-6">
                             <div class="form-group d-flex flex-column">
@@ -105,13 +105,20 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="d-flex justify-content-center mt-5">
+                        <button type="button" class="btn btn-primary" id="btn_consultar_ganancias" name="btnconsultarganancia" onclick="consultarGanancia()">
+                            <i class="fa fa-building-o" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#modal_generar_ganancias"> Generar Ganancias</i></button>
+                    </div>
                 </div>
+            </div>
+            
+            {{-- ====================================================== --}}
+            {{-- ====================================================== --}}
 
-                {{-- ====================================================== --}}
-                {{-- ====================================================== --}}
-
-                <button type="button" class="btn btn-secondary d-flex justify-content-end" data-bs-dismiss="modal">
-                    <i class="fa fa-remove" aria-hidden="true">Cerrar</i>
+            <div class="d-flex justify-content-end mt-2 p-3">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                    <i class="fa fa-remove" aria-hidden="true"> Cerrar</i>
                 </button>
             </div>
         </div>
