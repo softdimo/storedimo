@@ -223,7 +223,8 @@
 <div class="modal fade" id="modal_configurar_ventas" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog">
     {{-- <div class="d-flex justify-content-center"> --}}
-        <div class="modal-content p-3" style="width:50vw">
+        <div class="modal-content p-3 w-100">
+        {{-- <div class="modal-content p-3" style="width:50vw"> --}}
             <div class="" style="border: solid 1px #337AB7;">
                 <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
                     <h5>Configuración Ventas</h5>
@@ -232,32 +233,32 @@
                 {{-- ====================================================== --}}
                 {{-- ====================================================== --}}
 
-                <div class="modal-body">
-                    <div class="row m-0 p-0">
+                <div class="modal-body p-0 m-0">
+                    <div class="row m-0 pt-4 pb-4">
                         <div class="col-12 col-md-6">
                             <div class="form-group d-flex flex-column">
-                                <label for="v_minimo_subtotal" class="">Valor Mínimo Subtotal<span class="textx-danger">*</span></label>
+                                <label for="v_minimo_subtotal" class="" style="font-size: 15px">Valor Mínimo Subtotal<span class="text-danger">*</span></label>
                                 {{ Form::text('v_minimo_subtotal', null, ['class'=>'form-control', 'id'=>'v_minimo_subtotal']) }}
                             </div>
                         </div>
 
-                        <div class="col-12 col-md-6 d-flex flex-column">
+                        <div class="col-12 col-md-6">
                             <div class="form-group d-flex flex-column">
-                                <label for="p_minimo_descuento" class="">Porcentaje Mínimo Descuento<span class="textx-danger">*</span></label>
+                                <label for="p_minimo_descuento" class="" style="font-size: 15px">Porcentaje Mínimo Descuento<span class="text-danger">*</span></label>
                                 {{ Form::text('p_minimo_descuento', null,['class' => 'form-control', 'id' => 'p_minimo_descuento']) }}
                             </div>
                         </div>
 
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-6 mt-md-3">
                             <div class="form-group d-flex flex-column">
-                                <label for="v_maximo_subtotal" class="">Valor Máximo Subtotal<span class="textx-danger">*</span></label>
+                                <label for="v_maximo_subtotal" class="" style="font-size: 15px">Valor Máximo Subtotal<span class="text-danger">*</span></label>
                                 {{ Form::text('v_maximo_subtotal', null, ['class'=>'form-control', 'id'=>'v_maximo_subtotal']) }}
                             </div>
                         </div>
 
-                        <div class="col-12 col-md-6 d-flex flex-column">
+                        <div class="col-12 col-md-6 mt-md-3">
                             <div class="form-group d-flex flex-column">
-                                <label for="p_maximo_descuento" class="">Porcentaje Máximo Descuento<span class="textx-danger">*</span></label>
+                                <label for="p_maximo_descuento" class="" style="font-size: 15px">Porcentaje Máximo Descuento<span class="text-danger">*</span></label>
                                 {{ Form::text('p_maximo_descuento', null,['class'=>'form-control', 'id'=>'p_maximo_descuento']) }}
                             </div>
                         </div>
