@@ -134,30 +134,34 @@
 
 
 {{-- INICIO Modal INFORMACIÓN --}}
-<div class="modal fade" id="modal_informacion" style="border: solid 1px #337AB7;" tabindex="-1" data-bs-backdrop="false" data-bs-keyboard="true" aria-hidden="true">
+<div class="modal fade" id="modal_informacion" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                <h5>Información</h5>
-            </div>
+        <div class="modal-content p-3">
+            <div class="" style="border: solid 1px #337AB7">
+                <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                    <h5>Información</h5>
+                </div>
 
-            {{-- ====================================================== --}}
-            {{-- ====================================================== --}}
+                {{-- ====================================================== --}}
+                {{-- ====================================================== --}}
 
-            <div class="modal-body">
-                <div class="row m-0 p-0">
-                    <div class="col-12">
-                        <p>© Softdimo. Todos los derechos reservados</p>
+                <div class="modal-body p-3">
+                    <div class="row m-0 p-0">
+                        <div class="col-12">
+                            <p>© Softdimo. Todos los derechos reservados</p>
+                        </div>
                     </div>
                 </div>
             </div>
-
+            
             {{-- ====================================================== --}}
             {{-- ====================================================== --}}
 
-            <button type="button" class="btn btn-secondary d-flex justify-content-end" data-bs-dismiss="modal">
-                <i class="fa fa-check-circle" aria-hidden="true">Aceptar</i>
-            </button>
+            <div class="d-flex justify-content-end mt-2 p-3">
+                <button type="button" class="btn btn-primary d-flex justify-content-end" data-bs-dismiss="modal">
+                    <i class="fa fa-check-circle" aria-hidden="true"> Aceptar</i>
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -171,30 +175,34 @@
 
 
 {{-- INICIO Modal AYUDA --}}
-<div class="modal fade" id="modal_ayuda" style="border: solid 1px #337AB7;" tabindex="-1" data-bs-backdrop="false" data-bs-keyboard="true" aria-hidden="true">
+<div class="modal fade" id="modal_ayuda" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                <h5>Ayuda</h5>
-            </div>
+        <div class="modal-content p-3">
+            <div class="" style="border: solid 1px #337AB7">
+                <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                    <h5>Ayuda</h5>
+                </div>
 
-            {{-- ====================================================== --}}
-            {{-- ====================================================== --}}
+                {{-- ====================================================== --}}
+                {{-- ====================================================== --}}
 
-            <div class="modal-body">
-                <div class="row m-0 p-0">
-                    <div class="col-12">
-                        <p>El icono ayuda en forma de pregunta "?", estará ubicado en la parte superior de cada una de las vistas con el fin de dar una orientación al usuario de aquellos procesos más complejos de la aplicación.</p>
+                <div class="modal-body">
+                    <div class="row m-0 p-0">
+                        <div class="col-12">
+                            <p>El icono ayuda en forma de pregunta "?", estará ubicado en la parte superior de cada una de las vistas con el fin de dar una orientación al usuario de aquellos procesos más complejos de la aplicación.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-
+            
             {{-- ====================================================== --}}
             {{-- ====================================================== --}}
 
-            <button type="button" class="btn btn-secondary d-flex justify-content-end" data-bs-dismiss="modal">
-                <i class="fa fa-check-circle" aria-hidden="true">Aceptar</i>
-            </button>
+            <div class="d-flex justify-content-end mt-2 p-3">
+                <button type="button" class="btn btn-secondary d-flex justify-content-end" data-bs-dismiss="modal">
+                    <i class="fa fa-check-circle" aria-hidden="true"> Aceptar</i>
+                </button>
+            </div>
         </div>
     </div>
 </div>
