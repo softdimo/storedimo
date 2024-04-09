@@ -1,3 +1,10 @@
+<style>
+    /* Cambia el color de fondo del li al pasar el ratón sobre él */
+    .hover-li:hover {
+      background-color: #337AB7; /* Color de fondo deseado */
+    }
+</style>
+
 <header class="topbar m-0">
     <nav class="navbar navbar-expand-lg m-0 text-white" data-bs-theme="dark" style="background-color: #337AB7">
         <div class="row p-0 w-100 align-items-lg-center justify-content-between">
@@ -34,16 +41,16 @@
 
                         {{-- ==================== --}}
 
-                        <li class="nav-item dropdown" data-bs-toggle="modal" data-bs-target="#modal_configuraciones">
-                            <a href="#" title="Configuraciones" class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <li class="nav-item dropdown">
+                            <a href="#" title="Configuraciones" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">
                                 <i class="fa fa-cog fa-1x" aria-hidden="false"></i>
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu bg-white" style="right:0;left:auto">
                                 <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_configurar_ventas">
-                                    <a href="#" class="dropdown-item">Configurar Ventas</a>
+                                    <a href="#" class="dropdown-item text-dark hover-li">Configurar Ventas</a>
                                 </li>
                                 <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_configurar_pago">
-                                    <a href="#" class="dropdown-item">Configuración de Pago</a>
+                                    <a href="#" class="dropdown-item text-dark hover-li">Configuración de Pago</a>
                                 </li>
                             </ul>
                         </li>
@@ -54,12 +61,12 @@
                             <a href="#" title="Notificaciones" class="nav-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-bell fa-1x" aria-hidden="false"></i>
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu bg-white" style="right:0;left:auto">
                                 <li class="nav-item">
-                                    <a href="{{route('stock_minimo')}}" class="dropdown-item">Hay productos por debajo del stock mínimo</a>
+                                    <a href="{{route('stock_minimo')}}" class="dropdown-item text-dark hover-li">Hay productos por debajo del stock mínimo</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('listar_prestamos_empleados')}}" class="dropdown-item">Hay Préstamos a punto de vencer</a>
+                                    <a href="{{route('listar_prestamos_empleados')}}" class="dropdown-item text-dark hover-li">Hay Préstamos a punto de vencer</a>
                                 </li>
                             </ul>
                         </li>
@@ -70,9 +77,9 @@
                             <a  href="#" title="Usuario" class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-user fa-fw fa-1x" aria-hidden="false"></i>
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="" class="dropdown-item">SuperAdmin</a></li>
-                                <li><a href="" class="dropdown-item">Cerrar Sesión</a></li>
+                            <ul class="dropdown-menu bg-white" style="right:0;left:auto">
+                                <li><a href="" class="dropdown-item text-dark hover-li">SuperAdmin</a></li>
+                                <li><a href="" class="dropdown-item text-dark hover-li">Cerrar Sesión</a></li>
                             </ul>
                         </li>
                     </ul>
