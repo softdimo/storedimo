@@ -222,8 +222,9 @@
 {{-- INICIO Modal CONFIGURAR VENTAS --}}
 <div class="modal fade" id="modal_configurar_ventas" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content p-3">
-            <div class="" style="border: solid 1px #337AB7">
+    {{-- <div class="d-flex justify-content-center"> --}}
+        <div class="modal-content p-3" style="width:50vw">
+            <div class="" style="border: solid 1px #337AB7;">
                 <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
                     <h5>Configuración Ventas</h5>
                 </div>
@@ -240,7 +241,7 @@
                             </div>
                         </div>
 
-                        <div class="col-12 col-md-6 form-group d-flex flex-column">
+                        <div class="col-12 col-md-6 d-flex flex-column">
                             <div class="form-group d-flex flex-column">
                                 <label for="p_minimo_descuento" class="">Porcentaje Mínimo Descuento<span class="textx-danger">*</span></label>
                                 {{ Form::text('p_minimo_descuento', null,['class' => 'form-control', 'id' => 'p_minimo_descuento']) }}
@@ -254,7 +255,7 @@
                             </div>
                         </div>
 
-                        <div class="col-12 col-md-6 form-group d-flex flex-column">
+                        <div class="col-12 col-md-6 d-flex flex-column">
                             <div class="form-group d-flex flex-column">
                                 <label for="p_maximo_descuento" class="">Porcentaje Máximo Descuento<span class="textx-danger">*</span></label>
                                 {{ Form::text('p_maximo_descuento', null,['class'=>'form-control', 'id'=>'p_maximo_descuento']) }}
@@ -272,7 +273,7 @@
                     <i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i>
                 </button>
 
-                <button type="button" class="btn btn-primary ms-1" title="Modificar Configuración" data-bs-dismiss="modal">
+                <button type="button" class="btn btn-primary ms-3" title="Modificar Configuración" data-bs-dismiss="modal">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"> Modificar</i>
                 </button>
             </div>
