@@ -39,8 +39,12 @@
                                 <i class="fa fa-cog fa-1x" aria-hidden="false"></i>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="">Configurar Ventas</a></li>
-                                <li><a class="dropdown-item" href="">Configuración de Pago</a></li>
+                                <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_configurar_ventas">
+                                    <a class="dropdown-item" href="#">Configurar Ventas</a>
+                                </li>
+                                <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_configurar_pago">
+                                    <a class="dropdown-item" href="#">Configuración de Pago</a>
+                                </li>
                             </ul>
                         </li>
 
@@ -180,7 +184,7 @@
         <div class="modal-content p-3">
             <div class="" style="border: solid 1px #337AB7">
                 <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                    <h5>Ayuda</h5>
+                    <h5>Ayudas</h5>
                 </div>
 
                 {{-- ====================================================== --}}
@@ -199,7 +203,7 @@
             {{-- ====================================================== --}}
 
             <div class="d-flex justify-content-end mt-2 p-3">
-                <button type="button" class="btn btn-secondary d-flex justify-content-end" data-bs-dismiss="modal">
+                <button type="button" class="btn btn-primary d-flex justify-content-end" data-bs-dismiss="modal">
                     <i class="fa fa-check-circle" aria-hidden="true"> Aceptar</i>
                 </button>
             </div>
@@ -207,4 +211,73 @@
     </div>
 </div>
 {{-- FINAL Modal AYUDA --}}
+
+{{-- ==================================================================================== --}}
+{{-- ==================================================================================== --}}
+{{-- ==================================================================================== --}}
+{{-- ==================================================================================== --}}
+{{-- ==================================================================================== --}}
+
+
+{{-- INICIO Modal CONFIGURAR VENTAS --}}
+<div class="modal fade" id="modal_configurar_ventas" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content p-3">
+            <div class="" style="border: solid 1px #337AB7">
+                <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                    <h5>Configuración Ventas</h5>
+                </div>
+
+                {{-- ====================================================== --}}
+                {{-- ====================================================== --}}
+
+                <div class="modal-body">
+                    <div class="row m-0 p-0">
+                        <div class="col-12 col-md-6">
+                            <div class="form-group d-flex flex-column">
+                                <label for="v_minimo_subtotal" class="">Valor Mínimo Subtotal<span class="textx-danger">*</span></label>
+                                {{ Form::text('v_minimo_subtotal', null, ['class'=>'form-control', 'id'=>'v_minimo_subtotal']) }}
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 form-group d-flex flex-column">
+                            <div class="form-group d-flex flex-column">
+                                <label for="p_minimo_descuento" class="">Porcentaje Mínimo Descuento<span class="textx-danger">*</span></label>
+                                {{ Form::text('p_minimo_descuento', null,['class' => 'form-control', 'id' => 'p_minimo_descuento']) }}
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="form-group d-flex flex-column">
+                                <label for="v_maximo_subtotal" class="">Valor Máximo Subtotal<span class="textx-danger">*</span></label>
+                                {{ Form::text('v_maximo_subtotal', null, ['class'=>'form-control', 'id'=>'v_maximo_subtotal']) }}
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 form-group d-flex flex-column">
+                            <div class="form-group d-flex flex-column">
+                                <label for="p_maximo_descuento" class="">Porcentaje Máximo Descuento<span class="textx-danger">*</span></label>
+                                {{ Form::text('p_maximo_descuento', null,['class'=>'form-control', 'id'=>'p_maximo_descuento']) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            {{-- ====================================================== --}}
+            {{-- ====================================================== --}}
+
+            <div class="d-flex justify-content-center mt-2 p-3">
+                <button type="button" class="btn btn-success" title="Guardar Configuración" data-bs-dismiss="modal">
+                    <i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i>
+                </button>
+
+                <button type="button" class="btn btn-primary ms-1" title="Modificar Configuración" data-bs-dismiss="modal">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"> Modificar</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- FINAL Modal CONFIGURAR VENTAS --}}
 
