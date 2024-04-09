@@ -222,9 +222,7 @@
 {{-- INICIO Modal CONFIGURAR VENTAS --}}
 <div class="modal fade" id="modal_configurar_ventas" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog">
-    {{-- <div class="d-flex justify-content-center"> --}}
         <div class="modal-content p-3 w-100">
-        {{-- <div class="modal-content p-3" style="width:50vw"> --}}
             <div class="" style="border: solid 1px #337AB7;">
                 <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
                     <h5>Configuración Ventas</h5>
@@ -269,17 +267,109 @@
             {{-- ====================================================== --}}
             {{-- ====================================================== --}}
 
-            <div class="d-flex justify-content-center mt-2 p-3">
-                <button type="button" class="btn btn-success" title="Guardar Configuración" data-bs-dismiss="modal">
-                    <i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i>
-                </button>
+            <div class="d-flex justify-content-between mt-5">
+                <div>
+                    <button type="button" class="btn btn-secondary" title="Cancelar" data-bs-dismiss="modal">
+                        <i class="fa fa-floppy-o" aria-hidden="true"> Cancelar</i>
+                    </button>
+                </div>
 
-                <button type="button" class="btn btn-primary ms-3" title="Modificar Configuración" data-bs-dismiss="modal">
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"> Modificar</i>
-                </button>
+                <div>
+                    <button type="button" class="btn btn-success" title="Guardar Configuración">
+                        <i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i>
+                    </button>
+                    
+                    <button type="button" class="btn btn-primary ms-3" title="Modificar Configuración">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"> Modificar</i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 {{-- FINAL Modal CONFIGURAR VENTAS --}}
+
+{{-- ==================================================================================== --}}
+{{-- ==================================================================================== --}}
+{{-- ==================================================================================== --}}
+{{-- ==================================================================================== --}}
+{{-- ==================================================================================== --}}
+
+
+{{-- INICIO Modal CONFIGURAR PAGOS --}}
+<div class="modal fade" id="modal_configurar_pago" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content p-3 w-100">
+            <div class="" style="border: solid 1px #337AB7;">
+                <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                    <h5>Configuración Pagos</h5>
+                </div>
+
+                {{-- ====================================================== --}}
+                {{-- ====================================================== --}}
+
+                <div class="modal-body p-0 m-0">
+                    <div class="row m-0 pt-4 pb-4">
+                        <div class="col-12 col-md-6">
+                            <div class="form-group d-flex flex-column">
+                                <label for="v_base_liquidacion" class="" style="font-size: 15px">Valor Base Liquidación<span class="text-danger">*</span></label>
+                                {{ Form::text('v_base_liquidacion', null, ['class'=>'form-control', 'id'=>'v_base_liquidacion']) }}
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="form-group d-flex flex-column">
+                                <label for="periodo_pago" class="" style="font-size: 15px">Período de Pago<span class="text-danger">*</span></label>
+                                {{Form::select('periodo_pago', collect(['' => 'Seleccionar...'])->union(['1'=>'Mensual','2'=>'Quincenal']), null, ['class' => 'form-control', 'id' => 'periodo_pago'])}}
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 mt-md-3">
+                            <div class="form-group d-flex flex-column">
+                                <label for="porcentaje_comision" class="" style="font-size: 15px">Porcentaje Comisión<span class="text-danger">*</span></label>
+                                {{Form::select('porcentaje_comision', collect(['' => 'Seleccionar...'])->union(['1'=>'0.00','2'=>'0.01','3'=>'0.02']), null, ['class' => 'form-control', 'id' => 'porcentaje_comision'])}}
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 mt-md-3">
+                            <div class="form-group d-flex flex-column">
+                                <label for="v_dia_empleado_fijo" class="" style="font-size: 15px">Valor día empleado fijo<span class="text-danger">*</span></label>
+                                {{ Form::text('v_dia_empleado_fijo', null,['class'=>'form-control', 'id'=>'v_dia_empleado_fijo']) }}
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-md-6 mt-md-3">
+                            <div class="form-group d-flex flex-column">
+                                <label for="v_día_empleado_temporal" class="" style="font-size: 15px">Valor día empleado temporal<span class="text-danger">*</span></label>
+                                {{ Form::text('v_día_empleado_temporal', null,['class'=>'form-control', 'id'=>'v_día_empleado_temporal']) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            {{-- ====================================================== --}}
+            {{-- ====================================================== --}}
+
+            <div class="d-flex justify-content-between mt-5">
+                <div>
+                    <button type="button" class="btn btn-secondary" title="Cancelar" data-bs-dismiss="modal">
+                        <i class="fa fa-remove" aria-hidden="true"> Cancelar</i>
+                    </button>
+                </div>
+
+                <div>
+                    <button type="button" class="btn btn-success" title="Guardar">
+                        <i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i>
+                    </button>
+                    
+                    <button type="button" class="btn btn-primary ms-3" title="Modificar">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"> Modificar</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- FINAL Modal CONFIGURAR PAGOS --}}
 
