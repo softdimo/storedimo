@@ -10,13 +10,13 @@
             {{-- ==================================== --}}
 
             <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center" id="personas"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_personas" aria-controls="ul_personas" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="personas" role="button" data-bs-toggle="collapse" data-bs-target="#ul_personas" aria-controls="ul_personas" aria-expanded="false" aria-label="Toggle navigation">
                     <div class="col-11">
                         <i class="fa fa-users text-center" style="color: #000; width: 10%"></i>
-                        <a href="#" class="text-decoration-none dropdown-toggle" style="width: 80%" id="">Personas</a>
+                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Personas</a>
                     </div>
                     <div class="col-1 text-center text-dark">
-                        <span class="fa fa-angle-left" aria-hidden="false" style=""></span>
+                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
                     </div>
                 </div>
 
@@ -39,13 +39,13 @@
             {{-- ==================================== --}}
 
             <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center" id="personas"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_categorias" aria-controls="ul_categorias" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="personas"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_categorias" aria-controls="ul_categorias" aria-expanded="false" aria-label="Toggle navigation">
                     <div class="col-11">
                         <i class="fa fa-database text-center" style="color: #000; width: 10%"></i>
-                        <a href="#" class="text-decoration-none dropdown-toggle" style="width: 80%" id="">Categorías</a>
+                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Categorías</a>
                     </div>
                     <div class="col-1 text-center text-dark">
-                        <span class="fa fa-angle-left" aria-hidden="false" style=""></span>
+                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
                     </div>
                 </div>
 
@@ -59,13 +59,13 @@
             {{-- ==================================== --}}
 
             <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center" id="personas"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_productos" aria-controls="ul_productos" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="personas"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_productos" aria-controls="ul_productos" aria-expanded="false" aria-label="Toggle navigation">
                     <div class="col-11">
                         <i class="fa fa-cubes text-center text-dark" style="width: 10%"></i>
-                        <a href="#" class="text-decoration-none dropdown-toggle" style="width: 80%" id="">Productos</a>
+                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Productos</a>
                     </div>
                     <div class="col-1 text-center text-dark">
-                        <span class="fa fa-angle-left" aria-hidden="false" style=""></span>
+                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
                     </div>
                 </div>
 
@@ -78,27 +78,17 @@
                     </li>
                 </ul>
             </li>
-            
-            {{-- <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item" style="border-bottom: 1px solid #e7e7e7">
-                <i class="fa fa-cubes text-center" style="color: #000; width: 10%"></i>
-                <a href="#" class="text-decoration-none" style="width: 80%" id="productos" role="button" data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
-                <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
-                <ul class="dropdown-menu" aria-labelledby="productos">
-                    <li><a class="dropdown-item" href="{{route('productos.create')}}">Registrar Productos</a></li>
-                    <li><a class="dropdown-item" href="{{route('productos.index')}}">Listar Productos</a></li>
-                </ul>
-            </li> --}}
 
             {{-- ==================================== --}}
 
             <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center" id="personas"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_existencias" aria-controls="ul_existencias" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="personas"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_existencias" aria-controls="ul_existencias" aria-expanded="false" aria-label="Toggle navigation">
                     <div class="col-11">
                         <i class="fa fa-check-square-o text-center text-dark" style="width: 10%"></i>
-                        <a href="#" class="text-decoration-none dropdown-toggle" style="width: 80%" id="">Gestionar Existencias</a>
+                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Gestionar Existencias</a>
                     </div>
                     <div class="col-1 text-center text-dark">
-                        <span class="fa fa-angle-left" aria-hidden="false" style=""></span>
+                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
                     </div>
                 </div>
 
@@ -115,27 +105,16 @@
                 </ul>
             </li>
 
-            {{-- <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item" style="border-bottom: 1px solid #e7e7e7">
-                <i class="fa fa-check-square-o text-center" style="color: #000; width: 10%"></i>
-                <a href="#" class="text-decoration-none" style="width: 80%" id="existencias" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gestionar Existencias</a>
-                <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
-                <ul class="dropdown-menu" aria-labelledby="existencias">
-                    <li><a class="dropdown-item" href="{{route('existencias.create')}}">Registrar Bajas</a></li>
-                    <li><a class="dropdown-item" href="{{route('existencias.index')}}">Listar Bajas</a></li>
-                    <li><a class="dropdown-item" href="{{route('stock_minimo')}}">Listar Productos en stock Mínimo</a></li>
-                </ul>
-            </li> --}}
-
             {{-- ==================================== --}}
 
             <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center" id="personas"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_entradas" aria-controls="ul_entradas" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="personas"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_entradas" aria-controls="ul_entradas" aria-expanded="false" aria-label="Toggle navigation">
                     <div class="col-11">
                         <i class="fa fa-shopping-cart text-center text-dark" style="width: 10%"></i>
-                        <a href="#" class="text-decoration-none dropdown-toggle" style="width: 80%" id="">Entradas</a>
+                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Entradas</a>
                     </div>
                     <div class="col-1 text-center text-dark">
-                        <span class="fa fa-angle-left" aria-hidden="false" style=""></span>
+                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
                     </div>
                 </div>
 
@@ -149,26 +128,16 @@
                 </ul>
             </li>
 
-            {{-- <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item" style="border-bottom: 1px solid #e7e7e7">
-                <i class="fa fa-shopping-cart text-center" style="color: #000; width: 10%"></i>
-                <a href="#" class="text-decoration-none" style="width: 80%" id="entradas" role="button" data-bs-toggle="dropdown" aria-expanded="false">Entradas</a>
-                <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
-                <ul class="dropdown-menu" aria-labelledby="entradas">
-                    <li><a class="dropdown-item" href="{{route('entradas.create')}}">Registrar Entradas</a></li>
-                    <li><a class="dropdown-item" href="{{route('entradas.index')}}">Listar Entradas</a></li>
-                </ul>
-            </li> --}}
-
             {{-- ==================================== --}}
 
             <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center" id="personas"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_ventas" aria-controls="ul_ventas" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="personas"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_ventas" aria-controls="ul_ventas" aria-expanded="false" aria-label="Toggle navigation">
                     <div class="col-11">
                         <i class="fa fa-usd text-center text-dark" style="width: 10%"></i>
-                        <a href="#" class="text-decoration-none dropdown-toggle" style="width: 80%" id="">Ventas</a>
+                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Ventas</a>
                     </div>
                     <div class="col-1 text-center text-dark">
-                        <span class="fa fa-angle-left" aria-hidden="false" style=""></span>
+                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
                     </div>
                 </div>
 
@@ -185,27 +154,16 @@
                 </ul>
             </li>
 
-            {{-- <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item" style="border-bottom: 1px solid #e7e7e7">
-                <i class="fa fa-usd text-center" style="color: #000; width: 10%"></i>
-                <a href="#" class="text-decoration-none" style="width: 80%" id="ventas" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ventas</a>
-                <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
-                <ul class="dropdown-menu" aria-labelledby="ventas">
-                    <li><a class="dropdown-item" href="{{route('ventas.create')}}">Registrar Ventas</a></li>
-                    <li><a class="dropdown-item" href="{{route('ventas.index')}}">Listar Ventas</a></li>
-                    <li><a class="dropdown-item" href="{{route('credito_ventas')}}">Listar Créditos-Abonos</a></li>
-                </ul>
-            </li> --}}
-
             {{-- ==================================== --}}
 
             <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center" id="pestamos_empleados"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_pestamos_empleados" aria-controls="ul_pestamos_empleados" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="pestamos_empleados"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_pestamos_empleados" aria-controls="ul_pestamos_empleados" aria-expanded="false" aria-label="Toggle navigation">
                     <div class="col-11">
                         <i class="fa fa-credit-card text-center text-dark" style="width: 10%"></i>
-                        <a href="#" class="text-decoration-none dropdown-toggle" style="width: 80%" id="">Préstamos a Empleados</a>
+                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Préstamos a Empleados</a>
                     </div>
                     <div class="col-1 text-center text-dark">
-                        <span class="fa fa-angle-left" aria-hidden="false" style=""></span>
+                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
                     </div>
                 </div>
 
@@ -219,26 +177,16 @@
                 </ul>
             </li>
 
-            {{-- <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item" style="border-bottom: 1px solid #e7e7e7">
-                <i class="fa fa-credit-card text-center" style="color: #000; width: 10%"></i>
-                <a href="#" class="text-decoration-none" style="width: 80%" id="prestamos" role="button" data-bs-toggle="dropdown" aria-expanded="false">Préstamos a Empleados</a>
-                <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
-                <ul class="dropdown-menu" aria-labelledby="prestamos">
-                    <li><a class="dropdown-item" href="{{route('prestamo_empleados.create')}}">Registrar Préstamos</a></li>
-                    <li><a class="dropdown-item" href="{{route('prestamo_empleados.index')}}">Listar Préstamos</a></li>
-                </ul>
-            </li> --}}
-
             {{-- ==================================== --}}
 
             <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center" id="pago_empleados"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_pago_empleados" aria-controls="ul_pago_empleados" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="pago_empleados"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_pago_empleados" aria-controls="ul_pago_empleados" aria-expanded="false" aria-label="Toggle navigation">
                     <div class="col-11">
                         <i class="fa fa-money text-center text-dark" style="width: 10%"></i>
-                        <a href="#" class="text-decoration-none dropdown-toggle" style="width: 80%" id="">Pagos a Empleados</a>
+                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Pagos a Empleados</a>
                     </div>
                     <div class="col-1 text-center text-dark">
-                        <span class="fa fa-angle-left" aria-hidden="false" style=""></span>
+                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
                     </div>
                 </div>
 
@@ -251,23 +199,24 @@
                     </li>
                 </ul>
             </li>
-
-            {{-- <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item" style="border-bottom: 1px solid #e7e7e7">
-                <i class="fa fa-money text-center" style="color: #000; width: 10%"></i>
-                <a href="#" class="text-decoration-none" style="width: 80%" id="pagos" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pagos a Empleados</a>
-                <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
-                <ul class="dropdown-menu" aria-labelledby="pagos">
-                    <li><a class="dropdown-item" href="{{route('pago_empleados.create')}}">Registrar Pagos</a></li>
-                    <li><a class="dropdown-item" href="{{route('pago_empleados.index')}}">Listar Pagos</a></li>
-                </ul>
-            </li> --}}
         </ul>
     </nav>
 </aside>
 
 <script>
-    // $('#personas').on('click', function () {
-    //     $('#ul_personas').removeClass('d-none');
-    // })
+    document.addEventListener('DOMContentLoaded', function () {
+        const elementosColapsar = document.querySelectorAll('.colapsar');
+
+        elementosColapsar.forEach(colapsar => {
+            const iconoColapsar = colapsar.querySelector('.collapse-icon');
+
+            iconoColapsar.classList.add('fa-angle-left');
+
+            colapsar.addEventListener('click', function () {
+                iconoColapsar.classList.toggle('fa-angle-left');
+                iconoColapsar.classList.toggle('fa-angle-down');
+            });
+        });
+    });
 </script>
  
