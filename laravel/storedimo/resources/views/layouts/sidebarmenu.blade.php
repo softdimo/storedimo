@@ -13,7 +13,7 @@
                 <div class="d-flex flex-row justify-content-between align-items-center" id="personas"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_personas" aria-controls="ul_personas" aria-expanded="false" aria-label="Toggle navigation">
                     <div class="col-11">
                         <i class="fa fa-users text-center" style="color: #000; width: 10%"></i>
-                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Personas</a>
+                        <a href="#" class="text-decoration-none dropdown-toggle" style="width: 80%" id="">Personas</a>
                     </div>
                     <div class="col-1 text-center text-dark">
                         <span class="fa fa-angle-left" aria-hidden="false" style=""></span>
@@ -38,18 +38,48 @@
 
             {{-- ==================================== --}}
 
-            <li class="pt-1 pb-1 d-flex justify-content-between align-items-centerc" style="border-bottom: 1px solid #e7e7e7">
-                <i class="fa fa-database text-center" style="color: #000; width: 10%"></i>
-                <a href="#" class="text-decoration-none" style="width: 80%" id="categorias" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorías</a>
-                <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
-                <ul class="dropdown-menu" aria-labelledby="categorias">
-                    <li><a class="dropdown-item" href="{{route('categorias.index')}}">Gestionar Categorías</a></li>
+            <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
+                <div class="d-flex flex-row justify-content-between align-items-center" id="personas"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_categorias" aria-controls="ul_categorias" aria-expanded="false" aria-label="Toggle navigation">
+                    <div class="col-11">
+                        <i class="fa fa-database text-center" style="color: #000; width: 10%"></i>
+                        <a href="#" class="text-decoration-none dropdown-toggle" style="width: 80%" id="">Categorías</a>
+                    </div>
+                    <div class="col-1 text-center text-dark">
+                        <span class="fa fa-angle-left" aria-hidden="false" style=""></span>
+                    </div>
+                </div>
+
+                <ul class="nav collapse navbar-collapse ps-3" id="ul_categorias">
+                    <li class="nav-item">
+                        <a class="link-underline-light" href="{{route('categorias.index')}}">Gestionar Categorías</a>
+                    </li>
                 </ul>
             </li>
 
             {{-- ==================================== --}}
+
+            <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
+                <div class="d-flex flex-row justify-content-between align-items-center" id="personas"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_productos" aria-controls="ul_productos" aria-expanded="false" aria-label="Toggle navigation">
+                    <div class="col-11">
+                        <i class="fa fa-cubes text-center" style="color: #000; width: 10%"></i>
+                        <a href="#" class="text-decoration-none dropdown-toggle" style="width: 80%" id="">Productos</a>
+                    </div>
+                    <div class="col-1 text-center text-dark">
+                        <span class="fa fa-angle-left" aria-hidden="false" style=""></span>
+                    </div>
+                </div>
+
+                <ul class="nav collapse navbar-collapse ps-3" id="ul_productos">
+                    <li class="nav-item">
+                        <a class="link-underline-light" href="{{route('productos.create')}}">Registrar Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="link-underline-light" href="{{route('productos.index')}}">Listar Productos</a>
+                    </li>
+                </ul>
+            </li>
             
-            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item" style="border-bottom: 1px solid #e7e7e7">
+            {{-- <li class="pt-1 pb-1 d-flex justify-content-between align-items-center nav-item" style="border-bottom: 1px solid #e7e7e7">
                 <i class="fa fa-cubes text-center" style="color: #000; width: 10%"></i>
                 <a href="#" class="text-decoration-none" style="width: 80%" id="productos" role="button" data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
                 <span class="fa fa-angle-left text-center" aria-hidden="false" style="color: #000; width: 10%"></span>
@@ -57,7 +87,7 @@
                     <li><a class="dropdown-item" href="{{route('productos.create')}}">Registrar Productos</a></li>
                     <li><a class="dropdown-item" href="{{route('productos.index')}}">Listar Productos</a></li>
                 </ul>
-            </li>
+            </li> --}}
 
             {{-- ==================================== --}}
 
@@ -129,3 +159,4 @@
     //     $('#ul_personas').removeClass('d-none');
     // })
 </script>
+ 
