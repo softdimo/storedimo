@@ -21,16 +21,16 @@
                 </div>
 
                 <ul class="nav collapse navbar-collapse ps-3" id="ul_personas">
-                    <li class="nav-item d-block">
+                    <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('usuarios.create')}}">Registrar Personas</a>
                     </li>
-                    <li class="nav-item d-block">
+                    <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('usuarios.index')}}">Listar Usuario/Empleados</a>
                     </li>
-                    <li class="nav-item d-block">
+                    <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('listar_proveedores')}}">Listar Proveedores</a>
                     </li>
-                    <li class="nav-item d-block">
+                    <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('listar_clientes')}}">Listar Clientes</a>
                     </li>
                 </ul>
@@ -50,7 +50,7 @@
                 </div>
 
                 <ul class="nav collapse navbar-collapse ps-3" id="ul_categorias">
-                    <li class="nav-item">
+                    <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('categorias.index')}}">Gestionar Categorías</a>
                     </li>
                 </ul>
@@ -70,10 +70,10 @@
                 </div>
 
                 <ul class="nav collapse navbar-collapse ps-3" id="ul_productos">
-                    <li class="nav-item d-block">
+                    <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('productos.create')}}">Registrar Productos</a>
                     </li>
-                    <li class="nav-item d-block">
+                    <li class="nav-item  w-100">
                         <a class="link-underline-light" href="{{route('productos.index')}}">Listar Productos</a>
                     </li>
                 </ul>
@@ -103,13 +103,13 @@
                 </div>
 
                 <ul class="nav collapse navbar-collapse ps-3" id="ul_existencias">
-                    <li class="nav-item d-block">
+                    <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('existencias.create')}}">Registrar Bajas</a>
                     </li>
-                    <li class="nav-item d-block">
+                    <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('existencias.index')}}">Listar Bajas</a>
                     </li>
-                    <li class="nav-item d-block">
+                    <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('stock_minimo')}}">Listar Productos en stock Mínimo</a>
                     </li>
                 </ul>
@@ -140,10 +140,10 @@
                 </div>
 
                 <ul class="nav collapse navbar-collapse ps-3" id="ul_entradas">
-                    <li class="nav-item d-block">
+                    <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('entradas.create')}}">Registrar Entradas</a>
                     </li>
-                    <li class="nav-item d-block">
+                    <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('entradas.index')}}">Listar Entradas</a>
                     </li>
                 </ul>
@@ -173,13 +173,13 @@
                 </div>
 
                 <ul class="nav collapse navbar-collapse ps-3" id="ul_ventas">
-                    <li class="nav-item d-block">
+                    <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('ventas.create')}}">Registrar Ventas</a>
                     </li>
-                    <li class="nav-item d-block">
+                    <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('ventas.index')}}">Listar Ventas</a>
                     </li>
-                    <li class="nav-item d-block">
+                    <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('credito_ventas')}}">Listar Créditos-Abonos</a>
                     </li>
                 </ul>
@@ -210,10 +210,10 @@
                 </div>
 
                 <ul class="nav collapse navbar-collapse ps-3" id="ul_pestamos_empleados">
-                    <li class="nav-item d-block">
+                    <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('prestamo_empleados.create')}}">Registrar Préstamos</a>
                     </li>
-                    <li class="nav-item d-block">
+                    <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('prestamo_empleados.index')}}">Listar Préstamos</a>
                     </li>
                 </ul>
@@ -243,10 +243,10 @@
                 </div>
 
                 <ul class="nav collapse navbar-collapse ps-3" id="ul_pago_empleados">
-                    <li class="nav-item d-block">
+                    <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('pago_empleados.create')}}">Registrar Pagos</a>
                     </li>
-                    <li class="nav-item d-block">
+                    <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('pago_empleados.index')}}">Listar Pagos</a>
                     </li>
                 </ul>
