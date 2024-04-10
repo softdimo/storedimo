@@ -1,8 +1,8 @@
 <style>
     /* Cambia el color de fondo del li al pasar el ratón sobre él */
-    .hover-li:hover {
-      background-color: #337AB7; /* Color de fondo deseado */
-    }
+    /* .hover-li:hover {
+      background-color: #337AB7;
+    } */
 </style>
 
 <header class="topbar m-0">
@@ -78,8 +78,16 @@
                                 <i class="fa fa-user fa-fw fa-1x" aria-hidden="false"></i>
                             </a>
                             <ul class="dropdown-menu bg-white" style="right:0;left:auto">
-                                <li><a href="" class="dropdown-item text-dark hover-li">SuperAdmin</a></li>
-                                <li><a href="" class="dropdown-item text-dark hover-li">Cerrar Sesión</a></li>
+                                <li class="dropdown-item text-dark hover-li">
+                                    <i class="fa fa-user fa-fw fa-1x" aria-hidden="false"></i> SuperAdmin
+                                    <h6 class="">Victor Gómez</h6>
+                                </li>
+
+                                <li class="dropdown-item text-dark hover-li">
+                                    <i class="fa fa-sign-out fa-fw fa-1x" aria-hidden="false"></i> Cerrar Sesión
+                                </li>
+
+                                {{-- <li><a href="" class="dropdown-item text-dark hover-li">Cerrar Sesión</a></li> --}}
                             </ul>
                         </li>
                     </ul>

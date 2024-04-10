@@ -102,6 +102,10 @@ footer {
     overflow-x: initial;
 }
 
+.hover-li:hover {
+    background-color: #337AB7; /* Color de fondo deseado */
+}
+
 @media (max-width:992px) {
     .w-100-div {
         width: 100%;
