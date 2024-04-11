@@ -5,7 +5,7 @@
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
                 <label for="tipo_persona" class="form-label">Tipo persona <span class="text-danger">*</span></label>
-                {!! Form::select('tipo_persona', collect(['' => 'Seleccionar...'])->union(['1'=>'Empleado-fijo','2'=>'Empleado-temporal','3'=>'Proveedor-natural','4'=>'Proveedor-juridico','5'=>'Cliente-frecuente','6'=>'Cliente-no-frecuente']), null, ['class' => 'form-control', 'id' => 'tipo_persona']) !!}
+                {!! Form::select('tipo_persona', collect(['' => 'Seleccionar...'])->union($tipo_persona), null, ['class' => 'form-control', 'id' => 'tipo_persona']) !!}
             </div>
         </div>
 
@@ -14,7 +14,7 @@
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
                 <label for="tipo_documento" class="form-label">Tipo de documento <span class="text-danger">*</span></label>
-                {!! Form::select('tipo_documento', collect(['' => 'Seleccionar...'])->union(['1'=>'Cédula','2'=>'Documento Extranjería']), null, ['class' => 'form-control', 'id' => 'tipo_documento']) !!}
+                {!! Form::select('tipo_documento', collect(['' => 'Seleccionar...'])->union($tipo_documento), null, ['class' => 'form-control', 'id' => 'tipo_documento']) !!}
             </div>
         </div>
 
@@ -78,7 +78,7 @@
         <div class="col-12 col-md-3 mt-3">
             <div class="form-group d-flex flex-column">
                 <label for="genero" class="form-label">Género<span class="text-danger">*</span></label>
-                {!! Form::select('genero', collect(['' => 'Seleccionar...'])->union(['1'=>'Femenino','2'=>'Masculino']), null, ['class' => 'form-control', 'id' => 'genero']) !!}
+                {!! Form::select('genero', collect(['' => 'Seleccionar...'])->union($generos), null, ['class' => 'form-control', 'id' => 'genero']) !!}
             </div>
         </div>
 

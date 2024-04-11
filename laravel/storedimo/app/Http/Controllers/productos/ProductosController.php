@@ -4,6 +4,7 @@ namespace App\Http\Controllers\productos;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Categoria;
 
 class ProductosController extends Controller
 {
@@ -17,6 +18,9 @@ class ProductosController extends Controller
         return view('productos.index');
     }
 
+    // ======================================================================
+    // ======================================================================
+
     /**
      * Show the form for creating a new resource.
      *
@@ -24,8 +28,12 @@ class ProductosController extends Controller
      */
     public function create()
     {
+        $this->shareData();
         return view('productos.create');
     }
+
+    // ======================================================================
+    // ======================================================================
 
     /**
      * Store a newly created resource in storage.
@@ -38,6 +46,9 @@ class ProductosController extends Controller
         //
     }
 
+    // ======================================================================
+    // ======================================================================    
+
     /**
      * Display the specified resource.
      *
@@ -49,6 +60,9 @@ class ProductosController extends Controller
         //
     }
 
+    // ======================================================================
+    // ======================================================================
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -59,6 +73,9 @@ class ProductosController extends Controller
     {
         //
     }
+
+    // ======================================================================
+    // ======================================================================
 
     /**
      * Update the specified resource in storage.
@@ -72,6 +89,9 @@ class ProductosController extends Controller
         //
     }
 
+    // ======================================================================
+    // ======================================================================
+
     /**
      * Remove the specified resource from storage.
      *
@@ -82,4 +102,17 @@ class ProductosController extends Controller
     {
         //
     }
+
+    // ======================================================================
+    // ======================================================================
+    
+    private function shareData()
+    {
+        view()->share('categorias', Categoria::orderBy('categoria','asc')->pluck('categoria', 'id_categoria'));
+        // view()->share('tipo_documento', tipoDocumento::orderBy('tipo_documento','asc')->pluck('tipo_documento', 'id_tipo_documento'));
+        // view()->share('generos', Genero::orderBy('genero','asc')->pluck('genero', 'id_genero'));
+    }
+
+    // ======================================================================
+    // ======================================================================
 }

@@ -42,7 +42,7 @@
                         <div class="p-3 d-flex flex-column" id="form_bajas" style="height: 50%;">
                             <div>
                                 <label for="tipo_baja" class="form-label">Tipo de Baja <span class="text-danger">*</span></label>
-                                {{ Form::select('tipo_baja', collect(['' => 'Seleccionar...'])->union(['1'=>'Avería','2'=>'Hurto']), null, ['class' => 'form-control', 'id' => 'tipo_baja', 'required']) }}
+                                {{ Form::select('tipo_baja', collect(['' => 'Seleccionar...'])->union($tipo_baja), null, ['class' => 'form-control', 'id' => 'tipo_baja', 'required']) }}
                             </div>
 
                             <div class="mt-3">

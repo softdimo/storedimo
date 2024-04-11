@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Exception;
 use App\Http\Controllers\admin\AdministradorController;
-use App\Models\Usuario;
+use App\Models\TipoPersona;
+use App\Models\TipoDocumento;
+use App\Models\Genero;
 
 class UsuariosController extends Controller
 {
@@ -47,6 +49,7 @@ class UsuariosController extends Controller
      */
     public function create()
     {
+        $this->shareData();
         return view('usuarios.create');
     }
 
@@ -119,6 +122,16 @@ class UsuariosController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // ======================================================================
+    // ======================================================================
+
+    private function shareData()
+    {
+        view()->share('tipo_persona', TipoPersona::orderBy('id_tipo_persona','asc')->pluck('tipo_persona', 'id_tipo_persona'));
+        view()->share('tipo_documento', tipoDocumento::orderBy('tipo_documento','asc')->pluck('tipo_documento', 'id_tipo_documento'));
+        view()->share('generos', Genero::orderBy('genero','asc')->pluck('genero', 'id_genero'));
     }
 
     // ======================================================================

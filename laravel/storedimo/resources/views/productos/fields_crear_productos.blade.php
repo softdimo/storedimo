@@ -14,7 +14,7 @@
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
                 <label for="categoria" class="form-label">Categoría <span class="text-danger">*</span></label>
-                {!! Form::select('categoria', collect(['' => 'Seleccionar...'])->union(['1' => 'Hogar','2' => 'Papelería','3' => 'Aseo',]), null, ['class' => 'form-control', 'id' => 'categoria']) !!}
+                {!! Form::select('categoria', collect(['' => 'Seleccionar...'])->union($categorias), null, ['class' => 'form-control', 'id' => 'categoria']) !!}
             </div>
         </div>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\categorias;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+
 class CategoriasController extends Controller
 {
     /**
