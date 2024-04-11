@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pg_catalog.tipo_persona', function (Blueprint $table) {
+        Schema::create('tipo_persona', function (Blueprint $table) {
             $table->increments('id_tipo_persona');
             $table->string('tipo_persona')->nullable();
             $table->timestamps();
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('public.tipo_persona');
+        Schema::dropIfExists('tipo_persona');
     }
 };

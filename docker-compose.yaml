@@ -28,8 +28,8 @@ services:
       - 2023:5432
 
   storedimoadminer:
-    container_name: storedimoadminer
     image: adminer
+    container_name: storedimoadminer
     restart: always
     ports:
       - 8080:8080
