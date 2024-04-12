@@ -13,8 +13,6 @@ class CategoriaStore implements Responsable
 {
     public function toResponse($request)
     {
-        // dd($request);
-
         $categoria = request('categoria', null);
         
         // Consultamos si ya existe un usuario con la cedula ingresada
@@ -36,7 +34,7 @@ class CategoriaStore implements Responsable
                         'Content-Type' => 'application/json',
                     ],
                     'body' => json_encode([
-                        'categoria' => strtoupper($categoria),
+                        'categoria' => $categoria,
                     ])
                 ]);
 
