@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Responsable\categorias\CategoriaIndex;
 use App\Http\Responsable\categorias\CategoriaStore;
 use App\Http\Responsable\categorias\CategoriaUpdate;
+use App\Models\Categoria;
 
 
 class CategoriasController extends Controller
@@ -90,6 +91,20 @@ class CategoriasController extends Controller
     {
         // dd($request, $id);
         return new CategoriaUpdate();
+
+        // $categoria = Categoria::find($id);
+
+        // if (isset($categoria) && !is_null($categoria) && !empty($categoria)) {
+        //     $categoria->categoria = $request->input('categoria');
+        //     $categoria->update();
+
+        //     return response()->json([
+        //         'success' => true,
+        //         'message' => 'La categoría se actualizó correctamente'
+        //     ]);
+        // } else {
+        //     return abort(404, $message = 'No existe esta categoria');
+        // }
     }
 
     // ======================================================================

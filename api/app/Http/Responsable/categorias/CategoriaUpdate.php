@@ -6,13 +6,14 @@ use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use App\Models\Categoria;
 
 class CategoriaUpdate implements Responsable
 {
-    public function toResponse(Request $request, $id)
+    public function toResponse($request, $id)
     {
-        // dd($request);
+        dd($request, $id);
         
         // $idCategoria = request('id_categoria', null);
         // dd($idCategoria);

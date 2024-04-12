@@ -7,7 +7,6 @@ use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Categoria;
-use GuzzleHttp\Client;
 
 class CategoriaStore implements Responsable
 {
