@@ -90,10 +90,66 @@
                                             <td>{{$categoria['id_categoria']}}</td>
                                             <td>{{$categoria['categoria']}}</td>
                                             <td>
-                                                <button type="button" class="btn btn-success rounded-circle btn-circle" title="Modificar" onclick="editarCategoria('{{$categoria['id_categoria']}}')">
+                                                <button type="button" class="btn btn-success rounded-circle btn-circle" id="btn_editar_{{$categoria['id_categoria']}}" title="Modificar" data-bs-toggle="modal" data-bs-target="#modal_editar_categoria_{{$categoria['id_categoria']}}">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </button>
                                             </td>
+
+                                            {{-- =============================================================== --}}
+                                            {{-- =============================================================== --}}
+                                            {{-- =============================================================== --}}
+
+                                            {{-- INICIO Modal EDITAR CATEGORÍA --}}
+                                            <div class="modal fade" id="modal_editar_categoria_{{$categoria['id_categoria']}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content p-3 w-100">
+                                                        {!! Form::open(['method' => 'POST', 'route' => ['editar_categoria'], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'form_editar_categorias']) !!}
+                                                            @csrf
+                                                            <div class="" style="border: solid 1px #337AB7;">
+                                                                <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                                                    <h5>Modificar Categoría</h5>
+                                                                </div>
+
+                                                                {{-- ====================================================== --}}
+                                                                {{-- ====================================================== --}}
+
+                                                                <div class="modal-body p-0 m-0">
+                                                                    <div class="row m-0 pt-4 pb-4">
+                                                                            <div class="col-12 col-md-6">
+                                                                                <div class="form-group d-flex flex-column">
+                                                                                    <label for="id_categoria" class="" style="font-size: 15px">Código<span class="text-danger">*</span></label>
+                                                                                    {{ Form::text('id_categoria', isset($categoria) ? $categoria['id_categoria'] : null, ['class'=>'form-control', 'id'=>'id_categoria', 'readonly']) }}
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="col-12 col-md-6">
+                                                                                <div class="form-group d-flex flex-column">
+                                                                                    <label for="categoria" class="" style="font-size: 15px">Nombre<span class="text-danger">*</span></label>
+                                                                                    {{ Form::text('categoria', isset($categoria) ? $categoria['categoria'] : null, ['class' => 'form-control', 'id' => 'categoria']) }}
+                                                                                </div>
+                                                                            </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        
+                                                            {{-- ====================================================== --}}
+                                                            {{-- ====================================================== --}}
+
+                                                            <div class="d-flex justify-content-center mt-5">
+                                                                <button type="submit" class="btn btn-success" title="Guardar Configuración">
+                                                                    <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
+                                                                </button>
+                                                                
+                                                                
+                                                                <button type="button" class="btn btn-secondary" title="Cancelar" data-bs-dismiss="modal">
+                                                                    <i class="fa fa-times" aria-hidden="true"> Cancelar</i>
+                                                                </button>
+                                                            </div>
+                                                        {!! Form::close() !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- FINAL Modal EDITAR CATEGORÍA --}}
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -149,17 +205,40 @@
             // ======================================================
             // ======================================================
 
-
-
-
-
         });
 
-        function editarCategoria(idCategoria) {
+        // function editarCategoria(idCategoria) {
 
-            alert(idCategoria);
+        //     $.ajax({
+        //         type: "POST",
+        //         dataType: "JSON",
+        //         data: {
+        //             '_token': "{{ csrf_token() }}",
+        //             'id_categoria': idCategoria,
+        //             'categoria': categoria,
+        //         },
+        //         success: function (respuesta) {
+        //             console.log(respuesta);
 
-        }
+        //             if (respuesta == "categoria_editada") {
+        //                 Swal.fire(
+        //                     'Bien!',
+        //                     'Categoría Editada!',
+        //                     'success'
+        //                 )
+        //             }
+
+        //             if (respuesta == "error_exception") {
+        //                 Swal.fire(
+        //                     'Error!',
+        //                     'Categoría no Editada!',
+        //                     'error'
+        //                 )
+        //             }
+        //         }
+        //     });
+
+        // }
     </script>
 @stop
 

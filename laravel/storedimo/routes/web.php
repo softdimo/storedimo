@@ -46,6 +46,7 @@ Route::group(['namespace' => 'App\Http\Controllers\usuarios'], function () {
 // CATEGORIAS
 Route::group(['namespace' => 'App\Http\Controllers\categorias'], function () {
     Route::resource('categorias', 'CategoriasController');
+    Route::post('editar_categoria', 'CategoriasController@update')->name('editar_categoria');
 });
 
 // ========================================================================

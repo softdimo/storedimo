@@ -5,6 +5,7 @@ namespace App\Http\Controllers\categorias;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Responsable\categorias\CategoriaStore;
+use App\Http\Responsable\categorias\CategoriaUpdate;
 use GuzzleHttp\Client;
 
 
@@ -116,9 +117,26 @@ class CategoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        // dd($request);
+        // try {
+        //     $sesion = $this->validarVariablesSesion();
+
+        //     if (empty($sesion[0]) || is_null($sesion[0]) &&
+        //         empty($sesion[1]) || is_null($sesion[1]) &&
+        //         empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+        //     {
+        //         return view('inicio_sesion.login');
+        //     } else {
+            return new CategoriaUpdate();
+            //     }
+    
+            // } catch (Exception $e) {
+            //     dd($e);
+            //     alert()->error("Ha ocurrido un error!");
+            //     return redirect()->to(route('login'));
+            // }
     }
 
     // ======================================================================
