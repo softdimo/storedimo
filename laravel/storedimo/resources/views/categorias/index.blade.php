@@ -90,9 +90,9 @@
                                             <td>{{$categoria['id_categoria']}}</td>
                                             <td>{{$categoria['categoria']}}</td>
                                             <td>
-                                                <a href="#" role="button" class="btn btn-success rounded-circle btn-circle" title="Modificar">
+                                                <button type="button" class="btn btn-success rounded-circle btn-circle" title="Modificar" onclick="editarCategoria('{{$categoria['id_categoria']}}')">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                                </a>
+                                                </button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -116,7 +116,7 @@
 
     <script>
         $( document ).ready(function() {
-            // INICIO DataTable Lista Usuarios
+            // INICIO DataTable Lista Categorías
             $("#tbl_categorias").DataTable({
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
@@ -141,11 +141,25 @@
                         }
                     }
                 ],
-                "pageLength": 25,
+                "pageLength": 10,
                 "scrollX": true,
             });
-            // CIERRE DataTable Lista Usuarios
+            // CIERRE DataTable Lista Categorías
+
+            // ======================================================
+            // ======================================================
+
+
+
+
+
         });
+
+        function editarCategoria(idCategoria) {
+
+            alert(idCategoria);
+
+        }
     </script>
 @stop
 
