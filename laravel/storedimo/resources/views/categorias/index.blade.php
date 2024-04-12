@@ -85,21 +85,23 @@
                                 </thead>
                                 {{-- ============================== --}}
                                 <tbody>
+                                    @foreach ($categorias as $categoria)
                                         <tr class="text-center">
-                                            <td>Código</td>
-                                            <td>Nombre Categoría</td>
+                                            <td>{{$categoria['id_categoria']}}</td>
+                                            <td>{{$categoria['categoria']}}</td>
                                             <td>
                                                 <a href="#" role="button" class="btn btn-success rounded-circle btn-circle" title="Modificar">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
                                             </td>
                                         </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
-                    </div> {{-- FIN div_campos_usuarios --}}
+                    </div> {{-- FIN div_ --}}
                 </div>
-            </div> {{-- FIN div_crear_usuario --}}
+            </div> {{-- FIN div_ --}}
         </div>
     </div>
 @stop

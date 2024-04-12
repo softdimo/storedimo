@@ -5,6 +5,7 @@ namespace App\Http\Controllers\categorias;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Responsable\categorias\CategoriaStore;
+use GuzzleHttp\Client;
 
 
 class CategoriasController extends Controller
@@ -16,7 +17,21 @@ class CategoriasController extends Controller
      */
     public function index()
     {
-        return view('categorias.index');
+        // Realiza la solicitud GET a la API
+        $clientApi = new Client([
+            'base_uri' => 'http://localhost:8000/api/categoria_index',
+            'headers' => [],
+        ]);
+
+        $response = $clientApi->request('GET');
+        $res = $response->getBody()->getContents();
+        $categorias = json_decode($res, true);
+
+        if(isset($categorias) && !empty($categorias)) {
+            return view('categorias.index', compact('categorias'));
+        } else {
+            return view('categorias.index');
+        }
     }
 
     // ======================================================================

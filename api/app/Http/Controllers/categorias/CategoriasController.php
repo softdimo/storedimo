@@ -4,6 +4,7 @@ namespace App\Http\Controllers\categorias;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Responsable\categorias\CategoriaIndex;
 use App\Http\Responsable\categorias\CategoriaStore;
 
 
@@ -16,7 +17,7 @@ class CategoriasController extends Controller
      */
     public function index()
     {
-        
+        return new CategoriaIndex();
     }
 
     // ======================================================================
