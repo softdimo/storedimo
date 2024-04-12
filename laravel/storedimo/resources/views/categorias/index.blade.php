@@ -41,34 +41,38 @@
             {{-- =============================================================== --}}
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Gestionar Categorias</h5>
+                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Gestionar Categorías</h5>
 
                 <div class="d-flex justify-content-between p-3">
                     <div class="col-12 mb-auto" style="border: solid 1px #337AB7; border-radius: 5px; width:30%">
-                        <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Registrar Categorias</h5>
+                        <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Registrar Categoría</h5>
 
-                        <div class="p-3 d-flex flex-column" style="height: 50%;">
-                            <div>
-                                <label for="">Nombre Categoría<span class="text-danger"> *</span></label>
-                                <input type="text" class="form-control">
-                            </div>
+                        {!! Form::open(['method' => 'POST', 'route' => ['categorias.store'], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'form_crear_categorias']) !!}
+                            @csrf
 
-                            <div class="d-flex justify-content-center mt-3 ">
-                                <button class="btn btn-success rounded-2 me-3" type="submit">
-                                    <i class="fa fa-floppy-o"></i>
-                                    Guardar
-                                </button>
-                    
-                                <button class="btn btn-danger rounded-2" type="submit">
-                                    <i class="fa fa-remove"></i>
-                                    Cancelar
-                                </button>
+                            <div class="p-3 d-flex flex-column" style="height: 50%;">
+                                <div>
+                                    <label for="categoria">Nombre Categoría<span class="text-danger"> *</span></label>
+                                    {!! Form::text('categoria', null, ['class' => 'form-control', 'id' => 'categoria']) !!}
+                                </div>
+
+                                <div class="d-flex justify-content-center mt-3 ">
+                                    <button class="btn btn-success rounded-2 me-3" type="submit">
+                                        <i class="fa fa-floppy-o"></i>
+                                        Guardar
+                                    </button>
+                        
+                                    <button class="btn btn-danger rounded-2" type="submit">
+                                        <i class="fa fa-remove"></i>
+                                        Cancelar
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        {!! Form::close() !!}
                     </div>
 
                     <div class="col-12" style="border: solid 1px #337AB7; border-radius: 5px;; width:68%">
-                        <h5 class="border rounded-top text-white p-2 m-0" style="background-color: #337AB7">Listar Categorias</h5>
+                        <h5 class="border rounded-top text-white p-2 m-0" style="background-color: #337AB7">Listar Categorías</h5>
 
                         <div class="table-responsive p-3">
                             <table class="table table-striped table-bordered w-100 mb-0" id="tbl_categorias" aria-describedby="categorias">

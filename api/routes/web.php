@@ -1,5 +1,7 @@
 <?php
 
+// use Illuminate\Support\Facades\Route;
+
 /** @var \Laravel\Lumen\Routing\Router $router */
 
 /*
@@ -16,3 +18,24 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+// =====================================================================
+// =====================================================================
+
+// CATEGORIAS
+// Route::group(['namespace' => 'App\Http\Controllers\categorias'], function () {
+//     Route::resource('usuarios', 'AdministradorController');
+//     Route::post('verificar_documento', 'AdministradorController@verificarDocumento')->name('verificar_documento');
+//     Route::post('editar_usuario', 'AdministradorController@update')->name('editar_usuario');
+// });
+
+$router->group(['prefix' => 'api'], function () use ($router) {
+    // $router->get('finanzas_index', 'finanzas\FinanzasController@index');
+    $router->post('categoria_store', 'categorias\CategoriasController@store');
+    // $router->put('finanzas_update/{id}', 'finanzas\FinanzasController@update');
+    // $router->post('finanzas_destroy/{id}', 'finanzas\FinanzasController@destroy');
+    // $router->get('finanzas_show/{id}', 'finanzas\FinanzasController@show');
+});
+
+// ========================================================================
+// ========================================================================

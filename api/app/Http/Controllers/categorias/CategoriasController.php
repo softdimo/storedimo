@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\ventas;
+namespace App\Http\Controllers\categorias;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Responsable\categorias\CategoriaStore;
 
-class VentasController extends Controller
+
+class CategoriasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,7 @@ class VentasController extends Controller
      */
     public function index()
     {
-        return view('ventas.index');
+        
     }
 
     // ======================================================================
@@ -27,7 +29,7 @@ class VentasController extends Controller
      */
     public function create()
     {
-        return view('ventas.create');
+        //
     }
 
     // ======================================================================
@@ -41,7 +43,7 @@ class VentasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return new CategoriaStore();
     }
 
     // ======================================================================
@@ -99,13 +101,5 @@ class VentasController extends Controller
     public function destroy($id)
     {
         //
-    }
-    
-    // ======================================================================
-    // ======================================================================
-
-    public function listarCreditoVentas()
-    {
-        return view('ventas.credito_ventas');
     }
 }

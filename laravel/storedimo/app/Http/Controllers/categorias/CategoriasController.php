@@ -4,6 +4,7 @@ namespace App\Http\Controllers\categorias;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Responsable\categorias\CategoriaStore;
 
 
 class CategoriasController extends Controller
@@ -18,6 +19,9 @@ class CategoriasController extends Controller
         return view('categorias.index');
     }
 
+    // ======================================================================
+    // ======================================================================    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -28,6 +32,9 @@ class CategoriasController extends Controller
         //
     }
 
+    // ======================================================================
+    // ======================================================================
+
     /**
      * Store a newly created resource in storage.
      *
@@ -36,8 +43,28 @@ class CategoriasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        // try {
+        //     $sesion = $this->validarVariablesSesion();
+
+        //     if (empty($sesion[0]) || is_null($sesion[0]) &&
+        //         empty($sesion[1]) || is_null($sesion[1]) &&
+        //         empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+        //     {
+        //         return view('inicio_sesion.login');
+        //     } else {
+                return new CategoriaStore();
+        //     }
+
+        // } catch (Exception $e) {
+        //     dd($e);
+        //     alert()->error("Ha ocurrido un error!");
+        //     return redirect()->to(route('login'));
+        // }
     }
+
+    // ======================================================================
+    // ======================================================================
 
     /**
      * Display the specified resource.
@@ -50,6 +77,9 @@ class CategoriasController extends Controller
         //
     }
 
+    // ======================================================================
+    // ======================================================================
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -60,6 +90,9 @@ class CategoriasController extends Controller
     {
         //
     }
+
+    // ======================================================================
+    // ======================================================================
 
     /**
      * Update the specified resource in storage.
@@ -72,6 +105,9 @@ class CategoriasController extends Controller
     {
         //
     }
+
+    // ======================================================================
+    // ======================================================================
 
     /**
      * Remove the specified resource from storage.
