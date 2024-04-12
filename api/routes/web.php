@@ -32,7 +32,7 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('categoria_index', 'categorias\CategoriasController@index');
     $router->post('categoria_store', 'categorias\CategoriasController@store');
-    // $router->put('categoria_update/{id}', 'categorias\CategoriasController@update');
+    $router->put('categoria_update/{id}', 'categorias\CategoriasController@update');
     // $router->post('categoria_destroy/{id}', 'categorias\CategoriasController@destroy');
     // $router->get('categoria_show/{id}', 'categorias\CategoriasController@show');
 });

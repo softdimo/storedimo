@@ -16,7 +16,7 @@ class CategoriaUpdate implements Responsable
         $idCategoria = request('id_categoria', null);
         $categoria = request('categoria', null);
 
-        dd($idCategoria, $categoria);
+        // dd($idCategoria, $categoria);
         
         // Consultamos si ya existe un usuario con la cedula ingresada
         // $consultaCategoria = Categoria::where('categoria', $categoria)->first();
@@ -31,7 +31,7 @@ class CategoriaUpdate implements Responsable
             try {
                 // Realiza la solicitud POST a la API
                 $clientApi = new Client([
-                    'base_uri' => 'http://localhost:8000/api/categoria_store',
+                    'base_uri' => 'http://localhost:8000/api/categoria_update/'.$idCategoria,
                     'headers' => [
                         'Accept' => 'application/json',
                         'Content-Type' => 'application/json',
@@ -41,19 +41,21 @@ class CategoriaUpdate implements Responsable
                     ])
                 ]);
 
-                $response = $clientApi->request('POST');
+                $response = $clientApi->request('PUT');
                 $res = $response->getBody()->getContents();
                 $respuesta = json_decode($res, true );
+
+                // dd($respuesta);
 
                 if(isset($respuesta) && !empty($respuesta))
                 {
                     DB::connection('pgsql')->commit();
-                    alert()->success('Proceso Exitoso', 'Categoría creada satisfactoriamente');
+                    alert()->success('Proceso Exitoso', 'Categoría editada satisfactoriamente');
                     return redirect()->to(route('categorias.index'));
 
                 } else {
                     DB::connection('pgsql')->rollback();
-                    alert()->error('Error', 'Ha ocurrido un error al crear la categoria, por favor contacte a Soporte.');
+                    alert()->error('Error', 'Error al editar la categoria, por favor contacte a Soporte.');
                     return redirect()->to(route('categorias.index'));
                 }
 
@@ -62,7 +64,7 @@ class CategoriaUpdate implements Responsable
             {
                 dd($e);
                 DB::connection('pgsql')->rollback();
-                alert()->error('Error', 'Error creando categoriausuario, si el problema persiste, contacte a Soporte.');
+                alert()->error('Error', 'Error editando categoria, si el problema persiste, contacte a Soporte.');
                 return back();
             }
         // } // FIN else

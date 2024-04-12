@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Responsable\categorias\CategoriaIndex;
 use App\Http\Responsable\categorias\CategoriaStore;
+use App\Http\Responsable\categorias\CategoriaUpdate;
 
 
 class CategoriasController extends Controller
@@ -87,7 +88,8 @@ class CategoriasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request, $id);
+        return new CategoriaUpdate();
     }
 
     // ======================================================================
