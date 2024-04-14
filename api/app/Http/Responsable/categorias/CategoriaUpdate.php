@@ -11,18 +11,21 @@ use App\Models\Categoria;
 
 class CategoriaUpdate implements Responsable
 {
-    public function toResponse($request, $id)
-    {
-        dd($request, $id);
-        
-        // $idCategoria = request('id_categoria', null);
-        // dd($idCategoria);
+    protected $request;
+    protected $id;
 
-        // $categoria = Categoria::find($id);
-        $categoria = Categoria::select('id_categoria')->where('id_categoria', $id)->first();
+    public function __construct(Request $request, $id)
+    {
+        $this->request = $request;
+        $this->id = $id;
+    }
+
+    public function toResponse($request)
+    {
+        $categoria = Categoria::find($this->id);
 
         if (isset($categoria) && !is_null($categoria) && !empty($categoria)) {
-            $categoria->categoria = $request->input('categoria');
+            $categoria->categoria = $this->request->input('categoria');
             $categoria->update();
 
             return response()->json([

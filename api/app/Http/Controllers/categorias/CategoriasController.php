@@ -89,22 +89,7 @@ class CategoriasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request, $id);
-        return new CategoriaUpdate();
-
-        // $categoria = Categoria::find($id);
-
-        // if (isset($categoria) && !is_null($categoria) && !empty($categoria)) {
-        //     $categoria->categoria = $request->input('categoria');
-        //     $categoria->update();
-
-        //     return response()->json([
-        //         'success' => true,
-        //         'message' => 'La categoría se actualizó correctamente'
-        //     ]);
-        // } else {
-        //     return abort(404, $message = 'No existe esta categoria');
-        // }
+        return new CategoriaUpdate($request, $id);
     }
 
     // ======================================================================
