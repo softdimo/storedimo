@@ -18,7 +18,8 @@ class CategoriaUpdate implements Responsable
         // $idCategoria = request('id_categoria', null);
         // dd($idCategoria);
 
-        $categoria = Categoria::find($id);
+        // $categoria = Categoria::find($id);
+        $categoria = Categoria::select('id_categoria')->where('id_categoria', $id)->first();
 
         if (isset($categoria) && !is_null($categoria) && !empty($categoria)) {
             $categoria->categoria = $request->input('categoria');
