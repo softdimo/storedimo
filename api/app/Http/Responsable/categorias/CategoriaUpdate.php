@@ -12,17 +12,16 @@ use App\Models\Categoria;
 class CategoriaUpdate implements Responsable
 {
     protected $request;
-    protected $id;
 
-    public function __construct(Request $request, $id)
+    public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->id = $id;
     }
 
     public function toResponse($request)
     {
-        $categoria = Categoria::find($this->id);
+        $id = $request->route('id');
+        $categoria = Categoria::find($id);
 
         if (isset($categoria) && !is_null($categoria) && !empty($categoria)) {
             $categoria->categoria = $this->request->input('categoria');
