@@ -4,7 +4,7 @@ namespace App\Http\Controllers\productos;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Producto;
+use App\Http\Responsable\productos\ProductoIndex;
 use App\Http\Responsable\productos\ProductoStore;
 
 class ProductosController extends Controller
@@ -16,7 +16,7 @@ class ProductosController extends Controller
      */
     public function index()
     {
-        //
+        return new ProductoIndex();
     }
 
     // ======================================================================

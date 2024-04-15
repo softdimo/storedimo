@@ -60,14 +60,25 @@
                             </thead>
                             {{-- ============================== --}}
                             <tbody>
+                                {{-- @php
+                                    dd($productos);
+                                @endphp --}}
+
+                                
+
+                                @foreach ($productos as $producto)
+                                    {{-- @php
+                                        dd($productos);
+                                    @endphp
+                                     --}}
                                     <tr class="text-center">
-                                        <td>2</td>
-                                        <td>jabón de baño frotex</td>
-                                        <td>Aseo</td>
-                                        <td>jabon de baño frotex de avena</td>
-                                        <td>19</td>
-                                        <td>5</td>
-                                        <td>Habilitado</td>
+                                        <td>{{$producto['id_producto']}}</td>
+                                        <td>{{$producto['nombre_producto']}}</td>
+                                        <td>{{$producto['id_categoria']}}</td>
+                                        <td>{{$producto['descripcion']}}</td>
+                                        <td>{{$producto['cantidad']}}</td>
+                                        <td>{{$producto['stock_minimo']}}</td>
+                                        <td>{{$producto['estado']}}</td>
                                         <td>
                                             <a href="#" role="button" class="btn btn-primary rounded-circle btn-circle" title="Ver Detalles">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
@@ -82,16 +93,11 @@
                                             </a>
                                             
                                             <a href="#" role="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado">
-                                                {{-- <i class="fa fa-arrows-rotate" aria-hidden="true"></i> --}}
-                                                {{-- <i class="fs fa-sharp fa-light fa-arrows-rotate"></i> --}}
-                                                {{-- <i class="fa fa-sharp fa-solid fa-rotate"></i> --}}
-                                                {{-- <i class="fa fa-thin fa-arrows-rotate"></i> --}}
-                                                {{-- <i class="fa fa-solid fa-arrows-rotate"></i> --}}
                                                 <i class="fa fa-solid fa-recycle"></i>
                                             </a>
                                         </td>
-                                        </td>
                                     </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
