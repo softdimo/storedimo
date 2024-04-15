@@ -44,7 +44,6 @@ class ProductosController extends Controller
     public function store(Request $request)
     {
         return new ProductoStore();
-  
     }
 
     // ======================================================================
