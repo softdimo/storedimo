@@ -23,18 +23,24 @@ $router->get('/', function () use ($router) {
 // =====================================================================
 
 // CATEGORIAS
-// Route::group(['namespace' => 'App\Http\Controllers\categorias'], function () {
-//     Route::resource('usuarios', 'AdministradorController');
-//     Route::post('verificar_documento', 'AdministradorController@verificarDocumento')->name('verificar_documento');
-//     Route::post('editar_usuario', 'AdministradorController@update')->name('editar_usuario');
-// });
-
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('categoria_index', 'categorias\CategoriasController@index');
     $router->post('categoria_store', 'categorias\CategoriasController@store');
     $router->put('categoria_update/{id}', 'categorias\CategoriasController@update');
     // $router->post('categoria_destroy/{id}', 'categorias\CategoriasController@destroy');
     // $router->get('categoria_show/{id}', 'categorias\CategoriasController@show');
+});
+
+// ========================================================================
+// ========================================================================
+
+// PRODUCTOS
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('producto_index', 'productos\ProductosController@index');
+    $router->post('producto_store', 'productos\ProductosController@store');
+    $router->put('producto_update/{id}', 'productos\ProductosController@update');
+    // $router->post('producto_destroy/{id}', 'productos\ProductosController@destroy');
+    // $router->get('producto_show/{id}', 'productos\ProductosController@show');
 });
 
 // ========================================================================

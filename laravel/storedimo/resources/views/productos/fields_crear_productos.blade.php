@@ -13,8 +13,8 @@
         
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
-                <label for="categoria" class="form-label">Categoría <span class="text-danger">*</span></label>
-                {!! Form::select('categoria', collect(['' => 'Seleccionar...'])->union($categorias), null, ['class' => 'form-control', 'id' => 'categoria']) !!}
+                <label for="id_categoria" class="form-label">Categoría <span class="text-danger">*</span></label>
+                {!! Form::select('id_categoria', collect(['' => 'Seleccionar...'])->union($categorias), null, ['class' => 'form-control', 'id' => 'id_categoria']) !!}
             </div>
         </div>
 
@@ -22,8 +22,8 @@
         
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
-                <label for="precio unitario" class="form-label">Precio Unitario <span class="text-danger">*</span></label>
-                {!! Form::number('precio unitario', null, ['class' => 'form-control', 'id' => 'precio unitario', 'min' => 0, 'step' => 10, 'oninput' => 'validity.valid||(value=\'\');']) !!}
+                <label for="precio_unitario" class="form-label">Precio Unitario <span class="text-danger">*</span></label>
+                {!! Form::number('precio_unitario', null, ['class' => 'form-control', 'id' => 'precio_unitario', 'min' => 0, 'step' => 10, 'oninput' => 'validity.valid||(value=\'\');']) !!}
             </div>
         </div>
 

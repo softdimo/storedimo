@@ -5,7 +5,6 @@ namespace App\Http\Controllers\productos;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Producto;
-use App\Models\Categoria;
 use App\Http\Responsable\productos\ProductoStore;
 
 class ProductosController extends Controller
@@ -17,7 +16,7 @@ class ProductosController extends Controller
      */
     public function index()
     {
-        return view('productos.index');
+        //
     }
 
     // ======================================================================
@@ -30,8 +29,7 @@ class ProductosController extends Controller
      */
     public function create()
     {
-        $this->shareData();
-        return view('productos.create');
+        //
     }
 
     // ======================================================================
@@ -45,24 +43,8 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
-                // dd($request);
-        // try {
-        //     $sesion = $this->validarVariablesSesion();
-
-        //     if (empty($sesion[0]) || is_null($sesion[0]) &&
-        //         empty($sesion[1]) || is_null($sesion[1]) &&
-        //         empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-        //     {
-        //         return view('inicio_sesion.login');
-        //     } else {
-            return new ProductoStore();
-            //     }
-    
-            // } catch (Exception $e) {
-            //     dd($e);
-            //     alert()->error("Ha ocurrido un error!");
-            //     return redirect()->to(route('login'));
-            // }
+        return new ProductoStore();
+  
     }
 
     // ======================================================================
@@ -120,15 +102,5 @@ class ProductosController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    // ======================================================================
-    // ======================================================================
-    
-    private function shareData()
-    {
-        view()->share('categorias', Categoria::orderBy('categoria','asc')->pluck('categoria', 'id_categoria'));
-        // view()->share('tipo_documento', tipoDocumento::orderBy('tipo_documento','asc')->pluck('tipo_documento', 'id_tipo_documento'));
-        // view()->share('generos', Genero::orderBy('genero','asc')->pluck('genero', 'id_genero'));
     }
 }
