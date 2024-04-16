@@ -63,41 +63,40 @@
                                 {{-- @php
                                     dd($productos);
                                 @endphp --}}
-
-                                
-
-                                @foreach ($productos as $producto)
-                                    {{-- @php
-                                        dd($productos);
-                                    @endphp
-                                     --}}
-                                    <tr class="text-center">
-                                        <td>{{$producto['id_producto']}}</td>
-                                        <td>{{$producto['nombre_producto']}}</td>
-                                        <td>{{$producto['id_categoria']}}</td>
-                                        <td>{{$producto['descripcion']}}</td>
-                                        <td>{{$producto['cantidad']}}</td>
-                                        <td>{{$producto['stock_minimo']}}</td>
-                                        <td>{{$producto['estado']}}</td>
-                                        <td>
-                                            <a href="#" role="button" class="btn btn-primary rounded-circle btn-circle" title="Ver Detalles">
-                                                <i class="fa fa-eye" aria-hidden="true"></i>
-                                            </a>
-
-                                            <a href="#" role="button" class="btn btn-success rounded-circle btn-circle" title="Modificar">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            </a>
-
-                                            <a href="#" role="button" class="btn btn-warning rounded-circle btn-circle" title="Generar Código de Barras">
-                                                <i class="fa fa-key" aria-hidden="true"></i>
-                                            </a>
-                                            
-                                            <a href="#" role="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado">
-                                                <i class="fa fa-solid fa-recycle"></i>
-                                            </a>
-                                        </td>
+                                @if(isset($productos) && count($productos) > 0)
+                                    @foreach ($productos as $producto)
+                                        <tr class="text-center">
+                                            <td>{{$producto['id_producto']}}</td>
+                                            <td>{{$producto['nombre_producto']}}</td>
+                                            <td>{{$producto['id_categoria']}}</td>
+                                            <td>{{$producto['descripcion']}}</td>
+                                            <td>{{$producto['cantidad']}}</td>
+                                            <td>{{$producto['stock_minimo']}}</td>
+                                            <td>{{$producto['estado']}}</td>
+                                            <td>
+                                                <a href="#" role="button" class="btn btn-primary rounded-circle btn-circle" title="Ver Detalles">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                </a>
+    
+                                                <a href="#" role="button" class="btn btn-success rounded-circle btn-circle" title="Modificar">
+                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                </a>
+    
+                                                <a href="#" role="button" class="btn btn-warning rounded-circle btn-circle" title="Generar Código de Barras">
+                                                    <i class="fa fa-key" aria-hidden="true"></i>
+                                                </a>
+                                                
+                                                <a href="#" role="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado">
+                                                    <i class="fa fa-solid fa-recycle"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="8" class="text-center">No hay productos disponibles.</td>
                                     </tr>
-                                @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -128,36 +127,38 @@
     <script src="{{asset('DataTables/Buttons-2.3.4/js/buttons.html5.min.js')}}"></script>
 
     <script>
-        $( document ).ready(function() {
-            // INICIO DataTable Lista Usuarios
-            $("#tbl_productos").DataTable({
-                dom: 'Blfrtip',
-                "infoEmpty": "No hay registros",
-                stripe: true,
-                "bSort": false,
-                "buttons": [
-                    {
-                        extend: 'copyHtml5',
-                        text: 'Copiar',
-                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary',
-                        init: function(api, node, config) {
-                            $(node).removeClass('dt-button')
+        $(document).ready(function() {
+            @if(isset($productos) && count($productos) > 0)
+                // INICIO DataTable Lista Usuarios
+                $("#tbl_productos").DataTable({
+                    dom: 'Blfrtip',
+                    "infoEmpty": "No hay registros",
+                    stripe: true,
+                    "bSort": false,
+                    "buttons": [
+                        {
+                            extend: 'copyHtml5',
+                            text: 'Copiar',
+                            className: 'waves-effect waves-light btn-rounded btn-sm btn-primary',
+                            init: function(api, node, config) {
+                                $(node).removeClass('dt-button')
+                            }
+                        },
+                        {
+                            extend: 'excelHtml5',
+                            text: 'Excel',
+                            className: 'waves-effect waves-light btn-rounded btn-sm btn-primary mr-3',
+                            customize: function( xlsx ) {
+                                var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                                $('row:first c', sheet).attr( 's', '42' );
+                            }
                         }
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        text: 'Excel',
-                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary mr-3',
-                        customize: function( xlsx ) {
-                            var sheet = xlsx.xl.worksheets['sheet1.xml'];
-                            $('row:first c', sheet).attr( 's', '42' );
-                        }
-                    }
-                ],
-                "pageLength": 10,
-                "scrollX": true,
-            });
-            // CIERRE DataTable Lista Usuarios
+                    ],
+                    "pageLength": 10,
+                    "scrollX": true,
+                });
+                // CIERRE DataTable Lista Usuarios
+            @endif
         });
     </script>
 @stop

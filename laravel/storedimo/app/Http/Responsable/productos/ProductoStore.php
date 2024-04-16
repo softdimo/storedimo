@@ -19,6 +19,7 @@ class ProductoStore implements Responsable
         $precioPorMayor = request('precio_por_mayor', null);
         $descripcion = request('descripcion', null);
         $stockMinimo = request('stock_minimo', null);
+        $estado = 1;
         
         // Consultamos si ya existe un usuario con la cedula ingresada
         // $consultaCategoria = Categoria::where('categoria', $categoria)->first();
@@ -46,7 +47,7 @@ class ProductoStore implements Responsable
                         'precio_por_mayor' => $precioPorMayor,
                         'descripcion' => $descripcion,
                         'stock_minimo' => $stockMinimo,
-                        'estado' => 1,
+                        'estado' => $estado,
                     ])
                 ]);
 
