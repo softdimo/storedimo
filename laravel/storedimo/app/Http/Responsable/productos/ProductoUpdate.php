@@ -31,7 +31,7 @@ class ProductoUpdate implements Responsable
             try {
                 // Realiza la solicitud POST a la API
                 $clientApi = new Client([
-                    'base_uri' => 'http://localhost:8000/api/categoria_update/'.$idCategoria,
+                    'base_uri' => 'http://localhost:8000/api/producto_update/'.$idCategoria,
                     'headers' => [
                         'Accept' => 'application/json',
                         'Content-Type' => 'application/json',

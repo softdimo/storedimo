@@ -35,8 +35,10 @@ class ProductosController extends Controller
         $productos = json_decode($res, true);
 
         if(isset($productos) && !empty($productos)) {
+            $this->shareData();
             return view('productos.index', compact('productos'));
         } else {
+            $this->shareData();
             return view('productos.index');
         }
     }
@@ -113,50 +115,6 @@ class ProductosController extends Controller
         //     alert()->error("Ha ocurrido un error!");
         //     return redirect()->to(route('login'));
         // }
-
-        // try {
-        //     $response = Http::post('http://localhost:8000/api/producto_show/'.$idProducto);
-    
-        //     if ($response->successful()) {
-        //         return $response->json();
-        //     } else {
-        //         return response()->json([
-        //             'message' => 'No se pudo obtener el producto'
-        //         ], $response->status());
-        //     }
-        // } catch (Exception $e) {
-        //     return response()->json([
-        //         'message' => 'Error en la solicitud HTTP',
-        //         'error' => $e->getMessage(),
-        //     ], 500);
-        // }
-
-        // $client = new Client([
-        //     'base_uri' => 'http://localhost:8000/api/',
-        //     'headers' => [
-        //         'Accept' => 'application/json',
-        //         'Content-Type' => 'application/json',
-        //     ],
-        // ]);
-    
-        // try {
-        //     $response = $client->request('POST', 'producto_show/'.$idProducto);
-    
-        //     if ($response->getStatusCode() == 200) {
-        //         $producto = json_decode($response->getBody()->getContents(), true);
-        //         return response()->json($producto);
-        //     } else {
-        //         return response()->json([
-        //             'message' => 'No se pudo obtener el producto',
-        //             'status' => $response->getStatusCode()
-        //         ], $response->getStatusCode());
-        //     }
-        // } catch (RequestException $e) {
-        //     return response()->json([
-        //         'message' => 'Error en la solicitud HTTP',
-        //         'error' => $e->getMessage(),
-        //     ], 500);
-        // }
     }
 
     // ======================================================================
@@ -183,9 +141,54 @@ class ProductosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $idProducto)
     {
-        //
+        try {
+            $producto = Producto::leftJoin('categorias', 'categorias.id_categoria', '=', 'productos.id_categoria')
+                ->select(
+                    'id_producto',
+                    'nombre_producto',
+                    'categorias.id_categoria',
+                    'categorias.categoria',
+                    'descripcion',
+                    'stock_minimo',
+                    'precio_unitario',
+                    'precio_detal',
+                    'precio_por_mayor'
+                )
+                ->where('id_producto', $idProducto)
+                ->first();
+
+            if (isset($producto) && !is_null($producto) && !empty($producto)) {
+                return response()->json($producto);
+            } else {
+                return response()->json([
+                    'message' => 'No existe producto'
+                ], 404);
+            }
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error consultando la base de datos',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+
+        // try {
+        //     $sesion = $this->validarVariablesSesion();
+
+        //     if (empty($sesion[0]) || is_null($sesion[0]) &&
+        //         empty($sesion[1]) || is_null($sesion[1]) &&
+        //         empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+        //     {
+        //         return view('inicio_sesion.login');
+        //     } else {
+                    // return new ProductoUpdate($idProducto);
+        //     }
+        // } catch (Exception $e) {
+        //     dd($e);
+        //     alert()->error("Ha ocurrido un error!");
+        //     return redirect()->to(route('login'));
+        // }
     }
 
     // ======================================================================
