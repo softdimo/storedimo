@@ -56,6 +56,8 @@ Route::group(['namespace' => 'App\Http\Controllers\categorias'], function () {
 // PRODUCTOS
 Route::group(['namespace' => 'App\Http\Controllers\productos'], function () {
     Route::resource('productos', 'ProductosController');
+    Route::post('producto_show/{idProducto}', 'ProductosController@show')->name('producto_show');
+
 });
 
 // ========================================================================

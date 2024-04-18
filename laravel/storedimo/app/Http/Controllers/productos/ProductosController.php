@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers\productos;
 
+use Exception;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
+use App\Models\Producto;
 use App\Http\Responsable\productos\ProductoStore;
+use App\Http\Responsable\productos\ProductoShow;
 use App\Http\Responsable\productos\ProductoUpdate;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Exception\RequestException;
 
 class ProductosController extends Controller
 {
@@ -89,9 +95,68 @@ class ProductosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($idProducto)
     {
-        //
+        // try {
+        //     $sesion = $this->validarVariablesSesion();
+
+        //     if (empty($sesion[0]) || is_null($sesion[0]) &&
+        //         empty($sesion[1]) || is_null($sesion[1]) &&
+        //         empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+        //     {
+        //         return view('inicio_sesion.login');
+        //     } else {
+                return new ProductoShow($idProducto);
+        //     }
+        // } catch (Exception $e) {
+        //     dd($e);
+        //     alert()->error("Ha ocurrido un error!");
+        //     return redirect()->to(route('login'));
+        // }
+
+        // try {
+        //     $response = Http::post('http://localhost:8000/api/producto_show/'.$idProducto);
+    
+        //     if ($response->successful()) {
+        //         return $response->json();
+        //     } else {
+        //         return response()->json([
+        //             'message' => 'No se pudo obtener el producto'
+        //         ], $response->status());
+        //     }
+        // } catch (Exception $e) {
+        //     return response()->json([
+        //         'message' => 'Error en la solicitud HTTP',
+        //         'error' => $e->getMessage(),
+        //     ], 500);
+        // }
+
+        // $client = new Client([
+        //     'base_uri' => 'http://localhost:8000/api/',
+        //     'headers' => [
+        //         'Accept' => 'application/json',
+        //         'Content-Type' => 'application/json',
+        //     ],
+        // ]);
+    
+        // try {
+        //     $response = $client->request('POST', 'producto_show/'.$idProducto);
+    
+        //     if ($response->getStatusCode() == 200) {
+        //         $producto = json_decode($response->getBody()->getContents(), true);
+        //         return response()->json($producto);
+        //     } else {
+        //         return response()->json([
+        //             'message' => 'No se pudo obtener el producto',
+        //             'status' => $response->getStatusCode()
+        //         ], $response->getStatusCode());
+        //     }
+        // } catch (RequestException $e) {
+        //     return response()->json([
+        //         'message' => 'Error en la solicitud HTTP',
+        //         'error' => $e->getMessage(),
+        //     ], 500);
+        // }
     }
 
     // ======================================================================

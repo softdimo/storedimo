@@ -39,8 +39,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('producto_index', 'productos\ProductosController@index');
     $router->post('producto_store', 'productos\ProductosController@store');
     $router->put('producto_update/{id}', 'productos\ProductosController@update');
+    $router->post('producto_show/{idProducto}', 'productos\ProductosController@show');
     // $router->post('producto_destroy/{id}', 'productos\ProductosController@destroy');
-    // $router->get('producto_show/{id}', 'productos\ProductosController@show');
 });
 
 // ========================================================================

@@ -4,8 +4,13 @@ namespace App\Http\Controllers\productos;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
 use App\Http\Responsable\productos\ProductoIndex;
 use App\Http\Responsable\productos\ProductoStore;
+use App\Http\Responsable\productos\ProductoShow;
+use App\Models\Producto;
 
 class ProductosController extends Controller
 {
@@ -55,9 +60,19 @@ class ProductosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+
+    //  public function show($idProducto)
+    // {
+    //     $request = new Request([
+    //         'idProducto' => $idProducto, // Establece el parámetro 'idProducto' en la solicitud
+    //     ]);
+
+    //     return new ProductoShow($request);
+    // }
+
+    public function show($idProducto)
     {
-        //
+        return new ProductoShow($idProducto);
     }
 
     // ======================================================================

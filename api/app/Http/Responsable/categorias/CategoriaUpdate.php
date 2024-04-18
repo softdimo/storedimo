@@ -4,8 +4,6 @@ namespace App\Http\Responsable\categorias;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
 
