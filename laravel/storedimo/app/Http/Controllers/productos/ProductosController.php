@@ -10,6 +10,7 @@ use App\Models\Categoria;
 use App\Models\Producto;
 use App\Http\Responsable\productos\ProductoStore;
 use App\Http\Responsable\productos\ProductoShow;
+use App\Http\Responsable\productos\ProductoEdit;
 use App\Http\Responsable\productos\ProductoUpdate;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
@@ -128,35 +129,22 @@ class ProductosController extends Controller
      */
     public function edit($idProducto)
     {
-        try {
-            $producto = Producto::leftJoin('categorias', 'categorias.id_categoria', '=', 'productos.id_categoria')
-                ->select(
-                    'id_producto',
-                    'nombre_producto',
-                    'categorias.id_categoria',
-                    'categorias.categoria',
-                    'descripcion',
-                    'stock_minimo',
-                    'precio_unitario',
-                    'precio_detal',
-                    'precio_por_mayor'
-                )
-                ->where('id_producto', $idProducto)
-                ->first();
+        // try {
+        //     $sesion = $this->validarVariablesSesion();
 
-            if (isset($producto) && !is_null($producto) && !empty($producto)) {
-                return response()->json($producto);
-            } else {
-                return response()->json([
-                    'message' => 'No existe producto'
-                ], 404);
-            }
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => 'Error consultando la base de datos',
-                'error' => $e->getMessage(),
-            ], 500);
-        }
+        //     if (empty($sesion[0]) || is_null($sesion[0]) &&
+        //         empty($sesion[1]) || is_null($sesion[1]) &&
+        //         empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+        //     {
+        //         return view('inicio_sesion.login');
+        //     } else {
+                    return new ProductoEdit($idProducto);
+        //     }
+        // } catch (Exception $e) {
+        //     dd($e);
+        //     alert()->error("Ha ocurrido un error!");
+        //     return redirect()->to(route('login'));
+        // }
     }
 
     // ======================================================================
