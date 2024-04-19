@@ -159,35 +159,35 @@ class ProductosController extends Controller
      */
     public function update(Request $request, $idProducto)
     {
-        // try {
-        //     $producto = Producto::leftJoin('categorias', 'categorias.id_categoria', '=', 'productos.id_categoria')
-        //         ->select(
-        //             'id_producto',
-        //             'nombre_producto',
-        //             'categorias.id_categoria',
-        //             'categorias.categoria',
-        //             'descripcion',
-        //             'stock_minimo',
-        //             'precio_unitario',
-        //             'precio_detal',
-        //             'precio_por_mayor'
-        //         )
-        //         ->where('id_producto', $idProducto)
-        //         ->first();
+        try {
+            $producto = Producto::leftJoin('categorias', 'categorias.id_categoria', '=', 'productos.id_categoria')
+                ->select(
+                    'id_producto',
+                    'nombre_producto',
+                    'categorias.id_categoria',
+                    'categorias.categoria',
+                    'descripcion',
+                    'stock_minimo',
+                    'precio_unitario',
+                    'precio_detal',
+                    'precio_por_mayor'
+                )
+                ->where('id_producto', $idProducto)
+                ->first();
 
-        //     if (isset($producto) && !is_null($producto) && !empty($producto)) {
-        //         return response()->json($producto);
-        //     } else {
-        //         return response()->json([
-        //             'message' => 'No existe producto'
-        //         ], 404);
-        //     }
-        // } catch (Exception $e) {
-        //     return response()->json([
-        //         'message' => 'Error consultando la base de datos',
-        //         'error' => $e->getMessage(),
-        //     ], 500);
-        // }
+            if (isset($producto) && !is_null($producto) && !empty($producto)) {
+                return response()->json($producto);
+            } else {
+                return response()->json([
+                    'message' => 'No existe producto'
+                ], 404);
+            }
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error consultando la base de datos',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
 
         // try {
         //     $sesion = $this->validarVariablesSesion();

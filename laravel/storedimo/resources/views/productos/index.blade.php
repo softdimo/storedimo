@@ -198,7 +198,7 @@
                         {{-- ====================================================== --}}
 
                         <div class="modal-body p-0 m-0">
-                            {!! Form::open(['method' => 'POST', 'route' => ['producto_update'], 'class' => 'm-0 p-0', 'autocomplete' => 'off', 'id' => 'form_producto_update']) !!}
+                            {!! Form::open(['method' => 'POST', 'route' => ['producto_update', $idProducto], 'class' => 'm-0 p-0', 'autocomplete' => 'off', 'id' => 'form_producto_update']) !!}
                                 @csrf
                                 <div class="row m-0 pt-4 pb-4">
                                     <div class="col-12 col-md-2">
