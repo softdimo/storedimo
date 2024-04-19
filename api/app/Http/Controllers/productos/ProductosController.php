@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\App;
 use App\Http\Responsable\productos\ProductoIndex;
 use App\Http\Responsable\productos\ProductoStore;
 use App\Http\Responsable\productos\ProductoShow;
+use App\Http\Responsable\productos\ProductoEdit;
+use App\Http\Responsable\productos\ProductoUpdate;
 use App\Models\Producto;
 
 class ProductosController extends Controller
@@ -61,15 +63,6 @@ class ProductosController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    //  public function show($idProducto)
-    // {
-    //     $request = new Request([
-    //         'idProducto' => $idProducto, // Establece el parámetro 'idProducto' en la solicitud
-    //     ]);
-
-    //     return new ProductoShow($request);
-    // }
-
     public function show($idProducto)
     {
         return new ProductoShow($idProducto);
@@ -84,9 +77,9 @@ class ProductosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($idProducto)
     {
-        //
+        return new ProductoEdit($idProducto);
     }
 
     // ======================================================================
@@ -101,7 +94,7 @@ class ProductosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return new ProductoUpdate($idProducto);
     }
 
     // ======================================================================
