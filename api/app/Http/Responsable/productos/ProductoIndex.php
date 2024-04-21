@@ -11,7 +11,19 @@ class ProductoIndex implements Responsable
     public function toResponse($request)
     {
         try {
-            $productos = Producto::select('id_producto', 'nombre_producto', 'id_categoria', 'precio_unitario', 'precio_detal', 'precio_por_mayor', 'descripcion', 'stock_minimo', 'estado', 'cantidad')
+            $productos = Producto::leftJoin('estados', 'estados.id_estado', '=', 'productos.estado')
+                ->select(
+                    'id_producto',
+                    'nombre_producto',
+                    'id_categoria',
+                    'precio_unitario',
+                    'precio_detal',
+                    'precio_por_mayor',
+                    'descripcion',
+                    'stock_minimo',
+                    'estados.estado',
+                    'cantidad'
+                )
                 ->orderBy('nombre_producto', 'ASC')
                 ->get();
 

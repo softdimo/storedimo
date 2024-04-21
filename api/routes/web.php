@@ -40,7 +40,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('producto_store', 'productos\ProductosController@store');
     $router->post('producto_show/{idProducto}', 'productos\ProductosController@show');
     $router->post('producto_edit/{idProducto}', 'productos\ProductosController@edit');
-    $router->put('producto_update/{idProducto}', 'productos\ProductosController@update');
+    $router->post('producto_update/{idProducto}', 'productos\ProductosController@update');
     // $router->post('producto_destroy/{id}', 'productos\ProductosController@destroy');
 });
 

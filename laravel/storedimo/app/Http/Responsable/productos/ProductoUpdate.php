@@ -75,27 +75,27 @@ class ProductoUpdate implements Responsable
                 ])
             ]);
 
-            $response = $clientApi->request('PUT');
+            $response = $clientApi->request('POST');
             $res = $response->getBody()->getContents();
             $respuesta = json_decode($res, true);
 
             if(isset($respuesta) && !empty($respuesta))
             {
                 DB::connection('pgsql')->commit();
-                alert()->success('Proceso Exitoso', 'Categoría editada satisfactoriamente');
-                return redirect()->to(route('categorias.index'));
+                alert()->success('Proceso Exitoso', 'Producto editado satisfactoriamente');
+                return redirect()->to(route('productos.index'));
 
             } else {
                 DB::connection('pgsql')->rollback();
-                alert()->error('Error', 'Error al editar la categoria, por favor contacte a Soporte.');
-                return redirect()->to(route('categorias.index'));
+                alert()->error('Error', 'Producto No editado');
+                return redirect()->to(route('productos.index'));
             }
         } // FIN Try
         catch (Exception $e)
         {
             dd($e);
             DB::connection('pgsql')->rollback();
-            alert()->error('Error', 'Error editando categoria, si el problema persiste, contacte a Soporte.');
+            alert()->error('Error', 'Excepción, intente de nuevo, si el problema persiste, contacte a Soporte.');
             return back();
         } // FIN Catch
     }
