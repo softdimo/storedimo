@@ -60,9 +60,6 @@
                             </thead>
                             {{-- ============================== --}}
                             <tbody>
-                                {{-- @php
-                                    dd($productos);
-                                @endphp --}}
                                 @if(isset($productos) && count($productos) > 0)
                                     @foreach ($productos as $producto)
                                         <tr class="text-center">
