@@ -68,7 +68,7 @@
                                         <tr class="text-center">
                                             <td>{{$producto['id_producto']}}</td>
                                             <td>{{$producto['nombre_producto']}}</td>
-                                            <td>{{$producto['id_categoria']}}</td>
+                                            <td>{{$producto['categoria']}}</td>
                                             <td>{{$producto['descripcion']}}</td>
                                             <td>{{$producto['cantidad']}}</td>
                                             <td>{{$producto['stock_minimo']}}</td>

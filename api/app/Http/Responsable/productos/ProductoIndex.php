@@ -11,11 +11,13 @@ class ProductoIndex implements Responsable
     public function toResponse($request)
     {
         try {
-            $productos = Producto::leftJoin('estados', 'estados.id_estado', '=', 'productos.estado')
+            $productos = Producto::leftJoin('categorias', 'categorias.id_categoria', '=', 'productos.id_categoria')
+                ->leftJoin('estados', 'estados.id_estado', '=', 'productos.estado')
                 ->select(
                     'id_producto',
                     'nombre_producto',
-                    'id_categoria',
+                    'productos.id_categoria',
+                    'categorias.categoria',
                     'precio_unitario',
                     'precio_detal',
                     'precio_por_mayor',
