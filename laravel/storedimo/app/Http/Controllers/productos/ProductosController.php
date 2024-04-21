@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\productos;
 
 use Exception;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
-use App\Models\Producto;
 use App\Http\Responsable\productos\ProductoStore;
 use App\Http\Responsable\productos\ProductoShow;
 use App\Http\Responsable\productos\ProductoEdit;
