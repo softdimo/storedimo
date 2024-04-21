@@ -13,8 +13,6 @@ use App\Http\Responsable\productos\ProductoShow;
 use App\Http\Responsable\productos\ProductoEdit;
 use App\Http\Responsable\productos\ProductoUpdate;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Http;
-use GuzzleHttp\Exception\RequestException;
 
 class ProductosController extends Controller
 {
@@ -157,38 +155,8 @@ class ProductosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $idProducto)
+    public function update(Request $request)
     {
-        try {
-            $producto = Producto::leftJoin('categorias', 'categorias.id_categoria', '=', 'productos.id_categoria')
-                ->select(
-                    'id_producto',
-                    'nombre_producto',
-                    'categorias.id_categoria',
-                    'categorias.categoria',
-                    'descripcion',
-                    'stock_minimo',
-                    'precio_unitario',
-                    'precio_detal',
-                    'precio_por_mayor'
-                )
-                ->where('id_producto', $idProducto)
-                ->first();
-
-            if (isset($producto) && !is_null($producto) && !empty($producto)) {
-                return response()->json($producto);
-            } else {
-                return response()->json([
-                    'message' => 'No existe producto'
-                ], 404);
-            }
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => 'Error consultando la base de datos',
-                'error' => $e->getMessage(),
-            ], 500);
-        }
-
         // try {
         //     $sesion = $this->validarVariablesSesion();
 
@@ -198,7 +166,8 @@ class ProductosController extends Controller
         //     {
         //         return view('inicio_sesion.login');
         //     } else {
-                    // return new ProductoUpdate($idProducto);
+                    return new ProductoUpdate();
+
         //     }
         // } catch (Exception $e) {
         //     dd($e);
@@ -227,7 +196,5 @@ class ProductosController extends Controller
     private function shareData()
     {
         view()->share('categorias', Categoria::orderBy('categoria','asc')->pluck('categoria', 'id_categoria'));
-        // view()->share('tipo_documento', tipoDocumento::orderBy('tipo_documento','asc')->pluck('tipo_documento', 'id_tipo_documento'));
-        // view()->share('generos', Genero::orderBy('genero','asc')->pluck('genero', 'id_genero'));
     }
 }
