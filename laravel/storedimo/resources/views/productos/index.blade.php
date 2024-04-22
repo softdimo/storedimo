@@ -82,7 +82,7 @@
                                                     </a>
                                                     {{-- ============================== --}}
                                                     <a href="#" role="button" class="btn btn-warning rounded-circle btn-circle" title="Generar Código de Barras">
-                                                        <i class="fa fa-key" aria-hidden="true"></i>
+                                                        <i class="fa fa-barcode" aria-hidden="true"></i>
                                                     </a>
                                                     {{-- ============================== --}}
                                                     <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="inactivarProducto('{{$producto['id_producto']}}')">
