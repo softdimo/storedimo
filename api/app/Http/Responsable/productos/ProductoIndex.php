@@ -23,6 +23,7 @@ class ProductoIndex implements Responsable
                     'precio_por_mayor',
                     'descripcion',
                     'stock_minimo',
+                    'productos.estado as id_estado',
                     'estados.estado',
                     'cantidad'
                 )

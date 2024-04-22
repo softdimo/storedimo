@@ -70,28 +70,36 @@
                                             <td>{{$producto['cantidad']}}</td>
                                             <td>{{$producto['stock_minimo']}}</td>
                                             <td>{{$producto['estado']}}</td>
-                                            <td>
-                                                <a href="#" role="button" class="btn btn-primary rounded-circle btn-circle view-details" data-bs-toggle="modal" data-bs-target="#productoModal" data-url="{{route('producto_show',['idProducto'=>$producto['id_producto']])}}" title="Ver Detalles">
-                                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                                </a>
 
-                                                {{-- ============================== --}}
-
-                                                <a href="#" role="button" class="btn btn-success rounded-circle btn-circle modificar" data-bs-toggle="modal" data-bs-target="#productoModificarModal" data-url="{{route('producto_edit',['idProducto'=>$producto['id_producto']])}}" title="Modificar">
-                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                                </a>
-
-                                                {{-- ============================== --}}
-    
-                                                <a href="#" role="button" class="btn btn-warning rounded-circle btn-circle" title="Generar Código de Barras">
-                                                    <i class="fa fa-key" aria-hidden="true"></i>
-                                                </a>
-                                                {{-- ============================== --}}
-                                                
-                                                <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="inactivarProducto('{{$producto['id_producto']}}')">
-                                                    <i class="fa fa-solid fa-recycle"></i>
-                                                </button>
-                                            </td>
+                                            @if ( $producto['id_estado'] == 1 || $producto['id_estado'] == "1" )
+                                                <td>
+                                                    <a href="#" role="button" class="btn btn-primary rounded-circle btn-circle view-details" data-bs-toggle="modal" data-bs-target="#productoModal" data-url="{{route('producto_show',['idProducto'=>$producto['id_producto']])}}" title="Ver Detalles">
+                                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                                    </a>
+                                                    {{-- ============================== --}}
+                                                    <a href="#" role="button" class="btn btn-success rounded-circle btn-circle modificar" data-bs-toggle="modal" data-bs-target="#productoModificarModal" data-url="{{route('producto_edit',['idProducto'=>$producto['id_producto']])}}" title="Modificar">
+                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                    </a>
+                                                    {{-- ============================== --}}
+                                                    <a href="#" role="button" class="btn btn-warning rounded-circle btn-circle" title="Generar Código de Barras">
+                                                        <i class="fa fa-key" aria-hidden="true"></i>
+                                                    </a>
+                                                    {{-- ============================== --}}
+                                                    <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="inactivarProducto('{{$producto['id_producto']}}')">
+                                                        <i class="fa fa-solid fa-recycle"></i>
+                                                    </button>
+                                                </td>
+                                            @else
+                                                <td>
+                                                    <a href="#" role="button" class="btn btn-primary rounded-circle btn-circle view-details" data-bs-toggle="modal" data-bs-target="#productoModal" data-url="{{route('producto_show',['idProducto'=>$producto['id_producto']])}}" title="Ver Detalles">
+                                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                                    </a>
+                                                    {{-- ============================== --}}
+                                                    <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="inactivarProducto('{{$producto['id_producto']}}')">
+                                                        <i class="fa fa-solid fa-recycle"></i>
+                                                    </button>
+                                                </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 @else
