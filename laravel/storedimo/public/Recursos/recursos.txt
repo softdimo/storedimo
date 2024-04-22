@@ -1,0 +1,5 @@
+https://github.com/milon/barcode
+
+Implementación de milon/barcode para generar el código de barras del producto
+
+=========================================================================================
