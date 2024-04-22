@@ -10,6 +10,7 @@ use App\Http\Responsable\productos\ProductoStore;
 use App\Http\Responsable\productos\ProductoShow;
 use App\Http\Responsable\productos\ProductoEdit;
 use App\Http\Responsable\productos\ProductoUpdate;
+use App\Http\Responsable\productos\ProductoDestroy;
 use GuzzleHttp\Client;
 
 class ProductosController extends Controller
@@ -86,7 +87,7 @@ class ProductosController extends Controller
     }
 
     // ======================================================================
-    // ======================================================================    
+    // ======================================================================
 
     /**
      * Display the specified resource.
@@ -183,9 +184,24 @@ class ProductosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+        // try {
+        //     $sesion = $this->validarVariablesSesion();
+
+        //     if (empty($sesion[0]) || is_null($sesion[0]) &&
+        //         empty($sesion[1]) || is_null($sesion[1]) &&
+        //         empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+        //     {
+        //         return view('inicio_sesion.login');
+        //     } else {
+            return new ProductoDestroy();
+        //     }
+        // } catch (Exception $e) {
+        //     dd($e);
+        //     alert()->error("Ha ocurrido un error!");
+        //     return redirect()->to(route('login'));
+        // }
     }
 
     // ======================================================================

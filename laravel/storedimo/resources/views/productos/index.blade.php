@@ -88,9 +88,9 @@
                                                 </a>
                                                 {{-- ============================== --}}
                                                 
-                                                <a href="#" role="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado">
+                                                <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="inactivarProducto('{{$producto['id_producto']}}')">
                                                     <i class="fa fa-solid fa-recycle"></i>
-                                                </a>
+                                                </button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -411,13 +411,13 @@
                         console.error(error);
                     }
                 });
-            });  // CIERRE Ver detalles producto
+            });  // CIERRE Ver editar producto
 
-                        
             // ===========================================================
             // ===========================================================
 
-                        
+
+
             // ===========================================================
             // ===========================================================
 
@@ -443,7 +443,65 @@
         // ==========================================================
         // ==========================================================
 
+        function inactivarProducto(idProducto) {
+            Swal.fire({
+                title: "¿Realmente desea cambiar el estado del producto?",
+                // text: "No se puede revertir!",
+                icon: "warning",
+                type: "warning",
+                showDenyButton: false,
+                showCancelButton: true,
+                confirmButtonText: "Aceptar",
+                cancelButtonText: `Cancelar`
+            }).then((result) => {
+                console.log(result.value);
+                /* Read more about isConfirmed, isDenied below */
+                if (result.value) {
+                    let url = "{{ route('inactivar_producto') }}";
+                
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        dataType: "JSON",
+                        data: {
+                            '_token': "{{ csrf_token() }}",
+                            'id_producto': idProducto,
+                        },
+                        success: function(response) {
+                            console.log(response);
 
+                            if (response == "estado_cambiado") {
+                                Swal.fire(
+                                    'Bien!',
+                                    'Se cambia estado al Producto!',
+                                    'success',
+                                );
+                                setTimeout(function() {
+                                    window.location.reload();
+                                }, 3000);
+                            }
+
+                            // ============================
+
+                            if (response == "error_exception") {
+                                Swal.fire(
+                                    'Error!',
+                                    'No fue posible cambiar el estado, Contacte a Soporte!',
+                                    'error'
+                                );
+                                setTimeout(function() {
+                                    window.location.reload();
+                                }, 3000);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            // Maneja los errores si la solicitud AJAX falla
+                            console.error(error);
+                        }
+                    });
+                }
+            });
+        }  // CIERRE Ver INACTIVAR producto
     </script>
 @stop
 
