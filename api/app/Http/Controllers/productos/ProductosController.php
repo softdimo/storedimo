@@ -13,6 +13,7 @@ use App\Http\Responsable\productos\ProductoShow;
 use App\Http\Responsable\productos\ProductoEdit;
 use App\Http\Responsable\productos\ProductoUpdate;
 use App\Http\Responsable\productos\ProductoDestroy;
+use App\Http\Responsable\productos\ProductoQueryBarCode;
 use App\Models\Producto;
 
 class ProductosController extends Controller
@@ -111,4 +112,15 @@ class ProductosController extends Controller
     {
         return new ProductoDestroy($idProducto);
     }
+
+    // ======================================================================
+    // ======================================================================
+    
+    public function productoQueryBarcode($idProducto)
+    {
+        return new ProductoQueryBarCode($idProducto);
+    }
+
+    // ======================================================================
+    // ======================================================================
 }

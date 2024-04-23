@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use GuzzleHttp\Client;
 
-class ProductoShow implements Responsable
+class ProductoQueryBarCode implements Responsable
 {
     protected $idProducto;
 
@@ -15,6 +15,8 @@ class ProductoShow implements Responsable
         $this->idProducto = $idProducto;
     }
 
+    // ================================
+
     public function toResponse($request)
     {
         $idProducto = $this->idProducto;
@@ -22,19 +24,17 @@ class ProductoShow implements Responsable
         try {
             // Realiza la solicitud POST a la API
             $clientApi = new Client([
-                'base_uri' => 'http://localhost:8000/api/producto_show/'.$idProducto,
+                'base_uri' => 'http://localhost:8000/api/producto_query_barcode/'.$idProducto,
                 'headers' => [
                     'Accept' => 'application/json',
                     'Content-Type' => 'application/json',
                 ],
-                'body' => json_encode([
-                    
-                ])
+                'body' => json_encode([])
             ]);
 
             $response = $clientApi->request('POST');
             $res = $response->getBody()->getContents();
-            $producto = json_decode($res, true );
+            $producto = json_decode($res, true);
 
             if(isset($producto) && !empty($producto))
             {
@@ -48,6 +48,6 @@ class ProductoShow implements Responsable
         {
             alert()->error('Error', 'Error consulta producto, si el problema persiste, contacte a Soporte.');
             return back();
-        }
+        } // FIN Catch
     }
 }

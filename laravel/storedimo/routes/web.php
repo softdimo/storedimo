@@ -60,7 +60,7 @@ Route::group(['namespace' => 'App\Http\Controllers\productos'], function () {
     Route::post('producto_edit/{idProducto}', 'ProductosController@edit')->name('producto_edit');
     Route::post('producto_update', 'ProductosController@update')->name('producto_update');
     Route::post('inactivar_producto', 'ProductosController@destroy')->name('inactivar_producto');
-    // Route::post('inactivar_producto/{idProducto}', 'ProductosController@destroy')->name('inactivar_producto');
+    Route::post('barcode_producto/{idProducto}', 'ProductosController@queryBarCodeProducto')->name('barcode_producto');
 });
 
 // ========================================================================

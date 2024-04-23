@@ -81,7 +81,7 @@
                                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                     </a>
                                                     {{-- ============================== --}}
-                                                    <a href="#" role="button" class="btn btn-warning rounded-circle btn-circle" title="Generar Código de Barras">
+                                                    <a href="#" role="button" class="btn btn-warning rounded-circle btn-circle barcode" data-bs-toggle="modal" data-bs-target="#barCodeModal" title="Generar Código de Barras" data-url="{{route('barcode_producto',['idProducto'=>$producto['id_producto']])}}" >
                                                         <i class="fa fa-barcode" aria-hidden="true"></i>
                                                     </a>
                                                     {{-- ============================== --}}
@@ -290,8 +290,46 @@
         {{-- =========================================================================== --}}
         {{-- =========================================================================== --}}
         {{-- =========================================================================== --}}
+        
+        {{-- INICIO Modal CÓDIGO DE BARRAS PRODUCTO --}}
+        <div class="modal fade" id="barCodeModal" tabindex="-1" role="dialog" aria-labelledby="barCodeModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content p-3 w-100">
+                    <div class="" style="border: solid 1px #337AB7;">
+                        <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                            <h5>Producto: <span id="nombre_producto"></span> - Código: <span id="id_producto"></span></h5>
+                        </div>
 
+                        {{-- ====================================================== --}}
+                        {{-- ====================================================== --}}
 
+                        <div class="modal-body p-0 m-0">
+                                <div class="m-0 p-4 d-flex justify-content-between">
+                                    <div class="">
+                                        {{ Form::number('cantidad_barcode',null,['class'=>'form-control','id'=>'cantidad_barcode','placeholder'=>'Ingresar cantidad']) }}
+                                    </div>
+                                    
+                                    <div class="">
+                                        <button type="submit" class="btn btn-success" onclick="codeBar()">
+                                            <i class="fa fa-floppy-o" aria-hidden="true"> Generar Código</i>
+                                        </button>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    
+                    {{-- ====================================================== --}}
+                    {{-- ====================================================== --}}
+
+                    <div class="d-flex justify-content-end mt-5">
+                        <button type="button" class="btn btn-secondary" title="Cancelar" data-bs-dismiss="modal">
+                            <i class="fa fa-remove" aria-hidden="true"> Cancelar</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- FINAL Modal CÓDIGO DE BARRAS PRODUCTO --}}
         
         {{-- =========================================================================== --}}
         {{-- =========================================================================== --}}
@@ -423,28 +461,33 @@
 
             // ===========================================================
             // ===========================================================
+            
+            $('.barcode').click(function(e) {
+                e.preventDefault();
+                let url = $(this).data('url');
+                
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: "JSON",
+                    data: {
+                        '_token': "{{ csrf_token() }}",
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        // Actualiza el contenido del modal con la información del producto
+                        $('#nombre_producto').html(response.nombre_producto);
+                        $('#id_producto').html(response.id_producto);
 
-
-
-            // ===========================================================
-            // ===========================================================
-
-                        
-            // ===========================================================
-            // ===========================================================
-
-                        
-            // ===========================================================
-            // ===========================================================
-
-                        
-            // ===========================================================
-            // ===========================================================
-
-                        
-            // ===========================================================
-            // ===========================================================
-
+                        // Muestra el modal
+                        $('#barCodeModal').modal('show');
+                    },
+                    error: function(xhr, status, error) {
+                        // Maneja los errores si la solicitud AJAX falla
+                        console.error(error);
+                    }
+                });
+            });  // CIERRE Ver detalles producto
         }); //FIN Document.ready
 
         // ==========================================================
