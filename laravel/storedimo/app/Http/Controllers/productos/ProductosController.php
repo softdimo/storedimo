@@ -12,6 +12,7 @@ use App\Http\Responsable\productos\ProductoEdit;
 use App\Http\Responsable\productos\ProductoUpdate;
 use App\Http\Responsable\productos\ProductoDestroy;
 use App\Http\Responsable\productos\ProductoQueryBarCode;
+use App\Http\Responsable\productos\ProductoGenerarBarCode;
 use GuzzleHttp\Client;
 
 class ProductosController extends Controller
@@ -207,6 +208,14 @@ class ProductosController extends Controller
 
     // ======================================================================
     // ======================================================================
+
+    private function shareData()
+    {
+        view()->share('categorias', Categoria::orderBy('categoria','asc')->pluck('categoria', 'id_categoria'));
+    }
+
+    // ======================================================================
+    // ======================================================================
     
     public function queryBarCodeProducto($idProducto)
     {
@@ -230,12 +239,26 @@ class ProductosController extends Controller
 
     // ======================================================================
     // ======================================================================
-
-
-    
-    
-    private function shareData()
+        
+    public function productoGenerarBarCode()
     {
-        view()->share('categorias', Categoria::orderBy('categoria','asc')->pluck('categoria', 'id_categoria'));
+        // try {
+        //     $sesion = $this->validarVariablesSesion();
+
+        //     if (empty($sesion[0]) || is_null($sesion[0]) &&
+        //         empty($sesion[1]) || is_null($sesion[1]) &&
+        //         empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+        //     {
+        //         return view('inicio_sesion.login');
+        //     } else {
+            return new ProductoGenerarBarCode();
+        //     }
+        // } catch (Exception $e) {
+        //     dd($e);
+        //     alert()->error("Ha ocurrido un error!");
+        //     return redirect()->to(route('login'));
+        // }
     }
+
+
 }

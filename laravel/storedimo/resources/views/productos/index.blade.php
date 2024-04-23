@@ -81,7 +81,7 @@
                                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                     </a>
                                                     {{-- ============================== --}}
-                                                    <a href="#" role="button" class="btn btn-warning rounded-circle btn-circle barcode" data-bs-toggle="modal" data-bs-target="#barCodeModal" title="Generar Código de Barras" data-url="{{route('barcode_producto',['idProducto'=>$producto['id_producto']])}}" >
+                                                    <a href="#" role="button" class="btn btn-warning rounded-circle btn-circle barcode" data-bs-toggle="modal" data-bs-target="#barCodeModal" title="Generar Código de Barras" data-url="{{route('query_barcode_producto',['idProducto'=>$producto['id_producto']])}}" >
                                                         <i class="fa fa-barcode" aria-hidden="true"></i>
                                                     </a>
                                                     {{-- ============================== --}}
@@ -306,11 +306,11 @@
                         <div class="modal-body p-0 m-0">
                                 <div class="m-0 p-4 d-flex justify-content-between">
                                     <div class="">
-                                        {{ Form::number('cantidad_barcode',null,['class'=>'form-control','id'=>'cantidad_barcode','placeholder'=>'Ingresar cantidad']) }}
+                                        {{ Form::number('cantidad_barcode',null,['class'=>'form-control','id'=>'cantidad_barcode','placeholder'=>'Ingresar cantidad', 'required'=>'required']) }}
                                     </div>
                                     
                                     <div class="">
-                                        <button type="submit" class="btn btn-success" onclick="codeBar()">
+                                        <button type="button" class="btn btn-success" onclick="codeBarProduct()">
                                             <i class="fa fa-floppy-o" aria-hidden="true"> Generar Código</i>
                                         </button>
                                     </div>
@@ -358,6 +358,10 @@
     <script src="{{asset('DataTables/Buttons-2.3.4/js/buttons.html5.min.js')}}"></script>
 
     <script>
+        // Variables globales para almacenar id_producto y nombre_producto para generar el código de barras
+        let idProductoGlobal;
+        let nombreProductoGlobal;
+
         $(document).ready(function() {
             @if(isset($productos) && count($productos) > 0)
                 // INICIO DataTable Lista Productos
@@ -479,6 +483,9 @@
                         $('#nombre_producto').html(response.nombre_producto);
                         $('#id_producto').html(response.id_producto);
 
+                        idProductoGlobal = response.id_producto;
+                        nombreProductoGlobal = response.nombre_producto;
+
                         // Muestra el modal
                         $('#barCodeModal').modal('show');
                     },
@@ -487,7 +494,11 @@
                         console.error(error);
                     }
                 });
-            });  // CIERRE Ver detalles producto
+            });  // CIERRE consulta el ID y nombre del producto
+            
+            // ===========================================================
+            // ===========================================================
+
         }); //FIN Document.ready
 
         // ==========================================================
@@ -553,6 +564,75 @@
                 }
             });
         }  // CIERRE Ver INACTIVAR producto
+
+        // ==========================================================
+        // ==========================================================
+        // ==========================================================
+        
+        function codeBarProduct() {
+            $('#cantidad_barcode').attr('required');
+            let cantidadBarcode = $('#cantidad_barcode').val();
+
+            // alert (`ID del producto: ${idProductoGlobal}, Nombre del producto: ${nombreProductoGlobal}, Cantidad a imprimir: ${cantidadBarcode}`);
+
+            console.log("ID del producto:", idProductoGlobal);
+            console.log("Nombre del producto:", nombreProductoGlobal);
+            console.log("cantidadBarcode:", cantidadBarcode);
+
+            let url = "{{ route('producto_barcode') }}";
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: "JSON",
+                data: {
+                    '_token': "{{ csrf_token() }}",
+                    'id_producto': idProductoGlobal,
+                    'nombre_producto': nombreProductoGlobal,
+                    'cantidad_barcode': cantidadBarcode,
+                },
+                success: function(response) {
+                    console.log(response);
+
+                    // if (response == "estado_cambiado") {
+                    //     Swal.fire(
+                    //         'Bien!',
+                    //         'Se cambia estado al Producto!',
+                    //         'success',
+                    //     );
+                    //     setTimeout(function() {
+                    //         window.location.reload();
+                    //     }, 3000);
+                    // }
+
+                    // ============================
+
+                    // if (response == "error_exception") {
+                    //     Swal.fire(
+                    //         'Error!',
+                    //         'No fue posible cambiar el estado, Contacte a Soporte!',
+                    //         'error'
+                    //     );
+                    //     setTimeout(function() {
+                    //         window.location.reload();
+                    //     }, 3000);
+                    // }
+                },
+                error: function(xhr, status, error) {
+                    // Maneja los errores si la solicitud AJAX falla
+                    console.error(error);
+                }
+            });
+
+            
+        }  // CIERRE Ver INACTIVAR producto
+
+        // ==========================================================
+        // ==========================================================
+        // ==========================================================
+        
+
+        
     </script>
 @stop
 
