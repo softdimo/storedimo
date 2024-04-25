@@ -205,65 +205,63 @@
                             {{-- ====================================================== --}}
 
                             <div class="modal-body p-0 m-0">
-                                
-                                    <div class="row m-0 pt-4 pb-4">
-                                        <div class="col-12 col-md-2">
-                                            <div class="form-group d-flex flex-column">
-                                                <label for="idProductoEdit" class="" style="font-size: 15px">Código<span class="text-danger">*</span></label>
-                                                {{ Form::text('idProductoEdit', null, ['class'=>'form-control', 'id'=>'idProductoEdit', 'readonly'=>true ]) }}
-                                            </div>
-                                        </div>
-                                        {{-- =================== --}}
-                                        <div class="col-12 col-md-5">
-                                            <div class="form-group d-flex flex-column">
-                                                <label for="nombreProductoEdit" class="" style="font-size: 15px">Nombre Producto<span class="text-danger">*</span></label>
-                                                {{Form::text('nombreProductoEdit', null, ['class' => 'form-control', 'id' => 'nombreProductoEdit'])}}
-                                            </div>
-                                        </div>
-                                        {{-- =================== --}}
-                                        <div class="col-12 col-md-5">
-                                            <div class="form-group d-flex flex-column">
-                                                <label for="categoriaEdit" class="" style="font-size: 15px">Categoría<span class="text-danger">*</span></label>
-                                                {{Form::select('categoriaEdit', ['' => 'Seleccionar...'] + $categorias->toArray(), null, ['class' => 'form-control', 'id' => 'categoriaEdit'])}}
-                                            </div>
-                                        </div>
-                                        {{-- =================== --}}
-                                        <div class="col-12 mt-md-3">
-                                            <div class="form-group d-flex flex-column">
-                                                <label for="descripcionEdit" class="" style="font-size: 15px">Descripción<span class="text-danger">*</span></label>
-                                                {{ Form::textarea('descripcionEdit', null,['class'=>'form-control', 'id'=>'descripcionEdit', 'rows' => 3, 'style' => 'resize: none;']) }}
-                                            </div>
-                                        </div>
-                                        {{-- =================== --}}
-                                        <div class="col-12 col-md-6 mt-md-3">
-                                            <div class="form-group d-flex flex-column">
-                                                <label for="precioUnitarioEdit" class="" style="font-size: 15px">Precio Unitario<span class="text-danger">*</span></label>
-                                                {{ Form::text('precioUnitarioEdit', null,['class'=>'form-control', 'id'=>'precioUnitarioEdit']) }}
-                                            </div>
-                                        </div>
-                                        {{-- =================== --}}
-                                        <div class="col-12 col-md-6 mt-md-3">
-                                            <div class="form-group d-flex flex-column">
-                                                <label for="precioPorMayorEdit" class="" style="font-size: 15px">Precio al por Mayor<span class="text-danger">*</span></label>
-                                                {{ Form::text('precioPorMayorEdit', null,['class'=>'form-control', 'id'=>'precioPorMayorEdit']) }}
-                                            </div>
-                                        </div>
-                                        {{-- =================== --}}
-                                        <div class="col-12 col-md-6 mt-md-3">
-                                            <div class="form-group d-flex flex-column">
-                                                <label for="precioDetalEdit" class="" style="font-size: 15px">Precio Detal<span class="text-danger">*</span></label>
-                                                {{ Form::text('precioDetalEdit', null,['class'=>'form-control', 'id'=>'precioDetalEdit']) }}
-                                            </div>
-                                        </div>
-                                        {{-- =================== --}}
-                                        <div class="col-12 col-md-6 mt-md-3">
-                                            <div class="form-group d-flex flex-column">
-                                                <label for="stockMinimoEdit" class="" style="font-size: 15px">Stock Mínimo<span class="text-danger">*</span></label>
-                                                {{ Form::text('stockMinimoEdit', null,['class'=>'form-control', 'id'=>'stockMinimoEdit']) }}
-                                            </div>
+                                <div class="row m-0 pt-4 pb-4">
+                                    <div class="col-12 col-md-2">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="idProductoEdit" class="" style="font-size: 15px">Código<span class="text-danger">*</span></label>
+                                            {{ Form::text('idProductoEdit', null, ['class'=>'form-control', 'id'=>'idProductoEdit', 'readonly'=>true ]) }}
                                         </div>
                                     </div>
-                                
+                                    {{-- =================== --}}
+                                    <div class="col-12 col-md-5">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="nombreProductoEdit" class="" style="font-size: 15px">Nombre Producto<span class="text-danger">*</span></label>
+                                            {{Form::text('nombreProductoEdit', null, ['class' => 'form-control', 'id' => 'nombreProductoEdit'])}}
+                                        </div>
+                                    </div>
+                                    {{-- =================== --}}
+                                    <div class="col-12 col-md-5">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="categoriaEdit" class="" style="font-size: 15px">Categoría<span class="text-danger">*</span></label>
+                                            {{Form::select('categoriaEdit', ['' => 'Seleccionar...'] + $categorias->toArray(), null, ['class' => 'form-control', 'id' => 'categoriaEdit'])}}
+                                        </div>
+                                    </div>
+                                    {{-- =================== --}}
+                                    <div class="col-12 mt-md-3">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="descripcionEdit" class="" style="font-size: 15px">Descripción<span class="text-danger">*</span></label>
+                                            {{ Form::textarea('descripcionEdit', null,['class'=>'form-control', 'id'=>'descripcionEdit', 'rows' => 3, 'style' => 'resize: none;']) }}
+                                        </div>
+                                    </div>
+                                    {{-- =================== --}}
+                                    <div class="col-12 col-md-6 mt-md-3">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="precioUnitarioEdit" class="" style="font-size: 15px">Precio Unitario<span class="text-danger">*</span></label>
+                                            {{ Form::text('precioUnitarioEdit', null,['class'=>'form-control', 'id'=>'precioUnitarioEdit']) }}
+                                        </div>
+                                    </div>
+                                    {{-- =================== --}}
+                                    <div class="col-12 col-md-6 mt-md-3">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="precioPorMayorEdit" class="" style="font-size: 15px">Precio al por Mayor<span class="text-danger">*</span></label>
+                                            {{ Form::text('precioPorMayorEdit', null,['class'=>'form-control', 'id'=>'precioPorMayorEdit']) }}
+                                        </div>
+                                    </div>
+                                    {{-- =================== --}}
+                                    <div class="col-12 col-md-6 mt-md-3">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="precioDetalEdit" class="" style="font-size: 15px">Precio Detal<span class="text-danger">*</span></label>
+                                            {{ Form::text('precioDetalEdit', null,['class'=>'form-control', 'id'=>'precioDetalEdit']) }}
+                                        </div>
+                                    </div>
+                                    {{-- =================== --}}
+                                    <div class="col-12 col-md-6 mt-md-3">
+                                        <div class="form-group d-flex flex-column">
+                                            <label for="stockMinimoEdit" class="" style="font-size: 15px">Stock Mínimo<span class="text-danger">*</span></label>
+                                            {{ Form::text('stockMinimoEdit', null,['class'=>'form-control', 'id'=>'stockMinimoEdit']) }}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         
@@ -295,29 +293,35 @@
         <div class="modal fade" id="barCodeModal" tabindex="-1" role="dialog" aria-labelledby="barCodeModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-dialog">
                 <div class="modal-content p-3 w-100">
-                    <div class="" style="border: solid 1px #337AB7;">
-                        <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                            <h5>Producto: <span id="nombre_producto"></span> - Código: <span id="id_producto"></span></h5>
-                        </div>
+                    {!! Form::open(['method' => 'POST', 'route' => ['producto_barcode'], 'class' => 'm-0 p-0', 'autocomplete' => 'off', 'id' => 'form_producto_barcode']) !!}
+                    @csrf
+                        <div class="" style="border: solid 1px #337AB7;">
+                            <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                <h5>Producto: <span id="nombre_producto"></span> - Código: <span id="id_producto"></span></h5>
 
-                        {{-- ====================================================== --}}
-                        {{-- ====================================================== --}}
+                                {{ Form::hidden('id_producto_input',null,['class'=>'','id'=>'id_producto_input','required'=>'required']) }}
+                                {{ Form::hidden('nombre_producto_input',null,['class'=>'form-control','id'=>'nombre_producto_input', 'required'=>'required']) }}
+                            </div>
 
-                        <div class="modal-body p-0 m-0">
-                                <div class="m-0 p-4 d-flex justify-content-between">
-                                    <div class="">
-                                        {{ Form::number('cantidad_barcode',null,['class'=>'form-control','id'=>'cantidad_barcode','placeholder'=>'Ingresar cantidad', 'required'=>'required']) }}
+                            {{-- ====================================================== --}}
+                            {{-- ====================================================== --}}
+
+                            <div class="modal-body p-0 m-0">
+                                    <div class="m-0 p-4 d-flex justify-content-between">
+                                        <div class="">
+                                            {{ Form::number('cantidad_barcode',null,['class'=>'form-control','id'=>'cantidad_barcode','placeholder'=>'Ingresar cantidad', 'required'=>'required']) }}
+                                        </div>
+                                        
+                                        <div class="">
+                                            <button type="submit" class="btn btn-success">
+                                                <i class="fa fa-floppy-o" aria-hidden="true"> Generar Código</i>
+                                            </button>
+                                        </div>
                                     </div>
-                                    
-                                    <div class="">
-                                        <button type="button" class="btn btn-success" onclick="codeBarProduct()">
-                                            <i class="fa fa-floppy-o" aria-hidden="true"> Generar Código</i>
-                                        </button>
-                                    </div>
-                                </div>
+                            </div>
                         </div>
-                    </div>
-                    
+                    {!! Form::close() !!}
+                        
                     {{-- ====================================================== --}}
                     {{-- ====================================================== --}}
 
@@ -330,22 +334,6 @@
             </div>
         </div>
         {{-- FINAL Modal CÓDIGO DE BARRAS PRODUCTO --}}
-        
-        {{-- =========================================================================== --}}
-        {{-- =========================================================================== --}}
-        {{-- =========================================================================== --}}
-        {{-- =========================================================================== --}}
-        {{-- =========================================================================== --}}
-
-
-
-        
-        {{-- =========================================================================== --}}
-        {{-- =========================================================================== --}}
-        {{-- =========================================================================== --}}
-        {{-- =========================================================================== --}}
-        {{-- =========================================================================== --}}
-
     </div>
 @stop
 
@@ -359,8 +347,8 @@
 
     <script>
         // Variables globales para almacenar id_producto y nombre_producto para generar el código de barras
-        let idProductoGlobal;
-        let nombreProductoGlobal;
+        // let idProductoGlobal;
+        // let nombreProductoGlobal;
 
         $(document).ready(function() {
             @if(isset($productos) && count($productos) > 0)
@@ -483,6 +471,9 @@
                         $('#nombre_producto').html(response.nombre_producto);
                         $('#id_producto').html(response.id_producto);
 
+                        $('#nombre_producto_input').val(response.nombre_producto);
+                        $('#id_producto_input').val(response.id_producto);
+
                         idProductoGlobal = response.id_producto;
                         nombreProductoGlobal = response.nombre_producto;
 
@@ -569,63 +560,7 @@
         // ==========================================================
         // ==========================================================
         
-        function codeBarProduct() {
-            $('#cantidad_barcode').attr('required');
-            let cantidadBarcode = $('#cantidad_barcode').val();
 
-            // alert (`ID del producto: ${idProductoGlobal}, Nombre del producto: ${nombreProductoGlobal}, Cantidad a imprimir: ${cantidadBarcode}`);
-
-            console.log("ID del producto:", idProductoGlobal);
-            console.log("Nombre del producto:", nombreProductoGlobal);
-            console.log("cantidadBarcode:", cantidadBarcode);
-
-            let url = "{{ route('producto_barcode') }}";
-
-            $.ajax({
-                url: url,
-                type: 'POST',
-                dataType: "JSON",
-                data: {
-                    '_token': "{{ csrf_token() }}",
-                    'id_producto': idProductoGlobal,
-                    'nombre_producto': nombreProductoGlobal,
-                    'cantidad_barcode': cantidadBarcode,
-                },
-                success: function(response) {
-                    console.log(response);
-
-                    // if (response == "estado_cambiado") {
-                    //     Swal.fire(
-                    //         'Bien!',
-                    //         'Se cambia estado al Producto!',
-                    //         'success',
-                    //     );
-                    //     setTimeout(function() {
-                    //         window.location.reload();
-                    //     }, 3000);
-                    // }
-
-                    // ============================
-
-                    // if (response == "error_exception") {
-                    //     Swal.fire(
-                    //         'Error!',
-                    //         'No fue posible cambiar el estado, Contacte a Soporte!',
-                    //         'error'
-                    //     );
-                    //     setTimeout(function() {
-                    //         window.location.reload();
-                    //     }, 3000);
-                    // }
-                },
-                error: function(xhr, status, error) {
-                    // Maneja los errores si la solicitud AJAX falla
-                    console.error(error);
-                }
-            });
-
-            
-        }  // CIERRE Ver INACTIVAR producto
 
         // ==========================================================
         // ==========================================================
