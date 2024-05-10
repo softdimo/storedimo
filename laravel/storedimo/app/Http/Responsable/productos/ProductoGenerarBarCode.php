@@ -7,7 +7,8 @@ use Illuminate\Contracts\Support\Responsable;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
 // use DNS1D;
-use Milon\Barcode\DNS1D;
+// use Milon\Barcode\DNS1D;
+use Milon\Barcode\DNS2D;
 
 class ProductoGenerarBarCode implements Responsable
 {
@@ -18,12 +19,19 @@ class ProductoGenerarBarCode implements Responsable
         $cantidadBarcode = request('cantidad_barcode', null);
 
         $rutaTempArchivoCodebar = "/public/upfiles/productos/barcodes";
-        $nombreArchivoCodebar = $idProducto .'_'. $nombreProducto . '.png';
-        $rutaCodebar = $rutaTempArchivoCodebar.'/'.$nombreArchivoCodebar;
+        $nombreArchivoCodebar = $idProducto .'_'. $nombreProducto;
+        $rutaCodebar = $rutaTempArchivoCodebar.'/'.$nombreArchivoCodebar.'.html';
 
         try {
-            Storage::put($rutaCodebar, base64_decode(DNS1D::getBarcodePNG($idProducto, 'DATAMATRIX')));
+            // Storage::put($rutaCodebar, base64_decode(DNS1D::getBarcodePNGPath($idProducto, 'PHARMA2T', 1, 100, array(1,1,1), true)));
+            // Storage::put($rutaCodebar,DNS1D::getBarcodePNGPath('4445645656', 'PHARMA2T'));
 
+            $ejemploJson = "{'nombre': $nombreProducto, 'codigo':$idProducto}";
+            $json = json_encode($ejemploJson, true);
+            $d = new DNS2D();
+            // $d->setStorPath($rutaCodebar);
+            Storage::put($rutaCodebar, ($d->getBarcodeHTML($json, 'QRCODE')));
+            
             // Storage::put($rutaCodebar, DNS1D::getBarcodePNG($idProducto, 'C39', 1, 100, array(1,1,1), true));
 
             alert()->info('Info', 'Código de barras creado.');
