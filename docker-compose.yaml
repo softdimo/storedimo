@@ -12,6 +12,19 @@ services:
       - '90:80'
     env_file:
       - ./laravel/config_laravel/datos.env
+    # working_dir: /var/www/html/public  # Agrega esta línea
+
+  apache:
+      image: httpd:alpine  # Usamos Apache en Alpine Linux
+      container_name: apache_webserver
+      depends_on:
+        - storedimolaravel
+      volumes:
+        - ./apache/sites:/etc/apache2/sites-available  # Archivos de configuración de Apache
+        - ./laravel/storedimo:/var/www/html:delegated  # Proyecto Laravel
+      ports:
+        - "90:80"
+
 
   storedimodb:
     image: postgres
