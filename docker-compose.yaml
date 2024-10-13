@@ -12,7 +12,6 @@ services:
       - '90:80'
     env_file:
       - ./laravel/config_laravel/datos.env
-    # working_dir: /var/www/html/public  # Agrega esta línea
 
   storedimodb:
     image: postgres
