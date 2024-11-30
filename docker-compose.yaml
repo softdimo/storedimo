@@ -9,7 +9,7 @@ services:
     volumes:
       - ./laravel/storedimo:/var/www/html:delegated
     ports: 
-      - '90:80'
+      - '80:80'
     env_file:
       - ./laravel/config_laravel/datos.env
 

@@ -1,5 +1,5 @@
 FROM debian:11
-
+ENV TZ="America/Bogota"
 RUN apt update 
 RUN apt upgrade -y
 RUN apt-get install -y apache2 
@@ -33,7 +33,7 @@ RUN apt-get install -y php8.2-xml
 RUN apt-get install -y wkhtmltopdf
 RUN apt-get install -y nano
 RUN apt-get install -y vim
-RUN apt-get remove -y php7.*
+RUN apt-get remove -y php8.3.*
 RUN apt-get update
 
 EXPOSE 90 
@@ -42,7 +42,7 @@ RUN rm -rf /var/www/html/*
 RUN rm -rf /etc/apache2/sites-available/000-default.conf
 RUN rm -rf /etc/apache2/apache2.conf
 RUN rm -rf /etc/php/8.2/apache2/php.ini
-
+ARG CACHE_BUST=1
 COPY ./laravel/config_apache/000-default.conf /etc/apache2/sites-available/
 COPY ./laravel/config_apache/apache2.conf /etc/apache2/
 COPY ./laravel/config_php/php.ini /etc/php/8.2/apache2/
