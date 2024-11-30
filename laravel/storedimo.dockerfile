@@ -18,7 +18,6 @@ RUN apt-get install -y php8.2-common
 RUN apt-get install -y php8.2-curl
 RUN apt-get install -y php8.2-dev
 RUN apt-get install -y php8.2-gd
-RUN apt-get install -y php8.2-ldap
 RUN apt-get install -y php8.2-mbstring
 RUN apt-get install -y php8.2-odbc
 RUN apt-get install -y php8.2-opcache
