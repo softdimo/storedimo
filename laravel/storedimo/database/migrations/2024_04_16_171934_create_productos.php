@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('productos', function (Blueprint $table) {
-            $table->bigIncrements('id_producto');
+            $table->increments('id_producto');
             $table->string('nombre_producto')->nullable();
             $table->unsignedInteger('id_categoria')->nullable();
             $table->integer('precio_unitario')->nullable();
@@ -22,13 +22,14 @@ return new class extends Migration
             $table->integer('precio_por_mayor')->nullable();
             $table->string('descripcion')->nullable();
             $table->integer('stock_minimo')->nullable();
-            $table->unsignedInteger('estado')->nullable();
+            $table->unsignedInteger('id_estado')->nullable();
             $table->string('tamano')->nullable();
             $table->integer('cantidad')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('id_categoria')->references('id_categoria')->on('categorias');
+            $table->foreign('id_estado')->references('id_estado')->on('estados');
         });
     }
 
