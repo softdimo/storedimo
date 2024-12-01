@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('estados', function (Blueprint $table) {
-            $table->bigIncrements('id_estado');
+            $table->increments('id_estado');
             $table->string('estado')->nullable();
             $table->timestamps();
             $table->softDeletes();
