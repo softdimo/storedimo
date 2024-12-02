@@ -9,7 +9,7 @@ class TipoDocumento extends Model
 {
     use SoftDeletes;
 
-    protected $connection = 'pgsql';
+    protected $connection = 'mysql';
     protected $table = 'tipo_documento';
     protected $primaryKey = 'id_tipo_documento';
     protected $dates = ['deleted_at'];

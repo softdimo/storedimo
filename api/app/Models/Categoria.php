@@ -9,7 +9,7 @@ class Categoria extends Model
 {
     use SoftDeletes;
 
-    protected $connection = 'pgsql';
+    protected $connection = 'mysql';
     protected $table = 'categorias';
     protected $primaryKey = 'id_categoria';
     protected $dates = ['deleted_at'];

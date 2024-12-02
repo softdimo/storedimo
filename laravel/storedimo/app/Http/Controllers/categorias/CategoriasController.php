@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Responsable\categorias\CategoriaStore;
 use App\Http\Responsable\categorias\CategoriaUpdate;
 use GuzzleHttp\Client;
+use App\Models\Categoria;
+use Illuminate\Support\Facades\DB;
 
 
 class CategoriasController extends Controller
@@ -18,15 +20,17 @@ class CategoriasController extends Controller
      */
     public function index()
     {
-        // Realiza la solicitud GET a la API
-        $clientApi = new Client([
-            'base_uri' => 'http://localhost:8000/api/categoria_index',
-            'headers' => [],
-        ]);
+        $categorias = Categoria::select('id_categoria', 'categoria')->orderBy('categoria', 'ASC')->get();
 
-        $response = $clientApi->request('GET');
-        $res = $response->getBody()->getContents();
-        $categorias = json_decode($res, true);
+        // $clientApi = new Client([
+        //     'base_uri' => 'http://localhost:8000/api/categoria_index',
+        //     // 'base_uri' => 'http://storedimolaravel:8000/api/categoria_index',
+        //     'headers' => [],
+        // ]);
+
+        // $response = $clientApi->request('GET');
+        // $res = $response->getBody()->getContents();
+        // $categorias = json_decode($res, true);
 
         if(isset($categorias) && !empty($categorias)) {
             return view('categorias.index', compact('categorias'));
@@ -36,7 +40,7 @@ class CategoriasController extends Controller
     }
 
     // ======================================================================
-    // ======================================================================    
+    // ======================================================================
 
     /**
      * Show the form for creating a new resource.
