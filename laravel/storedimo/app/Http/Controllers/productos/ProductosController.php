@@ -14,6 +14,7 @@ use App\Http\Responsable\productos\ProductoDestroy;
 use App\Http\Responsable\productos\ProductoQueryBarCode;
 use App\Http\Responsable\productos\ProductoGenerarBarCode;
 use GuzzleHttp\Client;
+use App\Models\Producto;
 
 class ProductosController extends Controller
 {
@@ -25,14 +26,33 @@ class ProductosController extends Controller
     public function index()
     {
         // Realiza la solicitud GET a la API
-        $clientApi = new Client([
-            'base_uri' => 'http://localhost:8000/api/producto_index',
-            'headers' => [],
-        ]);
+        // $clientApi = new Client([
+        //     'base_uri' => 'http://localhost:8000/api/producto_index',
+        //     'headers' => [],
+        // ]);
 
-        $response = $clientApi->request('GET');
-        $res = $response->getBody()->getContents();
-        $productos = json_decode($res, true);
+        // $response = $clientApi->request('GET');
+        // $res = $response->getBody()->getContents();
+        // $productos = json_decode($res, true);
+
+        $productos = Producto::leftJoin('categorias', 'categorias.id_categoria', '=', 'productos.id_categoria')
+            ->leftJoin('estados', 'estados.id_estado', '=', 'productos.id_estado')
+            ->select(
+                'id_producto',
+                'nombre_producto',
+                'productos.id_categoria',
+                'categorias.categoria',
+                'precio_unitario',
+                'precio_detal',
+                'precio_por_mayor',
+                'descripcion',
+                'stock_minimo',
+                'productos.id_estado',
+                'estados.estado',
+                'cantidad'
+            )
+            ->orderBy('nombre_producto', 'ASC')
+            ->get();
 
         if(isset($productos) && !empty($productos)) {
             $this->shareData();

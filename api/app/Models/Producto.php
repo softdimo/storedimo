@@ -9,7 +9,7 @@ class Producto extends Model
 {
     use SoftDeletes;
 
-    protected $connection = 'pgsql';
+    protected $connection = 'mysql';
     protected $table = 'productos';
     protected $primaryKey = 'id_producto';
     protected $dates = ['deleted_at'];
@@ -22,7 +22,7 @@ class Producto extends Model
         'precio_por_mayor',
         'descripcion',
         'stock_minimo',
-        'estado',
+        'id_estado',
         'tamano',
         'cantidad',
     ];

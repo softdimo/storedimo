@@ -9,7 +9,7 @@ class TipoBaja extends Model
 {
     use SoftDeletes;
 
-    protected $connection = 'pgsql';
+    protected $connection = 'mysql';
     protected $table = 'tipo_baja';
     protected $primaryKey = 'id_tipo_baja';
     protected $dates = ['deleted_at'];

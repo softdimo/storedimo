@@ -9,7 +9,7 @@ class Estado extends Model
 {
     use SoftDeletes;
 
-    protected $connection = 'pgsql';
+    protected $connection = 'mysql';
     protected $table = 'estados';
     protected $primaryKey = 'id_estado';
     protected $dates = ['deleted_at'];

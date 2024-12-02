@@ -23,7 +23,8 @@ class CategoriaStore implements Responsable
         //     return back();
         // } else {
 
-            DB::connection('pgsql')->beginTransaction();
+            DB::connection('mysql')->beginTransaction();
+            // DB::connection('pgsql')->beginTransaction();
 
             try {
                 // Realiza la solicitud POST a la API
