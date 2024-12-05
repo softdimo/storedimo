@@ -20,17 +20,17 @@ class CategoriasController extends Controller
      */
     public function index()
     {
-        $categorias = Categoria::select('id_categoria', 'categoria')->orderBy('categoria', 'ASC')->get();
+        // $categorias = Categoria::select('id_categoria', 'categoria')->orderBy('categoria', 'ASC')->get();
 
-        // $clientApi = new Client([
-        //     'base_uri' => 'http://localhost:8000/api/categoria_index',
-        //     // 'base_uri' => 'http://storedimolaravel:8000/api/categoria_index',
-        //     'headers' => [],
-        // ]);
+        $clientApi = new Client([
+            'base_uri' => 'http://localhost:8000/api/categoria_index',
+            // 'base_uri' => 'http://storedimolaravel:8000/api/categoria_index',
+            'headers' => [],
+        ]);
 
-        // $response = $clientApi->request('GET');
-        // $res = $response->getBody()->getContents();
-        // $categorias = json_decode($res, true);
+        $response = $clientApi->request('GET');
+        $res = $response->getBody()->getContents();
+        $categorias = json_decode($res, true);
 
         if(isset($categorias) && !empty($categorias)) {
             return view('categorias.index', compact('categorias'));
