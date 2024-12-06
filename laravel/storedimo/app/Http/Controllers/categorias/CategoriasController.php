@@ -18,24 +18,55 @@ class CategoriasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    /* public function index()
     {
-        $categorias = Categoria::select('id_categoria', 'categoria')->orderBy('categoria', 'ASC')->get();
+        //$categorias = Categoria::select('id_categoria', 'categoria')->orderBy('categoria', 'ASC')->get();
 
-        // $clientApi = new Client([
-        //     'base_uri' => 'http://localhost:8000/api/categoria_index',
-        //     // 'base_uri' => 'http://storedimolaravel:8000/api/categoria_index',
-        //     'headers' => [],
-        // ]);
+        $clientApi = new Client([
+            'base_uri' => 'http://host.docker.internal:8080/api/categoria_index',
+            // 'base_uri' => 'http://storedimolaravel:8000/api/categoria_index',
+            'headers' => [],
+        ]);
 
-        // $response = $clientApi->request('GET');
-        // $res = $response->getBody()->getContents();
-        // $categorias = json_decode($res, true);
+        $response = $clientApi->request('GET');
+        $res = $response->getBody()->getContents();
+        $categorias = json_decode($res, true);
 
         if(isset($categorias) && !empty($categorias)) {
+            dd($categorias);
             return view('categorias.index', compact('categorias'));
         } else {
+            //dd($categorias);
             return view('categorias.index');
+        }
+    } */
+
+    public function index()
+    {
+        try {
+            $clientApi = new Client([
+                'base_uri' => 'http://host.docker.internal:8080/api/categoria_index',
+            ]);
+
+
+            $response = $clientApi->request('GET');
+            $res = $response->getBody()->getContents();
+
+            #var_dump($res, true);
+            #die();
+
+            $categorias = json_decode($res, true);
+
+            // Verifica si el formato de la respuesta es correcto
+            if (isset($categorias) && is_array($categorias) && !empty($categorias)) {
+                return view('categorias.index', compact('categorias'));
+            } else {
+                // Maneja el caso donde la respuesta es vacía o no válida
+                return view('categorias.index')->withErrors('No se encontraron categorías.');
+            }
+        } catch (\Exception $e) {
+            // Captura errores de conexión o de la API
+            return view('categorias.index')->withErrors('Error al conectar con la API: ' . $e->getMessage());
         }
     }
 
@@ -133,7 +164,7 @@ class CategoriasController extends Controller
         //     {
         //         return view('inicio_sesion.login');
         //     } else {
-            return new CategoriaUpdate();
+            //return new CategoriaUpdate();
             //     }
     
             // } catch (Exception $e) {
