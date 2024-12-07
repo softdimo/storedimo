@@ -18,57 +18,39 @@ class CategoriasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    /* public function index()
-    {
-        //$categorias = Categoria::select('id_categoria', 'categoria')->orderBy('categoria', 'ASC')->get();
-
-        $clientApi = new Client([
-            'base_uri' => 'http://host.docker.internal:8080/api/categoria_index',
-            // 'base_uri' => 'http://storedimolaravel:8000/api/categoria_index',
-            'headers' => [],
-        ]);
-
-        $response = $clientApi->request('GET');
-        $res = $response->getBody()->getContents();
-        $categorias = json_decode($res, true);
-
-        if(isset($categorias) && !empty($categorias)) {
-            dd($categorias);
-            return view('categorias.index', compact('categorias'));
-        } else {
-            //dd($categorias);
-            return view('categorias.index');
-        }
-    } */
-
     public function index()
     {
         try {
+            // Crear una instancia del cliente Guzzle para realizar la solicitud HTTP
             $clientApi = new Client([
                 'base_uri' => 'http://host.docker.internal:8080/api/categoria_index',
+                'headers' => [],
             ]);
 
-
+            // Realizar la solicitud GET a la API
             $response = $clientApi->request('GET');
+
+            // Obtener el cuerpo de la respuesta y convertirlo en un array asociativo
             $res = $response->getBody()->getContents();
-
-            #var_dump($res, true);
-            #die();
-
             $categorias = json_decode($res, true);
 
-            // Verifica si el formato de la respuesta es correcto
-            if (isset($categorias) && is_array($categorias) && !empty($categorias)) {
+            // Verificar si la variable 'categorias' está definida, es un array y contiene elementos
+            if (isset($categorias) && is_array($categorias) && count($categorias) > 0) {
+                // Si contiene datos, retornar la vista pasando las categorías
                 return view('categorias.index', compact('categorias'));
-            } else {
-                // Maneja el caso donde la respuesta es vacía o no válida
-                return view('categorias.index')->withErrors('No se encontraron categorías.');
             }
+
+            // Si no contiene datos, retornar la vista sin pasar ninguna categoría
+            return view('categorias.index', compact('categorias'));
+
         } catch (\Exception $e) {
-            // Captura errores de conexión o de la API
-            return view('categorias.index')->withErrors('Error al conectar con la API: ' . $e->getMessage());
+            // Captura cualquier error que ocurra durante el proceso y muestra un mensaje de error
+            return view('categorias.index')->withErrors('Error al obtener las categorías: ' . $e->getMessage());
         }
     }
+
+
+
 
     // ======================================================================
     // ======================================================================
