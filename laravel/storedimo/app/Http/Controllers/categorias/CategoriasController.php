@@ -21,9 +21,8 @@ class CategoriasController extends Controller
      */
     public function index()
     {
-        // $categorias = Categoria::select('id_categoria', 'categoria')->orderBy('categoria', 'ASC')->get();
-
         try {
+            // Crear una instancia del cliente Guzzle para realizar la solicitud HTTP
             $clientApi = new Client([
                 'base_uri' => 'http://localhost:8080/api/categoria_index',
                 'headers' => [],
@@ -34,12 +33,10 @@ class CategoriasController extends Controller
             $categorias = json_decode($res, true);
 
             return view('categorias.index', compact('categorias'));
-            
+
         } catch (Exception $e) {
-        // } catch (\Throwable $e) {
-            // dd($e);
-            // Captura errores de conexión o de la API
-            return view('categorias.index')->withErrors('Error al conectar con la API: ' . $e->getMessage());
+            // Captura cualquier error que ocurra durante el proceso y muestra un mensaje de error
+            return view('categorias.index')->withErrors('Error al obtener las categorías: ' . $e->getMessage());
         }
     }
 
