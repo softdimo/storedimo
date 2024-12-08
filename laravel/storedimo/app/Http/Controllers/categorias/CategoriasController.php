@@ -4,6 +4,7 @@ namespace App\Http\Controllers\categorias;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Exception;
 use App\Http\Responsable\categorias\CategoriaStore;
 use App\Http\Responsable\categorias\CategoriaUpdate;
 use GuzzleHttp\Client;
@@ -22,20 +23,23 @@ class CategoriasController extends Controller
     {
         // $categorias = Categoria::select('id_categoria', 'categoria')->orderBy('categoria', 'ASC')->get();
 
-        $clientApi = new Client([
-            'base_uri' => 'http://localhost:8000/api/categoria_index',
-            // 'base_uri' => 'http://storedimolaravel:8000/api/categoria_index',
-            'headers' => [],
-        ]);
+        try {
+            $clientApi = new Client([
+                'base_uri' => 'http://localhost:8080/api/categoria_index',
+                'headers' => [],
+            ]);
 
-        $response = $clientApi->request('GET');
-        $res = $response->getBody()->getContents();
-        $categorias = json_decode($res, true);
+            $response = $clientApi->request('GET');
+            $res = $response->getBody()->getContents();
+            $categorias = json_decode($res, true);
 
-        if(isset($categorias) && !empty($categorias)) {
             return view('categorias.index', compact('categorias'));
-        } else {
-            return view('categorias.index');
+            
+        } catch (Exception $e) {
+        // } catch (\Throwable $e) {
+            // dd($e);
+            // Captura errores de conexión o de la API
+            return view('categorias.index')->withErrors('Error al conectar con la API: ' . $e->getMessage());
         }
     }
 
