@@ -24,7 +24,7 @@ class CategoriasController extends Controller
         try {
             // Crear una instancia del cliente Guzzle para realizar la solicitud HTTP
             $clientApi = new Client([
-                'base_uri' => 'http://localhost:8080/api/categoria_index',
+                'base_uri' => 'http://localhost:8000/api/categoria_index',
                 'headers' => [],
             ]);
 
