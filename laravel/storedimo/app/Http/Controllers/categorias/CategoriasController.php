@@ -4,6 +4,7 @@ namespace App\Http\Controllers\categorias;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Exception;
 use App\Http\Responsable\categorias\CategoriaStore;
 use App\Http\Responsable\categorias\CategoriaUpdate;
 use GuzzleHttp\Client;
@@ -23,27 +24,17 @@ class CategoriasController extends Controller
         try {
             // Crear una instancia del cliente Guzzle para realizar la solicitud HTTP
             $clientApi = new Client([
-                'base_uri' => 'http://host.docker.internal:8080/api/categoria_index',
+                'base_uri' => 'http://localhost:8080/api/categoria_index',
                 'headers' => [],
             ]);
 
-            // Realizar la solicitud GET a la API
             $response = $clientApi->request('GET');
-
-            // Obtener el cuerpo de la respuesta y convertirlo en un array asociativo
             $res = $response->getBody()->getContents();
             $categorias = json_decode($res, true);
 
-            // Verificar si la variable 'categorias' está definida, es un array y contiene elementos
-            if (isset($categorias) && is_array($categorias) && count($categorias) > 0) {
-                // Si contiene datos, retornar la vista pasando las categorías
-                return view('categorias.index', compact('categorias'));
-            }
-
-            // Si no contiene datos, retornar la vista sin pasar ninguna categoría
             return view('categorias.index', compact('categorias'));
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Captura cualquier error que ocurra durante el proceso y muestra un mensaje de error
             return view('categorias.index')->withErrors('Error al obtener las categorías: ' . $e->getMessage());
         }

@@ -36,12 +36,6 @@ RUN apt-get install -y vim
 RUN apt-get remove -y php8.3.*
 RUN apt-get update
 
-## Copia el script de inicio al contenedor
-# COPY ./start_services.sh /usr/local/bin/start_services.sh
-
-## Dale permisos de ejecución al script
-# RUN chmod +x /usr/local/bin/start_services.sh
-
 EXPOSE 80 90 8000
 
 RUN rm -rf /var/www/html/*
@@ -59,10 +53,4 @@ WORKDIR /var/www/html/
 RUN a2enmod rewrite
 RUN service apache2 restart
 
-## Usa el script de inicialización como comando principal
-# CMD ["/usr/local/bin/start_services.sh"]
-
 CMD ["apache2ctl", "-D", "FOREGROUND"]
-# CMD php -S 0.0.0.0:8000 -t /var/www/html/api/public & apache2ctl -D FOREGROUND
-# CMD bash -c "php -S 0.0.0.0:8000 -t /var/www/html/api/public & apache2ctl -D FOREGROUND"
-# CMD ["sh", "-c", "php -S 0.0.0.0:8000 -t /var/www/html/api/public & apache2ctl -D FOREGROUND"]
