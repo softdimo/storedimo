@@ -36,7 +36,7 @@ RUN apt-get install -y vim
 RUN apt-get remove -y php8.3.*
 RUN apt-get update
 
-EXPOSE 80 90 8000
+EXPOSE 80 8000
 
 RUN rm -rf /var/www/html/*
 RUN rm -rf /etc/apache2/sites-available/000-default.conf

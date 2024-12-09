@@ -85,9 +85,6 @@
                                 </thead>
                                 {{-- ============================== --}}
                                 <tbody>
-                                    @php
-                                        // dd($categorias);
-                                    @endphp
                                     @foreach ($categorias as $categoria)
                                         <tr class="text-center">
                                             <td>{{$categoria['id_categoria']}}</td>
