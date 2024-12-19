@@ -35,13 +35,8 @@ class ProductosController extends Controller
         $res = $response->getBody()->getContents();
         $productos = json_decode($res, true);
 
-        if(isset($productos) && !empty($productos)) {
-            $this->shareData();
-            return view('productos.index', compact('productos'));
-        } else {
-            $this->shareData();
-            return view('productos.index');
-        }
+        $this->shareData();
+        return view('productos.index', compact('productos'));
     }
 
     // ======================================================================
