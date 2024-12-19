@@ -37,6 +37,7 @@ class ProductosController extends Controller
 
         $this->shareData();
         return view('productos.index', compact('productos'));
+        
     }
 
     // ======================================================================
