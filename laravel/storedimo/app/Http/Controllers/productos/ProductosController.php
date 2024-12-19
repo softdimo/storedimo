@@ -25,9 +25,10 @@ class ProductosController extends Controller
      */
     public function index()
     {
+        $baseUri = env('BASE_URI');
         // Realiza la solicitud GET a la API
         $clientApi = new Client([
-            'base_uri' => 'http://host.docker.internal:8000/api/producto_index',
+            'base_uri' => $baseUri.'producto_index',
             'headers' => [],
         ]);
 
