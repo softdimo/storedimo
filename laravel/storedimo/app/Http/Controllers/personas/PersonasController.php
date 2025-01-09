@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\usuarios;
+namespace App\Http\Controllers\personas;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,7 +10,7 @@ use App\Models\TipoPersona;
 use App\Models\TipoDocumento;
 use App\Models\Genero;
 
-class UsuariosController extends Controller
+class PersonasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,7 +31,7 @@ class UsuariosController extends Controller
             // } else {
             //     $usuLogueado = session('id_usuario');
                 // $usuario = Usuario::select('nombres')->where('id_usuario',$usuLogueado)->first();
-                return view('usuarios.index');
+                return view('personas.index');
         //     }
         // } catch (Exception $e) {
         //     alert()->error("Error Exception!");
@@ -50,7 +50,7 @@ class UsuariosController extends Controller
     public function create()
     {
         $this->shareData();
-        return view('usuarios.create');
+        return view('personas.create');
     }
 
     // ======================================================================
@@ -139,7 +139,7 @@ class UsuariosController extends Controller
 
     public function listarProveedores()
     {
-        return view('usuarios.listar_proveedores');
+        return view('personas.listar_proveedores');
     }
     
     // ======================================================================
@@ -147,6 +147,6 @@ class UsuariosController extends Controller
 
     public function listarClientes()
     {
-        return view('usuarios.listar_clientes');
+        return view('personas.listar_clientes');
     }
 }

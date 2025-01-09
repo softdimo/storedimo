@@ -32,10 +32,10 @@ Route::group(['namespace' => 'App\Http\Controllers\home'], function () {
 // ========================================================================
 
 // PERSONAS
-Route::group(['namespace' => 'App\Http\Controllers\usuarios'], function () {
-    Route::resource('usuarios', 'UsuariosController');
-    Route::get('listar_proveedores', 'UsuariosController@listarProveedores')->name('listar_proveedores');
-    Route::get('listar_clientes', 'UsuariosController@listarClientes')->name('listar_clientes');
+Route::group(['namespace' => 'App\Http\Controllers\personas'], function () {
+    Route::resource('personas', 'PersonasController');
+    Route::get('listar_proveedores', 'PersonasController@listarProveedores')->name('listar_proveedores');
+    Route::get('listar_clientes', 'PersonasController@listarClientes')->name('listar_clientes');
 });
 
 

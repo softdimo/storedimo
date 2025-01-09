@@ -22,10 +22,10 @@
 
                 <ul class="nav collapse navbar-collapse ps-3" id="ul_personas">
                     <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('usuarios.create')}}">Registrar Personas</a>
+                        <a class="link-underline-light" href="{{route('personas.create')}}">Registrar Personas</a>
                     </li>
                     <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('usuarios.index')}}">Listar Usuario/Empleados</a>
+                        <a class="link-underline-light" href="{{route('personas.index')}}">Listar Usuario/Empleados</a>
                     </li>
                     <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('listar_proveedores')}}">Listar Proveedores</a>
