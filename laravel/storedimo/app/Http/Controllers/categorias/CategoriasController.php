@@ -21,10 +21,12 @@ class CategoriasController extends Controller
      */
     public function index()
     {
+        $baseUri = env('BASE_URI');
+
         try {
             // Crear una instancia del cliente Guzzle para realizar la solicitud HTTP
             $clientApi = new Client([
-                'base_uri' => 'http://host.docker.internal:8000/api/categoria_index',
+                'base_uri' => $baseUri.'categoria_index',
                 'headers' => [],
             ]);
 
