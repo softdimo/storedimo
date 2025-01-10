@@ -20,6 +20,7 @@ class Usuario extends Model
         'apellido_usuario',
         'usuario',
         'identificacion',
+        'email',
         'clave',
         'id_estado',
         'id_rol',

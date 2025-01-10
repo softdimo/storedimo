@@ -22,7 +22,7 @@
 
                 <ul class="nav collapse navbar-collapse ps-3" id="ul_usuarios">
                     <li class="nav-item w-100">
-                        <a class="link-underline-light" href="">Registrar Usuarios</a>
+                        <a class="link-underline-light" href="{{route('usuarios.create')}}">Registrar Usuarios</a>
                     </li>
                     <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('usuarios.index')}}">Listar Usuarios</a>

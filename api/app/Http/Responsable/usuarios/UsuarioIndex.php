@@ -21,6 +21,7 @@ class UsuarioIndex implements Responsable
                     'apellido_usuario',
                     'usuario',
                     'identificacion',
+                    'email',
                     'rol',
                     'estado'
                 )

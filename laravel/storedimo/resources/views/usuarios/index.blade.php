@@ -55,6 +55,7 @@
                                     <th>Apellidos</th>
                                     <th>Usuario</th>
                                     <th>Identificación</th>
+                                    <th>Correo</th>
                                     <th>Rol</th>
                                     <th>Estado</th>
                                     <th>Opciones</th>
@@ -69,6 +70,7 @@
                                         <td>{{$usuario['apellido_usuario']}}</td>
                                         <td>{{$usuario['usuario']}}</td>
                                         <td>{{$usuario['identificacion']}}</td>
+                                        <td>{{$usuario['email']}}</td>
                                         <td>{{$usuario['rol']}}</td>
                                         <td>{{$usuario['estado']}}</td>
                                         <td>
