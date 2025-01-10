@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Personas')
+@section('title', 'Proveedores')
 
 {{-- =============================================================== --}}
 {{-- =============================================================== --}}
@@ -41,19 +41,17 @@
             {{-- =============================================================== --}}
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Usuarios-Empleados</h5>
+                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Proveedores</h5>
             
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_personas" aria-describedby="users-empleados">
+                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_proveedores" aria-describedby="proveedores">
                             <thead>
                                 <tr class="header-table text-center">
                                     <th>Identificación</th>
                                     <th>Nombres</th>
                                     <th>Apellidos</th>
-                                    <th>Celular</th>
-                                    <th>Dirección</th>
-                                    <th>Tipo Empleado</th>
+                                    <th>Tipo Proveedor</th>
                                     <th>Estado</th>
                                     <th>Opciones</th>
                                 </tr>
@@ -64,9 +62,7 @@
                                         <td>Identificación</td>
                                         <td>Nombres</td>
                                         <td>Apellidos</td>
-                                        <td>Celular</td>
-                                        <td>Dirección</td>
-                                        <td>Tipo Empleado</td>
+                                        <td>Tipo Proveedor</td>
                                         <td>Estado</td>
                                         <td>
                                             <a href="#" role="button" class="btn btn-primary rounded-circle btn-circle" title="Ver Detalles">
@@ -77,7 +73,7 @@
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </a>
 
-                                            <a href="#" role="button" class="btn btn-warning rounded-circle btn-circle" title="Cambiar contraseña">
+                                            <a href="#" role="button" class="btn btn-warning rounded-circle btn-circle" title="Cambiar estado">
                                                 <i class="fa fa-key" aria-hidden="true"></i>
                                             </a>
                                         </td>
@@ -94,11 +90,12 @@
                     <div class="mt-5 mb-2 d-flex justify-content-center">
                         <button class="btn rounded-2 me-3 text-white" type="submit" style="background-color: #286090">
                             <i class="fa fa-file-pdf-o"></i>
-                            Reporte PDF de Empleados
+                            Reporte PDF de Proveedores
                         </button>
                     </div>
                 </div> {{-- FIN div_campos_usuarios --}}
             </div> {{-- FIN div_crear_usuario --}}
+            
         </div>
     </div>
 @stop
@@ -114,7 +111,7 @@
     <script>
         $( document ).ready(function() {
             // INICIO DataTable Lista Usuarios
-            $("#tbl_personas").DataTable({
+            $("#tbl_proveedores").DataTable({
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
                 stripe: true,

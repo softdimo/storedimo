@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Personas')
+@section('title', 'Usuarios')
 
 {{-- =============================================================== --}}
 {{-- =============================================================== --}}
@@ -41,34 +41,39 @@
             {{-- =============================================================== --}}
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Usuarios-Empleados</h5>
-            
+                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Usuarios</h5>
+                
+                @php
+                    #dd($usuarioIndex);
+                @endphp
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_personas" aria-describedby="users-empleados">
+                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_usuarios" aria-describedby="users-usuarios">
                             <thead>
                                 <tr class="header-table text-center">
-                                    <th>Identificación</th>
                                     <th>Nombres</th>
                                     <th>Apellidos</th>
-                                    <th>Celular</th>
-                                    <th>Dirección</th>
-                                    <th>Tipo Empleado</th>
+                                    <th>Usuario</th>
+                                    <th>Identificación</th>
+                                    <th>Rol</th>
                                     <th>Estado</th>
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
                             {{-- ============================== --}}
                             <tbody>
+                                @foreach ($usuarioIndex as $usuario)
+                                    
                                     <tr class="text-center">
-                                        <td>Identificación</td>
-                                        <td>Nombres</td>
-                                        <td>Apellidos</td>
-                                        <td>Celular</td>
-                                        <td>Dirección</td>
-                                        <td>Tipo Empleado</td>
-                                        <td>Estado</td>
+                                        <td>{{$usuario['nombre_usuario']}}</td>
+                                        <td>{{$usuario['apellido_usuario']}}</td>
+                                        <td>{{$usuario['usuario']}}</td>
+                                        <td>{{$usuario['identificacion']}}</td>
+                                        <td>{{$usuario['rol']}}</td>
+                                        <td>{{$usuario['estado']}}</td>
                                         <td>
+
+                                            //TODO: Editar usuario
                                             <a href="#" role="button" class="btn btn-primary rounded-circle btn-circle" title="Ver Detalles">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                             </a>
@@ -82,6 +87,8 @@
                                             </a>
                                         </td>
                                     </tr>
+                                @endforeach
+                                
                             </tbody>
                         </table>
                     </div>
@@ -94,7 +101,7 @@
                     <div class="mt-5 mb-2 d-flex justify-content-center">
                         <button class="btn rounded-2 me-3 text-white" type="submit" style="background-color: #286090">
                             <i class="fa fa-file-pdf-o"></i>
-                            Reporte PDF de Empleados
+                            Reporte PDF de Usuarios
                         </button>
                     </div>
                 </div> {{-- FIN div_campos_usuarios --}}
@@ -114,7 +121,7 @@
     <script>
         $( document ).ready(function() {
             // INICIO DataTable Lista Usuarios
-            $("#tbl_personas").DataTable({
+            $("#tbl_usuarios").DataTable({
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
                 stripe: true,
@@ -138,7 +145,7 @@
                         }
                     }
                 ],
-                "pageLength": 25,
+                "pageLength": 10,
                 "scrollX": true,
             });
             // CIERRE DataTable Lista Usuarios

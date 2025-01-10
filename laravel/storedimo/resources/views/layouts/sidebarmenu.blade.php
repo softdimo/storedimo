@@ -25,7 +25,7 @@
                         <a class="link-underline-light" href="">Registrar Usuarios</a>
                     </li>
                     <li class="nav-item w-100">
-                        <a class="link-underline-light" href="">Listar Usuario</a>
+                        <a class="link-underline-light" href="{{route('usuarios.index')}}">Listar Usuarios</a>
                     </li>
                 </ul>
             </li>
