@@ -30,11 +30,12 @@ class ProductoStore implements Responsable
         // } else {
 
             DB::connection('pgsql')->beginTransaction();
+            $baseUri = env('BASE_URI');
 
             try {
                 // Realiza la solicitud POST a la API
                 $clientApi = new Client([
-                    'base_uri' => 'http://localhost:8000/api/producto_store',
+                    'base_uri' => $baseUri.'producto_store',
                     'headers' => [
                         'Accept' => 'application/json',
                         'Content-Type' => 'application/json',
