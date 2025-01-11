@@ -24,27 +24,19 @@ class CategoriaStore implements Responsable
         // } else {
 
             DB::connection('mysql')->beginTransaction();
-            // DB::connection('pgsql')->beginTransaction();
+            
             $baseUri = env('BASE_URI');
+            $clientApi = new Client(['base_uri' => $baseUri]);
 
             try {
-                // Realiza la solicitud POST a la API
-                $clientApi = new Client([
-                    'base_uri' => $baseUri.'categoria_store',
-                    'headers' => [
-                        'Accept' => 'application/json',
-                        'Content-Type' => 'application/json',
-                    ],
-                    'body' => json_encode([
+                $peticionCategoriaStore = $clientApi->post($baseUri.'categoria_store', [
+                    'json' => [
                         'categoria' => $categoria,
-                    ])
+                    ]
                 ]);
+                $respuestaCategoriaStore = json_decode($peticionCategoriaStore->getBody()->getContents(), true);
 
-                $response = $clientApi->request('POST');
-                $res = $response->getBody()->getContents();
-                $respuesta = json_decode($res, true );
-
-                if(isset($respuesta) && !empty($respuesta))
+                if(isset($respuestaCategoriaStore) && !empty($respuestaCategoriaStore))
                 {
                     DB::connection('mysql')->commit();
                     alert()->success('Proceso Exitoso', 'Categoría creada satisfactoriamente');
