@@ -25,11 +25,12 @@ class CategoriaStore implements Responsable
 
             DB::connection('mysql')->beginTransaction();
             // DB::connection('pgsql')->beginTransaction();
+            $baseUri = env('BASE_URI');
 
             try {
                 // Realiza la solicitud POST a la API
                 $clientApi = new Client([
-                    'base_uri' => 'http://localhost:8000/api/categoria_store',
+                    'base_uri' => $baseUri.'categoria_store',
                     'headers' => [
                         'Accept' => 'application/json',
                         'Content-Type' => 'application/json',
@@ -45,12 +46,12 @@ class CategoriaStore implements Responsable
 
                 if(isset($respuesta) && !empty($respuesta))
                 {
-                    DB::connection('pgsql')->commit();
+                    DB::connection('mysql')->commit();
                     alert()->success('Proceso Exitoso', 'Categoría creada satisfactoriamente');
                     return redirect()->to(route('categorias.index'));
 
                 } else {
-                    DB::connection('pgsql')->rollback();
+                    DB::connection('mysql')->rollback();
                     alert()->error('Error', 'Ha ocurrido un error al crear la categoria, por favor contacte a Soporte.');
                     return redirect()->to(route('categorias.index'));
                 }
@@ -59,7 +60,7 @@ class CategoriaStore implements Responsable
             catch (Exception $e)
             {
                 dd($e);
-                DB::connection('pgsql')->rollback();
+                DB::connection('mysql')->rollback();
                 alert()->error('Error', 'Error creando categoriausuario, si el problema persiste, contacte a Soporte.');
                 return back();
             }
