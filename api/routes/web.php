@@ -19,6 +19,19 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+
+// =====================================================================
+// =====================================================================
+
+// USUARIOS
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('usuarios_index', 'usuarios\UsuariosController@index');
+    // $router->post('usuario_store', 'usuarios\UsuariosController@store');
+    // $router->put('usuario_update/{id}', 'usuarios\UsuariosController@update');
+    // $router->post('categoria_destroy/{id}', 'categorias\CategoriasController@destroy');
+    // $router->get('categoria_show/{id}', 'categorias\CategoriasController@show');
+});
+
 // =====================================================================
 // =====================================================================
 

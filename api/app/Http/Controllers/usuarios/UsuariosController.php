@@ -4,11 +4,13 @@ namespace App\Http\Controllers\usuarios;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Exception;
-use App\Http\Controllers\admin\AdministradorController;
+use App\Http\Responsable\categorias\CategoriaIndex;
+use App\Http\Responsable\categorias\CategoriaStore;
+use App\Http\Responsable\categorias\CategoriaUpdate;
 use App\Http\Responsable\usuarios\UsuarioIndex;
-use App\Models\Rol;
-use App\Models\Estado;
+use App\Models\Categoria;
+
+
 class UsuariosController extends Controller
 {
     /**
@@ -18,24 +20,7 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        // try {
-            // $adminCtrl = new AdministradorController();
-            // $sesion = $adminCtrl->validarVariablesSesion();
-
-            // if (empty($sesion[0]) || is_null($sesion[0]) &&
-            //     empty($sesion[1]) || is_null($sesion[1]) &&
-            //     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-            // {
-            //     return view('inicio_sesion.login');
-            // } else {
-            //     $usuLogueado = session('id_usuario');
-                // $usuario = Usuario::select('nombres')->where('id_usuario',$usuLogueado)->first();
-                return new UsuarioIndex();
-        //     }
-        // } catch (Exception $e) {
-        //     alert()->error("Error Exception!");
-        //     return redirect()->to(route('login'));
-        // }
+        return new UsuarioIndex();
     }
 
     // ======================================================================
@@ -48,8 +33,7 @@ class UsuariosController extends Controller
      */
     public function create()
     {
-        $this->shareData();
-        return view('usuarios.create');
+        //
     }
 
     // ======================================================================
@@ -63,7 +47,7 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
-        
+        return new CategoriaStore();
     }
 
     // ======================================================================
@@ -93,7 +77,7 @@ class UsuariosController extends Controller
     {
         //
     }
-    
+
     // ======================================================================
     // ======================================================================
 
@@ -106,7 +90,7 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return new CategoriaUpdate($request, $id);
     }
 
     // ======================================================================
@@ -121,30 +105,5 @@ class UsuariosController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    // ======================================================================
-    // ======================================================================
-
-    private function shareData()
-    {
-        view()->share('roles', Rol::orderBy('rol','asc')->pluck('rol', 'id_rol'));
-        view()->share('estados', Estado::orderBy('estado','asc')->pluck('estado', 'id_estado'));
-    }
-
-    // ======================================================================
-    // ======================================================================
-
-    public function listarProveedores()
-    {
-        return view('personas.listar_proveedores');
-    }
-    
-    // ======================================================================
-    // ======================================================================
-
-    public function listarClientes()
-    {
-        return view('personas.listar_clientes');
     }
 }
