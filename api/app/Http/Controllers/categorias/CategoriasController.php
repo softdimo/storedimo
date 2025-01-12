@@ -105,4 +105,22 @@ class CategoriasController extends Controller
     {
         //
     }
+
+    // ======================================================================
+    // ======================================================================
+
+    public function consultaCategoria()
+    {
+        $categoria = request('categoria', null);
+
+        try
+        {
+            return Categoria::where('categoria', $categoria)->first();
+        }
+        catch (Exception $e)
+        {
+            alert()->error('Error', 'Error Exception, inténtelo de nuevo, si el problema persiste, contacte a Soporte.');
+            return back();
+        }
+    }
 }
