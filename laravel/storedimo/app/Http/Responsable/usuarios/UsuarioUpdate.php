@@ -9,11 +9,14 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Categoria;
 use GuzzleHttp\Client;
 
-class CategoriaStore implements Responsable
+class CategoriaUpdate implements Responsable
 {
     public function toResponse($request)
     {
+        $idCategoria = request('id_categoria', null);
         $categoria = request('categoria', null);
+
+        // dd($idCategoria, $categoria);
         
         // Consultamos si ya existe un usuario con la cedula ingresada
         // $consultaCategoria = Categoria::where('categoria', $categoria)->first();
@@ -23,28 +26,36 @@ class CategoriaStore implements Responsable
         //     return back();
         // } else {
 
-            DB::connection('mysql')->beginTransaction();
-            
-            $baseUri = env('BASE_URI');
-            $clientApi = new Client(['base_uri' => $baseUri]);
+            DB::connection('pgsql')->beginTransaction();
 
             try {
-                $peticionCategoriaStore = $clientApi->post($baseUri.'categoria_store', [
-                    'json' => [
+                // Realiza la solicitud POST a la API
+                $clientApi = new Client([
+                    'base_uri' => 'http://localhost:8000/api/categoria_update/'.$idCategoria,
+                    'headers' => [
+                        'Accept' => 'application/json',
+                        'Content-Type' => 'application/json',
+                    ],
+                    'body' => json_encode([
                         'categoria' => $categoria,
-                    ]
+                    ])
                 ]);
-                $respuestaCategoriaStore = json_decode($peticionCategoriaStore->getBody()->getContents(), true);
 
-                if(isset($respuestaCategoriaStore) && !empty($respuestaCategoriaStore))
+                $response = $clientApi->request('PUT');
+                $res = $response->getBody()->getContents();
+                $respuesta = json_decode($res, true );
+
+                // dd($respuesta);
+
+                if(isset($respuesta) && !empty($respuesta))
                 {
-                    DB::connection('mysql')->commit();
-                    alert()->success('Proceso Exitoso', 'Categoría creada satisfactoriamente');
+                    DB::connection('pgsql')->commit();
+                    alert()->success('Proceso Exitoso', 'Categoría editada satisfactoriamente');
                     return redirect()->to(route('categorias.index'));
 
                 } else {
-                    DB::connection('mysql')->rollback();
-                    alert()->error('Error', 'Ha ocurrido un error al crear la categoria, por favor contacte a Soporte.');
+                    DB::connection('pgsql')->rollback();
+                    alert()->error('Error', 'Error al editar la categoria, por favor contacte a Soporte.');
                     return redirect()->to(route('categorias.index'));
                 }
 
@@ -52,8 +63,8 @@ class CategoriaStore implements Responsable
             catch (Exception $e)
             {
                 dd($e);
-                DB::connection('mysql')->rollback();
-                alert()->error('Error', 'Error creando categoriausuario, si el problema persiste, contacte a Soporte.');
+                DB::connection('pgsql')->rollback();
+                alert()->error('Error', 'Error editando categoria, si el problema persiste, contacte a Soporte.');
                 return back();
             }
         // } // FIN else

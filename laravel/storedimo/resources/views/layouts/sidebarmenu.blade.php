@@ -10,6 +10,29 @@
             {{-- ==================================== --}}
 
             <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
+                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="usuarios" role="button" data-bs-toggle="collapse" data-bs-target="#ul_usuarios" aria-controls="ul_usuarios" aria-expanded="false" aria-label="Toggle navigation">
+                    <div class="col-11">
+                        <i class="fa fa-users text-center" style="color: #000; width: 10%"></i>
+                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Usuarios</a>
+                    </div>
+                    <div class="col-1 text-center text-dark">
+                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
+                    </div>
+                </div>
+
+                <ul class="nav collapse navbar-collapse ps-3" id="ul_usuarios">
+                    <li class="nav-item w-100">
+                        <a class="link-underline-light" href="{{route('usuarios.create')}}">Registrar Usuarios</a>
+                    </li>
+                    <li class="nav-item w-100">
+                        <a class="link-underline-light" href="{{route('usuarios.index')}}">Listar Usuarios</a>
+                    </li>
+                </ul>
+            </li>
+
+            {{-- ==================================== --}}
+
+            <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
                 <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="personas" role="button" data-bs-toggle="collapse" data-bs-target="#ul_personas" aria-controls="ul_personas" aria-expanded="false" aria-label="Toggle navigation">
                     <div class="col-11">
                         <i class="fa fa-users text-center" style="color: #000; width: 10%"></i>
@@ -22,10 +45,10 @@
 
                 <ul class="nav collapse navbar-collapse ps-3" id="ul_personas">
                     <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('usuarios.create')}}">Registrar Personas</a>
+                        <a class="link-underline-light" href="{{route('personas.create')}}">Registrar Personas</a>
                     </li>
                     <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('usuarios.index')}}">Listar Usuario/Empleados</a>
+                        <a class="link-underline-light" href="{{route('personas.index')}}">Listar Usuario/Empleados</a>
                     </li>
                     <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('listar_proveedores')}}">Listar Proveedores</a>
