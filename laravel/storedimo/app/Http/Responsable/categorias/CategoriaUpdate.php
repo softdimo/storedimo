@@ -73,10 +73,10 @@ class CategoriaUpdate implements Responsable
     {
         try
         {
-            $peticionConsultaCategoriaUpdate = $this->clientApi->post($this->baseUri.'consulta_categoria', [
+            $peticionConsultaCategoria = $this->clientApi->post($this->baseUri.'consulta_categoria', [
                 'json' => ['categoria' => $categoria]
             ]);
-            return json_decode($peticionConsultaCategoriaUpdate->getBody()->getContents(), true);
+            return json_decode($peticionConsultaCategoria->getBody()->getContents(), true);
         }
         catch (Exception $e)
         {

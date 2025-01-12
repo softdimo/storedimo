@@ -23,8 +23,6 @@ class ProductoStore implements Responsable
 
         // ========================================================
         
-        DB::connection('mysql')->beginTransaction();
-
         $baseUri = env('BASE_URI');
         $clientApi = new Client(['base_uri' => $baseUri]);
 
@@ -47,19 +45,11 @@ class ProductoStore implements Responsable
 
             if(isset($respuestaProductoStore) && !empty($respuestaProductoStore))
             {
-                DB::connection('mysql')->commit();
                 alert()->success('Proceso Exitoso', 'Producto creado satisfactoriamente');
                 return redirect()->to(route('productos.index'));
 
-            } else {
-                DB::connection('mysql')->rollback();
-                alert()->error('Error', 'Ha ocurrido un error al crear el producto, por favor contacte a Soporte.');
-                return redirect()->to(route('productos.index'));
             }
-        } // FIN Try
-        catch (Exception $e)
-        {
-            DB::connection('mysql')->rollback();
+        } catch (Exception $e) {
             alert()->error('Error', 'Error creando el producto, si el problema persiste, contacte a Soporte.' . $e->getMessage());
             return back();
         }
