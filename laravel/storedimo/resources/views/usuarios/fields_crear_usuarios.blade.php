@@ -33,8 +33,8 @@
         
         <div class="col-12 col-md-3" id="">
             <div class="form-group d-flex flex-column">
-                <label for="correo_electronico" class="form-label">Correo Electrónico <span class="text-danger">*</span></label>
-                {!! Form::text('correo_electronico', null, ['class' => 'form-control', 'id' => 'correo_electronico']) !!}
+                <label for="email" class="form-label">Correo Electrónico <span class="text-danger">*</span></label>
+                {!! Form::text('email', null, ['class' => 'form-control', 'id' => 'email']) !!}
             </div>
         </div>
 
