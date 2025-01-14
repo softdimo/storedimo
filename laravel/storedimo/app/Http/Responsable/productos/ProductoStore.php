@@ -20,83 +20,38 @@ class ProductoStore implements Responsable
         $descripcion = request('descripcion', null);
         $stockMinimo = request('stock_minimo', null);
         $idEstado = 1;
+
+        // ========================================================
         
-        // Consultamos si ya existe un usuario con la cedula ingresada
-        // $consultaCategoria = Categoria::where('categoria', $categoria)->first();
-        
-        // if(isset($consultaCategoria) && !empty($consultaCategoria) && !is_null($consultaCategoria)) {
-        //     alert()->info('Info', 'Esta categoría ya existe.');
-        //     return back();
-        // } else {
+        $baseUri = env('BASE_URI');
+        $clientApi = new Client(['base_uri' => $baseUri]);
 
-            DB::connection('pgsql')->beginTransaction();
+        try {
+            $peticionProductoStore = $clientApi->post($baseUri.'producto_store', [
+                'json' => [
+                    'nombre_producto' => $nombreProducto,
+                    'id_categoria' => $idCategoria,
+                    'precio_unitario' => $precioUnitario,
+                    'precio_detal' => $precioDetal,
+                    'precio_por_mayor' => $precioPorMayor,
+                    'descripcion' => $descripcion,
+                    'stock_minimo' => $stockMinimo,
+                    'id_estado' => $idEstado
+                ]
+            ]);
+            $respuestaProductoStore = json_decode($peticionProductoStore->getBody()->getContents(), true);
 
-            try {
-                // Realiza la solicitud POST a la API
-                $clientApi = new Client([
-                    'base_uri' => 'http://localhost:8000/api/producto_store',
-                    'headers' => [
-                        'Accept' => 'application/json',
-                        'Content-Type' => 'application/json',
-                    ],
-                    'body' => json_encode([
-                        'nombre_producto' => $nombreProducto,
-                        'id_categoria' => $idCategoria,
-                        'precio_unitario' => $precioUnitario,
-                        'precio_detal' => $precioDetal,
-                        'precio_por_mayor' => $precioPorMayor,
-                        'descripcion' => $descripcion,
-                        'stock_minimo' => $stockMinimo,
-                        'id_estado' => $idEstado,
-                    ])
-                ]);
+            // ========================================================
 
-                $response = $clientApi->request('POST');
-                $res = $response->getBody()->getContents();
-                $respuesta = json_decode($res, true );
-
-                if(isset($respuesta) && !empty($respuesta))
-                {
-                    DB::connection('pgsql')->commit();
-                    alert()->success('Proceso Exitoso', 'Producto creado satisfactoriamente');
-                    return redirect()->to(route('productos.index'));
-
-                } else {
-                    DB::connection('pgsql')->rollback();
-                    alert()->error('Error', 'Ha ocurrido un error al crear el producto, por favor contacte a Soporte.');
-                    return redirect()->to(route('productos.index'));
-                }
-            } // FIN Try
-            catch (Exception $e)
+            if(isset($respuestaProductoStore) && !empty($respuestaProductoStore))
             {
-                dd($e);
-                DB::connection('pgsql')->rollback();
-                alert()->error('Error', 'Error creando el producto, si el problema persiste, contacte a Soporte.');
-                return back();
+                alert()->success('Proceso Exitoso', 'Producto creado satisfactoriamente');
+                return redirect()->to(route('productos.index'));
+
             }
-        // } // FIN else
+        } catch (Exception $e) {
+            alert()->error('Error', 'Error creando el producto, si el problema persiste, contacte a Soporte.' . $e->getMessage());
+            return back();
+        }
     }
-
-    // ===================================================================
-    // ===================================================================
-
-    // private function consultarCategoria($categoria)
-    // {
-    //     try
-    //     {
-    //         $usuario = Usuario::where('usuario', $usuario)->first();
-    //         return $usuario;
-
-    //     }
-    //     catch (Exception $e)
-    //     {
-    //         alert()->error('Error', 'Error, inténtelo de nuevo, si el problema persiste, contacte a Soporte.');
-    //         return back();
-    //     }
-    // }
-
-    // ===================================================================
-    // ===================================================================
-
-
 }

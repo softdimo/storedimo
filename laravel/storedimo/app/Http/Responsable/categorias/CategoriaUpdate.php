@@ -11,85 +11,77 @@ use GuzzleHttp\Client;
 
 class CategoriaUpdate implements Responsable
 {
-    public function toResponse($request)
+    protected $baseUri;
+    protected $clientApi;
+
+    public function __construct()
     {
-        $idCategoria = request('id_categoria', null);
-        $categoria = request('categoria', null);
-
-        // dd($idCategoria, $categoria);
-        
-        // Consultamos si ya existe un usuario con la cedula ingresada
-        // $consultaCategoria = Categoria::where('categoria', $categoria)->first();
-        
-        // if(isset($consultaCategoria) && !empty($consultaCategoria) && !is_null($consultaCategoria)) {
-        //     alert()->info('Info', 'Esta categoría ya existe.');
-        //     return back();
-        // } else {
-
-            DB::connection('pgsql')->beginTransaction();
-
-            try {
-                // Realiza la solicitud POST a la API
-                $clientApi = new Client([
-                    'base_uri' => 'http://localhost:8000/api/categoria_update/'.$idCategoria,
-                    'headers' => [
-                        'Accept' => 'application/json',
-                        'Content-Type' => 'application/json',
-                    ],
-                    'body' => json_encode([
-                        'categoria' => $categoria,
-                    ])
-                ]);
-
-                $response = $clientApi->request('PUT');
-                $res = $response->getBody()->getContents();
-                $respuesta = json_decode($res, true );
-
-                // dd($respuesta);
-
-                if(isset($respuesta) && !empty($respuesta))
-                {
-                    DB::connection('pgsql')->commit();
-                    alert()->success('Proceso Exitoso', 'Categoría editada satisfactoriamente');
-                    return redirect()->to(route('categorias.index'));
-
-                } else {
-                    DB::connection('pgsql')->rollback();
-                    alert()->error('Error', 'Error al editar la categoria, por favor contacte a Soporte.');
-                    return redirect()->to(route('categorias.index'));
-                }
-
-            } // FIN Try
-            catch (Exception $e)
-            {
-                dd($e);
-                DB::connection('pgsql')->rollback();
-                alert()->error('Error', 'Error editando categoria, si el problema persiste, contacte a Soporte.');
-                return back();
-            }
-        // } // FIN else
+        $this->baseUri = env('BASE_URI');
+        $this->clientApi = new Client(['base_uri' => $this->baseUri]);
     }
 
     // ===================================================================
     // ===================================================================
 
-    // private function consultarCategoria($categoria)
-    // {
-    //     try
-    //     {
-    //         $usuario = Usuario::where('usuario', $usuario)->first();
-    //         return $usuario;
+    public function toResponse($request)
+    {
+        $idCategoria = request('id_categoria', null);
+        $categoria = request('categoria', null);
 
-    //     }
-    //     catch (Exception $e)
-    //     {
-    //         alert()->error('Error', 'Error, inténtelo de nuevo, si el problema persiste, contacte a Soporte.');
-    //         return back();
-    //     }
-    // }
+        // ===================================================================
+
+        $consultaCategoria = $this->consultaCategoria($categoria);
+
+        if(isset($consultaCategoria) && !empty($consultaCategoria) && !is_null($consultaCategoria)) {
+            alert()->info('Info', 'Esta categoría ya existe.');
+            return back();
+        }
+
+        try {
+            $peticionCategoriaUpdate = $this->clientApi->put($this->baseUri.'categoria_update/'.$idCategoria, [
+                'json' => ['categoria' => $categoria]
+            ]);
+            $respuestaCategoriaUpdate = json_decode($peticionCategoriaUpdate->getBody()->getContents(), true);
+
+            if(isset($respuestaCategoriaUpdate) && !empty($respuestaCategoriaUpdate))
+            {
+                alert()->success('Proceso Exitoso', 'Categoría editada satisfactoriamente');
+                return redirect()->to(route('categorias.index'));
+
+            } else {
+                $this->handleError('Error al editar la categoría, por favor contacte a Soporte.');
+            }
+        }
+        catch (Exception $e)
+        {
+            $this->handleError('Error Exception, contacte a Soporte.' . $e->getMessage());
+        }
+
+        return back();
+    }
+
+    // Método auxiliar para manejar errores
+    private function handleError($message)
+    {
+        alert()->error('Error', $message);
+    }
 
     // ===================================================================
     // ===================================================================
 
-
+    public function consultaCategoria($categoria)
+    {
+        try
+        {
+            $peticionConsultaCategoria = $this->clientApi->post($this->baseUri.'consulta_categoria', [
+                'json' => ['categoria' => $categoria]
+            ]);
+            return json_decode($peticionConsultaCategoria->getBody()->getContents(), true);
+        }
+        catch (Exception $e)
+        {
+            alert()->error('Error', 'Error Exception, inténtelo de nuevo, si el problema persiste, contacte a Soporte.'.$e->getMessage());
+            return back();
+        }
+    }
 }

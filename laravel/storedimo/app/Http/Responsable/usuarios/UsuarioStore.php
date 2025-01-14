@@ -50,6 +50,8 @@ class UsuarioStore implements Responsable
 
             // ===================================================================
 
+            $baseUri = env('BASE_URI');
+
             try {
                 $peticionUsuarioStore =  $this->clientApi->post($this->baseUri.'usuario_store', [
                     'json' => [
