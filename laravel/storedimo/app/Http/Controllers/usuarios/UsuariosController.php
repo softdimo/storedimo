@@ -7,10 +7,15 @@ use Illuminate\Http\Request;
 use Exception;
 use App\Http\Controllers\admin\AdministradorController;
 use App\Http\Responsable\usuarios\UsuarioIndex;
+use App\Http\Responsable\usuarios\UsuarioStore;
+use App\Http\Responsable\usuarios\UsuarioUpdate;
+use GuzzleHttp\Client;
+use App\Traits\MetodosTrait;
 use App\Models\Rol;
 use App\Models\Estado;
 class UsuariosController extends Controller
 {
+    use MetodosTrait;
     /**
      * Display a listing of the resource.
      *
@@ -63,7 +68,22 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
-        
+        /* try {
+            $sesion = $this->validarVariablesSesion();
+
+            if (empty($sesion[0]) || is_null($sesion[0]) &&
+                empty($sesion[1]) || is_null($sesion[1]) &&
+                empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+            {
+                return view('inicio_sesion.login');
+            } else { */
+                return new UsuarioStore();
+            //}
+
+        /* } catch (Exception $e) {
+            alert()->error("Ha ocurrido un error!");
+            return redirect()->to(route('login'));
+        } */
     }
 
     // ======================================================================

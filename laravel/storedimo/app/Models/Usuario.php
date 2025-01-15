@@ -22,6 +22,7 @@ class Usuario extends Model
         'identificacion',
         'email',
         'clave',
+        'clave_fallas',
         'id_estado',
         'id_rol',
     ];

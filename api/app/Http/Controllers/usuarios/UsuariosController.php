@@ -4,11 +4,10 @@ namespace App\Http\Controllers\usuarios;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Responsable\categorias\CategoriaIndex;
-use App\Http\Responsable\categorias\CategoriaStore;
-use App\Http\Responsable\categorias\CategoriaUpdate;
 use App\Http\Responsable\usuarios\UsuarioIndex;
-use App\Models\Categoria;
+use App\Http\Responsable\usuarios\UsuarioStore;
+use App\Http\Responsable\usuarios\UsuarioUpdate;
+use App\Models\Usuario;
 
 
 class UsuariosController extends Controller
@@ -47,7 +46,7 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
-        return new CategoriaStore();
+        return new UsuarioStore($request);
     }
 
     // ======================================================================
@@ -90,7 +89,7 @@ class UsuariosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return new CategoriaUpdate($request, $id);
+        //return new UsuaUpdate($request, $id);
     }
 
     // ======================================================================
@@ -105,5 +104,19 @@ class UsuariosController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function consultarId() 
+    {
+        $identificacion = request('identificacion', null);
+        // Consultamos si ya existe un usuario con la cedula ingresada
+        return Usuario::where('identificacion', $identificacion)->first();
+    }
+
+    public function consultaUsuario()
+    {
+        $usuario = request('usuario', null);
+        // Consultamos si ya existe un usuario con la cedula ingresada
+        return Usuario::where('usuario', $usuario)->first();
     }
 }
