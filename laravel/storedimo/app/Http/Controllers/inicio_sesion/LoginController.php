@@ -26,13 +26,13 @@ class LoginController extends Controller
     public function index()
     {
         $vista = 'inicio_sesion.login';
-        /* $checkConnection = $this->checkDatabaseConnection($vista);
+        $checkConnection = $this->checkDatabaseConnection($vista);
         
         if($checkConnection->getName() == "db_conexion") {
             return view('db_conexion');
-        } else { */
+        } else {
             return view($vista);
-        //}
+        }
     }
 
     // ======================================================================
