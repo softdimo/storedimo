@@ -12,10 +12,10 @@ class UsuarioStore implements Responsable
 {
     public function toResponse($request)
     {
-        //TODO: Pendiente
         $nombreUsuario = request('nombre_usuario', null);
         $apellidoUsuario = request('apellido_usuario', null);
         $identificacion = request('identificacion', null);
+        $usuario  = request('usuario', null);
         $email = request('email', null);
         $idRol = request('id_rol', null);
         $idEstado = request('id_estado', null);
@@ -28,6 +28,7 @@ class UsuarioStore implements Responsable
             'nombre_usuario' => $nombreUsuario,
             'apellido_usuario' => $apellidoUsuario,
             'identificacion' => $identificacion,
+            'usuario' => $usuario,
             'email' => $email,
             'clave' => $clave,
             'clave_fallas' => $claveFallas,

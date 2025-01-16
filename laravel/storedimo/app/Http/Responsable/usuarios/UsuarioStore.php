@@ -56,6 +56,7 @@ class UsuarioStore implements Responsable
                         'nombre_usuario' => $nombreUsuario,
                         'apellido_usuario' => $apellidoUsuario,
                         'identificacion' => $identificacion,
+                        'usuario' => $usuario,
                         'email' => $email,
                         'id_rol' => $idRol,
                         'id_estado' => $idEstado,

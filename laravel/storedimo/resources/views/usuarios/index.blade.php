@@ -75,7 +75,7 @@
                                         <td>{{$usuario['estado']}}</td>
                                         <td>
 
-                                            //TODO: Editar usuario
+                                            
                                             <a href="#" role="button" class="btn btn-primary rounded-circle btn-circle" title="Ver Detalles">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                             </a>
