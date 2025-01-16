@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Categoria;
+use App\Models\Usuario;
 
 class UsuarioStore implements Responsable
 {
@@ -25,14 +25,12 @@ class UsuarioStore implements Responsable
         // ================================================
 
         $nuevoUsuario = Usuario::create([
-            'nombres' => $nombres,
-            'apellidos' => $apellidos,
-            'usuario' => $usuario,
-            'id_tipo_documento' => $idTipoDocumento,
-            'numero_documento' => $numeroDocumento,
+            'nombre_usuario' => $nombreUsuario,
+            'apellido_usuario' => $apellidoUsuario,
+            'identificacion' => $identificacion,
+            'email' => $email,
             'clave' => $clave,
             'clave_fallas' => $claveFallas,
-            'correo' => $correo,
             'id_estado' => $idEstado,
             'id_rol' => $idRol
         ]);
@@ -45,26 +43,7 @@ class UsuarioStore implements Responsable
                 'message' => 'El usuario se actualizó correctamente'
             ]);
         } else {
-            return abort(404, $message = 'No existe este usuario');
-        }
-                        
-        $categoria = request('categoria', null);
-
-        // ================================================
-
-        $nuevaCategoria = Categoria::create([
-            'categoria' => $categoria,
-        ]);
-
-        // ================================================
-
-        if (isset($nuevaCategoria) && !is_null($nuevaCategoria) && !empty($nuevaCategoria)) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Categoría creada correctamente'
-            ]);
-        } else {
-            return abort(404, $message = 'Categoría no creada');
+            return abort(404, 'No existe este usuario');
         }
     }
 
