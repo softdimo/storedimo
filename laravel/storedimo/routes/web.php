@@ -36,7 +36,7 @@ Route::group(['namespace' => 'App\Http\Controllers\inicio_sesion'], function () 
     Route::get('recuperar_clave_link/{usuIdRecuperarClave}', 'LoginController@recuperarClaveLink')->name('recuperar_clave_link');
     Route::post('recuperar_clave_update', 'LoginController@recuperarClaveUpdate')->name('recuperar_clave_update');
     // COMPROBAR CONEXIÓN BASE DE DATOS
-    Route::get('check_db_conexion', 'LoginController@checkDatabaseConnection')->name('check_db_conexion');
+    // Route::get('check_db_conexion', 'LoginController@checkDatabaseConnection')->name('check_db_conexion');
 });
 
 // ========================================================================

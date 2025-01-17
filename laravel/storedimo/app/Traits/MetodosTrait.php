@@ -10,10 +10,12 @@ trait MetodosTrait
     public function checkDatabaseConnection($rutaPerfil)
     {
         try {
-           DB::connection()->getPdo();
-           return view($rutaPerfil);
+            $pdo = DB::connection()->getPdo();
+            // dd($pdo);
+             return view($rutaPerfil);
         } catch (\Exception $e) {
-            return View::make('db_conexion');
+            // dd($e);
+             return View::make('db_conexion');
         }
     }
 
