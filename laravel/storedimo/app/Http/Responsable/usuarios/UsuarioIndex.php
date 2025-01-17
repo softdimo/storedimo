@@ -16,17 +16,22 @@ class UsuarioIndex implements Responsable
 
     public function toResponse($request)
     {
-        $baseUri = env('BASE_URI');
-        $clientApi = new Client(['base_uri' => $baseUri]);
-        
         try {
+            DB::connection()->getPDO();
+            DB::connection()->getDatabaseName();
+
+            $baseUri = env('BASE_URI');
+            $clientApi = new Client(['base_uri' => $baseUri]);
             $vista = 'usuarios.index';
+
+            // ==============================================================
+
             $checkConnection = $this->checkDatabaseConnection($vista);
 
-            if($checkConnection->getName() == "db_conexion") {
+            if($checkConnection->getName() == 'db_conexion') {
                 return view('db_conexion');
             } else {
-                 // Realiza la solicitud a la API
+                // Realiza la solicitud a la API
                 $response = $clientApi->get($baseUri . 'usuarios_index');
                 $usuarioIndex = json_decode($response->getBody()->getContents(), true);
 
@@ -35,6 +40,20 @@ class UsuarioIndex implements Responsable
                    return view($vista, compact('usuarioIndex'));
                 }
             }
+
+            // ==============================================================
+
+            // if (!$this->checkDatabaseConnection()) {
+            //     return view('db_conexion');
+            // } else {
+            //     // Realiza la solicitud a la API
+            //     $response = $clientApi->get($baseUri . 'usuarios_index');
+            //     $usuarioIndex = json_decode($response->getBody()->getContents(), true);
+
+            //     if(isset($usuarioIndex) && !empty($usuarioIndex) && !is_null($usuarioIndex)) {
+            //         return view($vista, compact('usuarioIndex'));
+            //     }
+            // }
         }
         catch (Exception $e) {
             dd($e);

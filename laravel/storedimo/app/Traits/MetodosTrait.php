@@ -7,16 +7,24 @@ use Illuminate\Support\Facades\View;
 
 trait MetodosTrait
 {
-    public function checkDatabaseConnection($rutaPerfil)
+    // public function checkDatabaseConnection()
+    public function checkDatabaseConnection($vista)
     {
         try {
-            $pdo = DB::connection()->getPdo();
-            // dd($pdo);
-             return view($rutaPerfil);
+            DB::connection()->getPdo();
+            // dd($db);
+             return view($vista);
         } catch (\Exception $e) {
-            // dd($e);
              return View::make('db_conexion');
         }
+
+        // try {
+        //     DB::connection()->getPdo();
+        //     return true; // Conexión exitosa
+        // } catch (\Exception $e) {
+        //     dd($e->getMessage());
+        //     return false; // Fallo en la conexión
+        // }
     }
 
     // ======================================
