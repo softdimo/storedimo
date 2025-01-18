@@ -12,19 +12,10 @@ trait MetodosTrait
     {
         try {
             DB::connection()->getPdo();
-            // dd($db);
              return view($vista);
         } catch (\Exception $e) {
              return View::make('db_conexion');
         }
-
-        // try {
-        //     DB::connection()->getPdo();
-        //     return true; // Conexión exitosa
-        // } catch (\Exception $e) {
-        //     dd($e->getMessage());
-        //     return false; // Fallo en la conexión
-        // }
     }
 
     // ======================================

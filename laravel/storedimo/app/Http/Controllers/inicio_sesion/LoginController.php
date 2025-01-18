@@ -43,10 +43,10 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    /* public function create()
+    public function create()
     {
         //
-    } */
+    }
 
     // ======================================================================
     // ======================================================================
@@ -57,10 +57,10 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    /* public function store(Request $request)
+    public function store(Request $request)
     {
         return new LoginStore();
-    } */
+    }
 
     // ======================================================================
     // ======================================================================
@@ -71,10 +71,10 @@ class LoginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   /*  public function show($id)
+    public function show($id)
     {
         //
-    } */
+    }
 
     // ======================================================================
     // ======================================================================
@@ -85,10 +85,10 @@ class LoginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    /* public function edit($id)
+    public function edit($id)
     {
         //
-    } */
+    }
     
     // ======================================================================
     // ======================================================================
@@ -100,10 +100,10 @@ class LoginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    /* public function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         //
-    } */
+    }
 
     // ======================================================================
     // ======================================================================
@@ -114,13 +114,14 @@ class LoginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    /* public function destroy($id)
+    public function destroy($id)
     {
         //
-    } */
+    }
 
     // ======================================================================
     // ======================================================================
+
 
     /* public function logout(Request $request)
     {
@@ -227,4 +228,22 @@ class LoginController extends Controller
             return redirect()->to(route('login'));
        }
     } */
+
+    // ======================================================================
+    // ======================================================================
+    
+    public function checkDatabaseConnection($vista)
+    {
+        try {
+            DB::connection()->getPdo();
+            dd('entra verdadero');
+             return view($vista);
+        } catch (\Exception $e) {
+            dd('entra falso');
+             return View::make('db_conexion');
+        }
+    }
+
+    // ======================================================================
+    // ======================================================================
 }  // Fin clase LoginController
