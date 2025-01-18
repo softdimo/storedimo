@@ -28,7 +28,7 @@ class LoginController extends Controller
         $vista = 'inicio_sesion.login';
         $checkConnection = $this->checkDatabaseConnection($vista);
         
-        if($checkConnection->getName() == "db_conexion") {
+        if($checkConnection->getName() == 'db_conexion') {
             return view('db_conexion');
         } else {
             return view($vista);
@@ -121,7 +121,6 @@ class LoginController extends Controller
 
     // ======================================================================
     // ======================================================================
-
 
     /* public function logout(Request $request)
     {
@@ -228,22 +227,4 @@ class LoginController extends Controller
             return redirect()->to(route('login'));
        }
     } */
-
-    // ======================================================================
-    // ======================================================================
-    
-    public function checkDatabaseConnection($vista)
-    {
-        try {
-            DB::connection()->getPdo();
-            dd('entra verdadero');
-             return view($vista);
-        } catch (\Exception $e) {
-            dd('entra falso');
-             return View::make('db_conexion');
-        }
-    }
-
-    // ======================================================================
-    // ======================================================================
 }  // Fin clase LoginController

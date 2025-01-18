@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\View;
 
 trait MetodosTrait
 {
-    // public function checkDatabaseConnection()
     public function checkDatabaseConnection($vista)
     {
         try {
