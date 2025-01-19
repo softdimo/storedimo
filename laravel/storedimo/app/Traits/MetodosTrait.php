@@ -7,13 +7,13 @@ use Illuminate\Support\Facades\View;
 
 trait MetodosTrait
 {
-    public function checkDatabaseConnection($vista)
+    public function checkDatabaseConnection()
     {
         try {
             DB::connection()->getPdo();
-             return view($vista);
+            return true; // Conexión exitosa
         } catch (\Exception $e) {
-             return View::make('db_conexion');
+            return false; // Conexión fallida
         }
     }
 

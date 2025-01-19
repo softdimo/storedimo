@@ -22,30 +22,20 @@ class ProductoQueryBarCode implements Responsable
         $idProducto = $this->idProducto;
 
         try {
-            // Realiza la solicitud POST a la API
-            $clientApi = new Client([
-                'base_uri' => 'http://localhost:8000/api/producto_query_barcode/'.$idProducto,
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'Content-Type' => 'application/json',
-                ],
-                'body' => json_encode([])
-            ]);
+            // Realiza la solicitud a la API
+            $baseUri = env('BASE_URI');
+            $clientApi = new Client(['base_uri' => $baseUri]);
 
-            $response = $clientApi->request('POST');
-            $res = $response->getBody()->getContents();
-            $producto = json_decode($res, true);
+            $response = $clientApi->post($baseUri . 'producto_query_barcode/'.$idProducto);
+            $producto = json_decode($response->getBody()->getContents(), true);
 
-            if(isset($producto) && !empty($producto))
-            {
+            if(isset($producto) && !empty($producto)) {
                 return response()->json($producto);
             } else {
                 alert()->error('Error', 'No existe el producto.');
                 return redirect()->to(route('productos.index'));
             }
-        } // FIN Try
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             alert()->error('Error', 'Error consulta producto, si el problema persiste, contacte a Soporte.');
             return back();
         } // FIN Catch
