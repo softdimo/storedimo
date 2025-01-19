@@ -1,7 +1,5 @@
 <?php
 
-// use Illuminate\Support\Facades\Route;
-
 /** @var \Laravel\Lumen\Routing\Router $router */
 
 /*
@@ -26,7 +24,10 @@ $router->get('/', function () use ($router) {
 // USUARIOS
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('usuarios_index', 'usuarios\UsuariosController@index');
-    // $router->post('usuario_store', 'usuarios\UsuariosController@store');
+    $router->post('query_identificacion', 'usuarios\UsuariosController@consultarId');
+    $router->post('query_usuario', 'usuarios\UsuariosController@consultaUsuario');
+    $router->post('usuario_store', 'usuarios\UsuariosController@store');
+
     // $router->put('usuario_update/{id}', 'usuarios\UsuariosController@update');
     // $router->post('categoria_destroy/{id}', 'categorias\CategoriasController@destroy');
     // $router->get('categoria_show/{id}', 'categorias\CategoriasController@show');
@@ -40,8 +41,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('categoria_index', 'categorias\CategoriasController@index');
     $router->post('categoria_store', 'categorias\CategoriasController@store');
     $router->put('categoria_update/{id}', 'categorias\CategoriasController@update');
-    // $router->post('categoria_destroy/{id}', 'categorias\CategoriasController@destroy');
-    // $router->get('categoria_show/{id}', 'categorias\CategoriasController@show');
+    $router->post('consulta_categoria', 'categorias\CategoriasController@consultaCategoria');
 });
 
 // ========================================================================
@@ -53,7 +53,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('producto_store', 'productos\ProductosController@store');
     $router->post('producto_show/{idProducto}', 'productos\ProductosController@show');
     $router->post('producto_edit/{idProducto}', 'productos\ProductosController@edit');
-    $router->post('producto_update/{idProducto}', 'productos\ProductosController@update');
+    $router->put('producto_update/{idProducto}', 'productos\ProductosController@update');
     $router->post('cambiar_estado/{idProducto}', 'productos\ProductosController@destroy');
     $router->post('producto_query_barcode/{idProducto}', 'productos\ProductosController@productoQueryBarcode');
 });

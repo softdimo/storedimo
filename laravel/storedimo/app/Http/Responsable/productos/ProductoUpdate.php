@@ -20,15 +20,15 @@ class ProductoUpdate implements Responsable
         $precioDetalEdit = request('precioDetalEdit', null);
         $stockMinimoEdit = request('stockMinimoEdit', null);
 
+        // ===================================================================
+        // ===================================================================
+
+        $baseUri = env('BASE_URI');
+        $clientApi = new Client(['base_uri' => $baseUri]);
+
         try {
-            // Realiza la solicitud POST a la API
-            $clientApi = new Client([
-                'base_uri' => 'http://localhost:8000/api/producto_update/'.$idProducto,
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'Content-Type' => 'application/json',
-                ],
-                'body' => json_encode([
+            $peticionProductoUpdate = $clientApi->put($baseUri.'producto_update/'.$idProducto, [
+                'json' => [
                     'nombre_producto' => $nombreProductoEdit,
                     'id_categoria' => $categoriaEdit,
                     'descripcion' => $descripcionEdit,
@@ -36,30 +36,19 @@ class ProductoUpdate implements Responsable
                     'precio_unitario' => $precioUnitarioEdit,
                     'precio_detal' => $precioDetalEdit,
                     'precio_por_mayor' => $precioPorMayorEdit
-                ])
+                ]
             ]);
+            $respuestaProductoUpdate = json_decode($peticionProductoUpdate->getBody()->getContents(), true);
 
-            $response = $clientApi->request('POST');
-            $res = $response->getBody()->getContents();
-            $respuesta = json_decode($res, true);
+            // ===================================================================
 
-            if(isset($respuesta) && !empty($respuesta))
-            {
-                DB::connection('pgsql')->commit();
+            if(isset($respuestaProductoUpdate) && !empty($respuestaProductoUpdate)) {
                 alert()->success('Proceso Exitoso', 'Producto editado satisfactoriamente');
                 return redirect()->to(route('productos.index'));
-
-            } else {
-                DB::connection('pgsql')->rollback();
-                alert()->error('Error', 'Producto No editado');
-                return redirect()->to(route('productos.index'));
             }
-        } // FIN Try
-        catch (Exception $e)
-        {
-            DB::connection('pgsql')->rollback();
-            alert()->error('Error', 'Excepción, intente de nuevo, si el problema persiste, contacte a Soporte.');
+        } catch (Exception $e) {
+            alert()->error('Error', 'Excepción, intente de nuevo, si el problema persiste, contacte a Soporte.' . $e->getMessage());
             return back();
-        } // FIN Catch
+        }
     }
 }

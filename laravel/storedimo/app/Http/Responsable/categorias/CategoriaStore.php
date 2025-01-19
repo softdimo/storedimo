@@ -11,82 +11,58 @@ use GuzzleHttp\Client;
 
 class CategoriaStore implements Responsable
 {
-    public function toResponse($request)
+    protected $baseUri;
+    protected $clientApi;
+
+    public function __construct()
     {
-        $categoria = request('categoria', null);
-        
-        // Consultamos si ya existe un usuario con la cedula ingresada
-        // $consultaCategoria = Categoria::where('categoria', $categoria)->first();
-        
-        // if(isset($consultaCategoria) && !empty($consultaCategoria) && !is_null($consultaCategoria)) {
-        //     alert()->info('Info', 'Esta categoría ya existe.');
-        //     return back();
-        // } else {
-
-            DB::connection('mysql')->beginTransaction();
-            // DB::connection('pgsql')->beginTransaction();
-            $baseUri = env('BASE_URI');
-
-            try {
-                // Realiza la solicitud POST a la API
-                $clientApi = new Client([
-                    'base_uri' => $baseUri.'categoria_store',
-                    'headers' => [
-                        'Accept' => 'application/json',
-                        'Content-Type' => 'application/json',
-                    ],
-                    'body' => json_encode([
-                        'categoria' => $categoria,
-                    ])
-                ]);
-
-                $response = $clientApi->request('POST');
-                $res = $response->getBody()->getContents();
-                $respuesta = json_decode($res, true );
-
-                if(isset($respuesta) && !empty($respuesta))
-                {
-                    DB::connection('mysql')->commit();
-                    alert()->success('Proceso Exitoso', 'Categoría creada satisfactoriamente');
-                    return redirect()->to(route('categorias.index'));
-
-                } else {
-                    DB::connection('mysql')->rollback();
-                    alert()->error('Error', 'Ha ocurrido un error al crear la categoria, por favor contacte a Soporte.');
-                    return redirect()->to(route('categorias.index'));
-                }
-
-            } // FIN Try
-            catch (Exception $e)
-            {
-                dd($e);
-                DB::connection('mysql')->rollback();
-                alert()->error('Error', 'Error creando categoriausuario, si el problema persiste, contacte a Soporte.');
-                return back();
-            }
-        // } // FIN else
+        $this->baseUri = env('BASE_URI');
+        $this->clientApi = new Client(['base_uri' => $this->baseUri]);
     }
 
     // ===================================================================
     // ===================================================================
 
-    // private function consultarCategoria($categoria)
-    // {
-    //     try
-    //     {
-    //         $usuario = Usuario::where('usuario', $usuario)->first();
-    //         return $usuario;
+    public function toResponse($request)
+    {
+        $categoria = request('categoria', null);
+        
+        $consultaCategoria = $this->consultaCategoria($categoria);
+        
+        if(isset($consultaCategoria) && !empty($consultaCategoria) && !is_null($consultaCategoria)) {
+            alert()->info('Info', 'Esta categoría ya existe.');
+            return back();
+        } else {
+            try {
+                $peticionCategoriaStore = $this->clientApi->post($this->baseUri.'categoria_store', [
+                    'json' => ['categoria' => $categoria]
+                ]);
+                $respuestaCategoriaStore = json_decode($peticionCategoriaStore->getBody()->getContents(), true);
 
-    //     }
-    //     catch (Exception $e)
-    //     {
-    //         alert()->error('Error', 'Error, inténtelo de nuevo, si el problema persiste, contacte a Soporte.');
-    //         return back();
-    //     }
-    // }
+                if(isset($respuestaCategoriaStore) && !empty($respuestaCategoriaStore)) {
+                    alert()->success('Proceso Exitoso', 'Categoría creada satisfactoriamente');
+                    return redirect()->to(route('categorias.index'));
+                }
+            } catch (Exception $e) {
+                alert()->error('Error', 'Error creando categoriausuario, si el problema persiste, contacte a Soporte.' . $e->getMessage());
+                return back();
+            }
+        } // FIN else
+    }
 
     // ===================================================================
     // ===================================================================
 
-
+    public function consultaCategoria($categoria)
+    {
+        try {
+            $peticionConsultaCategoria = $this->clientApi->post($this->baseUri.'consulta_categoria', [
+                'json' => ['categoria' => $categoria]
+            ]);
+            return json_decode($peticionConsultaCategoria->getBody()->getContents(), true);
+        } catch (Exception $e) {
+            alert()->error('Error', 'Error Exception, inténtelo de nuevo, si el problema persiste, contacte a Soporte.'.$e->getMessage());
+            return back();
+        }
+    }
 }

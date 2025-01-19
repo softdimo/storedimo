@@ -33,8 +33,8 @@
         
         <div class="col-12 col-md-3" id="">
             <div class="form-group d-flex flex-column">
-                <label for="correo_electronico" class="form-label">Correo Electrónico <span class="text-danger">*</span></label>
-                {!! Form::text('correo_electronico', null, ['class' => 'form-control', 'id' => 'correo_electronico']) !!}
+                <label for="email" class="form-label">Correo Electrónico <span class="text-danger">*</span></label>
+                {!! Form::text('email', null, ['class' => 'form-control', 'id' => 'email']) !!}
             </div>
         </div>
 
@@ -53,7 +53,7 @@
         <div class="col-12 col-md-3 mt-3">
             <div class="form-group d-flex flex-column">
                 <label for="id_estado" class="form-label">Estado<span class="text-danger">*</span></label>
-                {!! Form::select('id_estado', collect(['' => 'Seleccionar...'])->union($estados), null, ['class' => 'form-control', 'id' => 'id_estado']) !!}
+                {!! Form::select('id_estado', collect(['' => 'Seleccionar...'])->union($estados), 1, ['class' => 'form-control', 'id' => 'id_estado']) !!}
             </div>
         </div>
 

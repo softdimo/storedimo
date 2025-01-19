@@ -136,9 +136,8 @@ class CategoriasController extends Controller
         //     {
         //         return view('inicio_sesion.login');
         //     } else {
-            //return new CategoriaUpdate();
+            return new CategoriaUpdate();
             //     }
-    
             // } catch (Exception $e) {
             //     dd($e);
             //     alert()->error("Ha ocurrido un error!");
