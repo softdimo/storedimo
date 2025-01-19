@@ -25,13 +25,10 @@ class LoginController extends Controller
      */
     public function index()
     {
-        $vista = 'inicio_sesion.login';
-        $checkConnection = $this->checkDatabaseConnection($vista);
-        
-        if($checkConnection->getName() == 'db_conexion') {
-            return view('db_conexion');
+        if (!$this->checkDatabaseConnection()) {
+            return view('db_conexion'); // Si la conexión falla, devuelve la vista de error
         } else {
-            return view($vista);
+            return view('inicio_sesion.login');
         }
     }
 
