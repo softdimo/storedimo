@@ -10,9 +10,10 @@ use App\Http\Responsable\usuarios\UsuarioIndex;
 use App\Http\Responsable\usuarios\UsuarioStore;
 use App\Http\Responsable\usuarios\UsuarioUpdate;
 use GuzzleHttp\Client;
-use App\Traits\MetodosTrait;
 use App\Models\Rol;
 use App\Models\Estado;
+use App\Traits\MetodosTrait;
+
 class UsuariosController extends Controller
 {
     use MetodosTrait;
@@ -35,7 +36,13 @@ class UsuariosController extends Controller
             // } else {
             //     $usuLogueado = session('id_usuario');
                 // $usuario = Usuario::select('nombres')->where('id_usuario',$usuLogueado)->first();
-                return new UsuarioIndex();
+
+                if (!$this->checkDatabaseConnection()) {
+                    return view('db_conexion'); // Si la conexión falla, devuelve la vista de error
+                } else {
+                    return new UsuarioIndex();
+                }
+
         //     }
         // } catch (Exception $e) {
         //     alert()->error("Error Exception!");

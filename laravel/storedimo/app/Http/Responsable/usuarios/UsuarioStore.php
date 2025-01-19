@@ -50,14 +50,13 @@ class UsuarioStore implements Responsable
 
             // ===================================================================
 
-            $baseUri = env('BASE_URI');
-
             try {
                 $peticionUsuarioStore =  $this->clientApi->post($this->baseUri.'usuario_store', [
                     'json' => [
                         'nombre_usuario' => $nombreUsuario,
                         'apellido_usuario' => $apellidoUsuario,
                         'identificacion' => $identificacion,
+                        'usuario' => $usuario,
                         'email' => $email,
                         'id_rol' => $idRol,
                         'id_estado' => $idEstado,
@@ -69,20 +68,17 @@ class UsuarioStore implements Responsable
 
                 if(isset($resUsuarioStore) && !empty($resUsuarioStore))
                 {
+                    return $this->respuestaExito(
+                        'Usuario creado satisfactoriamente.'. $usuario.$complemento . ' y la clave es: ' . $identificacion, 'usuarios.index'
+                    );
+
                     alert()->success('Proceso Exitoso', 'Usuario creado satisfactoriamente: ' . $usuario.$complemento . ' y la clave es: ' . $identificacion);
                     return redirect()->to(route('usuarios.index'));
-
-                } else {
-                    alert()->error('Error', 'Ha ocurrido un error al crear el usuario, por favor contacte a Soporte.');
-                    return redirect()->to(route('usuarios.index'));
                 }
-
             }
             catch (Exception $e)
             {
-                dd($e);
-                alert()->error('Error', 'Error creando usuario, si el problema persiste, contacte a Soporte.');
-                return back();
+                return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
             }
         }
     }
@@ -105,8 +101,6 @@ class UsuarioStore implements Responsable
 
     private function consultaUsuario($usuario)
     {
-        
-
         try
         {
             $queryUsuario = $this->clientApi->post($this->baseUri.'query_usuario', [
@@ -120,8 +114,7 @@ class UsuarioStore implements Responsable
         }
         catch (Exception $e)
         {
-            alert()->error('Error', 'Error, inténtelo de nuevo, si el problema persiste, contacte a Soporte.');
-            return back();
+            return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
         }
     }
 
@@ -139,4 +132,33 @@ class UsuarioStore implements Responsable
                             "u", "o", "O", "i", "a", "e", "U", "I", "A", "E", "n", "N", "");
         return str_replace($no_permitidas, $permitidas, $cadena);
     }
+
+    // ===================================================================
+    // ===================================================================
+
+    // Método auxiliar para mensajes de exito
+    private function respuestaExito($mensaje, $ruta)
+    {
+        alert()->success('Exito', $mensaje);
+        return redirect()->to(route($ruta));
+    }
+
+    // ========================================================
+
+    // Método auxiliar para manejar errores
+    private function respuestaError($mensaje, $ruta)
+    {
+        alert()->error('Error', $mensaje);
+        return redirect()->to(route($ruta));
+    }
+
+    // ========================================================
+
+    // Método auxiliar para manejar excepciones
+    private function respuestaException($mensaje)
+    {
+        alert()->error('Error', $mensaje);
+        return back();
+    }
+
 }

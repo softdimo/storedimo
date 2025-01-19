@@ -7,13 +7,13 @@ use Illuminate\Support\Facades\View;
 
 trait MetodosTrait
 {
-    public function checkDatabaseConnection($rutaPerfil)
+    public function checkDatabaseConnection()
     {
         try {
-           DB::connection()->getPdo();
-           return view($rutaPerfil);
+            DB::connection()->getPdo();
+            return true; // Conexión exitosa
         } catch (\Exception $e) {
-            return View::make('db_conexion');
+            return false; // Conexión fallida
         }
     }
 

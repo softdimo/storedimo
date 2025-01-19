@@ -25,14 +25,11 @@ class LoginController extends Controller
      */
     public function index()
     {
-        $vista = 'inicio_sesion.login';
-        /* $checkConnection = $this->checkDatabaseConnection($vista);
-        
-        if($checkConnection->getName() == "db_conexion") {
-            return view('db_conexion');
-        } else { */
-            return view($vista);
-        //}
+        if (!$this->checkDatabaseConnection()) {
+            return view('db_conexion'); // Si la conexión falla, devuelve la vista de error
+        } else {
+            return view('inicio_sesion.login');
+        }
     }
 
     // ======================================================================
@@ -43,10 +40,10 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    /* public function create()
+    public function create()
     {
         //
-    } */
+    }
 
     // ======================================================================
     // ======================================================================
@@ -57,10 +54,10 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    /* public function store(Request $request)
+    public function store(Request $request)
     {
         return new LoginStore();
-    } */
+    }
 
     // ======================================================================
     // ======================================================================
@@ -71,10 +68,10 @@ class LoginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   /*  public function show($id)
+    public function show($id)
     {
         //
-    } */
+    }
 
     // ======================================================================
     // ======================================================================
@@ -85,10 +82,10 @@ class LoginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    /* public function edit($id)
+    public function edit($id)
     {
         //
-    } */
+    }
     
     // ======================================================================
     // ======================================================================
@@ -100,10 +97,10 @@ class LoginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    /* public function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         //
-    } */
+    }
 
     // ======================================================================
     // ======================================================================
@@ -114,10 +111,10 @@ class LoginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    /* public function destroy($id)
+    public function destroy($id)
     {
         //
-    } */
+    }
 
     // ======================================================================
     // ======================================================================

@@ -23,24 +23,14 @@ class ProductoEdit implements Responsable
         $idProducto = $this->idProducto;
 
         try {
-            // Realiza la solicitud POST a la API
-            $clientApi = new Client([
-                'base_uri' => 'http://localhost:8000/api/producto_edit/'.$idProducto,
-                'headers' => [
-                    'Accept' => 'application/json',
-                    'Content-Type' => 'application/json',
-                ],
-                'body' => json_encode([
-                    
-                ])
-            ]);
+            $baseUri = env('BASE_URI');
+            $clientApi = new Client(['base_uri' => $baseUri]);
+            
+            // Realiza la solicitud a la API
+            $response = $clientApi->post($baseUri . 'producto_edit/'.$idProducto);
+            $producto = json_decode($response->getBody()->getContents(), true);
 
-            $response = $clientApi->request('POST');
-            $res = $response->getBody()->getContents();
-            $producto = json_decode($res, true );
-
-            if(isset($producto) && !empty($producto))
-            {
+            if(isset($producto) && !empty($producto)) {
                 return response()->json($producto);
             } else {
                 alert()->error('Error', 'No existe el producto.');
