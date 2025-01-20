@@ -119,7 +119,7 @@ class LoginController extends Controller
     // ======================================================================
     // ======================================================================
 
-    /* public function logout(Request $request)
+    public function logout(Request $request)
     {
         try {
             Session::forget('id_usuario');
@@ -134,11 +134,10 @@ class LoginController extends Controller
             return redirect()->to(route('login'));
 
         } catch (Exception $e) {
-            dd($e);
             alert()->error('Ha ocurrido un error');
             return back();
         }
-    } */
+    }
 
     // ======================================================================
     // ======================================================================

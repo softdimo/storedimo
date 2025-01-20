@@ -113,10 +113,29 @@ class UsuariosController extends Controller
         return Usuario::where('identificacion', $identificacion)->first();
     }
 
-    public function consultaUsuario()
+    /* public function consultaUsuario()
     {
         $usuario = request('usuario', null);
         // Consultamos si ya existe un usuario con la cedula ingresada
         return Usuario::where('usuario', $usuario)->first();
+    } */
+
+    public function consultaUsuario()
+    {
+        try {
+            $usuario = request('usuario', null);
+            $consultarUsuario = Usuario::where('usuario', $usuario)
+                    ->whereNull('deleted_at')
+                    ->first();
+
+            if ($consultarUsuario) {
+                return response()->json($consultarUsuario);
+            } else {
+                return response()->json('no_user');
+            }
+
+        } catch (Exception $e) {
+            return response()->json('error_bd');
+        }
     }
 }

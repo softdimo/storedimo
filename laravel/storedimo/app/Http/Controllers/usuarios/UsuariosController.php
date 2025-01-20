@@ -24,30 +24,26 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        // try {
-            // $adminCtrl = new AdministradorController();
-            // $sesion = $adminCtrl->validarVariablesSesion();
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
 
-            // if (empty($sesion[0]) || is_null($sesion[0]) &&
-            //     empty($sesion[1]) || is_null($sesion[1]) &&
-            //     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-            // {
-            //     return view('inicio_sesion.login');
-            // } else {
-            //     $usuLogueado = session('id_usuario');
-                // $usuario = Usuario::select('nombres')->where('id_usuario',$usuLogueado)->first();
-
-                if (!$this->checkDatabaseConnection()) {
-                    return view('db_conexion'); // Si la conexión falla, devuelve la vista de error
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return view('inicio_sesion.login');
                 } else {
                     return new UsuarioIndex();
                 }
+            }
 
-        //     }
-        // } catch (Exception $e) {
-        //     alert()->error("Error Exception!");
-        //     return redirect()->to(route('login'));
-        // }
+        } catch (Exception $e) {
+            alert()->error("Exception Index Usuario!");
+            return redirect()->to(route('login'));
+        }
     }
 
     // ======================================================================
