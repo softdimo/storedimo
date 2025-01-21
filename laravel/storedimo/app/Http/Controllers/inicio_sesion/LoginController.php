@@ -56,7 +56,11 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        return new LoginStore();
+        if (!$this->checkDatabaseConnection()) {
+            return view('db_conexion');
+        } else {
+            return new LoginStore();
+        }
     }
 
     // ======================================================================
@@ -144,13 +148,10 @@ class LoginController extends Controller
 
     /* public function cambiarClave()
     {
-        $vista = 'inicio_sesion.cambiar_clave';
-        $checkConnection = $this->checkDatabaseConnection($vista);
-        
-        if($checkConnection->getName() == "db_conexion") {
+        if (!$this->checkDatabaseConnection()) {
             return view('db_conexion');
         } else {
-            return view($vista);
+            return view('inicio_sesion.cambiar_clave');
         }
     } */
 
@@ -159,7 +160,11 @@ class LoginController extends Controller
     
     /* public function cambiarClaveUpdate()
     {
-        return new CambiarClave();
+        if (!$this->checkDatabaseConnection()) {
+            return view('db_conexion');
+        } else {
+            return new CambiarClave();
+        }
     } */
 
     // ======================================================================
@@ -167,13 +172,10 @@ class LoginController extends Controller
        
     /* public function recuperarClave()
     {
-        $vista = 'inicio_sesion.recuperar_clave';
-        $checkConnection = $this->checkDatabaseConnection($vista);
-        
-        if($checkConnection->getName() == "db_conexion") {
+        if (!$this->checkDatabaseConnection()) {
             return view('db_conexion');
         } else {
-            return view($vista);
+            return view('inicio_sesion.recuperar_clave');
         }
     } */
 
@@ -182,7 +184,11 @@ class LoginController extends Controller
 
     /* public function recuperarClaveEmail(Request $request)
     {
-        return new RecuperarClave();
+        if (!$this->checkDatabaseConnection()) {
+            return view('db_conexion');
+        } else {
+            return new RecuperarClave();
+        }
     } */
 
     // ======================================================================
@@ -190,13 +196,10 @@ class LoginController extends Controller
 
     /* public function recuperarClaveLink($usuIdRecuperarClave)
     {
-        $vista = 'inicio_sesion.recuperar_clave_link';
-        $checkConnection = $this->checkDatabaseConnection($vista);
-
-        if($checkConnection->getName() == "db_conexion") {
+        if (!$this->checkDatabaseConnection()) {
             return view('db_conexion');
         } else {
-            return view($vista, compact('usuIdRecuperarClave'));
+            return view('inicio_sesion.recuperar_clave_link', compact('usuIdRecuperarClave'));
         }
     } */
 
@@ -205,7 +208,11 @@ class LoginController extends Controller
 
     /* public function recuperarClaveUpdate(Request $request) 
     {
-        return new RecuperarClaveUpdate();
+        if (!$this->checkDatabaseConnection()) {
+            return view('db_conexion');
+        } else {
+            return new RecuperarClaveUpdate();
+        }
     } */
 
     // ======================================================================
@@ -213,14 +220,17 @@ class LoginController extends Controller
 
     /* public function actualizarClave($expiration)
     {
-        $fechaActual = Carbon::now()->timestamp;
+        if (!$this->checkDatabaseConnection()) {
+            return view('db_conexion');
+        } else {
+            $fechaActual = Carbon::now()->timestamp;
 
-       if($fechaActual <= $expiration) {
-
-           return view('inicio_sesion.actualizar_contraseña');
-       } else {
-            alert()->error("El link ya ha expirado, realice el proceso nuevamente.");
-            return redirect()->to(route('login'));
-       }
+            if($fechaActual <= $expiration) {
+                return view('inicio_sesion.actualizar_contraseña');
+            } else {
+                alert()->error("El link ya ha expirado, realice el proceso nuevamente.");
+                return redirect()->to(route('login'));
+            }
+        }
     } */
 }  // Fin clase LoginController
