@@ -34,7 +34,7 @@ class UsuariosController extends Controller
                     empty($sesion[1]) || is_null($sesion[1]) &&
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
-                    return view('inicio_sesion.login');
+                    return redirect()->to(route('login'));
                 } else {
                     return new UsuarioIndex();
                 }
