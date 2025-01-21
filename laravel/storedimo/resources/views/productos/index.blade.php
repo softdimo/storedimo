@@ -223,7 +223,7 @@
                                     <div class="col-12 col-md-5">
                                         <div class="form-group d-flex flex-column">
                                             <label for="categoriaEdit" class="" style="font-size: 15px">Categoría<span class="text-danger">*</span></label>
-                                            {{Form::select('categoriaEdit', ['' => 'Seleccionar...'] + $categorias->toArray(), null, ['class' => 'form-control', 'id' => 'categoriaEdit'])}}
+                                            {!! Form::select('categoriaEdit', collect(['' => 'Seleccionar...'])->union($categorias), null, ['class' => 'form-control', 'id' => 'categoriaEdit']) !!}
                                         </div>
                                     </div>
                                     {{-- =================== --}}

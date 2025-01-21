@@ -22,9 +22,7 @@ class CategoriaIndex implements Responsable
             $response = $clientApi->get($baseUri . 'categoria_index');
             $categorias = json_decode($response->getBody()->getContents(), true);
 
-            if(isset($productos) && !empty($productos) && !is_null($productos)) {
-                return view('categorias.index', compact('categorias'));
-            }
+            return view('categorias.index', compact('categorias'));
         } catch (Exception $e) {
             alert()->error('Error', 'Exception Index Categorias, contacte a Soporte.');
             return back();
