@@ -15,7 +15,6 @@ use App\Http\Responsable\productos\ProductoDestroy;
 use App\Http\Responsable\productos\ProductoQueryBarCode;
 use App\Http\Responsable\productos\ProductoGenerarBarCode;
 use GuzzleHttp\Client;
-use App\Models\Producto;
 use App\Traits\MetodosTrait;
 
 class ProductosController extends Controller
@@ -40,6 +39,7 @@ class ProductosController extends Controller
                 {
                     return redirect()->to(route('login'));
                 } else {
+                    $this->shareData();
                     return new ProductoIndex();
                 }
             }
