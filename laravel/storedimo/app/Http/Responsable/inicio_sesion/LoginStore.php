@@ -64,14 +64,10 @@ class LoginStore implements Responsable
             alert()->error('Error','Este usuario no existe: ' . $usuario);
             return back();
         } else {
-            $vista = 'admin.index';
-            $checkConnection = $this->checkDatabaseConnection($vista);
-
-            if($checkConnection->getName() == "db_conexion") {
+            if(!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
             } else {
-                $this->shareData();
-                return view($vista);
+                return view('usuarios.index');
             }
         }
     }
@@ -98,13 +94,10 @@ class LoginStore implements Responsable
             $baseUri = env('BASE_URI');
 
             // Realiza la solicitud POST a la API
-            $clientApi = new Client([
-                'base_uri' => $baseUri. '/usuario_consulta/'.$usuario,
-            ]);
+            $clientApi = new Client(['base_uri' => $baseUri]);
 
-            $response = $clientApi->request('GET');
-            $res = $response->getBody()->getContents();
-            $respuesta = json_decode($res, true );
+            $response = $clientApi->post($baseUri.'query_usuario', ['json' => ['usuario' => $usuario]]);
+            $respuesta = json_decode($response->getBody()->getContents(), true);
 
             if(isset($respuesta) && !empty($respuesta)) {
                 return $respuesta;

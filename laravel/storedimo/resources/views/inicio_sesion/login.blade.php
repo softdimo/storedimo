@@ -22,13 +22,13 @@
 
             {{-- =========================================================== --}}
 
-            <form class="bg-white p-3 mt-3" method="post" action="" autocomplete="off">
+            <form class="bg-white p-3 mt-3" method="post" action="{{route('login.store')}}" autocomplete="off">
                 @csrf
                 
                 {{-- ============================ --}}
 
                 <div class="mb-4">
-                    <input class="w-100 form-control" type="text" name="usuario" id="usuario" placeholder="Nombre de Usuario *">
+                    <input class="w-100 form-control" type="text" name="usuario" id="usuario" placeholder="Usuario *">
                 </div>
 
                 {{-- ============================ --}}
