@@ -16,6 +16,11 @@ use App\Traits\MetodosTrait;
 class CategoriasController extends Controller
 {
     use MetodosTrait;
+
+    public function __construct()
+    {
+        $this->shareData();
+    }
     /**
      * Display a listing of the resource.
      *

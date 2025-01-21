@@ -4,6 +4,9 @@ namespace App\Traits;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
+use App\Models\Categoria;
+use App\Models\Rol;
+use App\Models\Estado;
 
 trait MetodosTrait
 {
@@ -51,5 +54,14 @@ trait MetodosTrait
                             "a", "e", "i", "o", "u", "c", "C", "a", "e", "i", "o", "u", "A", "E", "I", "O", "U",
                             "u", "o", "O", "i", "a", "e", "U", "I", "A", "E", "n", "N", "");
         return str_replace($no_permitidas, $permitidas, $cadena);
+    }
+
+    // ======================================
+
+    public function shareData()
+    {
+        view()->share('categorias', Categoria::orderBy('categoria','asc')->pluck('categoria', 'id_categoria'));
+        view()->share('roles', Rol::orderBy('rol','asc')->pluck('rol', 'id_rol'));
+        view()->share('estados', Estado::orderBy('estado','asc')->pluck('estado', 'id_estado'));
     }
 }

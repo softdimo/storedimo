@@ -5,7 +5,6 @@ namespace App\Http\Controllers\productos;
 use Exception;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Categoria;
 use App\Http\Responsable\productos\ProductoIndex;
 use App\Http\Responsable\productos\ProductoStore;
 use App\Http\Responsable\productos\ProductoShow;
@@ -20,6 +19,11 @@ use App\Traits\MetodosTrait;
 class ProductosController extends Controller
 {
     use MetodosTrait;
+
+    public function __construct()
+    {
+        $this->shareData();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -39,7 +43,6 @@ class ProductosController extends Controller
                 {
                     return redirect()->to(route('login'));
                 } else {
-                    $this->shareData();
                     return new ProductoIndex();
                 }
             }
@@ -71,7 +74,6 @@ class ProductosController extends Controller
                 {
                     return redirect()->to(route('login'));
                 } else {
-                    $this->shareData();
                     return view('productos.create');
                 }
             }
@@ -245,10 +247,10 @@ class ProductosController extends Controller
     // ======================================================================
     // ======================================================================
 
-    private function shareData()
-    {
-        view()->share('categorias', Categoria::orderBy('categoria','asc')->pluck('categoria', 'id_categoria'));
-    }
+    // private function shareData()
+    // {
+    //     view()->share('categorias', Categoria::orderBy('categoria','asc')->pluck('categoria', 'id_categoria'));
+    // }
 
     // ======================================================================
     // ======================================================================
