@@ -64,18 +64,15 @@
                             {{-- ============================== --}}
                             <tbody>
                                 @foreach ($usuarioIndex as $usuario)
-                                    
                                     <tr class="text-center">
-                                        <td>{{$usuario['nombre_usuario']}}</td>
-                                        <td>{{$usuario['apellido_usuario']}}</td>
-                                        <td>{{$usuario['usuario']}}</td>
-                                        <td>{{$usuario['identificacion']}}</td>
-                                        <td>{{$usuario['email']}}</td>
-                                        <td>{{$usuario['rol']}}</td>
-                                        <td>{{$usuario['estado']}}</td>
+                                        <td>{{$usuario->nombre_usuario}}</td>
+                                        <td>{{$usuario->apellido_usuario}}</td>
+                                        <td>{{$usuario->usuario}}</td>
+                                        <td>{{$usuario->identificacion}}</td>
+                                        <td>{{$usuario->email}}</td>
+                                        <td>{{$usuario->rol}}</td>
+                                        <td>{{$usuario->estado}}</td>
                                         <td>
-
-                                            
                                             <a href="#" role="button" class="btn btn-primary rounded-circle btn-circle" title="Ver Detalles">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                             </a>

@@ -64,7 +64,7 @@ class UsuarioStore implements Responsable
                         'clave_fallas' => 0,
                     ]
                 ]);
-                $resUsuarioStore = json_decode($peticionUsuarioStore->getBody()->getContents(), true);
+                $resUsuarioStore = json_decode($peticionUsuarioStore->getBody()->getContents());
 
                 if(isset($resUsuarioStore) && !empty($resUsuarioStore))
                 {
@@ -86,14 +86,14 @@ class UsuarioStore implements Responsable
     // ===================================================================
     // ===================================================================
 
-    private function consultarId($identificacion) 
+    private function consultarId($identificacion)
     {
         $queryIdentificacion = $this->clientApi->post($this->baseUri.'query_identificacion', [
             'json' => [
                 'identificacion' => $identificacion,
             ]
         ]);
-        return json_decode($queryIdentificacion->getBody()->getContents(), true);
+        return json_decode($queryIdentificacion->getBody()->getContents());
     }
 
     // ===================================================================
@@ -109,7 +109,7 @@ class UsuarioStore implements Responsable
                 ]
             ]);
     
-            return json_decode($queryUsuario->getBody()->getContents(), true);
+            return json_decode($queryUsuario->getBody()->getContents());
 
         }
         catch (Exception $e)

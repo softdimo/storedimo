@@ -41,7 +41,7 @@ class CategoriaUpdate implements Responsable
             $peticionCategoriaUpdate = $this->clientApi->put($this->baseUri.'categoria_update/'.$idCategoria, [
                 'json' => ['categoria' => $categoria]
             ]);
-            $respuestaCategoriaUpdate = json_decode($peticionCategoriaUpdate->getBody()->getContents(), true);
+            $respuestaCategoriaUpdate = json_decode($peticionCategoriaUpdate->getBody()->getContents());
 
             if(isset($respuestaCategoriaUpdate) && !empty($respuestaCategoriaUpdate))
             {
@@ -76,7 +76,7 @@ class CategoriaUpdate implements Responsable
             $peticionConsultaCategoria = $this->clientApi->post($this->baseUri.'consulta_categoria', [
                 'json' => ['categoria' => $categoria]
             ]);
-            return json_decode($peticionConsultaCategoria->getBody()->getContents(), true);
+            return json_decode($peticionConsultaCategoria->getBody()->getContents());
         }
         catch (Exception $e)
         {

@@ -20,7 +20,7 @@ class ProductoIndex implements Responsable
             
             // Realiza la solicitud a la API
             $response = $clientApi->get($baseUri . 'producto_index');
-            $productos = json_decode($response->getBody()->getContents(), true);
+            $productos = json_decode($response->getBody()->getContents());
 
             return view('productos.index', compact('productos'));
         } catch (Exception $e) {
