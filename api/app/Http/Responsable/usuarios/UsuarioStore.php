@@ -41,7 +41,7 @@ class UsuarioStore implements Responsable
         if (isset($nuevoUsuario) && !is_null($nuevoUsuario) && !empty($nuevoUsuario)) {
             return response()->json([
                 'success' => true,
-                'message' => 'El usuario se actualizó correctamente'
+                'message' => 'Usuario creado correctamente'
             ]);
         } else {
             return abort(404, 'No existe este usuario');

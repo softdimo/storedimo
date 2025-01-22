@@ -106,19 +106,12 @@ class UsuariosController extends Controller
         //
     }
 
-    public function consultarId() 
+    public function consultarId()
     {
         $identificacion = request('identificacion', null);
         // Consultamos si ya existe un usuario con la cedula ingresada
         return Usuario::where('identificacion', $identificacion)->first();
     }
-
-    /* public function consultaUsuario()
-    {
-        $usuario = request('usuario', null);
-        // Consultamos si ya existe un usuario con la cedula ingresada
-        return Usuario::where('usuario', $usuario)->first();
-    } */
 
     public function consultaUsuario()
     {
