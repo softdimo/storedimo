@@ -64,16 +64,13 @@ class UsuarioStore implements Responsable
                         'clave_fallas' => 0,
                     ]
                 ]);
-                $resUsuarioStore = json_decode($peticionUsuarioStore->getBody()->getContents());
+                $resUsuarioStore = json_decode($peticionUsuarioStore->getBody()->getContents(), true);
 
                 if(isset($resUsuarioStore) && !empty($resUsuarioStore))
                 {
                     return $this->respuestaExito(
                         'Usuario creado satisfactoriamente.'. $usuario.$complemento . ' y la clave es: ' . $identificacion, 'usuarios.index'
                     );
-
-                    alert()->success('Proceso Exitoso', 'Usuario creado satisfactoriamente: ' . $usuario.$complemento . ' y la clave es: ' . $identificacion);
-                    return redirect()->to(route('usuarios.index'));
                 }
             }
             catch (Exception $e)
@@ -93,7 +90,7 @@ class UsuarioStore implements Responsable
                 'identificacion' => $identificacion,
             ]
         ]);
-        return json_decode($queryIdentificacion->getBody()->getContents());
+        return json_decode($queryIdentificacion->getBody()->getContents(), true);
     }
 
     // ===================================================================
@@ -109,7 +106,7 @@ class UsuarioStore implements Responsable
                 ]
             ]);
     
-            return json_decode($queryUsuario->getBody()->getContents());
+            return json_decode($queryUsuario->getBody()->getContents(), true);
 
         }
         catch (Exception $e)
