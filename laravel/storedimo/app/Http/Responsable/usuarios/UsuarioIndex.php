@@ -20,7 +20,7 @@ class UsuarioIndex implements Responsable
             
             // Realiza la solicitud a la API
             $response = $clientApi->get($baseUri . 'usuarios_index');
-            $usuarioIndex = json_decode($response->getBody()->getContents(), true);
+            $usuarioIndex = json_decode($response->getBody()->getContents());
 
             if(isset($usuarioIndex) && !empty($usuarioIndex) && !is_null($usuarioIndex)) {
                 return view('usuarios.index', compact('usuarioIndex'));
