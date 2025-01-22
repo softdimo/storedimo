@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Responsable\usuarios;
+namespace App\Http\Responsable\productos;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
-class UsuarioIndex implements Responsable
+class ProductoIndex implements Responsable
 {
     public function toResponse($request)
     {
@@ -19,15 +19,13 @@ class UsuarioIndex implements Responsable
             // ==============================================================
             
             // Realiza la solicitud a la API
-            $response = $clientApi->get($baseUri . 'usuarios_index');
-            $usuarioIndex = json_decode($response->getBody()->getContents());
+            $response = $clientApi->get($baseUri . 'producto_index');
+            $productos = json_decode($response->getBody()->getContents());
 
-            if(isset($usuarioIndex) && !empty($usuarioIndex) && !is_null($usuarioIndex)) {
-                return view('usuarios.index', compact('usuarioIndex'));
-            }
+            return view('productos.index', compact('productos'));
         } catch (Exception $e) {
             dd($e);
-            alert()->error('Error', 'Error Exception, contacte a Soporte.');
+            alert()->error('Error', 'Exception, contacte a Soporte.');
             return back();
         }
     }

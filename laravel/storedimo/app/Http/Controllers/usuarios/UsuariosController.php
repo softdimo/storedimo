@@ -10,13 +10,16 @@ use App\Http\Responsable\usuarios\UsuarioIndex;
 use App\Http\Responsable\usuarios\UsuarioStore;
 use App\Http\Responsable\usuarios\UsuarioUpdate;
 use GuzzleHttp\Client;
-use App\Models\Rol;
-use App\Models\Estado;
 use App\Traits\MetodosTrait;
 
 class UsuariosController extends Controller
 {
     use MetodosTrait;
+
+    public function __construct()
+    {
+        $this->shareData();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -24,30 +27,25 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        // try {
-            // $adminCtrl = new AdministradorController();
-            // $sesion = $adminCtrl->validarVariablesSesion();
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
 
-            // if (empty($sesion[0]) || is_null($sesion[0]) &&
-            //     empty($sesion[1]) || is_null($sesion[1]) &&
-            //     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-            // {
-            //     return view('inicio_sesion.login');
-            // } else {
-            //     $usuLogueado = session('id_usuario');
-                // $usuario = Usuario::select('nombres')->where('id_usuario',$usuLogueado)->first();
-
-                if (!$this->checkDatabaseConnection()) {
-                    return view('db_conexion'); // Si la conexión falla, devuelve la vista de error
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
                 } else {
                     return new UsuarioIndex();
                 }
-
-        //     }
-        // } catch (Exception $e) {
-        //     alert()->error("Error Exception!");
-        //     return redirect()->to(route('login'));
-        // }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Index Usuario!");
+            return redirect()->to(route('login'));
+        }
     }
 
     // ======================================================================
@@ -60,8 +58,25 @@ class UsuariosController extends Controller
      */
     public function create()
     {
-        $this->shareData();
-        return view('usuarios.create');
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return view('usuarios.create');
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Create Usuario!");
+            return redirect()->to(route('login'));
+        }
     }
 
     // ======================================================================
@@ -75,22 +90,25 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
-        /* try {
-            $sesion = $this->validarVariablesSesion();
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
 
-            if (empty($sesion[0]) || is_null($sesion[0]) &&
-                empty($sesion[1]) || is_null($sesion[1]) &&
-                empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-            {
-                return view('inicio_sesion.login');
-            } else { */
-                return new UsuarioStore();
-            //}
-
-        /* } catch (Exception $e) {
-            alert()->error("Ha ocurrido un error!");
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return new UsuarioStore();
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Store Usuario!");
             return redirect()->to(route('login'));
-        } */
+        }
     }
 
     // ======================================================================
@@ -153,18 +171,36 @@ class UsuariosController extends Controller
     // ======================================================================
     // ======================================================================
 
-    private function shareData()
-    {
-        view()->share('roles', Rol::orderBy('rol','asc')->pluck('rol', 'id_rol'));
-        view()->share('estados', Estado::orderBy('estado','asc')->pluck('estado', 'id_estado'));
-    }
+    // private function shareData()
+    // {
+    //     view()->share('roles', Rol::orderBy('rol','asc')->pluck('rol', 'id_rol'));
+    //     view()->share('estados', Estado::orderBy('estado','asc')->pluck('estado', 'id_estado'));
+    // }
 
     // ======================================================================
     // ======================================================================
 
     public function listarProveedores()
     {
-        return view('personas.listar_proveedores');
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return view('personas.listar_proveedores');
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Store Usuario!");
+            return redirect()->to(route('login'));
+        }
     }
     
     // ======================================================================
@@ -172,6 +208,24 @@ class UsuariosController extends Controller
 
     public function listarClientes()
     {
-        return view('personas.listar_clientes');
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return view('personas.listar_clientes');
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Store Usuario!");
+            return redirect()->to(route('login'));
+        }
     }
 }

@@ -5,15 +5,22 @@ namespace App\Http\Controllers\categorias;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Exception;
+use App\Http\Responsable\categorias\CategoriaIndex;
 use App\Http\Responsable\categorias\CategoriaStore;
 use App\Http\Responsable\categorias\CategoriaUpdate;
 use GuzzleHttp\Client;
 use App\Models\Categoria;
 use Illuminate\Support\Facades\DB;
-
+use App\Traits\MetodosTrait;
 
 class CategoriasController extends Controller
 {
+    use MetodosTrait;
+
+    public function __construct()
+    {
+        $this->shareData();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,24 +28,24 @@ class CategoriasController extends Controller
      */
     public function index()
     {
-        $baseUri = env('BASE_URI');
-
         try {
-            // Crear una instancia del cliente Guzzle para realizar la solicitud HTTP
-            $clientApi = new Client([
-                'base_uri' => $baseUri.'categoria_index',
-                'headers' => [],
-            ]);
-
-            $response = $clientApi->request('GET');
-            $res = $response->getBody()->getContents();
-            $categorias = json_decode($res, true);
-            
-            return view('categorias.index', compact('categorias'));
-
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+    
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return new CategoriaIndex();
+                }
+            }
         } catch (Exception $e) {
-            // Captura cualquier error que ocurra durante el proceso y muestra un mensaje de error
-            return view('categorias.index')->withErrors('Error al obtener las categorías: ' . $e->getMessage());
+            alert()->error("Exception Index Categorias!");
+            return back();
         }
     }
 
@@ -66,24 +73,25 @@ class CategoriasController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
-        // try {
-        //     $sesion = $this->validarVariablesSesion();
-
-        //     if (empty($sesion[0]) || is_null($sesion[0]) &&
-        //         empty($sesion[1]) || is_null($sesion[1]) &&
-        //         empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-        //     {
-        //         return view('inicio_sesion.login');
-        //     } else {
-                return new CategoriaStore();
-        //     }
-
-        // } catch (Exception $e) {
-        //     dd($e);
-        //     alert()->error("Ha ocurrido un error!");
-        //     return redirect()->to(route('login'));
-        // }
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+    
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return new CategoriaStore();
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Store Categorias!");
+            return back();
+        }
     }
 
     // ======================================================================
@@ -126,23 +134,25 @@ class CategoriasController extends Controller
      */
     public function update(Request $request)
     {
-        // dd($request);
-        // try {
-        //     $sesion = $this->validarVariablesSesion();
-
-        //     if (empty($sesion[0]) || is_null($sesion[0]) &&
-        //         empty($sesion[1]) || is_null($sesion[1]) &&
-        //         empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-        //     {
-        //         return view('inicio_sesion.login');
-        //     } else {
-            return new CategoriaUpdate();
-            //     }
-            // } catch (Exception $e) {
-            //     dd($e);
-            //     alert()->error("Ha ocurrido un error!");
-            //     return redirect()->to(route('login'));
-            // }
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+    
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return new CategoriaUpdate();
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Store Categorias!");
+            return back();
+        }
     }
 
     // ======================================================================

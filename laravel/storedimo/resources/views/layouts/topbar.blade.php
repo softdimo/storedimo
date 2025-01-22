@@ -84,7 +84,10 @@
                                 </li>
 
                                 <li class="dropdown-item text-dark hover-li">
-                                    <i class="fa fa-sign-out fa-fw fa-1x" aria-hidden="false"></i> Cerrar Sesión
+                                    <i class="fa fa-sign-out fa-fw fa-1x" aria-hidden="false">
+                                        <a href="{{route('logout')}}" class="" style="text-decoration: none;">Cerrar Sesión</a>    
+                                    </i>
+                                    
                                 </li>
 
                                 {{-- <li><a href="" class="dropdown-item text-dark hover-li">Cerrar Sesión</a></li> --}}

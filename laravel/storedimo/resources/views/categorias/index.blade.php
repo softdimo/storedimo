@@ -87,10 +87,10 @@
                                 <tbody>
                                     @foreach ($categorias as $categoria)
                                         <tr class="text-center">
-                                            <td>{{$categoria['id_categoria']}}</td>
-                                            <td>{{$categoria['categoria']}}</td>
+                                            <td>{{$categoria->id_categoria}}</td>
+                                            <td>{{$categoria->categoria}}</td>
                                             <td>
-                                                <button type="button" class="btn btn-success rounded-circle btn-circle" id="btn_editar_{{$categoria['id_categoria']}}" title="Modificar" data-bs-toggle="modal" data-bs-target="#modal_editar_categoria_{{$categoria['id_categoria']}}">
+                                                <button type="button" class="btn btn-success rounded-circle btn-circle" id="btn_editar_{{$categoria->id_categoria}}" title="Modificar" data-bs-toggle="modal" data-bs-target="#modal_editar_categoria_{{$categoria->id_categoria}}">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </button>
                                             </td>
@@ -100,7 +100,7 @@
                                             {{-- =============================================================== --}}
 
                                             {{-- INICIO Modal EDITAR CATEGORÍA --}}
-                                            <div class="modal fade" id="modal_editar_categoria_{{$categoria['id_categoria']}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+                                            <div class="modal fade" id="modal_editar_categoria_{{$categoria->id_categoria}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content p-3 w-100">
                                                         {!! Form::open(['method' => 'POST', 'route' => ['editar_categoria'], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'form_editar_categorias']) !!}
@@ -118,14 +118,14 @@
                                                                             <div class="col-12 col-md-6">
                                                                                 <div class="form-group d-flex flex-column">
                                                                                     <label for="id_categoria" class="" style="font-size: 15px">Código<span class="text-danger">*</span></label>
-                                                                                    {{ Form::text('id_categoria', isset($categoria) ? $categoria['id_categoria'] : null, ['class'=>'form-control', 'id'=>'id_categoria', 'readonly']) }}
+                                                                                    {{ Form::text('id_categoria', isset($categoria) ? $categoria->id_categoria : null, ['class'=>'form-control', 'id'=>'id_categoria', 'readonly']) }}
                                                                                 </div>
                                                                             </div>
 
                                                                             <div class="col-12 col-md-6">
                                                                                 <div class="form-group d-flex flex-column">
                                                                                     <label for="categoria" class="" style="font-size: 15px">Nombre<span class="text-danger">*</span></label>
-                                                                                    {{ Form::text('categoria', isset($categoria) ? $categoria['categoria'] : null, ['class' => 'form-control', 'id' => 'categoria']) }}
+                                                                                    {{ Form::text('categoria', isset($categoria) ? $categoria->categoria : null, ['class' => 'form-control', 'id' => 'categoria']) }}
                                                                                 </div>
                                                                             </div>
                                                                     </div>

@@ -37,7 +37,7 @@ class CategoriaStore implements Responsable
                 $peticionCategoriaStore = $this->clientApi->post($this->baseUri.'categoria_store', [
                     'json' => ['categoria' => $categoria]
                 ]);
-                $respuestaCategoriaStore = json_decode($peticionCategoriaStore->getBody()->getContents(), true);
+                $respuestaCategoriaStore = json_decode($peticionCategoriaStore->getBody()->getContents());
 
                 if(isset($respuestaCategoriaStore) && !empty($respuestaCategoriaStore)) {
                     alert()->success('Proceso Exitoso', 'Categoría creada satisfactoriamente');
@@ -59,7 +59,7 @@ class CategoriaStore implements Responsable
             $peticionConsultaCategoria = $this->clientApi->post($this->baseUri.'consulta_categoria', [
                 'json' => ['categoria' => $categoria]
             ]);
-            return json_decode($peticionConsultaCategoria->getBody()->getContents(), true);
+            return json_decode($peticionConsultaCategoria->getBody()->getContents());
         } catch (Exception $e) {
             alert()->error('Error', 'Error Exception, inténtelo de nuevo, si el problema persiste, contacte a Soporte.'.$e->getMessage());
             return back();

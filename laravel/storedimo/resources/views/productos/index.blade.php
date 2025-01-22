@@ -63,39 +63,39 @@
                                 @if(isset($productos) && count($productos) > 0)
                                     @foreach ($productos as $producto)
                                         <tr class="text-center">
-                                            <td>{{$producto['id_producto']}}</td>
-                                            <td>{{$producto['nombre_producto']}}</td>
-                                            <td>{{$producto['categoria']}}</td>
-                                            <td>{{$producto['descripcion']}}</td>
-                                            <td>{{$producto['cantidad']}}</td>
-                                            <td>{{$producto['stock_minimo']}}</td>
-                                            <td>{{$producto['estado']}}</td>
+                                            <td>{{$producto->id_producto}}</td>
+                                            <td>{{$producto->nombre_producto}}</td>
+                                            <td>{{$producto->categoria}}</td>
+                                            <td>{{$producto->descripcion}}</td>
+                                            <td>{{$producto->cantidad}}</td>
+                                            <td>{{$producto->stock_minimo}}</td>
+                                            <td>{{$producto->estado}}</td>
 
-                                            @if ( $producto['id_estado'] == 1 || $producto['id_estado'] == "1" )
+                                            @if ( $producto->id_estado == 1 || $producto->id_estado == "1" )
                                                 <td>
-                                                    <a href="#" role="button" class="btn btn-primary rounded-circle btn-circle view-details" data-bs-toggle="modal" data-bs-target="#productoModal" data-url="{{route('producto_show',['idProducto'=>$producto['id_producto']])}}" title="Ver Detalles">
+                                                    <a href="#" role="button" class="btn btn-primary rounded-circle btn-circle view-details" data-bs-toggle="modal" data-bs-target="#productoModal" data-url="{{route('producto_show',['idProducto'=>$producto->id_producto])}}" title="Ver Detalles">
                                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                                     </a>
                                                     {{-- ============================== --}}
-                                                    <a href="#" role="button" class="btn btn-success rounded-circle btn-circle modificar" data-bs-toggle="modal" data-bs-target="#productoModificarModal" data-url="{{route('producto_edit',['idProducto'=>$producto['id_producto']])}}" title="Modificar">
+                                                    <a href="#" role="button" class="btn btn-success rounded-circle btn-circle modificar" data-bs-toggle="modal" data-bs-target="#productoModificarModal" data-url="{{route('producto_edit',['idProducto'=>$producto->id_producto])}}" title="Modificar">
                                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                     </a>
                                                     {{-- ============================== --}}
-                                                    <a href="#" role="button" class="btn btn-warning rounded-circle btn-circle barcode" data-bs-toggle="modal" data-bs-target="#barCodeModal" title="Generar Código de Barras" data-url="{{route('query_barcode_producto',['idProducto'=>$producto['id_producto']])}}" >
+                                                    <a href="#" role="button" class="btn btn-warning rounded-circle btn-circle barcode" data-bs-toggle="modal" data-bs-target="#barCodeModal" title="Generar Código de Barras" data-url="{{route('query_barcode_producto',['idProducto'=>$producto->id_producto])}}" >
                                                         <i class="fa fa-barcode" aria-hidden="true"></i>
                                                     </a>
                                                     {{-- ============================== --}}
-                                                    <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="inactivarProducto('{{$producto['id_producto']}}')">
+                                                    <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="inactivarProducto('{{$producto->id_producto}}')">
                                                         <i class="fa fa-solid fa-recycle"></i>
                                                     </button>
                                                 </td>
                                             @else
                                                 <td>
-                                                    <a href="#" role="button" class="btn btn-primary rounded-circle btn-circle view-details" data-bs-toggle="modal" data-bs-target="#productoModal" data-url="{{route('producto_show',['idProducto'=>$producto['id_producto']])}}" title="Ver Detalles">
+                                                    <a href="#" role="button" class="btn btn-primary rounded-circle btn-circle view-details" data-bs-toggle="modal" data-bs-target="#productoModal" data-url="{{route('producto_show',['idProducto'=>$producto->id_producto])}}" title="Ver Detalles">
                                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                                     </a>
                                                     {{-- ============================== --}}
-                                                    <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="inactivarProducto('{{$producto['id_producto']}}')">
+                                                    <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="inactivarProducto('{{$producto->id_producto}}')">
                                                         <i class="fa fa-solid fa-recycle"></i>
                                                     </button>
                                                 </td>
@@ -223,7 +223,7 @@
                                     <div class="col-12 col-md-5">
                                         <div class="form-group d-flex flex-column">
                                             <label for="categoriaEdit" class="" style="font-size: 15px">Categoría<span class="text-danger">*</span></label>
-                                            {{Form::select('categoriaEdit', ['' => 'Seleccionar...'] + $categorias->toArray(), null, ['class' => 'form-control', 'id' => 'categoriaEdit'])}}
+                                            {!! Form::select('categoriaEdit', collect(['' => 'Seleccionar...'])->union($categorias), null, ['class' => 'form-control', 'id' => 'categoriaEdit']) !!}
                                         </div>
                                     </div>
                                     {{-- =================== --}}

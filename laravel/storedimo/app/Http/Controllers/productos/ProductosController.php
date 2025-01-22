@@ -5,7 +5,7 @@ namespace App\Http\Controllers\productos;
 use Exception;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Categoria;
+use App\Http\Responsable\productos\ProductoIndex;
 use App\Http\Responsable\productos\ProductoStore;
 use App\Http\Responsable\productos\ProductoShow;
 use App\Http\Responsable\productos\ProductoEdit;
@@ -14,10 +14,16 @@ use App\Http\Responsable\productos\ProductoDestroy;
 use App\Http\Responsable\productos\ProductoQueryBarCode;
 use App\Http\Responsable\productos\ProductoGenerarBarCode;
 use GuzzleHttp\Client;
-use App\Models\Producto;
+use App\Traits\MetodosTrait;
 
 class ProductosController extends Controller
 {
+    use MetodosTrait;
+
+    public function __construct()
+    {
+        $this->shareData();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,20 +31,25 @@ class ProductosController extends Controller
      */
     public function index()
     {
-        $baseUri = env('BASE_URI');
-        // Realiza la solicitud GET a la API
-        $clientApi = new Client([
-            'base_uri' => $baseUri.'producto_index',
-            'headers' => [],
-        ]);
-
-        $response = $clientApi->request('GET');
-        $res = $response->getBody()->getContents();
-        $productos = json_decode($res, true);
-
-        $this->shareData();
-        return view('productos.index', compact('productos'));
-        
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+    
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return new ProductoIndex();
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Index Productos!");
+            return back();
+        }
     }
 
     // ======================================================================
@@ -51,8 +62,25 @@ class ProductosController extends Controller
      */
     public function create()
     {
-        $this->shareData();
-        return view('productos.create');
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+    
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return view('productos.create');
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Create Productos!");
+            return back();
+        }
     }
 
     // ======================================================================
@@ -66,24 +94,25 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
-                // dd($request);
-        // try {
-        //     $sesion = $this->validarVariablesSesion();
-
-        //     if (empty($sesion[0]) || is_null($sesion[0]) &&
-        //         empty($sesion[1]) || is_null($sesion[1]) &&
-        //         empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-        //     {
-        //         return view('inicio_sesion.login');
-        //     } else {
-            return new ProductoStore();
-            //     }
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
     
-            // } catch (Exception $e) {
-            //     dd($e);
-            //     alert()->error("Ha ocurrido un error!");
-            //     return redirect()->to(route('login'));
-            // }
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return new ProductoStore();
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Store Productos!");
+            return back();
+        }
     }
 
     // ======================================================================
@@ -97,22 +126,25 @@ class ProductosController extends Controller
      */
     public function show($idProducto)
     {
-        // try {
-        //     $sesion = $this->validarVariablesSesion();
-
-        //     if (empty($sesion[0]) || is_null($sesion[0]) &&
-        //         empty($sesion[1]) || is_null($sesion[1]) &&
-        //         empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-        //     {
-        //         return view('inicio_sesion.login');
-        //     } else {
-                return new ProductoShow($idProducto);
-        //     }
-        // } catch (Exception $e) {
-        //     dd($e);
-        //     alert()->error("Ha ocurrido un error!");
-        //     return redirect()->to(route('login'));
-        // }
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+    
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return new ProductoShow($idProducto);
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Show Productos!");
+            return back();
+        }
     }
 
     // ======================================================================
@@ -126,22 +158,25 @@ class ProductosController extends Controller
      */
     public function edit($idProducto)
     {
-        // try {
-        //     $sesion = $this->validarVariablesSesion();
-
-        //     if (empty($sesion[0]) || is_null($sesion[0]) &&
-        //         empty($sesion[1]) || is_null($sesion[1]) &&
-        //         empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-        //     {
-        //         return view('inicio_sesion.login');
-        //     } else {
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+    
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
                     return new ProductoEdit($idProducto);
-        //     }
-        // } catch (Exception $e) {
-        //     dd($e);
-        //     alert()->error("Ha ocurrido un error!");
-        //     return redirect()->to(route('login'));
-        // }
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Edit Productos!");
+            return back();
+        }
     }
 
     // ======================================================================
@@ -156,23 +191,25 @@ class ProductosController extends Controller
      */
     public function update(Request $request)
     {
-        // try {
-        //     $sesion = $this->validarVariablesSesion();
-
-        //     if (empty($sesion[0]) || is_null($sesion[0]) &&
-        //         empty($sesion[1]) || is_null($sesion[1]) &&
-        //         empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-        //     {
-        //         return view('inicio_sesion.login');
-        //     } else {
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+    
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
                     return new ProductoUpdate();
-
-        //     }
-        // } catch (Exception $e) {
-        //     dd($e);
-        //     alert()->error("Ha ocurrido un error!");
-        //     return redirect()->to(route('login'));
-        // }
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Update Productos!");
+            return back();
+        }
     }
 
     // ======================================================================
@@ -186,53 +223,59 @@ class ProductosController extends Controller
      */
     public function destroy()
     {
-        // try {
-        //     $sesion = $this->validarVariablesSesion();
-
-        //     if (empty($sesion[0]) || is_null($sesion[0]) &&
-        //         empty($sesion[1]) || is_null($sesion[1]) &&
-        //         empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-        //     {
-        //         return view('inicio_sesion.login');
-        //     } else {
-            return new ProductoDestroy();
-        //     }
-        // } catch (Exception $e) {
-        //     dd($e);
-        //     alert()->error("Ha ocurrido un error!");
-        //     return redirect()->to(route('login'));
-        // }
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+    
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return new ProductoDestroy();
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Destroy Productos!");
+            return back();
+        }
     }
 
     // ======================================================================
     // ======================================================================
 
-    private function shareData()
-    {
-        view()->share('categorias', Categoria::orderBy('categoria','asc')->pluck('categoria', 'id_categoria'));
-    }
+    // private function shareData()
+    // {
+    //     view()->share('categorias', Categoria::orderBy('categoria','asc')->pluck('categoria', 'id_categoria'));
+    // }
 
     // ======================================================================
     // ======================================================================
     
     public function queryBarCodeProducto($idProducto)
     {
-        // try {
-        //     $sesion = $this->validarVariablesSesion();
-
-        //     if (empty($sesion[0]) || is_null($sesion[0]) &&
-        //         empty($sesion[1]) || is_null($sesion[1]) &&
-        //         empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-        //     {
-        //         return view('inicio_sesion.login');
-        //     } else {
-            return new ProductoQueryBarCode($idProducto);
-        //     }
-        // } catch (Exception $e) {
-        //     dd($e);
-        //     alert()->error("Ha ocurrido un error!");
-        //     return redirect()->to(route('login'));
-        // }
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+    
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return new ProductoQueryBarCode($idProducto);
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Query BarCode Productos!");
+            return back();
+        }
     }
 
     // ======================================================================
@@ -240,23 +283,24 @@ class ProductosController extends Controller
         
     public function productoGenerarBarCode()
     {
-        // try {
-        //     $sesion = $this->validarVariablesSesion();
-
-        //     if (empty($sesion[0]) || is_null($sesion[0]) &&
-        //         empty($sesion[1]) || is_null($sesion[1]) &&
-        //         empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-        //     {
-        //         return view('inicio_sesion.login');
-        //     } else {
-            return new ProductoGenerarBarCode();
-        //     }
-        // } catch (Exception $e) {
-        //     dd($e);
-        //     alert()->error("Ha ocurrido un error!");
-        //     return redirect()->to(route('login'));
-        // }
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+    
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return new ProductoGenerarBarCode();
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception GenerarBarCode Productos!");
+            return back();
+        }
     }
-
-
 }
