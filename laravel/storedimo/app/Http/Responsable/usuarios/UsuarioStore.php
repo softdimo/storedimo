@@ -71,9 +71,6 @@ class UsuarioStore implements Responsable
                     return $this->respuestaExito(
                         'Usuario creado satisfactoriamente.'. $usuario.$complemento . ' y la clave es: ' . $identificacion, 'usuarios.index'
                     );
-
-                    alert()->success('Proceso Exitoso', 'Usuario creado satisfactoriamente: ' . $usuario.$complemento . ' y la clave es: ' . $identificacion);
-                    return redirect()->to(route('usuarios.index'));
                 }
             }
             catch (Exception $e)
