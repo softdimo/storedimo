@@ -109,6 +109,7 @@ class UsuariosController extends Controller
     public function consultarId()
     {
         $identificacion = request('identificacion', null);
+        
         // Consultamos si ya existe un usuario con la cedula ingresada
         return Usuario::where('identificacion', $identificacion)->first();
     }
@@ -117,16 +118,9 @@ class UsuariosController extends Controller
     {
         try {
             $usuario = request('usuario', null);
-            $consultarUsuario = Usuario::where('usuario', $usuario)
-                    ->whereNull('deleted_at')
-                    ->first();
 
-            if ($consultarUsuario) {
-                return response()->json($consultarUsuario);
-            } else {
-                return response()->json('no_user');
-            }
-
+            // Consultamos si ya existe este usuario específico
+            return Usuario::where('usuario', $usuario)->first();
         } catch (Exception $e) {
             return response()->json('error_bd');
         }

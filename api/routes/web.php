@@ -29,8 +29,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('usuario_store', 'usuarios\UsuariosController@store');
 
     // $router->put('usuario_update/{id}', 'usuarios\UsuariosController@update');
-    // $router->post('categoria_destroy/{id}', 'categorias\CategoriasController@destroy');
-    // $router->get('categoria_show/{id}', 'categorias\CategoriasController@show');
+    // $router->post('usuario_destroy/{id}', 'usuarios\UsuariosController@destroy');
+    // $router->get('usuario_show/{id}', 'usuarios\UsuariosController@show');
 });
 
 // =====================================================================
