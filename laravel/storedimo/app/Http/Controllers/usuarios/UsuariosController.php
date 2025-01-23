@@ -134,30 +134,9 @@ class UsuariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($idUsuario)
+    public function edit($id)
     {
-        // dd($idUsuario);
-        try {
-            if (!$this->checkDatabaseConnection()) {
-                return view('db_conexion');
-            } else {
-                $sesion = $this->validarVariablesSesion();
-
-                if (empty($sesion[0]) || is_null($sesion[0]) &&
-                    empty($sesion[1]) || is_null($sesion[1]) &&
-                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-                {
-                    return redirect()->to(route('login'));
-                } else {
-                    $usuario = $this->queryUsuarioUpdate($idUsuario);
-                    dd($usuario);
-                    return view('usuarios.edit');
-                }
-            }
-        } catch (Exception $e) {
-            alert()->error("Exception Index Usuario!");
-            return redirect()->to(route('login'));
-        }
+        //
     }
     
     // ======================================================================
@@ -238,20 +217,6 @@ class UsuariosController extends Controller
         } catch (Exception $e) {
             alert()->error("Exception Store Usuario!");
             return redirect()->to(route('login'));
-        }
-    }
-
-    public function queryUsuarioUpdate($idUsuario)
-    {
-        try {
-            $response = $this->clientApi->post($this->baseUri.'/query_usuario_update/'.$idUsuario, ['json' => []]);
-            dd(json_decode($response->getBody()->getContents()));
-            return json_decode($response->getBody()->getContents());
-
-        } catch (Exception $e) {
-            // dd($e);
-            alert()->error("Error Exception!");
-            return back();
         }
     }
 }
