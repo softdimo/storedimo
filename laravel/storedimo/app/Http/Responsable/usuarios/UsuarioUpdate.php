@@ -11,6 +11,14 @@ use GuzzleHttp\Client;
 
 class UsuarioUpdate implements Responsable
 {
+    protected $baseUri;
+    protected $clientApi;
+
+    public function __construct()
+    {
+        $this->baseUri = env('BASE_URI');
+        $this->clientApi = new Client(['base_uri' => $this->baseUri]);
+    }
     public function toResponse($request)
     {
         $idUsuario = request('id_usuario', null);
@@ -21,13 +29,13 @@ class UsuarioUpdate implements Responsable
         $idEstado = request('id_estado', null);;
         $idRol = request('id_rol', null);
         
-        // Consultamos si ya existe un usuario con la cedula ingresada
+       /*  // Consultamos si ya existe un usuario con la cedula ingresada
         $consultarIdentificacion = $this->consultarId($identificacion);
         
         if(isset($consultarIdentificacion) && !empty($consultarIdentificacion) && !is_null($consultarIdentificacion)) {
             alert()->info('Info', 'Este número de documento ya existe.');
             return back();
-        } else {
+        } else { */
 
             try {
                 $peticionUsuarioUpdate = $this->clientApi->put($this->baseUri.'usuario_update/'. $idUsuario, [
@@ -53,7 +61,7 @@ class UsuarioUpdate implements Responsable
             {
                 return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
             }
-        }
+        // }
     }
 
     // ===================================================================
