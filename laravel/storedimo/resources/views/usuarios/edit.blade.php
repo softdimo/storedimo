@@ -32,11 +32,7 @@
             {{-- =============================================================== --}}
             {{-- =============================================================== --}}
 
-            {{-- {!! Form::open(['method' => 'PATCH', 'route' => ['hogar_gas.update', $hogarGas['id_hogar_gas']], 'class' => 'mt-5', 'autocomplete' => 'off', 'id' => 'form_edit_gas_id', 'enctype' => 'multipart/form-data', 'files' => true]) !!}
-            @csrf
-            @method('PUT') --}}
-
-            {!! Form::open(['method' => 'PATCH', 'route' => ['usuarios_update'], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'form_editar_usuarios']) !!}
+            {!! Form::open(['method' => 'PATCH', 'route' => ['usuarios_update', $usuario->id_usuario ], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'form_editar_usuarios']) !!}
             @csrf
             @method('PUT')
             

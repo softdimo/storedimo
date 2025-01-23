@@ -15,10 +15,14 @@ use App\Traits\MetodosTrait;
 class UsuariosController extends Controller
 {
     use MetodosTrait;
+    protected $baseUri;
+    protected $clientApi;
 
     public function __construct()
     {
         $this->shareData();
+        $this->baseUri = env('BASE_URI');
+        $this->clientApi = new Client(['base_uri' => $this->baseUri]);
     }
     /**
      * Display a listing of the resource.
@@ -150,8 +154,8 @@ class UsuariosController extends Controller
                     return redirect()->to(route('login'));
                 } else {
                     $usuario = $this->queryUsuarioUpdate($idUsuario);
-                    dd($usuario);
-                    return view('usuarios.edit');
+
+                    return view('usuarios.edit', compact('usuario'));
                 }
             }
         } catch (Exception $e) {
@@ -244,12 +248,10 @@ class UsuariosController extends Controller
     public function queryUsuarioUpdate($idUsuario)
     {
         try {
-            $response = $this->clientApi->post($this->baseUri.'/query_usuario_update/'.$idUsuario, ['json' => []]);
-            dd(json_decode($response->getBody()->getContents()));
+            $response = $this->clientApi->post($this->baseUri.'query_usuario_update/'.$idUsuario, ['json' => []]);
             return json_decode($response->getBody()->getContents());
 
         } catch (Exception $e) {
-            // dd($e);
             alert()->error("Error Exception!");
             return back();
         }
