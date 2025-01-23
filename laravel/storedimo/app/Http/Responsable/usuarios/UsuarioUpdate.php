@@ -1,92 +1,99 @@
 <?php
 
-namespace App\Http\Responsable\categorias;
+namespace App\Http\Responsable\usuarios;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Categoria;
+use App\Models\Usuario;
 use GuzzleHttp\Client;
 
-class CategoriaUpdate implements Responsable
+class UsuarioUpdate implements Responsable
 {
     public function toResponse($request)
     {
-        $idCategoria = request('id_categoria', null);
-        $categoria = request('categoria', null);
-
-        // dd($idCategoria, $categoria);
+        $idUsuario = request('id_usuario', null);
+        $nombreUsuario = request('nombre_usuario', null);
+        $apellidoUsuario = request('apellido_usuario', null);
+        $identificacion = request('identificacion', null);
+        $email = request('email', null);
+        $idEstado = request('id_estado', null);;
+        $idRol = request('id_rol', null);
         
         // Consultamos si ya existe un usuario con la cedula ingresada
-        // $consultaCategoria = Categoria::where('categoria', $categoria)->first();
+        $consultarIdentificacion = $this->consultarId($identificacion);
         
-        // if(isset($consultaCategoria) && !empty($consultaCategoria) && !is_null($consultaCategoria)) {
-        //     alert()->info('Info', 'Esta categoría ya existe.');
-        //     return back();
-        // } else {
-
-            DB::connection('pgsql')->beginTransaction();
+        if(isset($consultarIdentificacion) && !empty($consultarIdentificacion) && !is_null($consultarIdentificacion)) {
+            alert()->info('Info', 'Este número de documento ya existe.');
+            return back();
+        } else {
 
             try {
-                // Realiza la solicitud POST a la API
-                $clientApi = new Client([
-                    'base_uri' => 'http://localhost:8000/api/categoria_update/'.$idCategoria,
-                    'headers' => [
-                        'Accept' => 'application/json',
-                        'Content-Type' => 'application/json',
-                    ],
-                    'body' => json_encode([
-                        'categoria' => $categoria,
-                    ])
+                $peticionUsuarioUpdate = $this->clientApi->put($this->baseUri.'usuario_update/'. $idUsuario, [
+                    'json' => [
+                        'nombre_usuario' => $nombreUsuario,
+                        'apellido_usuario' => $apellidoUsuario,
+                        'identificacion' => $identificacion,
+                        'email' => $email,
+                        'id_rol' => $idRol,
+                        'id_estado' => $idEstado,
+                    ]
                 ]);
+                $resUsuarioUpdate = json_decode($peticionUsuarioUpdate->getBody()->getContents());
 
-                $response = $clientApi->request('PUT');
-                $res = $response->getBody()->getContents();
-                $respuesta = json_decode($res, true );
-
-                // dd($respuesta);
-
-                if(isset($respuesta) && !empty($respuesta))
+                if(isset($resUsuarioUpdate) && !empty($resUsuarioUpdate))
                 {
-                    DB::connection('pgsql')->commit();
-                    alert()->success('Proceso Exitoso', 'Categoría editada satisfactoriamente');
-                    return redirect()->to(route('categorias.index'));
-
-                } else {
-                    DB::connection('pgsql')->rollback();
-                    alert()->error('Error', 'Error al editar la categoria, por favor contacte a Soporte.');
-                    return redirect()->to(route('categorias.index'));
+                    return $this->respuestaExito(
+                        'Usuario editado satisfactoriamente.', 'usuarios.index'
+                    );
                 }
-
-            } // FIN Try
+            }
             catch (Exception $e)
             {
-                dd($e);
-                DB::connection('pgsql')->rollback();
-                alert()->error('Error', 'Error editando categoria, si el problema persiste, contacte a Soporte.');
-                return back();
+                return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
             }
-        // } // FIN else
+        }
     }
 
     // ===================================================================
     // ===================================================================
 
-    // private function consultarCategoria($categoria)
-    // {
-    //     try
-    //     {
-    //         $usuario = Usuario::where('usuario', $usuario)->first();
-    //         return $usuario;
+    private function consultarId($identificacion)
+    {
+        $queryIdentificacion = $this->clientApi->post($this->baseUri.'query_identificacion', [
+            'json' => ['identificacion' => $identificacion]
+        ]);
+        return json_decode($queryIdentificacion->getBody()->getContents());
+    }
 
-    //     }
-    //     catch (Exception $e)
-    //     {
-    //         alert()->error('Error', 'Error, inténtelo de nuevo, si el problema persiste, contacte a Soporte.');
-    //         return back();
-    //     }
-    // }
+    // ===================================================================
+    // ===================================================================
+
+    // Método auxiliar para mensajes de exito
+    private function respuestaExito($mensaje, $ruta)
+    {
+        alert()->success('Exito', $mensaje);
+        return redirect()->to(route($ruta));
+    }
+
+    // ========================================================
+
+    // Método auxiliar para manejar errores
+    private function respuestaError($mensaje, $ruta)
+    {
+        alert()->error('Error', $mensaje);
+        return redirect()->to(route($ruta));
+    }
+
+    // ========================================================
+
+    // Método auxiliar para manejar excepciones
+    private function respuestaException($mensaje)
+    {
+        alert()->error('Error', $mensaje);
+        return back();
+    }
 
     // ===================================================================
     // ===================================================================

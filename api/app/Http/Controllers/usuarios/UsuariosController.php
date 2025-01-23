@@ -87,9 +87,9 @@ class UsuariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $idUsuario)
     {
-        //return new UsuaUpdate($request, $id);
+        return new UsuarioUpdate($request, $idUsuario);
     }
 
     // ======================================================================
