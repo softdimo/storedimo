@@ -15,10 +15,14 @@ use App\Traits\MetodosTrait;
 class UsuariosController extends Controller
 {
     use MetodosTrait;
+    protected $baseUri;
+    protected $clientApi;
 
     public function __construct()
     {
         $this->shareData();
+        $this->baseUri = env('BASE_URI');
+        $this->clientApi = new Client(['base_uri' => $this->baseUri]);
     }
     /**
      * Display a listing of the resource.
@@ -136,7 +140,28 @@ class UsuariosController extends Controller
      */
     public function edit($id)
     {
-        //
+        // dd($idUsuario);
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    $usuario = $this->queryUsuarioUpdate($idUsuario);
+
+                    return view('usuarios.edit', compact('usuario'));
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Index Usuario!");
+            return redirect()->to(route('login'));
+        }
     }
     
     // ======================================================================
@@ -217,6 +242,18 @@ class UsuariosController extends Controller
         } catch (Exception $e) {
             alert()->error("Exception Store Usuario!");
             return redirect()->to(route('login'));
+        }
+    }
+
+    public function queryUsuarioUpdate($idUsuario)
+    {
+        try {
+            $response = $this->clientApi->post($this->baseUri.'query_usuario_update/'.$idUsuario, ['json' => []]);
+            return json_decode($response->getBody()->getContents());
+
+        } catch (Exception $e) {
+            alert()->error("Error Exception!");
+            return back();
         }
     }
 }
