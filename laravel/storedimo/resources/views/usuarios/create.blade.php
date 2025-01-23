@@ -35,7 +35,7 @@
             {!! Form::open(['method' => 'POST', 'route' => ['usuarios.store'], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'form_crear_usuarios']) !!}
                 @csrf
             
-                @include('usuarios.fields_crear_usuarios')
+                @include('usuarios.fields_usuarios')
             {!! Form::close() !!}
         </div>
     </div>

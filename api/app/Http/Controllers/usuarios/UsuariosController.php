@@ -125,4 +125,15 @@ class UsuariosController extends Controller
             return response()->json('error_bd');
         }
     }
+
+
+    public function queryUsuarioUpdate($idUsuario)
+    {
+        try {
+            // Consultamos el id del usuario 
+            return Usuario::where('id_usuario', $idUsuario)->first();
+        } catch (Exception $e) {
+            return response()->json('error_bd');
+        }
+    }
 }

@@ -77,7 +77,7 @@
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                             </a>
 
-                                            <a href="#" role="button" class="btn btn-success rounded-circle btn-circle" title="Modificar">
+                                            <a href="{{route('usuarios.edit', $usuario->id_usuario)}}" role="button" class="btn btn-success rounded-circle btn-circle" title="Modificar">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </a>
 

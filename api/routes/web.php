@@ -27,6 +27,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('query_identificacion', 'usuarios\UsuariosController@consultarId');
     $router->post('query_usuario', 'usuarios\UsuariosController@consultaUsuario');
     $router->post('usuario_store', 'usuarios\UsuariosController@store');
+    $router->post('query_usuario_update/{idUsuario}', 'usuarios\UsuariosController@queryUsuarioUpdate');
 
     // $router->put('usuario_update/{id}', 'usuarios\UsuariosController@update');
     // $router->post('usuario_destroy/{id}', 'usuarios\UsuariosController@destroy');
