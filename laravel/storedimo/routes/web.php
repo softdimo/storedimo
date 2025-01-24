@@ -27,7 +27,7 @@ Route::group(['namespace' => 'App\Http\Controllers\inicio_sesion'], function () 
     Route::get('login_usuario', 'LoginController@index')->name('login_usuario');
     Route::get('logout', 'LoginController@logout')->name('logout');
     // CAMBIAR CLAVE
-    Route::get('cambiar_clave', 'LoginController@cambiarClave')->name('cambiar_clave');
+    Route::post('cambiar_clave', 'LoginController@cambiarClave')->name('cambiar_clave');
     Route::post('cambiar_clave_update', 'LoginController@cambiarClaveUpdate')->name('cambiar_clave_update');
     // RECUPERAR CLAVE
     Route::get('recuperar_clave', 'LoginController@recuperarClave')->name('recuperar_clave');

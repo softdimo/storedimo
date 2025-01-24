@@ -28,7 +28,7 @@
                 {{-- ============================ --}}
 
                 <div class="mb-4">
-                    <input class="w-100 form-control" type="text" name="usuario" id="usuario" placeholder="Usuario *">
+                    <input class="w-100 form-control" type="text" name="usuario" id="usuario" placeholder="Usuario *" required>
                 </div>
 
                 {{-- ============================ --}}
@@ -37,7 +37,7 @@
                     <span class="btn-show-pass">
                         <i class="zmdi zmdi-eye"></i>
                     </span>
-                    <input class="w-100 form-control" type="password" name="clave" id="clave" placeholder="Contraseña *">
+                    <input class="w-100 form-control" type="password" name="clave" id="clave" placeholder="Contraseña *" required>
                 </div>
 
                 {{-- ============================ --}}

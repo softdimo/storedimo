@@ -146,14 +146,15 @@ class LoginController extends Controller
     // ======================================================================
     // ======================================================================
 
-    /* public function cambiarClave()
+    public function cambiarClave(Request $request)
     {
         if (!$this->checkDatabaseConnection()) {
             return view('db_conexion');
         } else {
-            return view('inicio_sesion.cambiar_clave');
+            return new CambiarClave();
+
         }
-    } */
+    }
 
     // ======================================================================
     // ======================================================================
