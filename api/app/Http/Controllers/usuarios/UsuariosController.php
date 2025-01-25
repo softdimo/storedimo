@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Responsable\usuarios\UsuarioIndex;
 use App\Http\Responsable\usuarios\UsuarioStore;
 use App\Http\Responsable\usuarios\UsuarioUpdate;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Usuario;
 
 
@@ -87,9 +88,9 @@ class UsuariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $idUsuario)
     {
-        //return new UsuaUpdate($request, $id);
+        return new UsuarioUpdate($request, $idUsuario);
     }
 
     // ======================================================================
@@ -121,6 +122,33 @@ class UsuariosController extends Controller
 
             // Consultamos si ya existe este usuario específico
             return Usuario::where('usuario', $usuario)->first();
+        } catch (Exception $e) {
+            return response()->json('error_bd');
+        }
+    }
+
+
+    public function queryUsuarioUpdate($idUsuario)
+    {
+        try {
+            // Consultamos el id del usuario 
+            return Usuario::where('id_usuario', $idUsuario)->first();
+        } catch (Exception $e) {
+            return response()->json('error_bd');
+        }
+    }
+
+
+    public function cambiarClave(Request $request, $idUsuario)
+    {
+        $claveNueva = request('clave', null);
+
+        try {
+            $cambioClave = Usuario::where('id_usuario',$idUsuario)
+                ->update([
+                    'clave' => Hash::make($claveNueva),
+            ]);
+            return response()->json('clave_cambiada');
         } catch (Exception $e) {
             return response()->json('error_bd');
         }

@@ -32,10 +32,11 @@
             {{-- =============================================================== --}}
             {{-- =============================================================== --}}
 
-            {!! Form::open(['method' => 'POST', 'route' => ['usuarios.store'], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'form_crear_usuarios']) !!}
-                @csrf
+            {!! Form::open(['method' => 'PATCH', 'route' => ['usuarios_update', $usuario->id_usuario ], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'form_editar_usuarios']) !!}
+            @csrf
+            @method('PUT')
             
-                @include('usuarios.fields_usuarios')
+            @include('usuarios.fields_usuarios')
             {!! Form::close() !!}
         </div>
     </div>
