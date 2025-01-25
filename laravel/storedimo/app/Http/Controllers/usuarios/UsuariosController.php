@@ -138,7 +138,7 @@ class UsuariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($idUsuario)
+    public function edit($id)
     {
         // dd($idUsuario);
         try {
