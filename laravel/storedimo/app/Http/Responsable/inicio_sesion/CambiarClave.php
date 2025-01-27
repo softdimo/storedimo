@@ -90,7 +90,7 @@ class CambiarClave implements Responsable
     private function consultarUsuarioCambioClave($idUsuario, $clave)
     {
         try {
-            $response = $this->clientApi->post($this->baseUri.'/usuario_consulta_cambio_clave', ['json' => [
+            $response = $this->clientApi->post($this->baseUri.'usuario_consulta_cambio_clave', ['json' => [
                 'usuario' => $usuario,
                 'clave' => $clave,
             ]]);

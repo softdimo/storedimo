@@ -153,4 +153,19 @@ class UsuariosController extends Controller
             return response()->json('error_bd');
         }
     }
+
+    public function consultaRecuperarClave(Request $request)
+    {
+        $email = request("email", null);
+        $identificacion = request("identificacion", null);
+
+        try {
+             return Usuario::select('id_usuario','usuario','identificacion','email')
+                ->where('email', $email)
+                ->where('identificacion', $identificacion)
+                ->first();
+        } catch (Exception $e) {
+            return response()->json('error_bd');
+        }
+    }
 }

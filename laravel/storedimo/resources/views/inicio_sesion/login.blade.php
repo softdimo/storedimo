@@ -49,7 +49,7 @@
                 {{-- ============================ --}}
 
                 <div class="mt-3 d-flex justify-content-center">
-                    <a class="" href="" style="color: blue">¿Olvidó la Contraseña?</a>
+                    <a class="" href="{{route('recuperar_clave')}}" style="color: blue">¿Olvidó la Contraseña?</a>
                 </div>
             </form>
         </div>
