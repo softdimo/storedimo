@@ -121,7 +121,13 @@ class UsuariosController extends Controller
             $usuario = request('usuario', null);
 
             // Consultamos si ya existe este usuario específico
-            return Usuario::where('usuario', $usuario)->first();
+            $consultaUsuario = Usuario::where('usuario', $usuario)->first();
+
+            if ($consultaUsuario) {
+                return response()->json($consultaUsuario);
+            } else {
+                return response()->json('no_user');
+            }
         } catch (Exception $e) {
             return response()->json('error_bd');
         }
@@ -156,8 +162,8 @@ class UsuariosController extends Controller
 
     public function consultaRecuperarClave(Request $request)
     {
-        $email = request("email", null);
-        $identificacion = request("identificacion", null);
+        $email = request('email', null);
+        $identificacion = request('identificacion', null);
 
         try {
              return Usuario::select('id_usuario','usuario','identificacion','email')
