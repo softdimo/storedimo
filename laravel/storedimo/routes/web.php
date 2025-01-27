@@ -34,6 +34,7 @@ Route::group(['namespace' => 'App\Http\Controllers\inicio_sesion'], function () 
     Route::post('recuperar_clave_email', 'LoginController@recuperarClaveEmail')->name('recuperar_clave_email');
     Route::get('recuperar_clave_link/{usuIdRecuperarClave}', 'LoginController@recuperarClaveLink')->name('recuperar_clave_link');
     Route::post('recuperar_clave_update', 'LoginController@recuperarClaveUpdate')->name('recuperar_clave_update');
+    
 });
 
 // ========================================================================
