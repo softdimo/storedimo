@@ -119,3 +119,14 @@ footer {
     }
 }
 
+.loadingIndicator{
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.loadingIndicator > img{
+    width: 100px;
+    height: 100px;
+}
+
