@@ -26,7 +26,6 @@ class CambiarClave implements Responsable
 
     public function toResponse($request)
     {
-        // dd($request);
         $idUsuario = request('id_usuario', null);
         $nuevaClave = request('nueva_clave', null);
         $confirmarClave = request('confirmar_clave', null);
@@ -54,7 +53,6 @@ class CambiarClave implements Responsable
                             'clave' => $nuevaClave,
                         ]]);
                         $claveCambiada = json_decode($response->getBody()->getContents());
-                        dd($claveCambiada);
         
                         if(isset($claveCambiada) && !is_null($claveCambiada) && !empty($claveCambiada)) {
                             // alert()->success('Bien', 'Clave cambiada satisfactoriamente');

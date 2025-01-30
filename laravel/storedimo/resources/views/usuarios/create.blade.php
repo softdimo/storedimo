@@ -37,6 +37,7 @@
             
                 @include('usuarios.fields_usuarios')
             {!! Form::close() !!}
+            @include('layouts.loader')
         </div>
     </div>
 @stop
