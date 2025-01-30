@@ -26,6 +26,7 @@ class CambiarClave implements Responsable
 
     public function toResponse($request)
     {
+        // dd($request);
         $idUsuario = request('id_usuario', null);
         $nuevaClave = request('nueva_clave', null);
         $confirmarClave = request('confirmar_clave', null);
@@ -53,14 +54,19 @@ class CambiarClave implements Responsable
                             'clave' => $nuevaClave,
                         ]]);
                         $claveCambiada = json_decode($response->getBody()->getContents());
+                        dd($claveCambiada);
         
                         if(isset($claveCambiada) && !is_null($claveCambiada) && !empty($claveCambiada)) {
-                            alert()->success('Bien', 'Clave cambiada satisfactoriamente');
-                            return redirect()->to(route('login'));
+                            // alert()->success('Bien', 'Clave cambiada satisfactoriamente');
+
+                            // return redirect()->to(route('login'));
+                            return response()->json('success');
         
                         } else {
-                            alert()->error('Error', 'Error al cambiar la clave, por favor contacte a Soporte.');
-                            return redirect()->to(route('cambiar_clave'));
+                            // alert()->error('Error', 'Error al cambiar la clave, por favor contacte a Soporte.');
+                            // return redirect()->to(route('cambiar_clave'));
+                            return response()->json('error_exception');
+
                         }
                     }
                     catch (Exception $e)

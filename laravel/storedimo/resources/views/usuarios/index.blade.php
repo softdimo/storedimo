@@ -260,11 +260,8 @@
             id = "loading_ajax"
             alt = "loading..." / > ; */
 
-            form += `
-                    <input type="button" class="btn btn-primary" id="" value="Editar" >
-            `;
 
-            Swal.fire({
+            /* Swal.fire({
                 title: 'Cambiar Clave',
                 html: form,
                 icon: 'success',
@@ -275,6 +272,63 @@
                 showCancelButton: true,
                 cancelButtonText: 'Cancel',
                 allowOutsideClick: false,
+            }); */
+
+
+            Swal.fire({
+                title: "Do you want to save the changes?",
+                html: form,
+                showDenyButton: false,
+                showCancelButton: true,
+                confirmButtonText: "Cambiar clave",
+            }).then((result) => {
+                console.log('Result: ' + result.value);
+
+                /* Read more about isConfirmed, isDenied below */
+                if (result.value == true) {
+                    let claveNueva = $('#nueva_clave').val();
+                    let confirmarClave = $('#confirmar_clave').val();
+
+                    $.ajax({
+                        async: true,
+                        url: "{{ route('cambiar_clave') }}",
+                        type: "POST",
+                        dataType: "json",
+                        data: {
+                            '_token': "{{ csrf_token() }}",
+                            'id_usuario': idUsuario,
+                            'nueva_clave': claveNueva,
+                            'confirmar_clave': confirmarClave
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            
+                            if (response == 'success') {
+                                Swal.fire({
+                                    position: "top-end",
+                                    icon: "success",
+                                    title: "Clave cambiada",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                                setTimeout('window.location.reload()', 3500);
+                                return;
+                            }
+
+                            if (response == 'error_exception') {
+                                Swal.fire({
+                                    position: "top-end",
+                                    icon: "error",
+                                    title: "Error, clave no cambiada",
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                });
+                                setTimeout('window.location.reload()', 3500);
+                                return;
+                            }
+                        }
+                    })
+                }
             });
 
         }
