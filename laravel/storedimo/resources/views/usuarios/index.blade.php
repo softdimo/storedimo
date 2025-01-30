@@ -186,6 +186,7 @@
         </form> --}}
 
     </div>
+    @include('layouts.loader')
 @stop
 
 {{-- =============================================================== --}}
@@ -198,6 +199,10 @@
 
     <script>
         $(document).ready(function() {
+            setTimeout(() => {
+                $("#loaderGif").hide();
+                $("#loaderGif").addClass('ocultar');
+            }, 1500);
             // INICIO DataTable Lista Usuarios
             $("#tbl_usuarios").DataTable({
                 dom: 'Blfrtip',
@@ -246,7 +251,7 @@
             form += `
                     <div style="margin-top:2rem;">
                         <label class="">Clave Nueva</label>
-                        <input type="text" name="clave_nueva" id="clave_nueva" class="" required>
+                        <input type="text" name="nueva_clave" id="nueva_clave" class="" required>
                     </div>
 
                     <div>
@@ -278,7 +283,6 @@
             Swal.fire({
                 title: "Do you want to save the changes?",
                 html: form,
-                showDenyButton: false,
                 showCancelButton: true,
                 confirmButtonText: "Cambiar clave",
             }).then((result) => {
@@ -300,10 +304,18 @@
                             'nueva_clave': claveNueva,
                             'confirmar_clave': confirmarClave
                         },
+
+                        beforeSend: function() {
+                            $("#loaderGif").show();
+                            $("#loaderGif").removeClass('ocultar');
+                        },
+
                         success: function(response) {
                             console.log(response);
-                            
+
                             if (response == 'success') {
+                                $("#loaderGif").hide();
+                                $("#loaderGif").addClass('ocultar');
                                 Swal.fire({
                                     position: "top-end",
                                     icon: "success",
