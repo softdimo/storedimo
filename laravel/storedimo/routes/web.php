@@ -27,13 +27,14 @@ Route::group(['namespace' => 'App\Http\Controllers\inicio_sesion'], function () 
     Route::get('login_usuario', 'LoginController@index')->name('login_usuario');
     Route::get('logout', 'LoginController@logout')->name('logout');
     // CAMBIAR CLAVE
-    Route::get('cambiar_clave', 'LoginController@cambiarClave')->name('cambiar_clave');
+    Route::post('cambiar_clave', 'LoginController@cambiarClave')->name('cambiar_clave');
     Route::post('cambiar_clave_update', 'LoginController@cambiarClaveUpdate')->name('cambiar_clave_update');
     // RECUPERAR CLAVE
     Route::get('recuperar_clave', 'LoginController@recuperarClave')->name('recuperar_clave');
     Route::post('recuperar_clave_email', 'LoginController@recuperarClaveEmail')->name('recuperar_clave_email');
     Route::get('recuperar_clave_link/{usuIdRecuperarClave}', 'LoginController@recuperarClaveLink')->name('recuperar_clave_link');
     Route::post('recuperar_clave_update', 'LoginController@recuperarClaveUpdate')->name('recuperar_clave_update');
+    
 });
 
 // ========================================================================
@@ -52,6 +53,7 @@ Route::group(['namespace' => 'App\Http\Controllers\home'], function () {
 // USUARIOS
 Route::group(['namespace' => 'App\Http\Controllers\usuarios'], function () {
     Route::resource('usuarios', 'UsuariosController');
+    Route::put('usuarios_update', 'UsuariosController@update')->name('usuarios_update');
     //Route::get('listar_proveedores', 'UsuariosController@listarProveedores')->name('listar_proveedores');
     //Route::get('listar_clientes', 'UsuariosController@listarClientes')->name('listar_clientes');
 });

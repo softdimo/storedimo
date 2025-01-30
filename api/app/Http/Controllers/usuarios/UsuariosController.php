@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Responsable\usuarios\UsuarioIndex;
 use App\Http\Responsable\usuarios\UsuarioStore;
 use App\Http\Responsable\usuarios\UsuarioUpdate;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Usuario;
 
 
@@ -87,9 +88,9 @@ class UsuariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $idUsuario)
     {
-        //return new UsuaUpdate($request, $id);
+        return new UsuarioUpdate($request, $idUsuario);
     }
 
     // ======================================================================
@@ -109,6 +110,7 @@ class UsuariosController extends Controller
     public function consultarId()
     {
         $identificacion = request('identificacion', null);
+        
         // Consultamos si ya existe un usuario con la cedula ingresada
         return Usuario::where('identificacion', $identificacion)->first();
     }
@@ -117,16 +119,57 @@ class UsuariosController extends Controller
     {
         try {
             $usuario = request('usuario', null);
-            $consultarUsuario = Usuario::where('usuario', $usuario)
-                    ->whereNull('deleted_at')
-                    ->first();
 
-            if ($consultarUsuario) {
-                return response()->json($consultarUsuario);
+            // Consultamos si ya existe este usuario específico
+            $consultaUsuario = Usuario::where('usuario', $usuario)->first();
+
+            if ($consultaUsuario) {
+                return response()->json($consultaUsuario);
             } else {
                 return response()->json('no_user');
             }
+        } catch (Exception $e) {
+            return response()->json('error_bd');
+        }
+    }
 
+
+    public function queryUsuarioUpdate($idUsuario)
+    {
+        try {
+            // Consultamos el id del usuario 
+            return Usuario::where('id_usuario', $idUsuario)->first();
+        } catch (Exception $e) {
+            return response()->json('error_bd');
+        }
+    }
+
+
+    public function cambiarClave(Request $request, $idUsuario)
+    {
+        $claveNueva = request('clave', null);
+
+        try {
+            $cambioClave = Usuario::where('id_usuario',$idUsuario)
+                ->update([
+                    'clave' => Hash::make($claveNueva),
+            ]);
+            return response()->json('clave_cambiada');
+        } catch (Exception $e) {
+            return response()->json('error_bd');
+        }
+    }
+
+    public function consultaRecuperarClave(Request $request)
+    {
+        $email = request('email', null);
+        $identificacion = request('identificacion', null);
+
+        try {
+             return Usuario::select('id_usuario','usuario','identificacion','email')
+                ->where('email', $email)
+                ->where('identificacion', $identificacion)
+                ->first();
         } catch (Exception $e) {
             return response()->json('error_bd');
         }

@@ -27,10 +27,13 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('query_identificacion', 'usuarios\UsuariosController@consultarId');
     $router->post('query_usuario', 'usuarios\UsuariosController@consultaUsuario');
     $router->post('usuario_store', 'usuarios\UsuariosController@store');
+    $router->post('query_usuario_update/{idUsuario}', 'usuarios\UsuariosController@queryUsuarioUpdate');
+    $router->put('usuario_update/{idUsuario}', 'usuarios\UsuariosController@update');
+    $router->post('cambiar_clave/{idUsuario}', 'usuarios\UsuariosController@cambiarClave');
+    $router->post('consulta_recuperar_clave', 'usuarios\UsuariosController@consultaRecuperarClave');
 
-    // $router->put('usuario_update/{id}', 'usuarios\UsuariosController@update');
-    // $router->post('categoria_destroy/{id}', 'categorias\CategoriasController@destroy');
-    // $router->get('categoria_show/{id}', 'categorias\CategoriasController@show');
+    // $router->post('usuario_destroy/{id}', 'usuarios\UsuariosController@destroy');
+    // $router->get('usuario_show/{id}', 'usuarios\UsuariosController@show');
 });
 
 // =====================================================================

@@ -51,12 +51,12 @@ class UsuarioStore implements Responsable
             // ===================================================================
 
             try {
-                $peticionUsuarioStore =  $this->clientApi->post($this->baseUri.'usuario_store', [
+                $peticionUsuarioStore = $this->clientApi->post($this->baseUri.'usuario_store', [
                     'json' => [
                         'nombre_usuario' => $nombreUsuario,
                         'apellido_usuario' => $apellidoUsuario,
                         'identificacion' => $identificacion,
-                        'usuario' => $usuario,
+                        'usuario' => $usuario.$complemento,
                         'email' => $email,
                         'id_rol' => $idRol,
                         'id_estado' => $idEstado,
@@ -64,7 +64,7 @@ class UsuarioStore implements Responsable
                         'clave_fallas' => 0,
                     ]
                 ]);
-                $resUsuarioStore = json_decode($peticionUsuarioStore->getBody()->getContents(), true);
+                $resUsuarioStore = json_decode($peticionUsuarioStore->getBody()->getContents());
 
                 if(isset($resUsuarioStore) && !empty($resUsuarioStore))
                 {
@@ -86,11 +86,9 @@ class UsuarioStore implements Responsable
     private function consultarId($identificacion)
     {
         $queryIdentificacion = $this->clientApi->post($this->baseUri.'query_identificacion', [
-            'json' => [
-                'identificacion' => $identificacion,
-            ]
+            'json' => ['identificacion' => $identificacion]
         ]);
-        return json_decode($queryIdentificacion->getBody()->getContents(), true);
+        return json_decode($queryIdentificacion->getBody()->getContents());
     }
 
     // ===================================================================
@@ -98,19 +96,13 @@ class UsuarioStore implements Responsable
 
     private function consultaUsuario($usuario)
     {
-        try
-        {
+        try {
             $queryUsuario = $this->clientApi->post($this->baseUri.'query_usuario', [
-                'json' => [
-                    'usuario' => $usuario,
-                ]
+                'json' => ['usuario' => $usuario]
             ]);
-    
-            return json_decode($queryUsuario->getBody()->getContents(), true);
+            return json_decode($queryUsuario->getBody()->getContents());
 
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
         }
     }

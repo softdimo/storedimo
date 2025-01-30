@@ -146,14 +146,15 @@ class LoginController extends Controller
     // ======================================================================
     // ======================================================================
 
-    /* public function cambiarClave()
+    public function cambiarClave(Request $request)
     {
         if (!$this->checkDatabaseConnection()) {
             return view('db_conexion');
         } else {
-            return view('inicio_sesion.cambiar_clave');
+            return new CambiarClave();
+
         }
-    } */
+    }
 
     // ======================================================================
     // ======================================================================
@@ -170,50 +171,50 @@ class LoginController extends Controller
     // ======================================================================
     // ======================================================================
        
-    /* public function recuperarClave()
+    public function recuperarClave()
     {
         if (!$this->checkDatabaseConnection()) {
             return view('db_conexion');
         } else {
             return view('inicio_sesion.recuperar_clave');
         }
-    } */
+    }
 
     // ======================================================================
     // ======================================================================
 
-    /* public function recuperarClaveEmail(Request $request)
+    public function recuperarClaveEmail(Request $request)
     {
         if (!$this->checkDatabaseConnection()) {
             return view('db_conexion');
         } else {
             return new RecuperarClave();
         }
-    } */
+    }
 
     // ======================================================================
     // ======================================================================
 
-    /* public function recuperarClaveLink($usuIdRecuperarClave)
+    public function recuperarClaveLink($usuIdRecuperarClave)
     {
         if (!$this->checkDatabaseConnection()) {
             return view('db_conexion');
         } else {
             return view('inicio_sesion.recuperar_clave_link', compact('usuIdRecuperarClave'));
         }
-    } */
+    }
 
     // ======================================================================
     // ======================================================================
 
-    /* public function recuperarClaveUpdate(Request $request) 
+    public function recuperarClaveUpdate(Request $request) 
     {
         if (!$this->checkDatabaseConnection()) {
             return view('db_conexion');
         } else {
             return new RecuperarClaveUpdate();
         }
-    } */
+    }
 
     // ======================================================================
     // ======================================================================
