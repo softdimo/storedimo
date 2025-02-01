@@ -14,6 +14,70 @@
             padding-top: 0.0rem !important;
             padding-bottom: 0.0rem !important;
         }
+
+        .flex {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+        }
+
+        .flex-column {
+            display: flex;
+            flex-direction: column
+        }
+
+        .flex-column>label {
+            text-align: left;
+            font-weight: bold;
+            padding-bottom: 0.5rem
+        }
+
+        .flex-column>label>span {
+            color: red
+        }
+
+        .flex-column>input {
+            border-radius: 5px;
+            border: solid 1px gray;
+            padding-left: 10px;
+            padding-bottom: 10px
+            text-align: left;
+            
+        }
+
+        .flex-column>input::placeholder {
+            font-size: 14px;
+            text-align: left;
+            opacity: 0.6;
+        }
+
+        .flex-column>input:focus {
+            border: solid 2px #337AB7 !important;
+            box-shadow: 0 0 5px blue !important;
+            outline: none
+        }
+
+        /* Opcional: estilo cuando el input pierde el foco */
+        .flex-column>input:not(:focus) {
+            /* border: solid 1px #337AB7 !important; */
+            box-shadow: none;
+        }
+
+
+        .div-principal {
+            border: solid 1px blue;
+            border-radius: 5px;
+        }
+
+        .div-principal>div:first-child {
+            background-color: #337AB7;
+        }
+
+        .div-principal>div:first-child>p {
+            color: white;
+            font-weight: bold;
+            padding: 0.5rem;
+        }
     </style>
 @stop
 
@@ -85,14 +149,8 @@
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </a>
 
-                                            {{-- <a href="#" role="button"
-                                                class="btn btn-warning rounded-circle btn-circle"
-                                                title="Cambiar contraseña">
-                                                <i class="fa fa-key" aria-hidden="true"></i>
-                                            </a> --}}
-
                                             <button type="button" class="btn btn-warning rounded-circle btn-circle"
-                                                onclick="cambiarClave('{{ $usuario->id_usuario }}')">
+                                                onclick="cambiarClave('{{ $usuario->id_usuario }}', '{{$usuario->identificacion}}', '{{$usuario->nombre_usuario}}', '{{$usuario->apellido_usuario}}')">
                                                 <i class="fa fa-key" aria-hidden="true"></i>
                                             </button>
                                         </td>
@@ -117,74 +175,6 @@
                 </div> {{-- FIN div_campos_usuarios --}}
             </div> {{-- FIN div_crear_usuario --}}
         </div>
-
-        {{-- =========== Modal cambiar contraseña =================== --}}
-
-
-        {{-- <form method="POST" id="form-3" role="form" data-parsley-validate="">
-            <div class="modal fade" id="modal-cambiar-contras" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                data-keyboard ="false" data-backdrop = "static">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content" style="width: 100%">
-
-                        <div class="modal-body">
-                            <input type="hidden" name="idusuario" value="<?= $persona['id_usuarios'] ?>">
-
-                            <div class="row">
-                                <div class="panel panel-primary" style="margin-left: 2%; margin-right: 2%">
-                                    <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                                        <center><span style="color: #fff; font-size: 18px" id="myModalLabel"><strong>Cambiar
-                                                    Contraseña de:
-                                                    <?= $persona['tipo_documento'] == 'Cédula' ? 'C.C' : 'C.E' ?> :
-                                                    <?= $persona['id_persona'] . ' - ' . $persona['nombres'] . ' ' . $persona['apellidos'] ?></strong></span>
-                                        </center>
-                                    </div>
-
-                                    <div class="panel-body">
-                                        <div class="col-xs-12 col-md-6" id="conClave">
-                                            <label for="inputPassword" class="control-label">Nueva Contraseña <span
-                                                    class="obligatorio">*</span></label>
-                                            <input type="password" tabindex="1" maxlength="7" minlength="4"
-                                                name="txtnueva" class="form-control" id="campoClave"
-                                                placeholder="Contraseña"
-                                                pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+"
-                                                data-parsley-required="true">
-                                        </div>
-
-                                        <div class="col-xs-12 col-md-6" id="conConfirmar">
-                                            <label for="">Confirmar Contraseña <span
-                                                    class="obligatorio">*</span></label>
-                                            <input type="password" tabindex="2" maxlength="7" minlength="4"
-                                                name="txtConfClave" data-parsley-equalto="#campoClave" class="form-control"
-                                                id="campoConfirmar"
-                                                pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+"
-                                                placeholder="Confirmar Contraseña" data-parsley-required="true">
-                                        </div>
-
-                                        <div class="col-md-3">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6 col-md-6 col-lg-6">
-                                <button type="submit" tabindex="4" name="btn-modificar-clave"
-                                    class="btn btn-success btn-md active pull-right" id="btn-contras"><i
-                                        class="fa fa-floppy-o" aria-hidden="true"> Modificar</i></button>
-                                <input type="hidden" tabindex="5">
-                            </div>
-                            <div class="col-xs-6 col-md-6 col-lg-3">
-                                <button type="button" tabindex="3" class="btn btn-secondary btn-md active"
-                                    data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"> Cerrar</i></button>
-                            </div>
-                        </div>
-                        <br>
-                    </div>
-                </div>
-            </div>
-        </form> --}}
-
     </div>
     @include('layouts.loader')
 @stop
@@ -235,64 +225,60 @@
             // ===========================================================================================
             // ===========================================================================================
 
-            // formEditarCategoria para cargar gif en el submit
-
-
         });
 
-
-
-
-
-
-        function cambiarClave(idUsuario) {
+        function cambiarClave(idUsuario, identificacion, nombres, apellidos) {
             let form = ''
 
             form += `
-                    <div style="margin-top:2rem;">
-                        <label class="">Clave Nueva</label>
-                        <input type="text" name="nueva_clave" id="nueva_clave" class="" required>
-                    </div>
-
+                <div class="div-principal">
                     <div>
-                        <label class="">Confirmar Clave</label>
-                        <input type="text" name="confirmar_clave" id="confirmar_clave" class="" required>
+                        <p> Cambiar Contraseña de C.C: ${identificacion} - ${nombres} ${apellidos}  </p>
                     </div>
+                    <div class="flex">
+                        <div class="flex-column">
+                            <label>Clave Nueva<span>*</span></label>
+                            <input type="text" name="nueva_clave" id="nueva_clave" class="" placeholder="Contraseña" required >
+                        </div>
+
+                        <div class="flex-column">
+                            <label>Confirmar Clave<span>*</span></label>
+                            <input type="text" name="confirmar_clave" id="confirmar_clave" class="" placeholder="ConfirmarContraseña" required >
+                        </div>
+                    </div>
+                </div>
             `;
 
-            /* form += < img class = "ocultar"
-            src = "{{ asset('imagenes/loading.gif') }}"
-            id = "loading_ajax"
-            alt = "loading..." / > ; */
-
-
-            /* Swal.fire({
-                title: 'Cambiar Clave',
-                html: form,
-                icon: 'success',
-                type: 'success',
-                showConfirmButton: true,
-                focusConfirm: false,
-                showCloseButton: true,
-                showCancelButton: true,
-                cancelButtonText: 'Cancel',
-                allowOutsideClick: false,
-            }); */
-
-
             Swal.fire({
-                title: "Do you want to save the changes?",
+                // title: "Desea cambiar la clave?",
                 html: form,
+                // icon: "warning",
+                // type: "warning",
                 showCancelButton: true,
-                confirmButtonText: "Cambiar clave",
+                confirmButtonColor: 'green',
+                confirmButtonText: '<i class="fa fa-floppy-o"></i> Modificar',
+                cancelButtonText: '<i class="fa fa-thumbs-down"></i> Cancelar!',
+                allowOutsideClick: false,
+                allowEscapeKey: false
             }).then((result) => {
                 console.log('Result: ' + result.value);
 
                 /* Read more about isConfirmed, isDenied below */
                 if (result.value == true) {
+                    $('#nueva_clave').attr('required');
+                    $('#confirmar_clave').attr('required');
                     let claveNueva = $('#nueva_clave').val();
                     let confirmarClave = $('#confirmar_clave').val();
-
+                    if (claveNueva == null || claveNueva == '' && confirmarClave == null || confirmarClave == '') {
+                        Swal.fire({
+                            icon: "error",
+                            type: "error",
+                            title: "Las claves son requeridas",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        return;
+                    }
                     $.ajax({
                         async: true,
                         url: "{{ route('cambiar_clave') }}",
@@ -317,8 +303,8 @@
                                 $("#loaderGif").hide();
                                 $("#loaderGif").addClass('ocultar');
                                 Swal.fire({
-                                    position: "top-end",
                                     icon: "success",
+                                    type: "success",
                                     title: "Clave cambiada",
                                     showConfirmButton: false,
                                     timer: 1500
@@ -329,8 +315,8 @@
 
                             if (response == 'error_exception') {
                                 Swal.fire({
-                                    position: "top-end",
                                     icon: "error",
+                                    type: "error",
                                     title: "Error, clave no cambiada",
                                     showConfirmButton: false,
                                     timer: 1500
