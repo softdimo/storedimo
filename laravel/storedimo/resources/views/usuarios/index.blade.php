@@ -14,70 +14,6 @@
             padding-top: 0.0rem !important;
             padding-bottom: 0.0rem !important;
         }
-
-        .flex {
-            display: flex;
-            justify-content: space-between;
-            padding: 1rem;
-        }
-
-        .flex-column {
-            display: flex;
-            flex-direction: column
-        }
-
-        .flex-column>label {
-            text-align: left;
-            font-weight: bold;
-            padding-bottom: 0.5rem
-        }
-
-        .flex-column>label>span {
-            color: red
-        }
-
-        .flex-column>input {
-            border-radius: 5px;
-            border: solid 1px gray;
-            padding-left: 10px;
-            padding-bottom: 10px
-            text-align: left;
-            
-        }
-
-        .flex-column>input::placeholder {
-            font-size: 14px;
-            text-align: left;
-            opacity: 0.6;
-        }
-
-        .flex-column>input:focus {
-            border: solid 2px #337AB7 !important;
-            box-shadow: 0 0 5px blue !important;
-            outline: none
-        }
-
-        /* Opcional: estilo cuando el input pierde el foco */
-        .flex-column>input:not(:focus) {
-            /* border: solid 1px #337AB7 !important; */
-            box-shadow: none;
-        }
-
-
-        .div-principal {
-            border: solid 1px blue;
-            border-radius: 5px;
-        }
-
-        .div-principal>div:first-child {
-            background-color: #337AB7;
-        }
-
-        .div-principal>div:first-child>p {
-            color: white;
-            font-weight: bold;
-            padding: 0.5rem;
-        }
     </style>
 @stop
 
@@ -149,11 +85,95 @@
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </a>
 
+                                            {{-- <a href="#" role="button"
+                                                class="btn btn-warning rounded-circle btn-circle"
+                                                title="Cambiar contraseña">
+                                                <i class="fa fa-key" aria-hidden="true"></i>
+                                            </a> --}}
+
                                             <button type="button" class="btn btn-warning rounded-circle btn-circle"
-                                                onclick="cambiarClave('{{ $usuario->id_usuario }}', '{{$usuario->identificacion}}', '{{$usuario->nombre_usuario}}', '{{$usuario->apellido_usuario}}')">
+                                                title="Cambiar contraseña" data-bs-toggle="modal"
+                                                data-bs-target="#modal_cambiar_clave_{{ $usuario->id_usuario }}">
                                                 <i class="fa fa-key" aria-hidden="true"></i>
                                             </button>
                                         </td>
+
+                                        {{-- INICIO Modal CAMBIAR CONTRASEÑA --}}
+                                        <div class="modal fade" id="modal_cambiar_clave_{{ $usuario->id_usuario }}"
+                                            tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content p-3 w-100">
+                                                    {!! Form::open([
+                                                        'method' => 'POST',
+                                                        'route' => ['cambiar_clave'],
+                                                        'class' => 'mt-2',
+                                                        'autocomplete' => 'off',
+                                                        'id' => 'formCambiarClave_'.$usuario->id_usuario,
+                                                    ]) !!}
+                                                    @csrf
+                                                    <div class="" style="border: solid 1px #337AB7;">
+                                                        <div class="rounded-top text-white text-center"
+                                                            style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                                            <h5>Cambiar Contraseña de:
+                                                                {{ $usuario->identificacion . ' - ' . $usuario->nombre_usuario . ' ' . $usuario->apellido_usuario }}
+                                                            </h5>
+                                                        </div>
+
+                                                        {{ Form::hidden('id_usuario', isset($usuario) ? $usuario->id_usuario : null, ['class' => '', 'id' => 'id_usuario']) }}
+
+                                                        {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
+
+                                                        <div class="modal-body p-0 m-0">
+                                                            <div class="row m-0 pt-4 pb-4">
+                                                                <div class="col-12 col-md-6">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="nueva_clave" class=""
+                                                                            style="font-size: 15px">Nueva Contraseña<span
+                                                                                class="text-danger">*</span></label>
+                                                                        {{ Form::text('nueva_clave', null, ['class' => 'form-control', 'id' => 'nueva_clave_'.$usuario->id_usuario, 'placeholder' => 'Contraseña', 'required' => 'required']) }}
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-12 col-md-6">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="confirmar_clave" class=""
+                                                                            style="font-size: 15px">Confirmar
+                                                                            Contraseña<span
+                                                                                class="text-danger">*</span></label>
+                                                                        {{ Form::text('confirmar_clave', null, ['class' => 'form-control', 'id' => 'confirmar_clave_'.$usuario->id_usuario, 'placeholder' => 'Confirmar Contraseña', 'required' => 'required']) }}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    {{-- ====================================================== --}}
+                                                    {{-- ====================================================== --}}
+
+                                                    <!-- Contenedor para el GIF -->
+                                                    <div id="loadingIndicatorEdit_{{$usuario->id_usuario}}" class="loadingIndicator">
+                                                        <img src="{{asset('imagenes/loading.gif')}}" alt="Procesando...">
+                                                    </div>
+
+                                                    <div class="d-flex justify-content-center mt-5">
+                                                        <button id="btn_editar_{{$usuario->id_usuario}}" type="submit" class="btn btn-success"
+                                                            title="Guardar Configuración">
+                                                            <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
+                                                        </button>
+
+
+                                                        <button type="button" class="btn btn-secondary" title="Cancelar"
+                                                            data-bs-dismiss="modal">
+                                                            <i class="fa fa-times" aria-hidden="true"> Cancelar</i>
+                                                        </button>
+                                                    </div>
+                                                    {!! Form::close() !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- FINAL Modal CAMBIAR CONTRASEÑA --}}
                                     </tr>
                                 @endforeach
 
@@ -176,7 +196,6 @@
             </div> {{-- FIN div_crear_usuario --}}
         </div>
     </div>
-    @include('layouts.loader')
 @stop
 
 {{-- =============================================================== --}}
@@ -189,10 +208,6 @@
 
     <script>
         $(document).ready(function() {
-            setTimeout(() => {
-                $("#loaderGif").hide();
-                $("#loaderGif").addClass('ocultar');
-            }, 1500);
             // INICIO DataTable Lista Usuarios
             $("#tbl_usuarios").DataTable({
                 dom: 'Blfrtip',
@@ -225,110 +240,37 @@
             // ===========================================================================================
             // ===========================================================================================
 
-        });
+            // formEditarCategoria para cargar gif en el submit
 
-        function cambiarClave(idUsuario, identificacion, nombres, apellidos) {
-            let form = ''
+            $(document).on("submit", "form[id^='formCambiarClave_']", function (e) {
 
-            form += `
-                <div class="div-principal">
-                    <div>
-                        <p> Cambiar Contraseña de C.C: ${identificacion} - ${nombres} ${apellidos}  </p>
-                    </div>
-                    <div class="flex">
-                        <div class="flex-column">
-                            <label>Clave Nueva<span>*</span></label>
-                            <input type="text" name="nueva_clave" id="nueva_clave" class="" placeholder="Contraseña" required >
-                        </div>
+                const form = $(this);
+                const formId = form.attr('id'); // Obtenemos el ID del formulario
+                const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
 
-                        <div class="flex-column">
-                            <label>Confirmar Clave<span>*</span></label>
-                            <input type="text" name="confirmar_clave" id="confirmar_clave" class="" placeholder="ConfirmarContraseña" required >
-                        </div>
-                    </div>
-                </div>
-            `;
+                // Capturar el indicador de carga dinámicamente
+                const loadingIndicatorId = `#loadingIndicatorEdit_${id}`;
+                const loadingIndicator = $(loadingIndicatorId);
 
-            Swal.fire({
-                // title: "Desea cambiar la clave?",
-                html: form,
-                // icon: "warning",
-                // type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: 'green',
-                confirmButtonText: '<i class="fa fa-floppy-o"></i> Modificar',
-                cancelButtonText: '<i class="fa fa-thumbs-down"></i> Cancelar!',
-                allowOutsideClick: false,
-                allowEscapeKey: false
-            }).then((result) => {
-                console.log('Result: ' + result.value);
+                // Capturar el botón de submit dinámicamente
+                const submitButtonId = `#btn_editar_${id}`;
+                const submitButton = $(submitButtonId);
 
-                /* Read more about isConfirmed, isDenied below */
-                if (result.value == true) {
-                    $('#nueva_clave').attr('required');
-                    $('#confirmar_clave').attr('required');
-                    let claveNueva = $('#nueva_clave').val();
-                    let confirmarClave = $('#confirmar_clave').val();
-                    if (claveNueva == null || claveNueva == '' && confirmarClave == null || confirmarClave == '') {
-                        Swal.fire({
-                            icon: "error",
-                            type: "error",
-                            title: "Las claves son requeridas",
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        return;
-                    }
-                    $.ajax({
-                        async: true,
-                        url: "{{ route('cambiar_clave') }}",
-                        type: "POST",
-                        dataType: "json",
-                        data: {
-                            '_token': "{{ csrf_token() }}",
-                            'id_usuario': idUsuario,
-                            'nueva_clave': claveNueva,
-                            'confirmar_clave': confirmarClave
-                        },
+                // Lógica del botón
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+                loadingIndicator.show();
 
-                        beforeSend: function() {
-                            $("#loaderGif").show();
-                            $("#loaderGif").removeClass('ocultar');
-                        },
+                // Readonly para el campo nueva clave
+                const nuevaClave = `#nueva_clave_${id}`;
+                const nuevaClaveReadOnly = $(nuevaClave);
+                nuevaClaveReadOnly.prop("readonly", true);
 
-                        success: function(response) {
-                            console.log(response);
 
-                            if (response == 'success') {
-                                $("#loaderGif").hide();
-                                $("#loaderGif").addClass('ocultar');
-                                Swal.fire({
-                                    icon: "success",
-                                    type: "success",
-                                    title: "Clave cambiada",
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                });
-                                setTimeout('window.location.reload()', 3500);
-                                return;
-                            }
-
-                            if (response == 'error_exception') {
-                                Swal.fire({
-                                    icon: "error",
-                                    type: "error",
-                                    title: "Error, clave no cambiada",
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                });
-                                setTimeout('window.location.reload()', 3500);
-                                return;
-                            }
-                        }
-                    })
-                }
+                // Readonly para el campo confirmar clave
+                const confirmarClave = `#confirmar_clave_${id}`;
+                const confirmarClaveReadOnly = $(confirmarClave);
+                confirmarClaveReadOnly.prop("readonly", true);
             });
-
-        }
+        });
     </script>
 @stop
