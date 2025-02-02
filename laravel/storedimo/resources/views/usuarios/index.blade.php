@@ -92,10 +92,88 @@
                                             </a> --}}
 
                                             <button type="button" class="btn btn-warning rounded-circle btn-circle"
-                                                onclick="cambiarClave('{{ $usuario->id_usuario }}')">
+                                                title="Cambiar contraseña" data-bs-toggle="modal"
+                                                data-bs-target="#modal_cambiar_clave_{{ $usuario->id_usuario }}">
                                                 <i class="fa fa-key" aria-hidden="true"></i>
                                             </button>
                                         </td>
+
+                                        {{-- INICIO Modal CAMBIAR CONTRASEÑA --}}
+                                        <div class="modal fade" id="modal_cambiar_clave_{{ $usuario->id_usuario }}"
+                                            tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content p-3 w-100">
+                                                    {!! Form::open([
+                                                        'method' => 'POST',
+                                                        'route' => ['cambiar_clave'],
+                                                        'class' => 'mt-2',
+                                                        'autocomplete' => 'off',
+                                                        'id' => 'formCambiarClave_'.$usuario->id_usuario,
+                                                    ]) !!}
+                                                    @csrf
+                                                    <div class="" style="border: solid 1px #337AB7;">
+                                                        <div class="rounded-top text-white text-center"
+                                                            style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                                            <h5>Cambiar Contraseña de:
+                                                                {{ $usuario->identificacion . ' - ' . $usuario->nombre_usuario . ' ' . $usuario->apellido_usuario }}
+                                                            </h5>
+                                                        </div>
+
+                                                        {{ Form::hidden('id_usuario', isset($usuario) ? $usuario->id_usuario : null, ['class' => '', 'id' => 'id_usuario']) }}
+
+                                                        {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
+
+                                                        <div class="modal-body p-0 m-0">
+                                                            <div class="row m-0 pt-4 pb-4">
+                                                                <div class="col-12 col-md-6">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="nueva_clave" class=""
+                                                                            style="font-size: 15px">Nueva Contraseña<span
+                                                                                class="text-danger">*</span></label>
+                                                                        {{ Form::text('nueva_clave', null, ['class' => 'form-control', 'id' => 'nueva_clave_'.$usuario->id_usuario, 'placeholder' => 'Contraseña', 'required' => 'required']) }}
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-12 col-md-6">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="confirmar_clave" class=""
+                                                                            style="font-size: 15px">Confirmar
+                                                                            Contraseña<span
+                                                                                class="text-danger">*</span></label>
+                                                                        {{ Form::text('confirmar_clave', null, ['class' => 'form-control', 'id' => 'confirmar_clave_'.$usuario->id_usuario, 'placeholder' => 'Confirmar Contraseña', 'required' => 'required']) }}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    {{-- ====================================================== --}}
+                                                    {{-- ====================================================== --}}
+
+                                                    <!-- Contenedor para el GIF -->
+                                                    <div id="loadingIndicatorEdit_{{$usuario->id_usuario}}" class="loadingIndicator">
+                                                        <img src="{{asset('imagenes/loading.gif')}}" alt="Procesando...">
+                                                    </div>
+
+                                                    <div class="d-flex justify-content-center mt-5">
+                                                        <button id="btn_editar_{{$usuario->id_usuario}}" type="submit" class="btn btn-success"
+                                                            title="Guardar Configuración">
+                                                            <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
+                                                        </button>
+
+
+                                                        <button type="button" class="btn btn-secondary" title="Cancelar"
+                                                            data-bs-dismiss="modal">
+                                                            <i class="fa fa-times" aria-hidden="true"> Cancelar</i>
+                                                        </button>
+                                                    </div>
+                                                    {!! Form::close() !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- FINAL Modal CAMBIAR CONTRASEÑA --}}
                                     </tr>
                                 @endforeach
 
@@ -117,74 +195,6 @@
                 </div> {{-- FIN div_campos_usuarios --}}
             </div> {{-- FIN div_crear_usuario --}}
         </div>
-
-        {{-- =========== Modal cambiar contraseña =================== --}}
-
-
-        {{-- <form method="POST" id="form-3" role="form" data-parsley-validate="">
-            <div class="modal fade" id="modal-cambiar-contras" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                data-keyboard ="false" data-backdrop = "static">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content" style="width: 100%">
-
-                        <div class="modal-body">
-                            <input type="hidden" name="idusuario" value="<?= $persona['id_usuarios'] ?>">
-
-                            <div class="row">
-                                <div class="panel panel-primary" style="margin-left: 2%; margin-right: 2%">
-                                    <div class="panel-heading" stlyle="height: 70px; width: 100px">
-                                        <center><span style="color: #fff; font-size: 18px" id="myModalLabel"><strong>Cambiar
-                                                    Contraseña de:
-                                                    <?= $persona['tipo_documento'] == 'Cédula' ? 'C.C' : 'C.E' ?> :
-                                                    <?= $persona['id_persona'] . ' - ' . $persona['nombres'] . ' ' . $persona['apellidos'] ?></strong></span>
-                                        </center>
-                                    </div>
-
-                                    <div class="panel-body">
-                                        <div class="col-xs-12 col-md-6" id="conClave">
-                                            <label for="inputPassword" class="control-label">Nueva Contraseña <span
-                                                    class="obligatorio">*</span></label>
-                                            <input type="password" tabindex="1" maxlength="7" minlength="4"
-                                                name="txtnueva" class="form-control" id="campoClave"
-                                                placeholder="Contraseña"
-                                                pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+"
-                                                data-parsley-required="true">
-                                        </div>
-
-                                        <div class="col-xs-12 col-md-6" id="conConfirmar">
-                                            <label for="">Confirmar Contraseña <span
-                                                    class="obligatorio">*</span></label>
-                                            <input type="password" tabindex="2" maxlength="7" minlength="4"
-                                                name="txtConfClave" data-parsley-equalto="#campoClave" class="form-control"
-                                                id="campoConfirmar"
-                                                pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9!@#\$%\-\*\?_~\\.\\()\/$]+"
-                                                placeholder="Confirmar Contraseña" data-parsley-required="true">
-                                        </div>
-
-                                        <div class="col-md-3">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6 col-md-6 col-lg-6">
-                                <button type="submit" tabindex="4" name="btn-modificar-clave"
-                                    class="btn btn-success btn-md active pull-right" id="btn-contras"><i
-                                        class="fa fa-floppy-o" aria-hidden="true"> Modificar</i></button>
-                                <input type="hidden" tabindex="5">
-                            </div>
-                            <div class="col-xs-6 col-md-6 col-lg-3">
-                                <button type="button" tabindex="3" class="btn btn-secondary btn-md active"
-                                    data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"> Cerrar</i></button>
-                            </div>
-                        </div>
-                        <br>
-                    </div>
-                </div>
-            </div>
-        </form> --}}
-
     </div>
 @stop
 
@@ -232,51 +242,35 @@
 
             // formEditarCategoria para cargar gif en el submit
 
+            $(document).on("submit", "form[id^='formCambiarClave_']", function (e) {
 
-        });
+                const form = $(this);
+                const formId = form.attr('id'); // Obtenemos el ID del formulario
+                const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
+
+                // Capturar el indicador de carga dinámicamente
+                const loadingIndicatorId = `#loadingIndicatorEdit_${id}`;
+                const loadingIndicator = $(loadingIndicatorId);
+
+                // Capturar el botón de submit dinámicamente
+                const submitButtonId = `#btn_editar_${id}`;
+                const submitButton = $(submitButtonId);
+
+                // Lógica del botón
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+                loadingIndicator.show();
+
+                // Readonly para el campo nueva clave
+                const nuevaClave = `#nueva_clave_${id}`;
+                const nuevaClaveReadOnly = $(nuevaClave);
+                nuevaClaveReadOnly.prop("readonly", true);
 
 
-
-
-
-
-        function cambiarClave(idUsuario) {
-            let form = ''
-
-            form += `
-                    <div style="margin-top:2rem;">
-                        <label class="">Clave Nueva</label>
-                        <input type="text" name="clave_nueva" id="clave_nueva" class="" required>
-                    </div>
-
-                    <div>
-                        <label class="">Confirmar Clave</label>
-                        <input type="text" name="confirmar_clave" id="confirmar_clave" class="" required>
-                    </div>
-            `;
-
-            /* form += < img class = "ocultar"
-            src = "{{ asset('imagenes/loading.gif') }}"
-            id = "loading_ajax"
-            alt = "loading..." / > ; */
-
-            form += `
-                    <input type="button" class="btn btn-primary" id="" value="Editar" >
-            `;
-
-            Swal.fire({
-                title: 'Cambiar Clave',
-                html: form,
-                icon: 'success',
-                type: 'success',
-                showConfirmButton: true,
-                focusConfirm: false,
-                showCloseButton: true,
-                showCancelButton: true,
-                cancelButtonText: 'Cancel',
-                allowOutsideClick: false,
+                // Readonly para el campo confirmar clave
+                const confirmarClave = `#confirmar_clave_${id}`;
+                const confirmarClaveReadOnly = $(confirmarClave);
+                confirmarClaveReadOnly.prop("readonly", true);
             });
-
-        }
+        });
     </script>
 @stop

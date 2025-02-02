@@ -19,6 +19,8 @@
         <link rel="stylesheet" href="{{asset('bootstrap/bootstrap.5.3.2.min.css')}}" >
 
         {{-- ========================================= --}}
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
         
         <!--  Js -->
         <script src="{{asset('js/jquery-3.6.0.min.js')}}"></script>
@@ -70,6 +72,9 @@
         <script src="{{asset('bootstrap/bootstrap5.3.2.bundle.min.js')}}"></script>
 
         {{-- ========================================================================= --}}
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+        
 
         <!-- SELECT2 -->
         {{-- <script src="{{asset('vendor/select2-4.1.0/dist/js/select2.min.js')}}"></script> --}}

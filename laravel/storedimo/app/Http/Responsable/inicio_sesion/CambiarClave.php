@@ -57,10 +57,13 @@ class CambiarClave implements Responsable
                         if(isset($claveCambiada) && !is_null($claveCambiada) && !empty($claveCambiada)) {
                             alert()->success('Bien', 'Clave cambiada satisfactoriamente');
                             return redirect()->to(route('login'));
+                            // return response()->json('success');
         
                         } else {
                             alert()->error('Error', 'Error al cambiar la clave, por favor contacte a Soporte.');
                             return redirect()->to(route('cambiar_clave'));
+                            // return response()->json('error_exception');
+
                         }
                     }
                     catch (Exception $e)
