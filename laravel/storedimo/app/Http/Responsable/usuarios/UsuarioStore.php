@@ -28,6 +28,12 @@ class UsuarioStore implements Responsable
         $email = request('email', null);
         $idEstado = 1;
         $idRol = request('id_rol', null);
+
+        if(strlen($identificacion) < 6)
+        {
+            alert()->info('Info', 'El documento debe se de mínimo 6 caracteres');
+            return back();
+        }
         
         // Consultamos si ya existe un usuario con la cedula ingresada
         $consultarIdentificacion = $this->consultarId($identificacion);
