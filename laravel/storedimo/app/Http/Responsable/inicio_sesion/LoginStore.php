@@ -53,6 +53,7 @@ class LoginStore implements Responsable
 
             if(Hash::check($clave, $user['clave'])) {
                 $this->crearVariablesSesion($user);
+                $this->actualizarClaveFallas($user['id_usuario'], 0);
                 return redirect('usuarios');
             } else {
                 $contarClaveErronea += 1;
@@ -118,9 +119,14 @@ class LoginStore implements Responsable
     private function inactivarUsuario($idUser)
     {
         try {
-            $user = Usuario::find($idUser);
-            $user->id_estado = 2;
-            $user->save();
+
+            $baseUri = env('BASE_URI');
+
+            // Realiza la solicitud POST a la API
+            $clientApi = new Client(['base_uri' => $baseUri]);
+
+            $response = $clientApi->post($baseUri.'inactivar_usuario/'.$idUser, ['json' => []]);
+            json_decode($response->getBody()->getContents());
 
         } catch (Exception $e)
         {
@@ -133,16 +139,23 @@ class LoginStore implements Responsable
     // ======================================================
     // ======================================================
 
-    private function actualizarClaveFallas($usuario_id, $contador)
+    private function actualizarClaveFallas($idUsuario, $contador)
     {
         try {
-            $user = Usuario::find($usuario_id);
-            $user->clave_fallas = $contador;
-            $user->save();
+
+            $baseUri = env('BASE_URI');
+
+            // Realiza la solicitud POST a la API
+            $clientApi = new Client(['base_uri' => $baseUri]);
+
+            $response = $clientApi->post($baseUri.'actualizar_clave_fallas/'.$idUsuario, 
+                ['json' => ['clave_fallas' => $contador]]
+            );
+            json_decode($response->getBody()->getContents());
 
         } catch (Exception $e) {
             dd($e);
-            alert()->error('Error', 'An error has occurred, try again, if the problem persists contact support.');
+            alert()->error('Error', 'Error Exception, si el problema persiste, contacte a Soporte.');
             return back();
         }
     }
