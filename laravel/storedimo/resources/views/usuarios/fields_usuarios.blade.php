@@ -26,7 +26,7 @@
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
                 <label for="identificacion" class="form-label">Número de documento <span class="text-danger">*</span></label>
-                {!! Form::text('identificacion',  isset($usuario) ? $usuario->identificacion : null, ['class' => 'form-control', 'id' => 'identificacion']) !!}
+                {!! Form::text('identificacion',  isset($usuario) ? $usuario->identificacion : null, ['class' => 'form-control', 'id' => 'identificacion', 'minlength' => 6]) !!}
             </div>
         </div>
 
@@ -69,7 +69,7 @@
                 Guardar
             </button>
 
-            <button class="btn btn-danger rounded-2" type="submit">
+            <button class="btn btn-danger rounded-2" type="button">
                 <i class="fa fa-remove"></i>
                 Cancelar
             </button>

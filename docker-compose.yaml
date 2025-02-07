@@ -9,8 +9,8 @@ services:
     ports: 
       - '80:80'
     env_file:
-      #- ./laravel/storedimo/.env
-      - ./laravel/config_laravel/datos.env
+      - ./laravel/storedimo/.env
+      #- ./laravel/config_laravel/datos.env
       
 
 # =========================================================== 

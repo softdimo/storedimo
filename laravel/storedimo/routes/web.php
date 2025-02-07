@@ -53,7 +53,7 @@ Route::group(['namespace' => 'App\Http\Controllers\home'], function () {
 // USUARIOS
 Route::group(['namespace' => 'App\Http\Controllers\usuarios'], function () {
     Route::resource('usuarios', 'UsuariosController');
-    Route::put('usuarios_update', 'UsuariosController@update')->name('usuarios_update');
+    // Route::put('usuarios_update', 'UsuariosController@update')->name('usuarios_update');
     //Route::get('listar_proveedores', 'UsuariosController@listarProveedores')->name('listar_proveedores');
     //Route::get('listar_clientes', 'UsuariosController@listarClientes')->name('listar_clientes');
 });

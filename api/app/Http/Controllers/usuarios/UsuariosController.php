@@ -174,4 +174,29 @@ class UsuariosController extends Controller
             return response()->json('error_bd');
         }
     }
+
+    public function inactivarUsuario($idUsuario) 
+    {
+        try {
+
+            $user = Usuario::find($idUsuario);
+            $user->id_estado = 2;
+            $user->save();
+
+        } catch (Exception $e) {
+            return response()->json('error_bd');
+        }
+    }
+
+    public function actualizarClaveFallas(Request $request, $idUsuario)
+    {
+        $contador = request('clave_fallas', null);
+        try {
+            $user = Usuario::find($idUsuario);
+            $user->clave_fallas = $contador;
+            $user->save();
+        } catch (Exception $e) {
+            return response()->json('error_bd');
+        }
+    }
 }
