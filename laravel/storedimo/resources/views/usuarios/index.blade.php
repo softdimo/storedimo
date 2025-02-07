@@ -146,7 +146,7 @@
                                                         'id' => 'formEditarUsuario_' . $usuario->id_usuario,
                                                     ]) !!}
                                                     @csrf
-                                                    <div class="" style="border: solid 1px #337AB7;">
+                                                    <div class="">
                                                         <div class="rounded-top text-white text-center"
                                                             style="background-color: #337AB7; border: solid 1px #337AB7;">
                                                             <h5>Editar Usuario</h5>
@@ -157,7 +157,7 @@
                                                         {{-- ====================================================== --}}
                                                         {{-- ====================================================== --}}
 
-                                                        <div class="modal-body p-0 m-0">
+                                                        <div class="modal-body p-0 m-0" style="border: solid 1px #337AB7;">
                                                             <div class="row m-0 pt-4 pb-4">
                                                                 <div class="col-12 col-md-6">
                                                                     <div class="form-group d-flex flex-column">
