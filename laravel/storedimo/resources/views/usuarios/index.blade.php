@@ -65,6 +65,7 @@
                                     <th>Nombres</th>
                                     <th>Apellidos</th>
                                     <th>Usuario</th>
+                                    <th>Tipo Documento</th>
                                     <th>Identificación</th>
                                     <th>Correo</th>
                                     <th>Rol</th>
@@ -79,6 +80,7 @@
                                         <td>{{ $usuario->nombre_usuario }}</td>
                                         <td>{{ $usuario->apellido_usuario }}</td>
                                         <td>{{ $usuario->usuario }}</td>
+                                        <td>{{ $usuario->tipo_documento }}</td>
                                         <td>{{ $usuario->identificacion }}</td>
                                         <td>{{ $usuario->email }}</td>
                                         <td>{{ $usuario->rol }}</td>
@@ -137,7 +139,7 @@
                                             <div class="modal-dialog m-0">
                                                 <div class="modal-content w-100 border-0">
                                                     {!! Form::open([
-                                                        'method' => 'POST',
+                                                        'method' => 'PUT',
                                                         'route' => ['usuarios.update', $usuario->id_usuario],
                                                         'class' => 'mt-2',
                                                         'autocomplete' => 'off',
@@ -159,9 +161,27 @@
                                                             <div class="row m-0 pt-4 pb-4">
                                                                 <div class="col-12 col-md-6">
                                                                     <div class="form-group d-flex flex-column">
+                                                                        <label for="nombre_usuario" class="" style="font-size: 15px">Nombre Usuario
+                                                                            <span class="text-danger">*</span></label>
+                                                                        {{ Form::text('nombre_usuario', isset($usuario) ? $usuario->nombre_usuario : null, ['class' => 'form-control', 'id' => 'nombre_usuario', 'required' => 'required']) }}
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-12 col-md-6">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="apellido_usuario" class="" style="font-size: 15px">Apellido Usuario
+                                                                                <span class="text-danger">*</span></label>
+                                                                        {{ Form::text('apellido_usuario', isset($usuario) ? $usuario->apellido_usuario : null, ['class' => 'form-control', 'id' => 'apellido_usuario', 'required' => 'required']) }}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row m-0 pt-4 pb-4">
+                                                                <div class="col-12 col-md-6">
+                                                                    <div class="form-group d-flex flex-column">
                                                                         <label for="identificacion" class="" style="font-size: 15px">Número de documento
                                                                             <span class="text-danger">*</span></label>
-                                                                        {{ Form::text('identificacion', null, ['class' => 'form-control', 'id' => 'identificacion_' . $usuario->id_usuario, 'required' => 'required']) }}
+                                                                        {{ Form::text('identificacion', isset($usuario) ? $usuario->identificacion : null, ['class' => 'form-control', 'id' => 'identificacion', 'required' => 'required']) }}
                                                                     </div>
                                                                 </div>
 
@@ -169,11 +189,40 @@
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="id_tipo_documento" class="" style="font-size: 15px">Tipo de documento
                                                                                 <span class="text-danger">*</span></label>
-                                                                        {{ Form::text('id_tipo_documento', null, ['class' => 'form-control', 'id' => 'id_tipo_documento_' . $usuario->id_usuario, 'required' => 'required']) }}
+                                                                            {!! Form::select('id_tipo_documento', collect(['' => 'Seleccionar...'])->union($tipos_documento), isset($usuario) ? $usuario->id_tipo_documento : null, ['class' => 'form-control', 'id' =>'id_tipo_documento'])!!}
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+
+
+                                                            <div class="row m-0 pt-4 pb-4">
+                                                                <div class="col-12 col-md-6">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="email" class="" style="font-size: 15px">Correo
+                                                                            <span class="text-danger">*</span></label>
+                                                                        {{ Form::text('email', isset($usuario) ? $usuario->email : null, ['class' => 'form-control', 'id' => 'email', 'required' => 'required']) }}
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-12 col-md-6">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="id_rol" class="" style="font-size: 15px">Rol
+                                                                                <span class="text-danger">*</span></label>
+                                                                            {!! Form::select('id_rol', collect(['' => 'Seleccionar...'])->union($roles), isset($usuario) ? $usuario->id_rol : null, ['class' => 'form-control', 'id' =>'id_rol'])!!}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="row m-0 pt-4 pb-4">
+                                                                <div class="col-12 col-md-6">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="id_estado" class="" style="font-size: 15px">Estado
+                                                                                <span class="text-danger">*</span></label>
+                                                                            {!! Form::select('id_estado', collect(['' => 'Seleccionar...'])->union($estados), isset($usuario) ? $usuario->id_estado : null, ['class' => 'form-control', 'id' =>'id_estado'])!!}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                     </div>
 
                                                     {{-- ====================================================== --}}
