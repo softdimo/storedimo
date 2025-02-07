@@ -134,8 +134,8 @@
                                         <div class="modal fade h-auto modal-gral"
                                             id="modalEditarUsuario_{{ $usuario->id_usuario }}" tabindex="-1"
                                             data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content p-3 w-100">
+                                            <div class="modal-dialog m-0">
+                                                <div class="modal-content w-100 border-0">
                                                     {!! Form::open([
                                                         'method' => 'POST',
                                                         'route' => ['usuarios.update', $usuario->id_usuario],
@@ -188,12 +188,11 @@
                                                     {{-- ====================================================== --}}
                                                     {{-- ====================================================== --}}
 
-                                                    <div class="d-flex justify-content-center mt-5">
+                                                    <div class="d-flex justify-content-around mt-5">
                                                         <button id="btn_editar_{{ $usuario->id_usuario }}" type="submit"
                                                             class="btn btn-success" title="Guardar Configuración">
                                                             <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
                                                         </button>
-
 
                                                         <button type="button" class="btn btn-secondary" title="Cancelar"
                                                             data-bs-dismiss="modal">
@@ -213,8 +212,8 @@
                                         <div class="modal fade h-auto modal-gral"
                                             id="modal_cambiar_clave_{{ $usuario->id_usuario }}" tabindex="-1"
                                             data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content p-3 w-100">
+                                            <div class="modal-dialog m-0">
+                                                <div class="modal-content w-100 border-0">
                                                     {!! Form::open([
                                                         'method' => 'POST',
                                                         'route' => ['cambiar_clave'],
@@ -269,7 +268,10 @@
                                                         <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
                                                     </div>
 
-                                                    <div class="d-flex justify-content-center mt-5">
+                                                    {{-- ====================================================== --}}
+                                                    {{-- ====================================================== --}}
+
+                                                    <div class="d-flex justify-content-around mt-5">
                                                         <button id="btn_editar_{{ $usuario->id_usuario }}" type="submit"
                                                             class="btn btn-success" title="Guardar Configuración">
                                                             <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
