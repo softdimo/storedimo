@@ -223,7 +223,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                    </div>
+                                                        </div>
 
                                                     {{-- ====================================================== --}}
                                                     {{-- ====================================================== --}}
@@ -243,7 +243,7 @@
                                                             <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
                                                         </button>
 
-                                                        <button type="button" class="btn btn-secondary" title="Cancelar"
+                                                        <button id="btn_cancelar_{{ $usuario->id_usuario }}" type="button" class="btn btn-secondary" title="Cancelar"
                                                             data-bs-dismiss="modal">
                                                             <i class="fa fa-times" aria-hidden="true"> Cancelar</i>
                                                         </button>
@@ -370,22 +370,6 @@
 
     <script>
         $(document).ready(function() {
-            $('a[rel="modal:open"]').click(function(event) {
-                event.preventDefault(); // Evita que el enlace recargue la página
-                var modalId = $(this).attr('href');
-
-
-                console.log('modalId ' + modalId);
-                var id = modalId.split('_')[1];
-                console.log('id ' + id);
-
-
-
-                // Obtiene el ID del modal
-                $(id).modal({
-                    fadeDuration: 250
-                });
-            });
             // INICIO DataTable Lista Usuarios
             $("#tbl_usuarios").DataTable({
                 dom: 'Blfrtip',
@@ -457,6 +441,36 @@
                 const confirmarClave = `#confirmar_clave_${id}`;
                 const confirmarClaveReadOnly = $(confirmarClave);
                 confirmarClaveReadOnly.prop("readonly", true);
+            });
+
+            
+            // Botón de submit de editar usuario
+            $(document).on("submit", "form[id^='formEditarUsuario_']", function(e) {
+
+                const form = $(this);
+                const formId = form.attr('id'); // Obtenemos el ID del formulario
+                const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
+
+                // Capturar el indicador de carga dinámicamente
+                const loadingIndicatorId = `#loadingIndicatorEdit_${id}`;
+                const loadingIndicator = $(loadingIndicatorId);
+
+                // Capturar el botón de submit dinámicamente
+                const submitButtonId = `#btn_editar_${id}`;
+                const submitButton = $(submitButtonId);
+
+                // Capturar el botón de cancelar
+                const cancelButtonId = `#btn_cancelar_${id}`;
+                const cancelButton = $(cancelButtonId);
+
+                // Lógica del botón
+                submitButton.prop("disabled", true).html(
+                    "Procesando... <i class='fa fa-spinner fa-spin'></i>"
+                );
+
+                // Lógica del botón cancelar
+                cancelButton.prop("disabled", true);
+                loadingIndicator.show();
             });
         });
     </script>
