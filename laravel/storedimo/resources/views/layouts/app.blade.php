@@ -14,14 +14,12 @@
         <link rel="shortcut icon" href="{{asset('imagenes/favicon.png')}}" type="image/x-icon">
 
         {{-- ========================================= --}}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.2/jquery.modal.min.css" />
 
         <!-- Bootstrap CSS 5.3.2 -->
         <link rel="stylesheet" href="{{asset('bootstrap/bootstrap.5.3.2.min.css')}}" >
 
         {{-- ========================================= --}}
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-        
         <!--  Js -->
         <script src="{{asset('js/jquery-3.6.0.min.js')}}"></script>
         <script src="{{asset('js/jquery-1.19.1.validate.min.js')}}"></script>
@@ -67,13 +65,14 @@
         {{-- ======================================================== --}}
 
         @yield('scripts')
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 
         <!-- Bootstrap Bundle JS 5.3.2 -->
         <script src="{{asset('bootstrap/bootstrap5.3.2.bundle.min.js')}}"></script>
 
         {{-- ========================================================================= --}}
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
         
 
         <!-- SELECT2 -->
