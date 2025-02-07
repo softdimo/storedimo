@@ -159,20 +159,17 @@
                                                             <div class="row m-0 pt-4 pb-4">
                                                                 <div class="col-12 col-md-6">
                                                                     <div class="form-group d-flex flex-column">
-                                                                        <label for="nueva_clave" class=""
-                                                                            style="font-size: 15px">Nueva Contraseña<span
-                                                                                class="text-danger">*</span></label>
-                                                                        {{ Form::text('nueva_clave', null, ['class' => 'form-control', 'id' => 'nueva_clave_' . $usuario->id_usuario, 'placeholder' => 'Contraseña', 'required' => 'required']) }}
+                                                                        <label for="identificacion" class="" style="font-size: 15px">Número de documento
+                                                                            <span class="text-danger">*</span></label>
+                                                                        {{ Form::text('identificacion', null, ['class' => 'form-control', 'id' => 'identificacion_' . $usuario->id_usuario, 'required' => 'required']) }}
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="col-12 col-md-6">
                                                                     <div class="form-group d-flex flex-column">
-                                                                        <label for="confirmar_clave" class=""
-                                                                            style="font-size: 15px">Confirmar
-                                                                            Contraseña<span
-                                                                                class="text-danger">*</span></label>
-                                                                        {{ Form::text('confirmar_clave', null, ['class' => 'form-control', 'id' => 'confirmar_clave_' . $usuario->id_usuario, 'placeholder' => 'Confirmar Contraseña', 'required' => 'required']) }}
+                                                                        <label for="id_tipo_documento" class="" style="font-size: 15px">Tipo de documento
+                                                                                <span class="text-danger">*</span></label>
+                                                                        {{ Form::text('id_tipo_documento', null, ['class' => 'form-control', 'id' => 'id_tipo_documento_' . $usuario->id_usuario, 'required' => 'required']) }}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -243,17 +240,20 @@
                                                             <div class="row m-0 pt-4 pb-4">
                                                                 <div class="col-12 col-md-6">
                                                                     <div class="form-group d-flex flex-column">
-                                                                        <label for="identificacion" class="" style="font-size: 15px">Número de documento
-                                                                            <span class="text-danger">*</span></label>
-                                                                        {{ Form::text('identificacion', null, ['class' => 'form-control', 'id' => 'identificacion_' . $usuario->id_usuario, 'placeholder' => 'Contraseña', 'required' => 'required']) }}
+                                                                        <label for="nueva_clave" class=""
+                                                                            style="font-size: 15px">Nueva Contraseña<span
+                                                                                class="text-danger">*</span></label>
+                                                                        {{ Form::text('nueva_clave', null, ['class' => 'form-control', 'id' => 'nueva_clave_' . $usuario->id_usuario, 'placeholder' => 'Contraseña', 'required' => 'required']) }}
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="col-12 col-md-6">
                                                                     <div class="form-group d-flex flex-column">
-                                                                        <label for="id_tipo_documento" class="" style="font-size: 15px">Tipo de documento
-                                                                                <span class="text-danger">*</span></label>
-                                                                        {{ Form::text('id_tipo_documento', null, ['class' => 'form-control', 'id' => 'id_tipo_documento_' . $usuario->id_usuario, 'placeholder' => 'Tipo Documento', 'required' => 'required']) }}
+                                                                        <label for="confirmar_clave" class=""
+                                                                            style="font-size: 15px">Confirmar
+                                                                            Contraseña<span
+                                                                                class="text-danger">*</span></label>
+                                                                        {{ Form::text('confirmar_clave', null, ['class' => 'form-control', 'id' => 'confirmar_clave_' . $usuario->id_usuario, 'placeholder' => 'Confirmar Contraseña', 'required' => 'required']) }}
                                                                     </div>
                                                                 </div>
                                                             </div>
