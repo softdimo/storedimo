@@ -101,8 +101,8 @@
 
                                             <button type="button" class="btn btn-success rounded-circle btn-circle"
                                                 title="Editar" data-bs-toggle="modal"
-                                                data-bs-target="#ModalEditarUsuario_{{$usuario->id_usuario}}">
-                                                <i class="fa fa-key" aria-hidden="true"></i>
+                                                data-bs-target="#modalEditarUsuario_{{$usuario->id_usuario}}">
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </button>
 
                                             {{-- <a href="#editUsuario_{{ $usuario->id_usuario }}" role="button"
@@ -131,14 +131,14 @@
                                         {{-- ====================================================== --}}
 
                                         {{-- INICIO Modal EDITAR USUARIO --}}
-                                        <div class="modal fade h-auto start-50"
-                                            id="ModalEditarUsuario_{{ $usuario->id_usuario }}" tabindex="-1"
+                                        <div class="modal fade h-auto modal-gral"
+                                            id="modalEditarUsuario_{{ $usuario->id_usuario }}" tabindex="-1"
                                             data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content p-3 w-100">
                                                     {!! Form::open([
                                                         'method' => 'POST',
-                                                        'route' => ['usuarios_update'],
+                                                        'route' => ['usuarios.update', $usuario->id_usuario],
                                                         'class' => 'mt-2',
                                                         'autocomplete' => 'off',
                                                         'id' => 'formEditarUsuario_' . $usuario->id_usuario,
@@ -147,7 +147,7 @@
                                                     <div class="" style="border: solid 1px #337AB7;">
                                                         <div class="rounded-top text-white text-center"
                                                             style="background-color: #337AB7; border: solid 1px #337AB7;">
-                                                            <h5>Editara Usuario</h5>
+                                                            <h5>Editar Usuario</h5>
                                                         </div>
 
                                                         {{ Form::hidden('id_usuario', isset($usuario) ? $usuario->id_usuario : null, ['class' => '', 'id' => 'id_usuario']) }}
@@ -183,10 +183,13 @@
                                                     {{-- ====================================================== --}}
 
                                                     <!-- Contenedor para el GIF -->
-                                                    <div id="loadingIndicatorEdit_{{ $usuario->id_usuario }}"
+                                                    <div id="loadingIndicatorEdit_{{$usuario->id_usuario}}"
                                                         class="loadingIndicator">
                                                         <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
                                                     </div>
+
+                                                    {{-- ====================================================== --}}
+                                                    {{-- ====================================================== --}}
 
                                                     <div class="d-flex justify-content-center mt-5">
                                                         <button id="btn_editar_{{ $usuario->id_usuario }}" type="submit"
@@ -210,7 +213,7 @@
                                         {{-- ====================================================== --}}
 
                                         {{-- INICIO Modal CAMBIAR CONTRASEÑA --}}
-                                        <div class="modal fade h-auto start-50"
+                                        <div class="modal fade h-auto modal-gral"
                                             id="modal_cambiar_clave_{{ $usuario->id_usuario }}" tabindex="-1"
                                             data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
                                             <div class="modal-dialog">
@@ -240,20 +243,17 @@
                                                             <div class="row m-0 pt-4 pb-4">
                                                                 <div class="col-12 col-md-6">
                                                                     <div class="form-group d-flex flex-column">
-                                                                        <label for="nueva_clave" class=""
-                                                                            style="font-size: 15px">Nueva Contraseña<span
-                                                                                class="text-danger">*</span></label>
-                                                                        {{ Form::text('nueva_clave', null, ['class' => 'form-control', 'id' => 'nueva_clave_' . $usuario->id_usuario, 'placeholder' => 'Contraseña', 'required' => 'required']) }}
+                                                                        <label for="identificacion" class="" style="font-size: 15px">Número de documento
+                                                                            <span class="text-danger">*</span></label>
+                                                                        {{ Form::text('identificacion', null, ['class' => 'form-control', 'id' => 'identificacion_' . $usuario->id_usuario, 'placeholder' => 'Contraseña', 'required' => 'required']) }}
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="col-12 col-md-6">
                                                                     <div class="form-group d-flex flex-column">
-                                                                        <label for="confirmar_clave" class=""
-                                                                            style="font-size: 15px">Confirmar
-                                                                            Contraseña<span
-                                                                                class="text-danger">*</span></label>
-                                                                        {{ Form::text('confirmar_clave', null, ['class' => 'form-control', 'id' => 'confirmar_clave_' . $usuario->id_usuario, 'placeholder' => 'Confirmar Contraseña', 'required' => 'required']) }}
+                                                                        <label for="id_tipo_documento" class="" style="font-size: 15px">Tipo de documento
+                                                                                <span class="text-danger">*</span></label>
+                                                                        {{ Form::text('id_tipo_documento', null, ['class' => 'form-control', 'id' => 'id_tipo_documento_' . $usuario->id_usuario, 'placeholder' => 'Tipo Documento', 'required' => 'required']) }}
                                                                     </div>
                                                                 </div>
                                                             </div>

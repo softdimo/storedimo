@@ -32,7 +32,7 @@
             {{-- =============================================================== --}}
             {{-- =============================================================== --}}
 
-            {!! Form::open(['method' => 'PATCH', 'route' => ['usuarios_update', $usuario->id_usuario ], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'form_editar_usuarios']) !!}
+            {!! Form::open(['method' => 'PATCH', 'route' => ['usuarios.update', $usuario->id_usuario ], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'form_editar_usuarios']) !!}
             @csrf
             @method('PUT')
             

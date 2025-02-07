@@ -138,9 +138,8 @@ class UsuariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($idUsuario)
     {
-        // dd($idUsuario);
         try {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
@@ -159,7 +158,7 @@ class UsuariosController extends Controller
                 }
             }
         } catch (Exception $e) {
-            alert()->error("Exception Index Usuario!");
+            alert()->error("Exception Edit Usuario!");
             return redirect()->to(route('login'));
         }
     }
@@ -174,7 +173,7 @@ class UsuariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $idUsuario)
     {
         try {
             if (!$this->checkDatabaseConnection()) {
@@ -192,7 +191,7 @@ class UsuariosController extends Controller
                 }
             }
         } catch (Exception $e) {
-            alert()->error("Exception Index Usuario!");
+            alert()->error("Exception Update Usuario!");
             return redirect()->to(route('login'));
         }
     }
