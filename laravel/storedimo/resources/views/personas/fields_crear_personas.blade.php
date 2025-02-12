@@ -4,8 +4,8 @@
     <div class="row m-0 p-3" id="div_campos_usuarios">
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
-                <label for="tipo_persona" class="form-label">Tipo persona <span class="text-danger">*</span></label>
-                {!! Form::select('tipo_persona', collect(['' => 'Seleccionar...'])->union($tipo_persona), null, ['class' => 'form-control', 'id' => 'tipo_persona']) !!}
+                <label for="id_tipo_persona" class="form-label">Tipo persona <span class="text-danger">*</span></label>
+                {!! Form::select('id_tipo_persona', collect(['' => 'Seleccionar...'])->union($tipos_persona), null, ['class' => 'form-control', 'id' => 'id_tipo_persona']) !!}
             </div>
         </div>
 
@@ -13,8 +13,8 @@
         
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
-                <label for="tipo_documento" class="form-label">Tipo de documento <span class="text-danger">*</span></label>
-                {!! Form::select('tipo_documento', collect(['' => 'Seleccionar...'])->union($tipo_documento), null, ['class' => 'form-control', 'id' => 'tipo_documento']) !!}
+                <label for="id_tipo_documento" class="form-label">Tipo de documento <span class="text-danger">*</span></label>
+                {!! Form::select('id_tipo_documento', collect(['' => 'Seleccionar...'])->union($tipos_documento), null, ['class' => 'form-control', 'id' => 'id_tipo_documento']) !!}
             </div>
         </div>
 
@@ -22,8 +22,8 @@
         
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
-                <label for="numero_documento" class="form-label">Número de documento <span class="text-danger">*</span></label>
-                {!! Form::text('numero_documento', null, ['class' => 'form-control', 'id' => 'numero_documento']) !!}
+                <label for="identificacion" class="form-label">Número de documento <span class="text-danger">*</span></label>
+                {!! Form::text('identificacion', null, ['class' => 'form-control', 'id' => 'identificacion']) !!}
             </div>
         </div>
 
@@ -31,8 +31,8 @@
         
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
-                <label for="nombres" class="form-label">Nombres <span class="text-danger">*</span></label>
-                {!! Form::text('nombres', null, ['class' => 'form-control', 'id' => 'nombres']) !!}
+                <label for="nombres_persona" class="form-label">Nombres <span class="text-danger">*</span></label>
+                {!! Form::text('nombres_persona', null, ['class' => 'form-control', 'id' => 'nombres_persona']) !!}
             </div>
         </div>
 
@@ -40,8 +40,8 @@
         
         <div class="col-12 col-md-3 mt-3">
             <div class="form-group d-flex flex-column">
-                <label for="apellidos" class="form-label">Apellidos <span class="text-danger">*</span></label>
-                {!! Form::text('apellidos', null, ['class' => 'form-control', 'id' => 'apellidos']) !!}
+                <label for="apellidos_persona" class="form-label">Apellidos <span class="text-danger">*</span></label>
+                {!! Form::text('apellidos_persona', null, ['class' => 'form-control', 'id' => 'apellidos_persona']) !!}
             </div>
         </div>
 
@@ -59,8 +59,8 @@
         
         <div class="col-12 col-md-3 mt-3" id="">
             <div class="form-group d-flex flex-column">
-                <label for="numero_celular" class="form-label">Número de Celular <span class="text-danger">*</span></label>
-                {!! Form::text('numero_celular', null, ['class' => 'form-control', 'id' => 'numero_celular']) !!}
+                <label for="celular" class="form-label">Número de Celular <span class="text-danger">*</span></label>
+                {!! Form::text('celular', null, ['class' => 'form-control', 'id' => 'celular']) !!}
             </div>
         </div>
 
@@ -68,8 +68,8 @@
         
         <div class="col-12 col-md-3 mt-3" id="">
             <div class="form-group d-flex flex-column">
-                <label for="correo_electronico" class="form-label">Correo Electrónico <span class="text-danger">*</span></label>
-                {!! Form::text('correo_electronico', null, ['class' => 'form-control', 'id' => 'correo_electronico']) !!}
+                <label for="email" class="form-label">Correo Electrónico <span class="text-danger">*</span></label>
+                {!! Form::text('email', null, ['class' => 'form-control', 'id' => 'email']) !!}
             </div>
         </div>
 
@@ -77,8 +77,8 @@
         
         <div class="col-12 col-md-3 mt-3">
             <div class="form-group d-flex flex-column">
-                <label for="genero" class="form-label">Género<span class="text-danger">*</span></label>
-                {!! Form::select('genero', collect(['' => 'Seleccionar...'])->union($generos), null, ['class' => 'form-control', 'id' => 'genero']) !!}
+                <label for="id_genero" class="form-label">Género<span class="text-danger">*</span></label>
+                {!! Form::select('id_genero', collect(['' => 'Seleccionar...'])->union($generos), null, ['class' => 'form-control', 'id' => 'id_genero']) !!}
             </div>
         </div>
 
@@ -92,82 +92,11 @@
         </div>
 
         {{-- ======================= --}}
-
-        <div class="col-12 col-md-3 mt-3 d-none" id="div_fecha_contrato">
+        
+        <div class="col-12 col-md-3 mt-3">
             <div class="form-group d-flex flex-column">
-                <label for="fecha_contrato" class="form-label">Fecha Contrato<span class="text-danger">*</span></label>
-                {!! Form::date('fecha_contrato', null, ['class' => 'form-control', 'id' => 'fecha_contrato']) !!}
-            </div>
-        </div>
-
-        {{-- ======================= --}}
-        
-        <div class="col-12 col-md-3 mt-3 d-none" id="div_rol">
-            <div class="form-group d-flex flex-column">
-                <label for="rol" class="form-label">Rol<span class="text-danger">*</span></label>
-                {!! Form::select('rol', collect(['' => 'Seleccionar...'])->union(['1'=>'Administrador','2'=>'Vendedor']), null, ['class' => 'form-control', 'id' => 'rol']) !!}
-            </div>
-        </div>
-
-        {{-- ======================= --}}
-        
-        <div class="col-12 col-md-3 mt-3 d-none" id="div_nombre_usuario">
-            <div class="form-group d-flex flex-column">
-                <label for="nombre_usuario" class="form-label">Nombre usuario<span class="text-danger">*</span></label>
-                {!! Form::text('nombre_usuario', null, ['class' => 'form-control', 'id' => 'nombre_usuario']) !!}
-            </div>
-        </div>
-
-        {{-- ======================= --}}
-        
-        <div class="col-12 col-md-3 mt-3 d-none" id="div_password">
-            <div class="form-group d-flex flex-column">
-                <label for="password" class="form-label">Contraseña<span class="text-danger">*</span></label>
-                {{ Form::password('password', ['class' => 'form-control', 'id' => 'password', 'minlength' => 4, 'maxlength' => 7]) }}
-            </div>
-        </div>
-
-        {{-- ======================= --}}
-        
-        <div class="col-12 col-md-3 mt-3 d-none" id="div_confirmar_password">
-            <div class="form-group d-flex flex-column">
-                <label for="confirmar_password" class="form-label">Confirmar contraseña
-                    <span class="text-danger">*</span>
-                </label>
-                {{ Form::password('confirmar_password', ['class' => 'form-control', 'id' => 'confirmar_password', 'minlength' => 4, 'maxlength' => 7]) }}
-            </div>
-        </div>
-        
-        {{-- ======================= --}}
-        
-        <div class="col-12 col-md-3 mt-3 d-none" id="div_nit_empresa">
-            <div class="form-group d-flex flex-column">
-                <label for="nit_empresa" class="form-label">Nit Empresa
-                    <span class="text-danger">*</span>
-                </label>
-                {{ Form::text('nit_empresa', null,['class' => 'form-control', 'id' => 'nit_empresa', 'minlength' => 6, 'maxlength' => 30]) }}
-            </div>
-        </div>
-        
-        {{-- ======================= --}}
-        
-        <div class="col-12 col-md-3 mt-3 d-none" id="div_nombre_empresa">
-            <div class="form-group d-flex flex-column">
-                <label for="nombre_empresa" class="form-label">Nombre Empresa
-                    <span class="text-danger">*</span>
-                </label>
-                {{ Form::text('nombre_empresa', null,['class' => 'form-control', 'id' => 'nombre_empresa']) }}
-            </div>
-        </div>
-        
-        {{-- ======================= --}}
-        
-        <div class="col-12 col-md-3 mt-3 d-none" id="div_telefono_empresa">
-            <div class="form-group d-flex flex-column">
-                <label for="telefono_empresa" class="form-label">Teléfono Empresa
-                    <span class="text-danger">*</span>
-                </label>
-                {{ Form::text('telefono_empresa', null,['class' => 'form-control', 'id' => 'telefono_empresa']) }}
+                <label for="id_estado" class="form-label">Estado<span class="text-danger">*</span></label>
+                {!! Form::select('id_estado', collect(['' => 'Seleccionar...'])->union($estados), null, ['class' => 'form-control', 'id' => 'id_estado']) !!}
             </div>
         </div>
 

@@ -8,6 +8,8 @@ use App\Models\Categoria;
 use App\Models\Rol;
 use App\Models\Estado;
 use App\Models\TipoDocumento;
+use App\Models\TipoPersona;
+use App\Models\Genero;
 
 trait MetodosTrait
 {
@@ -61,9 +63,11 @@ trait MetodosTrait
 
     public function shareData()
     {
-        view()->share('categorias', Categoria::orderBy('categoria','asc')->pluck('categoria', 'id_categoria'));
-        view()->share('roles', Rol::orderBy('rol','asc')->pluck('rol', 'id_rol'));
-        view()->share('estados', Estado::orderBy('estado','asc')->pluck('estado', 'id_estado'));
-        view()->share('tipos_documento', TipoDocumento::orderBy('tipo_documento','asc')->pluck('tipo_documento', 'id_tipo_documento'));
+        view()->share('categorias', Categoria::orderBy('categoria')->pluck('categoria', 'id_categoria'));
+        view()->share('roles', Rol::orderBy('rol')->pluck('rol', 'id_rol'));
+        view()->share('estados', Estado::orderBy('estado')->pluck('estado', 'id_estado'));
+        view()->share('tipos_documento', TipoDocumento::orderBy('tipo_documento')->pluck('tipo_documento', 'id_tipo_documento'));
+        view()->share('tipos_persona', TipoPersona::orderBy('tipo_persona')->pluck('tipo_persona', 'id_tipo_persona'));
+        view()->share('generos', Genero::orderBy('genero')->pluck('genero', 'id_genero'));
     }
 }
