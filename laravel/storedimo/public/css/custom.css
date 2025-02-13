@@ -144,3 +144,15 @@ footer {
 .ocultar {
     display: none !important;
 }
+
+.modal-gral {
+    top: 5% !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+}
+
+select {
+    -webkit-appearance: menulist !important;
+    -moz-appearance: menulist !important;
+    appearance: menulist !important;
+}

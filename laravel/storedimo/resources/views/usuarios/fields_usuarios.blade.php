@@ -69,7 +69,7 @@
                 Guardar
             </button>
 
-            <button class="btn btn-danger rounded-2" type="submit">
+            <button class="btn btn-danger rounded-2" type="button">
                 <i class="fa fa-remove"></i>
                 Cancelar
             </button>

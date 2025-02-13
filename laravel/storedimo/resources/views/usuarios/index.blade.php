@@ -65,6 +65,7 @@
                                     <th>Nombres</th>
                                     <th>Apellidos</th>
                                     <th>Usuario</th>
+                                    <th>Tipo Documento</th>
                                     <th>Identificación</th>
                                     <th>Correo</th>
                                     <th>Rol</th>
@@ -79,15 +80,13 @@
                                         <td>{{ $usuario->nombre_usuario }}</td>
                                         <td>{{ $usuario->apellido_usuario }}</td>
                                         <td>{{ $usuario->usuario }}</td>
+                                        <td>{{ $usuario->tipo_documento }}</td>
                                         <td>{{ $usuario->identificacion }}</td>
                                         <td>{{ $usuario->email }}</td>
                                         <td>{{ $usuario->rol }}</td>
                                         <td>{{ $usuario->estado }}</td>
                                         <td>
-                                            <a href="#" role="button"
-                                                class="btn btn-primary rounded-circle btn-circle" title="Ver Detalles">
-                                                <i class="fa fa-eye" aria-hidden="true"></i>
-                                            </a>
+                                            
 
                                             {{-- <a href="{{ route('usuarios.edit', $usuario->id_usuario) }}" role="button"
                                                 class="btn btn-success rounded-circle btn-circle" title="Modificar">
@@ -99,11 +98,17 @@
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </a> --}}
 
-                                            <a href="#editUsuario_{{ $usuario->id_usuario }}" role="button"
+                                            <button type="button" class="btn btn-success rounded-circle btn-circle"
+                                                title="Editar" data-bs-toggle="modal"
+                                                data-bs-target="#modalEditarUsuario_{{$usuario->id_usuario}}">
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            </button>
+
+                                            {{-- <a href="#editUsuario_{{ $usuario->id_usuario }}" role="button"
                                                 class="btn btn-success rounded-circle btn-circle" title="Modificar"
                                                 rel="modal:open">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            </a>
+                                            </a> --}}
 
                                             <button type="button" class="btn btn-warning rounded-circle btn-circle"
                                                 title="Cambiar contraseña" data-bs-toggle="modal"
@@ -121,13 +126,140 @@
 
                                         {{-- Fin modal editar usaurio --}}
 
+                                        {{-- ====================================================== --}}
+                                        {{-- ====================================================== --}}
+
+                                        {{-- INICIO Modal EDITAR USUARIO --}}
+                                        <div class="modal fade h-auto modal-gral"
+                                            id="modalEditarUsuario_{{ $usuario->id_usuario }}" tabindex="-1"
+                                            data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+                                            <div class="modal-dialog m-0">
+                                                <div class="modal-content w-100 border-0">
+                                                    {!! Form::open([
+                                                        'method' => 'PUT',
+                                                        'route' => ['usuarios.update', $usuario->id_usuario],
+                                                        'class' => 'mt-2',
+                                                        'autocomplete' => 'off',
+                                                        'id' => 'formEditarUsuario_' . $usuario->id_usuario,
+                                                    ]) !!}
+                                                    @csrf
+                                                    <div class="">
+                                                        <div class="rounded-top text-white text-center"
+                                                            style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                                            <h5>Editar Usuario</h5>
+                                                        </div>
+
+                                                        {{ Form::hidden('id_usuario', isset($usuario) ? $usuario->id_usuario : null, ['class' => '', 'id' => 'id_usuario']) }}
+
+                                                        {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
+
+                                                        <div class="modal-body p-0 m-0" style="border: solid 1px #337AB7;">
+                                                            <div class="row m-0 pt-4 pb-4">
+                                                                <div class="col-12 col-md-6">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="nombre_usuario" class="" style="font-size: 15px">Nombre Usuario
+                                                                            <span class="text-danger">*</span></label>
+                                                                        {{ Form::text('nombre_usuario', isset($usuario) ? $usuario->nombre_usuario : null, ['class' => 'form-control', 'id' => 'nombre_usuario', 'required' => 'required']) }}
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-12 col-md-6">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="apellido_usuario" class="" style="font-size: 15px">Apellido Usuario
+                                                                                <span class="text-danger">*</span></label>
+                                                                        {{ Form::text('apellido_usuario', isset($usuario) ? $usuario->apellido_usuario : null, ['class' => 'form-control', 'id' => 'apellido_usuario', 'required' => 'required']) }}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row m-0 pt-4 pb-4">
+                                                                <div class="col-12 col-md-6">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="identificacion" class="" style="font-size: 15px">Número de documento
+                                                                            <span class="text-danger">*</span></label>
+                                                                        {{ Form::text('identificacion', isset($usuario) ? $usuario->identificacion : null, ['class' => 'form-control', 'id' => 'identificacion', 'required' => 'required']) }}
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-12 col-md-6">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="id_tipo_documento" class="" style="font-size: 15px">Tipo de documento
+                                                                                <span class="text-danger">*</span></label>
+                                                                            {!! Form::select('id_tipo_documento', collect(['' => 'Seleccionar...'])->union($tipos_documento), isset($usuario) ? $usuario->id_tipo_documento : null, ['class' => 'form-control', 'id' =>'id_tipo_documento'])!!}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="row m-0 pt-4 pb-4">
+                                                                <div class="col-12 col-md-6">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="email" class="" style="font-size: 15px">Correo
+                                                                            <span class="text-danger">*</span></label>
+                                                                        {{ Form::text('email', isset($usuario) ? $usuario->email : null, ['class' => 'form-control', 'id' => 'email', 'required' => 'required']) }}
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-12 col-md-6">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="id_rol" class="" style="font-size: 15px">Rol
+                                                                                <span class="text-danger">*</span></label>
+                                                                            {!! Form::select('id_rol', collect(['' => 'Seleccionar...'])->union($roles), isset($usuario) ? $usuario->id_rol : null, ['class' => 'form-control', 'id' =>'id_rol'])!!}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="row m-0 pt-4 pb-4">
+                                                                <div class="col-12 col-md-6">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="id_estado" class="" style="font-size: 15px">Estado
+                                                                                <span class="text-danger">*</span></label>
+                                                                            {!! Form::select('id_estado', collect(['' => 'Seleccionar...'])->union($estados), isset($usuario) ? $usuario->id_estado : null, ['class' => 'form-control', 'id' =>'id_estado'])!!}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    {{-- ====================================================== --}}
+                                                    {{-- ====================================================== --}}
+
+                                                    <!-- Contenedor para el GIF -->
+                                                    <div id="loadingIndicatorEdit_{{$usuario->id_usuario}}"
+                                                        class="loadingIndicator">
+                                                        <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                                                    </div>
+
+                                                    {{-- ====================================================== --}}
+                                                    {{-- ====================================================== --}}
+
+                                                    <div class="d-flex justify-content-around mt-5">
+                                                        <button id="btn_editar_{{ $usuario->id_usuario }}" type="submit"
+                                                            class="btn btn-success" title="Guardar Configuración">
+                                                            <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
+                                                        </button>
+
+                                                        <button id="btn_cancelar_{{ $usuario->id_usuario }}" type="button" class="btn btn-secondary" title="Cancelar"
+                                                            data-bs-dismiss="modal">
+                                                            <i class="fa fa-times" aria-hidden="true"> Cancelar</i>
+                                                        </button>
+                                                    </div>
+                                                    {!! Form::close() !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- FINAL Modal EDITAR USUARIO --}}
+
+                                        {{-- ====================================================== --}}
+                                        {{-- ====================================================== --}}
 
                                         {{-- INICIO Modal CAMBIAR CONTRASEÑA --}}
-                                        <div class="modal fade h-auto start-50"
+                                        <div class="modal fade h-auto modal-gral"
                                             id="modal_cambiar_clave_{{ $usuario->id_usuario }}" tabindex="-1"
                                             data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content p-3 w-100">
+                                            <div class="modal-dialog m-0">
+                                                <div class="modal-content w-100 border-0">
                                                     {!! Form::open([
                                                         'method' => 'POST',
                                                         'route' => ['cambiar_clave'],
@@ -182,7 +314,10 @@
                                                         <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
                                                     </div>
 
-                                                    <div class="d-flex justify-content-center mt-5">
+                                                    {{-- ====================================================== --}}
+                                                    {{-- ====================================================== --}}
+
+                                                    <div class="d-flex justify-content-around mt-5">
                                                         <button id="btn_editar_{{ $usuario->id_usuario }}" type="submit"
                                                             class="btn btn-success" title="Guardar Configuración">
                                                             <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
@@ -201,7 +336,6 @@
                                         {{-- FINAL Modal CAMBIAR CONTRASEÑA --}}
                                     </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
                     </div>
@@ -233,22 +367,6 @@
 
     <script>
         $(document).ready(function() {
-            $('a[rel="modal:open"]').click(function(event) {
-                event.preventDefault(); // Evita que el enlace recargue la página
-                var modalId = $(this).attr('href');
-
-
-                console.log('modalId ' + modalId);
-                var id = modalId.split('_')[1];
-                console.log('id ' + id);
-
-
-
-                // Obtiene el ID del modal
-                $(id).modal({
-                    fadeDuration: 250
-                });
-            });
             // INICIO DataTable Lista Usuarios
             $("#tbl_usuarios").DataTable({
                 dom: 'Blfrtip',
@@ -320,6 +438,36 @@
                 const confirmarClave = `#confirmar_clave_${id}`;
                 const confirmarClaveReadOnly = $(confirmarClave);
                 confirmarClaveReadOnly.prop("readonly", true);
+            });
+
+            
+            // Botón de submit de editar usuario
+            $(document).on("submit", "form[id^='formEditarUsuario_']", function(e) {
+
+                const form = $(this);
+                const formId = form.attr('id'); // Obtenemos el ID del formulario
+                const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
+
+                // Capturar el indicador de carga dinámicamente
+                const loadingIndicatorId = `#loadingIndicatorEdit_${id}`;
+                const loadingIndicator = $(loadingIndicatorId);
+
+                // Capturar el botón de submit dinámicamente
+                const submitButtonId = `#btn_editar_${id}`;
+                const submitButton = $(submitButtonId);
+
+                // Capturar el botón de cancelar
+                const cancelButtonId = `#btn_cancelar_${id}`;
+                const cancelButton = $(cancelButtonId);
+
+                // Lógica del botón
+                submitButton.prop("disabled", true).html(
+                    "Procesando... <i class='fa fa-spinner fa-spin'></i>"
+                );
+
+                // Lógica del botón cancelar
+                cancelButton.prop("disabled", true);
+                loadingIndicator.show();
             });
         });
     </script>

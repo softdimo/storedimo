@@ -41,7 +41,7 @@
             {{-- =============================================================== --}}
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Usuarios-Empleados</h5>
+                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Empleados</h5>
             
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
@@ -60,19 +60,16 @@
                             </thead>
                             {{-- ============================== --}}
                             <tbody>
+                                @foreach ($personaIndex as $persona)
                                     <tr class="text-center">
-                                        <td>Identificación</td>
-                                        <td>Nombres</td>
-                                        <td>Apellidos</td>
-                                        <td>Celular</td>
-                                        <td>Dirección</td>
-                                        <td>Tipo Empleado</td>
-                                        <td>Estado</td>
+                                        <td>{{$persona->identificacion}}</td>
+                                        <td>{{$persona->nombres_persona}}</td>
+                                        <td>{{$persona->apellidos_persona}}</td>
+                                        <td>{{$persona->celular}}</td>
+                                        <td>{{$persona->direccion}}</td>
+                                        <td>{{$persona->tipo_persona}}</td>
+                                        <td>{{$persona->estado}}</td>
                                         <td>
-                                            <a href="#" role="button" class="btn btn-primary rounded-circle btn-circle" title="Ver Detalles">
-                                                <i class="fa fa-eye" aria-hidden="true"></i>
-                                            </a>
-
                                             <a href="#" role="button" class="btn btn-success rounded-circle btn-circle" title="Modificar">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </a>
@@ -82,6 +79,8 @@
                                             </a>
                                         </td>
                                     </tr>
+                                @endforeach
+                                
                             </tbody>
                         </table>
                     </div>
