@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Responsable\usuarios;
+namespace App\Http\Responsable\personas;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
@@ -8,48 +8,44 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Usuario;
 
-class UsuarioStore implements Responsable
+class PersonaStore implements Responsable
 {
     public function toResponse($request)
     {
-        $nombreUsuario = request('nombre_usuario', null);
-        $apellidoUsuario = request('apellido_usuario', null);
+        $idTipoPersona = request('id_tipo_persona', null);
+        $idTipoDocumento = request('id_tipo_documento', null);
         $identificacion = request('identificacion', null);
-        $usuario  = request('usuario', null);
+        $nombrePersona = request('nombres_persona', null);
+        $apellidoPersona = request('apellidos_persona', null);
+        $numeroTelefono = request('numero_telefono', null);
+        $celular = request('celular', null);
         $email = request('email', null);
-        $idRol = request('id_rol', null);
+        $idGenero = request('id_genero', null);
+        $direccion = request('direccion', null);
         $idEstado = request('id_estado', null);
-        $clave = request('clave', null);
-        $claveFallas = request('clave_fallas', null);
 
         // ================================================
-
-        $nuevoUsuario = Usuario::create([
-            'nombre_usuario' => $nombreUsuario,
-            'apellido_usuario' => $apellidoUsuario,
-            'identificacion' => $identificacion,
-            'usuario' => $usuario,
-            'email' => $email,
-            'clave' => $clave,
-            'clave_fallas' => $claveFallas,
-            'id_estado' => $idEstado,
-            'id_rol' => $idRol
-        ]);
-
-        // ================================================
-
-        if (isset($nuevoUsuario) && !is_null($nuevoUsuario) && !empty($nuevoUsuario)) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Usuario creado correctamente'
+        try {
+            $nuevaPersona = Persona::create([
+                'id_tipo_persona' => $idTipoPersona,
+                'id_tipo_documento' => $idTipoDocumento,
+                'identificacion' => $identificacion,
+                'nombres_persona' => $nombrePersona,
+                'apellidos_persona' => $apellidoPersona,
+                'numero_telefono' => $numeroTelefono,
+                'celular' => $celular,
+                'email' => $email,
+                'id_genero' => $idGenero,
+                'direccion' => $direccion,
+                'id_estado' => $idEstado,
             ]);
-        } else {
-            return abort(404, 'No existe este usuario');
+    
+            // ================================================
+    
+            return response()->json(['success' => true]);
+            
+        } catch (Exception $e) {
+            return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
-
-    // ===================================================================
-    // ===================================================================
-
-
 }

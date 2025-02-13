@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Responsable\usuarios;
+namespace App\Http\Responsable\personas;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Usuario;
 use GuzzleHttp\Client;
 
-class UsuarioStore implements Responsable
+class PersonaStore implements Responsable
 {
     protected $baseUri;
     protected $clientApi;
@@ -22,12 +21,17 @@ class UsuarioStore implements Responsable
 
     public function toResponse($request)
     {
-        $nombreUsuario = request('nombre_usuario', null);
-        $apellidoUsuario = request('apellido_usuario', null);
+        $idTipoPersona = request('id_tipo_persona', null);
+        $idTipoDocumento = request('id_tipo_documento', null);
         $identificacion = request('identificacion', null);
+        $nombrePersona = request('nombres_persona', null);
+        $apellidoPersona = request('apellidos_persona', null);
+        $numeroTelefono = request('numero_telefono', null);
+        $celular = request('celular', null);
         $email = request('email', null);
-        $idEstado = 1;
-        $idRol = request('id_rol', null);
+        $idGenero = request('id_genero', null);
+        $direccion = request('direccion', null);
+        $idEstado = request('id_estado', null);
 
         if(strlen($identificacion) < 6)
         {
@@ -35,52 +39,41 @@ class UsuarioStore implements Responsable
             return back();
         }
         
-        // Consultamos si ya existe un usuario con la cedula ingresada
-        $consultarIdentificacion = $this->consultarId($identificacion);
+        // Consultamos si ya existe una persona con la cedula ingresada
+        $consultarIdentificacion = $this->consultarIdPersona($identificacion);
         
         if(isset($consultarIdentificacion) && !empty($consultarIdentificacion) && !is_null($consultarIdentificacion)) {
             alert()->info('Info', 'Este número de documento ya existe.');
             return back();
         } else {
-            // Contruimos el nombre de usuario
-            $separarApellidos = explode(" ", $apellidoUsuario);
-            $usuario = substr($this->quitarCaracteresEspeciales(trim($nombreUsuario)), 0,1) . trim($this->quitarCaracteresEspeciales($separarApellidos[0]));
-            $usuario = preg_replace("/(Ñ|ñ)/", "n", $usuario);
-            $usuario = strtolower($usuario);
-            $complemento = "";
-
-            while($this->consultaUsuario($usuario.$complemento))
-            {
-                $complemento++;
-            }
-
-            // ===================================================================
-
             try {
-                $peticionUsuarioStore = $this->clientApi->post($this->baseUri.'usuario_store', [
+                $peticionPersonaStore = $this->clientApi->post($this->baseUri.'persona_store', [
                     'json' => [
-                        'nombre_usuario' => $nombreUsuario,
-                        'apellido_usuario' => $apellidoUsuario,
+                        'id_tipo_persona' => $idTipoPersona,
+                        'id_tipo_documento' => $idTipoDocumento,
                         'identificacion' => $identificacion,
-                        'usuario' => $usuario.$complemento,
+                        'nombres_persona' => $nombrePersona,
+                        'apellidos_persona' => $apellidoPersona,
+                        'numero_telefono' => $numeroTelefono,
+                        'celular' => $celular,
                         'email' => $email,
-                        'id_rol' => $idRol,
+                        'id_genero' => $idGenero,
+                        'direccion' => $direccion,
                         'id_estado' => $idEstado,
-                        'clave' => Hash::make($identificacion),
-                        'clave_fallas' => 0,
                     ]
                 ]);
-                $resUsuarioStore = json_decode($peticionUsuarioStore->getBody()->getContents());
-
-                if(isset($resUsuarioStore) && !empty($resUsuarioStore))
+                $resPersonaStore = json_decode($peticionPersonaStore->getBody()->getContents());
+                dd($resPersonaStore);
+                if(isset($resPersonaStore) && !empty($resPersonaStore))
                 {
                     return $this->respuestaExito(
-                        'Usuario creado satisfactoriamente.'. $usuario.$complemento . ' y la clave es: ' . $identificacion, 'usuarios.index'
+                        'Persona creada satisfactoriamente.', 'persona.index'
                     );
                 }
             }
             catch (Exception $e)
             {
+                dd($e);
                 return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
             }
         }
@@ -89,43 +82,12 @@ class UsuarioStore implements Responsable
     // ===================================================================
     // ===================================================================
 
-    private function consultarId($identificacion)
+    private function consultarIdPersona($identificacion)
     {
-        $queryIdentificacion = $this->clientApi->post($this->baseUri.'query_identificacion', [
+        $queryIdentificacion = $this->clientApi->post($this->baseUri.'query_id_persona', [
             'json' => ['identificacion' => $identificacion]
         ]);
         return json_decode($queryIdentificacion->getBody()->getContents());
-    }
-
-    // ===================================================================
-    // ===================================================================
-
-    private function consultaUsuario($usuario)
-    {
-        try {
-            $queryUsuario = $this->clientApi->post($this->baseUri.'query_usuario', [
-                'json' => ['usuario' => $usuario]
-            ]);
-            return json_decode($queryUsuario->getBody()->getContents());
-
-        } catch (Exception $e) {
-            return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
-        }
-    }
-
-    // ===================================================================
-    // ===================================================================
-
-    private function quitarCaracteresEspeciales($cadena)
-    {
-        $no_permitidas = array("á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "ñ", "À", "Ã", "Ì", "Ò", "Ù", "Ã™", "Ã ",
-                               "Ã¨", "Ã¬", "Ã²", "Ã¹", "ç", "Ç", "Ã¢", "ê", "Ã®", "Ã´", "Ã»", "Ã‚", "ÃŠ", "ÃŽ", "Ã”",
-                               "Ã›", "ü", "Ã¶", "Ã–", "Ã¯", "Ã¤", "«", "Ò", "Ã", "Ã„", "Ã‹", "ñ", "Ñ", "*");
-
-        $permitidas = array("a", "e", "i", "o", "u", "A", "E", "I", "O", "U", "n", "N", "A", "E", "I", "O", "U",
-                            "a", "e", "i", "o", "u", "c", "C", "a", "e", "i", "o", "u", "A", "E", "I", "O", "U",
-                            "u", "o", "O", "i", "a", "e", "U", "I", "A", "E", "n", "N", "");
-        return str_replace($no_permitidas, $permitidas, $cadena);
     }
 
     // ===================================================================
