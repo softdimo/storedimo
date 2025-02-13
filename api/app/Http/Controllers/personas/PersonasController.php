@@ -107,12 +107,12 @@ class PersonasController extends Controller
         //
     }
 
-    public function consultarId()
+    public function consultarIdPersona()
     {
         $identificacion = request('identificacion', null);
         
         // Consultamos si ya existe un usuario con la cedula ingresada
-        return Usuario::where('identificacion', $identificacion)->first();
+        return Persona::where('identificacion', $identificacion)->first();
     }
 
     public function consultaUsuario()

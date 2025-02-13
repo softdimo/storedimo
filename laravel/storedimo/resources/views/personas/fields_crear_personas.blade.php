@@ -23,7 +23,7 @@
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
                 <label for="identificacion" class="form-label">Número de documento <span class="text-danger">*</span></label>
-                {!! Form::text('identificacion', null, ['class' => 'form-control', 'id' => 'identificacion']) !!}
+                {!! Form::text('identificacion', null, ['class' => 'form-control', 'id' => 'identificacion', 'minlength' => 6]) !!}
             </div>
         </div>
 
@@ -96,7 +96,7 @@
         <div class="col-12 col-md-3 mt-3">
             <div class="form-group d-flex flex-column">
                 <label for="id_estado" class="form-label">Estado<span class="text-danger">*</span></label>
-                {!! Form::select('id_estado', collect(['' => 'Seleccionar...'])->union($estados), null, ['class' => 'form-control', 'id' => 'id_estado']) !!}
+                {!! Form::select('id_estado', collect(['' => 'Seleccionar...'])->union($estados), 1, ['class' => 'form-control', 'id' => 'id_estado']) !!}
             </div>
         </div>
 
