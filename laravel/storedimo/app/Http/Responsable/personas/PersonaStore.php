@@ -63,7 +63,6 @@ class PersonaStore implements Responsable
                     ]
                 ]);
                 $resPersonaStore = json_decode($peticionPersonaStore->getBody()->getContents());
-                dd($resPersonaStore);
                 if(isset($resPersonaStore) && !empty($resPersonaStore))
                 {
                     return $this->respuestaExito(
@@ -73,7 +72,6 @@ class PersonaStore implements Responsable
             }
             catch (Exception $e)
             {
-                dd($e);
                 return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
             }
         }
