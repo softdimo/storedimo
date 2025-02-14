@@ -55,6 +55,8 @@
                                     <th>Dirección</th>
                                     <th>Tipo Empleado</th>
                                     <th>Estado</th>
+                                    <th>Fecha contrato</th>
+                                    <th>Fecha Terminación Contrato</th>
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
@@ -69,6 +71,8 @@
                                         <td>{{$persona->direccion}}</td>
                                         <td>{{$persona->tipo_persona}}</td>
                                         <td>{{$persona->estado}}</td>
+                                        <td>{{$persona->fecha_contrato}}</td>
+                                        <td>{{$persona->fecha_terminacion_contrato}}</td>
                                         <td>
                                             <a href="#" role="button" class="btn btn-success rounded-circle btn-circle" title="Modificar">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
