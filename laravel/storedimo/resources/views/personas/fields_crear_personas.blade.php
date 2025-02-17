@@ -100,6 +100,24 @@
             </div>
         </div>
 
+        {{-- ======================= --}}
+        
+        <div class="col-12 col-md-3 mt-3">
+            <div class="form-group d-flex flex-column">
+                <label for="fecha_contrato" class="form-label">Fecha contrato<span class="text-danger">*</span></label>
+                {!! Form::date('fecha_contrato', null, ['class' => 'form-control', 'id' => 'fecha_contrato']) !!}
+            </div>
+        </div>
+
+        {{-- ======================= --}}
+        
+        <div class="col-12 col-md-3 mt-3">
+            <div class="form-group d-flex flex-column">
+                <label for="fecha_terminacion_contrato" class="form-label">Fecha terminación contrato<span class="text-danger">*</span></label>
+                {!! Form::date('fecha_terminacion_contrato', null, ['class' => 'form-control', 'id' => 'fecha_terminacion_contrato']) !!}
+            </div>
+        </div>
+
         {{-- ========================================================= --}}
         {{-- ========================================================= --}}
         {{-- ========================================================= --}}
