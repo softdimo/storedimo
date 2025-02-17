@@ -76,15 +76,9 @@
                                         <td>{{ $persona->fecha_contrato }}</td>
                                         <td>{{ $persona->fecha_terminacion_contrato }}</td>
                                         <td>
-                                            {{-- <a href="#" role="button" class="btn btn-success rounded-circle btn-circle" title="Modificar">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            </a> --}}
-
                                             <a href="#modalEditarPersona_{{ $persona->id_persona }}"
                                                 id="verModal_{{ $persona->id_persona }} "rel="modal:open">
-                                                {{-- <a href="#ex1_{{$persona->id_persona}}" id="verModal_{{$persona->id_persona}} "rel="modal:close"> --}}
-                                                <button class="btn btn-danger">Modificar
-                                                    {{ $persona->id_persona }}</button>
+                                                <button class="btn btn-danger">Modificar{{$persona->id_persona}}</button>
                                             </a>
 
                                             <a href="#" role="button"
@@ -92,13 +86,23 @@
                                                 title="Cambiar contraseña">
                                                 <i class="fa fa-key" aria-hidden="true"></i>
                                             </a>
+
+                                            <a href="#ex1_{{$persona->id_persona}}" rel="modal:open">
+                                                <button class="btn btn-info">JQueryModal{{$persona->id_persona}}</button>
+                                            </a>
                                         </td>
 
                                         {{-- =============================================================== --}}
                                         {{-- =============================================================== --}}
 
-                                        {{-- INICIO Modal EDITAR PERSONA --}}
+                                        {{-- INICIO JQuery Modal Ejemplo --}}
+                                        <div id="ex1_{{$persona->id_persona}}" class="modal h-auto modal-gral">
+                                            <p>JQuery Modal</p>
+                                            <a href="#" rel="modal:close">Cerrar</a>
+                                        </div>
+                                        {{-- FIN JQuery Modal Ejemplo --}}
 
+                                        {{-- INICIO Modal EDITAR PERSONA --}}
                                         <div class="modal h-auto modal-gral"
                                             id="modalEditarPersona_{{ $persona->id_persona }}" rel="modal:close">
                                             {{-- <a href="#" rel="modal:close">Cerrar</a> --}}
@@ -328,14 +332,10 @@
                                                             {!! Form::close() !!}
                                                         </div>
                                                     </div>
-                                                    {{-- FINAL Modal EDITAR PERSONA --}}
                                                 </div>
-
-                                                {{-- =============================================================== --}}
-                                                {{-- =============================================================== --}}
-
-
-
+                                            </div>
+                                        </div>
+                                        {{-- FINAL Modal EDITAR PERSONA --}}
                                     </tr>
                                 @endforeach
 
