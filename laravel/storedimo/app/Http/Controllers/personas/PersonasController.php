@@ -4,14 +4,27 @@ namespace App\Http\Controllers\personas;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Responsable\personas\PersonaIndex;
+use App\Http\Responsable\personas\PersonaStore;
+use App\Http\Responsable\personas\PersonaUpdate;
 use Exception;
-use App\Http\Controllers\admin\AdministradorController;
-use App\Models\TipoPersona;
-use App\Models\TipoDocumento;
-use App\Models\Genero;
+use GuzzleHttp\Client;
+use App\Traits\MetodosTrait;
+
 
 class PersonasController extends Controller
 {
+    use MetodosTrait;
+    protected $baseUri;
+    protected $clientApi;
+
+    public function __construct()
+    {
+        $this->shareData();
+        $this->baseUri = env('BASE_URI');
+        $this->clientApi = new Client(['base_uri' => $this->baseUri]);
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -19,24 +32,25 @@ class PersonasController extends Controller
      */
     public function index()
     {
-        // try {
-            // $adminCtrl = new AdministradorController();
-            // $sesion = $adminCtrl->validarVariablesSesion();
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
 
-            // if (empty($sesion[0]) || is_null($sesion[0]) &&
-            //     empty($sesion[1]) || is_null($sesion[1]) &&
-            //     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-            // {
-            //     return view('inicio_sesion.login');
-            // } else {
-            //     $usuLogueado = session('id_usuario');
-                // $usuario = Usuario::select('nombres')->where('id_usuario',$usuLogueado)->first();
-                return view('personas.index');
-        //     }
-        // } catch (Exception $e) {
-        //     alert()->error("Error Exception!");
-        //     return redirect()->to(route('login'));
-        // }
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return new PersonaIndex();
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Index Persona!");
+            return redirect()->to(route('login'));
+        }
     }
 
     // ======================================================================
@@ -64,7 +78,25 @@ class PersonasController extends Controller
      */
     public function store(Request $request)
     {
-        
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return new PersonaStore();
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Store Usuario!");
+            return redirect()->to(route('login'));
+        }
     }
 
     // ======================================================================
@@ -122,16 +154,6 @@ class PersonasController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    // ======================================================================
-    // ======================================================================
-
-    private function shareData()
-    {
-        view()->share('tipo_persona', TipoPersona::orderBy('id_tipo_persona','asc')->pluck('tipo_persona', 'id_tipo_persona'));
-        view()->share('tipo_documento', tipoDocumento::orderBy('tipo_documento','asc')->pluck('tipo_documento', 'id_tipo_documento'));
-        view()->share('generos', Genero::orderBy('genero','asc')->pluck('genero', 'id_genero'));
     }
 
     // ======================================================================

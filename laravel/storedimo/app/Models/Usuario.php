@@ -19,6 +19,7 @@ class Usuario extends Model
         'nombre_usuario',
         'apellido_usuario',
         'usuario',
+        'id_tipo_documento',
         'identificacion',
         'email',
         'clave',
