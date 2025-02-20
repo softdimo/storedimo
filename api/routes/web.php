@@ -71,9 +71,9 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('personas_index', 'personas\PersonasController@index');
     $router->post('query_id_persona', 'personas\PersonasController@consultarIdPersona');
     $router->post('persona_store', 'personas\PersonasController@store');
+    $router->put('persona_update/{idPersona}', 'personas\PersonasController@update');
     /*$router->post('query_persona', 'personas\PersonasController@consultaPersona');
     $router->post('query_persona_update/{idPersona}', 'personas\PersonasController@queryPersonaUpdate');
-    $router->put('persona_update/{idPersona}', 'personas\PersonasController@update');
     $router->post('cambiar_clave/{idPersona}', 'personas\PersonasController@cambiarClave');
     $router->post('consulta_recuperar_clave', 'personas\PersonasController@consultaRecuperarClave');
     $router->post('inactivar_persona/{idPersona}', 'personas\PersonasController@inactivarPersona');

@@ -77,8 +77,10 @@
                                         <td>{{ $persona->fecha_terminacion_contrato }}</td>
                                         <td>
                                             <a href="#modalEditarPersona_{{ $persona->id_persona }}"
-                                                id="verModal_{{ $persona->id_persona }} "rel="modal:open">
-                                                <button class="btn btn-danger">Modificar{{ $persona->id_persona }}</button>
+                                                id="verModal_{{ $persona->id_persona }}" rel="modal:open">
+                                                <button class="btn btn-success rounded-circle btn-circle"><i
+                                                        class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar"></i>
+                                                </button>
                                             </a>
 
                                             <a href="#" role="button"
@@ -127,8 +129,9 @@
                                                         {{-- ====================================================== --}}
                                                         {{-- ====================================================== --}}
 
-                                                        <div class="modal-body p-0 m-0" >
-                                                            <div class="row m-0 pt-4 pb-4" style="border: solid 1px #337AB7;">
+                                                        <div class="modal-body p-0 m-0">
+                                                            <div class="row m-0 pt-4 pb-4"
+                                                                style="border: solid 1px #337AB7;">
                                                                 <div class="col-12 col-md-4">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="id_tipo_persona" class=""
@@ -174,9 +177,9 @@
                                                                         {{ Form::text('nombres_persona', isset($persona) ? $persona->nombres_persona : null, ['class' => 'form-control', 'id' => 'nombres_persona', 'required' => 'required']) }}
                                                                     </div>
                                                                 </div>
-                                                            
 
-                                                            
+
+
                                                                 <div class="col-12 col-md-4 mt-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="apellidos_persona" class=""
@@ -197,9 +200,9 @@
                                                                         ]) !!}
                                                                     </div>
                                                                 </div>
-                                                            
 
-                                                            
+
+
                                                                 <div class="col-12 col-md-4 mt-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="celular" class=""
@@ -217,10 +220,10 @@
                                                                         {{ Form::text('email', isset($persona) ? $persona->email : null, ['class' => 'form-control', 'id' => 'email', 'required' => 'required']) }}
                                                                     </div>
                                                                 </div>
-                                                           
 
 
-                                                            
+
+
                                                                 <div class="col-12 col-md-4 mt-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="id_genero" class=""
@@ -243,9 +246,9 @@
                                                                         {{ Form::text('direccion', isset($persona) ? $persona->direccion : null, ['class' => 'form-control', 'id' => 'direccion', 'required' => 'required']) }}
                                                                     </div>
                                                                 </div>
-                                                            
 
-                                                            
+
+
                                                                 <div class="col-12 col-md-4 mt-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="fecha_contrato" class=""
@@ -270,9 +273,9 @@
                                                                         ]) !!}
                                                                     </div>
                                                                 </div>
-                                                            
 
-                                                            
+
+
                                                                 <div class="col-12 col-md-4 mt-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="id_estado" class=""
