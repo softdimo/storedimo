@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Responsable\usuarios;
+namespace App\Http\Responsable\personas;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Usuario;
 use GuzzleHttp\Client;
 
-class UsuarioUpdate implements Responsable
+class PersonaUpdate implements Responsable
 {
     protected $baseUri;
     protected $clientApi;
@@ -21,47 +20,59 @@ class UsuarioUpdate implements Responsable
     }
     public function toResponse($request)
     {
-        $idUsuario = request('id_usuario', null);
-        $nombreUsuario = request('nombre_usuario', null);
-        $apellidoUsuario = request('apellido_usuario', null);
+        $idPersona = request('id_persona', null);
+        $idTipoPersona = request('id_tipo_persona', null);
+        $idTipoDocumento = request('id_tipo_documento', null);
         $identificacion = request('identificacion', null);
+        $nombrePersona = request('nombres_persona', null);
+        $apellidoPersona = request('apellidos_persona', null);
+        $numeroTelefono = request('numero_telefono', null);
+        $celular = request('celular', null);
         $email = request('email', null);
-        $idEstado = request('id_estado', null);;
-        $idRol = request('id_rol', null);
+        $idGenero = request('id_genero', null);
+        $direccion = request('direccion', null);
+        $idEstado = request('id_estado', null);
+        $fechaContrato = request('fecha_contrato', null);
+        $fechaTerminacionContrato = request('fecha_terminacion_contrato', null);
         
-       /*  // Consultamos si ya existe un usuario con la cedula ingresada
-        $consultarIdentificacion = $this->consultarId($identificacion);
-        
-        if(isset($consultarIdentificacion) && !empty($consultarIdentificacion) && !is_null($consultarIdentificacion)) {
-            alert()->info('Info', 'Este número de documento ya existe.');
+        if(strlen($identificacion) < 6)
+        {
+            alert()->info('Info', 'El documento debe se de mínimo 6 caracteres');
             return back();
-        } else { */
+        }
 
-            try {
-                $peticionUsuarioUpdate = $this->clientApi->put($this->baseUri.'usuario_update/'. $idUsuario, [
-                    'json' => [
-                        'nombre_usuario' => $nombreUsuario,
-                        'apellido_usuario' => $apellidoUsuario,
-                        'identificacion' => $identificacion,
-                        'email' => $email,
-                        'id_rol' => $idRol,
-                        'id_estado' => $idEstado,
-                    ]
-                ]);
-                $resUsuarioUpdate = json_decode($peticionUsuarioUpdate->getBody()->getContents());
-
-                if(isset($resUsuarioUpdate) && !empty($resUsuarioUpdate))
-                {
-                    return $this->respuestaExito(
-                        'Usuario editado satisfactoriamente.', 'usuarios.index'
-                    );
-                }
-            }
-            catch (Exception $e)
+        try {
+            $peticionPersonaUpdate = $this->clientApi->put($this->baseUri.'persona_update/'. $idPersona , [
+                'json' => [
+                    'id_tipo_persona' => $idTipoPersona,
+                    'id_tipo_documento' => $idTipoDocumento,
+                    'identificacion' => $identificacion,
+                    'nombres_persona' => $nombrePersona,
+                    'apellidos_persona' => $apellidoPersona,
+                    'numero_telefono' => $numeroTelefono,
+                    'celular' => $celular,
+                    'email' => $email,
+                    'id_genero' => $idGenero,
+                    'direccion' => $direccion,
+                    'id_estado' => $idEstado,
+                    'fecha_contrato' => $fechaContrato,
+                    'fecha_terminacion_contrato' => $fechaTerminacionContrato,
+                ]
+            ]);
+            $resPersonaUpdate = json_decode($peticionPersonaUpdate->getBody()->getContents());
+            if(isset($resPersonaUpdate) && !empty($resPersonaUpdate))
             {
-                return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
+                return $this->respuestaExito(
+                    'Persona editada satisfactoriamente.', 'personas.index'
+                );
             }
-        // }
+        }
+        catch (Exception $e)
+        {
+            dd($e);
+            return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
+        }
+        
     }
 
     // ===================================================================
