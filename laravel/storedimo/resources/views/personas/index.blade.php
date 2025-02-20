@@ -79,7 +79,8 @@
                                             <a href="#modalEditarPersona_{{ $persona->id_persona }}"
                                                 id="verModal_{{ $persona->id_persona }}" rel="modal:open">
                                                 <button class="btn btn-success rounded-circle btn-circle"><i
-                                                        class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar"></i>
+                                                        class="fa fa-pencil-square-o" aria-hidden="true"
+                                                        title="Modificar"></i>
                                                 </button>
                                             </a>
 
@@ -414,6 +415,32 @@
 
                 // Ocultar el modal
                 $(modalId).css('display', 'none');
+            });
+
+
+            $(document).on("submit", "form[id^='formEditarPersona_']", function(e) {
+
+                const form = $(this);
+                const formId = form.attr('id'); // Obtenemos el ID del formulario
+                const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
+
+                // Capturar el indicador de carga dinámicamente
+                const loadingIndicator = $(`#loadingIndicatorEdit_${id}`);
+
+                // Capturar el botón de submit dinámicamente
+                const submitButton = $(`#btn_editar_${id}`);
+
+                // Capturar el botón de cancelar
+                const cancelButton = $(`#btn_cancelar_${id}`);
+
+                // Lógica del botón
+                submitButton.prop("disabled", true).html(
+                    "Procesando... <i class='fa fa-spinner fa-spin'></i>"
+                );
+
+                // Lógica del botón cancelar
+                cancelButton.prop("disabled", true);
+                loadingIndicator.show();
             });
 
         });
