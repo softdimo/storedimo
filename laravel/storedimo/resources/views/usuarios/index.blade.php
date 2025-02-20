@@ -190,7 +190,7 @@
                                                     {{-- ====================================================== --}}
                                                     {{-- ====================================================== --}}
 
-                                                    <div class="d-flex justify-content-around mt-5">
+                                                    <div class="d-flex justify-content-around mt-2">
                                                         <button id="btn_editar_{{ $usuario->id_usuario }}" type="submit"
                                                             class="btn btn-success" title="Guardar Configuración">
                                                             <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
@@ -316,7 +316,7 @@
                                                     {{-- ====================================================== --}}
                                                     {{-- ====================================================== --}}
 
-                                                    <div class="d-flex justify-content-around mt-5">
+                                                    <div class="d-flex justify-content-around mt-3">
                                                         <button id="btn_editar_{{ $usuario->id_usuario }}" type="submit"
                                                             class="btn btn-success" title="Guardar Configuración">
                                                             <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>

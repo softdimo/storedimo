@@ -78,7 +78,7 @@
                                         <td>
                                             <a href="#modalEditarPersona_{{ $persona->id_persona }}"
                                                 id="verModal_{{ $persona->id_persona }} "rel="modal:open">
-                                                <button class="btn btn-danger">Modificar{{$persona->id_persona}}</button>
+                                                <button class="btn btn-danger">Modificar{{ $persona->id_persona }}</button>
                                             </a>
 
                                             <a href="#" role="button"
@@ -87,8 +87,8 @@
                                                 <i class="fa fa-key" aria-hidden="true"></i>
                                             </a>
 
-                                            <a href="#ex1_{{$persona->id_persona}}" rel="modal:open">
-                                                <button class="btn btn-info">JQueryModal{{$persona->id_persona}}</button>
+                                            <a href="#ex1_{{ $persona->id_persona }}" rel="modal:open">
+                                                <button class="btn btn-info">JQueryModal{{ $persona->id_persona }}</button>
                                             </a>
                                         </td>
 
@@ -96,7 +96,7 @@
                                         {{-- =============================================================== --}}
 
                                         {{-- INICIO JQuery Modal Ejemplo --}}
-                                        <div id="ex1_{{$persona->id_persona}}" class="modal h-auto modal-gral">
+                                        <div id="ex1_{{ $persona->id_persona }}" class="modal h-auto modal-gral">
                                             <p>JQuery Modal</p>
                                             <a href="#" rel="modal:close">Cerrar</a>
                                         </div>
@@ -401,15 +401,16 @@
 
             // ===========================================================================================
             // ===========================================================================================
+            $("#modalEditarPersona_").modal("show");
 
             // Event delegation para el botón de abrir modal
-            $(document).on('click', 'a[id^="verModal_"]', function(e) {
+            /* $(document).on('click', 'a[id^="verModal_"]', function(e) {
                 e.preventDefault(); // Evita el comportamiento predeterminado del enlace
 
                 // Obtén el ID del modal asociado al botón
                 var modalId = $(this).attr('href'); // Obtiene el valor del atributo href (ej: "#ex1_1")
                 $(modalId).css('display', 'block'); // Muestra el modal
-            });
+            }); */
 
             // Event delegation para el botón de cerrar modal 
             $(document).on('click', 'button[id^="btn_cancelar_"]', function(e) {
