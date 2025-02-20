@@ -103,7 +103,7 @@
                                         {{-- FIN JQuery Modal Ejemplo --}}
 
                                         {{-- INICIO Modal EDITAR PERSONA --}}
-                                        <div class="modal h-auto modal-gral" style="max-width: 53%"
+                                        <div class="modal h-auto modal-gral" style="max-width: 55%"
                                             id="modalEditarPersona_{{ $persona->id_persona }}" rel="modal:close">
                                             {{-- <a href="#" rel="modal:close">Cerrar</a> --}}
                                             <div class="modal-dialog mw-100  m-0">
