@@ -14,6 +14,7 @@ class UsuarioStore implements Responsable
     {
         $nombreUsuario = request('nombre_usuario', null);
         $apellidoUsuario = request('apellido_usuario', null);
+        $idTipoDocumento = request('id_tipo_documento', null);
         $identificacion = request('identificacion', null);
         $usuario  = request('usuario', null);
         $email = request('email', null);
@@ -27,6 +28,7 @@ class UsuarioStore implements Responsable
         $nuevoUsuario = Usuario::create([
             'nombre_usuario' => $nombreUsuario,
             'apellido_usuario' => $apellidoUsuario,
+            'id_tipo_documento' => $idTipoDocumento,
             'identificacion' => $identificacion,
             'usuario' => $usuario,
             'email' => $email,

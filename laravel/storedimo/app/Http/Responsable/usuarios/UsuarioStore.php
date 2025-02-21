@@ -24,6 +24,7 @@ class UsuarioStore implements Responsable
     {
         $nombreUsuario = request('nombre_usuario', null);
         $apellidoUsuario = request('apellido_usuario', null);
+        $idTipoDocumento = request('id_tipo_documento', null);
         $identificacion = request('identificacion', null);
         $email = request('email', null);
         $idEstado = 1;
@@ -61,6 +62,7 @@ class UsuarioStore implements Responsable
                     'json' => [
                         'nombre_usuario' => $nombreUsuario,
                         'apellido_usuario' => $apellidoUsuario,
+                        'id_tipo_documento' => $idTipoDocumento,
                         'identificacion' => $identificacion,
                         'usuario' => $usuario.$complemento,
                         'email' => $email,
