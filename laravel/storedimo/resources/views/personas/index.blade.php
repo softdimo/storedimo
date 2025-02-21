@@ -22,6 +22,7 @@
 {{-- =============================================================== --}}
 
 @section('content')
+    <div id="modal-overlay"></div>
     <div class="d-flex p-0">
         <div class="p-0" style="width: 20%">
             @include('layouts.sidebarmenu')
@@ -401,7 +402,17 @@
                 // Obtén el ID del modal asociado al botón
                 var modalId = $(this).attr('href'); // Obtiene el valor del atributo href (ej: "#ex1_1")
                 $(modalId).css('display', 'block'); // Muestra el modal
+                // $("#modal-overlay").fadeIn();
+                if ($(modalId).length) {
+                    $("#modal-overlay").fadeIn(); // Muestra el fondo oscuro
+                    $(modalId).modal({
+                        showClose: false, // Oculta el botón de cerrar si quieres
+                        escapeClose: false
+                    });
+                }
             });
+
+
 
             // Event delegation para el botón de cerrar modal 
             $(document).on('click', 'button[id^="btn_cancelar_"]', function(e) {
@@ -415,6 +426,7 @@
 
                 // Ocultar el modal
                 $(modalId).css('display', 'none');
+                $("#modal-overlay").fadeOut();
             });
 
 
