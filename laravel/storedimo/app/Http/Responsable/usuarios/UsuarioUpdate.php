@@ -31,7 +31,7 @@ class UsuarioUpdate implements Responsable
         $idTipoPersona = request('id_tipo_persona', null);
         $numeroTelefono = request('numero_telefono', null);
         $celular = request('celular', null);
-        $ifGenero = request('id_genero', null);
+        $idGenero = request('id_genero', null);
         $direccion = request('direccion', null);
         $fechaContrato = request('fecha_contrato', null);
         $fechaTerminacionContrato = request('fecha_terminacion_contrato', null);
