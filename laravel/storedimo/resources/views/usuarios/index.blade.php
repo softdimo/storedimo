@@ -70,6 +70,13 @@
                                     <th>Correo</th>
                                     <th>Rol</th>
                                     <th>Estado</th>
+                                    <th>Tipo Persona</th>
+                                    <th>Número Teléfono</th>
+                                    <th>Celular</th>
+                                    <th>Dirección</th>
+                                    <th>Género</th>
+                                    <th>Fecha Contrato</th>
+                                    <th>Terminación Contrato</th>
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
@@ -85,6 +92,13 @@
                                         <td>{{ $usuario->email }}</td>
                                         <td>{{ $usuario->rol }}</td>
                                         <td>{{ $usuario->estado }}</td>
+                                        <td>{{ $usuario->tipo_persona }}</td>
+                                        <td>{{ $usuario->numero_telefono }}</td>
+                                        <td>{{ $usuario->celular }}</td>
+                                        <td>{{ $usuario->direccion }}</td>
+                                        <td>{{ $usuario->genero }}</td>
+                                        <td>{{ $usuario->fecha_contrato }}</td>
+                                        <td>{{ $usuario->fecha_terminacion_contrato }}</td>
                                         <td>
                                             
 

@@ -29,6 +29,16 @@ class UsuarioStore implements Responsable
         $email = request('email', null);
         $idEstado = 1;
         $idRol = request('id_rol', null);
+        $idTipoPersona = request('id_tipo_persona', null);
+        $numeroTelefono = request('numero_telefono', null);
+        $celular = request('celular', null);
+        $ifGenero = request('id_genero', null);
+        $direccion = request('direccion', null);
+        $fechaContrato = request('fecha_contrato', null);
+        $fechaTerminacionContrato = request('fecha_terminacion_contrato', null);
+
+
+
 
         if(strlen($identificacion) < 6)
         {
@@ -68,8 +78,16 @@ class UsuarioStore implements Responsable
                         'email' => $email,
                         'id_rol' => $idRol,
                         'id_estado' => $idEstado,
+                        'id_tipo_persona' => $idTipoPersona,
+                        'numero_telefono' => $numeroTelefono,
+                        'celular' => $celular,
+                        'id_genero' => $idGenero,
+                        'direccion' => $direccion,
+                        'fecha_contrato' => $fechaContrato,
+                        'fecha_terminacion_contrato' => $fechaTerminacionContrato,
                         'clave' => Hash::make($identificacion),
                         'clave_fallas' => 0,
+
                     ]
                 ]);
                 $resUsuarioStore = json_decode($peticionUsuarioStore->getBody()->getContents());
