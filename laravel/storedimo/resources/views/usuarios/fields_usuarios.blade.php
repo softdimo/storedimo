@@ -166,22 +166,5 @@
                 ]) !!}
             </div>
         </div>
-
-        {{-- ========================================================= --}}
-        {{-- ========================================================= --}}
-        {{-- ========================================================= --}}
-        {{-- ========================================================= --}}
-
-        <div class="mt-5 mb-2 d-flex justify-content-center">
-            <button class="btn btn-success rounded-2 me-3" type="submit">
-                <i class="fa fa-floppy-o"></i>
-                Guardar
-            </button>
-
-            <button class="btn btn-danger rounded-2" type="button">
-                <i class="fa fa-remove"></i>
-                Cancelar
-            </button>
-        </div>
     </div> {{-- FIN div_campos_usuarios --}}
 </div> {{-- FIN div_crear_usuario --}}

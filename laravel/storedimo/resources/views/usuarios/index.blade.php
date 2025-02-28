@@ -196,7 +196,7 @@
                                                     {{-- ====================================================== --}}
 
                                                     <!-- Contenedor para el GIF -->
-                                                    <div id="loadingIndicatorEdit_{{ $usuario->id_usuario }}"
+                                                    <div id="loadingIndicatorEditClave_{{ $usuario->id_usuario }}"
                                                         class="loadingIndicator">
                                                         <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
                                                     </div>
@@ -205,7 +205,7 @@
                                                     {{-- ====================================================== --}}
 
                                                     <div class="d-flex justify-content-around mt-2">
-                                                        <button id="btn_editar_{{ $usuario->id_usuario }}" type="submit"
+                                                        <button id="btn_editar_clave_{{ $usuario->id_usuario }}" type="submit"
                                                             class="btn btn-success" title="Guardar Configuración">
                                                             <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
                                                         </button>
@@ -322,7 +322,7 @@
                                                     {{-- ====================================================== --}}
 
                                                     <!-- Contenedor para el GIF -->
-                                                    <div id="loadingIndicatorEdit_{{$usuario->id_usuario}}"
+                                                    <div id="loadingIndicatorEditUser_{{$usuario->id_usuario}}"
                                                         class="loadingIndicator">
                                                         <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
                                                     </div>
@@ -331,12 +331,12 @@
                                                     {{-- ====================================================== --}}
 
                                                     <div class="d-flex justify-content-around mt-3">
-                                                        <button id="btn_editar_{{ $usuario->id_usuario }}" type="submit"
+                                                        <button id="btn_editar_user_{{ $usuario->id_usuario }}" type="submit"
                                                             class="btn btn-success" title="Guardar Configuración">
                                                             <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
                                                         </button>
 
-                                                        <button id="btn_cancelar_{{ $usuario->id_usuario }}" type="button" class="btn btn-secondary" title="Cancelar"
+                                                        <button id="btn_cancelar_user_{{ $usuario->id_usuario }}" type="button" class="btn btn-secondary" title="Cancelar"
                                                             data-bs-dismiss="modal">
                                                             <i class="fa fa-times" aria-hidden="true"> Cancelar</i>
                                                         </button>
@@ -428,12 +428,10 @@
                 const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
 
                 // Capturar el indicador de carga dinámicamente
-                const loadingIndicatorId = `#loadingIndicatorEdit_${id}`;
-                const loadingIndicator = $(loadingIndicatorId);
+                const loadingIndicator = $(`#loadingIndicatorEditClave_${id}`);
 
                 // Capturar el botón de submit dinámicamente
-                const submitButtonId = `#btn_editar_${id}`;
-                const submitButton = $(submitButtonId);
+                const submitButton = $(`#btn_editar_clave_${id}`);
 
                 // Lógica del botón
                 submitButton.prop("disabled", true).html(
@@ -461,16 +459,13 @@
                 const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
 
                 // Capturar el indicador de carga dinámicamente
-                const loadingIndicatorId = `#loadingIndicatorEdit_${id}`;
-                const loadingIndicator = $(loadingIndicatorId);
+                const loadingIndicator = $(`#loadingIndicatorEditUser_${id}`);
 
                 // Capturar el botón de submit dinámicamente
-                const submitButtonId = `#btn_editar_${id}`;
-                const submitButton = $(submitButtonId);
+                const submitButton = $(`#btn_editar_user_${id}`);
 
                 // Capturar el botón de cancelar
-                const cancelButtonId = `#btn_cancelar_${id}`;
-                const cancelButton = $(cancelButtonId);
+                const cancelButton = $(`#btn_cancelar_user_${id}`);
 
                 // Lógica del botón
                 submitButton.prop("disabled", true).html(

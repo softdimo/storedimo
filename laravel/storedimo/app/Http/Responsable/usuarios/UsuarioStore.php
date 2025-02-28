@@ -37,9 +37,6 @@ class UsuarioStore implements Responsable
         $fechaContrato = request('fecha_contrato', null);
         $fechaTerminacionContrato = request('fecha_terminacion_contrato', null);
 
-
-
-
         if(strlen($identificacion) < 6)
         {
             alert()->info('Info', 'El documento debe se de mínimo 6 caracteres');
@@ -60,16 +57,17 @@ class UsuarioStore implements Responsable
             $usuario = strtolower($usuario);
             $complemento = "";
 
-            while($this->consultaUsuario($usuario.$complemento))
-            {
-                $complemento++;
-            }
+            $consultausuario = $this->consultaUsuario($usuario.$complemento);
 
-            /* $consultausuario = $this->consultaUsuario($usuario.$complemento);
+            // while($this->consultaUsuario($usuario.$complemento))
+            // {
+            //     $complemento++;
+            // }
+            
             if(property_exists($consultausuario, 'usuario'))
             {
                 $complemento++;
-            } */
+            }
 
             // ===================================================================
 
