@@ -19,6 +19,13 @@ class UsuarioStore implements Responsable
         $usuario  = request('usuario', null);
         $email = request('email', null);
         $idRol = request('id_rol', null);
+        $idTipoPersona = request('id_tipo_persona', null);
+        $numeroTelefono = request('numero_telefono', null);
+        $celular = request('celular', null);
+        $idGenero = request('id_genero', null);
+        $direccion = request('direccion', null);
+        $fechaContrato = request('fecha_contrato', null);
+        $fechaTerminacionContrato = request('fecha_terminacion_contrato', null);
         $idEstado = request('id_estado', null);
         $clave = request('clave', null);
         $claveFallas = request('clave_fallas', null);
@@ -35,7 +42,14 @@ class UsuarioStore implements Responsable
             'clave' => $clave,
             'clave_fallas' => $claveFallas,
             'id_estado' => $idEstado,
-            'id_rol' => $idRol
+            'id_rol' => $idRol,
+            'id_tipo_persona' => $idTipoPersona,
+            'numero_telefono' => $numeroTelefono,
+            'celular' => $celular,
+            'id_genero' => $idGenero,
+            'direccion' => $direccion,
+            'fecha_contrato' => $fechaContrato,
+            'fecha_terminacion_contrato' => $fechaTerminacionContrato,
         ]);
 
         // ================================================

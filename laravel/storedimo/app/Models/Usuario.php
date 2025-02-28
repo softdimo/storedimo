@@ -16,6 +16,13 @@ class Usuario extends Model
     public $timestamps = true;
     protected $fillable = [
         'id_usuario',
+        'id_tipo_persona',
+        'numero_telefono',
+        'celular',
+        'id_genero',
+        'direccion',
+        'fecha_contrato',
+        'fecha_terminacion_contrato',
         'nombre_usuario',
         'apellido_usuario',
         'usuario',
