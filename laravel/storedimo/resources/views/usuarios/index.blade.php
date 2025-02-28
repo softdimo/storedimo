@@ -225,7 +225,7 @@
                                                         {{-- ====================================================== --}}
 
                                                         <div class="modal-body p-0 m-0" style="border: solid 1px #337AB7;">
-                                                            <div class="row m-0 pt-4 pb-4">
+                                                            <div class="row m-4">
                                                                 <div class="col-12 col-md-4">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="id_tipo_persona" class="" style="font-size: 15px">Tipo Usuario
@@ -263,7 +263,7 @@
 
                                                             {{-- ============================================== --}}
 
-                                                            <div class="row m-0 pt-4 pb-4">
+                                                            <div class="row m-4">
                                                                 <div class="col-12 col-md-4">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="nombre_usuario" class="" style="font-size: 15px">Nombre Usuario
@@ -290,7 +290,7 @@
 
                                                             {{-- ============================================== --}}
 
-                                                            <div class="row m-0 pt-4 pb-4">
+                                                            <div class="row m-4">
                                                                 <div class="col-12 col-md-4">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="celular" class="" style="font-size: 15px">Celular
@@ -331,7 +331,7 @@
 
                                                             {{-- ============================================== --}}
 
-                                                            <div class="row m-0 pt-4 pb-4">
+                                                            <div class="row m-4">
                                                                 <div class="col-12 col-md-4">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="direccion" class="" style="font-size: 15px">Dirección</label>
@@ -373,23 +373,35 @@
 
                                                             {{-- ============================================== --}}
 
-                                                            <div class="row m-0 pt-4 pb-4">
-                                                                <div class="col-12 col-md-6 mt-4">
+                                                            <div class="row m-4">
+                                                                <div class="col-12 col-md-6">
                                                                     <div class="form-group d-flex flex-column">
-                                                                        <label for="fecha_contrato" class="form-label">Fecha contrato<span class="text-danger">*</span></label>
-                                                                        {!! Form::date('fecha_contrato', null, ['class' => 'form-control', 'id' => 'fecha_contrato','required' => 'required']) !!}
+                                                                        <label for="fecha_contrato" class="form-label">Fecha contrato
+                                                                            <span class="text-danger">*</span>
+                                                                        </label>
+                                                                        {!! Form::date('fecha_contrato',
+                                                                            isset($usuario) ? $usuario->fecha_contrato : null,
+                                                                            [
+                                                                                'class' => 'form-control',
+                                                                                'id' => 'fecha_contrato',
+                                                                                'required' => 'required'
+                                                                            ])
+                                                                        !!}
                                                                     </div>
                                                                 </div>
 
                                                                 {{-- ======================= --}}
 
-                                                                <div class="col-12 col-md-6 mt-4" id="div_fecha_terminacion_contrato">
+                                                                <div class="col-12 col-md-6" id="div_fecha_terminacion_contrato">
                                                                     <div class="form-group d-flex flex-column">
-                                                                        <label for="fecha_terminacion_contrato" class="form-label">Fecha terminación contrato<span
-                                                                                class="text-danger">*</span></label>
-                                                                        {!! Form::date('fecha_terminacion_contrato', null, [
-                                                                            'class' => 'form-control',
-                                                                            'id' => 'fecha_terminacion_contrato',
+                                                                        <label for="fecha_terminacion_contrato" class="form-label">Fecha terminación contrato
+                                                                            <span class="text-danger">*</span>
+                                                                        </label>
+                                                                        {!! Form::date('fecha_terminacion_contrato',
+                                                                            isset($usuario) ? $usuario->fecha_terminacion_contrato : null,
+                                                                            [
+                                                                                'class' => 'form-control',
+                                                                                'id' => 'fecha_terminacion_contrato',
                                                                         ]) !!}
                                                                     </div>
                                                                 </div>
@@ -399,7 +411,7 @@
                                                         {{-- ====================================================== --}}
                                                         {{-- ====================================================== --}}
 
-                                                        <div class="modal-footer d-block">
+                                                        <div class="modal-footer d-block mt-4">
                                                             <!-- Contenedor para el GIF -->
                                                             <div id="loadingIndicatorEditUser_{{$usuario->id_usuario}}"
                                                                 class="loadingIndicator">
