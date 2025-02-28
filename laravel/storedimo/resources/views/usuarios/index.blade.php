@@ -69,7 +69,14 @@
                                     <th>Identificación</th>
                                     <th>Correo</th>
                                     <th>Rol</th>
+                                    <th>Tipo Persona</th>
+                                    <th>Número Teléfono</th>
+                                    <th>Celular</th>
+                                    <th>Dirección</th>
+                                    <th>Género</th>
+                                    <th>Fecha Contrato</th>
                                     <th>Estado</th>
+                                    <th>Terminación Contrato</th>
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
@@ -84,31 +91,20 @@
                                         <td>{{ $usuario->identificacion }}</td>
                                         <td>{{ $usuario->email }}</td>
                                         <td>{{ $usuario->rol }}</td>
+                                        <td>{{ $usuario->tipo_persona }}</td>
+                                        <td>{{ $usuario->numero_telefono }}</td>
+                                        <td>{{ $usuario->celular }}</td>
+                                        <td>{{ $usuario->direccion }}</td>
+                                        <td>{{ $usuario->genero }}</td>
+                                        <td>{{ $usuario->fecha_contrato }}</td>
                                         <td>{{ $usuario->estado }}</td>
+                                        <td>{{ $usuario->fecha_terminacion_contrato }}</td>
                                         <td>
-                                            
-
-                                            {{-- <a href="{{ route('usuarios.edit', $usuario->id_usuario) }}" role="button"
-                                                class="btn btn-success rounded-circle btn-circle" title="Modificar">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            </a> --}}
-
-                                            {{-- <a href="#edit_usuario_{{ $usuario->id_usuario }}" role="button"
-                                                class="btn btn-success rounded-circle btn-circle" title="Modificar" rel="modales:open">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            </a> --}}
-
                                             <button type="button" class="btn btn-success rounded-circle btn-circle"
                                                 title="Editar" data-bs-toggle="modal"
                                                 data-bs-target="#modalEditarUsuario_{{$usuario->id_usuario}}">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </button>
-
-                                            {{-- <a href="#editUsuario_{{ $usuario->id_usuario }}" role="button"
-                                                class="btn btn-success rounded-circle btn-circle" title="Modificar"
-                                                rel="modal:open">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            </a> --}}
 
                                             <button type="button" class="btn btn-warning rounded-circle btn-circle"
                                                 title="Cambiar contraseña" data-bs-toggle="modal"
@@ -116,13 +112,6 @@
                                                 <i class="fa fa-key" aria-hidden="true"></i>
                                             </button>
                                         </td>
-
-                                        <!-- Modal para editar usuario -->
-                                        <div id="editUsuario_{{ $usuario->id_usuario }}" class="jquery-modal">
-                                            <p>Editando usuario: {{ $usuario->nombre_usuario }}
-                                                {{ $usuario->apellido_usuario }}</p>
-                                            <a href="#" rel="modal:close">Cerrar</a>
-                                        </div>
 
                                         {{-- ====================================================== --}}
                                         {{-- ====================================================== --}}
@@ -182,7 +171,7 @@
                                                     {{-- ====================================================== --}}
 
                                                     <!-- Contenedor para el GIF -->
-                                                    <div id="loadingIndicatorEdit_{{ $usuario->id_usuario }}"
+                                                    <div id="loadingIndicatorEditClave_{{ $usuario->id_usuario }}"
                                                         class="loadingIndicator">
                                                         <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
                                                     </div>
@@ -190,8 +179,8 @@
                                                     {{-- ====================================================== --}}
                                                     {{-- ====================================================== --}}
 
-                                                    <div class="d-flex justify-content-around mt-5">
-                                                        <button id="btn_editar_{{ $usuario->id_usuario }}" type="submit"
+                                                    <div class="d-flex justify-content-around mt-2">
+                                                        <button id="btn_editar_clave_{{ $usuario->id_usuario }}" type="submit"
                                                             class="btn btn-success" title="Guardar Configuración">
                                                             <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
                                                         </button>
@@ -214,18 +203,17 @@
                                         {{-- INICIO Modal EDITAR USUARIO --}}
                                         <div class="modal fade h-auto modal-gral"
                                             id="modalEditarUsuario_{{ $usuario->id_usuario }}" tabindex="-1"
-                                            data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-                                            <div class="modal-dialog m-0">
+                                            data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true"
+                                            style="max-width: 55%;">
+                                            <div class="modal-dialog m-0 mw-100">
                                                 <div class="modal-content w-100 border-0">
                                                     {!! Form::open([
                                                         'method' => 'PUT',
                                                         'route' => ['usuarios.update', $usuario->id_usuario],
                                                         'class' => 'mt-2',
                                                         'autocomplete' => 'off',
-                                                        'id' => 'formEditarUsuario_' . $usuario->id_usuario,
-                                                    ]) !!}
-                                                    @csrf
-                                                    <div class="">
+                                                        'id' => 'formEditarUsuario_' . $usuario->id_usuario]) !!}
+                                                        @csrf
                                                         <div class="rounded-top text-white text-center"
                                                             style="background-color: #337AB7; border: solid 1px #337AB7;">
                                                             <h5>Editar Usuario</h5>
@@ -238,100 +226,206 @@
 
                                                         <div class="modal-body p-0 m-0" style="border: solid 1px #337AB7;">
                                                             <div class="row m-0 pt-4 pb-4">
-                                                                <div class="col-12 col-md-6">
+                                                                <div class="col-12 col-md-4">
                                                                     <div class="form-group d-flex flex-column">
-                                                                        <label for="nombre_usuario" class="" style="font-size: 15px">Nombre Usuario
+                                                                        <label for="id_tipo_persona" class="" style="font-size: 15px">Tipo Usuario
                                                                             <span class="text-danger">*</span></label>
-                                                                        {{ Form::text('nombre_usuario', isset($usuario) ? $usuario->nombre_usuario : null, ['class' => 'form-control', 'id' => 'nombre_usuario', 'required' => 'required']) }}
+                                                                        {{ Form::text('id_tipo_persona',
+                                                                            isset($usuario) ? $usuario->nombre_usuario : null,
+                                                                            ['class' => 'form-control',
+                                                                            'id' => 'id_tipo_persona',
+                                                                            'required' => 'required'])
+                                                                        }}
                                                                     </div>
                                                                 </div>
-
-                                                                <div class="col-12 col-md-6">
+                                                                {{-- ======================= --}}
+                                                                <div class="col-12 col-md-4">
                                                                     <div class="form-group d-flex flex-column">
-                                                                        <label for="apellido_usuario" class="" style="font-size: 15px">Apellido Usuario
+                                                                        <label for="id_tipo_documento" class="" style="font-size: 15px">Tipo de documento
                                                                                 <span class="text-danger">*</span></label>
-                                                                        {{ Form::text('apellido_usuario', isset($usuario) ? $usuario->apellido_usuario : null, ['class' => 'form-control', 'id' => 'apellido_usuario', 'required' => 'required']) }}
+                                                                            {!! Form::select('id_tipo_documento',
+                                                                                collect(['' => 'Seleccionar...'])
+                                                                                ->union($tipos_documento),
+                                                                                isset($usuario) ? $usuario->id_tipo_documento : null,
+                                                                                ['class' => 'form-control', 'id' =>'id_tipo_documento'])
+                                                                            !!}
                                                                     </div>
                                                                 </div>
-                                                            </div>
-
-                                                            <div class="row m-0 pt-4 pb-4">
-                                                                <div class="col-12 col-md-6">
+                                                                {{-- ======================= --}}
+                                                                <div class="col-12 col-md-4">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="identificacion" class="" style="font-size: 15px">Número de documento
                                                                             <span class="text-danger">*</span></label>
                                                                         {{ Form::text('identificacion', isset($usuario) ? $usuario->identificacion : null, ['class' => 'form-control', 'id' => 'identificacion', 'required' => 'required']) }}
                                                                     </div>
                                                                 </div>
+                                                            </div>
 
-                                                                <div class="col-12 col-md-6">
+                                                            {{-- ============================================== --}}
+
+                                                            <div class="row m-0 pt-4 pb-4">
+                                                                <div class="col-12 col-md-4">
                                                                     <div class="form-group d-flex flex-column">
-                                                                        <label for="id_tipo_documento" class="" style="font-size: 15px">Tipo de documento
+                                                                        <label for="nombre_usuario" class="" style="font-size: 15px">Nombre Usuario
+                                                                            <span class="text-danger">*</span></label>
+                                                                        {{ Form::text('nombre_usuario', isset($usuario) ? $usuario->nombre_usuario : null, ['class' => 'form-control', 'id' => 'nombre_usuario', 'required' => 'required']) }}
+                                                                    </div>
+                                                                </div>
+                                                                {{-- ======================= --}}
+                                                                <div class="col-12 col-md-4">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="apellido_usuario" class="" style="font-size: 15px">Apellido Usuario
                                                                                 <span class="text-danger">*</span></label>
-                                                                            {!! Form::select('id_tipo_documento', collect(['' => 'Seleccionar...'])->union($tipos_documento), isset($usuario) ? $usuario->id_tipo_documento : null, ['class' => 'form-control', 'id' =>'id_tipo_documento'])!!}
+                                                                        {{ Form::text('apellido_usuario', isset($usuario) ? $usuario->apellido_usuario : null, ['class' => 'form-control', 'id' => 'apellido_usuario', 'required' => 'required']) }}
+                                                                    </div>
+                                                                </div>
+                                                                {{-- ======================= --}}
+                                                                <div class="col-12 col-md-4">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="numero_telefono" class="" style="font-size: 15px">Número Teléfono</label>
+                                                                        {{ Form::text('numero_telefono', isset($usuario) ? $usuario->numero_telefono : null, ['class' => 'form-control', 'id' => 'numero_telefono']) }}
                                                                     </div>
                                                                 </div>
                                                             </div>
 
+                                                            {{-- ============================================== --}}
 
                                                             <div class="row m-0 pt-4 pb-4">
-                                                                <div class="col-12 col-md-6">
+                                                                <div class="col-12 col-md-4">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="celular" class="" style="font-size: 15px">Celular
+                                                                            <span class="text-danger">*</span>
+                                                                        </label>
+                                                                        {{ Form::text('celular',
+                                                                            isset($usuario) ? $usuario->celular : null,
+                                                                            [
+                                                                                'class' => 'form-control',
+                                                                                'id' => 'celular',
+                                                                                'required' => 'required'
+                                                                            ])
+                                                                        }}
+                                                                    </div>
+                                                                </div>
+                                                                {{-- ======================= --}}
+                                                                <div class="col-12 col-md-4">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="email" class="" style="font-size: 15px">Correo
                                                                             <span class="text-danger">*</span></label>
                                                                         {{ Form::text('email', isset($usuario) ? $usuario->email : null, ['class' => 'form-control', 'id' => 'email', 'required' => 'required']) }}
                                                                     </div>
                                                                 </div>
-
-                                                                <div class="col-12 col-md-6">
+                                                                {{-- ======================= --}}
+                                                                <div class="col-12 col-md-4">
                                                                     <div class="form-group d-flex flex-column">
-                                                                        <label for="id_rol" class="" style="font-size: 15px">Rol
+                                                                        <label for="id_genero" class="" style="font-size: 15px">Género
                                                                                 <span class="text-danger">*</span></label>
-                                                                            {!! Form::select('id_rol', collect(['' => 'Seleccionar...'])->union($roles), isset($usuario) ? $usuario->id_rol : null, ['class' => 'form-control', 'id' =>'id_rol'])!!}
+                                                                            {!! Form::select('id_genero',
+                                                                                collect(['' => 'Seleccionar...'])
+                                                                                ->union($generos),
+                                                                                isset($usuario) ? $usuario->id_genero : null,
+                                                                                ['class' => 'form-control', 'id' =>'id_genero'])
+                                                                            !!}
                                                                     </div>
                                                                 </div>
                                                             </div>
 
+                                                            {{-- ============================================== --}}
 
                                                             <div class="row m-0 pt-4 pb-4">
-                                                                <div class="col-12 col-md-6">
+                                                                <div class="col-12 col-md-4">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="direccion" class="" style="font-size: 15px">Dirección</label>
+                                                                        {{Form::text('direccion',
+                                                                            isset($usuario) ? $usuario->direccion : null,
+                                                                            ['class' => 'form-control', 'id' => 'direccion']
+                                                                        )}}
+                                                                    </div>
+                                                                </div>
+                                                                {{-- ======================= --}}
+                                                                <div class="col-12 col-md-4">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="id_rol" class="" style="font-size: 15px">Rol
+                                                                            <span class="text-danger">*</span>
+                                                                        </label>
+                                                                        {!! Form::select('id_rol',
+                                                                            collect(['' => 'Seleccionar...'])
+                                                                            ->union($roles),
+                                                                            isset($usuario) ? $usuario->id_rol : null,
+                                                                            ['class' => 'form-control', 'id' =>'id_rol']
+                                                                        )!!}
+                                                                    </div>
+                                                                </div>
+                                                                {{-- ======================= --}}
+                                                                <div class="col-12 col-md-4">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="id_estado" class="" style="font-size: 15px">Estado
-                                                                                <span class="text-danger">*</span></label>
-                                                                            {!! Form::select('id_estado', collect(['' => 'Seleccionar...'])->union($estados), isset($usuario) ? $usuario->id_estado : null, ['class' => 'form-control', 'id' =>'id_estado'])!!}
+                                                                            <span class="text-danger">*</span>
+                                                                        </label>
+                                                                        {!! Form::select('id_estado',
+                                                                            collect(['' => 'Seleccionar...'])
+                                                                            ->union($estados),
+                                                                            isset($usuario) ? $usuario->id_estado : null,
+                                                                            ['class' => 'form-control', 'id' =>'id_estado']
+                                                                        )!!}
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
 
-                                                    {{-- ====================================================== --}}
-                                                    {{-- ====================================================== --}}
+                                                            {{-- ============================================== --}}
 
-                                                    <!-- Contenedor para el GIF -->
-                                                    <div id="loadingIndicatorEdit_{{$usuario->id_usuario}}"
-                                                        class="loadingIndicator">
-                                                        <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
-                                                    </div>
+                                                            <div class="row m-0 pt-4 pb-4">
+                                                                <div class="col-12 col-md-6 mt-4">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="fecha_contrato" class="form-label">Fecha contrato<span class="text-danger">*</span></label>
+                                                                        {!! Form::date('fecha_contrato', null, ['class' => 'form-control', 'id' => 'fecha_contrato','required' => 'required']) !!}
+                                                                    </div>
+                                                                </div>
 
-                                                    {{-- ====================================================== --}}
-                                                    {{-- ====================================================== --}}
+                                                                {{-- ======================= --}}
 
-                                                    <div class="d-flex justify-content-around mt-5">
-                                                        <button id="btn_editar_{{ $usuario->id_usuario }}" type="submit"
-                                                            class="btn btn-success" title="Guardar Configuración">
-                                                            <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
-                                                        </button>
+                                                                <div class="col-12 col-md-6 mt-4" id="div_fecha_terminacion_contrato">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="fecha_terminacion_contrato" class="form-label">Fecha terminación contrato<span
+                                                                                class="text-danger">*</span></label>
+                                                                        {!! Form::date('fecha_terminacion_contrato', null, [
+                                                                            'class' => 'form-control',
+                                                                            'id' => 'fecha_terminacion_contrato',
+                                                                        ]) !!}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> {{-- FIN modal-body --}}
 
-                                                        <button id="btn_cancelar_{{ $usuario->id_usuario }}" type="button" class="btn btn-secondary" title="Cancelar"
-                                                            data-bs-dismiss="modal">
-                                                            <i class="fa fa-times" aria-hidden="true"> Cancelar</i>
-                                                        </button>
-                                                    </div>
+                                                        {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
+
+                                                        <div class="modal-footer d-block">
+                                                            <!-- Contenedor para el GIF -->
+                                                            <div id="loadingIndicatorEditUser_{{$usuario->id_usuario}}"
+                                                                class="loadingIndicator">
+                                                                <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                                                            </div>
+
+                                                            {{-- ====================================================== --}}
+                                                            {{-- ====================================================== --}}
+
+                                                            <div class="d-flex justify-content-around mt-3">
+                                                                <button id="btn_editar_user_{{ $usuario->id_usuario }}" type="submit"
+                                                                    class="btn btn-success" title="Guardar Configuración">
+                                                                    <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
+                                                                </button>
+
+                                                                <button id="btn_cancelar_user_{{ $usuario->id_usuario }}"
+                                                                    type="button" class="btn btn-secondary" title="Cancelar"
+                                                                    data-bs-dismiss="modal">
+                                                                    <i class="fa fa-times" aria-hidden="true"> Cancelar</i>
+                                                                </button>
+                                                            </div>
+                                                        </div> {{-- modal-footer --}}
                                                     {!! Form::close() !!}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {{-- FINAL Modal EDITAR USUARIO --}}
+                                                </div> {{-- modal-content --}}
+                                            </div> {{-- modal-dialog --}}
+                                        </div> {{-- FINAL Modal EDITAR USUARIO --}}
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -396,41 +490,26 @@
 
             // ===========================================================================================
 
-            /* $('#manual-ajax').click(function(event) {
-                event.preventDefault();
-                this.blur(); // Manually remove focus from clicked link.
-                $.get(this.href, function(html) {
-                    $(html).appendTo('body').modal();
-                });
-            }); */
-            // ===========================================================================================
-
             // formEditarCategoria para cargar gif en el submit
-
             $(document).on("submit", "form[id^='formCambiarClave_']", function(e) {
-
                 const form = $(this);
                 const formId = form.attr('id'); // Obtenemos el ID del formulario
                 const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
 
                 // Capturar el indicador de carga dinámicamente
-                const loadingIndicatorId = `#loadingIndicatorEdit_${id}`;
-                const loadingIndicator = $(loadingIndicatorId);
+                const loadingIndicator = $(`#loadingIndicatorEditClave_${id}`);
 
                 // Capturar el botón de submit dinámicamente
-                const submitButtonId = `#btn_editar_${id}`;
-                const submitButton = $(submitButtonId);
+                const submitButton = $(`#btn_editar_clave_${id}`);
 
                 // Lógica del botón
-                submitButton.prop("disabled", true).html(
-                    "Procesando... <i class='fa fa-spinner fa-spin'></i>");
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
                 loadingIndicator.show();
 
                 // Readonly para el campo nueva clave
                 const nuevaClave = `#nueva_clave_${id}`;
                 const nuevaClaveReadOnly = $(nuevaClave);
                 nuevaClaveReadOnly.prop("readonly", true);
-
 
                 // Readonly para el campo confirmar clave
                 const confirmarClave = `#confirmar_clave_${id}`;
@@ -447,16 +526,13 @@
                 const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
 
                 // Capturar el indicador de carga dinámicamente
-                const loadingIndicatorId = `#loadingIndicatorEdit_${id}`;
-                const loadingIndicator = $(loadingIndicatorId);
+                const loadingIndicator = $(`#loadingIndicatorEditUser_${id}`);
 
                 // Capturar el botón de submit dinámicamente
-                const submitButtonId = `#btn_editar_${id}`;
-                const submitButton = $(submitButtonId);
+                const submitButton = $(`#btn_editar_user_${id}`);
 
                 // Capturar el botón de cancelar
-                const cancelButtonId = `#btn_cancelar_${id}`;
-                const cancelButton = $(cancelButtonId);
+                const cancelButton = $(`#btn_cancelar_user_${id}`);
 
                 // Lógica del botón
                 submitButton.prop("disabled", true).html(

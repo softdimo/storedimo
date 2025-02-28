@@ -28,6 +28,13 @@ class UsuarioUpdate implements Responsable
         $email = request('email', null);
         $idEstado = request('id_estado', null);;
         $idRol = request('id_rol', null);
+        $idTipoPersona = request('id_tipo_persona', null);
+        $numeroTelefono = request('numero_telefono', null);
+        $celular = request('celular', null);
+        $idGenero = request('id_genero', null);
+        $direccion = request('direccion', null);
+        $fechaContrato = request('fecha_contrato', null);
+        $fechaTerminacionContrato = request('fecha_terminacion_contrato', null);
         
        /*  // Consultamos si ya existe un usuario con la cedula ingresada
         $consultarIdentificacion = $this->consultarId($identificacion);
@@ -46,6 +53,13 @@ class UsuarioUpdate implements Responsable
                         'email' => $email,
                         'id_rol' => $idRol,
                         'id_estado' => $idEstado,
+                        'id_tipo_persona' => $idTipoPersona,
+                        'numero_telefono' => $numeroTelefono,
+                        'celular' => $celular,
+                        'id_genero' => $idGenero,
+                        'direccion' => $direccion,
+                        'fecha_contrato' => $fechaContrato,
+                        'fecha_terminacion_contrato' => $fechaTerminacionContrato,
                     ]
                 ]);
                 $resUsuarioUpdate = json_decode($peticionUsuarioUpdate->getBody()->getContents());
