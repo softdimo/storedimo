@@ -16,6 +16,8 @@ class UsuarioIndex implements Responsable
             $usuarios = Usuario::leftjoin('roles', 'roles.id_rol', '=', 'usuarios.id_rol')
                 ->leftjoin('estados', 'estados.id_estado', '=', 'usuarios.id_estado')
                 ->leftjoin('tipo_documento', 'tipo_documento.id_tipo_documento', '=', 'usuarios.id_tipo_documento')
+                ->leftjoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'usuarios.id_tipo_persona')
+                ->leftjoin('generos', 'generos.id_genero', '=', 'usuarios.id_genero')
                 ->select(
                     'id_usuario',
                     'nombre_usuario',
@@ -29,6 +31,15 @@ class UsuarioIndex implements Responsable
                     'usuarios.id_rol',
                     'estado',
                     'usuarios.id_estado',
+                    'usuarios.id_tipo_persona',
+                    'tipo_persona',
+                    'generos.id_genero',
+                    'genero',
+                    'numero_telefono',
+                    'celular',
+                    'direccion',
+                    'fecha_contrato',
+                    'fecha_terminacion_contrato',
                 )
                 ->orderBy('nombre_usuario')
                 ->get();

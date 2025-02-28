@@ -24,10 +24,18 @@ class UsuarioStore implements Responsable
     {
         $nombreUsuario = request('nombre_usuario', null);
         $apellidoUsuario = request('apellido_usuario', null);
+        $idTipoDocumento = request('id_tipo_documento', null);
         $identificacion = request('identificacion', null);
         $email = request('email', null);
         $idEstado = 1;
         $idRol = request('id_rol', null);
+        $idTipoPersona = request('id_tipo_persona', null);
+        $numeroTelefono = request('numero_telefono', null);
+        $celular = request('celular', null);
+        $idGenero = request('id_genero', null);
+        $direccion = request('direccion', null);
+        $fechaContrato = request('fecha_contrato', null);
+        $fechaTerminacionContrato = request('fecha_terminacion_contrato', null);
 
         if(strlen($identificacion) < 6)
         {
@@ -49,7 +57,14 @@ class UsuarioStore implements Responsable
             $usuario = strtolower($usuario);
             $complemento = "";
 
-            while($this->consultaUsuario($usuario.$complemento))
+            $consultausuario = $this->consultaUsuario($usuario.$complemento);
+
+            // while($this->consultaUsuario($usuario.$complemento))
+            // {
+            //     $complemento++;
+            // }
+            
+            if(property_exists($consultausuario, 'usuario'))
             {
                 $complemento++;
             }
@@ -61,13 +76,22 @@ class UsuarioStore implements Responsable
                     'json' => [
                         'nombre_usuario' => $nombreUsuario,
                         'apellido_usuario' => $apellidoUsuario,
+                        'id_tipo_documento' => $idTipoDocumento,
                         'identificacion' => $identificacion,
                         'usuario' => $usuario.$complemento,
                         'email' => $email,
                         'id_rol' => $idRol,
                         'id_estado' => $idEstado,
+                        'id_tipo_persona' => $idTipoPersona,
+                        'numero_telefono' => $numeroTelefono,
+                        'celular' => $celular,
+                        'id_genero' => $idGenero,
+                        'direccion' => $direccion,
+                        'fecha_contrato' => $fechaContrato,
+                        'fecha_terminacion_contrato' => $fechaTerminacionContrato,
                         'clave' => Hash::make($identificacion),
                         'clave_fallas' => 0,
+
                     ]
                 ]);
                 $resUsuarioStore = json_decode($peticionUsuarioStore->getBody()->getContents());

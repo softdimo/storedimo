@@ -32,12 +32,35 @@
             {{-- =============================================================== --}}
             {{-- =============================================================== --}}
 
-            {!! Form::open(['method' => 'POST', 'route' => ['usuarios.store'], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'form_crear_usuarios']) !!}
+            {!! Form::open(['method' => 'POST', 'route' => ['usuarios.store'], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'formCrearUsuarios']) !!}
                 @csrf
             
                 @include('usuarios.fields_usuarios')
+
+                {{-- ========================================================= --}}
+                {{-- ========================================================= --}}
+
+                <!-- Contenedor para el GIF -->
+                <div id="loadingIndicatorStore" class="loadingIndicator">
+                    <img src="{{asset('imagenes/loading.gif')}}" alt="Procesando...">
+                </div>
+
+                {{-- ========================================================= --}}
+                {{-- ========================================================= --}}
+
+                <div class="mt-5 mb-2 d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success rounded-2 me-3">
+                        <i class="fa fa-floppy-o"></i>
+                        Guardar
+                    </button>
+
+                    <button type="button" class="btn btn-danger rounded-2">
+                        <i class="fa fa-remove"></i>
+                        Cancelar
+                    </button>
+                </div>
             {!! Form::close() !!}
-            @include('layouts.loader')
+            {{-- @include('layouts.loader') --}}
         </div>
     </div>
 @stop
@@ -48,6 +71,24 @@
 
 @section('scripts')
     <script>
+        // formCrearUsuario para cargar gif en el submit
+        $("form").on("submit", function (e) {
+            const form = $(this);
+            const submitButton = form.find('button[type="submit"]');
+            const cancelButton = form.find('button[type="button"]');
+            const loadingIndicator = form.find("div[id^='loadingIndicatorStore']"); // Busca el GIF del form actual
+
+            // Dessactivar Botones
+            submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+            cancelButton.prop("disabled", true);
+            
+            // Mostrar Spinner
+            loadingIndicator.show();
+        });
+
+        // ===================================================================================
+        // ===================================================================================
+
         $( document ).ready(function() {
             $('#tipo_persona').change(function () {
                 let idTipoPersona = $('#tipo_persona').val();
@@ -237,7 +278,9 @@
 
             // ===================================================================================
             // ===================================================================================
-        });
+
+
+        }); // FIN document.readey
     </script>
 @stop
 

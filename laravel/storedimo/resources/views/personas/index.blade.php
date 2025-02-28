@@ -22,6 +22,7 @@
 {{-- =============================================================== --}}
 
 @section('content')
+    <div id="modal-overlay"></div>
     <div class="d-flex p-0">
         <div class="p-0" style="width: 20%">
             @include('layouts.sidebarmenu')
@@ -77,8 +78,11 @@
                                         <td>{{ $persona->fecha_terminacion_contrato }}</td>
                                         <td>
                                             <a href="#modalEditarPersona_{{ $persona->id_persona }}"
-                                                id="verModal_{{ $persona->id_persona }} "rel="modal:open">
-                                                <button class="btn btn-danger">Modificar{{$persona->id_persona}}</button>
+                                                id="verModal_{{ $persona->id_persona }}" rel="modal:open">
+                                                <button class="btn btn-success rounded-circle btn-circle"><i
+                                                        class="fa fa-pencil-square-o" aria-hidden="true"
+                                                        title="Modificar"></i>
+                                                </button>
                                             </a>
 
                                             <a href="#" role="button"
@@ -87,8 +91,8 @@
                                                 <i class="fa fa-key" aria-hidden="true"></i>
                                             </a>
 
-                                            <a href="#ex1_{{$persona->id_persona}}" rel="modal:open">
-                                                <button class="btn btn-info">JQueryModal{{$persona->id_persona}}</button>
+                                            <a href="#ex1_{{ $persona->id_persona }}" rel="modal:open">
+                                                <button class="btn btn-info">JQueryModal{{ $persona->id_persona }}</button>
                                             </a>
                                         </td>
 
@@ -96,17 +100,17 @@
                                         {{-- =============================================================== --}}
 
                                         {{-- INICIO JQuery Modal Ejemplo --}}
-                                        <div id="ex1_{{$persona->id_persona}}" class="modal h-auto modal-gral">
+                                        <div id="ex1_{{ $persona->id_persona }}" class="modal h-auto modal-gral">
                                             <p>JQuery Modal</p>
                                             <a href="#" rel="modal:close">Cerrar</a>
                                         </div>
                                         {{-- FIN JQuery Modal Ejemplo --}}
 
                                         {{-- INICIO Modal EDITAR PERSONA --}}
-                                        <div class="modal h-auto modal-gral"
+                                        <div class="modal h-auto modal-gral" style="max-width: 55%"
                                             id="modalEditarPersona_{{ $persona->id_persona }}" rel="modal:close">
                                             {{-- <a href="#" rel="modal:close">Cerrar</a> --}}
-                                            <div class="modal-dialog m-0">
+                                            <div class="modal-dialog mw-100  m-0">
                                                 <div class="modal-content w-100 border-0">
                                                     {!! Form::open([
                                                         'method' => 'PUT',
@@ -127,9 +131,10 @@
                                                         {{-- ====================================================== --}}
                                                         {{-- ====================================================== --}}
 
-                                                        <div class="modal-body p-0 m-0" style="border: solid 1px #337AB7;">
-                                                            <div class="row m-0 pt-4 pb-4">
-                                                                <div class="col-12 col-md-6">
+                                                        <div class="modal-body p-0 m-0">
+                                                            <div class="row m-0 pt-4 pb-4"
+                                                                style="border: solid 1px #337AB7;">
+                                                                <div class="col-12 col-md-4">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="id_tipo_persona" class=""
                                                                             style="font-size: 15px">Tipo Persona
@@ -143,7 +148,7 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="col-12 col-md-6">
+                                                                <div class="col-12 col-md-4">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="id_tipo_documento" class=""
                                                                             style="font-size: 15px">Tipo de documento
@@ -157,20 +162,7 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="col-12 col-md-6">
-                                                                    <div class="form-group d-flex flex-column">
-                                                                        <label for="identificacion" class=""
-                                                                            style="font-size: 15px">Número de documento
-                                                                            <span class="text-danger">*</span></label>
-                                                                        {{ Form::text('identificacion', isset($persona) ? $persona->identificacion : null, ['class' => 'form-control', 'id' => 'identificacion', 'required' => 'required']) }}
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-
-                                                            <div class="row m-0 pt-4 pb-4">
-
-                                                                <div class="col-12 col-md-6">
+                                                                <div class="col-12 col-md-4">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="identificacion" class=""
                                                                             style="font-size: 15px">Número de documento
@@ -179,7 +171,7 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="col-12 col-md-6">
+                                                                <div class="col-12 col-md-4 mt-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="nombres_persona" class=""
                                                                             style="font-size: 15px">Nombre Persona
@@ -187,10 +179,10 @@
                                                                         {{ Form::text('nombres_persona', isset($persona) ? $persona->nombres_persona : null, ['class' => 'form-control', 'id' => 'nombres_persona', 'required' => 'required']) }}
                                                                     </div>
                                                                 </div>
-                                                            </div>
 
-                                                            <div class="row m-0 pt-4 pb-4">
-                                                                <div class="col-12 col-md-6">
+
+
+                                                                <div class="col-12 col-md-4 mt-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="apellidos_persona" class=""
                                                                             style="font-size: 15px">Apellido Persona
@@ -199,7 +191,7 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="col-12 col-md-6">
+                                                                <div class="col-12 col-md-4 mt-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="numero_telefono" class=""
                                                                             style="font-size: 15px">Número Teléfono
@@ -210,10 +202,10 @@
                                                                         ]) !!}
                                                                     </div>
                                                                 </div>
-                                                            </div>
 
-                                                            <div class="row m-0 pt-4 pb-4">
-                                                                <div class="col-12 col-md-6">
+
+
+                                                                <div class="col-12 col-md-4 mt-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="celular" class=""
                                                                             style="font-size: 15px">Celular
@@ -222,7 +214,7 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="col-12 col-md-6">
+                                                                <div class="col-12 col-md-4 mt-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="email" class=""
                                                                             style="font-size: 15px">Correo
@@ -230,11 +222,11 @@
                                                                         {{ Form::text('email', isset($persona) ? $persona->email : null, ['class' => 'form-control', 'id' => 'email', 'required' => 'required']) }}
                                                                     </div>
                                                                 </div>
-                                                            </div>
 
 
-                                                            <div class="row m-0 pt-4 pb-4">
-                                                                <div class="col-12 col-md-6">
+
+
+                                                                <div class="col-12 col-md-4 mt-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="id_genero" class=""
                                                                             style="font-size: 15px">Género
@@ -248,7 +240,7 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="col-12 col-md-6">
+                                                                <div class="col-12 col-md-4 mt-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="direccion" class=""
                                                                             style="font-size: 15px">Dirección
@@ -256,10 +248,10 @@
                                                                         {{ Form::text('direccion', isset($persona) ? $persona->direccion : null, ['class' => 'form-control', 'id' => 'direccion', 'required' => 'required']) }}
                                                                     </div>
                                                                 </div>
-                                                            </div>
 
-                                                            <div class="row m-0 pt-4 pb-4">
-                                                                <div class="col-12 col-md-6">
+
+
+                                                                <div class="col-12 col-md-4 mt-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="fecha_contrato" class=""
                                                                             style="font-size: 15px">Fecha Contrato
@@ -271,7 +263,7 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="col-12 col-md-6">
+                                                                <div class="col-12 col-md-4 mt-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="fecha_terminacion_contrato"
                                                                             class="" style="font-size: 15px">Fecha
@@ -283,10 +275,10 @@
                                                                         ]) !!}
                                                                     </div>
                                                                 </div>
-                                                            </div>
 
-                                                            <div class="row m-0 pt-4 pb-4">
-                                                                <div class="col-12 col-md-6">
+
+
+                                                                <div class="col-12 col-md-4 mt-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="id_estado" class=""
                                                                             style="font-size: 15px">Estado
@@ -314,7 +306,7 @@
                                                             {{-- ====================================================== --}}
                                                             {{-- ====================================================== --}}
 
-                                                            <div class="d-flex justify-content-around mt-5">
+                                                            <div class="d-flex justify-content-around mt-3">
                                                                 <button id="btn_editar_{{ $persona->id_persona }}"
                                                                     type="submit" class="btn btn-success"
                                                                     title="Guardar Configuración">
@@ -401,6 +393,7 @@
 
             // ===========================================================================================
             // ===========================================================================================
+            // $("#modalEditarPersona_").modal("show");
 
             // Event delegation para el botón de abrir modal
             $(document).on('click', 'a[id^="verModal_"]', function(e) {
@@ -409,7 +402,17 @@
                 // Obtén el ID del modal asociado al botón
                 var modalId = $(this).attr('href'); // Obtiene el valor del atributo href (ej: "#ex1_1")
                 $(modalId).css('display', 'block'); // Muestra el modal
+                // $("#modal-overlay").fadeIn();
+                if ($(modalId).length) {
+                    $("#modal-overlay").fadeIn(); // Muestra el fondo oscuro
+                    $(modalId).modal({
+                        showClose: false, // Oculta el botón de cerrar si quieres
+                        escapeClose: false
+                    });
+                }
             });
+
+
 
             // Event delegation para el botón de cerrar modal 
             $(document).on('click', 'button[id^="btn_cancelar_"]', function(e) {
@@ -423,6 +426,33 @@
 
                 // Ocultar el modal
                 $(modalId).css('display', 'none');
+                $("#modal-overlay").fadeOut();
+            });
+
+
+            $(document).on("submit", "form[id^='formEditarPersona_']", function(e) {
+
+                const form = $(this);
+                const formId = form.attr('id'); // Obtenemos el ID del formulario
+                const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
+
+                // Capturar el indicador de carga dinámicamente
+                const loadingIndicator = $(`#loadingIndicatorEdit_${id}`);
+
+                // Capturar el botón de submit dinámicamente
+                const submitButton = $(`#btn_editar_${id}`);
+
+                // Capturar el botón de cancelar
+                const cancelButton = $(`#btn_cancelar_${id}`);
+
+                // Lógica del botón
+                submitButton.prop("disabled", true).html(
+                    "Procesando... <i class='fa fa-spinner fa-spin'></i>"
+                );
+
+                // Lógica del botón cancelar
+                cancelButton.prop("disabled", true);
+                loadingIndicator.show();
             });
 
         });
