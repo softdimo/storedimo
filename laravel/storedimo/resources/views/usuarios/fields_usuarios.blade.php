@@ -6,6 +6,7 @@
         {!! Form::hidden('id_usuario', isset($usuario) ? $usuario->id_usuario : null, [
             'class' => '',
             'id' => 'id_usuario',
+            'required' => 'required'
         ]) !!}
 
         <div class="col-12 col-md-3 mt-3">
@@ -14,6 +15,7 @@
                 {!! Form::select('id_tipo_persona', collect(['' => 'Seleccionar...'])->union($tipos_empleado), null, [
                     'class' => 'form-control',
                     'id' => 'id_tipo_persona',
+                    'required' => 'required'
                 ]) !!}
             </div>
         </div>
@@ -26,7 +28,7 @@
                     'id_tipo_documento',
                     collect(['' => 'Seleccionar...'])->union($tipos_documento),
                     isset($usuario) ? $usuario->id_tipo_documento : null,
-                    ['class' => 'form-control', 'id' => 'id_tipo_documento'],
+                    ['class' => 'form-control', 'id' => 'id_tipo_documento','required' => 'required'],
                 ) !!}
             </div>
         </div>
@@ -43,6 +45,7 @@
                     'class' => 'form-control',
                     'id' => 'identificacion',
                     'minlength' => 6,
+                    'required' => 'required'
                 ]) !!}
             </div>
         </div>
@@ -53,6 +56,7 @@
                 {!! Form::text('nombre_usuario', isset($usuario) ? $usuario->nombre_usuario : null, [
                     'class' => 'form-control',
                     'id' => 'nombre_usuario',
+                    'required' => 'required'
                 ]) !!}
             </div>
         </div>
@@ -65,6 +69,7 @@
                 {!! Form::text('apellido_usuario', isset($usuario) ? $usuario->apellido_usuario : null, [
                     'class' => 'form-control',
                     'id' => 'apellido_usuario',
+                    'required' => 'required'
                 ]) !!}
             </div>
         </div>
@@ -74,7 +79,9 @@
         <div class="col-12 col-md-3 mt-4">
             <div class="form-group d-flex flex-column">
                 <label for="numero_telefono" class="form-label">Número de teléfono</label>
-                {!! Form::text('numero_telefono', null, ['class' => 'form-control', 'id' => 'numero_telefono']) !!}
+                {!! Form::text('numero_telefono', null, [
+                    'class' => 'form-control', 'id' => 'numero_telefono'
+                ]) !!}
             </div>
         </div>
 
@@ -83,7 +90,7 @@
         <div class="col-12 col-md-3 mt-4">
             <div class="form-group d-flex flex-column">
                 <label for="celular" class="form-label">Número de Celular <span class="text-danger">*</span></label>
-                {!! Form::text('celular', null, ['class' => 'form-control', 'id' => 'celular']) !!}
+                {!! Form::text('celular', null, ['class' => 'form-control', 'id' => 'celular','required' => 'required']) !!}
             </div>
         </div>
 
@@ -92,7 +99,9 @@
         <div class="col-12 col-md-3 mt-4">
             <div class="form-group d-flex flex-column">
                 <label for="email" class="form-label">Correo Electrónico <span class="text-danger">*</span></label>
-                {!! Form::text('email', isset($usuario) ? $usuario->email : null, ['class' => 'form-control', 'id' => 'email']) !!}
+                {!! Form::text('email', isset($usuario) ? $usuario->email : null, [
+                    'class' => 'form-control', 'id' => 'email','required' => 'required'
+                ]) !!}
             </div>
         </div>
 
@@ -104,6 +113,7 @@
                 {!! Form::select('id_genero', collect(['' => 'Seleccionar...'])->union($generos), null, [
                     'class' => 'form-control',
                     'id' => 'id_genero',
+                    'required' => 'required'
                 ]) !!}
             </div>
         </div>
@@ -126,7 +136,7 @@
                     'id_rol',
                     collect(['' => 'Seleccionar...'])->union($roles),
                     isset($usuario) ? $usuario->id_rol : null,
-                    ['class' => 'form-control', 'id' => 'id_rol'],
+                    ['class' => 'form-control', 'id' => 'id_rol','required' => 'required'],
                 ) !!}
             </div>
         </div>
@@ -140,7 +150,7 @@
                     'id_estado',
                     collect(['' => 'Seleccionar...'])->union($estados),
                     isset($usuario) ? $usuario->id_estado : 1,
-                    ['class' => 'form-control', 'id' => 'id_estado'],
+                    ['class' => 'form-control', 'id' => 'id_estado','required' => 'required'],
                 ) !!}
             </div>
         </div>
@@ -150,13 +160,13 @@
         <div class="col-12 col-md-3 mt-4">
             <div class="form-group d-flex flex-column">
                 <label for="fecha_contrato" class="form-label">Fecha contrato<span class="text-danger">*</span></label>
-                {!! Form::date('fecha_contrato', null, ['class' => 'form-control', 'id' => 'fecha_contrato']) !!}
+                {!! Form::date('fecha_contrato', null, ['class' => 'form-control', 'id' => 'fecha_contrato','required' => 'required']) !!}
             </div>
         </div>
 
         {{-- ======================= --}}
 
-        <div class="col-12 col-md-3 mt-4">
+        <div class="col-12 col-md-3 mt-4" id="div_fecha_terminacion_contrato">
             <div class="form-group d-flex flex-column">
                 <label for="fecha_terminacion_contrato" class="form-label">Fecha terminación contrato<span
                         class="text-danger">*</span></label>

@@ -27,7 +27,7 @@ class UsuarioStore implements Responsable
         $idTipoDocumento = request('id_tipo_documento', null);
         $identificacion = request('identificacion', null);
         $email = request('email', null);
-        $idEstado = 1;
+        $idEstado = request('id_estado', null);
         $idRol = request('id_rol', null);
         $idTipoPersona = request('id_tipo_persona', null);
         $numeroTelefono = request('numero_telefono', null);
