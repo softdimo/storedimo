@@ -23,10 +23,24 @@
         {{-- ======================================================================= --}}
 
         <div class="p-3" style="width: 80%">
-            <div class="text-end">
+            {{-- <div class="text-end">
                 <a href="#" class="text-blue">
                     <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
                 </a>
+            </div> --}}
+
+            <div class="d-flex justify-content-between pe-3 mt-3">
+                {{-- <div> --}}
+                    <div class="">
+                        <a href="{{route('usuarios.index')}}" class="btn btn-primary">Usuarios</a>
+                    </div>
+
+                    <div class="">
+                        <a href="#" class="text-blue">
+                            <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
+                        </a>
+                    </div>
+                {{-- </div> --}}
             </div>
 
             {{-- =============================================================== --}}
@@ -71,8 +85,6 @@
 
 @section('scripts')
     <script>
-
-
         $( document ).ready(function() {
             let idEstado = $('#id_estado').val();
             console.log(idEstado);

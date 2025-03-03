@@ -51,11 +51,15 @@
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
                 <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar
-                    Usuarios</h5>
+                    Usuarios
+                </h5>
 
-                @php
-                    #dd($usuarioIndex);
-                @endphp
+                <div class="row pe-3 mt-3">
+                    <div class="col-12 d-flex justify-content-end">
+                        <a href="{{route('usuarios.create')}}" class="btn btn-primary">Crear Usuario</a>
+                    </div>
+                </div>
+
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered w-100 mb-0" id="tbl_usuarios"
@@ -365,7 +369,7 @@
                                                                             collect(['' => 'Seleccionar...'])
                                                                             ->union($estados),
                                                                             isset($usuario) ? $usuario->id_estado : null,
-                                                                            ['class' => 'form-control', 'id' =>'id_estado']
+                                                                            ['class' => 'form-control', 'id' =>'id_estado_'.$usuario->id_usuario]
                                                                         )!!}
                                                                     </div>
                                                                 </div>
@@ -392,7 +396,7 @@
 
                                                                 {{-- ======================= --}}
 
-                                                                <div class="col-12 col-md-6" id="div_fecha_terminacion_contrato">
+                                                                <div class="col-12 col-md-6" id="div_fecha_terminacion_contrato_{{$usuario->id_usuario}}">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="fecha_terminacion_contrato" class="form-label">Fecha terminación contrato
                                                                             <span class="text-danger">*</span>
@@ -401,7 +405,7 @@
                                                                             isset($usuario) ? $usuario->fecha_terminacion_contrato : null,
                                                                             [
                                                                                 'class' => 'form-control',
-                                                                                'id' => 'fecha_terminacion_contrato',
+                                                                                'id' => 'fecha_terminacion_contrato_'.$usuario->id_usuario,
                                                                         ]) !!}
                                                                     </div>
                                                                 </div>
@@ -529,6 +533,7 @@
                 confirmarClaveReadOnly.prop("readonly", true);
             });
 
+            // ===========================================================================================
             
             // Botón de submit de editar usuario
             $(document).on("submit", "form[id^='formEditarUsuario_']", function(e) {
@@ -555,6 +560,39 @@
                 cancelButton.prop("disabled", true);
                 loadingIndicator.show();
             });
-        });
+
+            // ===========================================================================================
+
+            let idEstado = $('#id_estado').val();
+            console.log(`Estado: ${idEstado}`);
+
+            if (idEstado == 1 || idEstado == '') {
+                $('#div_fecha_terminacion_contrato').hide();
+                $('#fecha_terminacion_contrato').removeAttr('required');
+            }
+
+            $(document).on('change', '[id^=id_estado_]', function () {
+                let idEstado = $(this).val();
+                console.log("Estado cambiado a:", idEstado);
+
+                // Buscar el modal más cercano donde está el select
+                let modal = $(this).closest('.modal');
+
+                // Buscar los elementos dentro de este modal
+                let divFechaTerminacion = modal.find('[id^=div_fecha_terminacion_contrato]');
+                let inputFechaTerminacion = modal.find('[id^=fecha_terminacion_contrato]');
+
+                if (idEstado == 1) { // Activo
+                    divFechaTerminacion.hide();
+                    inputFechaTerminacion.removeAttr('required');
+                } else if (idEstado == 2) { // Inactivo
+                    divFechaTerminacion.show('slow');
+                    inputFechaTerminacion.attr('required', 'required');
+                } else { // Seleccionar...
+                    divFechaTerminacion.hide();
+                    inputFechaTerminacion.removeAttr('required');
+                }
+            });
+        }); // FIN document.ready
     </script>
 @stop
