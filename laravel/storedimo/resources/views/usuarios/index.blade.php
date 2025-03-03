@@ -411,7 +411,7 @@
                                                         {{-- ====================================================== --}}
                                                         {{-- ====================================================== --}}
 
-                                                        <div class="modal-footer d-block mt-4 border border-0">
+                                                        <div class="modal-footer d-block mt-0 border border-0">
                                                             <!-- Contenedor para el GIF -->
                                                             <div id="loadingIndicatorEditUser_{{$usuario->id_usuario}}"
                                                                 class="loadingIndicator">
