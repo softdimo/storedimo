@@ -56,7 +56,7 @@
 
                 <div class="row pe-3 mt-3">
                     <div class="col-12 d-flex justify-content-end">
-                        <a href="{{route('usuarios.create')}}" class="btn btn-primary">Crear Usuario</a>
+                        <a href="{{route('usuarios.create')}}" class="btn text-white" style="background-color:#337AB7">Crear Usuario</a>
                     </div>
                 </div>
 

@@ -22,12 +22,13 @@ class UsuarioUpdate implements Responsable
     public function toResponse($request)
     {
         $idUsuario = request('id_usuario', null);
+        $idTipoPersona = request('id_tipo_persona', null);
         $nombreUsuario = request('nombre_usuario', null);
         $apellidoUsuario = request('apellido_usuario', null);
+        $idTipoDocumento = request('id_tipo_documento', null);
         $identificacion = request('identificacion', null);
         $email = request('email', null);
         $idRol = request('id_rol', null);
-        $idTipoPersona = request('id_tipo_persona', null);
         $numeroTelefono = request('numero_telefono', null);
         $celular = request('celular', null);
         $idGenero = request('id_genero', null);
@@ -47,12 +48,13 @@ class UsuarioUpdate implements Responsable
             try {
                 $peticionUsuarioUpdate = $this->clientApi->put($this->baseUri.'usuario_update/'. $idUsuario, [
                     'json' => [
+                        'id_tipo_persona' => $idTipoPersona,
                         'nombre_usuario' => $nombreUsuario,
                         'apellido_usuario' => $apellidoUsuario,
+                        'id_tipo_documento' => $idTipoDocumento,
                         'identificacion' => $identificacion,
                         'email' => $email,
                         'id_rol' => $idRol,
-                        'id_tipo_persona' => $idTipoPersona,
                         'numero_telefono' => $numeroTelefono,
                         'celular' => $celular,
                         'id_genero' => $idGenero,
