@@ -33,13 +33,64 @@
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
             <div class="text-end">
-                <a href="#" class="text-blue">
+                <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal" data-bs-target="#modalAyudaListarPersonas">
                     <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
                 </a>
             </div>
 
-            {{-- =============================================================== --}}
-            {{-- =============================================================== --}}
+            {{-- ======================================================================= --}}
+            {{-- ======================================================================= --}}
+
+            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaListarPersonas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
+                <div class="modal-dialog m-0 mw-100">
+                    <div class="modal-content border-0">
+                        <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="rounded-top text-white text-center p-2" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                        <span class="modal-title fs-5"><strong>Ayuda de Listar Personas</strong></span>
+                                    </div>
+                                    {{-- =========================== --}}
+                                    <div class="p-3">
+                                        <p class="text-justify">Señor usuario en esta vista usted se va a encontrar con diferentes opciones ubicadas al lado izquierdo de la tabla, cada una con una acción diferente, esas opciones son:
+                                        </p>
+
+                                        <ul>
+                                            <li><strong>Opcion de Modificación:</strong>
+                                                <ol>Tener en cuenta a la hora de modificar un empleado lo siguiente:
+                                                    <li class="text-justify">Todos los campos que poseen el asterisco (*) son obligatorios, por lo tanto sino se diligencian,
+                                                    el sistema no le dejará seguir.</li>
+                                                    <li class="text-justify">Los campos nombre de usuario y email no pueden ser idénticos a datos ya registrados.</li>
+                                                    <li class="text-justify">Al cambiar un empleado temporal a vinculado, el campo fecha de contrato cargará la fecha actual inicialmente, si usted desea cambiar esa fecha, está no puede ser menor ni superior a los 3 meses.</li>
+                                                </ol>
+                                                <br>
+                                            </li>
+                                            <li><strong>Opción de Cambio de Contraseña:</strong>
+                                                <ol>Tener en cuenta a la hora de cambiar una contraseña lo siguente:
+                                                    <li class="text-justify">La longitud de la contraseña debe ser mayor a 4 caracteres.</li>
+                                                    <li class="text-justify">Ambos campos deben coincidir.</li>
+                                                </ol>
+                                            </li>
+                                        </ul>
+                                        <p class="text-justify">Por seguridad el empleado rol administrador no se le permitirá el cambio de estado</p>
+                                    </div> {{--FINpanel-body --}}
+                                </div> {{--FIN col-12 --}}
+                            </div> {{--FIN modal-body .row --}}
+                        </div> {{--FIN modal-body --}}
+                        {{-- =========================== --}}
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <button type="button" class="btn btn-primary btn-md active pull-right" data-bs-dismiss="modal" style="background-color: #337AB7;">
+                                    <i class="fa fa-check-circle" aria-hidden="true">&nbsp;Aceptar</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div> {{--FIN modal-content --}}
+                </div> {{--FIN modal-dialog --}}
+            </div> {{--FIN modalAyudaModificacionProductos --}}
+
+            {{-- ======================================================================= --}}
+            {{-- ======================================================================= --}}
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
                 <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar
