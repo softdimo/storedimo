@@ -32,10 +32,51 @@
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
             <div class="text-end">
-                <a href="#" class="text-blue">
+                <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal" data-bs-target="#modalAyudaListarProveedores">
                     <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
                 </a>
             </div>
+
+            {{-- =============================================================== --}}
+            {{-- =============================================================== --}}
+
+            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaListarProveedores" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
+                <div class="modal-dialog m-0 mw-100">
+                    <div class="modal-content border-0">
+                        <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="rounded-top text-white text-center p-2" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                        <span class="modal-title"><strong>Ayuda de Listar Clientes</strong></span>
+                                    </div>
+                                    {{-- =========================== --}}
+                                    <div class="p-3">
+                                        <p class="text-justify">Señor usuario en esta vista usted se va a encontrar con diferentes opciones ubicadas al lado izquierdo de la tabla, cada una con una acción diferente, pero en esta ocasión solo se le orientará sobre el icono verde, que pertenece a la opción de modificación:
+                                        </p>
+    
+                                        <ul>
+                                            <li><strong>Opcion de Modificación:</strong>
+                                                <ol>Tener en cuenta a la hora de modificar un cliente lo siguiente:
+                                                    <li class="text-justify">Todos los campos que poseen el asterisco (*) son obligatorios, por lo tanto sino se diligencian, el sistema no le dejará seguir.</li>
+                                                </ol>
+                                                <br>
+                                            </li>
+                                        </ul>
+                                    </div> {{--FINpanel-body --}}
+                                </div> {{--FIN col-12 --}}
+                            </div> {{--FIN modal-body .row --}}
+                        </div> {{--FIN modal-body --}}
+                        {{-- =========================== --}}
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <button type="button" class="btn btn-primary btn-md active pull-right" data-bs-dismiss="modal" style="background-color: #337AB7;">
+                                    <i class="fa fa-check-circle" aria-hidden="true">&nbsp;Aceptar</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div> {{--FIN modal-content --}}
+                </div> {{--FIN modal-dialog --}}
+            </div> {{--FIN modalAyudaModificacionProductos --}}
 
             {{-- =============================================================== --}}
             {{-- =============================================================== --}}
