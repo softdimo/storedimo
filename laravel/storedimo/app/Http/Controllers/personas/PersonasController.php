@@ -179,7 +179,25 @@ class PersonasController extends Controller
 
     public function listarProveedores()
     {
-        return view('personas.listar_proveedores');
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return view('personas.listar_proveedores');
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Update Usuario!");
+            return redirect()->to(route('login'));
+        }
     }
     
     // ======================================================================
@@ -187,6 +205,24 @@ class PersonasController extends Controller
 
     public function listarClientes()
     {
-        return view('personas.listar_clientes');
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return view('personas.listar_clientes');
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Update Usuario!");
+            return redirect()->to(route('login'));
+        }
     }
 }
