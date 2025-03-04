@@ -173,7 +173,9 @@
                     {{-- =========================== --}}
                     <div class="row mt-3">
                         <div class="col-12">
-                            <button type="button" class="btn btn-primary btn-md active pull-right" data-bs-dismiss="modal"><i class="fa fa-check-circle" aria-hidden="true">&nbsp;Aceptar</i></button>
+                            <button type="button" class="btn btn-primary btn-md active pull-right" data-bs-dismiss="modal" style="background-color: #337AB7;">
+                                <i class="fa fa-check-circle" aria-hidden="true">&nbsp;Aceptar</i>
+                            </button>
                         </div>
                     </div>
                 </div> {{--FIN modal-content --}}
