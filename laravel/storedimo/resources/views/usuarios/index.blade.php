@@ -56,7 +56,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="rounded-top text-white text-center p-2" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                                        <span class="modal-title"><strong>Ayuda de Listar Empleados</strong></span>
+                                        <span class="modal-title fs-5"><strong>Ayuda de Listar Empleados</strong></span>
                                     </div>
                                     {{-- =========================== --}}
                                     <div class="p-3">
