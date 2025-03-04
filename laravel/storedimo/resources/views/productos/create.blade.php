@@ -43,7 +43,7 @@
                                         <p class="text-justify">Señor usuario a la hora de realizar un registro tener en cuenta las siguientes recomendaciones:</p>
     
                                         <ol>
-                                            <li class="text-justify">Los campos marcados con asterisco (*) son obligatorios, por o tanto sino se llenan el sistema no le dejará seguir.</li>
+                                            <li class="text-justify">Los campos marcados con asterisco (*) son obligatorios, por lo tanto sino se llenan el sistema no le dejará seguir.</li>
                                             <li class="text-justify">Evitar ingresar nombres de productos ya existentes.</li>
                                             <li class="text-justify">El precio unitario no puede ser mayor al precio al detal y precio al por mayor.</li>
                                             <li class="text-justify">El precio al detal no puede ser menor al precio al por mayor.</li>
@@ -83,7 +83,81 @@
 @section('scripts')
     <script>
         $( document ).ready(function() {
-            // $("#username").trigger('focus');
+            // Valido si el nombre del producto existe
+            $('#id_categoria').blur(function () {
+                let nombreProducto = $('#nombre_producto').val();
+                let idCategoria = $('#id_categoria').val();
+                
+                $.ajax({
+                    url: "{{route('verificar_producto')}}",
+                    type: "POST",
+                    dataType: "JSON",
+                    data: {
+                        '_token': "{{ csrf_token() }}",
+                        'nombre_producto': nombreProducto,
+                        'id_categoria': idCategoria,
+                    },
+                    success: function (respuesta) {
+                        console.log(respuesta);
+
+                        if (respuesta == "existe_producto") {
+                            Swal.fire(
+                                'Cuidado!',
+                                'Este producto ya existe!',
+                                'warning'
+                            )
+                            $('#nombre_producto').val('');
+                        }
+
+                        if (respuesta == "error_exception") {
+                            Swal.fire(
+                                'Error!',
+                                'No fue posible consultar el producto, intente nuevamente!',
+                                'error'
+                            )
+                        }
+                    }
+                });
+            });
+
+            // =============================================
+
+            // Valido que el precio unitario sea menor que el precio al detal
+            $('#precio_detal').blur(function () {
+                let precioUnitario = parseFloat($('#precio_unitario').val()) || 0;
+                let precioDetal = parseFloat($('#precio_detal').val()) || 0;
+
+                if (precioUnitario >= precioDetal) {
+                    Swal.fire(
+                        'Cuidado!',
+                        'El precio unitario debe ser menor que el precio al detal!',
+                        'warning'
+                    )
+                    $('#precio_detal').val('');
+                }
+            });
+            
+            // =============================================
+
+            // Valido que el precio unitario sea menor que el precio al detal
+            $('#precio_por_mayor').blur(function () {
+                let precioUnitario = parseFloat($('#precio_unitario').val()) || 0;
+                let precioDetal = parseFloat($('#precio_detal').val()) || 0;
+                let precioPorMayor = parseFloat($('#precio_por_mayor').val()) || 0;
+
+                console.log(precioUnitario);
+                console.log(precioDetal);
+                console.log(precioPorMayor);
+
+                if ( precioPorMayor <= precioUnitario || precioPorMayor >= precioDetal) {
+                    Swal.fire(
+                        'Cuidado!',
+                        'El precio al por mayor debe ser superior al precio unitario y menor que el precio al detal!',
+                        'warning'
+                    )
+                    $('#precio_por_mayor').val('');
+                }
+            });
         });
     </script>
 @stop

@@ -247,10 +247,48 @@ class ProductosController extends Controller
     // ======================================================================
     // ======================================================================
 
-    // private function shareData()
-    // {
-    //     view()->share('categorias', Categoria::orderBy('categoria','asc')->pluck('categoria', 'id_categoria'));
-    // }
+    public function verificarProducto(Request $request)
+    {
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    $baseUri = env('BASE_URI');
+                    $clientApi = new Client(['base_uri' => $baseUri]);
+
+                    try {
+                        $nombreProducto = request('nombre_producto', null);
+                        $idCategoria = request('id_categoria', null);
+
+                        $verificarProducto = $clientApi->post($baseUri.'verificar_producto', [
+                            'query' => [
+                                'nombre_producto' => $nombreProducto,
+                                'id_categoria' => $idCategoria,
+                            ]
+                        ]);
+                        $resVerificarProducto = json_decode($verificarProducto->getBody()->getContents());
+        
+                        if( isset($resVerificarProducto) && !empty($resVerificarProducto) && !is_null($resVerificarProducto) ) {
+                            return response()->json('existe_producto');
+                        }
+                    } catch (Exception $e) {
+                        return response()->json('error_exception');
+                    }
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Update Usuario!");
+            return redirect()->to(route('login'));
+        }
+    }
 
     // ======================================================================
     // ======================================================================

@@ -17,7 +17,7 @@ class ProductoStore implements Responsable
         $precioPorMayor = request('precio_por_mayor', null);
         $descripcion = request('descripcion', null);
         $stockMinimo = request('stock_minimo', null);
-        $estado = request('estado', null);
+        $idEstado = request('id_estado', null);
 
         // ================================================
 
@@ -29,7 +29,7 @@ class ProductoStore implements Responsable
             'precio_por_mayor' => $precioPorMayor,
             'descripcion' => $descripcion,
             'stock_minimo' => $stockMinimo,
-            'estado' => $estado,
+            'id_estado' => $idEstado,
         ]);
 
         // ================================================

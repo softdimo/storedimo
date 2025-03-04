@@ -55,6 +55,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 // PRODUCTOS
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('producto_index', 'productos\ProductosController@index');
+    $router->post('verificar_producto', 'productos\ProductosController@verificarProducto');
     $router->post('producto_store', 'productos\ProductosController@store');
     $router->post('producto_show/{idProducto}', 'productos\ProductosController@show');
     $router->post('producto_edit/{idProducto}', 'productos\ProductosController@edit');
