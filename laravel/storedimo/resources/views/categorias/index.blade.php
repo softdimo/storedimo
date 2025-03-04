@@ -47,25 +47,38 @@
                     <div class="col-12 mb-auto" style="border: solid 1px #337AB7; border-radius: 5px; width:30%">
                         <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Registrar Categoría</h5>
 
-                        {!! Form::open(['method' => 'POST', 'route' => ['categorias.store'], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'form_crear_categorias']) !!}
+                        {!! Form::open(['method' => 'POST', 'route' => ['categorias.store'], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'formCrearCategoria']) !!}
                             @csrf
 
                             <div class="p-3 d-flex flex-column" style="height: 50%;">
                                 <div>
                                     <label for="categoria">Nombre Categoría<span class="text-danger"> *</span></label>
-                                    {!! Form::text('categoria', null, ['class' => 'form-control', 'id' => 'categoria']) !!}
+                                    {!! Form::text('categoria', null, ['class' => 'form-control', 'id' => 'categoria', 'required' => 'required']) !!}
                                 </div>
 
+                                {{-- ====================================================== --}}
+                                {{-- ====================================================== --}}
+                                        
+                                <!-- Contenedor para el GIF -->
+                                <div id="loadingIndicatorCrearCategoria"
+                                    class="loadingIndicator">
+                                    <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                                </div>
+
+                                {{-- ====================================================== --}}
+                                {{-- ====================================================== --}}
+
+
                                 <div class="d-flex justify-content-center mt-3 ">
-                                    <button class="btn btn-success rounded-2 me-3" type="submit">
+                                    <button type="submit" class="btn btn-success rounded-2 me-3">
                                         <i class="fa fa-floppy-o"></i>
                                         Guardar
                                     </button>
                         
-                                    <button class="btn btn-danger rounded-2" type="submit">
+                                    {{-- <button type="button" class="btn btn-danger rounded-2">
                                         <i class="fa fa-remove"></i>
                                         Cancelar
-                                    </button>
+                                    </button> --}}
                                 </div>
                             </div>
                         {!! Form::close() !!}
@@ -100,10 +113,13 @@
                                             {{-- =============================================================== --}}
 
                                             {{-- INICIO Modal EDITAR CATEGORÍA --}}
-                                            <div class="modal fade" id="modal_editar_categoria_{{$categoria->id_categoria}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+                                            <div class="modal fade h-auto modal-gral" id="modal_editar_categoria_{{$categoria->id_categoria}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content p-3 w-100">
-                                                        {!! Form::open(['method' => 'POST', 'route' => ['editar_categoria'], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'form_editar_categorias']) !!}
+                                                        {!!Form::open(['method' => 'POST',
+                                                            'route' => ['editar_categoria'],
+                                                            'class' => 'mt-2', 'autocomplete' => 'off',
+                                                            'id' => 'formEditarCategoria_'.$categoria->id_categoria])!!}
                                                             @csrf
                                                             <div class="" style="border: solid 1px #337AB7;">
                                                                 <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
@@ -115,17 +131,30 @@
 
                                                                 <div class="modal-body p-0 m-0">
                                                                     <div class="row m-0 pt-4 pb-4">
-                                                                            <div class="col-12 col-md-6">
+                                                                            <div class="col-12 col-md-3">
                                                                                 <div class="form-group d-flex flex-column">
                                                                                     <label for="id_categoria" class="" style="font-size: 15px">Código<span class="text-danger">*</span></label>
-                                                                                    {{ Form::text('id_categoria', isset($categoria) ? $categoria->id_categoria : null, ['class'=>'form-control', 'id'=>'id_categoria', 'readonly']) }}
+                                                                                    {{Form::text('id_categoria',
+                                                                                        isset($categoria) ? $categoria->id_categoria : null,
+                                                                                        [
+                                                                                            'class'=>'form-control',
+                                                                                            'id'=>'id_categoria_'.$categoria->id_categoria,
+                                                                                            'readonly'
+                                                                                        ])
+                                                                                    }}
                                                                                 </div>
                                                                             </div>
 
-                                                                            <div class="col-12 col-md-6">
+                                                                            <div class="col-12 col-md-9">
                                                                                 <div class="form-group d-flex flex-column">
                                                                                     <label for="categoria" class="" style="font-size: 15px">Nombre<span class="text-danger">*</span></label>
-                                                                                    {{ Form::text('categoria', isset($categoria) ? $categoria->categoria : null, ['class' => 'form-control', 'id' => 'categoria']) }}
+                                                                                    {{Form::text('categoria',
+                                                                                        isset($categoria) ? $categoria->categoria : null,
+                                                                                        [
+                                                                                            'class' => 'form-control',
+                                                                                            'id' => 'categoria_'.$categoria->id_categoria
+                                                                                        ])
+                                                                                    }}
                                                                                 </div>
                                                                             </div>
                                                                     </div>
@@ -134,14 +163,27 @@
                                                         
                                                             {{-- ====================================================== --}}
                                                             {{-- ====================================================== --}}
+                                                                    
+                                                            <!-- Contenedor para el GIF -->
+                                                            <div id="loadingIndicatorEditCategoria_{{$categoria->id_categoria}}"
+                                                                class="loadingIndicator">
+                                                                <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                                                            </div>
 
-                                                            <div class="d-flex justify-content-center mt-5">
-                                                                <button type="submit" class="btn btn-success" title="Guardar Configuración">
+                                                            {{-- ====================================================== --}}
+                                                            {{-- ====================================================== --}}
+
+                                                            <div class="d-flex justify-content-around mt-5">
+                                                                <button type="submit" title="Guardar Configuración"
+                                                                    class="btn btn-success"
+                                                                    id="btn_editar_categoria_{{$categoria->id_categoria}}">
                                                                     <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
                                                                 </button>
                                                                 
-                                                                
-                                                                <button type="button" class="btn btn-secondary" title="Cancelar" data-bs-dismiss="modal">
+                                                                <button type="button" title="Cancelar"
+                                                                    class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal"
+                                                                    id="btn_editar_cancelar_{{$categoria->id_categoria}}">
                                                                     <i class="fa fa-times" aria-hidden="true"> Cancelar</i>
                                                                 </button>
                                                             </div>
@@ -205,40 +247,48 @@
             // ======================================================
             // ======================================================
 
+             // formCrearCategoria para cargar gif en el submit
+            $(document).on("submit", "form[id^='formCrearCategoria']", function(e) {
+                const form = $(this);
+                const submitButton = form.find('button[type="submit"]');
+                // const cancelButton = form.find('button[type="button"]');
+                const loadingIndicator = form.find("div[id^='loadingIndicatorCrearCategoria']"); // Busca el GIF del form actual
+
+                // Dessactivar Submit y Cancel
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+                // cancelButton.prop("disabled", true);
+
+                // Mostrar Spinner
+                loadingIndicator.show();
+
+                // Readonly para el campo categoría
+                const idCategoriaField = form.find("#categoria").prop("readonly", true);
+            });
+            
+            // ======================================================
+            // ======================================================
+
+            // formEditarCategoria para cargar gif en el submit
+            $(document).on("submit", "form[id^='formEditarCategoria_']", function(e) {
+                const form = $(this);
+                const formId = form.attr('id'); // Obtenemos el ID del formulario
+                const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
+
+                // Capturar spinner y btns
+                const loadingIndicator = $(`#loadingIndicatorEditCategoria_${id}`);
+                const submitButton = $(`#btn_editar_categoria_${id}`);
+                const cancelButton = $(`#btn_editar_cancelar_${id}`);
+
+                // Desactivar btns
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+                cancelButton.prop("disabled", true);
+                loadingIndicator.show();
+
+                // Readonly para el campo nueva clave
+                const idCategoria = $(`#id_categoria_${id}`).prop("readonly", true);
+                const categoria = $(`#categoria_${id}`).prop("readonly", true);
+            });
         });
-
-        // function editarCategoria(idCategoria) {
-
-        //     $.ajax({
-        //         type: "POST",
-        //         dataType: "JSON",
-        //         data: {
-        //             '_token': "{{ csrf_token() }}",
-        //             'id_categoria': idCategoria,
-        //             'categoria': categoria,
-        //         },
-        //         success: function (respuesta) {
-        //             console.log(respuesta);
-
-        //             if (respuesta == "categoria_editada") {
-        //                 Swal.fire(
-        //                     'Bien!',
-        //                     'Categoría Editada!',
-        //                     'success'
-        //                 )
-        //             }
-
-        //             if (respuesta == "error_exception") {
-        //                 Swal.fire(
-        //                     'Error!',
-        //                     'Categoría no Editada!',
-        //                     'error'
-        //                 )
-        //             }
-        //         }
-        //     });
-
-        // }
     </script>
 @stop
 

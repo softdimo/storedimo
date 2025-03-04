@@ -508,7 +508,7 @@
 
             // ===========================================================================================
 
-            // formEditarCategoria para cargar gif en el submit
+            // formCambiarClave para cargar gif en el submit
             $(document).on("submit", "form[id^='formCambiarClave_']", function(e) {
                 const form = $(this);
                 const formId = form.attr('id'); // Obtenemos el ID del formulario
