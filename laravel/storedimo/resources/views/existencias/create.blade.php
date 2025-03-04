@@ -24,10 +24,44 @@
 
         <div class="p-3" style="width: 80%">
             <div class="text-end">
-                <a href="#" class="text-blue">
+                <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal" data-bs-target="#modalAyudaRegistrarBajas">
                     <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
                 </a>
             </div>
+
+            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaRegistrarBajas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
+                <div class="modal-dialog m-0 mw-100">
+                    <div class="modal-content border-0">
+                        <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="rounded-top text-white text-center p-2" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                        <span class="modal-title fs-4"><strong>Ayuda de Registrar Bajas</strong></span>
+                                    </div>
+                                    {{-- =========================== --}}
+                                    <div class="p-3">
+                                        <p class="text-justify">Tener en cuenta para el registro de la baja lo siguiente:</p>
+    
+                                        <ol>
+                                            <li class="text-justify">Todos los campos que tienen el asterisco (*) son obligatorios, por lo tanto si no se diligencian el sistema no le dejará seguir.</li>
+                                            <li class="text-justify">En el campo de producto, para una mayor agilidad se recomienda usar la pistola para leer el código del producto y así asociarlo mas fácil y rápido.</li>
+                                            <li class="text-justify">En caso de que se haya equivocado en una cantidad o en un producto en el momento de agregar, con el icono de color rojo con forma de basurero, se puede quitar la selección inicial.</li>
+                                        </ol>
+                                    </div> {{--FINpanel-body --}}
+                                </div> {{--FIN col-12 --}}
+                            </div> {{--FIN modal-body .row --}}
+                        </div> {{--FIN modal-body --}}
+                        {{-- =========================== --}}
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <button type="button" class="btn btn-primary btn-md active pull-right" data-bs-dismiss="modal" style="background-color: #337AB7;">
+                                    <i class="fa fa-check-circle" aria-hidden="true">&nbsp;Aceptar</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div> {{--FIN modal-content --}}
+                </div> {{--FIN modal-dialog --}}
+            </div> {{--FIN modalAyudaModificacionProductos --}}
 
             {{-- =============================================================== --}}
             {{-- =============================================================== --}}
