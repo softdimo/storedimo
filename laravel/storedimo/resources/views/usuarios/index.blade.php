@@ -211,7 +211,7 @@
                                             style="max-width: 55%;">
                                             <div class="modal-dialog m-0 mw-100">
                                                 <div class="modal-content w-100 border-0">
-                                                    {!! Form::open([
+                                                    {!! Form::model($usuario,[
                                                         'method' => 'PUT',
                                                         'route' => ['usuarios.update', $usuario->id_usuario],
                                                         'class' => 'mt-2',
@@ -234,8 +234,10 @@
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="id_tipo_persona" class="" style="font-size: 15px">Tipo Usuario
                                                                             <span class="text-danger">*</span></label>
-                                                                        {{ Form::text('id_tipo_persona',
-                                                                            isset($usuario) ? $usuario->nombre_usuario : null,
+                                                                        {{ Form::select('id_tipo_persona',
+                                                                            collect(['' => 'Seleccionar...'])
+                                                                            ->union($tipos_empleado),
+                                                                            isset($usuario) ? $usuario->id_tipo_persona : null,
                                                                             ['class' => 'form-control',
                                                                             'id' => 'id_tipo_persona',
                                                                             'required' => 'required'])
@@ -315,7 +317,7 @@
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="email" class="" style="font-size: 15px">Correo
                                                                             <span class="text-danger">*</span></label>
-                                                                        {{ Form::text('email', isset($usuario) ? $usuario->email : null, ['class' => 'form-control', 'id' => 'email', 'required' => 'required']) }}
+                                                                        {{ Form::email('email', isset($usuario) ? $usuario->email : null, ['class' => 'form-control', 'id' => 'email', 'required' => 'required']) }}
                                                                     </div>
                                                                 </div>
                                                                 {{-- ======================= --}}
@@ -369,8 +371,8 @@
                                                                             collect(['' => 'Seleccionar...'])
                                                                             ->union($estados),
                                                                             isset($usuario) ? $usuario->id_estado : null,
-                                                                            ['class' => 'form-control', 'id' =>'id_estado_'.$usuario->id_usuario]
-                                                                        )!!}
+                                                                            ['class' => 'form-control', 'id' =>'id_estado_'.$usuario->id_usuario])
+                                                                        !!}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -563,13 +565,31 @@
 
             // ===========================================================================================
 
-            let idEstado = $('#id_estado').val();
-            console.log(`Estado: ${idEstado}`);
+            $(document).on('shown.bs.modal', '.modal', function () {
+                // Buscar el select dentro del modal
+                let selectEstado = $(this).find('[id^=id_estado_]');
+                
+                if (selectEstado.length > 0) {
+                    let idEstado = selectEstado.val(); // Obtener el valor actual del select
+                    console.log(`Estado al abrir el modal: ${idEstado}`);
 
-            if (idEstado == 1 || idEstado == '') {
-                $('#div_fecha_terminacion_contrato').hide();
-                $('#fecha_terminacion_contrato').removeAttr('required');
-            }
+                    // Buscar los elementos dentro de este modal
+                    let divFechaTerminacion = $(this).find('[id^=div_fecha_terminacion_contrato]');
+                    let inputFechaTerminacion = $(this).find('[id^=fecha_terminacion_contrato]');
+
+                    // Aplicar la lógica de ocultar o mostrar
+                    if (idEstado == 1 || idEstado == '') {
+                        divFechaTerminacion.hide();
+                        inputFechaTerminacion.removeAttr('required');
+                        inputFechaTerminacion.val('');
+                    } else {
+                        divFechaTerminacion.show();
+                        inputFechaTerminacion.attr('required', 'required');
+                    }
+                }
+            });
+
+            // ===========================================================================================
 
             $(document).on('change', '[id^=id_estado_]', function () {
                 let idEstado = $(this).val();
@@ -585,6 +605,7 @@
                 if (idEstado == 1) { // Activo
                     divFechaTerminacion.hide();
                     inputFechaTerminacion.removeAttr('required');
+                    inputFechaTerminacion.val('');
                 } else if (idEstado == 2) { // Inactivo
                     divFechaTerminacion.show('slow');
                     inputFechaTerminacion.attr('required', 'required');
