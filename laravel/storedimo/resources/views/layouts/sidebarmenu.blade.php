@@ -50,12 +50,12 @@
                     <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('personas.index')}}">Listar Personas</a>
                     </li>
-                   {{--  <li class="nav-item w-100">
+                    <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('listar_proveedores')}}">Listar Proveedores</a>
                     </li>
                     <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('listar_clientes')}}">Listar Clientes</a>
-                    </li> --}}
+                    </li>
                 </ul>
             </li>
 

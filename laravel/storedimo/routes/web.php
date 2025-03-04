@@ -65,9 +65,8 @@ Route::group(['namespace' => 'App\Http\Controllers\usuarios'], function () {
 // PERSONAS
 Route::group(['namespace' => 'App\Http\Controllers\personas'], function () {
     Route::resource('personas', 'PersonasController');
-
-    /* Route::get('listar_personas', 'PersonasController@listarPersonas')->name('listar_personas');
-    Route::get('listar_clientes', 'PersonasController@listarClientes')->name('listar_clientes'); */
+    Route::get('listar_proveedores', 'PersonasController@listarProveedores')->name('listar_proveedores');
+    Route::get('listar_clientes', 'PersonasController@listarClientes')->name('listar_clientes');
 });
 
 
