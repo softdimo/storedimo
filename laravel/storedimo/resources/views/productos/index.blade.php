@@ -72,8 +72,7 @@
                                             </li>
                                         </ul>
                                         <p class="text-justify">El icono de color azul es de solo información.</p>
-                                        <p class="text-justify">El icono rojo pertenece al cambio de estado, el cual pedirá confirmación
-                                                            en el momento de pulsar sobre el.</p>
+                                        <p class="text-justify">El icono rojo pertenece al cambio de estado, el cual pedirá confirmación en el momento de pulsar sobre el.</p>
                                     </div> {{--FINpanel-body --}}
                                 </div> {{--FIN col-12 --}}
                             </div> {{--FIN modal-body .row --}}
@@ -182,7 +181,6 @@
         {{-- ===================================================================================================== --}}
         {{-- ===================================================================================================== --}}
 
-<<<<<<< HEAD
         <div class="modal fade h-auto modal-gral p-3" id="modalAyudaModificacionProductos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
             <div class="modal-dialog m-0 mw-100">
                 <div class="modal-content border-0">
@@ -239,8 +237,6 @@
         {{-- ===================================================================================================== --}}
         {{-- ===================================================================================================== --}}
 
-=======
->>>>>>> juguimeco
         {{-- INICIO Modal DETALLES PRODUCTO --}}
         <div class="modal fade" id="productoModal" tabindex="-1" role="dialog" aria-labelledby="productoModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-dialog">
@@ -664,20 +660,5 @@
                 }
             });
         }  // CIERRE Ver INACTIVAR producto
-
-        // ==========================================================
-        // ==========================================================
-        // ==========================================================
-        
-
-
-        // ==========================================================
-        // ==========================================================
-        // ==========================================================
-        
-
-        
     </script>
 @stop
-
-
