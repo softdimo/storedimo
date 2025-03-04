@@ -72,8 +72,7 @@
                                             </li>
                                         </ul>
                                         <p class="text-justify">El icono de color azul es de solo información.</p>
-                                        <p class="text-justify">El icono rojo pertenece al cambio de estado, el cual pedirá confirmación
-                                                            en el momento de pulsar sobre el.</p>
+                                        <p class="text-justify">El icono rojo pertenece al cambio de estado, el cual pedirá confirmación en el momento de pulsar sobre el.</p>
                                     </div> {{--FINpanel-body --}}
                                 </div> {{--FIN col-12 --}}
                             </div> {{--FIN modal-body .row --}}
