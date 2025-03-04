@@ -6,7 +6,7 @@
 {{-- =============================================================== --}}
 
 @section('css')
-    {{-- <link rel="stylesheet" href="{{ asset('css/custom.css') }}"> --}}
+
 @stop
 
 {{-- =============================================================== --}}
@@ -23,24 +23,16 @@
         {{-- ======================================================================= --}}
 
         <div class="p-3" style="width: 80%">
-            {{-- <div class="text-end">
-                <a href="#" class="text-blue">
-                    <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
-                </a>
-            </div> --}}
-
             <div class="d-flex justify-content-between pe-3 mt-3">
-                {{-- <div> --}}
-                    <div class="">
-                        <a href="{{route('usuarios.index')}}" class="btn btn-primary">Usuarios</a>
-                    </div>
+                <div class="">
+                    <a href="{{route('usuarios.index')}}" class="btn text-white" style="background-color:#337AB7">Usuarios</a>
+                </div>
 
-                    <div class="">
-                        <a href="#" class="text-blue">
-                            <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
-                        </a>
-                    </div>
-                {{-- </div> --}}
+                <div class="">
+                    <a href="#" class="text-blue">
+                        <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
+                    </a>
+                </div>
             </div>
 
             {{-- =============================================================== --}}
@@ -62,7 +54,7 @@
                 {{-- ========================================================= --}}
                 {{-- ========================================================= --}}
 
-                <div class="mt-5 mb-2 d-flex justify-content-center">
+                <div class="mt-4 mb-0 d-flex justify-content-center">
                     <button type="submit" class="btn btn-success rounded-2 me-3">
                         <i class="fa fa-floppy-o"></i>
                         Guardar
@@ -74,7 +66,6 @@
                     </button>
                 </div>
             {!! Form::close() !!}
-            {{-- @include('layouts.loader') --}}
         </div>
     </div>
 @stop

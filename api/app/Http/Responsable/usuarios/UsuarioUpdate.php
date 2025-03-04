@@ -29,6 +29,7 @@ class UsuarioUpdate implements Responsable
             try {
                 $usuario->nombre_usuario = $request->input('nombre_usuario');
                 $usuario->apellido_usuario = $request->input('apellido_usuario');
+                $usuario->id_tipo_documento = $request->input('id_tipo_documento');
                 $usuario->identificacion = $request->input('identificacion');
                 $usuario->email = $request->input('email');
                 $usuario->id_rol = $request->input('id_rol');
