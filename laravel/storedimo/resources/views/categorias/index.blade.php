@@ -32,10 +32,56 @@
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
             <div class="text-end">
-                <a href="#" class="text-blue">
+                <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal" data-bs-target="#modalAyudaCategorias">
                     <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
                 </a>
             </div>
+
+            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaCategorias" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
+                <div class="modal-dialog m-0 mw-100">
+                    <div class="modal-content border-0">
+                        <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="rounded-top text-white text-center p-2" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                        <span class="modal-title"><strong>Ayuda de Gestionar Categorías</strong></span>
+                                    </div>
+                                    {{-- =========================== --}}
+                                    <div class="p-3">
+                                        <p class="text-justify">Señor usuario en esta vista usted se va a encontrar varios paneles, los cuales hacen diferentes acciones cada uno, esos paneles son:</p>
+    
+                                        <ul>
+                                            <li><strong>Panel de Registro:</strong>
+                                                <ol>Tener en cuenta a la hora de registrar una categoría lo siguiente.
+                                                    <li class="text-justify">Todos los campos que poseen el asterisco (*) son obligatorios, por lo tanto sino se diligencian, el sistema no le dejará seguir.</li>
+                                                    <li class="text-justify">No ingresar nombres ya existentes en la base de datos.</li>
+                                                </ol>
+                                                <br>
+                                            </li>
+                                            <li><strong>Panel de Modificación:</strong>
+                                                <ol>En este panel se listarán todas las categorías registradas.
+                                                    <br>
+                                                    Tener en cuenta para la modificación de una categoría lo siguiente:
+                                                    <li class="text-justify">No ingresar nombres ya existentes en la base de datos.</li>
+                                                    <li class="text-justify">Los nombres ingresados deben contener por lo menos 3 caracteres.</li>
+                                                </ol>
+                                            </li>
+                                        </ul>
+                                    </div> {{--FINpanel-body --}}
+                                </div> {{--FIN col-12 --}}
+                            </div> {{--FIN modal-body .row --}}
+                        </div> {{--FIN modal-body --}}
+                        {{-- =========================== --}}
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <button type="button" class="btn btn-primary btn-md active pull-right" data-bs-dismiss="modal" style="background-color: #337AB7;">
+                                    <i class="fa fa-check-circle" aria-hidden="true">&nbsp;Aceptar</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div> {{--FIN modal-content --}}
+                </div> {{--FIN modal-dialog --}}
+            </div> {{--FIN modalAyudaModificacionProductos --}}
 
             {{-- =============================================================== --}}
             {{-- =============================================================== --}}
