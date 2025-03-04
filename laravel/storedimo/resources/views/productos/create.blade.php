@@ -67,7 +67,7 @@
             {{-- =============================================================== --}}
             {{-- =============================================================== --}}
 
-            {!! Form::open(['method' => 'POST', 'route' => ['productos.store'], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'form_crear_productos']) !!}
+            {!! Form::open(['method' => 'POST', 'route' => ['productos.store'], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'formCrearProducto']) !!}
                 @csrf
             
                 @include('productos.fields_crear_productos')
@@ -158,7 +158,24 @@
                     $('#precio_por_mayor').val('');
                 }
             });
-        });
+
+            // =============================================
+
+            // formCrearCategoria para cargar gif en el submit
+            $(document).on("submit", "form[id^='formCrearProducto']", function(e) {
+                const form = $(this);
+                const submitButton = form.find('button[type="submit"]');
+                const cancelButton = form.find('button[type="button"]');
+                const loadingIndicator = form.find("div[id^='loadingIndicatorCrearProducto']"); // Busca el GIF del form actual
+
+                // Dessactivar Submit y Cancel
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+                cancelButton.prop("disabled", true);
+
+                // Mostrar Spinner
+                loadingIndicator.show();
+            });
+        }); // FIN document.ready
     </script>
 @stop
 
