@@ -37,6 +37,59 @@
                 </a>
             </div>
 
+            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaModificacionProductos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
+                <div class="modal-dialog m-0 mw-100">
+                    <div class="modal-content border-0">
+                        <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="rounded-top text-white text-center p-2" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                        <span class="modal-title"><strong>Ayuda de Listar Productos</strong></span>
+                                    </div>
+                                    {{-- =========================== --}}
+                                    <div class="p-3">
+                                        <p class="text-justify">Señor usuario en esta vista usted se va a encontrar con diferentes
+                                            opciones ubicadas al lado izquierdo de la tabla, cada una con una acción
+                                            diferente, esas opciones son:
+                                        </p>
+    
+                                        <ul>
+                                            <li><strong>Opcion de Modificación:</strong>
+                                                <ol>Tener en cuenta a la hora de modificar un producto lo siguiente:
+                                                    <li class="text-justify">Todos los campos que poseen el asterisco (*) son obligatorios, por lo tanto sino se diligencian,
+                                                    el sistema no le dejará seguir.</li>
+                                                    <li class="text-justify">Evitar ingresar nombres de productos ya existentes.</li>
+                                                    <li class="text-justify">El precio unitario no puede ser mayor al precio al detal y precio al por mayor.</li>
+                                                    <li class="text-justify">El precio al detal no puede ser menor al precio al por mayor.</li>
+                                                </ol>
+                                                <br>
+                                            </li>
+                                            <li><strong>Opción de Generación Código de Barras:</strong>
+                                                <ol>Tener en cuenta lo siguiente en el momento de generar el código de barras de un producto:
+                                                    <li class="text-justify">En el campo de cantidad la longitud máxima permitida es de 3 caracteres.</li>
+                                                    <li class="text-justify">Ingresar cantidades no mayores a 100.</li>
+                                                </ol>
+                                            </li>
+                                        </ul>
+                                        <p class="text-justify">El icono de color azul es de solo información.</p>
+                                        <p class="text-justify">El icono rojo pertenece al cambio de estado, el cual pedirá confirmación
+                                                            en el momento de pulsar sobre el.</p>
+                                    </div> {{--FINpanel-body --}}
+                                </div> {{--FIN col-12 --}}
+                            </div> {{--FIN modal-body .row --}}
+                        </div> {{--FIN modal-body --}}
+                        {{-- =========================== --}}
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <button type="button" class="btn btn-primary btn-md active pull-right" data-bs-dismiss="modal" style="background-color: #337AB7;">
+                                    <i class="fa fa-check-circle" aria-hidden="true">&nbsp;Aceptar</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div> {{--FIN modal-content --}}
+                </div> {{--FIN modal-dialog --}}
+            </div> {{--FIN modalAyudaModificacionProductos --}}
+
             {{-- =============================================================== --}}
             {{-- =============================================================== --}}
 
@@ -129,6 +182,7 @@
         {{-- ===================================================================================================== --}}
         {{-- ===================================================================================================== --}}
 
+<<<<<<< HEAD
         <div class="modal fade h-auto modal-gral p-3" id="modalAyudaModificacionProductos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
             <div class="modal-dialog m-0 mw-100">
                 <div class="modal-content border-0">
@@ -185,6 +239,8 @@
         {{-- ===================================================================================================== --}}
         {{-- ===================================================================================================== --}}
 
+=======
+>>>>>>> juguimeco
         {{-- INICIO Modal DETALLES PRODUCTO --}}
         <div class="modal fade" id="productoModal" tabindex="-1" role="dialog" aria-labelledby="productoModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-dialog">
