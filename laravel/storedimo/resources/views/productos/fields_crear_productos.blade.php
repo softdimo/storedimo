@@ -68,13 +68,22 @@
         {{-- ========================================================= --}}
         {{-- ========================================================= --}}
 
+        <!-- Contenedor para el GIF -->
+        <div id="loadingIndicatorCrearProducto"
+            class="loadingIndicator">
+            <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+        </div>
+
+        {{-- ====================================================== --}}
+        {{-- ====================================================== --}}
+
         <div class="mt-5 mb-2 d-flex justify-content-center">
-            <button class="btn btn-success rounded-2 me-3" type="submit">
+            <button type="submit" class="btn btn-success rounded-2 me-3">
                 <i class="fa fa-floppy-o"></i>
                 Guardar
             </button>
 
-            <button class="btn btn-danger rounded-2" type="submit">
+            <button type="button" class="btn btn-danger rounded-2">
                 <i class="fa fa-remove"></i>
                 Cancelar
             </button>
