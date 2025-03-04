@@ -123,4 +123,25 @@ class ProductosController extends Controller
 
     // ======================================================================
     // ======================================================================
+
+    public function verificarProducto()
+    {
+        $nombreProducto = request('nombre_producto', null);
+        $idCategoria = request('id_categoria', null);
+
+        try {
+            $validarNombreProducto = Producto::where('nombre_producto', $nombreProducto)
+                    ->where('id_categoria', $idCategoria)
+                    ->first();
+
+            if (isset($validarNombreProducto) && !is_null($validarNombreProducto) && !empty($validarNombreProducto)) {
+                return response()->json($validarNombreProducto);
+            }
+        } catch (Exception $e) {
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
+    }
+
+    // ======================================================================
+    // ======================================================================
 }

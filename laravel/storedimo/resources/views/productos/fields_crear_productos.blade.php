@@ -47,7 +47,6 @@
 
         {{-- ======================= --}}
         
-        
         <div class="col-12 col-md-3 mt-3">
             <div class="form-group d-flex flex-column">
                 <label for="descripcion" class="form-label">Descripción</label>

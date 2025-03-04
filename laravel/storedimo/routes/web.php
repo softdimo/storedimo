@@ -87,6 +87,7 @@ Route::group(['namespace' => 'App\Http\Controllers\categorias'], function () {
 // PRODUCTOS
 Route::group(['namespace' => 'App\Http\Controllers\productos'], function () {
     Route::resource('productos', 'ProductosController');
+    Route::post('verificar_producto', 'ProductosController@verificarProducto')->name('verificar_producto');
     Route::post('producto_show/{idProducto}', 'ProductosController@show')->name('producto_show');
     Route::post('producto_edit/{idProducto}', 'ProductosController@edit')->name('producto_edit');
     Route::post('producto_update', 'ProductosController@update')->name('producto_update');
