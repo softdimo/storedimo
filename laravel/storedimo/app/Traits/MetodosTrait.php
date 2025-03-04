@@ -67,8 +67,8 @@ trait MetodosTrait
         view()->share('roles', Rol::orderBy('rol')->pluck('rol', 'id_rol'));
         view()->share('estados', Estado::orderBy('estado')->pluck('estado', 'id_estado'));
         view()->share('tipos_documento', TipoDocumento::orderBy('tipo_documento')->pluck('tipo_documento', 'id_tipo_documento'));
-        view()->share('tipos_persona', TipoPersona::whereNotIn('id_tipo_persona', [1,2])->orderBy('tipo_persona')->pluck('tipo_persona', 'id_tipo_persona'));
         view()->share('tipos_empleado', TipoPersona::whereIn('id_tipo_persona', [1,2])->orderBy('tipo_persona')->pluck('tipo_persona', 'id_tipo_persona'));
+        view()->share('tipos_persona', TipoPersona::whereNotIn('id_tipo_persona', [1,2])->orderBy('tipo_persona')->pluck('tipo_persona', 'id_tipo_persona'));
         view()->share('generos', Genero::orderBy('genero')->pluck('genero', 'id_genero'));
     }
 }
