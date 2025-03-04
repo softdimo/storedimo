@@ -31,11 +31,11 @@
         {{-- ======================================================================= --}}
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
-            <div class="text-end">
+            {{-- <div class="text-end">
                 <a href="#" class="text-blue">
                     <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
                 </a>
-            </div>
+            </div> --}}
 
             {{-- =============================================================== --}}
             {{-- =============================================================== --}}
