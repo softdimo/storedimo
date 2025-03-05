@@ -32,8 +32,9 @@ class PersonaStore implements Responsable
         $idGenero = request('id_genero', null);
         $direccion = request('direccion', null);
         $idEstado = request('id_estado', null);
-        $fechaContrato = request('fecha_contrato', null);
-        $fechaTerminacionContrato = request('fecha_terminacion_contrato', null);
+        $nitEmpresa = request('nit_empresa', null);
+        $nombreEmpresa = request('nombre_empresa', null);
+        $telefonoEmpresa = request('telefono_empresa', null);
 
         if(strlen($identificacion) < 6)
         {
@@ -62,13 +63,14 @@ class PersonaStore implements Responsable
                         'id_genero' => $idGenero,
                         'direccion' => $direccion,
                         'id_estado' => $idEstado,
-                        'fecha_contrato' => $fechaContrato,
-                        'fecha_terminacion_contrato' => $fechaTerminacionContrato,
+                        'nit_empresa' => $nitEmpresa,
+                        'nombre_empresa' => $nombreEmpresa,
+                        'telefono_empresa' => $telefonoEmpresa,
                     ]
                 ]);
                 $resPersonaStore = json_decode($peticionPersonaStore->getBody()->getContents());
-                if(isset($resPersonaStore) && !empty($resPersonaStore))
-                {
+
+                if(isset($resPersonaStore) && !empty($resPersonaStore)) {
                     return $this->respuestaExito(
                         'Persona creada satisfactoriamente.', 'personas.index'
                     );

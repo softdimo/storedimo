@@ -35,8 +35,9 @@ class PersonaUpdate implements Responsable
                 $persona->id_genero = $request->input('id_genero');
                 $persona->direccion = $request->input('direccion');
                 $persona->id_estado = $request->input('id_estado');
-                $persona->fecha_contrato = $request->input('fecha_contrato');
-                $persona->fecha_terminacion_contrato = $request->input('fecha_terminacion_contrato');
+                $persona->nit_empresa = $request->input('nit_empresa');
+                $persona->nombre_empresa = $request->input('nombre_empresa');
+                $persona->telefono_empresa = $request->input('telefono_empresa');
                 $persona->update();
     
                 return response()->json(['success' => true]);
