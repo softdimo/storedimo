@@ -599,6 +599,15 @@
                 // ReadOnly para input de cantidad de barcodes a generar
                 const cantidadBarcode = $(`#cantidad_barcode_${id}`).prop("readonly", true);
             });
+
+            // ===========================================================
+            // ===========================================================
+
+            // Abre automáticamente el archivo con los códigos QR del producto recién solicitado
+            let pdfUrl = "{{ session('pdfUrl') }}";
+            if (pdfUrl) {
+                window.open(pdfUrl, '_blank');
+            }
         }); //FIN Document.ready
     </script>
 @stop

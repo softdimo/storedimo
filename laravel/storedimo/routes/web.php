@@ -94,6 +94,19 @@ Route::group(['namespace' => 'App\Http\Controllers\productos'], function () {
     Route::post('cambiar_estado_producto', 'ProductosController@destroy')->name('cambiar_estado_producto');
     Route::post('query_barcode_producto/{idProducto}', 'ProductosController@queryBarCodeProducto')->name('query_barcode_producto');
     Route::post('producto_barcode', 'ProductosController@productoGenerarBarCode')->name('producto_barcode');
+
+    // ========================================================================
+    
+    // Abre automáticamente el archivo con los códigos QR del producto recién solicitado
+    Route::get('/ver-pdf/{archivo}', function ($archivo) {
+        $rutaPdf = storage_path("app/public/upfiles/productos/barcodes/{$archivo}");
+    
+        if (!file_exists($rutaPdf)) {
+            abort(404, "El archivo no existe.");
+        }
+    
+        return response()->file($rutaPdf);
+    })->name('ver.pdf');
 });
 
 // ========================================================================
