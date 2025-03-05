@@ -116,7 +116,7 @@
                             </thead>
                             {{-- ============================== --}}
                             <tbody>
-                                @if(isset($productos) && count($productos) > 0)
+                                {{-- @if(isset($productos) && count($productos) > 0) --}}
                                     @foreach ($productos as $producto)
                                         <tr class="text-center">
                                             <td>{{$producto->id_producto}}</td>
@@ -143,14 +143,28 @@
                                                         <i class="fa fa-barcode" aria-hidden="true"></i>
                                                     </button>
                                                     {{-- ============================== --}}
-                                                    <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="cambiarEstadoProducto('{{$producto->id_producto}}')">
+                                                    {{-- <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="cambiarEstadoProducto('{{$producto->id_producto}}')">
                                                         <i class="fa fa-solid fa-recycle"></i>
+                                                    </button> --}}
+
+                                                    <button class="btn btn-danger rounded-circle btn-circle"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#modalCambiarEstadoProducto_{{$producto->id_producto}}"
+                                                        title="Cambiar Estado">
+                                                        <i class="fa fa-solid fa-recycle" aria-hidden="true"></i>
                                                     </button>
                                                 </td>
                                             @else
                                                 <td>
-                                                    <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="cambiarEstadoProducto('{{$producto->id_producto}}')">
+                                                    {{-- <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="cambiarEstadoProducto('{{$producto->id_producto}}')">
                                                         <i class="fa fa-solid fa-recycle"></i>
+                                                    </button> --}}
+
+                                                    <button class="btn btn-danger rounded-circle btn-circle"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#modalCambiarEstadoProducto_{{$producto->id_producto}}"
+                                                        title="Cambiar Estado">
+                                                        <i class="fa fa-solid fa-recycle" aria-hidden="true"></i>
                                                     </button>
                                                 </td>
                                             @endif
@@ -288,10 +302,7 @@
                                                                     {{ Form::hidden('id_producto_input',null,['class'=>'','id'=>'id_producto_input','required'=>'required']) }}
                                                                     {{ Form::hidden('nombre_producto_input',null,['class'=>'form-control','id'=>'nombre_producto_input', 'required'=>'required']) }}
                                                                 </div>
-
                                                                 {{-- ====================================================== --}}
-                                                                {{-- ====================================================== --}}
-
                                                                 <div class="modal-body p-0 m-0">
                                                                         <div class="m-0 p-4 d-flex justify-content-between">
                                                                             <div class="">
@@ -307,10 +318,7 @@
                                                                 </div>
                                                             </div>
                                                         {!! Form::close() !!}
-                                                            
                                                         {{-- ====================================================== --}}
-                                                        {{-- ====================================================== --}}
-
                                                         <div class="d-flex justify-content-end mt-5">
                                                             <button type="button" class="btn btn-secondary" title="Cancelar" data-bs-dismiss="modal">
                                                                 <i class="fa fa-remove" aria-hidden="true"> Cancelar</i>
@@ -320,13 +328,78 @@
                                                 </div>
                                             </div>
                                             {{-- FINAL Modal CÓDIGO DE BARRAS PRODUCTO --}}
+
+                                            {{-- =========================================================================== --}}
+                                            {{-- =========================================================================== --}}
+                                            {{-- =========================================================================== --}}
+
+                                            {{-- INICIO Modal CAMBIAR CONTRASEÑA --}}
+                                            <div class="modal fade h-auto modal-gral"
+                                                id="modalCambiarEstadoProducto_{{$producto->id_producto}}" tabindex="-1"
+                                                data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+                                            <div class="modal-dialog m-0">
+                                                <div class="modal-content w-100 border-0">
+                                                    {!! Form::open([
+                                                        'method' => 'POST',
+                                                        'route' => ['cambiar_estado_producto'],
+                                                        'class' => 'mt-2',
+                                                        'autocomplete' => 'off',
+                                                        'id' => 'formCambiarEstadoProducto_' . $producto->id_producto
+                                                    ]) !!}
+                                                        @csrf
+                                                        <div class="rounded-top" style="border: solid 1px #337AB7;">
+                                                            <div class="rounded-top text-white text-center"
+                                                                style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                                                <h5>Cambiar estado del producto: <br>
+                                                                    <span class="text-warning">{{$producto->nombre_producto}}</span>
+                                                                </h5>
+                                                            </div>
+
+                                                            <div class="mt-4 mb-4 text-center">
+                                                                <span class="text-danger fs-5">¿Realmente desea cambiar el estado del producto?</span>
+                                                            </div>
+
+
+                                                            {{ Form::hidden('id_producto', isset($producto) ? $producto->id_producto : null, ['class' => '', 'id' => 'id_producto']) }}
+                                                        </div>
+
+                                                        {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
+
+                                                        <!-- Contenedor para el GIF -->
+                                                        <div id="loadingIndicatorEstadoProducto_{{$producto->id_producto}}"
+                                                            class="loadingIndicator">
+                                                            <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                                                        </div>
+
+                                                        {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
+
+                                                        <div class="d-flex justify-content-around mt-3">
+                                                            <button type="submit" id="btn_cambiar_estado_producto_{{$producto->id_producto}}"
+                                                                class="btn btn-success" title="Guardar Configuración">
+                                                                <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
+                                                            </button>
+
+
+                                                            <button type="button" id="btn_cancelar_estado_producto_{{$producto->id_producto}}"
+                                                                class="btn btn-secondary" title="Cancelar"
+                                                                data-bs-dismiss="modal">
+                                                                <i class="fa fa-times" aria-hidden="true"> Cancelar</i>
+                                                            </button>
+                                                        </div>
+                                                    {!! Form::close() !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- FINAL Modal CAMBIAR CONTRASEÑA --}}
                                         </tr>
                                     @endforeach
-                                @else
+                                {{-- @else
                                     <tr>
                                         <td colspan="8" class="text-center">No hay productos disponibles.</td>
                                     </tr>
-                                @endif
+                                @endif --}}
                             </tbody>
                         </table>
                     </div>
@@ -362,7 +435,7 @@
         // let nombreProductoGlobal;
 
         $(document).ready(function() {
-            @if(isset($productos) && count($productos) > 0)
+            // @if(isset($productos) && count($productos) > 0)
                 // INICIO DataTable Lista Productos
                 $("#tbl_productos").DataTable({
                     dom: 'Blfrtip',
@@ -391,7 +464,7 @@
                     "pageLength": 10,
                     "scrollX": true,
                 });
-            @endif
+            // @endif
             // CIERRE DataTable Lista Productos
             
             // ===========================================================
@@ -412,10 +485,6 @@
                 submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
                 cancelButton.prop("disabled", true);
                 loadingIndicator.show();
-
-                // Readonly para el campo nueva clave
-                const idCategoria = $(`#id_categoria_${id}`).prop("readonly", true);
-                const categoria = $(`#categoria_${id}`).prop("readonly", true);
             });
 
             // ===========================================================
@@ -439,7 +508,7 @@
             // ===========================================================
             // ===========================================================
 
-            // Valido que el precio unitario sea menor que el precio al detal
+            // Valido que el precio por mayor sea mayor que el unitario y menor que el precio al detal
             $('#precioPorMayorEdit').blur(function () {
                 let precioUnitario = parseFloat($('#precioUnitarioEdit').val()) || 0;
                 let precioDetal = parseFloat($('#precioDetalEdit').val()) || 0;
@@ -461,6 +530,25 @@
 
             // ===========================================================
             // ===========================================================
+
+            // Botón de submit de editar usuario
+            $(document).on("submit", "form[id^='formCambiarEstadoProducto_']", function(e) {
+                const form = $(this);
+                const formId = form.attr('id'); // Obtenemos el ID del formulario
+                const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
+
+                // Capturar spinner y btns dinámicamente
+                const loadingIndicator = $(`#loadingIndicatorEstadoProducto_${id}`);
+                const submitButton = $(`#btn_cambiar_estado_producto_${id}`);
+                const cancelButton = $(`#btn_cancelar_estado_producto_${id}`);
+
+                // Deshabilitar btns
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+                cancelButton.prop("disabled", true);
+
+                // Cargar spinner
+                loadingIndicator.show();
+            });
             
             // $('.modificar').click(function(e) {
             //     e.preventDefault();
@@ -540,64 +628,64 @@
         // ==========================================================
         // ==========================================================
 
-        function cambiarEstadoProducto(idProducto) {
-            Swal.fire({
-                title: "¿Realmente desea cambiar el estado del producto?",
-                // text: "No se puede revertir!",
-                icon: "warning",
-                type: "warning",
-                showDenyButton: false,
-                showCancelButton: true,
-                confirmButtonText: "Aceptar",
-                cancelButtonText: `Cancelar`
-            }).then((result) => {
-                console.log(result.value);
-                /* Read more about isConfirmed, isDenied below */
-                if (result.value) {
-                    let url = "{{ route('inactivar_producto') }}";
+        // function cambiarEstadoProducto(idProducto) {
+        //     Swal.fire({
+        //         title: "¿Realmente desea cambiar el estado del producto?",
+        //         // text: "No se puede revertir!",
+        //         icon: "warning",
+        //         type: "warning",
+        //         showDenyButton: false,
+        //         showCancelButton: true,
+        //         confirmButtonText: "Aceptar",
+        //         cancelButtonText: `Cancelar`
+        //     }).then((result) => {
+        //         console.log(result.value);
+        //         /* Read more about isConfirmed, isDenied below */
+        //         if (result.value) {
+        //             
                 
-                    $.ajax({
-                        url: url,
-                        type: 'POST',
-                        dataType: "JSON",
-                        data: {
-                            '_token': "{{ csrf_token() }}",
-                            'id_producto': idProducto,
-                        },
-                        success: function(response) {
-                            console.log(response);
+        //             $.ajax({
+        //                 url: url,
+        //                 type: 'POST',
+        //                 dataType: "JSON",
+        //                 data: {
+        //                     '_token': "{{ csrf_token() }}",
+        //                     'id_producto': idProducto,
+        //                 },
+        //                 success: function(response) {
+        //                     console.log(response);
 
-                            if (response == "estado_cambiado") {
-                                Swal.fire(
-                                    'Bien!',
-                                    'Se cambia estado al Producto!',
-                                    'success',
-                                );
-                                setTimeout(function() {
-                                    window.location.reload();
-                                }, 3000);
-                            }
+        //                     if (response == "estado_cambiado") {
+        //                         Swal.fire(
+        //                             'Bien!',
+        //                             'Se cambia estado al Producto!',
+        //                             'success',
+        //                         );
+        //                         setTimeout(function() {
+        //                             window.location.reload();
+        //                         }, 3000);
+        //                     }
 
-                            // ============================
+        //                     // ============================
 
-                            if (response == "error_exception") {
-                                Swal.fire(
-                                    'Error!',
-                                    'No fue posible cambiar el estado, Contacte a Soporte!',
-                                    'error'
-                                );
-                                setTimeout(function() {
-                                    window.location.reload();
-                                }, 3000);
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            // Maneja los errores si la solicitud AJAX falla
-                            console.error(error);
-                        }
-                    });
-                }
-            });
-        }  // CIERRE Ver INACTIVAR producto
+        //                     if (response == "error_exception") {
+        //                         Swal.fire(
+        //                             'Error!',
+        //                             'No fue posible cambiar el estado, Contacte a Soporte!',
+        //                             'error'
+        //                         );
+        //                         setTimeout(function() {
+        //                             window.location.reload();
+        //                         }, 3000);
+        //                     }
+        //                 },
+        //                 error: function(xhr, status, error) {
+        //                     // Maneja los errores si la solicitud AJAX falla
+        //                     console.error(error);
+        //                 }
+        //             });
+        //         }
+        //     });
+        // }  // CIERRE Ver INACTIVAR producto
     </script>
 @stop

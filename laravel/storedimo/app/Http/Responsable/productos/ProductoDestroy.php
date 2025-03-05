@@ -18,14 +18,20 @@ class ProductoDestroy implements Responsable
             $clientApi = new Client(['base_uri' => $baseUri]);
 
             // Realiza la solicitud a la API
-            $response = $clientApi->post($baseUri . 'cambiar_estado/'.$idProducto);
-            $respuesta = json_decode($response->getBody()->getContents(), true);
+            $response = $clientApi->post($baseUri . 'cambiar_estado_producto/'.$idProducto);
+            $respuesta = json_decode($response->getBody()->getContents());
 
             if(isset($respuesta) && !empty($respuesta)) {
-                return response()->json("estado_cambiado");
+                // return response()->json("estado_cambiado");
+
+                alert()->success('Proceso Exitoso', 'Estado cambiado satisfactoriamente');
+                return redirect()->to(route('productos.index'));
             }
         } catch (Exception $e) {
-            return response()->json("error_exception");
+            // return response()->json("error_exception");
+
+            alert()->error('Error', 'Cambiando el estado del producto, contacte a Soporte.' . $e->getMessage());
+            return back();
         }
     }
 }
