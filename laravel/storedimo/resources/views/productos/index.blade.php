@@ -303,14 +303,20 @@
                                                                 <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
                                                                     <h5>Producto: <span id="nombre_producto">{{$producto->nombre_producto}}</span> - Código: <span id="id_producto">{{$producto->id_producto}}</span></h5>
 
-                                                                    {{ Form::hidden('id_producto_input',null,['class'=>'','id'=>'id_producto_input','required'=>'required']) }}
-                                                                    {{ Form::hidden('nombre_producto_input',null,['class'=>'form-control','id'=>'nombre_producto_input', 'required'=>'required']) }}
+                                                                    {{ Form::hidden('id_producto_input', isset($producto) ? $producto->id_producto : null,['class'=>'','id'=>'id_producto_input','required'=>'required']) }}
+                                                                    {{ Form::hidden('nombre_producto_input', isset($producto) ? $producto->nombre_producto : null,['class'=>'form-control','id'=>'nombre_producto_input', 'required'=>'required']) }}
                                                                 </div>
                                                                 {{-- ====================================================== --}}
                                                                 <div class="modal-body p-0 m-0">
                                                                         <div class="m-0 p-4 d-flex justify-content-between">
                                                                             <div class="">
-                                                                                {{ Form::number('cantidad_barcode',null,['class'=>'form-control','id'=>'cantidad_barcode','placeholder'=>'Ingresar cantidad', 'required'=>'required']) }}
+                                                                                {{ Form::number('cantidad_barcode',null,
+                                                                                [
+                                                                                    'class'=>'form-control',
+                                                                                    'id'=>'cantidad_barcode_'.$producto->id_producto,
+                                                                                    'placeholder'=>'Ingresar cantidad',
+                                                                                    'required'=>'required'
+                                                                                ]) }}
                                                                             </div>
                                                                             
                                                                             <div class="">
@@ -589,6 +595,9 @@
 
                 // Cargar spinner
                 loadingIndicator.show();
+
+                // ReadOnly para input de cantidad de barcodes a generar
+                const cantidadBarcode = $(`#cantidad_barcode_${id}`).prop("readonly", true);
             });
         }); //FIN Document.ready
     </script>
