@@ -143,10 +143,6 @@
                                                         <i class="fa fa-barcode" aria-hidden="true"></i>
                                                     </button>
                                                     {{-- ============================== --}}
-                                                    {{-- <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="cambiarEstadoProducto('{{$producto->id_producto}}')">
-                                                        <i class="fa fa-solid fa-recycle"></i>
-                                                    </button> --}}
-
                                                     <button class="btn btn-danger rounded-circle btn-circle"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#modalCambiarEstadoProducto_{{$producto->id_producto}}"
@@ -156,10 +152,6 @@
                                                 </td>
                                             @else
                                                 <td>
-                                                    {{-- <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="cambiarEstadoProducto('{{$producto->id_producto}}')">
-                                                        <i class="fa fa-solid fa-recycle"></i>
-                                                    </button> --}}
-
                                                     <button class="btn btn-danger rounded-circle btn-circle"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#modalCambiarEstadoProducto_{{$producto->id_producto}}"
@@ -290,14 +282,26 @@
                                             {{-- =========================================================================== --}}
                                             
                                             {{-- INICIO Modal CÓDIGO DE BARRAS PRODUCTO --}}
-                                            <div class="modal fade h-auto modal-gral" id="barCodeModal" tabindex="-1" role="dialog" aria-labelledby="barCodeModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-                                                <div class="modal-dialog">
+                                            <div class="modal fade h-auto modal-gral p-0"
+                                                id="barCodeModal_{{$producto->id_producto}}"
+                                                tabindex="-1"
+                                                role="dialog"
+                                                aria-labelledby="myModalLabel"
+                                                aria-hidden="true"
+                                                data-bs-backdrop="static"
+                                                data-bs-keyboard="false">
+                                                <div class="modal-dialog m-0">
                                                     <div class="modal-content p-3 w-100">
-                                                        {!! Form::open(['method' => 'POST', 'route' => ['producto_barcode'], 'class' => 'm-0 p-0', 'autocomplete' => 'off', 'id' => 'form_producto_barcode']) !!}
-                                                        @csrf
-                                                            <div class="" style="border: solid 1px #337AB7;">
+                                                        {!! Form::open(['method' => 'POST',
+                                                            'route' => ['producto_barcode'],
+                                                            'class' => 'm-0 p-0',
+                                                            'autocomplete' => 'off',
+                                                            'id' => 'form_producto_barcode']) !!}
+                                                            @csrf
+
+                                                            <div class="rounded-top" style="border: solid 1px #337AB7;">
                                                                 <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                                                                    <h5>Producto: <span id="nombre_producto"></span> - Código: <span id="id_producto"></span></h5>
+                                                                    <h5>Producto: <span id="nombre_producto">{{$producto->nombre_producto}}</span> - Código: <span id="id_producto">{{$producto->id_producto}}</span></h5>
 
                                                                     {{ Form::hidden('id_producto_input',null,['class'=>'','id'=>'id_producto_input','required'=>'required']) }}
                                                                     {{ Form::hidden('nombre_producto_input',null,['class'=>'form-control','id'=>'nombre_producto_input', 'required'=>'required']) }}
@@ -319,7 +323,7 @@
                                                             </div>
                                                         {!! Form::close() !!}
                                                         {{-- ====================================================== --}}
-                                                        <div class="d-flex justify-content-end mt-5">
+                                                        <div class="d-flex justify-content-end mt-3">
                                                             <button type="button" class="btn btn-secondary" title="Cancelar" data-bs-dismiss="modal">
                                                                 <i class="fa fa-remove" aria-hidden="true"> Cancelar</i>
                                                             </button>
@@ -550,39 +554,6 @@
                 loadingIndicator.show();
             });
             
-            // $('.modificar').click(function(e) {
-            //     e.preventDefault();
-            //     var url = $(this).data('url');
-                
-            //     $.ajax({
-            //         url: url,
-            //         type: 'POST',
-            //         dataType: "JSON",
-            //         data: {
-            //             '_token': "{{ csrf_token() }}",
-            //         },
-            //         success: function(response) {
-            //             console.log(response);
-            //             // Actualiza el contenido del modal con la información del producto
-            //             $('#idProductoEdit').val(response.id_producto);
-            //             $('#nombreProductoEdit').val(response.nombre_producto);
-            //             $('#categoriaEdit').val(response.id_categoria);
-            //             $('#descripcionEdit').val(response.descripcion);
-            //             $('#precioUnitarioEdit').val(response.precio_unitario);
-            //             $('#precioPorMayorEdit').val(response.precio_por_mayor);
-            //             $('#precioDetalEdit').val(response.precio_detal);
-            //             $('#stockMinimoEdit').val(response.stock_minimo);
-
-            //             // Muestra el modal
-            //             $('#productoModificarModal').modal('show');
-            //         },
-            //         error: function(xhr, status, error) {
-            //             // Maneja los errores si la solicitud AJAX falla
-            //             console.error(error);
-            //         }
-            //     });
-            // });  // CIERRE Ver editar producto
-
             // ===========================================================
             // ===========================================================
             
@@ -623,69 +594,5 @@
             // ===========================================================
 
         }); //FIN Document.ready
-
-        // ==========================================================
-        // ==========================================================
-        // ==========================================================
-
-        // function cambiarEstadoProducto(idProducto) {
-        //     Swal.fire({
-        //         title: "¿Realmente desea cambiar el estado del producto?",
-        //         // text: "No se puede revertir!",
-        //         icon: "warning",
-        //         type: "warning",
-        //         showDenyButton: false,
-        //         showCancelButton: true,
-        //         confirmButtonText: "Aceptar",
-        //         cancelButtonText: `Cancelar`
-        //     }).then((result) => {
-        //         console.log(result.value);
-        //         /* Read more about isConfirmed, isDenied below */
-        //         if (result.value) {
-        //             
-                
-        //             $.ajax({
-        //                 url: url,
-        //                 type: 'POST',
-        //                 dataType: "JSON",
-        //                 data: {
-        //                     '_token': "{{ csrf_token() }}",
-        //                     'id_producto': idProducto,
-        //                 },
-        //                 success: function(response) {
-        //                     console.log(response);
-
-        //                     if (response == "estado_cambiado") {
-        //                         Swal.fire(
-        //                             'Bien!',
-        //                             'Se cambia estado al Producto!',
-        //                             'success',
-        //                         );
-        //                         setTimeout(function() {
-        //                             window.location.reload();
-        //                         }, 3000);
-        //                     }
-
-        //                     // ============================
-
-        //                     if (response == "error_exception") {
-        //                         Swal.fire(
-        //                             'Error!',
-        //                             'No fue posible cambiar el estado, Contacte a Soporte!',
-        //                             'error'
-        //                         );
-        //                         setTimeout(function() {
-        //                             window.location.reload();
-        //                         }, 3000);
-        //                     }
-        //                 },
-        //                 error: function(xhr, status, error) {
-        //                     // Maneja los errores si la solicitud AJAX falla
-        //                     console.error(error);
-        //                 }
-        //             });
-        //         }
-        //     });
-        // }  // CIERRE Ver INACTIVAR producto
     </script>
 @stop
