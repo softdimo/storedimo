@@ -33,9 +33,10 @@ class PersonaIndex implements Responsable
                     'personas.id_genero',
                     'direccion',
                     'estado',
-                    'fecha_contrato',
-                    'fecha_terminacion_contrato',
                     'personas.id_estado',
+                    'nit_empresa',
+                    'nombre_empresa',
+                    'telefono_empresa'
                 )
                 ->orderBy('nombres_persona')
                 ->get();

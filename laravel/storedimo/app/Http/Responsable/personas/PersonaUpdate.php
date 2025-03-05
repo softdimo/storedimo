@@ -32,8 +32,9 @@ class PersonaUpdate implements Responsable
         $idGenero = request('id_genero', null);
         $direccion = request('direccion', null);
         $idEstado = request('id_estado', null);
-        $fechaContrato = request('fecha_contrato', null);
-        $fechaTerminacionContrato = request('fecha_terminacion_contrato', null);
+        $nitEmpresa = request('nit_empresa', null);
+        $nombreEmpresa = request('nombre_empresa', null);
+        $telefonoEmpresa = request('telefono_empresa', null);
         
         if(strlen($identificacion) < 6)
         {
@@ -55,21 +56,19 @@ class PersonaUpdate implements Responsable
                     'id_genero' => $idGenero,
                     'direccion' => $direccion,
                     'id_estado' => $idEstado,
-                    'fecha_contrato' => $fechaContrato,
-                    'fecha_terminacion_contrato' => $fechaTerminacionContrato,
+                    'nit_empresa' => $nitEmpresa,
+                    'nombre_empresa' => $nombreEmpresa,
+                    'telefono_empresa' => $telefonoEmpresa
                 ]
             ]);
             $resPersonaUpdate = json_decode($peticionPersonaUpdate->getBody()->getContents());
-            if(isset($resPersonaUpdate) && !empty($resPersonaUpdate))
-            {
+
+            if(isset($resPersonaUpdate) && !empty($resPersonaUpdate)) {
                 return $this->respuestaExito(
                     'Persona editada satisfactoriamente.', 'personas.index'
                 );
             }
-        }
-        catch (Exception $e)
-        {
-            dd($e);
+        } catch (Exception $e) {
             return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
         }
         
@@ -113,9 +112,4 @@ class PersonaUpdate implements Responsable
         alert()->error('Error', $mensaje);
         return back();
     }
-
-    // ===================================================================
-    // ===================================================================
-
-
 }

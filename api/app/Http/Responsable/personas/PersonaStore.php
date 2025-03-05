@@ -23,12 +23,13 @@ class PersonaStore implements Responsable
         $idGenero = request('id_genero', null);
         $direccion = request('direccion', null);
         $idEstado = request('id_estado', null);
-        $fechaContrato = request('fecha_contrato', null);
-        $fechaTerminacionContrato = request('fecha_terminacion_contrato', null);
+        $nitEmpresa = request('nit_empresa', null);
+        $nombreEmpresa = request('nombre_empresa', null);
+        $telefonoEmpresa = request('telefono_empresa', null);
 
         // ================================================
         try {
-            $nuevaPersona = Persona::create([
+            Persona::create([
                 'id_tipo_persona' => $idTipoPersona,
                 'id_tipo_documento' => $idTipoDocumento,
                 'identificacion' => $identificacion,
@@ -40,8 +41,9 @@ class PersonaStore implements Responsable
                 'id_genero' => $idGenero,
                 'direccion' => $direccion,
                 'id_estado' => $idEstado,
-                'fecha_contrato' => $fechaContrato,
-                'fecha_terminacion_contrato' => $fechaTerminacionContrato,
+                'nit_empresa' => $nitEmpresa,
+                'nombre_empresa' => $nombreEmpresa,
+                'telefono_empresa' => $telefonoEmpresa,
             ]);
     
             // ================================================

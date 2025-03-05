@@ -115,88 +115,16 @@ class PersonasController extends Controller
         return Persona::where('identificacion', $identificacion)->first();
     }
 
-    public function consultaUsuario()
-    {
-        try {
-            $usuario = request('usuario', null);
+    // public function inactivarUsuario($idUsuario) 
+    // {
+    //     try {
 
-            // Consultamos si ya existe este usuario específico
-            $consultaUsuario = Usuario::where('usuario', $usuario)->first();
+    //         $user = Usuario::find($idUsuario);
+    //         $user->id_estado = 2;
+    //         $user->save();
 
-            if ($consultaUsuario) {
-                return response()->json($consultaUsuario);
-            } else {
-                return response()->json('no_user');
-            }
-        } catch (Exception $e) {
-            return response()->json('error_bd');
-        }
-    }
-
-
-    public function queryUsuarioUpdate($idUsuario)
-    {
-        try {
-            // Consultamos el id del usuario 
-            return Usuario::where('id_usuario', $idUsuario)->first();
-        } catch (Exception $e) {
-            return response()->json('error_bd');
-        }
-    }
-
-
-    public function cambiarClave(Request $request, $idUsuario)
-    {
-        $claveNueva = request('clave', null);
-
-        try {
-            $cambioClave = Usuario::where('id_usuario',$idUsuario)
-                ->update([
-                    'clave' => Hash::make($claveNueva),
-            ]);
-            return response()->json('clave_cambiada');
-        } catch (Exception $e) {
-            return response()->json('error_bd');
-        }
-    }
-
-    public function consultaRecuperarClave(Request $request)
-    {
-        $email = request('email', null);
-        $identificacion = request('identificacion', null);
-
-        try {
-             return Usuario::select('id_usuario','usuario','identificacion','email')
-                ->where('email', $email)
-                ->where('identificacion', $identificacion)
-                ->first();
-        } catch (Exception $e) {
-            return response()->json('error_bd');
-        }
-    }
-
-    public function inactivarUsuario($idUsuario) 
-    {
-        try {
-
-            $user = Usuario::find($idUsuario);
-            $user->id_estado = 2;
-            $user->save();
-
-        } catch (Exception $e) {
-            return response()->json('error_bd');
-        }
-    }
-
-    public function actualizarClaveFallas(Request $request, $idUsuario)
-    {
-        $contador = request('clave_fallas', null);
-        try {
-            $user = Usuario::find($idUsuario);
-            $user->clave_fallas = $contador;
-            $user->save();
-        } catch (Exception $e) {
-            return response()->json('error_bd');
-        }
-    }
+    //     } catch (Exception $e) {
+    //         return response()->json('error_bd');
+    //     }
+    // }
 }
