@@ -21,31 +21,23 @@ class ProductoStore implements Responsable
 
         // ================================================
 
-        $nuevoProducto = Producto::create([
-            'nombre_producto' => $nombreProducto,
-            'id_categoria' => $idCategoria,
-            'precio_unitario' => $precioUnitario,
-            'precio_detal' => $precioDetal,
-            'precio_por_mayor' => $precioPorMayor,
-            'descripcion' => $descripcion,
-            'stock_minimo' => $stockMinimo,
-            'id_estado' => $idEstado,
-        ]);
-
-        // ================================================
-
-        if (isset($nuevoProducto) && !is_null($nuevoProducto) && !empty($nuevoProducto)) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Producto creado correctamente'
+        try {
+            $nuevoProducto = Producto::create([
+                'nombre_producto' => $nombreProducto,
+                'id_categoria' => $idCategoria,
+                'precio_unitario' => $precioUnitario,
+                'precio_detal' => $precioDetal,
+                'precio_por_mayor' => $precioPorMayor,
+                'descripcion' => $descripcion,
+                'stock_minimo' => $stockMinimo,
+                'id_estado' => $idEstado,
             ]);
-        } else {
-            return abort(404, $message = 'Producto no creado');
+    
+            if (isset($nuevoProducto) && !is_null($nuevoProducto) && !empty($nuevoProducto)) {
+                return response()->json(['success' => true]);
+            }
+        } catch (Exception $e) {
+            return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
-
-    // ===================================================================
-    // ===================================================================
-
-
 }

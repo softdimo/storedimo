@@ -40,15 +40,10 @@ class ProductoShow implements Responsable
             if (isset($producto) && !is_null($producto) && !empty($producto)) {
                 return response()->json($producto);
             } else {
-                return response()->json([
-                    'message' => 'No existe producto'
-                ], 404);
+                return response()->json(['message' => 'No existe producto'], 404);
             }
         } catch (Exception $e) {
-            return response()->json([
-                'message' => 'Error consultando la base de datos',
-                'error' => $e->getMessage(),
-            ], 500);
+            return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
 }
