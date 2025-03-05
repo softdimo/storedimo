@@ -296,7 +296,7 @@
                                                             'route' => ['producto_barcode'],
                                                             'class' => 'm-0 p-0',
                                                             'autocomplete' => 'off',
-                                                            'id' => 'form_producto_barcode']) !!}
+                                                            'id' => 'formProductoBarcode_'.$producto->id_producto]) !!}
                                                             @csrf
 
                                                             <div class="rounded-top" style="border: solid 1px #337AB7;">
@@ -314,20 +314,35 @@
                                                                             </div>
                                                                             
                                                                             <div class="">
-                                                                                <button type="submit" class="btn btn-success">
+                                                                                <button type="submit" class="btn btn-success" id="btn_codebar_producto_{{$producto->id_producto}}">
                                                                                     <i class="fa fa-floppy-o" aria-hidden="true"> Generar Código</i>
                                                                                 </button>
                                                                             </div>
                                                                         </div>
                                                                 </div>
                                                             </div>
+                                                            
+                                                            {{-- ====================================================== --}}
+                                                            {{-- ====================================================== --}}
+
+                                                            <!-- Contenedor para el GIF -->
+                                                            <div id="loadingIndicatorCodeBarProducto_{{$producto->id_producto}}"
+                                                                class="loadingIndicator">
+                                                                <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                                                            </div>
+
+                                                            {{-- ====================================================== --}}
+                                                            {{-- ====================================================== --}}
+
+                                                            <div class="d-flex justify-content-end mt-3">
+                                                                <button type="button"
+                                                                    class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal"
+                                                                    id="btn_cancelar_codebar_{{$producto->id_producto}}">
+                                                                    <i class="fa fa-remove" aria-hidden="true"> Cancelar</i>
+                                                                </button>
+                                                            </div>
                                                         {!! Form::close() !!}
-                                                        {{-- ====================================================== --}}
-                                                        <div class="d-flex justify-content-end mt-3">
-                                                            <button type="button" class="btn btn-secondary" title="Cancelar" data-bs-dismiss="modal">
-                                                                <i class="fa fa-remove" aria-hidden="true"> Cancelar</i>
-                                                            </button>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -556,43 +571,25 @@
             
             // ===========================================================
             // ===========================================================
-            
-            // $('.barcode').click(function(e) {
-            //     e.preventDefault();
-            //     let url = $(this).data('url');
-                
-            //     $.ajax({
-            //         url: url,
-            //         type: 'POST',
-            //         dataType: "JSON",
-            //         data: {
-            //             '_token': "{{ csrf_token() }}",
-            //         },
-            //         success: function(response) {
-            //             console.log(response);
-            //             // Actualiza el contenido del modal con la información del producto
-            //             $('#nombre_producto').html(response.nombre_producto);
-            //             $('#id_producto').html(response.id_producto);
 
-            //             $('#nombre_producto_input').val(response.nombre_producto);
-            //             $('#id_producto_input').val(response.id_producto);
+            // Botón de submit de editar usuario
+            $(document).on("submit", "form[id^='formProductoBarcode_']", function(e) {
+                const form = $(this);
+                const formId = form.attr('id'); // Obtenemos el ID del formulario
+                const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
 
-            //             idProductoGlobal = response.id_producto;
-            //             nombreProductoGlobal = response.nombre_producto;
+                // Capturar spinner y btns dinámicamente
+                const loadingIndicator = $(`#loadingIndicatorCodeBarProducto_${id}`);
+                const submitButton = $(`#btn_codebar_producto_${id}`);
+                const cancelButton = $(`#btn_cancelar_codebar_${id}`);
 
-            //             // Muestra el modal
-            //             $('#barCodeModal').modal('show');
-            //         },
-            //         error: function(xhr, status, error) {
-            //             // Maneja los errores si la solicitud AJAX falla
-            //             console.error(error);
-            //         }
-            //     });
-            // });  // CIERRE consulta el ID y nombre del producto
-            
-            // ===========================================================
-            // ===========================================================
+                // Deshabilitar btns
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+                cancelButton.prop("disabled", true);
 
+                // Cargar spinner
+                loadingIndicator.show();
+            });
         }); //FIN Document.ready
     </script>
 @stop
