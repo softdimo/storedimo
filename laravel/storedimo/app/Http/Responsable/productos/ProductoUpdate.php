@@ -32,10 +32,10 @@ class ProductoUpdate implements Responsable
                     'nombre_producto' => $nombreProductoEdit,
                     'id_categoria' => $categoriaEdit,
                     'descripcion' => $descripcionEdit,
-                    'stock_minimo' => $stockMinimoEdit,
                     'precio_unitario' => $precioUnitarioEdit,
                     'precio_detal' => $precioDetalEdit,
-                    'precio_por_mayor' => $precioPorMayorEdit
+                    'precio_por_mayor' => $precioPorMayorEdit,
+                    'stock_minimo' => $stockMinimoEdit
                 ]
             ]);
             $respuestaProductoUpdate = json_decode($peticionProductoUpdate->getBody()->getContents(), true);

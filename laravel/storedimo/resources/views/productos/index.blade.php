@@ -125,17 +125,19 @@
 
                                             @if ( $producto->id_estado == 1 || $producto->id_estado == "1" )
                                                 <td>
-                                                    <a href="#" role="button" class="btn btn-primary rounded-circle btn-circle view-details" data-bs-toggle="modal" data-bs-target="#productoModal" data-url="{{route('producto_show',['idProducto'=>$producto->id_producto])}}" title="Ver Detalles">
-                                                        <i class="fa fa-eye" aria-hidden="true"></i>
-                                                    </a>
-                                                    {{-- ============================== --}}
-                                                    <a href="#" role="button" class="btn btn-success rounded-circle btn-circle modificar" data-bs-toggle="modal" data-bs-target="#productoModificarModal" data-url="{{route('producto_edit',['idProducto'=>$producto->id_producto])}}" title="Modificar">
+                                                    <button class="btn btn-success rounded-circle btn-circle modificar"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#modalEditarProducto_{{$producto->id_producto}}"
+                                                        title="Modificar">
                                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                                    </a>
+                                                    </button>
                                                     {{-- ============================== --}}
-                                                    <a href="#" role="button" class="btn btn-warning rounded-circle btn-circle barcode" data-bs-toggle="modal" data-bs-target="#barCodeModal" title="Generar Código de Barras" data-url="{{route('query_barcode_producto',['idProducto'=>$producto->id_producto])}}" >
+                                                    <button class="btn btn-warning rounded-circle btn-circle barcode"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#barCodeModal_{{$producto->id_producto}}"
+                                                        title="Generar Código de Barras">
                                                         <i class="fa fa-barcode" aria-hidden="true"></i>
-                                                    </a>
+                                                    </button>
                                                     {{-- ============================== --}}
                                                     <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="inactivarProducto('{{$producto->id_producto}}')">
                                                         <i class="fa fa-solid fa-recycle"></i>
@@ -143,15 +145,177 @@
                                                 </td>
                                             @else
                                                 <td>
-                                                    <a href="#" role="button" class="btn btn-primary rounded-circle btn-circle view-details" data-bs-toggle="modal" data-bs-target="#productoModal" data-url="{{route('producto_show',['idProducto'=>$producto->id_producto])}}" title="Ver Detalles">
-                                                        <i class="fa fa-eye" aria-hidden="true"></i>
-                                                    </a>
-                                                    {{-- ============================== --}}
                                                     <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="inactivarProducto('{{$producto->id_producto}}')">
                                                         <i class="fa fa-solid fa-recycle"></i>
                                                     </button>
                                                 </td>
                                             @endif
+
+                                            {{-- =========================================================================== --}}
+                                            {{-- =========================================================================== --}}
+                                            {{-- =========================================================================== --}}
+
+                                            {{-- INICIO Modal MODIFICAR PRODUCTO --}}
+                                            <div class="modal fade h-auto modal-gral p-0"
+                                                id="modalEditarProducto_{{$producto->id_producto}}"
+                                                tabindex="-1"
+                                                role="dialog"
+                                                aria-labelledby="myModalLabel"
+                                                data-bs-keyboard="false"
+                                                data-bs-backdrop="static">
+                                                <div class="modal-dialog m-0">
+                                                    <div class="modal-content p-3">
+                                                        {!! Form::open(['method' => 'POST',
+                                                            'route' => ['producto_update'],
+                                                            'class' => 'm-0 p-0',
+                                                            'autocomplete' => 'off',
+                                                            'id' => 'formEditarProducto_'.$producto->id_producto]) !!}
+                                                            @csrf
+                                                            <div class="" style="border: solid 1px #337AB7;">
+                                                                <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                                                    <h5>Modificar Producto (Obligatorios *)</h5>
+                                                                </div>
+
+                                                                {{-- ====================================================== --}}
+                                                                {{-- ====================================================== --}}
+
+                                                                <div class="modal-body p-0 m-0">
+                                                                    <div class="row m-0 pt-4 pb-4">
+                                                                        <div class="col-12 col-md-2">
+                                                                            <div class="form-group d-flex flex-column">
+                                                                                <label for="idProductoEdit" class="" style="font-size: 15px">Código<span class="text-danger">*</span></label>
+                                                                                {{ Form::text('idProductoEdit', isset($producto) ? $producto->id_producto : null, ['class'=>'form-control', 'id'=>'idProductoEdit', 'readonly'=>true ]) }}
+                                                                            </div>
+                                                                        </div>
+                                                                        {{-- =================== --}}
+                                                                        <div class="col-12 col-md-5">
+                                                                            <div class="form-group d-flex flex-column">
+                                                                                <label for="nombreProductoEdit" class="" style="font-size: 15px">Nombre Producto<span class="text-danger">*</span></label>
+                                                                                {{Form::text('nombreProductoEdit', isset($producto) ? $producto->nombre_producto : null, ['class' => 'form-control', 'id' => 'nombreProductoEdit'])}}
+                                                                            </div>
+                                                                        </div>
+                                                                        {{-- =================== --}}
+                                                                        <div class="col-12 col-md-5">
+                                                                            <div class="form-group d-flex flex-column">
+                                                                                <label for="categoriaEdit" class="" style="font-size: 15px">Categoría<span class="text-danger">*</span></label>
+                                                                                {!! Form::select('categoriaEdit', collect(['' => 'Seleccionar...'])->union($categorias), isset($producto) ? $producto->id_categoria : null, ['class' => 'form-control', 'id' => 'categoriaEdit']) !!}
+                                                                            </div>
+                                                                        </div>
+                                                                        {{-- =================== --}}
+                                                                        <div class="col-12 mt-md-3">
+                                                                            <div class="form-group d-flex flex-column">
+                                                                                <label for="descripcionEdit" class="" style="font-size: 15px">Descripción<span class="text-danger">*</span></label>
+                                                                                {{ Form::textarea('descripcionEdit', isset($producto) ? $producto->descripcion : null,['class'=>'form-control', 'id'=>'descripcionEdit', 'rows' => 3, 'style' => 'resize: none;']) }}
+                                                                            </div>
+                                                                        </div>
+                                                                        {{-- =================== --}}
+                                                                        <div class="col-12 col-md-6 mt-md-3">
+                                                                            <div class="form-group d-flex flex-column">
+                                                                                <label for="precioUnitarioEdit" class="" style="font-size: 15px">Precio Unitario<span class="text-danger">*</span></label>
+                                                                                {{ Form::text('precioUnitarioEdit', isset($producto) ? $producto->precio_unitario : null,['class'=>'form-control', 'id'=>'precioUnitarioEdit']) }}
+                                                                            </div>
+                                                                        </div>
+                                                                        {{-- =================== --}}
+                                                                        <div class="col-12 col-md-6 mt-md-3">
+                                                                            <div class="form-group d-flex flex-column">
+                                                                                <label for="precioDetalEdit" class="" style="font-size: 15px">Precio Detal<span class="text-danger">*</span></label>
+                                                                                {{ Form::text('precioDetalEdit', isset($producto) ? $producto->precio_detal : null,['class'=>'form-control', 'id'=>'precioDetalEdit']) }}
+                                                                            </div>
+                                                                        </div>
+                                                                        {{-- =================== --}}
+                                                                        <div class="col-12 col-md-6 mt-md-3">
+                                                                            <div class="form-group d-flex flex-column">
+                                                                                <label for="precioPorMayorEdit" class="" style="font-size: 15px">Precio al por Mayor<span class="text-danger">*</span></label>
+                                                                                {{ Form::text('precioPorMayorEdit', isset($producto) ? $producto->precio_por_mayor : null,['class'=>'form-control', 'id'=>'precioPorMayorEdit']) }}
+                                                                            </div>
+                                                                        </div>
+                                                                        {{-- =================== --}}
+                                                                        <div class="col-12 col-md-6 mt-md-3">
+                                                                            <div class="form-group d-flex flex-column">
+                                                                                <label for="stockMinimoEdit" class="" style="font-size: 15px">Stock Mínimo<span class="text-danger">*</span></label>
+                                                                                {{ Form::text('stockMinimoEdit', isset($producto) ? $producto->stock_minimo : null,['class'=>'form-control', 'id'=>'stockMinimoEdit']) }}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            {{-- ====================================================== --}}
+                                                            {{-- ====================================================== --}}
+
+                                                            <!-- Contenedor para el GIF -->
+                                                            <div id="loadingIndicatorEditProducto_{{$producto->id_producto}}"
+                                                                class="loadingIndicator">
+                                                                <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                                                            </div>
+
+                                                            {{-- ====================================================== --}}
+                                                            {{-- ====================================================== --}}
+
+                                                            <div class="d-flex justify-content-center mt-3">
+                                                                <button type="submit" title="Modificar" class="btn btn-success me-3" id="btn_editar_producto_{{$producto->id_producto}}">
+                                                                    <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
+                                                                </button>
+                                                                
+                                                                <button type="button" title="Cancelar" class="btn btn-danger" data-bs-dismiss="modal" id="btn_cancelar_producto_{{$producto->id_producto}}">
+                                                                    <i class="fa fa-remove" aria-hidden="true"> Cancelar</i>
+                                                                </button>
+                                                            </div>
+                                                        {!! Form::close() !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- FINAL Modal MODIFICAR PRODUCTO --}}
+
+                                            {{-- =========================================================================== --}}
+                                            {{-- =========================================================================== --}}
+                                            {{-- =========================================================================== --}}
+                                            
+                                            {{-- INICIO Modal CÓDIGO DE BARRAS PRODUCTO --}}
+                                            <div class="modal fade h-auto modal-gral" id="barCodeModal" tabindex="-1" role="dialog" aria-labelledby="barCodeModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content p-3 w-100">
+                                                        {!! Form::open(['method' => 'POST', 'route' => ['producto_barcode'], 'class' => 'm-0 p-0', 'autocomplete' => 'off', 'id' => 'form_producto_barcode']) !!}
+                                                        @csrf
+                                                            <div class="" style="border: solid 1px #337AB7;">
+                                                                <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                                                    <h5>Producto: <span id="nombre_producto"></span> - Código: <span id="id_producto"></span></h5>
+
+                                                                    {{ Form::hidden('id_producto_input',null,['class'=>'','id'=>'id_producto_input','required'=>'required']) }}
+                                                                    {{ Form::hidden('nombre_producto_input',null,['class'=>'form-control','id'=>'nombre_producto_input', 'required'=>'required']) }}
+                                                                </div>
+
+                                                                {{-- ====================================================== --}}
+                                                                {{-- ====================================================== --}}
+
+                                                                <div class="modal-body p-0 m-0">
+                                                                        <div class="m-0 p-4 d-flex justify-content-between">
+                                                                            <div class="">
+                                                                                {{ Form::number('cantidad_barcode',null,['class'=>'form-control','id'=>'cantidad_barcode','placeholder'=>'Ingresar cantidad', 'required'=>'required']) }}
+                                                                            </div>
+                                                                            
+                                                                            <div class="">
+                                                                                <button type="submit" class="btn btn-success">
+                                                                                    <i class="fa fa-floppy-o" aria-hidden="true"> Generar Código</i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        {!! Form::close() !!}
+                                                            
+                                                        {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
+
+                                                        <div class="d-flex justify-content-end mt-5">
+                                                            <button type="button" class="btn btn-secondary" title="Cancelar" data-bs-dismiss="modal">
+                                                                <i class="fa fa-remove" aria-hidden="true"> Cancelar</i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- FINAL Modal CÓDIGO DE BARRAS PRODUCTO --}}
                                         </tr>
                                     @endforeach
                                 @else
@@ -177,268 +341,6 @@
                 </div> {{-- FIN div_ --}}
             </div> {{-- FIN div_ --}}
         </div>
-
-        {{-- ===================================================================================================== --}}
-        {{-- ===================================================================================================== --}}
-
-        <div class="modal fade h-auto modal-gral p-3" id="modalAyudaModificacionProductos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
-            <div class="modal-dialog m-0 mw-100">
-                <div class="modal-content border-0">
-                    <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="rounded-top text-white text-center p-2" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                                    <span class="modal-title fs-5"><strong>Ayuda de Listar Productos</strong></span>
-                                </div>
-                                {{-- =========================== --}}
-                                <div class="p-3">
-                                    <p class="text-justify">Señor usuario en esta vista usted se va a encontrar con diferentes
-                                        opciones ubicadas al lado izquierdo de la tabla, cada una con una acción
-                                        diferente, esas opciones son:
-                                    </p>
-
-                                    <ul>
-                                        <li><strong>Opcion de Modificación:</strong>
-                                            <ol>Tener en cuenta a la hora de modificar un producto lo siguiente:
-                                                <li class="text-justify">Todos los campos que poseen el asterisco (*) son obligatorios, por lo tanto sino se diligencian,
-                                                el sistema no le dejará seguir.</li>
-                                                <li class="text-justify">Evitar ingresar nombres de productos ya existentes.</li>
-                                                <li class="text-justify">El precio unitario no puede ser mayor al precio al detal y precio al por mayor.</li>
-                                                <li class="text-justify">El precio al detal no puede ser menor al precio al por mayor.</li>
-                                            </ol>
-                                            <br>
-                                        </li>
-                                        <li><strong>Opción de Generación Código de Barras:</strong>
-                                            <ol>Tener en cuenta lo siguiente en el momento de generar el código de barras de un producto:
-                                            <li class="text-justify">En el campo de cantidad la longitud máxima permitida es de 3 caracteres.</li>
-                                            <li class="text-justify">Ingresar cantidades no mayores a 100.</li>
-                                            </ol>
-                                        </li>
-                                    </ul>
-                                    <p class="text-justify">El icono de color azul es de solo información.</p>
-                                    <p class="text-justify">El icono rojo pertenece al cambio de estado, el cual pedirá confirmación
-                                                        en el momento de pulsar sobre el.</p>
-                                </div> {{--FINpanel-body --}}
-                            </div> {{--FIN col-12 --}}
-                        </div> {{--FIN modal-body .row --}}
-                    </div> {{--FIN modal-body --}}
-                    {{-- =========================== --}}
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <button type="button" class="btn btn-primary btn-md active pull-right" data-bs-dismiss="modal" style="background-color: #337AB7;">
-                                <i class="fa fa-check-circle" aria-hidden="true">&nbsp;Aceptar</i>
-                            </button>
-                        </div>
-                    </div>
-                </div> {{--FIN modal-content --}}
-            </div> {{--FIN modal-dialog --}}
-        </div> {{--FIN modalAyudaModificacionProductos --}}
-
-        {{-- ===================================================================================================== --}}
-        {{-- ===================================================================================================== --}}
-
-        {{-- INICIO Modal DETALLES PRODUCTO --}}
-        <div class="modal fade" id="productoModal" tabindex="-1" role="dialog" aria-labelledby="productoModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-            <div class="modal-dialog">
-                <div class="modal-content p-3 w-100">
-                    <div class="" style="border: solid 1px #337AB7;">
-                        <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                            <h5>Detalle de: <span id="nombreProducto"></span> - Código: <span id="idProducto"></span></h5>
-                        </div>
-
-                        {{-- ====================================================== --}}
-                        {{-- ====================================================== --}}
-
-                        <div class="modal-body p-0 m-0">
-                            <div class="row m-0 pt-4 pb-4">
-                                <div class="col-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_ver_producto" aria-describedby="producto">
-                                            <thead>
-                                                <tr class="header-table text-center">
-                                                    <th>Precio Unitario</th>
-                                                    <th>Precio al Detal</th>
-                                                    <th>Precio al por Mayor</th>
-                                                </tr>
-                                            </thead>
-                                            {{-- ============================== --}}
-                                            <tbody>
-                                                <tr class="text-center">
-                                                    <td id="precio_unitario"></td>
-                                                    <td id="precio_detal"></td>
-                                                    <td id="precio_por_mayor"></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    {{-- ====================================================== --}}
-                    {{-- ====================================================== --}}
-
-                    <div class="d-flex justify-content-end mt-5">
-                        <button type="button" class="btn btn-secondary" title="Cancelar" data-bs-dismiss="modal">
-                            <i class="fa fa-remove" aria-hidden="true"> Cerrar</i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{-- FINAL Modal  DETALLES PRODUCTO --}}
-
-        {{-- =========================================================================== --}}
-        {{-- =========================================================================== --}}
-        {{-- =========================================================================== --}}
-        {{-- =========================================================================== --}}
-        {{-- =========================================================================== --}}
-
-        {{-- INICIO Modal MODIFICAR PRODUCTO --}}
-        <div class="modal fade" id="productoModificarModal" tabindex="-1" role="dialog" aria-labelledby="productoModificarModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-            <div class="modal-dialog">
-                <div class="modal-content p-3 w-100">
-                    {!! Form::open(['method' => 'POST', 'route' => ['producto_update'], 'class' => 'm-0 p-0', 'autocomplete' => 'off', 'id' => 'form_producto_update']) !!}
-                        @csrf
-                        <div class="" style="border: solid 1px #337AB7;">
-                            <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                                <h5>Modificar Producto (Obligatorios *)</h5>
-                            </div>
-
-                            {{-- ====================================================== --}}
-                            {{-- ====================================================== --}}
-
-                            <div class="modal-body p-0 m-0">
-                                <div class="row m-0 pt-4 pb-4">
-                                    <div class="col-12 col-md-2">
-                                        <div class="form-group d-flex flex-column">
-                                            <label for="idProductoEdit" class="" style="font-size: 15px">Código<span class="text-danger">*</span></label>
-                                            {{ Form::text('idProductoEdit', null, ['class'=>'form-control', 'id'=>'idProductoEdit', 'readonly'=>true ]) }}
-                                        </div>
-                                    </div>
-                                    {{-- =================== --}}
-                                    <div class="col-12 col-md-5">
-                                        <div class="form-group d-flex flex-column">
-                                            <label for="nombreProductoEdit" class="" style="font-size: 15px">Nombre Producto<span class="text-danger">*</span></label>
-                                            {{Form::text('nombreProductoEdit', null, ['class' => 'form-control', 'id' => 'nombreProductoEdit'])}}
-                                        </div>
-                                    </div>
-                                    {{-- =================== --}}
-                                    <div class="col-12 col-md-5">
-                                        <div class="form-group d-flex flex-column">
-                                            <label for="categoriaEdit" class="" style="font-size: 15px">Categoría<span class="text-danger">*</span></label>
-                                            {!! Form::select('categoriaEdit', collect(['' => 'Seleccionar...'])->union($categorias), null, ['class' => 'form-control', 'id' => 'categoriaEdit']) !!}
-                                        </div>
-                                    </div>
-                                    {{-- =================== --}}
-                                    <div class="col-12 mt-md-3">
-                                        <div class="form-group d-flex flex-column">
-                                            <label for="descripcionEdit" class="" style="font-size: 15px">Descripción<span class="text-danger">*</span></label>
-                                            {{ Form::textarea('descripcionEdit', null,['class'=>'form-control', 'id'=>'descripcionEdit', 'rows' => 3, 'style' => 'resize: none;']) }}
-                                        </div>
-                                    </div>
-                                    {{-- =================== --}}
-                                    <div class="col-12 col-md-6 mt-md-3">
-                                        <div class="form-group d-flex flex-column">
-                                            <label for="precioUnitarioEdit" class="" style="font-size: 15px">Precio Unitario<span class="text-danger">*</span></label>
-                                            {{ Form::text('precioUnitarioEdit', null,['class'=>'form-control', 'id'=>'precioUnitarioEdit']) }}
-                                        </div>
-                                    </div>
-                                    {{-- =================== --}}
-                                    <div class="col-12 col-md-6 mt-md-3">
-                                        <div class="form-group d-flex flex-column">
-                                            <label for="precioPorMayorEdit" class="" style="font-size: 15px">Precio al por Mayor<span class="text-danger">*</span></label>
-                                            {{ Form::text('precioPorMayorEdit', null,['class'=>'form-control', 'id'=>'precioPorMayorEdit']) }}
-                                        </div>
-                                    </div>
-                                    {{-- =================== --}}
-                                    <div class="col-12 col-md-6 mt-md-3">
-                                        <div class="form-group d-flex flex-column">
-                                            <label for="precioDetalEdit" class="" style="font-size: 15px">Precio Detal<span class="text-danger">*</span></label>
-                                            {{ Form::text('precioDetalEdit', null,['class'=>'form-control', 'id'=>'precioDetalEdit']) }}
-                                        </div>
-                                    </div>
-                                    {{-- =================== --}}
-                                    <div class="col-12 col-md-6 mt-md-3">
-                                        <div class="form-group d-flex flex-column">
-                                            <label for="stockMinimoEdit" class="" style="font-size: 15px">Stock Mínimo<span class="text-danger">*</span></label>
-                                            {{ Form::text('stockMinimoEdit', null,['class'=>'form-control', 'id'=>'stockMinimoEdit']) }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        {{-- ====================================================== --}}
-                        {{-- ====================================================== --}}
-
-                        <div class="d-flex justify-content-center mt-5">
-                            <button type="submit" class="btn btn-success me-3" title="Modificar">
-                                <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
-                            </button>
-                            
-                            <button type="button" class="btn btn-danger" title="Cancelar" data-bs-dismiss="modal">
-                                <i class="fa fa-remove" aria-hidden="true"> Cancelar</i>
-                            </button>
-                        </div>
-                    {!! Form::close() !!}
-                </div>
-            </div>
-        </div>
-        {{-- FINAL Modal MODIFICAR PRODUCTO --}}
-        
-        {{-- =========================================================================== --}}
-        {{-- =========================================================================== --}}
-        {{-- =========================================================================== --}}
-        {{-- =========================================================================== --}}
-        {{-- =========================================================================== --}}
-        
-        {{-- INICIO Modal CÓDIGO DE BARRAS PRODUCTO --}}
-        <div class="modal fade" id="barCodeModal" tabindex="-1" role="dialog" aria-labelledby="barCodeModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-            <div class="modal-dialog">
-                <div class="modal-content p-3 w-100">
-                    {!! Form::open(['method' => 'POST', 'route' => ['producto_barcode'], 'class' => 'm-0 p-0', 'autocomplete' => 'off', 'id' => 'form_producto_barcode']) !!}
-                    @csrf
-                        <div class="" style="border: solid 1px #337AB7;">
-                            <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                                <h5>Producto: <span id="nombre_producto"></span> - Código: <span id="id_producto"></span></h5>
-
-                                {{ Form::hidden('id_producto_input',null,['class'=>'','id'=>'id_producto_input','required'=>'required']) }}
-                                {{ Form::hidden('nombre_producto_input',null,['class'=>'form-control','id'=>'nombre_producto_input', 'required'=>'required']) }}
-                            </div>
-
-                            {{-- ====================================================== --}}
-                            {{-- ====================================================== --}}
-
-                            <div class="modal-body p-0 m-0">
-                                    <div class="m-0 p-4 d-flex justify-content-between">
-                                        <div class="">
-                                            {{ Form::number('cantidad_barcode',null,['class'=>'form-control','id'=>'cantidad_barcode','placeholder'=>'Ingresar cantidad', 'required'=>'required']) }}
-                                        </div>
-                                        
-                                        <div class="">
-                                            <button type="submit" class="btn btn-success">
-                                                <i class="fa fa-floppy-o" aria-hidden="true"> Generar Código</i>
-                                            </button>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                    {!! Form::close() !!}
-                        
-                    {{-- ====================================================== --}}
-                    {{-- ====================================================== --}}
-
-                    <div class="d-flex justify-content-end mt-5">
-                        <button type="button" class="btn btn-secondary" title="Cancelar" data-bs-dismiss="modal">
-                            <i class="fa fa-remove" aria-hidden="true"> Cancelar</i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{-- FINAL Modal CÓDIGO DE BARRAS PRODUCTO --}}
     </div>
 @stop
 
@@ -490,107 +392,139 @@
             // ===========================================================
             // ===========================================================
 
-            $('.view-details').click(function(e) {
-                e.preventDefault();
-                var url = $(this).data('url');
-                
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    dataType: "JSON",
-                    data: {
-                        '_token': "{{ csrf_token() }}",
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        // Actualiza el contenido del modal con la información del producto
-                        $('#nombreProducto').html(response.nombre_producto);
-                        $('#idProducto').html(response.id_producto);
-                        $('#precio_unitario').html(response.precio_unitario);
-                        $('#precio_detal').html(response.precio_detal);
-                        $('#precio_por_mayor').html(response.precio_por_mayor);
+            // formEditarProducto para cargar gif en el submit
+            $(document).on("submit", "form[id^='formEditarProducto_']", function(e) {
+                const form = $(this);
+                const formId = form.attr('id'); // Obtenemos el ID del formulario
+                const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
 
-                        // Muestra el modal
-                        $('#productoModal').modal('show');
-                    },
-                    error: function(xhr, status, error) {
-                        // Maneja los errores si la solicitud AJAX falla
-                        console.error(error);
-                    }
-                });
-            });  // CIERRE Ver detalles producto
-                        
+                // Capturar spinner y btns
+                const loadingIndicator = $(`#loadingIndicatorEditProducto_${id}`);
+                const submitButton = $(`#btn_editar_producto_${id}`);
+                const cancelButton = $(`#btn_cancelar_producto_${id}`);
+
+                // Desactivar btns
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+                cancelButton.prop("disabled", true);
+                loadingIndicator.show();
+
+                // Readonly para el campo nueva clave
+                const idCategoria = $(`#id_categoria_${id}`).prop("readonly", true);
+                const categoria = $(`#categoria_${id}`).prop("readonly", true);
+            });
+
             // ===========================================================
             // ===========================================================
+
+            // Valido que el precio unitario sea menor que el precio al detal
+            $('#precioDetalEdit').blur(function () {
+                let precioUnitario = parseFloat($('#precioUnitarioEdit').val()) || 0;
+                let precioDetal = parseFloat($('#precioDetalEdit').val()) || 0;
+
+                if (precioUnitario >= precioDetal) {
+                    Swal.fire(
+                        'Cuidado!',
+                        'El precio unitario debe ser menor que el precio al detal!',
+                        'warning'
+                    )
+                    $('#precioDetalEdit').val('');
+                }
+            });
             
-            $('.modificar').click(function(e) {
-                e.preventDefault();
-                var url = $(this).data('url');
-                
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    dataType: "JSON",
-                    data: {
-                        '_token': "{{ csrf_token() }}",
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        // Actualiza el contenido del modal con la información del producto
-                        $('#idProductoEdit').val(response.id_producto);
-                        $('#nombreProductoEdit').val(response.nombre_producto);
-                        $('#categoriaEdit').val(response.id_categoria);
-                        $('#descripcionEdit').val(response.descripcion);
-                        $('#precioUnitarioEdit').val(response.precio_unitario);
-                        $('#precioPorMayorEdit').val(response.precio_por_mayor);
-                        $('#precioDetalEdit').val(response.precio_detal);
-                        $('#stockMinimoEdit').val(response.stock_minimo);
+            // ===========================================================
+            // ===========================================================
 
-                        // Muestra el modal
-                        $('#productoModificarModal').modal('show');
-                    },
-                    error: function(xhr, status, error) {
-                        // Maneja los errores si la solicitud AJAX falla
-                        console.error(error);
-                    }
-                });
-            });  // CIERRE Ver editar producto
+            // Valido que el precio unitario sea menor que el precio al detal
+            $('#precioPorMayorEdit').blur(function () {
+                let precioUnitario = parseFloat($('#precioUnitarioEdit').val()) || 0;
+                let precioDetal = parseFloat($('#precioDetalEdit').val()) || 0;
+                let precioPorMayor = parseFloat($('#precioPorMayorEdit').val()) || 0;
+
+                console.log(precioUnitario);
+                console.log(precioDetal);
+                console.log(precioPorMayor);
+
+                if ( precioPorMayor <= precioUnitario || precioPorMayor >= precioDetal) {
+                    Swal.fire(
+                        'Cuidado!',
+                        'El precio al por mayor debe ser superior al precio unitario y menor que el precio al detal!',
+                        'warning'
+                    )
+                    $('#precioPorMayorEdit').val('');
+                }
+            });
 
             // ===========================================================
             // ===========================================================
             
-            $('.barcode').click(function(e) {
-                e.preventDefault();
-                let url = $(this).data('url');
+            // $('.modificar').click(function(e) {
+            //     e.preventDefault();
+            //     var url = $(this).data('url');
                 
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    dataType: "JSON",
-                    data: {
-                        '_token': "{{ csrf_token() }}",
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        // Actualiza el contenido del modal con la información del producto
-                        $('#nombre_producto').html(response.nombre_producto);
-                        $('#id_producto').html(response.id_producto);
+            //     $.ajax({
+            //         url: url,
+            //         type: 'POST',
+            //         dataType: "JSON",
+            //         data: {
+            //             '_token': "{{ csrf_token() }}",
+            //         },
+            //         success: function(response) {
+            //             console.log(response);
+            //             // Actualiza el contenido del modal con la información del producto
+            //             $('#idProductoEdit').val(response.id_producto);
+            //             $('#nombreProductoEdit').val(response.nombre_producto);
+            //             $('#categoriaEdit').val(response.id_categoria);
+            //             $('#descripcionEdit').val(response.descripcion);
+            //             $('#precioUnitarioEdit').val(response.precio_unitario);
+            //             $('#precioPorMayorEdit').val(response.precio_por_mayor);
+            //             $('#precioDetalEdit').val(response.precio_detal);
+            //             $('#stockMinimoEdit').val(response.stock_minimo);
 
-                        $('#nombre_producto_input').val(response.nombre_producto);
-                        $('#id_producto_input').val(response.id_producto);
+            //             // Muestra el modal
+            //             $('#productoModificarModal').modal('show');
+            //         },
+            //         error: function(xhr, status, error) {
+            //             // Maneja los errores si la solicitud AJAX falla
+            //             console.error(error);
+            //         }
+            //     });
+            // });  // CIERRE Ver editar producto
 
-                        idProductoGlobal = response.id_producto;
-                        nombreProductoGlobal = response.nombre_producto;
+            // ===========================================================
+            // ===========================================================
+            
+            // $('.barcode').click(function(e) {
+            //     e.preventDefault();
+            //     let url = $(this).data('url');
+                
+            //     $.ajax({
+            //         url: url,
+            //         type: 'POST',
+            //         dataType: "JSON",
+            //         data: {
+            //             '_token': "{{ csrf_token() }}",
+            //         },
+            //         success: function(response) {
+            //             console.log(response);
+            //             // Actualiza el contenido del modal con la información del producto
+            //             $('#nombre_producto').html(response.nombre_producto);
+            //             $('#id_producto').html(response.id_producto);
 
-                        // Muestra el modal
-                        $('#barCodeModal').modal('show');
-                    },
-                    error: function(xhr, status, error) {
-                        // Maneja los errores si la solicitud AJAX falla
-                        console.error(error);
-                    }
-                });
-            });  // CIERRE consulta el ID y nombre del producto
+            //             $('#nombre_producto_input').val(response.nombre_producto);
+            //             $('#id_producto_input').val(response.id_producto);
+
+            //             idProductoGlobal = response.id_producto;
+            //             nombreProductoGlobal = response.nombre_producto;
+
+            //             // Muestra el modal
+            //             $('#barCodeModal').modal('show');
+            //         },
+            //         error: function(xhr, status, error) {
+            //             // Maneja los errores si la solicitud AJAX falla
+            //             console.error(error);
+            //         }
+            //     });
+            // });  // CIERRE consulta el ID y nombre del producto
             
             // ===========================================================
             // ===========================================================
