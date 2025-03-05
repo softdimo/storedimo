@@ -26,30 +26,22 @@ class ProductoDestroy implements Responsable
         $idProducto = $this->idProducto;
 
         $producto = Producto::where('id_producto', $idProducto)->first();
-        $estado = $producto->estado;
+        $idEstado = $producto->id_estado;
 
         try {
-            if ($estado == 1) {
-                $cambiarEstadoProducto = Producto::where('id_producto', $idProducto)->update(['estado' => 2,]);
+            if ($idEstado == 1) {
+                $cambiarEstadoProducto = Producto::where('id_producto', $idProducto)->update(['id_estado' => 2,]);
             } else {
-                $cambiarEstadoProducto = Producto::where('id_producto', $idProducto)->update(['estado' => 1,]);
+                $cambiarEstadoProducto = Producto::where('id_producto', $idProducto)->update(['id_estado' => 1,]);
             }
 
             if (isset($cambiarEstadoProducto) && !is_null($cambiarEstadoProducto) && !empty($cambiarEstadoProducto)) {
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Estado Cambiado'
-                ]);
+                return response()->json(['success' => true]);
             } else {
-                return response()->json([
-                    'message' => 'No existe producto'
-                ], 404);
+                return response()->json(['message' => 'No existe producto'], 404);
             }
         } catch (Exception $e) {
-            return response()->json([
-                'message' => 'Error consultando la base de datos',
-                'error' => $e->getMessage(),
-            ], 500);
+            return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
 }
