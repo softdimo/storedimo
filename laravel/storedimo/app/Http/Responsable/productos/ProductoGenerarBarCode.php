@@ -37,14 +37,12 @@ class ProductoGenerarBarCode implements Responsable
 
             // Convertir el HTML a imagen con `wkhtmltoimage`
             $wkhtmltoimagePath = 'wkhtmltoimage'; // Ahora usa la versión de Linux dentro de Docker
-            $comando = "$wkhtmltoimagePath --width 290 --height 290 \"$rutaCodebarHtml\" \"$rutaCodebarImage\" 2>&1";
-            $output = shell_exec($comando); // se usa en línea 47 para validar si genera la imagen QR
+            shell_exec("$wkhtmltoimagePath --width 290 --height 290 \"$rutaCodebarHtml\" \"$rutaCodebarImage\" 2>&1");
 
             // Verificar si la imagen se generó correctamente
             if (!file_exists($rutaCodebarImage)) {
                 alert()->error('Error', 'No se pudo generar la imagen del código QR.');
                 return redirect()->to(route('productos.index'));
-                // dd("Error al ejecutar wkhtmltoimage:", $output, "Comando ejecutado:", $comando);
             }
 
             // Crear el PDF con los códigos QR
@@ -69,8 +67,12 @@ class ProductoGenerarBarCode implements Responsable
             // Guardar el PDF
             $pdf->Output($rutaCodebarPdf, 'F');
 
-            alert()->success('Éxito', 'PDF generado correctamente.');
-            return redirect()->to(route('productos.index'));
+            $pdfUrl = route('ver.pdf', ['archivo' => "{$nombreArchivoCodebar}.pdf"]);
+            return redirect()->to(route('productos.index'))->with('pdfUrl', $pdfUrl);
+
+            // alert()->success('Éxito', "PDF generado correctamente. <a href='$pdfUrl' target='_blank'>Abrir PDF</a>");
+            // alert()->success('Éxito', 'PDF generado correctamente.');
+            // return redirect()->to(route('productos.index'));
 
         } catch (Exception $e) {
             dd($e);
@@ -79,36 +81,3 @@ class ProductoGenerarBarCode implements Responsable
         }
     }
 }
-
-// use Milon\Barcode\DNS1D;
-
-        // $idProducto = $this->idProducto;
-
-        // try {
-        //     // Realiza la solicitud POST a la API
-        //     $clientApi = new Client([
-        //         'base_uri' => 'http://localhost:8000/api/producto_query_barcode/'.$idProducto,
-        //         'headers' => [
-        //             'Accept' => 'application/json',
-        //             'Content-Type' => 'application/json',
-        //         ],
-        //         'body' => json_encode([])
-        //     ]);
-
-        //     $response = $clientApi->request('POST');
-        //     $res = $response->getBody()->getContents();
-        //     $producto = json_decode($res, true);
-
-        //     if(isset($producto) && !empty($producto))
-        //     {
-        //         return response()->json($producto);
-        //     } else {
-        //         alert()->error('Error', 'No existe el producto.');
-        //         return redirect()->to(route('productos.index'));
-        //     }
-        // } // FIN Try
-        // catch (Exception $e)
-        // {
-        //     alert()->error('Error', 'Error consulta producto, si el problema persiste, contacte a Soporte.');
-        //     return back();
-        // } // FIN Catch
