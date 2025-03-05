@@ -39,7 +39,7 @@ class ProductoStore implements Responsable
                     'id_estado' => $idEstado
                 ]
             ]);
-            $respuestaProductoStore = json_decode($peticionProductoStore->getBody()->getContents(), true);
+            $respuestaProductoStore = json_decode($peticionProductoStore->getBody()->getContents());
 
             // ========================================================
 
@@ -50,7 +50,7 @@ class ProductoStore implements Responsable
 
             }
         } catch (Exception $e) {
-            alert()->error('Error', 'Error creando el producto, si el problema persiste, contacte a Soporte.' . $e->getMessage());
+            alert()->error('Error', 'Creando el producto, si el problema persiste, contacte a Soporte.' . $e->getMessage());
             return back();
         }
     }

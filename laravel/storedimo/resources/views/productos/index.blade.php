@@ -31,7 +31,11 @@
         {{-- ======================================================================= --}}
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
-            <div class="text-end">
+            <div class="d-flex justify-content-between pe-3 mt-2 mb-3">
+                <div class="">
+                    <a href="{{route('productos.create')}}" class="btn text-white" style="background-color:#337AB7">Crear Producto</a>
+                </div>
+
                 <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal" data-bs-target="#modalAyudaModificacionProductos">
                     <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
                 </a>
@@ -125,7 +129,7 @@
 
                                             @if ( $producto->id_estado == 1 || $producto->id_estado == "1" )
                                                 <td>
-                                                    <button class="btn btn-success rounded-circle btn-circle modificar"
+                                                    <button class="btn btn-success rounded-circle btn-circle"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#modalEditarProducto_{{$producto->id_producto}}"
                                                         title="Modificar">
@@ -139,13 +143,13 @@
                                                         <i class="fa fa-barcode" aria-hidden="true"></i>
                                                     </button>
                                                     {{-- ============================== --}}
-                                                    <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="inactivarProducto('{{$producto->id_producto}}')">
+                                                    <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="cambiarEstadoProducto('{{$producto->id_producto}}')">
                                                         <i class="fa fa-solid fa-recycle"></i>
                                                     </button>
                                                 </td>
                                             @else
                                                 <td>
-                                                    <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="inactivarProducto('{{$producto->id_producto}}')">
+                                                    <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Cambiar Estado" onclick="cambiarEstadoProducto('{{$producto->id_producto}}')">
                                                         <i class="fa fa-solid fa-recycle"></i>
                                                     </button>
                                                 </td>
@@ -387,7 +391,8 @@
                     "pageLength": 10,
                     "scrollX": true,
                 });
-            @endif  // CIERRE DataTable Lista Productos
+            @endif
+            // CIERRE DataTable Lista Productos
             
             // ===========================================================
             // ===========================================================
@@ -535,7 +540,7 @@
         // ==========================================================
         // ==========================================================
 
-        function inactivarProducto(idProducto) {
+        function cambiarEstadoProducto(idProducto) {
             Swal.fire({
                 title: "¿Realmente desea cambiar el estado del producto?",
                 // text: "No se puede revertir!",

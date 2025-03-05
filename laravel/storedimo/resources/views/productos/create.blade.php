@@ -23,11 +23,21 @@
         {{-- ======================================================================= --}}
 
         <div class="p-3" style="width: 80%">
-            <div class="text-end">
+            <div class="d-flex justify-content-between pe-3 mt-2 mb-3">
+                <div class="">
+                    <a href="{{route('productos.index')}}" class="btn text-white" style="background-color:#337AB7">Productos</a>
+                </div>
+
                 <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal" data-bs-target="#modalAyudaRegistrarProductos">
                     <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
                 </a>
             </div>
+
+            {{-- <div class="text-end">
+                <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal" data-bs-target="#modalAyudaRegistrarProductos">
+                    <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
+                </a>
+            </div> --}}
 
             <div class="modal fade h-auto modal-gral p-3" id="modalAyudaRegistrarProductos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
                 <div class="modal-dialog m-0 mw-100">
