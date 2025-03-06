@@ -4,10 +4,25 @@ namespace App\Http\Controllers\existencias;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\TipoBaja;
-
+use GuzzleHttp\Client;
+use App\Traits\MetodosTrait;
+use Exception;
 class ExistenciasController extends Controller
 {
+    use MetodosTrait;
+    protected $baseUri;
+    protected $clientApi;
+
+    public function __construct()
+    {
+        $this->shareData();
+        $this->baseUri = env('BASE_URI');
+        $this->clientApi = new Client(['base_uri' => $this->baseUri]);
+    }
+
+    // ======================================================================
+    // ======================================================================
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +30,25 @@ class ExistenciasController extends Controller
      */
     public function index()
     {
-        return view('existencias.index');
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return view('existencias.index');
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Index Existencias!");
+            return redirect()->to(route('login'));
+        }
     }
 
     // ======================================================================
@@ -28,8 +61,25 @@ class ExistenciasController extends Controller
      */
     public function create()
     {
-        $this->shareData();
-        return view('existencias.create');
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return view('existencias.create');
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Create Existencias!");
+            return redirect()->to(route('login'));
+        }
     }
 
     // ======================================================================
@@ -106,12 +156,7 @@ class ExistenciasController extends Controller
     // ======================================================================
     // ======================================================================
     
-    private function shareData()
-    {
-        view()->share('tipo_baja', TipoBaja::orderBy('tipo_baja','asc')->pluck('tipo_baja', 'id_tipo_baja'));
-        // view()->share('tipo_documento', tipoDocumento::orderBy('tipo_documento','asc')->pluck('tipo_documento', 'id_tipo_documento'));
-        // view()->share('generos', Genero::orderBy('genero','asc')->pluck('genero', 'id_genero'));
-    }
+ 
 
     // ======================================================================
     // ======================================================================
@@ -121,6 +166,24 @@ class ExistenciasController extends Controller
 
     public function stockMinimo()
     {
-        return view('existencias.stock_minimo');
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return view('existencias.stock_minimo');
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception stockMinimo Existencias!");
+            return redirect()->to(route('login'));
+        }
     }
 }
