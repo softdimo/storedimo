@@ -70,6 +70,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('personas_index', 'personas\PersonasController@index');
     $router->post('query_id_persona', 'personas\PersonasController@consultarIdPersona');
+    $router->post('query_nit_empresa', 'personas\PersonasController@consultarNitEmpresa');
     $router->post('persona_store', 'personas\PersonasController@store');
     $router->put('persona_update/{idPersona}', 'personas\PersonasController@update');
     /*$router->post('query_persona', 'personas\PersonasController@consultaPersona');

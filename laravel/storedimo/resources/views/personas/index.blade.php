@@ -109,8 +109,9 @@
                                     <th>Dirección</th>
                                     <th>Tipo Empleado</th>
                                     <th>Estado</th>
-                                    <th>Fecha contrato</th>
-                                    <th>Fecha Terminación Contrato</th>
+                                    <th>Nit Empresa</th>
+                                    <th>Nombre Empresa</th>
+                                    <th>Teléfono Empresa</th>
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
@@ -125,8 +126,9 @@
                                         <td>{{ $persona->direccion }}</td>
                                         <td>{{ $persona->tipo_persona }}</td>
                                         <td>{{ $persona->estado }}</td>
-                                        <td>{{ $persona->fecha_contrato }}</td>
-                                        <td>{{ $persona->fecha_terminacion_contrato }}</td>
+                                        <td>{{ $persona->nit_empresa }}</td>
+                                        <td>{{ $persona->nombre_empresa }}</td>
+                                        <td>{{ $persona->telefono_empresa }}</td>
                                         <td>
                                             <a href="#modalEditarPersona_{{ $persona->id_persona }}"
                                                 id="verModal_{{ $persona->id_persona }}" rel="modal:open">
@@ -134,12 +136,6 @@
                                                         class="fa fa-pencil-square-o" aria-hidden="true"
                                                         title="Modificar"></i>
                                                 </button>
-                                            </a>
-
-                                            <a href="#" role="button"
-                                                class="btn btn-warning rounded-circle btn-circle"
-                                                title="Cambiar contraseña">
-                                                <i class="fa fa-key" aria-hidden="true"></i>
                                             </a>
 
                                             <a href="#ex1_{{ $persona->id_persona }}" rel="modal:open">
@@ -304,30 +300,39 @@
 
                                                                 <div class="col-12 col-md-4 mt-3">
                                                                     <div class="form-group d-flex flex-column">
-                                                                        <label for="fecha_contrato" class=""
-                                                                            style="font-size: 15px">Fecha Contrato
+                                                                        <label for="nit_empresa" class=""
+                                                                            style="font-size: 15px">Nit Empresa
                                                                             <span class="text-danger">*</span></label>
-                                                                        {!! Form::date('fecha_contrato', isset($persona) ? $persona->fecha_contrato : null, [
+                                                                        {!! Form::text('nit_empresa', isset($persona) ? $persona->nit_empresa : null, [
                                                                             'class' => 'form-control',
-                                                                            'id' => 'fecha_contrato',
+                                                                            'id' => 'nit_empresa',
                                                                         ]) !!}
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="col-12 col-md-4 mt-3">
                                                                     <div class="form-group d-flex flex-column">
-                                                                        <label for="fecha_terminacion_contrato"
-                                                                            class="" style="font-size: 15px">Fecha
-                                                                            Terminación Contrato
+                                                                        <label for="nombre_empresa"
+                                                                            class="" style="font-size: 15px">Nombre Empresa
                                                                             <span class="text-danger">*</span></label>
-                                                                        {!! Form::date('fecha_terminacion_contrato', isset($persona) ? $persona->fecha_terminacion_contrato : null, [
+                                                                        {!! Form::text('nombre_empresa', isset($persona) ? $persona->nombre_empresa : null, [
                                                                             'class' => 'form-control',
-                                                                            'id' => 'fecha_terminacion_contrato',
+                                                                            'id' => 'nombre_empresa',
                                                                         ]) !!}
                                                                     </div>
                                                                 </div>
 
-
+                                                                <div class="col-12 col-md-4 mt-3">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="telefono_empresa"
+                                                                            class="" style="font-size: 15px">Teléfono Empresa
+                                                                            <span class="text-danger">*</span></label>
+                                                                        {!! Form::text('telefono_empresa', isset($persona) ? $persona->telefono_empresa : null, [
+                                                                            'class' => 'form-control',
+                                                                            'id' => 'telefono_empresa',
+                                                                        ]) !!}
+                                                                    </div>
+                                                                </div>
 
                                                                 <div class="col-12 col-md-4 mt-3">
                                                                     <div class="form-group d-flex flex-column">

@@ -6,7 +6,7 @@
             <div class="col-12 col-md-3">
                 <div class="form-group d-flex flex-column">
                     <label for="id_tipo_persona" class="form-label">Tipo persona <span class="text-danger">*</span></label>
-                    {!! Form::select('id_tipo_persona', collect(['' => 'Seleccionar...'])->union($tipos_persona), null, ['class' => 'form-control', 'id' => 'id_tipo_persona']) !!}
+                    {!! Form::select('id_tipo_persona', collect(['' => 'Seleccionar...'])->union($tipos_persona), null, ['class' => 'form-control', 'id' => 'id_tipo_persona', 'required'=>'required']) !!}
                 </div>
             </div>
 
@@ -15,13 +15,13 @@
             <div class="col-12 col-md-3">
                 <div class="form-group d-flex flex-column">
                     <label for="id_tipo_documento" class="form-label">Tipo de documento <span class="text-danger">*</span></label>
-                    {!! Form::select('id_tipo_documento', collect(['' => 'Seleccionar...'])->union($tipos_documento), null, ['class' => 'form-control', 'id' => 'id_tipo_documento']) !!}
+                    {!! Form::select('id_tipo_documento', collect(['' => 'Seleccionar...'])->union($tipos_documento), null, ['class' => 'form-control', 'id' => 'id_tipo_documento', 'required'=>'required']) !!}
                 </div>
             </div>
 
             {{-- ======================= --}}
             
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-3" id="div_identificacion">
                 <div class="form-group d-flex flex-column">
                     <label for="identificacion" class="form-label">Número de documento <span class="text-danger">*</span></label>
                     {!! Form::text('identificacion', null, ['class' => 'form-control', 'id' => 'identificacion', 'minlength' => 6]) !!}
@@ -30,7 +30,7 @@
 
             {{-- ======================= --}}
             
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-3" id="div_nombres_persona">
                 <div class="form-group d-flex flex-column">
                     <label for="nombres_persona" class="form-label">Nombres <span class="text-danger">*</span></label>
                     {!! Form::text('nombres_persona', null, ['class' => 'form-control', 'id' => 'nombres_persona']) !!}
@@ -39,7 +39,7 @@
 
             {{-- ======================= --}}
             
-            <div class="col-12 col-md-3 mt-3">
+            <div class="col-12 col-md-3 mt-3" id="div_apellidos_persona">
                 <div class="form-group d-flex flex-column">
                     <label for="apellidos_persona" class="form-label">Apellidos <span class="text-danger">*</span></label>
                     {!! Form::text('apellidos_persona', null, ['class' => 'form-control', 'id' => 'apellidos_persona']) !!}
@@ -49,7 +49,7 @@
             {{-- ======================= --}}
             
             
-            <div class="col-12 col-md-3 mt-3">
+            <div class="col-12 col-md-3 mt-3" id="div_numero_telefono">
                 <div class="form-group d-flex flex-column">
                     <label for="numero_telefono" class="form-label">Número de teléfono</label>
                     {!! Form::text('numero_telefono', null, ['class' => 'form-control', 'id' => 'numero_telefono']) !!}
@@ -58,7 +58,7 @@
 
             {{-- ======================= --}}
             
-            <div class="col-12 col-md-3 mt-3" id="">
+            <div class="col-12 col-md-3 mt-3" id="div_celular">
                 <div class="form-group d-flex flex-column">
                     <label for="celular" class="form-label">Número de Celular <span class="text-danger">*</span></label>
                     {!! Form::text('celular', null, ['class' => 'form-control', 'id' => 'celular']) !!}
@@ -67,7 +67,7 @@
 
             {{-- ======================= --}}
             
-            <div class="col-12 col-md-3 mt-3" id="">
+            <div class="col-12 col-md-3 mt-3" id="div_email">
                 <div class="form-group d-flex flex-column">
                     <label for="email" class="form-label">Correo Electrónico <span class="text-danger">*</span></label>
                     {!! Form::text('email', null, ['class' => 'form-control', 'id' => 'email']) !!}
@@ -76,22 +76,27 @@
 
             {{-- ======================= --}}
             
-            <div class="col-12 col-md-3 mt-3">
-                <div class="form-group d-flex flex-column">
-                    <label for="id_genero" class="form-label">Género<span class="text-danger">*</span></label>
-                    {!! Form::select('id_genero', collect(['' => 'Seleccionar...'])->union($generos), null, ['class' => 'form-control', 'id' => 'id_genero']) !!}
-                </div>
-            </div>
-
-            {{-- ======================= --}}
-            
-            <div class="col-12 col-md-3 mt-3" id="">
+            <div class="col-12 col-md-3 mt-3" id="div_direccion">
                 <div class="form-group d-flex flex-column">
                     <label for="direccion" class="form-label">Dirección</label>
                     {!! Form::text('direccion', null, ['class' => 'form-control', 'id' => 'direccion']) !!}
                 </div>
             </div>
+
+            {{-- ======================= --}}
+            
+            <div class="col-12 col-md-3 mt-3" id="div_id_genero">
+                <div class="form-group d-flex flex-column">
+                    <label for="id_genero" class="form-label">Género<span class="text-danger">*</span></label>
+                    {!! Form::select('id_genero', collect(['' => 'Seleccionar...'])->union($generos), null, ['class' => 'form-control', 'id' => 'id_genero']) !!}
+                </div>
+            </div>
         </div>
+
+        {{-- ========================================================= --}}
+        {{-- ========================================================= --}}
+        {{-- ========================================================= --}}
+        {{-- ========================================================= --}}
 
         <div class="row mt-5" id="div_proveedor_juridico">
             <div class="col-12 col-md-3">
@@ -124,15 +129,22 @@
         {{-- ========================================================= --}}
         {{-- ========================================================= --}}
         {{-- ========================================================= --}}
+        
+        <!-- Contenedor para el GIF -->
+        <div id="loadingIndicatorPersonaStore" class="loadingIndicator">
+            <img src="{{asset('imagenes/loading.gif')}}" alt="Procesando...">
+        </div>
+
+        {{-- ========================================================= --}}
+        {{-- ========================================================= --}}
 
         <div class="mt-5 mb-2 d-flex justify-content-center">
-            <button class="btn btn-success rounded-2 me-3" type="submit">
+            <button type="submit" class="btn btn-success rounded-2 me-3">
                 <i class="fa fa-floppy-o"></i>
                 Guardar
-                {{-- <input class="btn btn-success rounded-2 me-3" type="submit" value="Guardar" id="btn_crear_usuario"> --}}
             </button>
 
-            <button class="btn btn-danger rounded-2" type="submit">
+            <button type="button" class="btn btn-danger rounded-2">
                 <i class="fa fa-remove"></i>
                 Cancelar
             </button>
