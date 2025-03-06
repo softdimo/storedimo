@@ -36,10 +36,16 @@ class PersonaUpdate implements Responsable
         $nombreEmpresa = request('nombre_empresa', null);
         $telefonoEmpresa = request('telefono_empresa', null);
         
-        if(strlen($identificacion) < 6)
-        {
-            alert()->info('Info', 'El documento debe se de mínimo 6 caracteres');
-            return back();
+        if (isset($identificacion) && !is_null($identificacion) && !empty($identificacion)) {
+            if(strlen($identificacion) < 6) {
+                alert()->info('Info', 'El documento debe se de mínimo 6 caracteres');
+                return back();
+            }
+        } else {
+            if(strlen($nitEmpresa) < 11) {
+                alert()->info('Info', 'El Nit debe se de mínimo 11 caracteres incuyendo el guión y dígito de verificación');
+                return back();
+            }
         }
 
         try {
@@ -72,17 +78,6 @@ class PersonaUpdate implements Responsable
             return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
         }
         
-    }
-
-    // ===================================================================
-    // ===================================================================
-
-    private function consultarId($identificacion)
-    {
-        $queryIdentificacion = $this->clientApi->post($this->baseUri.'query_identificacion', [
-            'json' => ['identificacion' => $identificacion]
-        ]);
-        return json_decode($queryIdentificacion->getBody()->getContents());
     }
 
     // ===================================================================

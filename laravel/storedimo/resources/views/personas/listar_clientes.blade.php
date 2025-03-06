@@ -151,9 +151,11 @@
                                                                                 collect(['' => 'Seleccionar...'])
                                                                                 ->union($tipos_persona),
                                                                                 isset($persona) ? $persona->id_tipo_persona : null,
-                                                                                ['class' => 'form-control',
-                                                                                'id' => 'id_tipo_persona_'.$persona->id_tipo_persona,
-                                                                                'required' => 'required'])
+                                                                                [
+                                                                                    'class' => 'form-control',
+                                                                                    'id' => 'id_tipo_persona_'.$persona->id_tipo_persona,
+                                                                                    'required' => 'required'
+                                                                                ])
                                                                             }}
                                                                         </div>
                                                                     </div>
@@ -166,7 +168,11 @@
                                                                                     collect(['' => 'Seleccionar...'])
                                                                                     ->union($tipos_documento),
                                                                                     isset($persona) ? $persona->id_tipo_documento : null,
-                                                                                    ['class' => 'form-control', 'id' =>'id_tipo_documento'])
+                                                                                    [
+                                                                                        'class' => 'form-control',
+                                                                                        'id' =>'id_tipo_documento',
+                                                                                        'required' => 'required'
+                                                                                    ])
                                                                                 !!}
                                                                         </div>
                                                                     </div>
@@ -235,7 +241,7 @@
                                                                                     collect(['' => 'Seleccionar...'])
                                                                                     ->union($generos),
                                                                                     isset($persona) ? $persona->id_genero : null,
-                                                                                    ['class' => 'form-control', 'id' =>'id_genero'])
+                                                                                    ['class' => 'form-control', 'id' =>'id_genero','required' => 'required'])
                                                                                 !!}
                                                                         </div>
                                                                     </div>
@@ -245,7 +251,7 @@
                                                                             <label for="direccion" class="" style="font-size: 15px">Dirección</label>
                                                                             {{Form::text('direccion',
                                                                                 isset($persona) ? $persona->direccion : null,
-                                                                                ['class' => 'form-control', 'id' => 'direccion']
+                                                                                ['class' => 'form-control', 'id' => 'direccion','required' => 'required']
                                                                             )}}
                                                                         </div>
                                                                     </div>
@@ -259,7 +265,11 @@
                                                                                 collect(['' => 'Seleccionar...'])
                                                                                 ->union($estados),
                                                                                 isset($persona) ? $persona->id_estado : null,
-                                                                                ['class' => 'form-control', 'id' =>'id_estado_'.$persona->id_estado])
+                                                                                [
+                                                                                    'class' => 'form-control',
+                                                                                    'id' =>'id_estado_'.$persona->id_estado,
+                                                                                    'required' => 'required'
+                                                                                ])
                                                                             !!}
                                                                         </div>
                                                                     </div>
