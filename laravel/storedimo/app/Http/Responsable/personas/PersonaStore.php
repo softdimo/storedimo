@@ -79,9 +79,11 @@ class PersonaStore implements Responsable
                 $resPersonaStore = json_decode($peticionPersonaStore->getBody()->getContents());
 
                 if(isset($resPersonaStore) && !empty($resPersonaStore)) {
-                    return $this->respuestaExito(
-                        'Persona creada satisfactoriamente.', 'personas.index'
-                    );
+                    if ($idTipoPersona == 3 || $idTipoPersona == 4) {
+                        return $this->respuestaExito('Persona creada satisfactoriamente.', 'listar_proveedores');
+                    } else {
+                        return $this->respuestaExito('Persona creada satisfactoriamente.', 'listar_clientes');
+                    }
                 }
             }
             catch (Exception $e)

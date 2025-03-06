@@ -136,9 +136,9 @@
                                                             'autocomplete' => 'off',
                                                             'id' => 'formEditarProveedor_' . $persona->id_persona]) !!}
                                                             @csrf
-                                                            <div class="rounded-top text-white text-center align-middle"
+                                                            <div class="rounded-top text-white text-center"
                                                                 style="background-color: #337AB7; border: solid 1px #337AB7;">
-                                                                <h5>Editar Proveedor</h5>
+                                                                <h5 class="align-middle">Editar Proveedor</h5>
                                                             </div>
 
                                                             {{ Form::hidden('id_persona', isset($persona) ? $persona->id_persona : null, ['class' => '', 'id' => 'id_persona']) }}
@@ -171,16 +171,24 @@
                                                                                     collect(['' => 'Seleccionar...'])
                                                                                     ->union($tipos_documento),
                                                                                     isset($persona) ? $persona->id_tipo_documento : null,
-                                                                                    ['class' => 'form-control', 'id' =>'id_tipo_documento'])
+                                                                                    [
+                                                                                        'class' => 'form-control',
+                                                                                        'id' =>'id_tipo_documento',
+                                                                                        'required' => 'required'
+                                                                                    ])
                                                                                 !!}
                                                                         </div>
                                                                     </div>
                                                                     {{-- ======================= --}}
                                                                     <div class="col-12 col-md-4"  id="div_identificacion">
                                                                         <div class="form-group d-flex flex-column">
-                                                                            <label for="identificacion" class="" style="font-size: 15px">Número de documento
-                                                                                <span class="text-danger">*</span></label>
-                                                                            {{ Form::text('identificacion', isset($persona) ? $persona->identificacion : null, ['class' => 'form-control', 'id' => 'identificacion', 'required' => 'required']) }}
+                                                                            <label for="identificacion" class="" style="font-size: 15px">Número de documento</label>
+                                                                            {{ Form::text('identificacion',
+                                                                                isset($persona) ? $persona->identificacion : null,
+                                                                                [
+                                                                                    'class' => 'form-control',
+                                                                                    'id' => 'identificacion'
+                                                                                ]) }}
                                                                         </div>
                                                                     </div>
                                                                     {{-- ======================= --}}
@@ -188,7 +196,13 @@
                                                                         <div class="form-group d-flex flex-column">
                                                                             <label for="nombre_usuario" class="" style="font-size: 15px">Nombres
                                                                                 <span class="text-danger">*</span></label>
-                                                                            {{ Form::text('nombres_persona', isset($persona) ? $persona->nombres_persona : null, ['class' => 'form-control', 'id' => 'nombres_persona', 'required' => 'required']) }}
+                                                                            {{ Form::text('nombres_persona',
+                                                                                isset($persona) ? $persona->nombres_persona : null,
+                                                                                [
+                                                                                    'class' => 'form-control',
+                                                                                    'id' => 'nombres_persona'
+                                                                                ])
+                                                                            }}
                                                                         </div>
                                                                     </div>
                                                                     {{-- ======================= --}}
@@ -197,14 +211,25 @@
                                                                             <label for="apellido_usuario" class="" style="font-size: 15px">Apellidos
                                                                                 <span class="text-danger">*</span>
                                                                             </label>
-                                                                            {{ Form::text('apellidos_persona', isset($persona) ? $persona->apellidos_persona : null, ['class' => 'form-control', 'id' => 'apellidos_persona', 'required' => 'required']) }}
+                                                                            {{ Form::text('apellidos_persona',
+                                                                                isset($persona) ? $persona->apellidos_persona : null,
+                                                                                [
+                                                                                    'class' => 'form-control',
+                                                                                    'id' => 'apellidos_persona'
+                                                                                ]) }}
                                                                         </div>
                                                                     </div>
                                                                     {{-- ======================= --}}
                                                                     <div class="col-12 col-md-4 mt-4" id="div_numero_telefono">
                                                                         <div class="form-group d-flex flex-column">
                                                                             <label for="numero_telefono" class="" style="font-size: 15px">Número Teléfono</label>
-                                                                            {{ Form::text('numero_telefono', isset($persona) ? $persona->numero_telefono : null, ['class' => 'form-control', 'id' => 'numero_telefono']) }}
+                                                                            {{ Form::text('numero_telefono',
+                                                                                isset($persona) ? $persona->numero_telefono : null,
+                                                                                [
+                                                                                    'class' => 'form-control',
+                                                                                    'id' => 'numero_telefono'
+                                                                                ])
+                                                                            }}
                                                                         </div>
                                                                     </div>
                                                                     {{-- ======================= --}}
@@ -228,7 +253,14 @@
                                                                         <div class="form-group d-flex flex-column">
                                                                             <label for="email" class="" style="font-size: 15px">Correo
                                                                                 <span class="text-danger">*</span></label>
-                                                                            {{ Form::email('email', isset($persona) ? $persona->email : null, ['class' => 'form-control', 'id' => 'email', 'required' => 'required']) }}
+                                                                            {{ Form::email('email',
+                                                                                isset($persona) ? $persona->email : null,
+                                                                                [
+                                                                                    'class' => 'form-control',
+                                                                                    'id' => 'email',
+                                                                                    'required' => 'required'
+                                                                                ])
+                                                                            }}
                                                                         </div>
                                                                     </div>
                                                                     {{-- ======================= --}}
@@ -264,7 +296,10 @@
                                                                                 collect(['' => 'Seleccionar...'])
                                                                                 ->union($estados),
                                                                                 isset($persona) ? $persona->id_estado : null,
-                                                                                ['class' => 'form-control', 'id' =>'id_estado_'.$persona->id_estado])
+                                                                                [
+                                                                                    'class' => 'form-control',
+                                                                                    'id' =>'id_estado_'.$persona->id_estado
+                                                                                ])
                                                                             !!}
                                                                         </div>
                                                                     </div>
@@ -430,6 +465,30 @@
                     console.log(`Id Tipo Persona al abrir el modal: ${idTipoPersona}`);
 
                     // Buscar los elementos dentro de este modal
+                    let divIdentificacion = modal.find('[id^=div_identificacion]');
+                    let inputIdentificacion = modal.find('[id^=identificacion]');
+
+                    let divNombresPersona = modal.find('[id^=div_nombres_persona]');
+                    let inputNombresPersona = modal.find('[id^=nombres_persona]');
+
+                    let divApellidosPersona = modal.find('[id^=div_apellidos_persona]');
+                    let inputApellidosPersona = modal.find('[id^=apellidos_persona]');
+
+                    let divNumeroTelefono = modal.find('[id^=div_numero_telefono]');
+                    let inputNumeroTelefono = modal.find('[id^=numero_telefono]');
+
+                    let divCelular = modal.find('[id^=div_celular]');
+                    let inputCelular = modal.find('[id^=celular]');
+
+                    let divEmail = modal.find('[id^=div_email]');
+                    let inputEmail = modal.find('[id^=email]');
+
+                    let divDireccion = modal.find('[id^=div_direccion]');
+                    let inputDireccion = modal.find('[id^=direccion]');
+
+                    let divIdGenero = modal.find('[id^=div_id_genero]');
+                    let inputIdGenero = modal.find('[id^=id_genero]');
+
                     let divProveedorJuridico = modal.find('[id^=div_proveedor_juridico]');
                     let inputNitEmpresa = modal.find('[id^=nit_empresa]');
                     let inputNombreEmpresa = modal.find('[id^=nombre_empresa]');
@@ -437,11 +496,45 @@
 
                     // Ocultar o mostrar al cargar el modal
                     if (idTipoPersona == 4) {
+                        divIdentificacion.hide('slow');
+                        inputIdentificacion.removeAttr('required');
+
+                        divNombresPersona.hide('slow');
+                        inputNombresPersona.removeAttr('required');
+
+                        divApellidosPersona.hide('slow');
+                        inputApellidosPersona.removeAttr('required');
+
+                        divNumeroTelefono.hide('slow');
+                        inputNumeroTelefono.removeAttr('required');
+
+                        divCelular.removeClass('mt-4');
+
+                        divIdGenero.hide('slow');
+                        inputIdGenero.removeAttr('required');
+
                         divProveedorJuridico.show('slow');
                         inputNitEmpresa.attr('required', true);
                         inputNombreEmpresa.attr('required', true);
                         inputTelefonoEmpresa.attr('required', true);
                     } else {
+                        divIdentificacion.show('slow');
+                        inputIdentificacion.attr('required', true);
+
+                        divNombresPersona.show('slow');
+                        inputNombresPersona.attr('required', true);
+
+                        divApellidosPersona.show('slow');
+                        inputApellidosPersona.attr('required', true);
+
+                        divNumeroTelefono.show('slow');
+                        inputNumeroTelefono.attr('required', true);
+
+                        divCelular.addClass('mt-4');
+
+                        divIdGenero.show('slow');
+                        inputIdGenero.attr('required', true);
+
                         divProveedorJuridico.hide('slow');
                         inputNitEmpresa.removeAttr('required');
                         inputNombreEmpresa.removeAttr('required');
