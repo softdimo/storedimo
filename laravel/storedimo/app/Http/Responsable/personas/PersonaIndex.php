@@ -16,17 +16,30 @@ class PersonaIndex implements Responsable
             $baseUri = env('BASE_URI');
             $clientApi = new Client(['base_uri' => $baseUri]);
 
-            // ==============================================================
-            
-            // Realiza la solicitud a la API
             $response = $clientApi->get($baseUri . 'personas_index');
-            $personaIndex = json_decode($response->getBody()->getContents());
-
-            return view('personas.index', compact('personaIndex'));
-            
+            return json_decode($response->getBody()->getContents());
         } catch (Exception $e) {
-            alert()->error('Error', 'Error Exception, contacte a Soporte.');
-            return back();
+            return null;
         }
     }
+
+    // public function toResponse($request)
+    // {
+    //     try {
+    //         $baseUri = env('BASE_URI');
+    //         $clientApi = new Client(['base_uri' => $baseUri]);
+
+    //         // ==============================================================
+            
+    //         // Realiza la solicitud a la API
+    //         $response = $clientApi->get($baseUri . 'personas_index');
+    //         $personaIndex = json_decode($response->getBody()->getContents());
+
+    //         return view('personas.index', compact('personaIndex'));
+
+    //     } catch (Exception $e) {
+    //         alert()->error('Error', 'Error Exception, contacte a Soporte.');
+    //         return back();
+    //     }
+    // }
 }

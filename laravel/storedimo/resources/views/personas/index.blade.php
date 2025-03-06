@@ -93,8 +93,9 @@
             {{-- ======================================================================= --}}
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar
-                    Empleados</h5>
+                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0"
+                    style="background-color: #337AB7">Listar Personas
+                </h5>
 
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
@@ -131,11 +132,8 @@
                                         <td>{{ $persona->telefono_empresa }}</td>
                                         <td>
                                             <a href="#modalEditarPersona_{{ $persona->id_persona }}"
-                                                id="verModal_{{ $persona->id_persona }}" rel="modal:open">
-                                                <button class="btn btn-success rounded-circle btn-circle"><i
-                                                        class="fa fa-pencil-square-o" aria-hidden="true"
-                                                        title="Modificar"></i>
-                                                </button>
+                                                id="verModal_{{ $persona->id_persona }}" rel="modal:open" class="btn btn-success rounded-circle btn-circle" title="Modificar">
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </a>
 
                                             <a href="#ex1_{{ $persona->id_persona }}" rel="modal:open">
@@ -386,7 +384,6 @@
                                         {{-- FINAL Modal EDITAR PERSONA --}}
                                     </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
                     </div>
