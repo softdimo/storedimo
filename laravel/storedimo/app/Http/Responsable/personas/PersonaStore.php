@@ -45,20 +45,12 @@ class PersonaStore implements Responsable
             $consultarIdentificacion = $this->consultarIdPersona($identificacion);
         } else {
             if(strlen($nitEmpresa) < 11) {
-                alert()->info('Info', 'El Nit debe se de mínimo 11 caracteres');
+                alert()->info('Info', 'El Nit debe se de mínimo 11 caracteres incuyendo el guión y dígito de verificación');
                 return back();
             }
 
             $consultarNit = $this->consultarNitEmpresa($nitEmpresa);
         }
-        
-        // if(strlen($identificacion) < 6) {
-        //     alert()->info('Info', 'El documento debe se de mínimo 6 caracteres');
-        //     return back();
-        // }
-        
-        // Consultamos si ya existe una persona con la cedula ingresada
-        // $consultarIdentificacion = $this->consultarIdPersona($identificacion);
         
         if( isset($consultarIdentificacion) && !empty($consultarIdentificacion) && !is_null($consultarIdentificacion)
             || isset($consultarNit) && !empty($consultarNit) && !is_null($consultarNit) ) {
