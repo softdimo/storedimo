@@ -30,7 +30,7 @@ class PersonasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
             if (!$this->checkDatabaseConnection()) {
@@ -44,7 +44,9 @@ class PersonasController extends Controller
                 {
                     return redirect()->to(route('login'));
                 } else {
-                    return new PersonaIndex();
+                    $personaIndex = (new PersonaIndex())->toResponse($request);
+        
+                    return view('personas.index', compact('personaIndex'));
                 }
             }
         } catch (Exception $e) {
@@ -195,7 +197,7 @@ class PersonasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function listarProveedores()
+    public function listarProveedores(Request $request)
     {
         try {
             if (!$this->checkDatabaseConnection()) {
@@ -209,7 +211,9 @@ class PersonasController extends Controller
                 {
                     return redirect()->to(route('login'));
                 } else {
-                    return view('personas.listar_proveedores');
+                    $personaIndex = (new PersonaIndex())->toResponse($request);
+        
+                    return view('personas.listar_proveedores', compact('personaIndex'));
                 }
             }
         } catch (Exception $e) {
@@ -221,7 +225,7 @@ class PersonasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function listarClientes()
+    public function listarClientes(Request $request)
     {
         try {
             if (!$this->checkDatabaseConnection()) {
@@ -235,7 +239,9 @@ class PersonasController extends Controller
                 {
                     return redirect()->to(route('login'));
                 } else {
-                    return view('personas.listar_clientes');
+                    $personaIndex = (new PersonaIndex())->toResponse($request);
+
+                    return view('personas.listar_clientes', compact('personaIndex'));
                 }
             }
         } catch (Exception $e) {
