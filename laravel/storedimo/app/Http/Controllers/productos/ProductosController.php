@@ -19,10 +19,14 @@ use App\Traits\MetodosTrait;
 class ProductosController extends Controller
 {
     use MetodosTrait;
+    protected $baseUri;
+    protected $clientApi;
 
     public function __construct()
     {
         $this->shareData();
+        $this->baseUri = env('BASE_URI');
+        $this->clientApi = new Client(['base_uri' => $this->baseUri]);
     }
     /**
      * Display a listing of the resource.
@@ -334,6 +338,42 @@ class ProductosController extends Controller
                     return redirect()->to(route('login'));
                 } else {
                     return new ProductoGenerarBarCode();
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception GenerarBarCode Productos!");
+            return back();
+        }
+    }
+    
+    // ======================================================================
+    // ======================================================================
+
+    public function queryValoresProducto()
+    {
+        $idProducto = request('id_producto', null);
+        // dd($idProducto);
+
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+    
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    try {
+                        $queryValoresProducto = $this->clientApi->post($this->baseUri.'query_valores_producto/'.$idProducto, ['query' => []]);
+                        return json_decode($queryValoresProducto->getBody()->getContents());
+                        
+                    } catch (Exception $e) {
+                        alert()->error('Error', 'Excepción, si el problema persiste, contacte a Soporte.' . $e->getMessage());
+                        return back();
+                    }
                 }
             }
         } catch (Exception $e) {

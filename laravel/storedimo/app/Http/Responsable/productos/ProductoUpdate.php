@@ -38,7 +38,7 @@ class ProductoUpdate implements Responsable
                     'stock_minimo' => $stockMinimoEdit
                 ]
             ]);
-            $respuestaProductoUpdate = json_decode($peticionProductoUpdate->getBody()->getContents(), true);
+            $respuestaProductoUpdate = json_decode($peticionProductoUpdate->getBody()->getContents());
 
             // ===================================================================
 

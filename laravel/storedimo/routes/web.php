@@ -94,6 +94,7 @@ Route::group(['namespace' => 'App\Http\Controllers\productos'], function () {
     Route::post('cambiar_estado_producto', 'ProductosController@destroy')->name('cambiar_estado_producto');
     Route::post('query_barcode_producto/{idProducto}', 'ProductosController@queryBarCodeProducto')->name('query_barcode_producto');
     Route::post('producto_barcode', 'ProductosController@productoGenerarBarCode')->name('producto_barcode');
+    Route::post('query_valores_producto', 'ProductosController@queryValoresProducto')->name('query_valores_producto');
 
     // ========================================================================
     
