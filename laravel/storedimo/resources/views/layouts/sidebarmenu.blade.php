@@ -48,7 +48,7 @@
                         <a class="link-underline-light" href="{{route('personas.create')}}">Registrar Personas</a>
                     </li>
                     <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('personas.index')}}">Listar Personas</a>
+                        {{-- <a class="link-underline-light" href="{{route('personas.index')}}">Listar Personas</a> --}}
                     </li>
                     <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('listar_proveedores')}}">Listar Proveedores</a>

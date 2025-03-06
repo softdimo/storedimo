@@ -141,7 +141,7 @@
                                                                 <h5>Editar Proveedor</h5>
                                                             </div>
 
-                                                            {{ Form::hidden('id_persona', isset($persona) ? $persona->id_persona : null, ['class' => '', 'id' => 'id_usuario']) }}
+                                                            {{ Form::hidden('id_persona', isset($persona) ? $persona->id_persona : null, ['class' => '', 'id' => 'id_persona']) }}
 
                                                             {{-- ====================================================== --}}
                                                             {{-- ====================================================== --}}
@@ -186,7 +186,7 @@
                                                                     {{-- ======================= --}}
                                                                     <div class="col-12 col-md-4 mt-4" id="div_nombres_persona">
                                                                         <div class="form-group d-flex flex-column">
-                                                                            <label for="nombre_usuario" class="" style="font-size: 15px">Nombre Usuario
+                                                                            <label for="nombre_usuario" class="" style="font-size: 15px">Nombres
                                                                                 <span class="text-danger">*</span></label>
                                                                             {{ Form::text('nombres_persona', isset($persona) ? $persona->nombres_persona : null, ['class' => 'form-control', 'id' => 'nombres_persona', 'required' => 'required']) }}
                                                                         </div>
@@ -194,7 +194,7 @@
                                                                     {{-- ======================= --}}
                                                                     <div class="col-12 col-md-4 mt-4" id="div_apellidos_persona">
                                                                         <div class="form-group d-flex flex-column">
-                                                                            <label for="apellido_usuario" class="" style="font-size: 15px">Apellido Usuario
+                                                                            <label for="apellido_usuario" class="" style="font-size: 15px">Apellidos
                                                                                 <span class="text-danger">*</span>
                                                                             </label>
                                                                             {{ Form::text('apellidos_persona', isset($persona) ? $persona->apellidos_persona : null, ['class' => 'form-control', 'id' => 'apellidos_persona', 'required' => 'required']) }}
@@ -343,7 +343,7 @@
                     {{-- ========================================================= --}}
             
                     <div class="mt-5 mb-2 d-flex justify-content-center">
-                        <button class="btn rounded-2 me-3 text-white" type="submit" style="background-color: #286090">
+                        <button type="submit" class="btn rounded-2 me-3 text-white" style="background-color: #286090">
                             <i class="fa fa-file-pdf-o"></i>
                             Reporte PDF de Proveedores
                         </button>
@@ -420,7 +420,6 @@
             // ===========================================================================================
             // ===========================================================================================
 
-            // $('[id^="modalEditarProveedor_"]').on('shown.bs.modal', function () {
             $(document).on('shown.bs.modal', '[id^="modalEditarProveedor_"]', function () {
                 // Buscar el select dentro del modal
                 let modal = $(this); // Guardamos la referencia del modal
