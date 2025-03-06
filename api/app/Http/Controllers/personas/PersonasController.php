@@ -123,16 +123,5 @@ class PersonasController extends Controller
         return Persona::where('nit_empresa', $nitEmpresa)->first();
     }
 
-    // public function inactivarUsuario($idUsuario) 
-    // {
-    //     try {
-
-    //         $user = Usuario::find($idUsuario);
-    //         $user->id_estado = 2;
-    //         $user->save();
-
-    //     } catch (Exception $e) {
-    //         return response()->json('error_bd');
-    //     }
-    // }
+    
 }

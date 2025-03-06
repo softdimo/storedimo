@@ -74,11 +74,12 @@
                         {{-- ============================================================== --}}
                         {{ Form::select('proveedor', collect(['' => 'Seleccionar...'])->union($proveedores), null, ['class' => 'form-control mt-4 mb-4 w-75 ms-auto me-auto', 'id' => 'proveedor']) }}
                         {{-- ============================================================== --}}
+
                         <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Producto <span class="text-danger">*</span></h5>
                         {{-- ============================================================== --}}
                         <div class="p-3 d-flex justify-content-between" id="" style="">
                             <div class="d-flex justify-content-center w-75">
-                                {{ Form::select('producto', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-control', 'id' => 'producto']) }}
+                                {{ Form::select('id_producto', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-control', 'id' => 'id_producto']) }}
                             </div>
 
                             <div class="d-flex justify-content-end w-25">
@@ -330,7 +331,7 @@
     <div class="modal fade h-auto modal-gral p-0" id="modalModificarPrecios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
         <div class="modal-dialog m-0">
             <div class="modal-content">
-                <div class="modal-header justify-content-between border-0">
+                <div class="modal-header justify-content-between border-0 pb-1">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mod_ayuda_precios" title="Ayuda Modificar Precios">
                         <i class="fa fa-question" aria-hidden="true" title="Ayuda"></i>
                     </button>
@@ -341,7 +342,7 @@
                 {{-- ====================================================== --}}
                 {{-- ====================================================== --}}
 
-                <div class="modal-body">
+                <div class="modal-body pt-0">
                     <div class="rounded-top" style="background-color: #337AB7; border: solid 1px #337AB7;">
                         <h6 class="text-white p-2 m-0 text-center">Modificar Precios (Obligatorios *)</h6>
                     </div>
@@ -351,18 +352,18 @@
                     <div class="p-3" style="border: solid 1px #337AB7;" id="precios">
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <label for="precio_unitario" class="fw-bold" style="font-size: 12px">Precio Unitario <span class="text-danger">*</span></label>
-                                {!! Form::text('precio_unitario', null, ['class' => 'form-control', 'id' => 'precio_unitario', 'required']) !!}
+                                <label for="precio_unitario_edit" class="fw-bold" style="font-size: 12px">Precio Unitario <span class="text-danger">*</span></label>
+                                {!! Form::text('precio_unitario_edit', null, ['class' => 'form-control', 'id' => 'precio_unitario_edit', 'required']) !!}
                             </div>
 
                             <div class="col-12 col-md-6">
-                                <label for="precio_detal" class="fw-bold" style="font-size: 12px">Precio Detal <span class="text-danger">*</span></label>
-                                {!! Form::text('precio_detal', null, ['class' => 'form-control', 'id' => 'precio_detal', 'required']) !!}
+                                <label for="precio_detal_edit" class="fw-bold" style="font-size: 12px">Precio Detal <span class="text-danger">*</span></label>
+                                {!! Form::text('precio_detal_edit', null, ['class' => 'form-control', 'id' => 'precio_detal_edit', 'required']) !!}
                             </div>
 
                             <div class="col-12 col-md-6 mt-3">
-                                <label for="precio_por_mayor" class="fw-bold" style="font-size: 12px">Precio al por Mayor <span class="text-danger">*</span></label>
-                                {!! Form::text('precio_por_mayor', null, ['class' => 'form-control', 'id' => 'precio_por_mayor', 'required']) !!}
+                                <label for="precio_por_mayor_edit" class="fw-bold" style="font-size: 12px">Precio al por Mayor <span class="text-danger">*</span></label>
+                                {!! Form::text('precio_por_mayor_edit', null, ['class' => 'form-control', 'id' => 'precio_por_mayor_edit', 'required']) !!}
                             </div>
                         </div>
                     </div> {{-- FIN campos precios --}}
@@ -389,7 +390,7 @@
     {{-- ==================================================================================== --}}
 
     {{-- INICIO Modal Ayuda Modificar Precios --}}
-    <div class="modal fade" id="mod_ayuda_precios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+    <div class="modal fade h-auto modal-gral p-0" id="mod_ayuda_precios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header d-none"></div>
@@ -438,29 +439,45 @@
 @section('scripts')
     <script>
         $( document ).ready(function() {
-            // INICIO - Validación Formulario Creación de Bajas de productos
-            // form_bajas = $("#form_bajas");
+            let idProducto = $('#id_producto').val();
+            console.log(idProducto);
 
-            // form_bajas.validate({
-            //     rules:{
-            //         tipo_baja:{
-            //             required:true
-            //         },
-            //         producto:{
-            //             required:true
-            //         },
-            //         cantidad:{
-            //             required:false
-            //         },
-            //     },
-            //     errorPlacement: function(error, element) {
-            //     if ( element.hasClass('datapicker') ){
-            //             error.appendTo( element.closest("div.form-group") );
-            //         }else{
-            //             error.appendTo( element.parent() );
-            //         }
-            //     }
-            // });
+            if (idProducto == '' ) {
+                $('#p_unitario').html(0);
+                $('#p_detal').html(0);
+                $('#p_x_mayor').html(0);
+            }
+
+            // INICIO - Validación Formulario Creación de Bajas de productos
+            $('#id_producto').change(function () {
+                let idProducto = $('#id_producto').val();
+                console.log(idProducto);
+
+                $.ajax({
+                    async: true,
+                    url: "{{route('query_valores_producto')}}",
+                    type: "POST",
+                    dataType: "JSON",
+                    data: {
+                        '_token': "{{ csrf_token() }}",
+                        'id_producto': idProducto
+                    },
+                    success: function (respuesta) {
+                        console.log(respuesta);
+                        console.log(respuesta.precio_unitario);
+
+                        if (idProducto == '' ) {
+                            $('#p_unitario').html(0);
+                            $('#p_detal').html(0);
+                            $('#p_x_mayor').html(0);
+                        } else {
+                            $('#p_unitario').html(respuesta.precio_unitario);
+                            $('#p_detal').html(respuesta.precio_detal);
+                            $('#p_x_mayor').html(respuesta.precio_por_mayor);
+                        }
+                    }
+                });
+            });
             // FIN - Validación Formulario Creación de Bajas de productos
 
             // ================================================
@@ -472,7 +489,6 @@
 
         // INICIO - Función agregar datos de la entrada
         $("#btn_add_entrada").click(function() {
-
             let idProveedor = $('#proveedor').val();
             let proveedor = $('#proveedor option:selected').text();
             let idProducto = $('#producto').val();
@@ -557,6 +573,12 @@
             // Mostrar Spinner
             loadingIndicator.show();
         });
+        
+        // ===================================================================================
+        // ===================================================================================
+
+        
+
     </script>
 @stop
 
