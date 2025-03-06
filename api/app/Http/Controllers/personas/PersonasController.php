@@ -115,6 +115,14 @@ class PersonasController extends Controller
         return Persona::where('identificacion', $identificacion)->first();
     }
 
+    public function consultarNitEmpresa()
+    {
+        $nitEmpresa = request('nit_empresa', null);
+        
+        // Consultamos si ya existe un usuario con la cedula ingresada
+        return Persona::where('nit_empresa', $nitEmpresa)->first();
+    }
+
     // public function inactivarUsuario($idUsuario) 
     // {
     //     try {
