@@ -70,9 +70,12 @@ class PersonaUpdate implements Responsable
             $resPersonaUpdate = json_decode($peticionPersonaUpdate->getBody()->getContents());
 
             if(isset($resPersonaUpdate) && !empty($resPersonaUpdate)) {
-                return $this->respuestaExito(
-                    'Persona editada satisfactoriamente.', 'personas.index'
-                );
+
+                if ($idTipoPersona == 3 || $idTipoPersona == 4) {
+                    return $this->respuestaExito('Persona editada satisfactoriamente.', 'listar_proveedores');
+                } else {
+                    return $this->respuestaExito('Persona editada satisfactoriamente.', 'listar_clientes');
+                }
             }
         } catch (Exception $e) {
             return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
