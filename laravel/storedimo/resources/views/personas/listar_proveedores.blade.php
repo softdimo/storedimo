@@ -91,8 +91,8 @@
                             <thead>
                                 <tr class="header-table text-center">
                                     <th>Tipo Proveedor</th>
-                                    <th>Nit empresa</th>
                                     <th>Empresa</th>
+                                    <th>Nit empresa</th>
                                     <th>Nombres</th>
                                     <th>Apellidos</th>
                                     <th>Celular</th>
@@ -106,8 +106,8 @@
                                     @if ($persona->id_tipo_persona == 3 || $persona->id_tipo_persona == 4)
                                         <tr class="text-center">
                                             <td>{{$persona->tipo_persona}}</td>
-                                            <td>{{$persona->nit_empresa}}</td>
                                             <td>{{$persona->nombre_empresa}}</td>
+                                            <td>{{$persona->nit_empresa}}</td>
                                             <td>{{$persona->nombres_persona}}</td>
                                             <td>{{$persona->apellidos_persona}}</td>
                                             <td>{{$persona->celular}}</td>

@@ -137,8 +137,8 @@
                                 <div class="row p-3">
                                     <div class="col-12 col-md-9">
                                         <h3 class="" id="nombre_producto"></h3>
-                                        <p class="">Cantidad: <span id="cantidad_producto"></span></p>
-                                        <p class="">Valor subtotal: $ <span id="valor_subTotal"></span></p>
+                                        <p class="">Cantidad: <span id="cantidad_producto"> </span></p>
+                                        <p class="">Valor subtotal: $ <span id="valor_subTotal"> </span></p>
                                     </div>
                                     {{-- ========================== --}}
                                     <div class="col-12 col-md-3">
@@ -151,25 +151,46 @@
 
                             {{-- ============ --}}
 
-                            <div class="" style="background-color: #F5F5F5">
-                                <h3>Total: $<span id="valor_total"></span></h3>
-                            </div>
+                            {!! Form::open([
+                                'method' => 'POST',
+                                'route' => ['entradas.store'],
+                                'class' => 'mt-0',
+                                'autocomplete' => 'off',
+                                'id' => 'formCrearCompraEntrada',
+                                'name' => 'crearCompraEntrada'
+                                ]) !!}
+                                @csrf
 
-                            {{-- ============ --}}
+                                {!! Form::hidden('form_compra_entradas', 'crearCompraEntrada') !!}
 
-                            <div class="d-flex justify-content-end mb-5 p-3" style="">
-                                <button class="btn btn-success rounded-2 me-3" type="submit">
-                                    <i class="fa fa-floppy-o"></i>
-                                    Guardar
-                                </button>
-                    
-                                <button class="btn btn-danger rounded-2" type="submit">
-                                    <i class="fa fa-remove"></i>
-                                    Cancelar
-                                </button>
-                            </div>
+                                <div class="d-flex" style="background-color: #F5F5F5">
+                                    <h3 class="col-3 d-flex align-middle">Total: $</h3>
+                                    {!! Form::text('valor_compra', null, ['class' => 'form-control w-100 fs-4', 'id' => 'valor_compra', 'required']) !!}
+                                </div>
+
+                                {{-- ============ --}}
+                                
+                                <!-- Contenedor para el GIF -->
+                                <div id="loadingIndicatorCrearEntrada" class="loadingIndicator">
+                                    <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                                </div>
+
+                                {{-- ============ --}}
+
+                                <div class="d-flex justify-content-end mb-5 p-3" style="">
+                                    <button type="submit" class="btn btn-success rounded-2 me-3">
+                                        <i class="fa fa-floppy-o"></i>
+                                        Guardar
+                                    </button>
+                        
+                                    <button type="button" class="btn btn-danger rounded-2">
+                                        <i class="fa fa-remove"></i>
+                                        Cancelar
+                                    </button>
+                                </div>
+                            {!! Form::close() !!}
                         </div>
-                    </div> {{-- FIN div_campos_usuarios --}}
+                    </div> {{-- FIN div_detalle-entradas --}}
                 </div>
             </div> {{-- FIN div_crear_usuario --}}
         </div>
@@ -551,9 +572,10 @@
 
                 $('#valor_subTotal').html(valor_subTotal);
 
-                let valor_total = pUnitario * cantidad;
+                let valor_compra = pUnitario * cantidad;
 
-                $('#valor_total').html(valor_total);
+                // $('#valor_compra').html(valor_compra);
+                $('#valor_compra').val(valor_compra);
             }
         });
         // FIN - Función agregar datos de la entrada
@@ -575,7 +597,8 @@
             
             $('#valor_subTotal').html('');
             
-            $('#valor_total').html('');
+            $('#valor_compra').val('');
+            // $('#valor_compra').html('');
 
             $('#div_datos_producto').addClass('d-none');
 
@@ -614,6 +637,24 @@
             const submitButton = form.find('button[type="submit"]');
             const cancelButton = form.find('button[type="button"]');
             const loadingIndicator = form.find("div[id^='loadingIndicatorEditarProducto']"); // Busca el GIF del form actual
+
+            // Dessactivar Submit y Cancel
+            submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+            cancelButton.prop("disabled", true);
+
+            // Mostrar Spinner
+            loadingIndicator.show();
+        });
+        
+        // ===================================================================================
+        // ===================================================================================
+        
+        // formCrearProducto para cargar gif en el submit
+        $(document).on("submit", "form[id^='formCrearCompraEntrada']", function(e) {
+            const form = $(this);
+            const submitButton = form.find('button[type="submit"]');
+            const cancelButton = form.find('button[type="button"]');
+            const loadingIndicator = form.find("div[id^='loadingIndicatorCrearEntrada']"); // Busca el GIF del form actual
 
             // Dessactivar Submit y Cancel
             submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");

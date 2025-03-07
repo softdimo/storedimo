@@ -85,3 +85,17 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     // $router->post('persona_destroy/{id}', 'personas\PersonasController@destroy');
     // $router->get('persona_show/{id}', 'personas\PersonasController@show');
 });
+
+// ========================================================================
+// ========================================================================
+
+// ENTRADAS
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('entrada_index', 'entradas\EntradasController@index');
+    $router->post('entrada_store', 'entradas\EntradasController@store');
+    $router->put('entrada_update/{id}', 'entradas\EntradasController@update');
+    $router->post('entrada_consulta', 'entradas\EntradasController@entradaConsulta');
+});
+
+// ========================================================================
+// ========================================================================

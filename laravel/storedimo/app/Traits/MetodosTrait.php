@@ -77,6 +77,6 @@ trait MetodosTrait
         view()->share('generos', Genero::orderBy('genero')->pluck('genero', 'id_genero'));
         view()->share('tipos_baja', TipoBaja::orderBy('tipo_baja','asc')->pluck('tipo_baja', 'id_tipo_baja'));
         view()->share('productos', Producto::orderBy('nombre_producto')->pluck('nombre_producto', 'id_producto'));
-        view()->share('proveedores', Persona::orderBy('nombre_empresa')->whereIn('id_tipo_persona', [3,4])->pluck('nombres_persona', 'id_persona'));
+        view()->share('proveedores', Persona::orderBy('nombre_empresa')->whereIn('id_tipo_persona', [3,4])->pluck('nombre_empresa', 'id_persona'));
     }
 }
