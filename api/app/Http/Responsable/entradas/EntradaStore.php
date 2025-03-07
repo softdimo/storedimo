@@ -12,28 +12,27 @@ class EntradaStore implements Responsable
 {
     public function toResponse($request)
     {
-        $categoria = request('categoria', null);
+        $fechaCompra = request('fecha_compra', null);
+        $valorCompra = request('valor_compra', null);
+        $idProveedor = request('id_proveedor', null);
+        $usuLogueado = request('id_usuario', null);
+        $idEstado = request('id_estado', null);
 
-        // ================================================
-
-        $nuevaCategoria = Compra::create([
-            'categoria' => $categoria,
-        ]);
-
-        // ================================================
-
-        if (isset($nuevaCategoria) && !is_null($nuevaCategoria) && !empty($nuevaCategoria)) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Categoría creada correctamente'
+        try {
+            $nuevaCompra = Compra::create([
+                'fecha_compra' => $fechaCompra,
+                'valor_compra' => $valorCompra,
+                'id_proveedor' => $idProveedor,
+                'id_usuario' => $usuLogueado,
+                'id_estado' => $idEstado
             ]);
-        } else {
-            return abort(404, $message = 'Categoría no creada');
+
+            if (isset($nuevaCompra) && !is_null($nuevaCompra) && !empty($nuevaCompra)) {
+                return response()->json(['success' => true]);
+            }
+
+        } catch (Exception $e) {
+            return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
-
-    // ===================================================================
-    // ===================================================================
-
-
 }
