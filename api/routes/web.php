@@ -61,7 +61,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('producto_edit/{idProducto}', 'productos\ProductosController@edit');
     $router->put('producto_update/{idProducto}', 'productos\ProductosController@update');
     $router->post('cambiar_estado_producto/{idProducto}', 'productos\ProductosController@destroy');
-    $router->post('query_valores_producto/{idProducto}', 'productos\ProductosController@queryValoresProducto');
+    // $router->post('query_valores_producto/{idProducto}', 'productos\ProductosController@queryValoresProducto');
+    $router->post('query_producto/{idProducto}', 'productos\ProductosController@queryProducto');
 });
 
 // ========================================================================

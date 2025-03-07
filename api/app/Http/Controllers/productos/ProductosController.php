@@ -136,7 +136,20 @@ class ProductosController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function queryValoresProducto($idProducto)
+    // public function queryValoresProducto($idProducto)
+    // {
+    //     try {
+    //         return Producto::where('id_producto', $idProducto)->first();
+
+    //     } catch (Exception $e) {
+    //         return response()->json(['error_bd' => $e->getMessage()]);
+    //     }
+    // }
+    
+    // ======================================================================
+    // ======================================================================
+
+    public function queryProducto($idProducto)
     {
         try {
             return Producto::where('id_producto', $idProducto)->first();
