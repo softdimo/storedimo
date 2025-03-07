@@ -25,44 +25,38 @@ class EntradaStore implements Responsable
 
     public function toResponse($request)
     {
-        $categoria = request('categoria', null);
+        // dd($request);
+
+        $formCompraEntradas = request('form_compra_entradas', null); // formulario de donde se crea
+
+        $fechaCompra1 = request('fecha_compra', null);
+        $fechaCompra2 = request('fecha_compra', now()); // now() obtiene la fecha y hora actual
+        $fechaCompra3 = now()->format('Y-m-d H:i:s'); // Formato compatible con DATETIME en MySQL
+
+        dd($fechaCompra1,$fechaCompra2,$fechaCompra3);
+
+        $valorCompra = request('valor_compra', null);
+        $idProveedor = request('id_proveedor', null);
+        $idUsuario = request('id_usuario', null);
+        $idEstado = request('id_estado', null);
+
         
-        $consultaCategoria = $this->consultaCategoria($categoria);
         
-        if(isset($consultaCategoria) && !empty($consultaCategoria) && !is_null($consultaCategoria)) {
-            alert()->info('Info', 'Esta categoría ya existe.');
-            return back();
-        } else {
-            try {
-                $peticionCategoriaStore = $this->clientApi->post($this->baseUri.'categoria_store', [
-                    'json' => ['categoria' => $categoria]
-                ]);
-                $respuestaCategoriaStore = json_decode($peticionCategoriaStore->getBody()->getContents());
-
-                if(isset($respuestaCategoriaStore) && !empty($respuestaCategoriaStore)) {
-                    alert()->success('Proceso Exitoso', 'Categoría creada satisfactoriamente');
-                    return redirect()->to(route('categorias.index'));
-                }
-            } catch (Exception $e) {
-                alert()->error('Error', 'Error creando categoriausuario, si el problema persiste, contacte a Soporte.' . $e->getMessage());
-                return back();
-            }
-        } // FIN else
-    }
-
-    // ===================================================================
-    // ===================================================================
-
-    public function consultaCategoria($categoria)
-    {
+        
+        
         try {
-            $peticionConsultaCategoria = $this->clientApi->post($this->baseUri.'consulta_categoria', [
+            $peticionCategoriaStore = $this->clientApi->post($this->baseUri.'categoria_store', [
                 'json' => ['categoria' => $categoria]
             ]);
-            return json_decode($peticionConsultaCategoria->getBody()->getContents());
+            $respuestaCategoriaStore = json_decode($peticionCategoriaStore->getBody()->getContents());
+
+            if(isset($respuestaCategoriaStore) && !empty($respuestaCategoriaStore)) {
+                alert()->success('Proceso Exitoso', 'Categoría creada satisfactoriamente');
+                return redirect()->to(route('categorias.index'));
+            }
         } catch (Exception $e) {
-            alert()->error('Error', 'Error Exception, inténtelo de nuevo, si el problema persiste, contacte a Soporte.'.$e->getMessage());
+            alert()->error('Error', 'Error creando categoriausuario, si el problema persiste, contacte a Soporte.' . $e->getMessage());
             return back();
         }
-    }
+}
 }

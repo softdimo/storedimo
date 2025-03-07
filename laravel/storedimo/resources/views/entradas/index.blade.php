@@ -126,10 +126,9 @@
                         }
                     }
                 ],
-                "pageLength": 25,
+                "pageLength": 10,
                 "scrollX": true,
-            });
-            // CIERRE DataTable Lista Usuarios
+            }); // CIERRE DataTable Lista Usuarios
         });
     </script>
 @stop
