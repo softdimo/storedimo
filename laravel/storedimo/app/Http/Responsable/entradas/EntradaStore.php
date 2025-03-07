@@ -25,37 +25,30 @@ class EntradaStore implements Responsable
 
     public function toResponse($request)
     {
-        // dd($request);
-
-        $formCompraEntradas = request('form_compra_entradas', null); // formulario de donde se crea
-
-        $fechaCompra1 = request('fecha_compra', null);
-        $fechaCompra2 = request('fecha_compra', now()); // now() obtiene la fecha y hora actual
-        $fechaCompra3 = now()->format('Y-m-d H:i:s'); // Formato compatible con DATETIME en MySQL
-
-        dd($fechaCompra1,$fechaCompra2,$fechaCompra3);
-
+        $fechaCompra = now()->format('Y-m-d H:i:s'); // Formato compatible con DATETIME en MySQL
         $valorCompra = request('valor_compra', null);
         $idProveedor = request('id_proveedor', null);
-        $idUsuario = request('id_usuario', null);
-        $idEstado = request('id_estado', null);
-
-        
-        
-        
+        $usuLogueado = session('id_usuario');
+        $idEstado = 1;
         
         try {
-            $peticionCategoriaStore = $this->clientApi->post($this->baseUri.'categoria_store', [
-                'json' => ['categoria' => $categoria]
+            $reqEntradaStore = $this->clientApi->post($this->baseUri.'entrada_store', [
+                'json' => [
+                    'fecha_compra' => $fechaCompra,
+                    'valor_compra' => $valorCompra,
+                    'id_proveedor' => $idProveedor,
+                    'id_usuario' => $usuLogueado,
+                    'id_estado' => $idEstado,
+                ]
             ]);
-            $respuestaCategoriaStore = json_decode($peticionCategoriaStore->getBody()->getContents());
+            $resEntradaStore = json_decode($reqEntradaStore->getBody()->getContents());
 
-            if(isset($respuestaCategoriaStore) && !empty($respuestaCategoriaStore)) {
-                alert()->success('Proceso Exitoso', 'Categoría creada satisfactoriamente');
-                return redirect()->to(route('categorias.index'));
+            if(isset($resEntradaStore) && !empty($resEntradaStore) && !is_null($resEntradaStore)) {
+                alert()->success('Proceso Exitoso', 'compra creada satisfactoriamente');
+                return redirect()->to(route('entradas.index'));
             }
         } catch (Exception $e) {
-            alert()->error('Error', 'Error creando categoriausuario, si el problema persiste, contacte a Soporte.' . $e->getMessage());
+            alert()->error('Error', 'Creando la compra, contacte a Soporte.' . $e->getMessage());
             return back();
         }
 }
