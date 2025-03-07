@@ -59,28 +59,26 @@
                             </thead>
                             {{-- ============================== --}}
                             <tbody>
+                                @foreach ($entradas as $entrada)
                                     <tr class="text-center">
-                                        <td>1</td>
-                                        <td>$ 16.000</td>
-                                        <td>2024-02-17</td>
-                                        <td>11111111</td>
-                                        <td>Anónimo Anónimo</td>
-                                        <td>Activa</td>
+                                        <td>{{$entrada->id_compra}}</td>
+                                        <td>{{$entrada->valor_compra}}</td>
+                                        <td>{{$entrada->fecha_compra}}</td>
+                                        <td>{{$entrada->nit_empresa}}</td>
+                                        <td>{{$entrada->nombre_empresa}}</td>
+                                        <td>{{$entrada->estado}}</td>
                                         <td>
-                                            <a href="#" role="button" class="btn rounded-circle btn-circle text-white" title="Ver Detalles" style="background-color: #286090">
+                                            <button title="Ver Detalles" class="btn rounded-circle btn-circle text-white" style="background-color: #286090">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
-                                            </a>
+                                            </button>
                                         </td>
                                     </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-                                        
                     {{-- ========================================================= --}}
                     {{-- ========================================================= --}}
-                    {{-- ========================================================= --}}
-                    {{-- ========================================================= --}}
-            
                     <div class="mt-5 mb-2 d-flex justify-content-center">
                         <button class="btn rounded-2 me-3 text-white" type="submit" style="background-color: #286090">
                             <i class="fa fa-file-pdf-o"></i>
