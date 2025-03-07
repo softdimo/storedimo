@@ -161,7 +161,8 @@
                                 ]) !!}
                                 @csrf
 
-                                {!! Form::hidden('form_compra_entradas', 'crearCompraEntrada') !!}
+                                {!! Form::hidden('form_compra_entradas', 'crearCompraEntrada') !!} {{-- id del gormulario origen --}}
+                                {!! Form::hidden('id_proveedor',null, ['id' => 'id_proveedor', 'required']) !!}
 
                                 <div class="d-flex" style="background-color: #F5F5F5">
                                     <h3 class="col-3 d-flex align-middle">Total: $</h3>
@@ -574,8 +575,9 @@
 
                 let valor_compra = pUnitario * cantidad;
 
-                // $('#valor_compra').html(valor_compra);
                 $('#valor_compra').val(valor_compra);
+
+                $('#id_proveedor').val(idProveedor);
             }
         });
         // FIN - Función agregar datos de la entrada

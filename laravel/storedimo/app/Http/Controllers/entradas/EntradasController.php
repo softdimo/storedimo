@@ -97,7 +97,6 @@ class EntradasController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
         try {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
