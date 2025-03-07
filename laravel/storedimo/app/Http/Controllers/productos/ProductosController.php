@@ -352,7 +352,6 @@ class ProductosController extends Controller
     public function queryValoresProducto()
     {
         $idProducto = request('id_producto', null);
-        // dd($idProducto);
 
         try {
             if (!$this->checkDatabaseConnection()) {
@@ -367,7 +366,7 @@ class ProductosController extends Controller
                     return redirect()->to(route('login'));
                 } else {
                     try {
-                        $queryValoresProducto = $this->clientApi->post($this->baseUri.'query_valores_producto/'.$idProducto, ['query' => []]);
+                        $queryValoresProducto = $this->clientApi->post($this->baseUri.'query_producto/'.$idProducto, ['query' => []]);
                         return json_decode($queryValoresProducto->getBody()->getContents());
                         
                     } catch (Exception $e) {

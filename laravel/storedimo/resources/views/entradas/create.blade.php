@@ -106,8 +106,7 @@
                             </div>
                             {{-- ============ --}}
                             <div class="col-md-3 text-center">
-                                <button type="button" title="Modificar" data-bs-toggle="modal" data-bs-target="#modalModificarPrecios" onclick="preciosProducto()"
-                                    class="btn btn-success btn-circle">
+                                <button type="button" title="Modificar" data-bs-toggle="modal" data-bs-target="#modalModificarPrecios" class="btn btn-success btn-circle">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar"></i>
                                 </button>
                             </div>
@@ -349,37 +348,64 @@
 
                     {{-- =================================== --}}
 
-                    <div class="p-3" style="border: solid 1px #337AB7;" id="precios">
-                        <div class="row">
-                            <div class="col-12 col-md-6">
-                                <label for="precio_unitario_edit" class="fw-bold" style="font-size: 12px">Precio Unitario <span class="text-danger">*</span></label>
-                                {!! Form::text('precio_unitario_edit', null, ['class' => 'form-control', 'id' => 'precio_unitario_edit', 'required']) !!}
+                    {!! Form::open([
+                        'method' => 'POST',
+                        'route' => ['producto_update'],
+                        'class' => 'mt-0',
+                        'autocomplete' => 'off',
+                        'id' => 'formEditarProductoEntrada',
+                        'name' => 'crearProductoEntrada'
+                        ]) !!}
+                        @csrf
+
+                        {!! Form::hidden('idProductoEdit', null, ['class' => 'form-control', 'id' => 'idProductoEdit', 'required']) !!}
+
+                        {!! Form::hidden('form_editar_precios_entradas', 'formEditarPreciosEntradas') !!}
+
+                        <div class="p-3" style="border: solid 1px #337AB7;" id="precios">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <label for="precioUnitarioEdit" class="fw-bold" style="font-size: 12px">Precio Unitario <span class="text-danger">*</span></label>
+                                    {!! Form::text('precioUnitarioEdit', null, ['class' => 'form-control', 'id' => 'precioUnitarioEdit', 'required']) !!}
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label for="precioDetalEdit" class="fw-bold" style="font-size: 12px">Precio Detal <span class="text-danger">*</span></label>
+                                    {!! Form::text('precioDetalEdit', null, ['class' => 'form-control', 'id' => 'precioDetalEdit', 'required']) !!}
+                                </div>
+
+                                <div class="col-12 col-md-6 mt-3">
+                                    <label for="precioPorMayorEdit" class="fw-bold" style="font-size: 12px">Precio al por Mayor <span class="text-danger">*</span></label>
+                                    {!! Form::text('precioPorMayorEdit', null, ['class' => 'form-control', 'id' => 'precioPorMayorEdit', 'required']) !!}
+                                </div>
+                            </div>
+                        </div> {{-- FIN campos precios --}}
+
+                        {{-- ====================================================== --}}
+                        {{-- ====================================================== --}}
+                        
+                        <!-- Contenedor para el GIF -->
+                        <div id="loadingIndicatorEditarProducto" class="loadingIndicator">
+                            <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                        </div>
+
+                        {{-- ====================================================== --}}
+                        {{-- ====================================================== --}}
+
+                        <div class="modal-footer border-0 justify-content-center">
+                            <div class="">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
+                                </button>
                             </div>
 
-                            <div class="col-12 col-md-6">
-                                <label for="precio_detal_edit" class="fw-bold" style="font-size: 12px">Precio Detal <span class="text-danger">*</span></label>
-                                {!! Form::text('precio_detal_edit', null, ['class' => 'form-control', 'id' => 'precio_detal_edit', 'required']) !!}
-                            </div>
-
-                            <div class="col-12 col-md-6 mt-3">
-                                <label for="precio_por_mayor_edit" class="fw-bold" style="font-size: 12px">Precio al por Mayor <span class="text-danger">*</span></label>
-                                {!! Form::text('precio_por_mayor_edit', null, ['class' => 'form-control', 'id' => 'precio_por_mayor_edit', 'required']) !!}
+                            <div class="">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                    <i class="fa fa-remove" aria-hidden="true">  Cancelar</i>
+                                </button>
                             </div>
                         </div>
-                    </div> {{-- FIN campos precios --}}
-
-                    {{-- ====================================================== --}}
-                    {{-- ====================================================== --}}
-
-                    <div class="modal-footer border-0 justify-content-center">
-                        <div class="">
-                            <button type="button" class="btn btn-success" title="Guardar"><i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i></button>
-                        </div>
-
-                        <div class="">
-                            <button type="button" class="btn btn-danger" title="Cancelar" data-bs-dismiss="modal" ><i class="fa fa-remove" aria-hidden="true">  Cancelar</i></button>
-                        </div>
-                    </div>
+                    {!! Form::close() !!}
                 </div> {{-- FIN modal-body --}}
             </div> {{-- FIN modal-content --}}
         </div> {{-- FIN modal-dialog --}}
@@ -474,6 +500,11 @@
                             $('#p_unitario').html(respuesta.precio_unitario);
                             $('#p_detal').html(respuesta.precio_detal);
                             $('#p_x_mayor').html(respuesta.precio_por_mayor);
+
+                            $('#idProductoEdit').val(respuesta.id_producto);
+                            $('#precioUnitarioEdit').val(respuesta.precio_unitario);
+                            $('#precioDetalEdit').val(respuesta.precio_detal);
+                            $('#precioPorMayorEdit').val(respuesta.precio_por_mayor);
                         }
                     }
                 });
@@ -565,6 +596,24 @@
             const submitButton = form.find('button[type="submit"]');
             const cancelButton = form.find('button[type="button"]');
             const loadingIndicator = form.find("div[id^='loadingIndicatorCrearProducto']"); // Busca el GIF del form actual
+
+            // Dessactivar Submit y Cancel
+            submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+            cancelButton.prop("disabled", true);
+
+            // Mostrar Spinner
+            loadingIndicator.show();
+        });
+        
+        // ===================================================================================
+        // ===================================================================================
+        
+        // formEditarProductoEntrada para cargar gif en el submit
+        $(document).on("submit", "form[id^='formEditarProductoEntrada']", function(e) {
+            const form = $(this);
+            const submitButton = form.find('button[type="submit"]');
+            const cancelButton = form.find('button[type="button"]');
+            const loadingIndicator = form.find("div[id^='loadingIndicatorEditarProducto']"); // Busca el GIF del form actual
 
             // Dessactivar Submit y Cancel
             submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
