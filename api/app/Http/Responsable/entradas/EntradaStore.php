@@ -15,6 +15,7 @@ class EntradaStore implements Responsable
         $fechaCompra = request('fecha_compra', null);
         $valorCompra = request('valor_compra', null);
         $idProveedor = request('id_proveedor', null);
+        $idProductoCompra = request('id_producto_compra', null);
         $usuLogueado = request('id_usuario', null);
         $idEstado = request('id_estado', null);
 
@@ -23,6 +24,7 @@ class EntradaStore implements Responsable
                 'fecha_compra' => $fechaCompra,
                 'valor_compra' => $valorCompra,
                 'id_proveedor' => $idProveedor,
+                'id_producto' => $idProductoCompra,
                 'id_usuario' => $usuLogueado,
                 'id_estado' => $idEstado
             ]);

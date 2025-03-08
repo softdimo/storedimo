@@ -28,6 +28,7 @@ class EntradaStore implements Responsable
         $fechaCompra = now()->format('Y-m-d H:i:s'); // Formato compatible con DATETIME en MySQL
         $valorCompra = request('valor_compra', null);
         $idProveedor = request('id_proveedor', null);
+        $idProductoCompra = request('id_producto_compra', null);
         $usuLogueado = session('id_usuario');
         $idEstado = 1;
         
@@ -37,6 +38,7 @@ class EntradaStore implements Responsable
                     'fecha_compra' => $fechaCompra,
                     'valor_compra' => $valorCompra,
                     'id_proveedor' => $idProveedor,
+                    'id_producto_compra' => $idProductoCompra,
                     'id_usuario' => $usuLogueado,
                     'id_estado' => $idEstado,
                 ]

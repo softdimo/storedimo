@@ -18,6 +18,7 @@ class Compra extends Model
         'fecha_compra',
         'valor_compra',
         'id_proveedor',
+        'id_producto',
         'id_usuario',
         'id_estado'
     ];
