@@ -15,6 +15,7 @@ class EntradaIndex implements Responsable
         try {
             $entradas = Compra::leftjoin('personas','personas.id_persona','=','compras.id_proveedor')
                 ->leftjoin('usuarios','usuarios.id_usuario','=','compras.id_usuario')
+                ->leftjoin('productos','productos.id_producto','=','compras.id_producto')
                 ->leftjoin('estados','estados.id_estado','=','compras.id_estado')
                 ->select(
                     'id_compra',
@@ -24,9 +25,14 @@ class EntradaIndex implements Responsable
                     'nombre_empresa',
                     'nit_empresa',
                     'compras.id_usuario',
-                    'nombre_usuario',
+                    // 'nombre_usuario',
+                    DB::raw("CONCAT(nombre_usuario, ' ', apellido_usuario) AS nombres_usuario"),
                     'compras.id_estado',
-                    'estado'
+                    'estado',
+                    'compras.id_producto',
+                    'nombre_producto',
+                    'cantidad',
+                    'precio_unitario'
                 )
                 ->orderByDesc('fecha_compra')
                 ->get();

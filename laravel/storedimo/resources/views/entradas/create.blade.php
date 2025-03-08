@@ -163,6 +163,7 @@
 
                                 {!! Form::hidden('form_compra_entradas', 'crearCompraEntrada') !!} {{-- id del gormulario origen --}}
                                 {!! Form::hidden('id_proveedor',null, ['id' => 'id_proveedor', 'required']) !!}
+                                {!! Form::hidden('id_producto_compra',null, ['id' => 'id_producto_compra', 'required']) !!}
 
                                 <div class="d-flex" style="background-color: #F5F5F5">
                                     <h3 class="col-3 d-flex align-middle">Total: $</h3>
@@ -527,6 +528,8 @@
                             $('#precioUnitarioEdit').val(respuesta.precio_unitario);
                             $('#precioDetalEdit').val(respuesta.precio_detal);
                             $('#precioPorMayorEdit').val(respuesta.precio_por_mayor);
+
+                            $('#id_producto_compra').val(respuesta.id_producto);
                         }
                     }
                 });
