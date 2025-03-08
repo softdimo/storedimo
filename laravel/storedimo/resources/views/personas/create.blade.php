@@ -69,7 +69,7 @@
             {{-- =============================================================== --}}
             {{-- =============================================================== --}}
 
-            {!! Form::open(['method' => 'POST', 'route' => ['personas.store'], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'form_crear_usuarios']) !!}
+            {!! Form::open(['method' => 'POST', 'route' => ['personas.store'], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'formCrearPersonas']) !!}
                 @csrf
             
                 @include('personas.fields_crear_personas')
@@ -85,195 +85,94 @@
 @section('scripts')
     <script>
         $( document ).ready(function() {
-            $('#tipo_persona').change(function () {
-                let idTipoPersona = $('#tipo_persona').val();
+            $('#div_proveedor_juridico').hide();
 
-                if (idTipoPersona == 1) {// Empleado-fijo
-                    $('#div_fecha_contrato').removeClass('d-none');
-                    $('#fecha_contrato').attr('required');
+            $('#id_tipo_persona').change(function () {
+                let idTipoPersona = $('#id_tipo_persona').val();
 
-                    $('#div_rol').removeClass('d-none');
-                    $('#rol').attr('required');
+                if (idTipoPersona == 4) { // Proveedor-juridico
+                    $('#div_identificacion').hide('slow');
+                    $('#identificacion').removeAttr('required');
 
-                    $('#div_nombre_usuario').removeClass('d-none');
-                    $('#nombre_usuario').attr('required');
+                    $('#div_nombres_persona').hide('slow');
+                    $('#nombres_persona').removeAttr('required');
 
-                    $('#div_password').removeClass('d-none');
-                    $('#password').attr('required');
+                    $('#div_apellidos_persona').hide('slow');
+                    $('#apellidos_persona').removeAttr('required');
 
-                    $('#div_confirmar_password').removeClass('d-none');
-                    $('#confirmar_password').attr('required');
+                    $('#div_numero_telefono').hide('slow');
+                    $('#numero_telefono').removeAttr('required');
 
-                    $('#div_nit_empresa').addClass('d-none');
-                    $('#nit_empresa').removeAttr('required');
+                    $('#div_celular').show('slow');
+                    $('#div_celular').removeClass('mt-3');
+                    $('#celular').attr('required');
 
-                    $('#div_nombre_empresa').addClass('d-none');
-                    $('#nombre_empresa').removeAttr('required');
+                    $('#div_email').show('slow');
+                    $('#div_email').removeClass('mt-3');
+                    $('#email').attr('required');
 
-                    $('#div_telefono_empresa').addClass('d-none');
-                    $('#telefono_empresa').removeAttr('required');
-                }
-                // Empleado-temporal
-                else if (idTipoPersona == 2) {
-                    $('#div_fecha_contrato').addClass('d-none');
-                    $('#fecha_contrato').removeAttr('required');
+                    $('#div_direccion').show('slow');
+                    $('#direccion').attr('required');
 
-                    $('#div_rol').removeClass('d-none');
-                    $('#rol').attr('required');
+                    $('#div_id_genero').hide('slow');
+                    $('#id_genero').removeAttr('required');
 
-                    $('#div_nombre_usuario').removeClass('d-none');
-                    $('#nombre_usuario').attr('required');
-
-                    $('#div_password').removeClass('d-none');
-                    $('#password').attr('required');
-
-                    $('#div_confirmar_password').removeClass('d-none');
-                    $('#confirmar_password').attr('required');
-                    
-                    $('#div_nit_empresa').addClass('d-none');
-                    $('#nit_empresa').removeAttr('required');
-
-                    $('#div_nombre_empresa').addClass('d-none');
-                    $('#nombre_empresa').removeAttr('required');
-
-                    $('#div_telefono_empresa').addClass('d-none');
-                    $('#telefono_empresa').removeAttr('required');
-                }
-                // Proveedor-natural
-                else if (idTipoPersona == 3) {
-                    $('#div_fecha_contrato').addClass('d-none');
-                    $('#fecha_contrato').removeAttr('required');
-
-                    $('#div_rol').addClass('d-none');
-                    $('#rol').removeAttr('required');
-
-                    $('#div_nombre_usuario').addClass('d-none');
-                    $('#nombre_usuario').removeAttr('required');
-
-                    $('#div_password').addClass('d-none');
-                    $('#password').removeAttr('required');
-
-                    $('#div_confirmar_password').addClass('d-none');
-                    $('#confirmar_password').removeAttr('required');
-                    
-                    $('#div_nit_empresa').addClass('d-none');
-                    $('#nit_empresa').removeAttr('required');
-
-                    $('#div_nombre_empresa').addClass('d-none');
-                    $('#nombre_empresa').removeAttr('required');
-
-                    $('#div_telefono_empresa').addClass('d-none');
-                    $('#telefono_empresa').removeAttr('required');
-                }
-                // Proveedor-juridico
-                else if (idTipoPersona == 4) {
-                    $('#div_fecha_contrato').addClass('d-none');
-                    $('#fecha_contrato').removeAttr('required');
-
-                    $('#div_rol').addClass('d-none');
-                    $('#rol').removeAttr('required');
-
-                    $('#div_nombre_usuario').addClass('d-none');
-                    $('#nombre_usuario').removeAttr('required');
-
-                    $('#div_password').addClass('d-none');
-                    $('#password').removeAttr('required');
-
-                    $('#div_confirmar_password').addClass('d-none');
-                    $('#confirmar_password').removeAttr('required');
-
-                    $('#div_nit_empresa').removeClass('d-none');
+                    $('#div_proveedor_juridico').show();
                     $('#nit_empresa').attr('required');
-
-                    $('#div_nombre_empresa').removeClass('d-none');
                     $('#nombre_empresa').attr('required');
-
-                    $('#div_telefono_empresa').removeClass('d-none');
                     $('#telefono_empresa').attr('required');
-                }
-                // Cliente-frecuente
-                else if (idTipoPersona == 5) {
-                    $('#div_fecha_contrato').addClass('d-none');
-                    $('#fecha_contrato').removeAttr('required');
+                } else {
+                    $('#div_identificacion').show('slow');
+                    $('#identificacion').attr('required');
 
-                    $('#div_rol').addClass('d-none');
-                    $('#rol').removeAttr('required');
+                    $('#div_nombres_persona').show('slow');
+                    $('#nombres_persona').attr('required');
 
-                    $('#div_nombre_usuario').addClass('d-none');
-                    $('#nombre_usuario').removeAttr('required');
+                    $('#div_apellidos_persona').show('slow');
+                    $('#apellidos_persona').attr('required');
 
-                    $('#div_password').addClass('d-none');
-                    $('#password').removeAttr('required');
+                    $('#div_numero_telefono').show('slow');
+                    $('#numero_telefono').attr('required');
 
-                    $('#div_confirmar_password').addClass('d-none');
-                    $('#confirmar_password').removeAttr('required');
+                    $('#div_celular').show('slow');
+                    $('#div_celular').addClass('mt-3');
+                    $('#celular').attr('required');
 
-                    $('#div_nit_empresa').addClass('d-none');
+                    $('#div_email').show('slow');
+                    $('#div_email').addClass('mt-3');
+                    $('#email').attr('required');
+
+                    $('#div_direccion').show('slow');
+                    $('#direccion').attr('required');
+
+                    $('#div_id_genero').show('slow');
+                    $('#id_genero').attr('required');
+
+                    $('#div_proveedor_juridico').hide();
                     $('#nit_empresa').removeAttr('required');
-
-                    $('#div_nombre_empresa').addClass('d-none');
                     $('#nombre_empresa').removeAttr('required');
-
-                    $('#div_telefono_empresa').addClass('d-none');
                     $('#telefono_empresa').removeAttr('required');
                 }
-                //  Cliente-NO-frecuente
-                else if (idTipoPersona == 6) {
-                    $('#div_fecha_contrato').addClass('d-none');
-                    $('#fecha_contrato').removeAttr('required');
+            }); // FIN Tipo Persona Jurídica
 
-                    $('#div_rol').addClass('d-none');
-                    $('#rol').removeAttr('required');
+            // ===================================================================================
+            // ===================================================================================
 
-                    $('#div_nombre_usuario').addClass('d-none');
-                    $('#nombre_usuario').removeAttr('required');
+            // formCrearPersonas para cargar gif en el submit
+            $(document).on("submit", "form[id^='formCrearPersonas']", function (e) {
+                const form = $(this);
+                const submitButton = form.find('button[type="submit"]');
+                const cancelButton = form.find('button[type="button"]');
+                const loadingIndicator = form.find("div[id^='loadingIndicatorPersonaStore']"); // Busca el GIF del form actual
 
-                    $('#div_password').addClass('d-none');
-                    $('#password').removeAttr('required');
-
-                    $('#div_confirmar_password').addClass('d-none');
-                    $('#confirmar_password').removeAttr('required');
-
-                    $('#div_nit_empresa').addClass('d-none');
-                    $('#nit_empresa').removeAttr('required');
-
-                    $('#div_nombre_empresa').addClass('d-none');
-                    $('#nombre_empresa').removeAttr('required');
-
-                    $('#div_telefono_empresa').addClass('d-none');
-                    $('#telefono_empresa').removeAttr('required');
-                }
-                // Seleccionar...
-                else {
-                    $('#div_fecha_contrato').addClass('d-none');
-                    $('#fecha_contrato').removeAttr('required');
-
-                    $('#div_rol').addClass('d-none');
-                    $('#rol').removeAttr('required');
-
-                    $('#div_nombre_usuario').addClass('d-none');
-                    $('#nombre_usuario').removeAttr('required');
-
-                    $('#div_password').addClass('d-none');
-                    $('#password').removeAttr('required');
-
-                    $('#div_confirmar_password').addClass('d-none');
-                    $('#confirmar_password').removeAttr('required');
-
-                    $('#div_nit_empresa').addClass('d-none');
-                    $('#nit_empresa').removeAttr('required');
-
-                    $('#div_nombre_empresa').addClass('d-none');
-                    $('#nombre_empresa').removeAttr('required');
-
-                    $('#div_telefono_empresa').addClass('d-none');
-                    $('#telefono_empresa').removeAttr('required');
-                }
+                // Dessactivar Botones
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+                cancelButton.prop("disabled", true);
+                
+                // Mostrar Spinner
+                loadingIndicator.show();
             });
-
-            // ===================================================================================
-            // ===================================================================================
-        });
+        }); // FIN document.ready
     </script>
 @stop
 

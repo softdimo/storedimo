@@ -31,21 +31,30 @@ class PersonaStore implements Responsable
         $email = request('email', null);
         $idGenero = request('id_genero', null);
         $direccion = request('direccion', null);
-        $idEstado = request('id_estado', null);
-        $fechaContrato = request('fecha_contrato', null);
-        $fechaTerminacionContrato = request('fecha_terminacion_contrato', null);
+        $idEstado = 1;
+        $nitEmpresa = request('nit_empresa', null);
+        $nombreEmpresa = request('nombre_empresa', null);
+        $telefonoEmpresa = request('telefono_empresa', null);
 
-        if(strlen($identificacion) < 6)
-        {
-            alert()->info('Info', 'El documento debe se de mínimo 6 caracteres');
-            return back();
+        if (isset($identificacion) && !is_null($identificacion) && !empty($identificacion)) {
+            if(strlen($identificacion) < 6) {
+                alert()->info('Info', 'El documento debe se de mínimo 6 caracteres');
+                return back();
+            }
+
+            $consultarIdentificacion = $this->consultarIdPersona($identificacion);
+        } else {
+            if(strlen($nitEmpresa) < 11) {
+                alert()->info('Info', 'El Nit debe se de mínimo 11 caracteres incuyendo el guión y dígito de verificación');
+                return back();
+            }
+
+            $consultarNit = $this->consultarNitEmpresa($nitEmpresa);
         }
         
-        // Consultamos si ya existe una persona con la cedula ingresada
-        $consultarIdentificacion = $this->consultarIdPersona($identificacion);
-        
-        if(isset($consultarIdentificacion) && !empty($consultarIdentificacion) && !is_null($consultarIdentificacion)) {
-            alert()->info('Info', 'Este número de documento ya existe.');
+        if( isset($consultarIdentificacion) && !empty($consultarIdentificacion) && !is_null($consultarIdentificacion)
+            || isset($consultarNit) && !empty($consultarNit) && !is_null($consultarNit) ) {
+            alert()->info('Info', 'Este número identificación ya existe.');
             return back();
         } else {
             try {
@@ -62,16 +71,19 @@ class PersonaStore implements Responsable
                         'id_genero' => $idGenero,
                         'direccion' => $direccion,
                         'id_estado' => $idEstado,
-                        'fecha_contrato' => $fechaContrato,
-                        'fecha_terminacion_contrato' => $fechaTerminacionContrato,
+                        'nit_empresa' => $nitEmpresa,
+                        'nombre_empresa' => $nombreEmpresa,
+                        'telefono_empresa' => $telefonoEmpresa,
                     ]
                 ]);
                 $resPersonaStore = json_decode($peticionPersonaStore->getBody()->getContents());
-                if(isset($resPersonaStore) && !empty($resPersonaStore))
-                {
-                    return $this->respuestaExito(
-                        'Persona creada satisfactoriamente.', 'personas.index'
-                    );
+
+                if(isset($resPersonaStore) && !empty($resPersonaStore)) {
+                    if ($idTipoPersona == 3 || $idTipoPersona == 4) {
+                        return $this->respuestaExito('Persona creada satisfactoriamente.', 'listar_proveedores');
+                    } else {
+                        return $this->respuestaExito('Persona creada satisfactoriamente.', 'listar_clientes');
+                    }
                 }
             }
             catch (Exception $e)
@@ -90,6 +102,17 @@ class PersonaStore implements Responsable
             'json' => ['identificacion' => $identificacion]
         ]);
         return json_decode($queryIdentificacion->getBody()->getContents());
+    }
+
+    // ===================================================================
+    // ===================================================================
+    
+    private function consultarNitEmpresa($nitEmpresa)
+    {
+        $queryNitEmpresa = $this->clientApi->post($this->baseUri.'query_nit_empresa', [
+            'query' => ['nit_empresa' => $nitEmpresa]
+        ]);
+        return json_decode($queryNitEmpresa->getBody()->getContents());
     }
 
     // ===================================================================

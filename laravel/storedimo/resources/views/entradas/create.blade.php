@@ -72,13 +72,14 @@
                     <div class="w-100-div w-48 mb-auto" style="border: solid 1px #337AB7; border-radius: 5px;">
                         <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Proveedor <span class="text-danger">*</span></h5>
                         {{-- ============================================================== --}}
-                        {{ Form::select('proveedor', collect(['' => 'Seleccionar...'])->union(['1' => 'Anónimo','2' => 'Proveedor-Natural']), null, ['class' => 'form-control mt-4 mb-4 w-75 ms-auto me-auto', 'id' => 'proveedor']) }}
+                        {{ Form::select('proveedor', collect(['' => 'Seleccionar...'])->union($proveedores), null, ['class' => 'form-control mt-4 mb-4 w-75 ms-auto me-auto', 'id' => 'proveedor']) }}
                         {{-- ============================================================== --}}
+
                         <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Producto <span class="text-danger">*</span></h5>
                         {{-- ============================================================== --}}
                         <div class="p-3 d-flex justify-content-between" id="" style="">
                             <div class="d-flex justify-content-center w-75">
-                                {{ Form::select('producto', collect(['' => 'Seleccionar...'])->union(['1' => 'Jabón','2' => 'Toalla']), null, ['class' => 'form-control', 'id' => 'producto']) }}
+                                {{ Form::select('id_producto', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-control', 'id' => 'id_producto']) }}
                             </div>
 
                             <div class="d-flex justify-content-end w-25">
@@ -105,8 +106,7 @@
                             </div>
                             {{-- ============ --}}
                             <div class="col-md-3 text-center">
-                                <button type="button" title="Modificar" data-bs-toggle="modal" data-bs-target="#modal_modificarPrecios" onclick="preciosProducto()"
-                                    class="btn btn-success btn-circle">
+                                <button type="button" title="Modificar" data-bs-toggle="modal" data-bs-target="#modalModificarPrecios" class="btn btn-success btn-circle">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar"></i>
                                 </button>
                             </div>
@@ -137,8 +137,8 @@
                                 <div class="row p-3">
                                     <div class="col-12 col-md-9">
                                         <h3 class="" id="nombre_producto"></h3>
-                                        <p class="">Cantidad: <span id="cantidad_producto"></span></p>
-                                        <p class="">Valor subtotal: $ <span id="valor_subTotal"></span></p>
+                                        <p class="">Cantidad: <span id="cantidad_producto"> </span></p>
+                                        <p class="">Valor subtotal: $ <span id="valor_subTotal"> </span></p>
                                     </div>
                                     {{-- ========================== --}}
                                     <div class="col-12 col-md-3">
@@ -151,25 +151,48 @@
 
                             {{-- ============ --}}
 
-                            <div class="" style="background-color: #F5F5F5">
-                                <h3>Total: $<span id="valor_total"></span></h3>
-                            </div>
+                            {!! Form::open([
+                                'method' => 'POST',
+                                'route' => ['entradas.store'],
+                                'class' => 'mt-0',
+                                'autocomplete' => 'off',
+                                'id' => 'formCrearCompraEntrada',
+                                'name' => 'crearCompraEntrada'
+                                ]) !!}
+                                @csrf
 
-                            {{-- ============ --}}
+                                {!! Form::hidden('form_compra_entradas', 'crearCompraEntrada') !!} {{-- id del gormulario origen --}}
+                                {!! Form::hidden('id_proveedor',null, ['id' => 'id_proveedor', 'required']) !!}
+                                {!! Form::hidden('id_producto_compra',null, ['id' => 'id_producto_compra', 'required']) !!}
 
-                            <div class="d-flex justify-content-end mb-5 p-3" style="">
-                                <button class="btn btn-success rounded-2 me-3" type="submit">
-                                    <i class="fa fa-floppy-o"></i>
-                                    Guardar
-                                </button>
-                    
-                                <button class="btn btn-danger rounded-2" type="submit">
-                                    <i class="fa fa-remove"></i>
-                                    Cancelar
-                                </button>
-                            </div>
+                                <div class="d-flex" style="background-color: #F5F5F5">
+                                    <h3 class="col-3 d-flex align-middle">Total: $</h3>
+                                    {!! Form::text('valor_compra', null, ['class' => 'form-control w-100 fs-4', 'id' => 'valor_compra', 'required']) !!}
+                                </div>
+
+                                {{-- ============ --}}
+                                
+                                <!-- Contenedor para el GIF -->
+                                <div id="loadingIndicatorCrearEntrada" class="loadingIndicator">
+                                    <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                                </div>
+
+                                {{-- ============ --}}
+
+                                <div class="d-flex justify-content-end mb-5 p-3" style="">
+                                    <button type="submit" class="btn btn-success rounded-2 me-3">
+                                        <i class="fa fa-floppy-o"></i>
+                                        Guardar
+                                    </button>
+                        
+                                    <button type="button" class="btn btn-danger rounded-2">
+                                        <i class="fa fa-remove"></i>
+                                        Cancelar
+                                    </button>
+                                </div>
+                            {!! Form::close() !!}
                         </div>
-                    </div> {{-- FIN div_campos_usuarios --}}
+                    </div> {{-- FIN div_detalle-entradas --}}
                 </div>
             </div> {{-- FIN div_crear_usuario --}}
         </div>
@@ -182,10 +205,10 @@
     {{-- ==================================================================================== --}}
 
     {{-- INICIO MODAL REGISTRAR PRODUCTO --}}
-    <div class="modal fade" id="modal_registroProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
-        <div class="modal-dialog">
+    <div class="modal fade h-auto modal-gral p-0" id="modal_registroProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog m-0">
             <div class="modal-content">
-                <div class="modal-header justify-content-between border-0">
+                <div class="modal-header justify-content-between border-0 pb-1">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mod_ayuda_registroProducto" title="Ayuda Registrar producto">
                         <i class="fa fa-question" aria-hidden="true" title="Ayuda"></i>
                     </button>
@@ -196,65 +219,81 @@
                 {{-- ====================================================== --}}
                 {{-- ====================================================== --}}
 
-                <div class="modal-body ">
-                    <div class="rounded-top" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                        <h6 class="text-white p-2 m-0 text-center">Registrar Producto (Obligatorios *)</h6>
+                {!! Form::open([
+                    'method' => 'POST',
+                    'route' => ['productos.store'],
+                    'class' => 'mt-2',
+                    'autocomplete' => 'off',
+                    'id' => 'formCrearProductoEntrada',
+                    'name' => 'crearProductoEntrada'
+                    ]) !!}
+                    @csrf
+
+                    <div class="modal-body pt-0">
+                        <div class="rounded-top" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                            <h6 class="text-white p-2 m-0 text-center">Registrar Producto (Obligatorios *)</h6>
+                        </div>
+
+                        {{-- =================================== --}}
+
+                        <div class="p-3" style="border: solid 1px #337AB7;" id="campos_producto">
+                            <div class="row">
+                                {!! Form::hidden('form_entradas', 'crearProductoEntrada') !!}
+
+                                <div class="col-12 col-md-4">
+                                    <label for="nombre_producto" class="fw-bold" style="font-size: 12px">Nombre Producto <span class="text-danger">*</span></label>
+                                    {!! Form::text('nombre_producto', null, ['class' => 'form-control', 'id' => 'nombre_producto', 'required']) !!}
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <label for="categoria" class="fw-bold" style="font-size: 12px">Categoría <span class="text-danger">*</span></label>
+                                    {!! Form::select('id_categoria',collect(['' => 'Seleccionar...'])->union($categorias),null,['class' => 'form-control', 'id' => 'id_estado','required'=>'required']) !!}
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <label for="precio_unitario" class="fw-bold" style="font-size: 12px">Precio Unitario <span class="text-danger">*</span></label>
+                                    {!! Form::text('precio_unitario', null, ['class' => 'form-control', 'id' => 'precio_unitario', 'required']) !!}
+                                </div>
+
+                                <div class="col-12 col-md-4 mt-3">
+                                    <label for="precio_detal" class="fw-bold" style="font-size: 12px">Precio Detal <span class="text-danger">*</span></label>
+                                    {!! Form::text('precio_detal', null, ['class' => 'form-control', 'id' => 'precio_detal', 'required']) !!}
+                                </div>
+
+                                <div class="col-12 col-md-4 mt-3">
+                                    <label for="precio_por_mayor" class="fw-bold" style="font-size: 12px">Precio Por Mayor<span class="text-danger">*</span></label>
+                                    {!! Form::text('precio_por_mayor', null, ['class' => 'form-control', 'id' => 'precio_por_mayor', 'required']) !!}
+                                </div>
+
+                                <div class="col-12 col-md-4 mt-3">
+                                    <label for="stock_minimo" class="fw-bold" style="font-size: 12px">Stock Mínimo <span class="text-danger">*</span></label>
+                                    {!! Form::text('stock_minimo', null, ['class' => 'form-control', 'id' => 'stock_minimo', 'required']) !!}
+                                </div>
+                            </div> {{-- FIN row nombre producto, categoría, precio unitario, precio detal, precio x mayor, stock mínimo --}}
+                        </div> {{-- FIN campos_producto --}}
+                    </div> {{-- FIN modal-body --}}
+
+                    {{-- ====================================================== --}}
+                    {{-- ====================================================== --}}
+                    
+                    <!-- Contenedor para el GIF -->
+                    <div id="loadingIndicatorCrearProducto" class="loadingIndicator">
+                        <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
                     </div>
 
-                    {{-- =================================== --}}
+                    {{-- ====================================================== --}}
+                    {{-- ====================================================== --}}
 
-                    <div class="p-3" style="border: solid 1px #337AB7;" id="campos_producto">
-                        <div class="row">
-                            <div class="col-12 col-md-4">
-                                <label for="nombre_producto" class="fw-bold" style="font-size: 12px">Nombre Producto <span class="text-danger">*</span></label>
-                                {!! Form::text('nombre_producto', null, ['class' => 'form-control', 'id' => 'nombre_producto', 'required']) !!}
-                            </div>
-
-                            <div class="col-12 col-md-4">
-                                <label for="categoria" class="fw-bold" style="font-size: 12px">Categoría <span class="text-danger">*</span></label>
-                                <select name="categoria" class="form-control" id="categoria" >
-                                    <option value="">Seleccionar</option>
-                                    <option value="">Hoga</option>
-                                    <option value="">Papelería</option>
-                                    <option value="">Aseo</option>
-                                </select>
-                            </div>
-
-                            <div class="col-12 col-md-4">
-                                <label for="precio_unitario" class="fw-bold" style="font-size: 12px">Precio Unitario <span class="text-danger">*</span></label>
-                                {!! Form::text('precio_unitario', null, ['class' => 'form-control', 'id' => 'precio_unitario', 'required']) !!}
-                            </div>
-
-                            <div class="col-12 col-md-4 mt-3">
-                                <label for="precio_detal" class="fw-bold" style="font-size: 12px">Precio Detal <span class="text-danger">*</span></label>
-                                {!! Form::text('precio_detal', null, ['class' => 'form-control', 'id' => 'precio_detal', 'required']) !!}
-                            </div>
-
-                            <div class="col-12 col-md-4 mt-3">
-                                <label for="precio_por_mayor" class="fw-bold" style="font-size: 12px">Precio Por Mayor<span class="text-danger">*</span></label>
-                                {!! Form::text('precio_por_mayor', null, ['class' => 'form-control', 'id' => 'precio_por_mayor', 'required']) !!}
-                            </div>
-
-                            <div class="col-12 col-md-4 mt-3">
-                                <label for="stock_minimo" class="fw-bold" style="font-size: 12px">Stock Mínimo <span class="text-danger">*</span></label>
-                                {!! Form::text('stock_minimo', null, ['class' => 'form-control', 'id' => 'stock_minimo', 'required']) !!}
-                            </div>
-                        </div> {{-- FIN row nombre producto, categoría, precio unitario, precio detal, precio x mayor, stock mínimo --}}
-                    </div> {{-- FIN campos_producto --}}
-                </div> {{-- FIN modal-body --}}
-
-                {{-- ====================================================== --}}
-                {{-- ====================================================== --}}
-
-                <div class="modal-footer border-0 justify-content-center">
-                    <div class="">
-                        <button type="button" class="btn btn-success" title="Guardar" onclick="ValidarNombreProducto()"  ><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
+                    <div class="modal-footer border-0 justify-content-center">
+                        <div class="">
+                            <button type="submit" class="btn btn-success" name="crearProductoEntrada"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
+                        </div>
+                        <div class="">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" ><i class="fa fa-remove" aria-hidden="true">  Cancelar</i></button>
+                        </div>
                     </div>
-                    <div class="">
-                        <button type="button" class="btn btn-danger" title="Cancelar" data-bs-dismiss="modal" ><i class="fa fa-remove" aria-hidden="true">  Cancelar</i></button>
-                    </div>
-                </div>
-          </div>
+                {!! Form::close() !!}
+            </div>
         </div>
     </div>
     {{-- FINAL MODAL REGISTRAR PRODUCTO --}}
@@ -262,12 +301,10 @@
     {{-- ==================================================================================== --}}
     {{-- ==================================================================================== --}}
     {{-- ==================================================================================== --}}
-    {{-- ==================================================================================== --}}
-    {{-- ==================================================================================== --}}
 
     {{-- INICIO Modal Ayuda de Registrar Productos --}}
-    <div class="modal fade" id="mod_ayuda_registroProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
-        <div class="modal-dialog">
+    <div class="modal fade h-auto modal-gral p-0" id="mod_ayuda_registroProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog m-0">
             <div class="modal-content">
                 <div class="modal-header d-none"></div>
 
@@ -311,14 +348,12 @@
     {{-- ==================================================================================== --}}
     {{-- ==================================================================================== --}}
     {{-- ==================================================================================== --}}
-    {{-- ==================================================================================== --}}
-    {{-- ==================================================================================== --}}
 
     {{-- INICIO Modal Modificar Precios --}}
-    <div class="modal fade" id="modal_modificarPrecios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
-        <div class="modal-dialog">
+    <div class="modal fade h-auto modal-gral p-0" id="modalModificarPrecios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog m-0">
             <div class="modal-content">
-                <div class="modal-header justify-content-between border-0">
+                <div class="modal-header justify-content-between border-0 pb-1">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mod_ayuda_precios" title="Ayuda Modificar Precios">
                         <i class="fa fa-question" aria-hidden="true" title="Ayuda"></i>
                     </button>
@@ -329,44 +364,71 @@
                 {{-- ====================================================== --}}
                 {{-- ====================================================== --}}
 
-                <div class="modal-body">
+                <div class="modal-body pt-0">
                     <div class="rounded-top" style="background-color: #337AB7; border: solid 1px #337AB7;">
                         <h6 class="text-white p-2 m-0 text-center">Modificar Precios (Obligatorios *)</h6>
                     </div>
 
                     {{-- =================================== --}}
 
-                    <div class="p-3" style="border: solid 1px #337AB7;" id="precios">
-                        <div class="row">
-                            <div class="col-12 col-md-6">
-                                <label for="precio_unitario" class="fw-bold" style="font-size: 12px">Precio Unitario <span class="text-danger">*</span></label>
-                                {!! Form::text('precio_unitario', null, ['class' => 'form-control', 'id' => 'precio_unitario', 'required']) !!}
+                    {!! Form::open([
+                        'method' => 'POST',
+                        'route' => ['producto_update'],
+                        'class' => 'mt-0',
+                        'autocomplete' => 'off',
+                        'id' => 'formEditarProductoEntrada',
+                        'name' => 'crearProductoEntrada'
+                        ]) !!}
+                        @csrf
+
+                        {!! Form::hidden('idProductoEdit', null, ['class' => 'form-control', 'id' => 'idProductoEdit', 'required']) !!}
+
+                        {!! Form::hidden('form_editar_precios_entradas', 'formEditarPreciosEntradas') !!}
+
+                        <div class="p-3" style="border: solid 1px #337AB7;" id="precios">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <label for="precioUnitarioEdit" class="fw-bold" style="font-size: 12px">Precio Unitario <span class="text-danger">*</span></label>
+                                    {!! Form::text('precioUnitarioEdit', null, ['class' => 'form-control', 'id' => 'precioUnitarioEdit', 'required']) !!}
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label for="precioDetalEdit" class="fw-bold" style="font-size: 12px">Precio Detal <span class="text-danger">*</span></label>
+                                    {!! Form::text('precioDetalEdit', null, ['class' => 'form-control', 'id' => 'precioDetalEdit', 'required']) !!}
+                                </div>
+
+                                <div class="col-12 col-md-6 mt-3">
+                                    <label for="precioPorMayorEdit" class="fw-bold" style="font-size: 12px">Precio al por Mayor <span class="text-danger">*</span></label>
+                                    {!! Form::text('precioPorMayorEdit', null, ['class' => 'form-control', 'id' => 'precioPorMayorEdit', 'required']) !!}
+                                </div>
+                            </div>
+                        </div> {{-- FIN campos precios --}}
+
+                        {{-- ====================================================== --}}
+                        {{-- ====================================================== --}}
+                        
+                        <!-- Contenedor para el GIF -->
+                        <div id="loadingIndicatorEditarProducto" class="loadingIndicator">
+                            <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                        </div>
+
+                        {{-- ====================================================== --}}
+                        {{-- ====================================================== --}}
+
+                        <div class="modal-footer border-0 justify-content-center">
+                            <div class="">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
+                                </button>
                             </div>
 
-                            <div class="col-12 col-md-6">
-                                <label for="precio_detal" class="fw-bold" style="font-size: 12px">Precio Detal <span class="text-danger">*</span></label>
-                                {!! Form::text('precio_detal', null, ['class' => 'form-control', 'id' => 'precio_detal', 'required']) !!}
-                            </div>
-
-                            <div class="col-12 col-md-6 mt-3">
-                                <label for="precio_por_mayor" class="fw-bold" style="font-size: 12px">Precio al por Mayor <span class="text-danger">*</span></label>
-                                {!! Form::text('precio_por_mayor', null, ['class' => 'form-control', 'id' => 'precio_por_mayor', 'required']) !!}
+                            <div class="">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                    <i class="fa fa-remove" aria-hidden="true">  Cancelar</i>
+                                </button>
                             </div>
                         </div>
-                    </div> {{-- FIN campos precios --}}
-
-                    {{-- ====================================================== --}}
-                    {{-- ====================================================== --}}
-
-                    <div class="modal-footer border-0 justify-content-center">
-                        <div class="">
-                            <button type="button" class="btn btn-success" title="Guardar" onclick="ValidarNombreProducto()"><i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i></button>
-                        </div>
-
-                        <div class="">
-                            <button type="button" class="btn btn-danger" title="Cancelar" data-bs-dismiss="modal" ><i class="fa fa-remove" aria-hidden="true">  Cancelar</i></button>
-                        </div>
-                    </div>
+                    {!! Form::close() !!}
                 </div> {{-- FIN modal-body --}}
             </div> {{-- FIN modal-content --}}
         </div> {{-- FIN modal-dialog --}}
@@ -375,11 +437,9 @@
     {{-- ==================================================================================== --}}
     {{-- ==================================================================================== --}}
     {{-- ==================================================================================== --}}
-    {{-- ==================================================================================== --}}
-    {{-- ==================================================================================== --}}
 
     {{-- INICIO Modal Ayuda Modificar Precios --}}
-    <div class="modal fade" id="mod_ayuda_precios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+    <div class="modal fade h-auto modal-gral p-0" id="mod_ayuda_precios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header d-none"></div>
@@ -428,29 +488,52 @@
 @section('scripts')
     <script>
         $( document ).ready(function() {
-            // INICIO - Validación Formulario Creación de Bajas de productos
-            // form_bajas = $("#form_bajas");
+            let idProducto = $('#id_producto').val();
+            console.log(idProducto);
 
-            // form_bajas.validate({
-            //     rules:{
-            //         tipo_baja:{
-            //             required:true
-            //         },
-            //         producto:{
-            //             required:true
-            //         },
-            //         cantidad:{
-            //             required:false
-            //         },
-            //     },
-            //     errorPlacement: function(error, element) {
-            //     if ( element.hasClass('datapicker') ){
-            //             error.appendTo( element.closest("div.form-group") );
-            //         }else{
-            //             error.appendTo( element.parent() );
-            //         }
-            //     }
-            // });
+            if (idProducto == '' ) {
+                $('#p_unitario').html(0);
+                $('#p_detal').html(0);
+                $('#p_x_mayor').html(0);
+            }
+
+            // INICIO - Validación Formulario Creación de Bajas de productos
+            $('#id_producto').change(function () {
+                let idProducto = $('#id_producto').val();
+                console.log(idProducto);
+
+                $.ajax({
+                    async: true,
+                    url: "{{route('query_valores_producto')}}",
+                    type: "POST",
+                    dataType: "JSON",
+                    data: {
+                        '_token': "{{ csrf_token() }}",
+                        'id_producto': idProducto
+                    },
+                    success: function (respuesta) {
+                        console.log(respuesta);
+                        console.log(respuesta.precio_unitario);
+
+                        if (idProducto == '' ) {
+                            $('#p_unitario').html(0);
+                            $('#p_detal').html(0);
+                            $('#p_x_mayor').html(0);
+                        } else {
+                            $('#p_unitario').html(respuesta.precio_unitario);
+                            $('#p_detal').html(respuesta.precio_detal);
+                            $('#p_x_mayor').html(respuesta.precio_por_mayor);
+
+                            $('#idProductoEdit').val(respuesta.id_producto);
+                            $('#precioUnitarioEdit').val(respuesta.precio_unitario);
+                            $('#precioDetalEdit').val(respuesta.precio_detal);
+                            $('#precioPorMayorEdit').val(respuesta.precio_por_mayor);
+
+                            $('#id_producto_compra').val(respuesta.id_producto);
+                        }
+                    }
+                });
+            });
             // FIN - Validación Formulario Creación de Bajas de productos
 
             // ================================================
@@ -462,7 +545,6 @@
 
         // INICIO - Función agregar datos de la entrada
         $("#btn_add_entrada").click(function() {
-
             let idProveedor = $('#proveedor').val();
             let proveedor = $('#proveedor option:selected').text();
             let idProducto = $('#producto').val();
@@ -494,9 +576,11 @@
 
                 $('#valor_subTotal').html(valor_subTotal);
 
-                let valor_total = pUnitario * cantidad;
+                let valor_compra = pUnitario * cantidad;
 
-                $('#valor_total').html(valor_total);
+                $('#valor_compra').val(valor_compra);
+
+                $('#id_proveedor').val(idProveedor);
             }
         });
         // FIN - Función agregar datos de la entrada
@@ -518,7 +602,8 @@
             
             $('#valor_subTotal').html('');
             
-            $('#valor_total').html('');
+            $('#valor_compra').val('');
+            // $('#valor_compra').html('');
 
             $('#div_datos_producto').addClass('d-none');
 
@@ -529,6 +614,65 @@
             // $('#p_unitario').html('');
             $('#cantidad').val('');
         })
+        
+        // ===================================================================================
+        // ===================================================================================
+
+        // formCrearProducto para cargar gif en el submit
+        $(document).on("submit", "form[id^='formCrearProducto']", function(e) {
+            const form = $(this);
+            const submitButton = form.find('button[type="submit"]');
+            const cancelButton = form.find('button[type="button"]');
+            const loadingIndicator = form.find("div[id^='loadingIndicatorCrearProducto']"); // Busca el GIF del form actual
+
+            // Dessactivar Submit y Cancel
+            submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+            cancelButton.prop("disabled", true);
+
+            // Mostrar Spinner
+            loadingIndicator.show();
+        });
+        
+        // ===================================================================================
+        // ===================================================================================
+        
+        // formEditarProductoEntrada para cargar gif en el submit
+        $(document).on("submit", "form[id^='formEditarProductoEntrada']", function(e) {
+            const form = $(this);
+            const submitButton = form.find('button[type="submit"]');
+            const cancelButton = form.find('button[type="button"]');
+            const loadingIndicator = form.find("div[id^='loadingIndicatorEditarProducto']"); // Busca el GIF del form actual
+
+            // Dessactivar Submit y Cancel
+            submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+            cancelButton.prop("disabled", true);
+
+            // Mostrar Spinner
+            loadingIndicator.show();
+        });
+        
+        // ===================================================================================
+        // ===================================================================================
+        
+        // formCrearProducto para cargar gif en el submit
+        $(document).on("submit", "form[id^='formCrearCompraEntrada']", function(e) {
+            const form = $(this);
+            const submitButton = form.find('button[type="submit"]');
+            const cancelButton = form.find('button[type="button"]');
+            const loadingIndicator = form.find("div[id^='loadingIndicatorCrearEntrada']"); // Busca el GIF del form actual
+
+            // Dessactivar Submit y Cancel
+            submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+            cancelButton.prop("disabled", true);
+
+            // Mostrar Spinner
+            loadingIndicator.show();
+        });
+        
+        // ===================================================================================
+        // ===================================================================================
+
+        
 
     </script>
 @stop

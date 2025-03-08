@@ -13,7 +13,6 @@ use App\Http\Responsable\productos\ProductoShow;
 use App\Http\Responsable\productos\ProductoEdit;
 use App\Http\Responsable\productos\ProductoUpdate;
 use App\Http\Responsable\productos\ProductoDestroy;
-use App\Http\Responsable\productos\ProductoQueryBarCode;
 use App\Models\Producto;
 
 class ProductosController extends Controller
@@ -115,14 +114,6 @@ class ProductosController extends Controller
 
     // ======================================================================
     // ======================================================================
-    
-    public function productoQueryBarcode($idProducto)
-    {
-        return new ProductoQueryBarCode($idProducto);
-    }
-
-    // ======================================================================
-    // ======================================================================
 
     public function verificarProducto()
     {
@@ -144,4 +135,27 @@ class ProductosController extends Controller
 
     // ======================================================================
     // ======================================================================
+
+    // public function queryValoresProducto($idProducto)
+    // {
+    //     try {
+    //         return Producto::where('id_producto', $idProducto)->first();
+
+    //     } catch (Exception $e) {
+    //         return response()->json(['error_bd' => $e->getMessage()]);
+    //     }
+    // }
+    
+    // ======================================================================
+    // ======================================================================
+
+    public function queryProducto($idProducto)
+    {
+        try {
+            return Producto::where('id_producto', $idProducto)->first();
+
+        } catch (Exception $e) {
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
+    }
 }

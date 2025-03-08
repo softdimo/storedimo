@@ -175,7 +175,7 @@ class UsuariosController extends Controller
         }
     }
 
-    public function inactivarUsuario($idUsuario) 
+    public function inactivarUsuario($idUsuario)
     {
         try {
 

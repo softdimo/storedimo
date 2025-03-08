@@ -32,13 +32,20 @@ class PersonaUpdate implements Responsable
         $idGenero = request('id_genero', null);
         $direccion = request('direccion', null);
         $idEstado = request('id_estado', null);
-        $fechaContrato = request('fecha_contrato', null);
-        $fechaTerminacionContrato = request('fecha_terminacion_contrato', null);
+        $nitEmpresa = request('nit_empresa', null);
+        $nombreEmpresa = request('nombre_empresa', null);
+        $telefonoEmpresa = request('telefono_empresa', null);
         
-        if(strlen($identificacion) < 6)
-        {
-            alert()->info('Info', 'El documento debe se de mínimo 6 caracteres');
-            return back();
+        if (isset($identificacion) && !is_null($identificacion) && !empty($identificacion)) {
+            if(strlen($identificacion) < 6) {
+                alert()->info('Info', 'El documento debe se de mínimo 6 caracteres');
+                return back();
+            }
+        } else {
+            if(strlen($nitEmpresa) < 11) {
+                alert()->info('Info', 'El Nit debe se de mínimo 11 caracteres incuyendo el guión y dígito de verificación');
+                return back();
+            }
         }
 
         try {
@@ -55,35 +62,25 @@ class PersonaUpdate implements Responsable
                     'id_genero' => $idGenero,
                     'direccion' => $direccion,
                     'id_estado' => $idEstado,
-                    'fecha_contrato' => $fechaContrato,
-                    'fecha_terminacion_contrato' => $fechaTerminacionContrato,
+                    'nit_empresa' => $nitEmpresa,
+                    'nombre_empresa' => $nombreEmpresa,
+                    'telefono_empresa' => $telefonoEmpresa
                 ]
             ]);
             $resPersonaUpdate = json_decode($peticionPersonaUpdate->getBody()->getContents());
-            if(isset($resPersonaUpdate) && !empty($resPersonaUpdate))
-            {
-                return $this->respuestaExito(
-                    'Persona editada satisfactoriamente.', 'personas.index'
-                );
+
+            if(isset($resPersonaUpdate) && !empty($resPersonaUpdate)) {
+
+                if ($idTipoPersona == 3 || $idTipoPersona == 4) {
+                    return $this->respuestaExito('Persona editada satisfactoriamente.', 'listar_proveedores');
+                } else {
+                    return $this->respuestaExito('Persona editada satisfactoriamente.', 'listar_clientes');
+                }
             }
-        }
-        catch (Exception $e)
-        {
-            dd($e);
+        } catch (Exception $e) {
             return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
         }
         
-    }
-
-    // ===================================================================
-    // ===================================================================
-
-    private function consultarId($identificacion)
-    {
-        $queryIdentificacion = $this->clientApi->post($this->baseUri.'query_identificacion', [
-            'json' => ['identificacion' => $identificacion]
-        ]);
-        return json_decode($queryIdentificacion->getBody()->getContents());
     }
 
     // ===================================================================
@@ -113,9 +110,4 @@ class PersonaUpdate implements Responsable
         alert()->error('Error', $mensaje);
         return back();
     }
-
-    // ===================================================================
-    // ===================================================================
-
-
 }

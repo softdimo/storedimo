@@ -11,6 +11,8 @@ class ProductoUpdate implements Responsable
 {
     public function toResponse($request)
     {
+        $formEditarPreciosEntradas = request('form_editar_precios_entradas', null); // Identifico el formualrio origen
+
         $idProducto = request('idProductoEdit', null);
         $nombreProductoEdit = request('nombreProductoEdit', null);
         $categoriaEdit = request('categoriaEdit', null);
@@ -27,24 +29,35 @@ class ProductoUpdate implements Responsable
         $clientApi = new Client(['base_uri' => $baseUri]);
 
         try {
+             // Obtener los datos actuales del producto antes de actualizar
+            $peticionProducto = $clientApi->post($baseUri.'query_producto/'.$idProducto);
+            $productoActual = json_decode($peticionProducto->getBody()->getContents());
+
+            // Enviar la actualización solo con los datos necesarios
             $peticionProductoUpdate = $clientApi->put($baseUri.'producto_update/'.$idProducto, [
                 'json' => [
-                    'nombre_producto' => $nombreProductoEdit,
-                    'id_categoria' => $categoriaEdit,
-                    'descripcion' => $descripcionEdit,
-                    'precio_unitario' => $precioUnitarioEdit,
-                    'precio_detal' => $precioDetalEdit,
-                    'precio_por_mayor' => $precioPorMayorEdit,
-                    'stock_minimo' => $stockMinimoEdit
+                    'nombre_producto' => $nombreProductoEdit ?? $productoActual->nombre_producto,
+                    'id_categoria' => $categoriaEdit ?? $productoActual->id_categoria,
+                    'descripcion' => $descripcionEdit ?? $productoActual->descripcion,
+                    'precio_unitario' => $precioUnitarioEdit ?? $productoActual->precio_unitario,
+                    'precio_detal' => $precioDetalEdit ?? $productoActual->precio_detal,
+                    'precio_por_mayor' => $precioPorMayorEdit ?? $productoActual->precio_por_mayor,
+                    'stock_minimo' => $stockMinimoEdit ?? $productoActual->stock_minimo
                 ]
             ]);
-            $respuestaProductoUpdate = json_decode($peticionProductoUpdate->getBody()->getContents(), true);
+            $respuestaProductoUpdate = json_decode($peticionProductoUpdate->getBody()->getContents());
 
             // ===================================================================
 
             if(isset($respuestaProductoUpdate) && !empty($respuestaProductoUpdate)) {
-                alert()->success('Proceso Exitoso', 'Producto editado satisfactoriamente');
-                return redirect()->to(route('productos.index'));
+
+                if ($formEditarPreciosEntradas == 'formEditarPreciosEntradas') {
+                    alert()->success('Proceso Exitoso', 'Producto creado satisfactoriamente');
+                    return redirect()->to(route('entradas.create'));
+                } else {
+                    alert()->success('Proceso Exitoso', 'Producto editado satisfactoriamente');
+                    return redirect()->to(route('productos.index'));
+                }
             }
         } catch (Exception $e) {
             alert()->error('Error', 'Excepción, intente de nuevo, si el problema persiste, contacte a Soporte.' . $e->getMessage());

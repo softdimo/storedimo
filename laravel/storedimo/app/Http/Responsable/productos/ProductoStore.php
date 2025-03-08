@@ -12,6 +12,7 @@ class ProductoStore implements Responsable
 {
     public function toResponse($request)
     {
+        $formEntradas = request('form_entradas', null); // Identifico el formualrio origen
         $nombreProducto = request('nombre_producto', null);
         $idCategoria = request('id_categoria', null);
         $precioUnitario = request('precio_unitario', null);
@@ -43,11 +44,14 @@ class ProductoStore implements Responsable
 
             // ========================================================
 
-            if(isset($respuestaProductoStore) && !empty($respuestaProductoStore))
-            {
-                alert()->success('Proceso Exitoso', 'Producto creado satisfactoriamente');
-                return redirect()->to(route('productos.index'));
-
+            if (isset($respuestaProductoStore) && !empty($respuestaProductoStore)) {
+                if ($formEntradas == 'crearProductoEntrada') {
+                    alert()->success('Proceso Exitoso', 'Producto creado satisfactoriamente');
+                    return redirect()->to(route('entradas.create'));
+                } else {
+                    alert()->success('Proceso Exitoso', 'Producto creado satisfactoriamente');
+                    return redirect()->to(route('productos.index'));
+                }
             }
         } catch (Exception $e) {
             alert()->error('Error', 'Creando el producto, si el problema persiste, contacte a Soporte.' . $e->getMessage());

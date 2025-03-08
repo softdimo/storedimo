@@ -61,7 +61,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('producto_edit/{idProducto}', 'productos\ProductosController@edit');
     $router->put('producto_update/{idProducto}', 'productos\ProductosController@update');
     $router->post('cambiar_estado_producto/{idProducto}', 'productos\ProductosController@destroy');
-    $router->post('producto_query_barcode/{idProducto}', 'productos\ProductosController@productoQueryBarcode');
+    // $router->post('query_valores_producto/{idProducto}', 'productos\ProductosController@queryValoresProducto');
+    $router->post('query_producto/{idProducto}', 'productos\ProductosController@queryProducto');
 });
 
 // ========================================================================
@@ -71,6 +72,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('personas_index', 'personas\PersonasController@index');
     $router->post('query_id_persona', 'personas\PersonasController@consultarIdPersona');
+    $router->post('query_nit_empresa', 'personas\PersonasController@consultarNitEmpresa');
     $router->post('persona_store', 'personas\PersonasController@store');
     $router->put('persona_update/{idPersona}', 'personas\PersonasController@update');
     /*$router->post('query_persona', 'personas\PersonasController@consultaPersona');
@@ -83,3 +85,17 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     // $router->post('persona_destroy/{id}', 'personas\PersonasController@destroy');
     // $router->get('persona_show/{id}', 'personas\PersonasController@show');
 });
+
+// ========================================================================
+// ========================================================================
+
+// ENTRADAS
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('entrada_index', 'entradas\EntradasController@index');
+    $router->post('entrada_store', 'entradas\EntradasController@store');
+    $router->put('entrada_update/{id}', 'entradas\EntradasController@update');
+    $router->post('entrada_consulta', 'entradas\EntradasController@entradaConsulta');
+});
+
+// ========================================================================
+// ========================================================================

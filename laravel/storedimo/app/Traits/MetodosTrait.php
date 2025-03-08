@@ -10,6 +10,9 @@ use App\Models\Estado;
 use App\Models\TipoDocumento;
 use App\Models\TipoPersona;
 use App\Models\Genero;
+use App\Models\Producto;
+use App\Models\TipoBaja;
+use App\Models\Persona;
 
 trait MetodosTrait
 {
@@ -69,6 +72,11 @@ trait MetodosTrait
         view()->share('tipos_documento', TipoDocumento::orderBy('tipo_documento')->pluck('tipo_documento', 'id_tipo_documento'));
         view()->share('tipos_empleado', TipoPersona::whereIn('id_tipo_persona', [1,2])->orderBy('tipo_persona')->pluck('tipo_persona', 'id_tipo_persona'));
         view()->share('tipos_persona', TipoPersona::whereNotIn('id_tipo_persona', [1,2])->orderBy('tipo_persona')->pluck('tipo_persona', 'id_tipo_persona'));
+        view()->share('tipos_proveedor', TipoPersona::whereIn('id_tipo_persona', [3,4])->orderBy('tipo_persona')->pluck('tipo_persona', 'id_tipo_persona'));
+        view()->share('clientes', TipoPersona::whereIn('id_tipo_persona', [5,6])->orderBy('tipo_persona')->pluck('tipo_persona', 'id_tipo_persona'));
         view()->share('generos', Genero::orderBy('genero')->pluck('genero', 'id_genero'));
+        view()->share('tipos_baja', TipoBaja::orderBy('tipo_baja','asc')->pluck('tipo_baja', 'id_tipo_baja'));
+        view()->share('productos', Producto::orderBy('nombre_producto')->pluck('nombre_producto', 'id_producto'));
+        view()->share('proveedores', Persona::orderBy('nombre_empresa')->whereIn('id_tipo_persona', [3,4])->pluck('nombre_empresa', 'id_persona'));
     }
 }

@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\personas;
+namespace App\Http\Controllers\entradas;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Responsable\personas\PersonaIndex;
-use App\Http\Responsable\personas\PersonaStore;
-use App\Http\Responsable\personas\PersonaUpdate;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Persona;
+use App\Http\Responsable\entradas\EntradaIndex;
+use App\Http\Responsable\entradas\EntradaStore;
+use App\Http\Responsable\entradas\EntradaUpdate;
+use App\Models\Compra;
 
 
-class PersonasController extends Controller
+class EntradasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +19,7 @@ class PersonasController extends Controller
      */
     public function index()
     {
-        return new PersonaIndex();
+        return new EntradaIndex();
     }
 
     // ======================================================================
@@ -47,7 +46,7 @@ class PersonasController extends Controller
      */
     public function store(Request $request)
     {
-        return new PersonaStore($request);
+        return new EntradaStore();
     }
 
     // ======================================================================
@@ -88,9 +87,9 @@ class PersonasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $idPersona)
+    public function update(Request $request, $id)
     {
-        return new PersonaUpdate($request, $idPersona);
+        return new EntradaUpdate($request, $id);
     }
 
     // ======================================================================
@@ -107,21 +106,16 @@ class PersonasController extends Controller
         //
     }
 
-    public function consultarIdPersona()
-    {
-        $identificacion = request('identificacion', null);
-        
-        // Consultamos si ya existe un usuario con la cedula ingresada
-        return Persona::where('identificacion', $identificacion)->first();
-    }
+    // ======================================================================
+    // ======================================================================
 
-    public function consultarNitEmpresa()
+    public function entradaConsulta($idCompra)
     {
-        $nitEmpresa = request('nit_empresa', null);
-        
-        // Consultamos si ya existe un usuario con la cedula ingresada
-        return Persona::where('nit_empresa', $nitEmpresa)->first();
-    }
+        try {
+            return Compra::where('id_compra', $idCompra)->first();
 
-    
+        } catch (Exception $e) {
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
+    }
 }

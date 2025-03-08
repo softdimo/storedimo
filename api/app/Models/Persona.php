@@ -26,7 +26,8 @@ class Persona extends Model
         'id_genero',
         'direccion',
         'id_estado',
-        'fecha_contrato',
-        'fecha_terminacion_contrato'
+        'nit_empresa',
+        'nombre_empresa',
+        'telefono_empresa'
     ];
 }
