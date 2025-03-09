@@ -60,20 +60,22 @@
                             </thead>
                             {{-- ============================== --}}
                             <tbody>
+                                @foreach ($ventas as $venta)
                                     <tr class="text-center align-middle">
-                                        <td>4</td>
-                                        <td>$ 7.500</td>
-                                        <td>2024-03-02</td>
-                                        <td>Cédula - 110000111</td>
-                                        <td>Anónimo Anónimo</td>
-                                        <td>Contado</td>
-                                        <td>Activa</td>
+                                        <td>{{$venta->id_venta}}</td>
+                                        <td>{{$venta->total_venta}}</td>
+                                        <td>{{$venta->fecha_venta}}</td>
+                                        <td>{{$venta->identificacion}}</td>
+                                        <td>{{$venta->nombres_cliente}}</td>
+                                        <td>{{$venta->tipo_pago}}</td>
+                                        <td>{{$venta->estado}}</td>
                                         <td>
                                             <a href="#" role="button" class="btn rounded-circle btn-circle text-white" title="Detalles Ventas" style="background-color: #286090">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                             </a>
                                         </td>
                                     </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -131,7 +133,7 @@
                         }
                     }
                 ],
-                "pageLength": 25,
+                "pageLength": 10,
                 "scrollX": true,
             });
             // CIERRE DataTable Lista Usuarios

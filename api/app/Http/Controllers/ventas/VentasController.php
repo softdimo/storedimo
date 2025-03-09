@@ -4,16 +4,14 @@ namespace App\Http\Controllers\ventas;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
-use App\Traits\MetodosTrait;
-use Exception;
 use App\Http\Responsable\ventas\VentaIndex;
 use App\Http\Responsable\ventas\VentaStore;
 use App\Http\Responsable\ventas\VentaUpdate;
+use App\Models\Venta;
+
 
 class VentasController extends Controller
 {
-    use MetodosTrait;
     /**
      * Display a listing of the resource.
      *
@@ -21,26 +19,7 @@ class VentasController extends Controller
      */
     public function index()
     {
-        try {
-            if (!$this->checkDatabaseConnection()) {
-                return view('db_conexion');
-            } else {
-                $sesion = $this->validarVariablesSesion();
-
-                if (empty($sesion[0]) || is_null($sesion[0]) &&
-                    empty($sesion[1]) || is_null($sesion[1]) &&
-                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-                {
-                    return redirect()->to(route('login'));
-                } else {
-                    return new VentaIndex();
-                }
-            }
-        } catch (Exception $e) {
-            dd($e);
-            alert()->error("Exception Index Ventas!");
-            return redirect()->to(route('login'));
-        }
+        return new VentaIndex();
     }
 
     // ======================================================================
@@ -53,7 +32,7 @@ class VentasController extends Controller
      */
     public function create()
     {
-        return view('ventas.create');
+        //
     }
 
     // ======================================================================
@@ -67,7 +46,7 @@ class VentasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return new VentaStore();
     }
 
     // ======================================================================
@@ -110,7 +89,7 @@ class VentasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return new VentaUpdate($request, $id);
     }
 
     // ======================================================================
@@ -126,12 +105,38 @@ class VentasController extends Controller
     {
         //
     }
-    
+
     // ======================================================================
     // ======================================================================
 
-    public function listarCreditoVentas()
+    public function consultaVenta($idVenta)
     {
-        return view('ventas.credito_ventas');
+        try {
+            return Venta::where('id_venta', $idVenta)->first();
+
+        } catch (Exception $e) {
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
+    }
+
+    // ======================================================================
+    // ======================================================================
+
+    public function anularVenta($idVenta)
+    {
+        $venta = Venta::find($idVenta);
+
+        if (isset($venta) && !is_null($venta) && !empty($venta)) {
+
+            try {
+                $venta->id_venta = 2;
+                $venta->update();
+
+                return response()->json(['success' => true]);
+    
+            } catch (Exception $e) {
+                return response()->json(['error_bd' => $e->getMessage()]);
+            }
+        }
     }
 }
