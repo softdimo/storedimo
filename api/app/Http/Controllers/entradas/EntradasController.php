@@ -118,4 +118,25 @@ class EntradasController extends Controller
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
+
+    // ======================================================================
+    // ======================================================================
+
+    public function anularCompra($idCompra)
+    {
+        $compra = Compra::find($idCompra);
+
+        if (isset($compra) && !is_null($compra) && !empty($compra)) {
+
+            try {
+                $compra->id_estado = 2;
+                $compra->update();
+
+                return response()->json(['success' => true]);
+    
+            } catch (Exception $e) {
+                return response()->json(['error_bd' => $e->getMessage()]);
+            }
+        }
+    }
 }
