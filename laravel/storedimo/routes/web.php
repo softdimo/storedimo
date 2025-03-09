@@ -127,6 +127,8 @@ Route::group(['namespace' => 'App\Http\Controllers\existencias'], function () {
 // ENTRADAS
 Route::group(['namespace' => 'App\Http\Controllers\entradas'], function () {
     Route::resource('entradas', 'EntradasController');
+    Route::post('anular_compra', 'EntradasController@anularCompra')->name('anular_compra');
+
 });
 
 // ========================================================================

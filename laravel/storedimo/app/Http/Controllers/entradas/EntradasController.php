@@ -181,8 +181,21 @@ class EntradasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    // public function listarBajas()
-    // {
-    //     return view('existencias.listar_bajas');
-    // }
+    public function anularCompra(Request $request)
+    {
+        $idCompra = request('id_compra', null);
+
+        try {
+            $reqAnularCompra = $this->clientApi->post($this->baseUri.'anular_compra/'.$idCompra, ['json' => []]);
+            $resAnularCompra = json_decode($reqAnularCompra->getBody()->getContents());
+
+            if(isset($resAnularCompra) && !empty($resAnularCompra) && !is_null($resAnularCompra)) {
+                alert()->success('Proceso Exitoso', 'Estado compra cambiado satisfactoriamente');
+                return redirect()->to(route('entradas.index'));
+            }
+        } catch (Exception $e) {
+            alert()->error('Error', 'Exception, contacte a Soporte.' . $e->getMessage());
+            return back();
+        }
+    }
 }
