@@ -51,22 +51,36 @@
                                         <td>{{$entrada->nit_empresa}}</td>
                                         <td>{{$entrada->nombre_empresa}}</td>
                                         <td>{{$entrada->estado}}</td>
-                                        <td>
-                                            <button title="Ver Detalles"
-                                                class="btn rounded-circle btn-circle text-white"
-                                                style="background-color: #286090"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#modalDetalleEntrada_{{$entrada->id_compra}}">
-                                                <i class="fa fa-eye" aria-hidden="true"></i>
-                                            </button>
 
-                                            <button title="Anular"
-                                                class="btn rounded-circle btn-circle text-white btn-danger"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#modalAnularCompra_{{$entrada->id_compra}}">
-                                                <i class="fa fa-remove"></i>
-                                            </button>
-                                        </td>
+                                        @if ($entrada->id_estado == 1)
+                                            <td>
+                                                <button title="Ver Detalles"
+                                                    class="btn rounded-circle btn-circle text-white"
+                                                    style="background-color: #286090"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalDetalleEntrada_{{$entrada->id_compra}}">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                </button>
+
+                                                <button title="Anular"
+                                                    class="btn rounded-circle btn-circle text-white btn-danger"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalAnularCompra_{{$entrada->id_compra}}">
+                                                    <i class="fa fa-remove"></i>
+                                                </button>
+                                            </td>
+                                        @else
+                                            <td>
+                                                <button title="Ver Detalles"
+                                                    class="btn rounded-circle btn-circle text-white"
+                                                    style="background-color: #286090"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalDetalleEntrada_{{$entrada->id_compra}}">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                </button>
+                                            </td>
+                                        @endif
+                                        
                                     </tr>
                                 @endforeach
                             </tbody>
