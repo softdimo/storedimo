@@ -13,6 +13,7 @@ use App\Models\Genero;
 use App\Models\Producto;
 use App\Models\TipoBaja;
 use App\Models\Persona;
+use App\Models\TipoPago;
 
 trait MetodosTrait
 {
@@ -77,6 +78,7 @@ trait MetodosTrait
         view()->share('generos', Genero::orderBy('genero')->pluck('genero', 'id_genero'));
         view()->share('tipos_baja', TipoBaja::orderBy('tipo_baja','asc')->pluck('tipo_baja', 'id_tipo_baja'));
         view()->share('productos', Producto::orderBy('nombre_producto')->pluck('nombre_producto', 'id_producto'));
+        view()->share('tipos_pago', TipoPago::orderBy('tipo_pago')->pluck('tipo_pago', 'id_tipo_pago'));
 
         view()->share('proveedores', Persona::whereIn('id_tipo_persona', [3, 4])
             ->selectRaw("id_persona,
