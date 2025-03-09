@@ -247,7 +247,7 @@
 
                                 <div class="col-12 col-md-4">
                                     <label for="categoria" class="fw-bold" style="font-size: 12px">Categoría <span class="text-danger">*</span></label>
-                                    {!! Form::select('id_categoria',collect(['' => 'Seleccionar...'])->union($categorias),null,['class' => 'form-control', 'id' => 'id_estado','required'=>'required']) !!}
+                                    {!! Form::select('id_categoria',collect(['' => 'Seleccionar...'])->union($categorias),null,['class' => 'form-control', 'id' => 'id_categoria','required'=>'required']) !!}
                                 </div>
 
                                 <div class="col-12 col-md-4">
@@ -286,10 +286,10 @@
 
                     <div class="modal-footer border-0 justify-content-center">
                         <div class="">
-                            <button type="submit" class="btn btn-success" name="crearProductoEntrada"><i class="fa fa-floppy-o" aria-hidden="true">  Guardar</i></button>
+                            <button type="submit" class="btn btn-success" name="crearProductoEntrada"><i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i></button>
                         </div>
                         <div class="">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" ><i class="fa fa-remove" aria-hidden="true">  Cancelar</i></button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" ><i class="fa fa-remove" aria-hidden="true"> Cancelar</i></button>
                         </div>
                     </div>
                 {!! Form::close() !!}

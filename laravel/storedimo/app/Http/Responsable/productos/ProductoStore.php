@@ -12,7 +12,9 @@ class ProductoStore implements Responsable
 {
     public function toResponse($request)
     {
-        $formEntradas = request('form_entradas', null); // Identifico el formualrio origen
+        $formEntradas = request('form_entradas', null); // Identifico el formulario origen entradas
+        $formVentas = request('form_ventas', null); // Identifico el formulario origen ventas
+
         $nombreProducto = request('nombre_producto', null);
         $idCategoria = request('id_categoria', null);
         $precioUnitario = request('precio_unitario', null);
@@ -22,6 +24,14 @@ class ProductoStore implements Responsable
         $stockMinimo = request('stock_minimo', null);
         $idEstado = 1;
 
+        // ========================================================
+
+        if ( isset($formEntradas) && !is_null($formEntradas) && !empty($formEntradas) ) {
+            $formStore = $formEntradas;
+        } else {
+            $formStore = $formVentas;
+        }
+        
         // ========================================================
         
         $baseUri = env('BASE_URI');
@@ -45,9 +55,12 @@ class ProductoStore implements Responsable
             // ========================================================
 
             if (isset($respuestaProductoStore) && !empty($respuestaProductoStore)) {
-                if ($formEntradas == 'crearProductoEntrada') {
+                if ($formStore == 'crearProductoEntrada') {
                     alert()->success('Proceso Exitoso', 'Producto creado satisfactoriamente');
                     return redirect()->to(route('entradas.create'));
+                } elseif ($formStore == 'crearProductoVenta'){
+                    alert()->success('Proceso Exitoso', 'Producto creado satisfactoriamente');
+                    return redirect()->to(route('ventas.create'));
                 } else {
                     alert()->success('Proceso Exitoso', 'Producto creado satisfactoriamente');
                     return redirect()->to(route('productos.index'));

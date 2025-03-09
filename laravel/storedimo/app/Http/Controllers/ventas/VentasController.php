@@ -14,6 +14,18 @@ use App\Http\Responsable\ventas\VentaUpdate;
 class VentasController extends Controller
 {
     use MetodosTrait;
+    protected $baseUri;
+    protected $clientApi;
+
+    public function __construct()
+    {
+        $this->shareData();
+        $this->baseUri = env('BASE_URI');
+        $this->clientApi = new Client(['base_uri' => $this->baseUri]);
+    }
+
+    // ======================================================================
+    // ======================================================================
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +49,6 @@ class VentasController extends Controller
                 }
             }
         } catch (Exception $e) {
-            dd($e);
             alert()->error("Exception Index Ventas!");
             return redirect()->to(route('login'));
         }
@@ -53,7 +64,25 @@ class VentasController extends Controller
      */
     public function create()
     {
-        return view('ventas.create');
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return view('ventas.create');
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Index Ventas!");
+            return redirect()->to(route('login'));
+        }
     }
 
     // ======================================================================
@@ -132,6 +161,24 @@ class VentasController extends Controller
 
     public function listarCreditoVentas()
     {
-        return view('ventas.credito_ventas');
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return view('ventas.credito_ventas');
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Index Ventas!");
+            return redirect()->to(route('login'));
+        }
     }
 }
