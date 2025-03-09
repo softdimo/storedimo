@@ -75,15 +75,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('query_nit_empresa', 'personas\PersonasController@consultarNitEmpresa');
     $router->post('persona_store', 'personas\PersonasController@store');
     $router->put('persona_update/{idPersona}', 'personas\PersonasController@update');
-    /*$router->post('query_persona', 'personas\PersonasController@consultaPersona');
-    $router->post('query_persona_update/{idPersona}', 'personas\PersonasController@queryPersonaUpdate');
-    $router->post('cambiar_clave/{idPersona}', 'personas\PersonasController@cambiarClave');
-    $router->post('consulta_recuperar_clave', 'personas\PersonasController@consultaRecuperarClave');
-    $router->post('inactivar_persona/{idPersona}', 'personas\PersonasController@inactivarPersona');
-    $router->post('actualizar_clave_fallas/{idPersona}', 'personas\PersonasController@actualizarClaveFallas'); */
-    
-    // $router->post('persona_destroy/{id}', 'personas\PersonasController@destroy');
-    // $router->get('persona_show/{id}', 'personas\PersonasController@show');
 });
 
 // ========================================================================
@@ -101,3 +92,13 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
 // ========================================================================
 // ========================================================================
+
+// VENTAS
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('venta_index', 'ventas\VentasController@index');
+    $router->post('venta_store', 'ventas\VentasController@store');
+    $router->post('anular_venta/{idVenta}', 'ventas\VentasController@anularVenta');
+
+    // $router->put('venta_update/{id}', 'ventas\VentasController@update');
+    // $router->post('consulta_venta', 'ventas\VentasController@consultaVenta');
+});
