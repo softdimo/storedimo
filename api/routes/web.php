@@ -102,3 +102,17 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     // $router->put('venta_update/{id}', 'ventas\VentasController@update');
     // $router->post('consulta_venta', 'ventas\VentasController@consultaVenta');
 });
+
+// ========================================================================
+// ========================================================================
+
+// PRESTAMOS
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('prestamo_index', 'prestamos\PrestamosController@index');
+    $router->get('prestamo_create', 'prestamos\PrestamosController@create');
+    $router->post('prestamo_store', 'prestamos\PrestamosController@store');
+    // $router->post('anular_prestamo/{idVenta}', 'ventas\VentasController@anularVenta');
+
+    // $router->put('venta_update/{id}', 'ventas\VentasController@update');
+    // $router->post('consulta_venta', 'ventas\VentasController@consultaVenta');
+});
