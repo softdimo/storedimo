@@ -66,7 +66,7 @@
                                     <a href="{{route('stock_minimo')}}" class="dropdown-item text-dark hover-li">Hay productos por debajo del stock mínimo</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('listar_prestamos_empleados')}}" class="dropdown-item text-dark hover-li">Hay Préstamos a punto de vencer</a>
+                                    <a href="{{route('prestamos_vencer')}}" class="dropdown-item text-dark hover-li">Hay Préstamos a punto de vencer</a>
                                 </li>
                             </ul>
                         </li>
