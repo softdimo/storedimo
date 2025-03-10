@@ -148,7 +148,7 @@
                                                             <i class="fa fa-eye"></i>
                                                         </button>
 
-                                                        <button title="Cambiar Estado" class="btn btn-danger rounded-circle btn-circle text-white" data-bs-toggle="modal" data-bs-target="#modalAbonoPrestamo_{{$prestamo->id_prestamo}}">
+                                                        <button title="Cambiar Estado" class="btn btn-danger rounded-circle btn-circle text-white" data-bs-toggle="modal" data-bs-target="#modalCambiarEstadoPrestamo_{{$prestamo->id_prestamo}}">
                                                             <i class="fa fa-refresh"></i>
                                                         </button>
                                                     </td>
@@ -163,14 +163,87 @@
 
                     <div class="row mt-3">
                         <div class="col-12">
-                            <button type="button" class="btn btn-primary btn-md active pull-right" data-bs-dismiss="modal" style="background-color: #337AB7;">
-                                <i class="fa fa-check-circle" aria-hidden="true">&nbsp;Aceptar</i>
+                            <button type="button" class="btn btn-primary btn-md active pull-right" data-bs-dismiss="modal" style="background-color: #337AB7;" id="btnDetallePrestamo_{{$prestamo->id_prestamo}}">
+                                <i class="fa fa-check-circle" aria-hidden="true"> Aceptar</i>
                             </button>
                         </div>
                     </div>
                 </div> <!-- FIN modal-content -->
             </div> <!-- FIN modal-dialog -->
         </div> <!-- FIN Modal Detalle Préstamo -->
+
+        {{-- =============================================================== --}}
+        {{-- =============================================================== --}}
+
+        <!-- INICIO Modal ABONO Préstamo -->
+        <div class="modal fade h-auto modal-gral p-0" id="modalAbonoPrestamo_{{$prestamo->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog m-0 mw-100">
+                <div class="modal-content p-3">
+                    {!! Form::open([
+                        'method' => 'POST',
+                        'route' => ['prestamos.store'],
+                        'class' => 'mt-0',
+                        'autocomplete' => 'off',
+                        'id' => 'formAbonoPrestamo_'.$prestamo->id_usuario,
+                        ]) !!}
+                        @csrf
+
+                        {!! Form::hidden('id_prestamo', isset($prestamo) ? $prestamo->id_prestamo : null, ['class' => '', 'id' => 'id_prestamo', 'required']) !!}
+                        {!! Form::hidden('id_usuario', isset($prestamo) ? $prestamo->id_usuario : null, ['class' => '', 'id' => 'id_usuario', 'required']) !!}
+
+                        <div class="rounded-top" style="border: solid 1px #337AB7;">
+                            <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                <h5>Abono a Préstamos de: {{$prestamo->nombre_usuario}} {{$prestamo->apellido_usuario}}</h5>
+                            </div>
+
+                            <div class="modal-body m-0">
+                                <div class="row m-0">
+                                    <div class="col-12 col-md-6">
+                                        <label for="valor_prestamo" class="fw-bold" style="font-size: 12px">Valor Préstamo <span class="text-danger">*</span></label>
+                                        {!! Form::text('valor_prestamo',$prestamo->valor_prestamo : null, ['class' => 'form-control', 'id' => 'valor_prestamo', 'required']) !!}
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <label for="valor_pendiente" class="fw-bold" style="font-size: 12px">Valor Pendiente <span class="text-danger">*</span></label>
+                                        {!! Form::text('valor_pendiente', null, ['class' => 'form-control', 'id' => 'valor_pendiente', 'required']) !!}
+                                    </div>
+
+                                    <div class="col-12 col-md-6 mt-3">
+                                        <label for="valor_abono" class="fw-bold" style="font-size: 12px">Valor Abono <span class="text-danger">*</span></label>
+                                        {!! Form::text('valor_abono', null, ['class' => 'form-control', 'id' => 'valor_abono', 'required']) !!}
+                                    </div>
+                                </div>
+                            </div> <!-- FIN modal-body -->
+                        </div> <!-- FIN rounded-top -->
+
+                        {{-- ====================================================== --}}
+                        {{-- ====================================================== --}}
+
+                        <!-- Contenedor para el GIF -->
+                        <div id="loadingIndicatorAbonoPrestamo_{{$prestamo->id_prestamo}}" class="loadingIndicator">
+                            <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                        </div>
+
+                        {{-- ====================================================== --}}
+                        {{-- ====================================================== --}}
+
+                        <div class="modal-footer border-0 justify-content-center">
+                            <div class="">
+                                <button type="submit" class="btn btn-success" id="btn_abono_prestamo_{{$prestamo->id_prestamo}}">
+                                    <i class="fa fa-floppy-o" aria-hidden="true"> Registrar</i>
+                                </button>
+                            </div>
+
+                            <div class="">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btn_cancelar_abono_{{$prestamo->id_prestamo}}">
+                                    <i class="fa fa-remove" aria-hidden="true">  Cancelar</i>
+                                </button>
+                            </div>
+                        </div>
+                    {!! Form::close() !!}
+                </div> <!-- FIN modal-content -->
+            </div> <!-- FIN modal-dialog -->
+        </div> <!-- FIN Modal ABONO Préstamo -->
     @endforeach
 @stop
 
