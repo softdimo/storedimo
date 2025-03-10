@@ -192,10 +192,10 @@
 
                 <ul class="nav collapse navbar-collapse ps-3" id="ul_pestamos_empleados">
                     <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('prestamo_empleados.create')}}">Registrar Préstamos</a>
+                        <a class="link-underline-light" href="{{route('prestamos.create')}}">Registrar Préstamos</a>
                     </li>
                     <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('prestamo_empleados.index')}}">Listar Préstamos</a>
+                        <a class="link-underline-light" href="{{route('prestamos.index')}}">Listar Préstamos</a>
                     </li>
                 </ul>
             </li>

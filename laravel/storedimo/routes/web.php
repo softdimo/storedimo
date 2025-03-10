@@ -146,10 +146,14 @@ Route::group(['namespace' => 'App\Http\Controllers\ventas'], function () {
 // ========================================================================
 
 // PRÉSTAMOS A EMPLEADOS
-Route::group(['namespace' => 'App\Http\Controllers\prestamo_empleados'], function () {
-    Route::resource('prestamo_empleados', 'PrestamoEmpleadosController');
-    Route::get('listar_prestamos_empleados', 'PrestamoEmpleadosController@listarPrestamosEmpleados')->name('listar_prestamos_empleados');
+Route::group(['namespace' => 'App\Http\Controllers\prestamos'], function () {
+    Route::resource('prestamos', 'PrestamosController');
+    Route::get('prestamos_vencer', 'PrestamosController@prestamosVencer')->name('prestamos_vencer');
 });
+
+// ========================================================================
+// ========================================================================
+// ========================================================================
 
 // PAGO A EMPLEADOS
 Route::group(['namespace' => 'App\Http\Controllers\pago_empleados'], function () {

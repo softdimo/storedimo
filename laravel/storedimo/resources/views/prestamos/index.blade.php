@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Préstamos a Vencer')
+@section('title', 'Préstamo Empleados')
 
 {{-- =============================================================== --}}
 {{-- =============================================================== --}}
@@ -34,18 +34,18 @@
             {{-- <div class="text-end">
                 <a href="#" class="text-blue">
                     <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
-                </a> --}}
-            </div>
+                </a>
+            </div> --}}
 
             {{-- =============================================================== --}}
             {{-- =============================================================== --}}
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Préstamos Empleados</h5>
+                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Préstamos</h5>
             
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_prestamo_empleados_vencer" aria-describedby="prestamo_empleados_vencer">
+                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_prestamo_empleados" aria-describedby="prestamo_empleados">
                             <thead>
                                 <tr class="header-table text-center">
                                     <th>Identificación</th>
@@ -57,21 +57,26 @@
                             </thead>
                             {{-- ============================== --}}
                             <tbody>
+                                @foreach ($prestamosIndex as $prestamo)
+                                    @php
+                                        // dd($prestamo);
+                                    @endphp
                                     <tr class="text-center">
-                                        <td class="text-danger">1234567890</td>
-                                        <td class="text-danger">Victor</td>
-                                        <td class="text-danger">Gómez</td>
-                                        <td class="text-danger">Empleado-fijo</td>
+                                        <td>{{$prestamo->tipo_documento}} - {{$prestamo->identificacion}}</td>
+                                        <td>{{$prestamo->nombre_usuario}}</td>
+                                        <td>{{$prestamo->apellido_usuario}}</td>
+                                        <td>{{$prestamo->tipo_persona}}</td>
                                         <td>
-                                            <a href="#" role="button" class="btn rounded-circle btn-circle text-white" title="Detalles Préstamo" style="background-color: #286090">
+                                            <button title="Detalles Préstamo" class="btn rounded-circle btn-circle text-white" style="background-color: #286090">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
-                                            </a>
+                                            </button>
 
-                                            <a href="#" role="button" class="btn btn-success rounded-circle btn-circle text-white" title="Generar PDF">
+                                            <button title="Generar PDF" class="btn btn-success rounded-circle btn-circle text-white">
                                                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                                            </a>
+                                            </button>
                                         </td>
                                     </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -104,7 +109,7 @@
     <script>
         $( document ).ready(function() {
             // INICIO DataTable Lista Usuarios
-            $("#tbl_prestamo_empleados_vencer").DataTable({
+            $("#tbl_prestamo_empleados").DataTable({
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
                 stripe: true,

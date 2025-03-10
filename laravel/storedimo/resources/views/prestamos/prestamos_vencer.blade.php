@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Registrar Préstamos')
+@section('title', 'Préstamos a Vencer')
 
 {{-- =============================================================== --}}
 {{-- =============================================================== --}}
@@ -31,87 +31,66 @@
         {{-- ======================================================================= --}}
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
-            <div class="text-end">
-                <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal" data-bs-target="#modalAyudaRegistrarVentas">
+            {{-- <div class="text-end">
+                <a href="#" class="text-blue">
                     <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
-                </a>
+                </a> --}}
             </div>
-
-            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaRegistrarVentas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
-                <div class="modal-dialog m-0 mw-100">
-                    <div class="modal-content border-0">
-                        <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="rounded-top text-white text-center p-2" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                                        <span class="modal-title fs-4"><strong>Ayuda Préstamos</strong></span>
-                                    </div>
-                                    {{-- =========================== --}}
-                                    <div class="p-3">
-                                        <p class="text-justify">Tener en cuenta para el registro de los préstamos lo siguiente:</p>
-    
-                                        <ol>
-                                            <li class="text-justify">El préstamo solo se le podrá registrar al empleado fijo.</li>
-                                            <li class="text-justify">Los empleados que se encuentren inhabilitados no se les podrá registrar un préstamo.</li>
-                                            <li class="text-justify">Los empleados que tengan préstamos en estado pendiente no se les podrá registrar otro préstamo.</li>
-                                            <li class="text-justify">El valor del préstamo no puede ser mayor a $ 1,000.000 .</li>
-                                        </ol>
-                                    </div> {{--FINpanel-body --}}
-                                </div> {{--FIN col-12 --}}
-                            </div> {{--FIN modal-body .row --}}
-                        </div> {{--FIN modal-body --}}
-                        {{-- =========================== --}}
-                        <div class="row mt-3">
-                            <div class="col-12">
-                                <button type="button" class="btn btn-primary btn-md active pull-right" data-bs-dismiss="modal" style="background-color: #337AB7;">
-                                    <i class="fa fa-check-circle" aria-hidden="true">&nbsp;Aceptar</i>
-                                </button>
-                            </div>
-                        </div>
-                    </div> {{--FIN modal-content --}}
-                </div> {{--FIN modal-dialog --}}
-            </div> {{--FIN modalAyudaModificacionProductos --}}
 
             {{-- =============================================================== --}}
             {{-- =============================================================== --}}
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Registrar Préstamos</h5>
+                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Préstamos Empleados</h5>
             
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_registrar_prestamo" aria-describedby="registrar_prestamo">
+                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_prestamo_empleados_vencer" aria-describedby="prestamo_empleados_vencer">
                             <thead>
                                 <tr class="header-table text-center">
-                                    <th>Número Documento</th>
+                                    <th>Identificación</th>
                                     <th>Nombres</th>
                                     <th>Apellidos</th>
                                     <th>Tipo Empleado</th>
-                                    <th>Estado</th>
-                                    <th>Realizar Préstamo</th>
+                                    <th>Ver Detalles</th>
                                 </tr>
                             </thead>
                             {{-- ============================== --}}
                             <tbody>
                                     <tr class="text-center">
-                                        <td>1234567890</td>
-                                        <td>Victor</td>
-                                        <td>Gómez</td>
-                                        <td>Empleado-fijo</td>
-                                        <td>Habilitado</td>
+                                        <td class="text-danger">1234567890</td>
+                                        <td class="text-danger">Victor</td>
+                                        <td class="text-danger">Gómez</td>
+                                        <td class="text-danger">Empleado-fijo</td>
                                         <td>
                                             <a href="#" role="button" class="btn rounded-circle btn-circle text-white" title="Detalles Préstamo" style="background-color: #286090">
-                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                            </a>
+
+                                            <a href="#" role="button" class="btn btn-success rounded-circle btn-circle text-white" title="Generar PDF">
+                                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                                             </a>
                                         </td>
                                     </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                    
+                    {{-- ========================================================= --}}
+                    {{-- ========================================================= --}}
+                    {{-- ========================================================= --}}
+                    {{-- ========================================================= --}}
+            
+                    <div class="mt-5 mb-2 d-flex justify-content-center">
+                        <button class="btn rounded-2 me-3 text-white" type="submit" style="background-color: #204D74">
+                            <i class="fa fa-file-pdf-o"></i>
+                            Reporte Préstamos
+                        </button>
+                    </div>
+                </div> {{-- FIN div_campos_usuarios --}}
+            </div> {{-- FIN div_crear_usuario --}}
+        </div> {{-- FIN div 80%  --}}
+    </div> {{-- FIN content d-flex p-0 --}}
 @stop
 
 {{-- =============================================================== --}}
@@ -125,7 +104,7 @@
     <script>
         $( document ).ready(function() {
             // INICIO DataTable Lista Usuarios
-            $("#tbl_registrar_prestamo").DataTable({
+            $("#tbl_prestamo_empleados_vencer").DataTable({
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
                 stripe: true,
