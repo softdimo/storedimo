@@ -29,7 +29,6 @@ class PrestamoStore implements Responsable
         $valorPrestamo = request('valor_prestamo', null);
         $descripcion = request('descripcion', null);
 
-      
         try {
             $peticionPrestamoStore = $this->clientApi->post($this->baseUri.'prestamo_store', [
                 'json' => [
