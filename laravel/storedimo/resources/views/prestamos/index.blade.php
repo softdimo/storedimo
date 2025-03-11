@@ -244,6 +244,218 @@
                 </div> <!-- FIN modal-content -->
             </div> <!-- FIN modal-dialog -->
         </div> <!-- FIN Modal ABONO Préstamo -->
+        
+        {{-- =============================================================== --}}
+        {{-- =============================================================== --}}
+
+        <!-- INICIO Modal MODIFICAR Préstamo -->
+        <div class="modal fade h-auto modal-gral p-0" id="modalModificarPrestamo_{{$prestamo->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog m-0 mw-100">
+                <div class="modal-content p-3">
+                    {!! Form::open([
+                        'method' => 'POST',
+                        'route' => ['prestamos.store'],
+                        'class' => 'mt-0',
+                        'autocomplete' => 'off',
+                        'id' => 'formAbonoPrestamo_'.$prestamo->id_usuario,
+                        ]) !!}
+                        @csrf
+
+                        {!! Form::hidden('id_prestamo', isset($prestamo) ? $prestamo->id_prestamo : null, ['class' => '', 'id' => 'id_prestamo', 'required']) !!}
+                        {!! Form::hidden('id_usuario', isset($prestamo) ? $prestamo->id_usuario : null, ['class' => '', 'id' => 'id_usuario', 'required']) !!}
+
+                        <div class="rounded-top" style="border: solid 1px #337AB7;">
+                            <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                <h5>Modificar Fecha Límite</h5>
+                            </div>
+
+                            <div class="modal-body m-0">
+                                <div class="row m-0">
+                                    <div class="col-12 col-md-6">
+                                        <label for="valor_prestamo" class="fw-bold" style="font-size: 12px">Fecha Límite <span class="text-danger">*</span></label>
+                                        {!! Form::date('fecha_limite', isset($prestamo) ? $prestamo->fecha_limite : null, ['class' => 'form-control', 'id' => 'fecha_limite', 'required']) !!}
+                                    </div>
+                                </div>
+                            </div> <!-- FIN modal-body -->
+                        </div> <!-- FIN rounded-top -->
+
+                        {{-- ====================================================== --}}
+                        {{-- ====================================================== --}}
+
+                        <!-- Contenedor para el GIF -->
+                        <div id="loadingIndicatorFechaLimite_{{$prestamo->id_prestamo}}" class="loadingIndicator">
+                            <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                        </div>
+
+                        {{-- ====================================================== --}}
+                        {{-- ====================================================== --}}
+
+                        <div class="modal-footer border-0 justify-content-center">
+                            <div class="">
+                                <button type="submit" class="btn btn-success" id="btn_fecha_limite_{{$prestamo->id_prestamo}}">
+                                    <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
+                                </button>
+                            </div>
+
+                            <div class="">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btn_cancelar_fecha_{{$prestamo->id_prestamo}}">
+                                    <i class="fa fa-remove" aria-hidden="true">  Cancelar</i>
+                                </button>
+                            </div>
+                        </div>
+                    {!! Form::close() !!}
+                </div> <!-- FIN modal-content -->
+            </div> <!-- FIN modal-dialog -->
+        </div> <!-- FIN Modal MODIFICAR Préstamo -->
+
+        {{-- =============================================================== --}}
+        {{-- =============================================================== --}}
+
+        <!-- INICIO Modal VER DETALLES ABONO Préstamo -->
+        <div class="modal fade h-auto modal-gral p-0" id="modalVerAbonos_{{$prestamo->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog m-0 mw-100">
+                <div class="modal-content p-3">
+                    {!! Form::open([
+                        'method' => 'POST',
+                        'route' => ['prestamos.store'],
+                        'class' => 'mt-0',
+                        'autocomplete' => 'off',
+                        'id' => 'formAbonoPrestamo_'.$prestamo->id_usuario,
+                        ]) !!}
+                        @csrf
+
+                        {!! Form::hidden('id_prestamo', isset($prestamo) ? $prestamo->id_prestamo : null, ['class' => '', 'id' => 'id_prestamo', 'required']) !!}
+                        {!! Form::hidden('id_usuario', isset($prestamo) ? $prestamo->id_usuario : null, ['class' => '', 'id' => 'id_usuario', 'required']) !!}
+
+                        <div class="rounded-top" style="border: solid 1px #337AB7;">
+                            <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                <h5>Detalle Abonos de: {{$prestamo->nombre_usuario}} {{$prestamo->apellido_usuario}}</h5>
+                            </div>
+
+                            <div class="modal-body m-0">
+                                <div class="row m-0">
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered m-100 mb-0" aria-describedby="entradas" id="tbl_ver_abonos">
+                                                <thead>
+                                                    <tr class="header-table text-center">
+                                                        <th>Fecha Abono</th>
+                                                        <th>Valor</th>
+                                                        <th>Opciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="text-center">
+                                                        <td>{{$prestamo->fecha_prestamo}}</td>
+                                                        <td>{{$prestamo->valor_prestamo}}</td>
+                                                        <td>
+                                                            <button title="Abonar" class="btn btn-warning rounded-circle btn-circle text-white" data-bs-toggle="modal" data-bs-target="#modalEditarAbono_{{$prestamo->id_prestamo}}">
+                                                                <i class="fa fa-money"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- FIN modal-body -->
+                        </div> <!-- FIN rounded-top -->
+
+                        {{-- ====================================================== --}}
+                        {{-- ====================================================== --}}
+
+                        <!-- Contenedor para el GIF -->
+                        <div id="loadingIndicatorVerAbonos_{{$prestamo->id_prestamo}}" class="loadingIndicator">
+                            <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                        </div>
+
+                        {{-- ====================================================== --}}
+                        {{-- ====================================================== --}}
+
+                        <div class="modal-footer border-0 justify-content-center">
+                            {{-- <div class="">
+                                <button type="submit" class="btn btn-success" id="btn_ver_abonos_{{$prestamo->id_prestamo}}">
+                                    <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
+                                </button>
+                            </div>
+
+                            <div class="">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btn_cancelar_verAbonos_{{$prestamo->id_prestamo}}">
+                                    <i class="fa fa-remove" aria-hidden="true">  Cancelar</i>
+                                </button>
+                            </div> --}}
+
+                            <div class="col-12">
+                                <button type="button" class="btn btn-primary btn-md active pull-right" data-bs-dismiss="modal" style="background-color: #337AB7;" id="btnDetalleAbonos_{{$prestamo->id_prestamo}}">
+                                    <i class="fa fa-check-circle" aria-hidden="true"> Aceptar</i>
+                                </button>
+                            </div>
+                        </div>
+                    {!! Form::close() !!}
+                </div> <!-- FIN modal-content -->
+            </div> <!-- FIN modal-dialog -->
+        </div> <!-- FIN Modal VER DETALLES ABONO Préstamo -->
+
+        {{-- =============================================================== --}}
+        {{-- =============================================================== --}}
+
+        {{-- INICIO Modal ESTADO PRÉSTAMO --}}
+        <div class="modal fade h-auto modal-gral" id="modalCambiarEstadoPrestamo_{{$prestamo->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog m-0">
+                <div class="modal-content w-100 border-0">
+                    {!! Form::open([
+                        'method' => 'POST',
+                        'route' => ['cambiar_estado_producto'],
+                        'class' => 'mt-2',
+                        'autocomplete' => 'off',
+                        'id' => 'formCambiarEstadoProducto_' . $prestamo->id_prestamo]) !!}
+                        @csrf
+
+                        <div class="rounded-top" style="border: solid 1px #337AB7;">
+                            <div class="rounded-top text-white text-center"
+                                style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                <h5>Cambiar estado del préstamo</h5>
+                            </div>
+
+                            <div class="modal-body m-0">
+                                <div class="mt-4 mb-4 text-center">
+                                    <span class="text-danger fs-5">¿Realmente desea cambiar el estado del préstamo?</span>
+                                </div>
+                            </div> <!-- FIN modal-body -->
+
+                            {{ Form::hidden('id_prestamo', isset($prestamo) ? $prestamo->id_prestamo : null, ['class' => '', 'id' => 'id_prestamo']) }}
+                        </div>
+
+                        {{-- ====================================================== --}}
+                        {{-- ====================================================== --}}
+
+                        <!-- Contenedor para el GIF -->
+                        <div id="loadingIndicatorEstadoPrestamo_{{$prestamo->id_prestamo}}"
+                            class="loadingIndicator">
+                            <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                        </div>
+
+                        {{-- ====================================================== --}}
+                        {{-- ====================================================== --}}
+
+                        <div class="modal-footer border-0 d-flex justify-content-around mt-3">
+                            <button type="submit" id="btn_cambiar_estado_prestamo_{{$prestamo->id_prestamo}}"
+                                class="btn btn-success" title="Guardar Configuración">
+                                <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
+                            </button>
+
+                            <button type="button" id="btn_cancelar_estado_prestamo_{{$prestamo->id_prestamo}}"
+                                class="btn btn-secondary" title="Cancelar"
+                                data-bs-dismiss="modal">
+                                <i class="fa fa-times" aria-hidden="true"> Cancelar</i>
+                            </button>
+                        </div>
+                    {!! Form::close() !!}
+                </div> {{-- FIN modal-content --}}
+            </div> {{-- FIN modal-dialog --}}
+        </div> {{-- FIN modal --}}
+        {{-- FINAL Modal ESTADO PRÉSTAMO--}}
     @endforeach
 @stop
 
@@ -289,7 +501,7 @@
 
             // ==============================================
 
-            // INICIO DataTable Préstamo empleados
+            // INICIO DataTable Detalles Préstamo empleados
             var tableDetalles = $("#tbl_detalles_prestamo").DataTable({
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
@@ -323,7 +535,47 @@
             $('#modalDetallePrestamo_{{$prestamo->id_prestamo}}').on('shown.bs.modal', function () {
                 tableDetalles.columns.adjust();
             });
-            // CIERRE DataTable Préstamo empleados
+            // CIERRE DataTable Detalles Préstamo empleados
+
+            // ==============================================
+
+            // INICIO DataTable Detalles Préstamo empleados
+            var tblVerAbonos = $("#tbl_ver_abonos").DataTable({
+                dom: 'Blfrtip',
+                "infoEmpty": "No hay registros",
+                stripe: true,
+                "bSort": false,
+                "autoWidth": false,
+                "scrollX": true,
+                "buttons": [
+                    {
+                        extend: 'copyHtml5',
+                        text: 'Copiar',
+                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary',
+                        init: function(api, node, config) {
+                            $(node).removeClass('dt-button')
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        text: 'Excel',
+                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary mr-3',
+                        customize: function( xlsx ) {
+                            var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                            $('row:first c', sheet).attr( 's', '42' );
+                        }
+                    }
+                ],
+                "pageLength": 10
+            });
+
+            // Ajustar columnas cuando el modal se muestra
+            $('#modalVerAbonos_{{$prestamo->id_prestamo}}').on('shown.bs.modal', function () {
+                tblVerAbonos.columns.adjust();
+            });
+            // CIERRE DataTable Detalles Préstamo empleados
+
+
         }); // FIN document.ready
     </script>
 @stop

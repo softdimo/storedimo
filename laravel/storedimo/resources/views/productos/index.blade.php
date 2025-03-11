@@ -117,251 +117,249 @@
                             {{-- ============================== --}}
                             <tbody>
                                 {{-- @if(isset($productos) && count($productos) > 0) --}}
-                                    @foreach ($productos as $producto)
-                                        <tr class="text-center">
-                                            <td>{{$producto->id_producto}}</td>
-                                            <td>{{$producto->nombre_producto}}</td>
-                                            <td>{{$producto->categoria}}</td>
-                                            <td>{{$producto->descripcion}}</td>
-                                            <td>{{$producto->cantidad}}</td>
-                                            <td>{{$producto->stock_minimo}}</td>
-                                            <td>{{$producto->estado}}</td>
+                                @foreach ($productos as $producto)
+                                    <tr class="text-center">
+                                        <td>{{$producto->id_producto}}</td>
+                                        <td>{{$producto->nombre_producto}}</td>
+                                        <td>{{$producto->categoria}}</td>
+                                        <td>{{$producto->descripcion}}</td>
+                                        <td>{{$producto->cantidad}}</td>
+                                        <td>{{$producto->stock_minimo}}</td>
+                                        <td>{{$producto->estado}}</td>
 
-                                            @if ( $producto->id_estado == 1 || $producto->id_estado == "1" )
-                                                <td>
-                                                    <button class="btn btn-success rounded-circle btn-circle"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#modalEditarProducto_{{$producto->id_producto}}"
-                                                        title="Modificar">
-                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                                    </button>
-                                                    {{-- ============================== --}}
-                                                    <button class="btn btn-warning rounded-circle btn-circle barcode"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#barCodeModal_{{$producto->id_producto}}"
-                                                        title="Generar Código de Barras">
-                                                        <i class="fa fa-barcode" aria-hidden="true"></i>
-                                                    </button>
-                                                    {{-- ============================== --}}
-                                                    <button class="btn btn-danger rounded-circle btn-circle"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#modalCambiarEstadoProducto_{{$producto->id_producto}}"
-                                                        title="Cambiar Estado">
-                                                        <i class="fa fa-solid fa-recycle" aria-hidden="true"></i>
-                                                    </button>
-                                                </td>
-                                            @else
-                                                <td>
-                                                    <button class="btn btn-danger rounded-circle btn-circle"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#modalCambiarEstadoProducto_{{$producto->id_producto}}"
-                                                        title="Cambiar Estado">
-                                                        <i class="fa fa-solid fa-recycle" aria-hidden="true"></i>
-                                                    </button>
-                                                </td>
-                                            @endif
+                                        @if ( $producto->id_estado == 1 || $producto->id_estado == "1" )
+                                            <td>
+                                                <button class="btn btn-success rounded-circle btn-circle"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalEditarProducto_{{$producto->id_producto}}"
+                                                    title="Modificar">
+                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                </button>
+                                                {{-- ============================== --}}
+                                                <button class="btn btn-warning rounded-circle btn-circle barcode"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#barCodeModal_{{$producto->id_producto}}"
+                                                    title="Generar Código de Barras">
+                                                    <i class="fa fa-barcode" aria-hidden="true"></i>
+                                                </button>
+                                                {{-- ============================== --}}
+                                                <button class="btn btn-danger rounded-circle btn-circle"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalCambiarEstadoProducto_{{$producto->id_producto}}"
+                                                    title="Cambiar Estado">
+                                                    <i class="fa fa-solid fa-recycle" aria-hidden="true"></i>
+                                                </button>
+                                            </td>
+                                        @else
+                                            <td>
+                                                <button class="btn btn-danger rounded-circle btn-circle"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalCambiarEstadoProducto_{{$producto->id_producto}}"
+                                                    title="Cambiar Estado">
+                                                    <i class="fa fa-solid fa-recycle" aria-hidden="true"></i>
+                                                </button>
+                                            </td>
+                                        @endif
 
-                                            {{-- =========================================================================== --}}
-                                            {{-- =========================================================================== --}}
-                                            {{-- =========================================================================== --}}
+                                        {{-- =========================================================================== --}}
+                                        {{-- =========================================================================== --}}
+                                        {{-- =========================================================================== --}}
 
-                                            {{-- INICIO Modal MODIFICAR PRODUCTO --}}
-                                            <div class="modal fade h-auto modal-gral p-0"
-                                                id="modalEditarProducto_{{$producto->id_producto}}"
-                                                tabindex="-1"
-                                                role="dialog"
-                                                aria-labelledby="myModalLabel"
-                                                data-bs-keyboard="false"
-                                                data-bs-backdrop="static">
-                                                <div class="modal-dialog m-0">
-                                                    <div class="modal-content p-3">
-                                                        {!! Form::open(['method' => 'POST',
-                                                            'route' => ['producto_update'],
-                                                            'class' => 'm-0 p-0',
-                                                            'autocomplete' => 'off',
-                                                            'id' => 'formEditarProducto_'.$producto->id_producto]) !!}
-                                                            @csrf
-                                                            <div class="" style="border: solid 1px #337AB7;">
-                                                                <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                                                                    <h5>Modificar Producto (Obligatorios *)</h5>
-                                                                </div>
+                                        {{-- INICIO Modal MODIFICAR PRODUCTO --}}
+                                        <div class="modal fade h-auto modal-gral p-0"
+                                            id="modalEditarProducto_{{$producto->id_producto}}"
+                                            tabindex="-1"
+                                            role="dialog"
+                                            aria-labelledby="myModalLabel"
+                                            data-bs-keyboard="false"
+                                            data-bs-backdrop="static">
+                                            <div class="modal-dialog m-0">
+                                                <div class="modal-content p-3">
+                                                    {!! Form::open(['method' => 'POST',
+                                                        'route' => ['producto_update'],
+                                                        'class' => 'm-0 p-0',
+                                                        'autocomplete' => 'off',
+                                                        'id' => 'formEditarProducto_'.$producto->id_producto]) !!}
+                                                        @csrf
+                                                        <div class="" style="border: solid 1px #337AB7;">
+                                                            <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                                                <h5>Modificar Producto (Obligatorios *)</h5>
+                                                            </div>
 
-                                                                {{-- ====================================================== --}}
-                                                                {{-- ====================================================== --}}
+                                                            {{-- ====================================================== --}}
+                                                            {{-- ====================================================== --}}
 
-                                                                <div class="modal-body p-0 m-0">
-                                                                    <div class="row m-0 pt-4 pb-4">
-                                                                        <div class="col-12 col-md-2">
-                                                                            <div class="form-group d-flex flex-column">
-                                                                                <label for="idProductoEdit" class="" style="font-size: 15px">Código<span class="text-danger">*</span></label>
-                                                                                {{ Form::text('idProductoEdit', isset($producto) ? $producto->id_producto : null, ['class'=>'form-control', 'id'=>'idProductoEdit', 'readonly'=>true ]) }}
-                                                                            </div>
+                                                            <div class="modal-body p-0 m-0">
+                                                                <div class="row m-0 pt-4 pb-4">
+                                                                    <div class="col-12 col-md-2">
+                                                                        <div class="form-group d-flex flex-column">
+                                                                            <label for="idProductoEdit" class="" style="font-size: 15px">Código<span class="text-danger">*</span></label>
+                                                                            {{ Form::text('idProductoEdit', isset($producto) ? $producto->id_producto : null, ['class'=>'form-control', 'id'=>'idProductoEdit', 'readonly'=>true ]) }}
                                                                         </div>
-                                                                        {{-- =================== --}}
-                                                                        <div class="col-12 col-md-5">
-                                                                            <div class="form-group d-flex flex-column">
-                                                                                <label for="nombreProductoEdit" class="" style="font-size: 15px">Nombre Producto<span class="text-danger">*</span></label>
-                                                                                {{Form::text('nombreProductoEdit', isset($producto) ? $producto->nombre_producto : null, ['class' => 'form-control', 'id' => 'nombreProductoEdit'])}}
-                                                                            </div>
+                                                                    </div>
+                                                                    {{-- =================== --}}
+                                                                    <div class="col-12 col-md-5">
+                                                                        <div class="form-group d-flex flex-column">
+                                                                            <label for="nombreProductoEdit" class="" style="font-size: 15px">Nombre Producto<span class="text-danger">*</span></label>
+                                                                            {{Form::text('nombreProductoEdit', isset($producto) ? $producto->nombre_producto : null, ['class' => 'form-control', 'id' => 'nombreProductoEdit'])}}
                                                                         </div>
-                                                                        {{-- =================== --}}
-                                                                        <div class="col-12 col-md-5">
-                                                                            <div class="form-group d-flex flex-column">
-                                                                                <label for="categoriaEdit" class="" style="font-size: 15px">Categoría<span class="text-danger">*</span></label>
-                                                                                {!! Form::select('categoriaEdit', collect(['' => 'Seleccionar...'])->union($categorias), isset($producto) ? $producto->id_categoria : null, ['class' => 'form-control', 'id' => 'categoriaEdit']) !!}
-                                                                            </div>
+                                                                    </div>
+                                                                    {{-- =================== --}}
+                                                                    <div class="col-12 col-md-5">
+                                                                        <div class="form-group d-flex flex-column">
+                                                                            <label for="categoriaEdit" class="" style="font-size: 15px">Categoría<span class="text-danger">*</span></label>
+                                                                            {!! Form::select('categoriaEdit', collect(['' => 'Seleccionar...'])->union($categorias), isset($producto) ? $producto->id_categoria : null, ['class' => 'form-control', 'id' => 'categoriaEdit']) !!}
                                                                         </div>
-                                                                        {{-- =================== --}}
-                                                                        <div class="col-12 mt-md-3">
-                                                                            <div class="form-group d-flex flex-column">
-                                                                                <label for="descripcionEdit" class="" style="font-size: 15px">Descripción<span class="text-danger">*</span></label>
-                                                                                {{ Form::textarea('descripcionEdit', isset($producto) ? $producto->descripcion : null,['class'=>'form-control', 'id'=>'descripcionEdit', 'rows' => 3, 'style' => 'resize: none;']) }}
-                                                                            </div>
+                                                                    </div>
+                                                                    {{-- =================== --}}
+                                                                    <div class="col-12 mt-md-3">
+                                                                        <div class="form-group d-flex flex-column">
+                                                                            <label for="descripcionEdit" class="" style="font-size: 15px">Descripción<span class="text-danger">*</span></label>
+                                                                            {{ Form::textarea('descripcionEdit', isset($producto) ? $producto->descripcion : null,['class'=>'form-control', 'id'=>'descripcionEdit', 'rows' => 3, 'style' => 'resize: none;']) }}
                                                                         </div>
-                                                                        {{-- =================== --}}
-                                                                        <div class="col-12 col-md-6 mt-md-3">
-                                                                            <div class="form-group d-flex flex-column">
-                                                                                <label for="precioUnitarioEdit" class="" style="font-size: 15px">Precio Unitario<span class="text-danger">*</span></label>
-                                                                                {{ Form::text('precioUnitarioEdit', isset($producto) ? $producto->precio_unitario : null,['class'=>'form-control', 'id'=>'precioUnitarioEdit']) }}
-                                                                            </div>
+                                                                    </div>
+                                                                    {{-- =================== --}}
+                                                                    <div class="col-12 col-md-6 mt-md-3">
+                                                                        <div class="form-group d-flex flex-column">
+                                                                            <label for="precioUnitarioEdit" class="" style="font-size: 15px">Precio Unitario<span class="text-danger">*</span></label>
+                                                                            {{ Form::text('precioUnitarioEdit', isset($producto) ? $producto->precio_unitario : null,['class'=>'form-control', 'id'=>'precioUnitarioEdit']) }}
                                                                         </div>
-                                                                        {{-- =================== --}}
-                                                                        <div class="col-12 col-md-6 mt-md-3">
-                                                                            <div class="form-group d-flex flex-column">
-                                                                                <label for="precioDetalEdit" class="" style="font-size: 15px">Precio Detal<span class="text-danger">*</span></label>
-                                                                                {{ Form::text('precioDetalEdit', isset($producto) ? $producto->precio_detal : null,['class'=>'form-control', 'id'=>'precioDetalEdit']) }}
-                                                                            </div>
+                                                                    </div>
+                                                                    {{-- =================== --}}
+                                                                    <div class="col-12 col-md-6 mt-md-3">
+                                                                        <div class="form-group d-flex flex-column">
+                                                                            <label for="precioDetalEdit" class="" style="font-size: 15px">Precio Detal<span class="text-danger">*</span></label>
+                                                                            {{ Form::text('precioDetalEdit', isset($producto) ? $producto->precio_detal : null,['class'=>'form-control', 'id'=>'precioDetalEdit']) }}
                                                                         </div>
-                                                                        {{-- =================== --}}
-                                                                        <div class="col-12 col-md-6 mt-md-3">
-                                                                            <div class="form-group d-flex flex-column">
-                                                                                <label for="precioPorMayorEdit" class="" style="font-size: 15px">Precio al por Mayor<span class="text-danger">*</span></label>
-                                                                                {{ Form::text('precioPorMayorEdit', isset($producto) ? $producto->precio_por_mayor : null,['class'=>'form-control', 'id'=>'precioPorMayorEdit']) }}
-                                                                            </div>
+                                                                    </div>
+                                                                    {{-- =================== --}}
+                                                                    <div class="col-12 col-md-6 mt-md-3">
+                                                                        <div class="form-group d-flex flex-column">
+                                                                            <label for="precioPorMayorEdit" class="" style="font-size: 15px">Precio al por Mayor<span class="text-danger">*</span></label>
+                                                                            {{ Form::text('precioPorMayorEdit', isset($producto) ? $producto->precio_por_mayor : null,['class'=>'form-control', 'id'=>'precioPorMayorEdit']) }}
                                                                         </div>
-                                                                        {{-- =================== --}}
-                                                                        <div class="col-12 col-md-6 mt-md-3">
-                                                                            <div class="form-group d-flex flex-column">
-                                                                                <label for="stockMinimoEdit" class="" style="font-size: 15px">Stock Mínimo<span class="text-danger">*</span></label>
-                                                                                {{ Form::text('stockMinimoEdit', isset($producto) ? $producto->stock_minimo : null,['class'=>'form-control', 'id'=>'stockMinimoEdit']) }}
-                                                                            </div>
+                                                                    </div>
+                                                                    {{-- =================== --}}
+                                                                    <div class="col-12 col-md-6 mt-md-3">
+                                                                        <div class="form-group d-flex flex-column">
+                                                                            <label for="stockMinimoEdit" class="" style="font-size: 15px">Stock Mínimo<span class="text-danger">*</span></label>
+                                                                            {{ Form::text('stockMinimoEdit', isset($producto) ? $producto->stock_minimo : null,['class'=>'form-control', 'id'=>'stockMinimoEdit']) }}
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                        
+                                                        {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
+
+                                                        <!-- Contenedor para el GIF -->
+                                                        <div id="loadingIndicatorEditProducto_{{$producto->id_producto}}"
+                                                            class="loadingIndicator">
+                                                            <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                                                        </div>
+
+                                                        {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
+
+                                                        <div class="d-flex justify-content-center mt-3">
+                                                            <button type="submit" title="Modificar" class="btn btn-success me-3" id="btn_editar_producto_{{$producto->id_producto}}">
+                                                                <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
+                                                            </button>
                                                             
-                                                            {{-- ====================================================== --}}
-                                                            {{-- ====================================================== --}}
-
-                                                            <!-- Contenedor para el GIF -->
-                                                            <div id="loadingIndicatorEditProducto_{{$producto->id_producto}}"
-                                                                class="loadingIndicator">
-                                                                <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
-                                                            </div>
-
-                                                            {{-- ====================================================== --}}
-                                                            {{-- ====================================================== --}}
-
-                                                            <div class="d-flex justify-content-center mt-3">
-                                                                <button type="submit" title="Modificar" class="btn btn-success me-3" id="btn_editar_producto_{{$producto->id_producto}}">
-                                                                    <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
-                                                                </button>
-                                                                
-                                                                <button type="button" title="Cancelar" class="btn btn-danger" data-bs-dismiss="modal" id="btn_cancelar_producto_{{$producto->id_producto}}">
-                                                                    <i class="fa fa-remove" aria-hidden="true"> Cancelar</i>
-                                                                </button>
-                                                            </div>
-                                                        {!! Form::close() !!}
-                                                    </div>
+                                                            <button type="button" title="Cancelar" class="btn btn-danger" data-bs-dismiss="modal" id="btn_cancelar_producto_{{$producto->id_producto}}">
+                                                                <i class="fa fa-remove" aria-hidden="true"> Cancelar</i>
+                                                            </button>
+                                                        </div>
+                                                    {!! Form::close() !!}
                                                 </div>
                                             </div>
-                                            {{-- FINAL Modal MODIFICAR PRODUCTO --}}
+                                        </div>
+                                        {{-- FINAL Modal MODIFICAR PRODUCTO --}}
 
-                                            {{-- =========================================================================== --}}
-                                            {{-- =========================================================================== --}}
-                                            {{-- =========================================================================== --}}
-                                            
-                                            {{-- INICIO Modal CÓDIGO DE BARRAS PRODUCTO --}}
-                                            <div class="modal fade h-auto modal-gral p-0"
-                                                id="barCodeModal_{{$producto->id_producto}}"
-                                                tabindex="-1"
-                                                role="dialog"
-                                                aria-labelledby="myModalLabel"
-                                                aria-hidden="true"
-                                                data-bs-backdrop="static"
-                                                data-bs-keyboard="false">
-                                                <div class="modal-dialog m-0">
-                                                    <div class="modal-content p-3 w-100">
-                                                        {!! Form::open(['method' => 'POST',
-                                                            'route' => ['producto_barcode'],
-                                                            'class' => 'm-0 p-0',
-                                                            'autocomplete' => 'off',
-                                                            'id' => 'formProductoBarcode_'.$producto->id_producto]) !!}
-                                                            @csrf
+                                        {{-- =========================================================================== --}}
+                                        {{-- =========================================================================== --}}
+                                        {{-- =========================================================================== --}}
+                                        
+                                        {{-- INICIO Modal CÓDIGO DE BARRAS PRODUCTO --}}
+                                        <div class="modal fade h-auto modal-gral p-0"
+                                            id="barCodeModal_{{$producto->id_producto}}"
+                                            tabindex="-1"
+                                            role="dialog"
+                                            aria-labelledby="myModalLabel"
+                                            aria-hidden="true"
+                                            data-bs-backdrop="static"
+                                            data-bs-keyboard="false">
+                                            <div class="modal-dialog m-0">
+                                                <div class="modal-content p-3 w-100">
+                                                    {!! Form::open(['method' => 'POST',
+                                                        'route' => ['producto_barcode'],
+                                                        'class' => 'm-0 p-0',
+                                                        'autocomplete' => 'off',
+                                                        'id' => 'formProductoBarcode_'.$producto->id_producto]) !!}
+                                                        @csrf
 
-                                                            <div class="rounded-top" style="border: solid 1px #337AB7;">
-                                                                <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                                                                    <h5>Producto: <span id="nombre_producto">{{$producto->nombre_producto}}</span> - Código: <span id="id_producto">{{$producto->id_producto}}</span></h5>
+                                                        <div class="rounded-top" style="border: solid 1px #337AB7;">
+                                                            <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                                                <h5>Producto: <span id="nombre_producto">{{$producto->nombre_producto}}</span> - Código: <span id="id_producto">{{$producto->id_producto}}</span></h5>
 
-                                                                    {{ Form::hidden('id_producto_input', isset($producto) ? $producto->id_producto : null,['class'=>'','id'=>'id_producto_input','required'=>'required']) }}
-                                                                    {{ Form::hidden('nombre_producto_input', isset($producto) ? $producto->nombre_producto : null,['class'=>'form-control','id'=>'nombre_producto_input', 'required'=>'required']) }}
-                                                                </div>
-                                                                {{-- ====================================================== --}}
-                                                                <div class="modal-body p-0 m-0">
-                                                                        <div class="m-0 p-4 d-flex justify-content-between">
-                                                                            <div class="">
-                                                                                {{ Form::number('cantidad_barcode',null,
-                                                                                [
-                                                                                    'class'=>'form-control',
-                                                                                    'id'=>'cantidad_barcode_'.$producto->id_producto,
-                                                                                    'placeholder'=>'Ingresar cantidad',
-                                                                                    'required'=>'required'
-                                                                                ]) }}
-                                                                            </div>
-                                                                            
-                                                                            <div class="">
-                                                                                <button type="submit" class="btn btn-success" id="btn_codebar_producto_{{$producto->id_producto}}">
-                                                                                    <i class="fa fa-floppy-o" aria-hidden="true"> Generar Código</i>
-                                                                                </button>
-                                                                            </div>
+                                                                {{ Form::hidden('id_producto_input', isset($producto) ? $producto->id_producto : null,['class'=>'','id'=>'id_producto_input','required'=>'required']) }}
+                                                                {{ Form::hidden('nombre_producto_input', isset($producto) ? $producto->nombre_producto : null,['class'=>'form-control','id'=>'nombre_producto_input', 'required'=>'required']) }}
+                                                            </div>
+                                                            {{-- ====================================================== --}}
+                                                            <div class="modal-body p-0 m-0">
+                                                                    <div class="m-0 p-4 d-flex justify-content-between">
+                                                                        <div class="">
+                                                                            {{ Form::number('cantidad_barcode',null,
+                                                                            [
+                                                                                'class'=>'form-control',
+                                                                                'id'=>'cantidad_barcode_'.$producto->id_producto,
+                                                                                'placeholder'=>'Ingresar cantidad',
+                                                                                'required'=>'required'
+                                                                            ]) }}
                                                                         </div>
-                                                                </div>
+                                                                        
+                                                                        <div class="">
+                                                                            <button type="submit" class="btn btn-success" id="btn_codebar_producto_{{$producto->id_producto}}">
+                                                                                <i class="fa fa-floppy-o" aria-hidden="true"> Generar Código</i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
                                                             </div>
-                                                            
-                                                            {{-- ====================================================== --}}
-                                                            {{-- ====================================================== --}}
+                                                        </div>
+                                                        
+                                                        {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
 
-                                                            <!-- Contenedor para el GIF -->
-                                                            <div id="loadingIndicatorCodeBarProducto_{{$producto->id_producto}}"
-                                                                class="loadingIndicator">
-                                                                <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
-                                                            </div>
+                                                        <!-- Contenedor para el GIF -->
+                                                        <div id="loadingIndicatorCodeBarProducto_{{$producto->id_producto}}"
+                                                            class="loadingIndicator">
+                                                            <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                                                        </div>
 
-                                                            {{-- ====================================================== --}}
-                                                            {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
 
-                                                            <div class="d-flex justify-content-end mt-3">
-                                                                <button type="button"
-                                                                    class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal"
-                                                                    id="btn_cancelar_codebar_{{$producto->id_producto}}">
-                                                                    <i class="fa fa-remove" aria-hidden="true"> Cancelar</i>
-                                                                </button>
-                                                            </div>
-                                                        {!! Form::close() !!}
-                                                    </div>
+                                                        <div class="d-flex justify-content-end mt-3">
+                                                            <button type="button"
+                                                                class="btn btn-secondary"
+                                                                data-bs-dismiss="modal"
+                                                                id="btn_cancelar_codebar_{{$producto->id_producto}}">
+                                                                <i class="fa fa-remove" aria-hidden="true"> Cancelar</i>
+                                                            </button>
+                                                        </div>
+                                                    {!! Form::close() !!}
                                                 </div>
                                             </div>
-                                            {{-- FINAL Modal CÓDIGO DE BARRAS PRODUCTO --}}
+                                        </div>
+                                        {{-- FINAL Modal CÓDIGO DE BARRAS PRODUCTO --}}
 
-                                            {{-- =========================================================================== --}}
-                                            {{-- =========================================================================== --}}
-                                            {{-- =========================================================================== --}}
+                                        {{-- =========================================================================== --}}
+                                        {{-- =========================================================================== --}}
+                                        {{-- =========================================================================== --}}
 
-                                            {{-- INICIO Modal CAMBIAR CONTRASEÑA --}}
-                                            <div class="modal fade h-auto modal-gral"
-                                                id="modalCambiarEstadoProducto_{{$producto->id_producto}}" tabindex="-1"
-                                                data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+                                        {{-- INICIO Modal ESTADO PRODUCTO --}}
+                                        <div class="modal fade h-auto modal-gral" id="modalCambiarEstadoProducto_{{$producto->id_producto}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
                                             <div class="modal-dialog m-0">
                                                 <div class="modal-content w-100 border-0">
                                                     {!! Form::open([
@@ -369,8 +367,7 @@
                                                         'route' => ['cambiar_estado_producto'],
                                                         'class' => 'mt-2',
                                                         'autocomplete' => 'off',
-                                                        'id' => 'formCambiarEstadoProducto_' . $producto->id_producto
-                                                    ]) !!}
+                                                        'id' => 'formCambiarEstadoProducto_' . $producto->id_producto]) !!}
                                                         @csrf
                                                         <div class="rounded-top" style="border: solid 1px #337AB7;">
                                                             <div class="rounded-top text-white text-center"
@@ -414,12 +411,12 @@
                                                             </button>
                                                         </div>
                                                     {!! Form::close() !!}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {{-- FINAL Modal CAMBIAR CONTRASEÑA --}}
-                                        </tr>
-                                    @endforeach
+                                                </div> {{-- FIN modal-content --}}
+                                            </div> {{-- FIN modal-dialog --}}
+                                        </div> {{-- FIN modal --}}
+                                        {{-- FINAL Modal ESTADO PRODUCTO --}}
+                                    </tr>
+                                @endforeach
                                 {{-- @else
                                     <tr>
                                         <td colspan="8" class="text-center">No hay productos disponibles.</td>

@@ -76,7 +76,7 @@
             {{-- =============================================================== --}}
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Registrar Préstamos</h5>
+                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Registrar Pagos</h5>
             
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
@@ -88,7 +88,7 @@
                                     <th>Apellidos</th>
                                     <th>Tipo Empleado</th>
                                     <th>Estado</th>
-                                    <th>Realizar Pago</th>
+                                    <th>Registrar Pago</th>
                                 </tr>
                             </thead>
                             {{-- ============================== --}}
