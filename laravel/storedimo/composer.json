@@ -17,6 +17,7 @@
         "milon/barcode": "^9.0",
         "nesbot/carbon": "2.62.1",
         "realrashid/sweet-alert": "^7.1",
+        "setasign/fpdf": "^1.8",
         "spatie/laravel-html": "^3.0"
     },
     "require-dev": {
