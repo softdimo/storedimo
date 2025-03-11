@@ -178,7 +178,7 @@
                                         <span class="text-danger">*</span>
                                     </label>
 
-                                    {!! Form::select('tipo_pago', collect(['' => 'Seleccionar...'])->union($tipos_pago), null, ['class' => 'form-control', 'id' => 'tipo_pago', 'required']) !!}
+                                    {!! Form::select('tipo_pago', collect(['' => 'Seleccionar...'])->union($tipos_pago_ventas), null, ['class' => 'form-control', 'id' => 'tipo_pago', 'required']) !!}
                                 </div>
                             </div>
 

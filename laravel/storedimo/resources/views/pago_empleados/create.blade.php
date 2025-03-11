@@ -14,6 +14,32 @@
             padding-top: 0.0rem !important;
             padding-bottom: 0.0rem !important;
         }
+
+        /* Oculta el icono de calendario nativo en Chrome, Safari y Edge */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            display: none;
+            -webkit-appearance: none;
+        }
+
+        /* Oculta el icono en Firefox */
+        input[type="date"]::-moz-calendar-picker-indicator {
+            display: none;
+        }
+
+        /* Para navegadores que aún muestran el ícono nativo */
+        input[type="date"] {
+            position: relative;
+            z-index: 10;
+            background-color: transparent;
+        }
+
+        .totales {
+            padding: 10px 15px;
+            background-color: #f5f5f5;
+            border-top: 1px solid #ddd;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
     </style>
 @stop
 
@@ -64,7 +90,7 @@
                         <div class="row mt-3">
                             <div class="col-12">
                                 <button type="button" class="btn btn-primary btn-md active pull-right" data-bs-dismiss="modal" style="background-color: #337AB7;">
-                                    <i class="fa fa-check-circle" aria-hidden="true">&nbsp;Aceptar</i>
+                                    <i class="fa fa-check-circle">&nbsp;Aceptar</i>
                                 </button>
                             </div>
                         </div>
@@ -100,11 +126,231 @@
                                         <td>Empleado-fijo</td>
                                         <td>Habilitado</td>
                                         <td>
-                                            <a href="#" role="button" class="btn rounded-circle btn-circle text-white" title="Detalles Préstamo" style="background-color: #286090">
-                                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                                            </a>
+                                            <button class="btn rounded-circle btn-circle text-white" title="Detalles Préstamo" style="background-color: #286090" data-bs-toggle="modal" data-bs-target="#modalRegistrarPago">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
                                         </td>
                                     </tr>
+
+                                    {{-- INICIO Modal REGISTRAR PAGO --}}
+                                    <div class="modal fade h-auto modal-gral" id="modalRegistrarPago" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" style="max-width: 70%">
+                                        <div class="modal-dialog m-0 mw-100">
+                                            <div class="modal-content border-0">
+                                                {!! Form::open([
+                                                    'method' => 'POST',
+                                                    'route' => ['cambiar_estado_producto'],
+                                                    'class' => 'mt-2',
+                                                    'autocomplete' => 'off',
+                                                    'id' => 'formRegistrarPago']) !!}
+                                                    @csrf
+
+                                                    <div class="rounded-top" style="border: solid 1px #337AB7;">
+                                                        <div class="rounded-top text-white text-center"
+                                                            style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                                            <h5>Registrar Pago</h5>
+                                                        </div>
+
+                                                        <div class="modal-body m-0">
+                                                            <div class="row m-0">
+                                                                <div class="col-12 col-md-4" id="div_identificacion">
+                                                                    <label for="identificacion" class="fw-bold" style="font-size: 12px">Identificación <span class="text-danger">*</span></label>
+                                                                    {!! Form::text('identificacion', isset($prestamo) ? $prestamo->identificacion : null, ['class' => 'form-control', 'id' => 'identificacion', 'required', 'readonly']) !!}
+                                                                </div>
+                            
+                                                                <div class="col-12 col-md-4" id="div_nombres">
+                                                                    <label for="nombre_usuario" class="fw-bold" style="font-size: 12px">Nombres <span class="text-danger">*</span></label>
+                                                                    {!! Form::text('nombre_usuario', null, ['class' => 'form-control', 'id' => 'nombre_usuario', 'required', 'readonly']) !!}
+                                                                </div>
+                            
+                                                                <div class="col-12 col-md-4" id="div_tipo_empleado">
+                                                                    <label for="tipo_empleado" class="fw-bold" style="font-size: 12px">Tipo Empleado <span class="text-danger">*</span></label>
+                                                                    {!! Form::text('tipo_empleado', null, ['class' => 'form-control', 'id' => 'tipo_empleado', 'required', 'readonly']) !!}
+                                                                </div>
+
+                                                                <div class="col-12 col-md-4 mt-3" id="div_valor_base">
+                                                                    <label for="valor_base" class="fw-bold" style="font-size: 12px">Valor Base <span class="text-danger">*</span></label>
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-text">$</span>
+                                                                        {!! Form::text('valor_base', null, ['class' => 'form-control', 'id' => 'valor_base', 'required', 'readonly']) !!}
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-12 col-md-4 mt-3" id="div_fecha_inicio_labores">
+                                                                    <label for="fecha_inicio_labores" class="fw-bold" style="font-size: 12px">
+                                                                        Fecha inicio de labores <span class="text-danger">*</span>
+                                                                    </label>
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-text">
+                                                                            <i class="fa fa-calendar"></i>
+                                                                        </span>
+                                                                        {!! Form::date('fecha_inicio_labores', null, ['class' => 'form-control', 'id' => 'fecha_inicio_labores', 'required']) !!}
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-12 col-md-4 mt-3" id="div_fecha_final_labores">
+                                                                    <label for="fecha_final_labores" class="fw-bold" style="font-size: 12px">
+                                                                        Fecha inicio de labores <span class="text-danger">*</span>
+                                                                    </label>
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-text">
+                                                                            <i class="fa fa-calendar"></i>
+                                                                        </span>
+                                                                        {!! Form::date('fecha_final_labores', null, ['class' => 'form-control', 'id' => 'fecha_final_labores', 'required']) !!}
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-12 col-md-4 mt-3" id="div_id_tipo_pago">
+                                                                    <label for="id_tipo_pago" class="fw-bold" style="font-size: 12px">Tipo Pago <span class="text-danger">*</span></label>
+                                                                    {{ Form::select('id_tipo_pago', collect(['' => 'Seleccionar...'])->union($tipos_pago_nomina), isset($usuarioPrestamo) ? $usuarioPrestamo->id_tipo_persona : null, ['class' => 'form-control', 'id' => 'id_tipo_pago']) }}
+                                                                </div>
+
+                                                                <div class="col-12 col-md-4 mt-3" id="div_id_periodo_pago">
+                                                                    <label for="id_periodo_pago" class="fw-bold" style="font-size: 12px">Periodo Pago <span class="text-danger">*</span></label>
+                                                                    {{ Form::select('id_periodo_pago', collect(['' => 'Seleccionar...'])->union($periodos_pago), isset($usuarioPrestamo) ? $usuarioPrestamo->id_tipo_persona : null, ['class' => 'form-control', 'id' => 'id_periodo_pago']) }}
+                                                                </div>
+
+                                                                <div class="col-12 col-md-4 mt-3" id="div_cantidad_dias">
+                                                                    <label for="cantidad_dias" class="fw-bold" style="font-size: 12px">Días a pagar <span class="text-danger">*</span></label>
+                                                                    {!! Form::text('cantidad_dias', null, ['class' => 'form-control', 'id' => 'cantidad_dias', 'required', 'readonly']) !!}
+                                                                </div>
+
+                                                                <div class="col-12 col-md-4 mt-3" id="div_total_dias_pagar">
+                                                                    <label for="total_dias_pagar" class="fw-bold" style="font-size: 12px">Total dias a pagar <span class="text-danger">*</span></label>
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-text">$</span>
+                                                                        {!! Form::text('total_dias_pagar', null, ['class' => 'form-control', 'id' => 'total_dias_pagar', 'required', 'readonly']) !!}
+                                                                        <span class="input-group-btn">
+                                                                            <button class="input-group-text" type="button" id="idBtnCalcularPagoEnLiquidacion" onclick="calcularElPagoNormalEnLiquidacion()" style="background-color: #E0F8E0"> <b>Calcular</b>
+                                                                            </button>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-12 col-md-4 mt-3" id="div_porcentaje_comision">
+                                                                    <label for="porcentaje_comision" class="fw-bold" style="font-size: 12px">Porcentaje Comisión <span class="text-danger">*</span></label>
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-text">%</span>
+                                                                        {!! Form::text('porcentaje_comision', null, ['class' => 'form-control', 'id' => 'porcentaje_comision', 'required', 'readonly']) !!}
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-12 col-md-4 mt-3" id="div_valor_dia">
+                                                                    <label for="valor_dia" class="fw-bold" style="font-size: 12px">Valor día <span class="text-danger">*</span></label>
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-text">$</span>
+                                                                        {!! Form::text('valor_dia', null, ['class' => 'form-control', 'id' => 'valor_dia', 'required', 'readonly']) !!}
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-12 col-md-4 mt-3" id="div_fecha_ultimo_pago">
+                                                                    <label for="fecha_ultimo_pago" class="fw-bold" style="font-size: 12px">
+                                                                        Fecha último pago <span class="text-danger">*</span>
+                                                                    </label>
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-text">
+                                                                            <i class="fa fa-calendar"></i>
+                                                                        </span>
+                                                                        {!! Form::date('fecha_ultimo_pago', null, ['class' => 'form-control', 'id' => 'fecha_ultimo_pago', 'required']) !!}
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-12 col-md-6 mt-3" id="div_valor_ventas">
+                                                                    <label for="valor_ventas" class="fw-bold" style="font-size: 12px">Valor ventas</label>
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-text">$</span>
+                                                                        {!! Form::text('valor_ventas', null, ['class' => 'form-control', 'id' => 'valor_ventas', 'required']) !!}
+                                                                        <button type="button" class="input-group-text" onclick="traervalorVentas()"><span class="fa fa-search-plus"></span></button>
+                                                                        <button type="button" class="input-group-text" onclick="limpiarCampos()"><span class="fa fa-trash-o"></span></button>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-12 col-md-6 mt-3" id="div_pendiente_prestamos">
+                                                                    <label for="pendiente_prestamos" class="fw-bold" style="font-size: 12px">Pendiente de Préstamos</label>
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-text">$</span>
+                                                                        {!! Form::text('pendiente_prestamos', null, ['class' => 'form-control', 'id' => 'pendiente_prestamos', 'required']) !!}
+                                                                        <button type="button" class="input-group-text" onclick="traervalorprestamopen()"><span class="fa fa-search-plus"></span></button>
+                                                                        <button type="button" class="input-group-text" onclick="limpiarCampos()"><span class="fa fa-trash-o"></span></button>
+                                                                    </div>
+                                                                </div>
+                                                            </div> <!-- FIN modal-body .row Campos registrar pago -->
+
+                                                            {{-- ====================================================== --}}
+
+                                                            <div class="rounded-top mt-5" style="border: solid 1px #337AB7;">
+                                                                <div class="rounded-top text-white text-center"
+                                                                    style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                                                    <h5>PAGO TOTAL</h5>
+                                                                </div>
+
+                                                                <div class="row p-3">
+                                                                    <div class="col-12 col-md-4">
+                                                                        <h5 class="fw-bold totales">
+                                                                            Salario Neto:
+                                                                            {!! Form::hidden('salario_neto', null, ['class' => '', 'id' => 'salario_neto', 'required']) !!}
+                                                                            <span id="salario_neto"></span>
+                                                                        </h5>
+                                                                    </div>
+
+                                                                    <div class="col-12 col-md-4">
+                                                                        <h5 class="fw-bold totales">
+                                                                            Comisiones:
+                                                                            {!! Form::hidden('comisiones', null, ['class' => '', 'id' => 'comisiones', 'required']) !!}
+                                                                            <span id="comisiones"></span>
+                                                                        </h5>
+                                                                    </div>
+
+                                                                    <div class="col-12 col-md-4">
+                                                                        <h5 class="fw-bold totales">
+                                                                            Total:
+                                                                            {!! Form::hidden('total', null, ['class' => '', 'id' => 'total', 'required']) !!}
+                                                                            <span id="total"></span>
+                                                                        </h5>
+                                                                    </div>
+                                                                </div>
+
+                                                                {{-- =========================== --}}
+
+                                                                <div class="row mt-3 me-3 mb-3">
+                                                                    <div class="col-12">
+                                                                        <button type="button" class="btn btn-primary btn-md active pull-right" style="background-color: #337AB7;">
+                                                                            <i class="fa fa-building"> Aceptar</i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> <!-- FIN modal-body -->
+                                                    </div>
+
+                                                    {{-- ====================================================== --}}
+                                                    {{-- ====================================================== --}}
+
+                                                    <!-- Contenedor para el GIF -->
+                                                    <div id="loadingIndicatorEstadoPrestamo}}"
+                                                        class="loadingIndicator">
+                                                        <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                                                    </div>
+
+                                                    {{-- ====================================================== --}}
+                                                    {{-- ====================================================== --}}
+
+                                                    <div class="modal-footer border-0 d-flex justify-content-around mt-3">
+                                                        <button type="submit" id="btn_cambiar_estado_prestamo"
+                                                            class="btn btn-success" title="Guardar Configuración">
+                                                            <i class="fa fa-floppy-o"> Guardar</i>
+                                                        </button>
+
+                                                        <button type="button" id="btn_cancelar_estado_prestamo"
+                                                            class="btn btn-secondary" title="Cancelar"
+                                                            data-bs-dismiss="modal">
+                                                            <i class="fa fa-times"> Cancelar</i>
+                                                        </button>
+                                                    </div>
+                                                {!! Form::close() !!}
+                                            </div> {{-- FIN modal-content --}}
+                                        </div> {{-- FIN modal-dialog --}}
+                                    </div> {{-- FIN modal --}}
+                                    {{-- FINAL Modal REGISTRAR PAGO --}}
                             </tbody>
                         </table>
                     </div>
@@ -124,7 +370,7 @@
 
     <script>
         $( document ).ready(function() {
-            // INICIO DataTable Lista Usuarios
+            // INICIO DataTable REGISTRAR PAGOS
             $("#tbl_registrar_pagos").DataTable({
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
@@ -152,7 +398,12 @@
                 "pageLength": 10,
                 "scrollX": true,
             });
-            // CIERRE DataTable Lista Usuarios
+            // CIERRE DataTable REGISTRAR PAGOS
+
+            // ==========================================================
+            // ==========================================================
+
+
         });
     </script>
 @stop
