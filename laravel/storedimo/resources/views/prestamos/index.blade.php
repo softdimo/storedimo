@@ -200,7 +200,7 @@
                                 <div class="row m-0">
                                     <div class="col-12 col-md-6">
                                         <label for="valor_prestamo" class="fw-bold" style="font-size: 12px">Valor Préstamo <span class="text-danger">*</span></label>
-                                        {!! Form::text('valor_prestamo',$prestamo->valor_prestamo : null, ['class' => 'form-control', 'id' => 'valor_prestamo', 'required']) !!}
+                                        {!! Form::text('valor_prestamo', isset($prestamo) ? $prestamo->valor_prestamo : null, ['class' => 'form-control', 'id' => 'valor_prestamo', 'required']) !!}
                                     </div>
 
                                     <div class="col-12 col-md-6">
