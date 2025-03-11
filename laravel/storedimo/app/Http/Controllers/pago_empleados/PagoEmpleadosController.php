@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use Exception;
 use GuzzleHttp\Client;
 use App\Traits\MetodosTrait;
+use App\Http\Responsable\pago_empleados\PagoEmpleadoIndex;
+use App\Http\Responsable\pago_empleados\PagoEmpleadoCreate;
+use App\Http\Responsable\pago_empleados\PagoEmpleadoStore;
+use App\Http\Responsable\pago_empleados\PagoEmpleadoUpdate;
 
 class PagoEmpleadosController extends Controller
 {
@@ -71,7 +75,7 @@ class PagoEmpleadosController extends Controller
                 {
                     return redirect()->to(route('login'));
                 } else {
-                    return view('pago_empleados.create');
+                    return new PagoEmpleadoCreate();
                 }
             }
         } catch (Exception $e) {

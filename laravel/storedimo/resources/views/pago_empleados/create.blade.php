@@ -119,21 +119,25 @@
                             </thead>
                             {{-- ============================== --}}
                             <tbody>
+                                @foreach ($pagoEmpleadosCreate as $pagoEmpleado)
+                                    @php
+                                        // dd($pagoEmpleado);
+                                    @endphp
                                     <tr class="text-center">
-                                        <td>1234567890</td>
-                                        <td>Victor</td>
-                                        <td>Gómez</td>
-                                        <td>Empleado-fijo</td>
-                                        <td>Habilitado</td>
+                                        <td>{{$pagoEmpleado->identificacion}}</td>
+                                        <td>{{$pagoEmpleado->nombre_usuario}}</td>
+                                        <td>{{$pagoEmpleado->apellido_usuario}}</td>
+                                        <td>{{$pagoEmpleado->tipo_persona}}</td>
+                                        <td>{{$pagoEmpleado->estado}}</td>
                                         <td>
-                                            <button class="btn rounded-circle btn-circle text-white" title="Detalles Préstamo" style="background-color: #286090" data-bs-toggle="modal" data-bs-target="#modalRegistrarPago">
+                                            <button class="btn rounded-circle btn-circle text-white" title="Registrar Pago" style="background-color: #286090" data-bs-toggle="modal" data-bs-target="#modalRegistrarPago_{{$pagoEmpleado->id_usuario}}">
                                                 <i class="fa fa-pencil"></i>
                                             </button>
                                         </td>
                                     </tr>
 
                                     {{-- INICIO Modal REGISTRAR PAGO --}}
-                                    <div class="modal fade h-auto modal-gral" id="modalRegistrarPago" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" style="max-width: 70%">
+                                    <div class="modal fade h-auto modal-gral" id="modalRegistrarPago_{{$pagoEmpleado->id_usuario}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" style="max-width: 70%">
                                         <div class="modal-dialog m-0 mw-100">
                                             <div class="modal-content border-0">
                                                 {!! Form::open([
@@ -141,7 +145,7 @@
                                                     'route' => ['cambiar_estado_producto'],
                                                     'class' => 'mt-2',
                                                     'autocomplete' => 'off',
-                                                    'id' => 'formRegistrarPago']) !!}
+                                                    'id' => 'formRegistrarPago_'.$pagoEmpleado->id_usuario]) !!}
                                                     @csrf
 
                                                     <div class="rounded-top" style="border: solid 1px #337AB7;">
@@ -154,17 +158,17 @@
                                                             <div class="row m-0">
                                                                 <div class="col-12 col-md-4" id="div_identificacion">
                                                                     <label for="identificacion" class="fw-bold" style="font-size: 12px">Identificación <span class="text-danger">*</span></label>
-                                                                    {!! Form::text('identificacion', isset($prestamo) ? $prestamo->identificacion : null, ['class' => 'form-control', 'id' => 'identificacion', 'required', 'readonly']) !!}
+                                                                    {!! Form::text('identificacion', isset($pagoEmpleado) ? $pagoEmpleado->identificacion : null, ['class' => 'form-control', 'id' => 'identificacion', 'required', 'readonly']) !!}
                                                                 </div>
                             
                                                                 <div class="col-12 col-md-4" id="div_nombres">
                                                                     <label for="nombre_usuario" class="fw-bold" style="font-size: 12px">Nombres <span class="text-danger">*</span></label>
-                                                                    {!! Form::text('nombre_usuario', null, ['class' => 'form-control', 'id' => 'nombre_usuario', 'required', 'readonly']) !!}
+                                                                    {!! Form::text('nombre_usuario', isset($pagoEmpleado) ? $pagoEmpleado->nombre_usuario . ' ' . $pagoEmpleado->apellido_usuario : null, ['class' => 'form-control', 'id' => 'nombre_usuario', 'required', 'readonly']) !!}
                                                                 </div>
                             
                                                                 <div class="col-12 col-md-4" id="div_tipo_empleado">
                                                                     <label for="tipo_empleado" class="fw-bold" style="font-size: 12px">Tipo Empleado <span class="text-danger">*</span></label>
-                                                                    {!! Form::text('tipo_empleado', null, ['class' => 'form-control', 'id' => 'tipo_empleado', 'required', 'readonly']) !!}
+                                                                    {!! Form::text('tipo_empleado', isset($pagoEmpleado) ? $pagoEmpleado->tipo_persona : null, ['class' => 'form-control', 'id' => 'tipo_empleado', 'required', 'readonly']) !!}
                                                                 </div>
 
                                                                 <div class="col-12 col-md-4 mt-3" id="div_valor_base">
@@ -189,7 +193,7 @@
 
                                                                 <div class="col-12 col-md-4 mt-3" id="div_fecha_final_labores">
                                                                     <label for="fecha_final_labores" class="fw-bold" style="font-size: 12px">
-                                                                        Fecha inicio de labores <span class="text-danger">*</span>
+                                                                        Finalización de labores <span class="text-danger">*</span>
                                                                     </label>
                                                                     <div class="input-group">
                                                                         <span class="input-group-text">
@@ -226,11 +230,11 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="col-12 col-md-4 mt-3" id="div_porcentaje_comision">
-                                                                    <label for="porcentaje_comision" class="fw-bold" style="font-size: 12px">Porcentaje Comisión <span class="text-danger">*</span></label>
+                                                                <div class="col-12 col-md-4 mt-3" id="div_id_porcentaje_comision">
+                                                                    <label for="id_porcentaje_comision" class="fw-bold" style="font-size: 12px">Porcentaje Comisión <span class="text-danger">*</span></label>
                                                                     <div class="input-group">
                                                                         <span class="input-group-text">%</span>
-                                                                        {!! Form::text('porcentaje_comision', null, ['class' => 'form-control', 'id' => 'porcentaje_comision', 'required', 'readonly']) !!}
+                                                                        {!! Form::text('id_porcentaje_comision', null, ['class' => 'form-control', 'id' => 'id_porcentaje_comision', 'required', 'readonly']) !!}
                                                                     </div>
                                                                 </div>
 
@@ -284,7 +288,7 @@
                                                                 </div>
 
                                                                 <div class="row p-3">
-                                                                    <div class="col-12 col-md-4">
+                                                                    <div class="col-12 col-md-4" id="div_salario_neto">
                                                                         <h5 class="fw-bold totales">
                                                                             Salario Neto:
                                                                             {!! Form::hidden('salario_neto', null, ['class' => '', 'id' => 'salario_neto', 'required']) !!}
@@ -292,7 +296,15 @@
                                                                         </h5>
                                                                     </div>
 
-                                                                    <div class="col-12 col-md-4">
+                                                                    <div class="col-12 col-md-4" id="div_vacaciones">
+                                                                        <h5 class="fw-bold totales">
+                                                                            Vacaciones:
+                                                                            {!! Form::hidden('vacaciones', null, ['class' => '', 'id' => 'vacaciones', 'required']) !!}
+                                                                            <span id="vacaciones"></span>
+                                                                        </h5>
+                                                                    </div>
+
+                                                                    <div class="col-12 col-md-4" id="div_comisiones">
                                                                         <h5 class="fw-bold totales">
                                                                             Comisiones:
                                                                             {!! Form::hidden('comisiones', null, ['class' => '', 'id' => 'comisiones', 'required']) !!}
@@ -300,7 +312,15 @@
                                                                         </h5>
                                                                     </div>
 
-                                                                    <div class="col-12 col-md-4">
+                                                                    <div class="col-12 col-md-4" id="div_cesantias">
+                                                                        <h5 class="fw-bold totales">
+                                                                            Comisiones:
+                                                                            {!! Form::hidden('cesantias', null, ['class' => '', 'id' => 'cesantias', 'required']) !!}
+                                                                            <span id="cesantias"></span>
+                                                                        </h5>
+                                                                    </div>
+
+                                                                    <div class="col-12 col-md-4" id="div_total">
                                                                         <h5 class="fw-bold totales">
                                                                             Total:
                                                                             {!! Form::hidden('total', null, ['class' => '', 'id' => 'total', 'required']) !!}
@@ -314,7 +334,7 @@
                                                                 <div class="row mt-3 me-3 mb-3">
                                                                     <div class="col-12">
                                                                         <button type="button" class="btn btn-primary btn-md active pull-right" style="background-color: #337AB7;">
-                                                                            <i class="fa fa-building"> Aceptar</i>
+                                                                            <i class="fa fa-building"> Calcular</i>
                                                                         </button>
                                                                     </div>
                                                                 </div>
@@ -326,7 +346,7 @@
                                                     {{-- ====================================================== --}}
 
                                                     <!-- Contenedor para el GIF -->
-                                                    <div id="loadingIndicatorEstadoPrestamo}}"
+                                                    <div id="loadingIndicatorRegistrarPago_{{$pagoEmpleado->id_usuario}}"
                                                         class="loadingIndicator">
                                                         <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
                                                     </div>
@@ -335,12 +355,12 @@
                                                     {{-- ====================================================== --}}
 
                                                     <div class="modal-footer border-0 d-flex justify-content-around mt-3">
-                                                        <button type="submit" id="btn_cambiar_estado_prestamo"
+                                                        <button type="submit" id="btn_registrar_pago_{{$pagoEmpleado->id_usuario}}"
                                                             class="btn btn-success" title="Guardar Configuración">
                                                             <i class="fa fa-floppy-o"> Guardar</i>
                                                         </button>
 
-                                                        <button type="button" id="btn_cancelar_estado_prestamo"
+                                                        <button type="button" id="btn_cancelar_pago_{{$pagoEmpleado->id_usuario}}"
                                                             class="btn btn-secondary" title="Cancelar"
                                                             data-bs-dismiss="modal">
                                                             <i class="fa fa-times"> Cancelar</i>
@@ -351,6 +371,7 @@
                                         </div> {{-- FIN modal-dialog --}}
                                     </div> {{-- FIN modal --}}
                                     {{-- FINAL Modal REGISTRAR PAGO --}}
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -403,6 +424,304 @@
             // ==========================================================
             // ==========================================================
 
+            
+            $(document).on('shown.bs.modal', '[id^="modalRegistrarPago_"]', function () {
+                // Buscar el select dentro del modal
+                let modal = $(this); // Guardamos la referencia del modal
+                let selectTipoPago = modal.find('[id^=id_tipo_pago]');
+
+                if (selectTipoPago.length > 0) { // Al cargar el modal
+                    let inputIdTipoPago = selectTipoPago.val(); // Obtener el valor actual del select
+                    console.log(`Id Tipo Pago al abrir el modal: ${inputIdTipoPago}`);
+
+                    // Buscar los elementos dentro de este modal
+                    let divIdentificacion = modal.find('[id^=div_identificacion]');
+                    let identificacion = modal.find('[id^=identificacion]');
+
+                    let divNombres = modal.find('[id^=div_nombres]');
+                    let nombres = modal.find('[id^=nombre_usuario]');
+
+                    let divTipoEmpleado = modal.find('[id^=div_tipo_empleado]');
+                    let tipoEmpleado = modal.find('[id^=tipo_empleado]');
+
+                    let divIdTipoPago = modal.find('[id^=div_id_tipo_pago]');
+                    let idTipoPago = modal.find('[id^=id_tipo_pago]');
+
+                    let divIdPeriodoPago = modal.find('[id^=div_id_periodo_pago]');
+                    let idPeriodoPago = modal.find('[id^=id_periodo_pago]');
+
+                    let divIdPorcentajeComision = modal.find('[id^=div_id_porcentaje_comision]');
+                    let idPorcentajeComision = modal.find('[id^=id_porcentaje_comision]');
+
+                    let divValorDia = modal.find('[id^=div_valor_dia]');
+                    let valorDia = modal.find('[id^=valor_dia]');
+
+                    let divValorVentas = modal.find('[id^=div_valor_ventas]');
+                    let valorVentas = modal.find('[id^=valor_ventas]');
+
+                    let divValorBase = modal.find('[id^=div_valor_base]');
+                    let valorBase = modal.find('[id^=valor_base]');
+
+                    let divFechaInicioLabores = modal.find('[id^=div_fecha_inicio_labores]');
+                    let fechaInicioLabores = modal.find('[id^=fecha_inicio_labores]');
+
+                    let divFechaFinalLabores = modal.find('[id^=div_fecha_final_labores]');
+                    let fechaFinalLabores = modal.find('[id^=fecha_final_labores]');
+
+                    let divTotalDiasPagar = modal.find('[id^=div_total_dias_pagar]');
+                    let totalDiasPagar = modal.find('[id^=total_dias_pagar]');
+
+                    let divPendientePrestamos = modal.find('[id^=div_pendiente_prestamos]');
+                    let pendientePrestamos = modal.find('[id^=pendiente_prestamos]');
+
+                    let divVacaciones = modal.find('[id^=div_vacaciones]');
+                    let vacaciones = modal.find('[id^=vacaciones]');
+
+                    let divCesantias = modal.find('[id^=div_cesantias]');
+                    let cesantias = modal.find('[id^=cesantias]');
+
+                    let divSalarioNeto = modal.find('[id^=div_salario_neto]');
+                    let salarioNeto = modal.find('[id^=salario_neto]');
+
+                    let divComisiones = modal.find('[id^=div_comisiones]');
+                    let comisiones = modal.find('[id^=comisiones]');
+
+                    // Ocultar o mostrar al cargar el modal
+                    divValorBase.hide();
+                    valorBase.removeAttr('required');
+                    divFechaInicioLabores.hide();
+                    fechaInicioLabores.removeAttr('required');
+                    divFechaFinalLabores.hide();
+                    fechaFinalLabores.removeAttr('required');
+                    divTotalDiasPagar.hide();
+                    totalDiasPagar.removeAttr('required');
+                    divPendientePrestamos.hide();
+                    pendientePrestamos.removeAttr('required');
+
+                    divVacaciones.hide();
+                    vacaciones.removeAttr('required');
+                    divCesantias.hide();
+                    cesantias.removeAttr('required');
+
+                    divSalarioNeto.show();
+                    salarioNeto.attr('required');
+                    divComisiones.show();
+                    comisiones.attr('required');
+                    
+
+                    // ===================================================
+
+                    // Al cambiar el tipo de persona
+                    selectTipoPago.change(function () {
+                        let inputIdTipoPago = selectTipoPago.val(); // Obtener el valor actual del select al cambiar
+                        console.log(`cambio ${inputIdTipoPago}`);
+
+                        let modal = $(this).closest('[id^="modalRegistrarPago_"]'); // Asegurar que buscamos dentro del modal correcto
+
+                        let divIdentificacion = modal.find('[id^=div_identificacion]');
+                        let identificacion = modal.find('[id^=identificacion]');
+
+                        let divNombres = modal.find('[id^=div_nombres]');
+                        let nombres = modal.find('[id^=nombre_usuario]');
+
+                        let divTipoEmpleado = modal.find('[id^=div_tipo_empleado]');
+                        let tipoEmpleado = modal.find('[id^=tipo_empleado]');
+
+                        let divIdTipoPago = modal.find('[id^=div_id_tipo_pago]');
+                        let idTipoPago = modal.find('[id^=id_tipo_pago]');
+
+                        let divIdPeriodoPago = modal.find('[id^=div_id_periodo_pago]');
+                        let idPeriodoPago = modal.find('[id^=id_periodo_pago]');
+
+                        let divIdPorcentajeComision = modal.find('[id^=div_id_porcentaje_comision]');
+                        let idPorcentajeComision = modal.find('[id^=id_porcentaje_comision]');
+
+                        let divValorDia = modal.find('[id^=div_valor_dia]');
+                        let valorDia = modal.find('[id^=valor_dia]');
+
+                        let divValorVentas = modal.find('[id^=div_valor_ventas]');
+                        let valorVentas = modal.find('[id^=valor_ventas]');
+
+                        let divValorBase = modal.find('[id^=div_valor_base]');
+                        let valorBase = modal.find('[id^=valor_base]');
+
+                        let divFechaInicioLabores = modal.find('[id^=div_fecha_inicio_labores]');
+                        let fechaInicioLabores = modal.find('[id^=fecha_inicio_labores]');
+
+                        let divFechaFinalLabores = modal.find('[id^=div_fecha_final_labores]');
+                        let fechaFinalLabores = modal.find('[id^=fecha_final_labores]');
+
+                        let divTotalDiasPagar = modal.find('[id^=div_total_dias_pagar]');
+                        let totalDiasPagar = modal.find('[id^=total_dias_pagar]');
+
+                        let divPendientePrestamos = modal.find('[id^=div_pendiente_prestamos]');
+                        let pendientePrestamos = modal.find('[id^=pendiente_prestamos]');
+
+                        let divVacaciones = modal.find('[id^=div_vacaciones]');
+                        let vacaciones = modal.find('[id^=vacaciones]');
+
+                        let divCesantias = modal.find('[id^=div_cesantias]');
+                        let cesantias = modal.find('[id^=cesantias]');
+
+                        let divSalarioNeto = modal.find('[id^=div_salario_neto]');
+                        let salarioNeto = modal.find('[id^=salario_neto]');
+
+                        let divComisiones = modal.find('[id^=div_comisiones]');
+                        let comisiones = modal.find('[id^=comisiones]');
+
+                        if (inputIdTipoPago == 5) { // Proveedor-juridico
+                            divIdentificacion.show();
+                            identificacion.attr('required');
+
+                            divNombres.show('slow');
+                            nombres.attr('required');
+
+                            divTipoEmpleado.show();
+                            tipoEmpleado.attr('required');
+
+                            divIdTipoPago.show();
+                            idTipoPago.attr('required');
+
+                            divIdPeriodoPago.hide();
+                            idPeriodoPago.removeAttr('required');
+
+                            divIdPorcentajeComision.show();
+                            idPorcentajeComision.removeAttr('required');
+
+                            divValorDia.hide();
+                            valorDia.removeAttr('required');
+
+                            divValorVentas.hide();
+                            valorVentas.removeAttr('required');
+
+                            divValorBase.show();
+                            valorBase.attr('required');
+
+                            divFechaInicioLabores.show();
+                            fechaInicioLabores.attr('required');
+
+                            divFechaFinalLabores.show();
+                            fechaFinalLabores.attr('required');
+
+                            divTotalDiasPagar.show();
+                            totalDiasPagar.attr('required');
+                            
+                            divPendientePrestamos.show();
+                            pendientePrestamos.attr('required');
+
+                            divVacaciones.show();
+                            vacaciones.attr('required');
+
+                            divCesantias.show();
+                            cesantias.attr('required');
+
+                            divSalarioNeto.hide();
+                            salarioNeto.removeAttr('required');
+
+                            divComisiones.hide();
+                            comisiones.removeAttr('required');
+                            
+                        } else {
+                            divIdentificacion.show();
+                            identificacion.attr('required');
+
+                            divNombres.show('slow');
+                            nombres.attr('required');
+
+                            divTipoEmpleado.show();
+                            tipoEmpleado.attr('required');
+
+                            divIdTipoPago.show();
+                            idTipoPago.attr('required');
+
+                            divIdPeriodoPago.show();
+                            idPeriodoPago.attr('required');
+
+                            divIdPorcentajeComision.show();
+                            idPorcentajeComision.removeAttr('required');
+
+                            divValorDia.show();
+                            valorDia.attr('required');
+
+                            divValorVentas.show();
+                            valorVentas.attr('required');
+
+                            divValorBase.hide();
+                            valorBase.removeAttr('required');
+                            divFechaInicioLabores.hide();
+                            fechaInicioLabores.removeAttr('required');
+                            divFechaFinalLabores.hide();
+                            fechaFinalLabores.removeAttr('required');
+                            divTotalDiasPagar.hide();
+                            totalDiasPagar.removeAttr('required');
+                            divPendientePrestamos.hide();
+                            pendientePrestamos.removeAttr('required');
+
+                            divVacaciones.hide();
+                            vacaciones.removeAttr('required');
+
+                            divCesantias.hide();
+                            cesantias.removeAttr('required');
+
+                            divSalarioNeto.show();
+                            salarioNeto.attr('required');
+
+                            divComisiones.show();
+                            comisiones.attr('required');
+                        }
+                    }); // FIN Tipo Persona Jurídica
+                } // FIN selectTipoPersona.length > 0
+            }); // FIN '[id^="modalEditarProveedor_"]').on('shown.bs.modal'
+
+            // ==========================================================
+            // ==========================================================
+
+            // formCambiarClave para cargar gif en el submit
+            $(document).on("submit", "form[id^='formRegistrarPago_']", function(e) {
+                const form = $(this);
+                const formId = form.attr('id'); // Obtenemos el ID del formulario
+                const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
+
+                // Capturar Spinner y btns dinámicamente
+                const loadingIndicator = $(`#loadingIndicatorRegistrarPago_${id}`);
+                const submitButton = $(`#btn_registrar_pago_${id}`);
+                const cancelButton = $(`#btn_cancelar_pago_${id}`);
+
+                // Desactivar btns
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+                cancelButton.prop("disabled", true);
+
+                // Cargar Spinner
+                loadingIndicator.show();
+            });
+
+            // ==========================================================
+            // ==========================================================
+            
+            // Re-inicializar Select2 cuando se abre el modal
+            // $('#modalRegistrarPago').on('shown.bs.modal', function () {
+                $(document).on('shown.bs.modal', '[id^="modalRegistrarPago"]', function () {
+                let modal = $(this); // Guardamos la referencia del modal
+                let selectElements = modal.find('.select2'); // Seleccionamos TODOS los selects con la clase select2 dentro del modal
+                
+
+                if (selectElements.length > 0) {
+                    selectElements.each(function () {
+                        $(this).select2({
+                            dropdownParent: modal, // 📌 Soluciona el problema de desplegar en el modal
+                            allowClear: true
+                        });
+
+                        // Forzar la opción vacía al borrar
+                        $(this).on('select2:clear', function () {
+                            $(this).val('').trigger('change');
+                        });
+                    });
+                }
+            });
+
+            // ==========================================================
+            // ==========================================================
 
         });
     </script>

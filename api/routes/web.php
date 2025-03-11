@@ -116,3 +116,17 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     // $router->put('venta_update/{id}', 'ventas\VentasController@update');
     // $router->post('consulta_venta', 'ventas\VentasController@consultaVenta');
 });
+
+// ========================================================================
+// ========================================================================
+
+// PRESTAMOS
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('pago_empleado_index', 'pago_empleados\PagoEmpleadosController@index');
+    $router->get('pago_empleado_create', 'pago_empleados\PagoEmpleadosController@create');
+    $router->post('pago_empleado_store', 'pago_empleados\PagoEmpleadosController@store');
+    // $router->post('anular_prestamo/{idVenta}', 'ventas\VentasController@anularVenta');
+
+    // $router->put('venta_update/{id}', 'ventas\VentasController@update');
+    // $router->post('consulta_venta', 'ventas\VentasController@consultaVenta');
+});

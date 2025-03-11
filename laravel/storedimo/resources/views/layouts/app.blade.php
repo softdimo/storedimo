@@ -14,19 +14,14 @@
         <link rel="shortcut icon" href="{{asset('imagenes/favicon.png')}}" type="image/x-icon">
 
         {{-- ========================================= --}}
+        {{-- JQuery Modal --}}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.2/jquery.modal.min.css" />
 
         <!-- Bootstrap CSS 5.3.2 -->
         <link rel="stylesheet" href="{{asset('bootstrap/bootstrap.5.3.2.min.css')}}" >
 
-        {{-- ========================================= --}}
-        <!--  Js -->
-        <script src="{{asset('js/jquery-3.6.0.min.js')}}"></script>
-        <script src="{{asset('js/jquery-1.19.1.validate.min.js')}}"></script>
-
-        {{-- ========================================= --}}
-
-        {{-- SELECT2 --}}
+        <!-- SELECT2 CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet">
         {{-- <link rel="stylesheet" href="{{asset('vendor/select2-4.1.0/dist/css/select2.min.css')}}"> --}}
 
         {{-- ========================================= --}}
@@ -41,6 +36,10 @@
         {{-- Sweetalert2 (No necesita jquery para funcionar) --}}
         <link rel="stylesheet" type="text/css" href="{{asset('css/sweetalert2.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('css/sweetalert2.min.css')}}">
+
+        <!--  Js -->
+        <script src="{{asset('js/jquery-3.6.0.min.js')}}"></script>
+        <script src="{{asset('js/jquery-1.19.1.validate.min.js')}}"></script>
     </head>
 
     {{-- =========================================================================== --}}
@@ -73,9 +72,8 @@
 
         {{-- ========================================================================= --}}
 
-        
-
-        <!-- SELECT2 -->
+        <!-- SELECT2 JS -->
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
         {{-- <script src="{{asset('vendor/select2-4.1.0/dist/js/select2.min.js')}}"></script> --}}
 
         {{-- ========================================================================= --}}
