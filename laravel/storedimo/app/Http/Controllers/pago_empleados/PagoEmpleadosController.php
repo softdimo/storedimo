@@ -44,7 +44,7 @@ class PagoEmpleadosController extends Controller
                 {
                     return redirect()->to(route('login'));
                 } else {
-                    return view('pago_empleados.index');
+                    return new PagoEmpleadoIndex();
                 }
             }
         } catch (Exception $e) {

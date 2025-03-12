@@ -1,44 +1,52 @@
 <?php
 
-namespace App\Http\Responsable\prestamos;
+namespace App\Http\Responsable\pago_empleados;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Prestamo;
+use App\Models\PagoEmpleado;
 
-class PrestamoIndex implements Responsable
+class PagoEmpleadoIndex implements Responsable
 {
     public function toResponse($request)
     {
         try {
-            $prestamos = Prestamo::leftjoin('estados_prestamo','estados_prestamo.id_estado_prestamo','=','prestamos.id_estado_prestamo')
-                ->leftjoin('usuarios','usuarios.id_usuario','=','prestamos.id_usuario')
-                ->leftjoin('tipo_documento','tipo_documento.id_tipo_documento','=','usuarios.id_tipo_documento')
+            $pagoEmpleados = PagoEmpleado::leftjoin('estados','estados.id_estado','=','pago_empleados.id_estado')
+                ->leftjoin('usuarios','usuarios.id_usuario','=','pago_empleados.id_usuario')
                 ->leftjoin('tipo_persona','tipo_persona.id_tipo_persona','=','usuarios.id_tipo_persona')
+                ->leftjoin('tipo_documento','tipo_documento.id_tipo_documento','=','usuarios.id_tipo_documento')
+                ->leftjoin('tipos_pago','tipos_pago.id_tipo_pago','=','pago_empleados.id_tipo_pago')
                 ->select(
-                    'id_prestamo',
-                    'prestamos.id_estado_prestamo',
-                    'estado_prestamo',
-                    'prestamos.id_usuario',
+                    'id_pago_empleado',
+                    'tipos_pago.id_tipo_pago',
+                    'tipo_pago',
+                    'fecha_pago',
+                    'usuarios.id_usuario',
                     DB::raw("CONCAT(nombre_usuario, ' ', apellido_usuario) AS nombres_usuario"),
-                    'valor_prestamo',
                     'nombre_usuario',
                     'apellido_usuario',
-                    'fecha_prestamo',
-                    'fecha_limite',
-                    'descripcion',
+                    'identificacion',
+                    'tipo_persona.id_tipo_persona',
+                    'tipo_persona',
                     'usuarios.id_tipo_documento',
                     'tipo_documento',
-                    'usuarios.identificacion',
-                    'usuarios.id_tipo_persona',
-                    'tipo_persona'
+                    'valor_ventas',
+                    'valor_comision',
+                    'cantidad_dias',
+                    'valor_dia',
+                    'valor_prima',
+                    'valor_vacaciones',
+                    'valor_cesantias',
+                    'valor_total',
+                    'estados.id_estado',
+                    'estado'
                 )
-                ->orderByDesc('fecha_prestamo')
+                ->orderByDesc('fecha_pago')
                 ->get();
 
-                return response()->json($prestamos);
+                return response()->json($pagoEmpleados);
 
         } catch (Exception $e) {
             return response()->json(['error_bd' => $e->getMessage()]);

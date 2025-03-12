@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Responsable\prestamos;
+namespace App\Http\Responsable\pago_empleados;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;

@@ -423,7 +423,6 @@
 
             // ==========================================================
             // ==========================================================
-
             
             $(document).on('shown.bs.modal', '[id^="modalRegistrarPago_"]', function () {
                 // Buscar el select dentro del modal
@@ -569,7 +568,7 @@
                         let divComisiones = modal.find('[id^=div_comisiones]');
                         let comisiones = modal.find('[id^=comisiones]');
 
-                        if (inputIdTipoPago == 5) { // Proveedor-juridico
+                        if (inputIdTipoPago == 5) { // Pago Final
                             divIdentificacion.show();
                             identificacion.attr('required');
 
@@ -676,7 +675,7 @@
             // ==========================================================
             // ==========================================================
 
-            // formCambiarClave para cargar gif en el submit
+            // formRegistrarPago_ para cargar gif en el submit
             $(document).on("submit", "form[id^='formRegistrarPago_']", function(e) {
                 const form = $(this);
                 const formId = form.attr('id'); // Obtenemos el ID del formulario
@@ -699,16 +698,14 @@
             // ==========================================================
             
             // Re-inicializar Select2 cuando se abre el modal
-            // $('#modalRegistrarPago').on('shown.bs.modal', function () {
-                $(document).on('shown.bs.modal', '[id^="modalRegistrarPago"]', function () {
+            $(document).on('shown.bs.modal', '[id^="modalRegistrarPago"]', function () {
                 let modal = $(this); // Guardamos la referencia del modal
                 let selectElements = modal.find('.select2'); // Seleccionamos TODOS los selects con la clase select2 dentro del modal
-                
 
                 if (selectElements.length > 0) {
                     selectElements.each(function () {
                         $(this).select2({
-                            dropdownParent: modal, // 📌 Soluciona el problema de desplegar en el modal
+                            dropdownParent: modal, // 📌 Desplegar opciones en el modal
                             allowClear: true
                         });
 
@@ -722,6 +719,10 @@
 
             // ==========================================================
             // ==========================================================
+
+            function calcularSalario(){
+                
+            }
 
         });
     </script>

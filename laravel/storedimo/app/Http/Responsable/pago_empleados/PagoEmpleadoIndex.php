@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Responsable\prestamos;
+namespace App\Http\Responsable\pago_empleados;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
-class PrestamoIndex implements Responsable
+class PagoEmpleadoIndex implements Responsable
 {
     public function toResponse($request)
     {
@@ -19,10 +19,10 @@ class PrestamoIndex implements Responsable
             // ==============================================================
             
             // Realiza la solicitud a la API
-            $peticion = $clientApi->get($baseUri . 'prestamo_index');
-            $prestamosIndex = json_decode($peticion->getBody()->getContents());
+            $peticion = $clientApi->get($baseUri . 'pago_empleado_index');
+            $pagoEmpleadosIndex = json_decode($peticion->getBody()->getContents());
 
-            return view('prestamos.index', compact('prestamosIndex'));
+            return view('pago_empleados.index', compact('pagoEmpleadosIndex'));
 
         } catch (Exception $e) {
             alert()->error('Error', 'Exception, contacte a Soporte.');
