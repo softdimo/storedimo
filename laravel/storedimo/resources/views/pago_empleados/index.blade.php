@@ -63,11 +63,12 @@
                                         <td>Gómez</td>
                                         <td>Empleado-fijo</td>
                                         <td>
-                                            <a href="#" role="button" class="btn rounded-circle btn-circle text-white" title="Detalles Préstamo" style="background-color: #286090">
+                                            <button title="Detalles Pago" class="btn rounded-circle btn-circle text-white" style="background-color: #286090" data-bs-toggle="modal" data-bs-target="#modalDetallesPago_">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
-                                            </a>
+                                            </button>
                                         </td>
                                     </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -80,13 +81,80 @@
                     <div class="mt-5 mb-2 d-flex justify-content-center">
                         <button class="btn rounded-2 me-3 text-white" type="submit" style="background-color: #204D74">
                             <i class="fa fa-file-pdf-o"></i>
-                            Reporte Préstamos
+                            Reporte Pagos
                         </button>
                     </div>
                 </div> {{-- FIN div_campos_usuarios --}}
             </div> {{-- FIN div_crear_usuario --}}
-        </div>
-    </div>
+        </div> {{-- p-3 d-flex flex-column --}}
+    </div> {{-- FIN content d-flex --}}
+    
+    {{-- =============================================================== --}}
+    {{-- =============================================================== --}}
+
+    <!-- INICIO Modal Detalle Pago -->
+    <div class="modal fade h-auto modal-gral p-0" id="modalDetallesPago_" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="max-width: 80%;">
+        <div class="modal-dialog m-0 mw-100">
+            <div class="modal-content p-3">
+                <div class="rounded-top" style="border: solid 1px #337AB7;">
+                    <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                        <h5>Detalle Pago de:</h5>
+                    </div>
+
+                    <div class="modal-body p-0 m-0">
+                        <div class="row m-0">
+                            <div class="col-12 p-3 pt-1">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered m-100 mb-0" aria-describedby="entradas" id="tbl_detalles_pago_">
+                                        <thead>
+                                            <tr class="header-table text-center">
+                                                <th>Fecha Pago</th>
+                                                <th>Tipo Pago</th>
+                                                <th>Valor en Ventas</th>
+                                                <th>Comisiones</th>
+                                                <th>Prima</th>
+                                                <th>Vacaciones</th>
+                                                <th>Cesantias</th>
+                                                <th>Valor Total</th>
+                                                <th>Estado</th>
+                                                <th>Opción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="text-center">
+                                                <td>Fecha Pago</td>
+                                                <td>Tipo Pago</td>
+                                                <td>Valor en Ventas</td>
+                                                <td>Comisiones</td>
+                                                <td>Prima</td>
+                                                <td>Vacaciones</td>
+                                                <td>Cesantias</td>
+                                                <td>Valor Total</td>
+                                                <td>Estado</td>
+                                                <td>
+                                                    <button title="Anular" class="btn btn-danger rounded-circle btn-circle text-white" data-bs-toggle="modal" data-bs-target="#modalAnularPago_">
+                                                        <i class="fa fa-refresh"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- FIN modal-body -->
+                </div> <!-- FIN rounded-top -->
+
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-primary btn-md active pull-right" data-bs-dismiss="modal" style="background-color: #337AB7;" id="btnDetallePago_">
+                            <i class="fa fa-check-circle"> Aceptar</i>
+                        </button>
+                    </div>
+                </div>
+            </div> <!-- FIN modal-content -->
+        </div> <!-- FIN modal-dialog -->
+    </div> <!-- FIN Modal Detalle Pago -->
 @stop
 
 {{-- =============================================================== --}}
@@ -99,12 +167,14 @@
 
     <script>
         $( document ).ready(function() {
-            // INICIO DataTable Lista Usuarios
+            // INICIO DataTable Pago empleados
             $("#tbl_pago_empleados").DataTable({
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
                 stripe: true,
                 "bSort": false,
+                "autoWidth": false,
+                "scrollX": true,
                 "buttons": [
                     {
                         extend: 'copyHtml5',
@@ -125,9 +195,51 @@
                     }
                 ],
                 "pageLength": 10,
-                "scrollX": true,
             });
-            // CIERRE DataTable Lista Usuarios
+            // CIERRE DataTable Pago empleados
+
+            // ===================================================
+            // ===================================================
+
+            // INICIO DataTable Detalles Pago
+            var tblDetallePago = $("#tbl_detalles_pago_").DataTable({
+                dom: 'Blfrtip',
+                "infoEmpty": "No hay registros",
+                stripe: true,
+                "bSort": false,
+                "autoWidth": false,
+                "scrollX": true,
+                "buttons": [
+                    {
+                        extend: 'copyHtml5',
+                        text: 'Copiar',
+                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary',
+                        init: function(api, node, config) {
+                            $(node).removeClass('dt-button')
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        text: 'Excel',
+                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary mr-3',
+                        customize: function( xlsx ) {
+                            var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                            $('row:first c', sheet).attr( 's', '42' );
+                        }
+                    }
+                ],
+                "pageLength": 10
+            });
+
+            // Ajustar columnas cuando el modal se muestra
+            $('#modalDetallesPago_').on('shown.bs.modal', function () {
+                tblDetallePago.columns.adjust();
+            });
+            // CIERRE DataTable Detalles Pago
+            
+            // ===================================================
+            // ===================================================
+
         });
     </script>
 @stop

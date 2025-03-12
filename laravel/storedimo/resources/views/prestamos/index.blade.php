@@ -387,7 +387,7 @@
                             </div> --}}
 
                             <div class="col-12">
-                                <button type="button" class="btn btn-primary btn-md active pull-right" data-bs-dismiss="modal" style="background-color: #337AB7;" id="btnDetalleAbonos_{{$prestamo->id_prestamo}}">
+                                <button type="button" class="btn btn-primary btn-md active pull-right" style="background-color: #337AB7;" data-bs-dismiss="modal" id="btnDetalleAbonos_{{$prestamo->id_prestamo}}">
                                     <i class="fa fa-check-circle" aria-hidden="true"> Aceptar</i>
                                 </button>
                             </div>
