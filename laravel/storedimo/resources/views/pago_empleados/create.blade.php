@@ -142,7 +142,7 @@
                                             <div class="modal-content border-0">
                                                 {!! Form::open([
                                                     'method' => 'POST',
-                                                    'route' => ['cambiar_estado_producto'],
+                                                    'route' => ['pago_empleados.store'],
                                                     'class' => 'mt-2',
                                                     'autocomplete' => 'off',
                                                     'id' => 'formRegistrarPago_'.$pagoEmpleado->id_usuario]) !!}

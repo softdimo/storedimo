@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Responsable\prestamos;
+namespace App\Http\Responsable\pago_empleados;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
-class PrestamoStore implements Responsable
+class PagoEmpleadoStore implements Responsable
 {
     protected $baseUri;
     protected $clientApi;
