@@ -78,7 +78,7 @@
                         <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Cliente <span class="text-danger">*</span></h5>
                         {{-- ============================================================== --}}
                         <div class="p-3 d-flex justify-content-between" id="" style="">
-                            {{ Form::select('cliente_venta', collect(['' => 'Seleccionar...'])->union($clientes), null, ['class' => 'form-control w-75 ms-auto me-auto', 'id' => 'cliente_venta', 'required']) }}
+                            {{ Form::select('cliente_venta', collect(['' => 'Seleccionar...'])->union($clientes), null, ['class' => 'form-select w-75 ms-auto me-auto', 'id' => 'cliente_venta', 'required']) }}
 
                             <div class="w-25 d-flex justify-content-end">
                                 <button type="button" class="btn rounded-2 text-white" style="background-color: #337AB7" title="Registrar Cliente" data-bs-toggle="modal" data-bs-target="#modal_registroCliente">
@@ -91,7 +91,7 @@
                         {{-- ============================================================== --}}
                         <div class="p-3 d-flex justify-content-between" id="" style="">
                             <div class="d-flex justify-content-center w-100">
-                                {{ Form::select('producto_venta', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-control', 'id' => 'producto_venta']) }}
+                                {{ Form::select('producto_venta', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-select', 'id' => 'producto_venta']) }}
                             </div>
                         </div>
                         {{-- ============================================================== --}}
@@ -178,7 +178,7 @@
                                         <span class="text-danger">*</span>
                                     </label>
 
-                                    {!! Form::select('tipo_pago', collect(['' => 'Seleccionar...'])->union($tipos_pago_ventas), null, ['class' => 'form-control', 'id' => 'tipo_pago', 'required']) !!}
+                                    {!! Form::select('tipo_pago', collect(['' => 'Seleccionar...'])->union($tipos_pago_ventas), null, ['class' => 'form-select', 'id' => 'tipo_pago', 'required']) !!}
                                 </div>
                             </div>
 
@@ -260,7 +260,7 @@
 
                                 <div class="col-12 col-md-4">
                                     <label for="id_categoria" class="fw-bold" style="font-size: 12px">Categoría <span class="text-danger">*</span></label>
-                                    {!! Form::select('id_categoria',collect(['' => 'Seleccionar...'])->union($categorias),null,['class' => 'form-control', 'id' => 'id_categoria','required'=>'required']) !!}
+                                    {!! Form::select('id_categoria',collect(['' => 'Seleccionar...'])->union($categorias),null,['class' => 'form-select', 'id' => 'id_categoria','required'=>'required']) !!}
                                 </div>
 
                                 <div class="col-12 col-md-4">

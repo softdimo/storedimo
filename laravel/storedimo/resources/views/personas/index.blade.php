@@ -188,7 +188,7 @@
                                                                             'id_tipo_persona',
                                                                             collect(['' => 'Seleccionar...'])->union($tipos_persona),
                                                                             isset($persona) ? $persona->id_tipo_persona : null,
-                                                                            ['class' => 'form-control', 'id' => 'id_tipo_persona'],
+                                                                            ['class' => 'form-select', 'id' => 'id_tipo_persona'],
                                                                         ) !!}
                                                                     </div>
                                                                 </div>
@@ -202,7 +202,7 @@
                                                                             'id_tipo_documento',
                                                                             collect(['' => 'Seleccionar...'])->union($tipos_documento),
                                                                             isset($persona) ? $persona->id_tipo_documento : null,
-                                                                            ['class' => 'form-control', 'id' => 'id_tipo_documento'],
+                                                                            ['class' => 'form-select', 'id' => 'id_tipo_documento'],
                                                                         ) !!}
                                                                     </div>
                                                                 </div>
@@ -280,7 +280,7 @@
                                                                             'id_genero',
                                                                             collect(['' => 'Seleccionar...'])->union($generos),
                                                                             isset($persona) ? $persona->id_genero : null,
-                                                                            ['class' => 'form-control', 'id' => 'id_genero'],
+                                                                            ['class' => 'form-select', 'id' => 'id_genero'],
                                                                         ) !!}
                                                                     </div>
                                                                 </div>
@@ -341,7 +341,7 @@
                                                                             'id_estado',
                                                                             collect(['' => 'Seleccionar...'])->union($generos),
                                                                             isset($persona) ? $persona->id_estado : null,
-                                                                            ['class' => 'form-control', 'id' => 'id_estado'],
+                                                                            ['class' => 'form-select', 'id' => 'id_estado'],
                                                                         ) !!}
                                                                     </div>
                                                                 </div>

@@ -6,7 +6,7 @@
             <div class="col-12 col-md-3">
                 <div class="form-group d-flex flex-column">
                     <label for="id_tipo_persona" class="form-label">Tipo persona <span class="text-danger">*</span></label>
-                    {!! Form::select('id_tipo_persona', collect(['' => 'Seleccionar...'])->union($tipos_persona), null, ['class' => 'form-control', 'id' => 'id_tipo_persona', 'required'=>'required']) !!}
+                    {!! Form::select('id_tipo_persona', collect(['' => 'Seleccionar...'])->union($tipos_persona), null, ['class' => 'form-select', 'id' => 'id_tipo_persona', 'required'=>'required']) !!}
                 </div>
             </div>
 
@@ -15,7 +15,7 @@
             <div class="col-12 col-md-3">
                 <div class="form-group d-flex flex-column">
                     <label for="id_tipo_documento" class="form-label">Tipo de documento <span class="text-danger">*</span></label>
-                    {!! Form::select('id_tipo_documento', collect(['' => 'Seleccionar...'])->union($tipos_documento), null, ['class' => 'form-control', 'id' => 'id_tipo_documento', 'required'=>'required']) !!}
+                    {!! Form::select('id_tipo_documento', collect(['' => 'Seleccionar...'])->union($tipos_documento), null, ['class' => 'form-select', 'id' => 'id_tipo_documento', 'required'=>'required']) !!}
                 </div>
             </div>
 
@@ -88,7 +88,7 @@
             <div class="col-12 col-md-3 mt-3" id="div_id_genero">
                 <div class="form-group d-flex flex-column">
                     <label for="id_genero" class="form-label">Género<span class="text-danger">*</span></label>
-                    {!! Form::select('id_genero', collect(['' => 'Seleccionar...'])->union($generos), null, ['class' => 'form-control', 'id' => 'id_genero']) !!}
+                    {!! Form::select('id_genero', collect(['' => 'Seleccionar...'])->union($generos), null, ['class' => 'form-select', 'id' => 'id_genero']) !!}
                 </div>
             </div>
         </div>

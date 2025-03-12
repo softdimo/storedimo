@@ -346,14 +346,14 @@
                         <div class="col-12 col-md-6">
                             <div class="form-group d-flex flex-column">
                                 <label for="periodo_pago" class="" style="font-size: 15px">Período de Pago<span class="text-danger">*</span></label>
-                                {{Form::select('periodo_pago', collect(['' => 'Seleccionar...'])->union(['1'=>'Mensual','2'=>'Quincenal']), null, ['class' => 'form-control', 'id' => 'periodo_pago'])}}
+                                {{Form::select('periodo_pago', collect(['' => 'Seleccionar...'])->union(['1'=>'Mensual','2'=>'Quincenal']), null, ['class' => 'form-select', 'id' => 'periodo_pago'])}}
                             </div>
                         </div>
 
                         <div class="col-12 col-md-6 mt-md-3">
                             <div class="form-group d-flex flex-column">
                                 <label for="porcentaje_comision" class="" style="font-size: 15px">Porcentaje Comisión<span class="text-danger">*</span></label>
-                                {{Form::select('porcentaje_comision', collect(['' => 'Seleccionar...'])->union(['1'=>'0.00','2'=>'0.01','3'=>'0.02']), null, ['class' => 'form-control', 'id' => 'porcentaje_comision'])}}
+                                {{Form::select('porcentaje_comision', collect(['' => 'Seleccionar...'])->union(['1'=>'0.00','2'=>'0.01','3'=>'0.02']), null, ['class' => 'form-select', 'id' => 'porcentaje_comision'])}}
                             </div>
                         </div>
 

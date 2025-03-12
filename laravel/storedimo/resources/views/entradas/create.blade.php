@@ -72,14 +72,14 @@
                     <div class="w-100-div w-48 mb-auto" style="border: solid 1px #337AB7; border-radius: 5px;">
                         <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Proveedor <span class="text-danger">*</span></h5>
                         {{-- ============================================================== --}}
-                        {{ Form::select('proveedor', collect(['' => 'Seleccionar...'])->union($proveedores), null, ['class' => 'form-control mt-4 mb-4 w-75 ms-auto me-auto', 'id' => 'proveedor']) }}
+                        {{ Form::select('proveedor', collect(['' => 'Seleccionar...'])->union($proveedores), null, ['class' => 'form-select mt-4 mb-4 w-75 ms-auto me-auto', 'id' => 'proveedor']) }}
                         {{-- ============================================================== --}}
 
                         <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Producto <span class="text-danger">*</span></h5>
                         {{-- ============================================================== --}}
                         <div class="p-3 d-flex justify-content-between" id="" style="">
                             <div class="d-flex justify-content-center w-75">
-                                {{ Form::select('id_producto', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-control', 'id' => 'id_producto']) }}
+                                {{ Form::select('id_producto', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-select', 'id' => 'id_producto']) }}
                             </div>
 
                             <div class="d-flex justify-content-end w-25">
@@ -247,7 +247,7 @@
 
                                 <div class="col-12 col-md-4">
                                     <label for="categoria" class="fw-bold" style="font-size: 12px">Categoría <span class="text-danger">*</span></label>
-                                    {!! Form::select('id_categoria',collect(['' => 'Seleccionar...'])->union($categorias),null,['class' => 'form-control', 'id' => 'id_categoria','required'=>'required']) !!}
+                                    {!! Form::select('id_categoria',collect(['' => 'Seleccionar...'])->union($categorias),null,['class' => 'form-select', 'id' => 'id_categoria','required'=>'required']) !!}
                                 </div>
 
                                 <div class="col-12 col-md-4">

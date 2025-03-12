@@ -76,12 +76,12 @@
                         <div class="p-3 d-flex flex-column" id="form_bajas" style="height: 50%;">
                             <div>
                                 <label for="tipo_baja" class="form-label">Tipo de Baja <span class="text-danger">*</span></label>
-                                {{ Form::select('tipo_baja', collect(['' => 'Seleccionar...'])->union($tipos_baja), null, ['class' => 'form-control', 'id' => 'tipo_baja', 'required']) }}
+                                {{ Form::select('tipo_baja', collect(['' => 'Seleccionar...'])->union($tipos_baja), null, ['class' => 'form-select', 'id' => 'tipo_baja', 'required']) }}
                             </div>
 
                             <div class="mt-3">
                                 <label for="producto" class="form-label">Producto <span class="text-danger">*</span></label>
-                                {{ Form::select('producto', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-control', 'id' => 'producto', 'required']) }}
+                                {{ Form::select('producto', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-select', 'id' => 'producto', 'required']) }}
                             </div>
 
                             <div class="mt-3">

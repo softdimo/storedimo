@@ -205,12 +205,12 @@
 
                                                                 <div class="col-12 col-md-4 mt-3" id="div_id_tipo_pago">
                                                                     <label for="id_tipo_pago" class="fw-bold" style="font-size: 12px">Tipo Pago <span class="text-danger">*</span></label>
-                                                                    {{ Form::select('id_tipo_pago', collect(['' => 'Seleccionar...'])->union($tipos_pago_nomina), isset($usuarioPrestamo) ? $usuarioPrestamo->id_tipo_persona : null, ['class' => 'form-control', 'id' => 'id_tipo_pago']) }}
+                                                                    {{ Form::select('id_tipo_pago', collect(['' => 'Seleccionar...'])->union($tipos_pago_nomina), isset($usuarioPrestamo) ? $usuarioPrestamo->id_tipo_persona : null, ['class' => 'form-select', 'id' => 'id_tipo_pago']) }}
                                                                 </div>
 
                                                                 <div class="col-12 col-md-4 mt-3" id="div_id_periodo_pago">
                                                                     <label for="id_periodo_pago" class="fw-bold" style="font-size: 12px">Periodo Pago <span class="text-danger">*</span></label>
-                                                                    {{ Form::select('id_periodo_pago', collect(['' => 'Seleccionar...'])->union($periodos_pago), isset($usuarioPrestamo) ? $usuarioPrestamo->id_tipo_persona : null, ['class' => 'form-control', 'id' => 'id_periodo_pago']) }}
+                                                                    {{ Form::select('id_periodo_pago', collect(['' => 'Seleccionar...'])->union($periodos_pago), isset($usuarioPrestamo) ? $usuarioPrestamo->id_tipo_persona : null, ['class' => 'form-select', 'id' => 'id_periodo_pago']) }}
                                                                 </div>
 
                                                                 <div class="col-12 col-md-4 mt-3" id="div_cantidad_dias">

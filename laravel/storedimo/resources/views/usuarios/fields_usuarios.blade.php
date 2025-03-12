@@ -13,7 +13,7 @@
             <div class="form-group d-flex flex-column">
                 <label for="id_tipo_persona" class="form-label">Tipo persona <span class="text-danger">*</span></label>
                 {!! Form::select('id_tipo_persona', collect(['' => 'Seleccionar...'])->union($tipos_empleado), null, [
-                    'class' => 'form-control',
+                    'class' => 'form-select',
                     'id' => 'id_tipo_persona',
                     'required' => 'required'
                 ]) !!}
@@ -28,7 +28,7 @@
                     'id_tipo_documento',
                     collect(['' => 'Seleccionar...'])->union($tipos_documento),
                     isset($usuario) ? $usuario->id_tipo_documento : null,
-                    ['class' => 'form-control', 'id' => 'id_tipo_documento','required' => 'required'],
+                    ['class' => 'form-select', 'id' => 'id_tipo_documento','required' => 'required'],
                 ) !!}
             </div>
         </div>
@@ -111,7 +111,7 @@
             <div class="form-group d-flex flex-column">
                 <label for="id_genero" class="form-label">Género<span class="text-danger">*</span></label>
                 {!! Form::select('id_genero', collect(['' => 'Seleccionar...'])->union($generos), null, [
-                    'class' => 'form-control',
+                    'class' => 'form-select',
                     'id' => 'id_genero',
                     'required' => 'required'
                 ]) !!}
@@ -136,7 +136,7 @@
                     'id_rol',
                     collect(['' => 'Seleccionar...'])->union($roles),
                     isset($usuario) ? $usuario->id_rol : null,
-                    ['class' => 'form-control', 'id' => 'id_rol','required' => 'required'],
+                    ['class' => 'form-select', 'id' => 'id_rol','required' => 'required'],
                 ) !!}
             </div>
         </div>
@@ -150,7 +150,7 @@
                     'id_estado',
                     collect(['' => 'Seleccionar...'])->union($estados),
                     isset($usuario) ? $usuario->id_estado : 1,
-                    ['class' => 'form-control', 'id' => 'id_estado','required' => 'required'],
+                    ['class' => 'form-select', 'id' => 'id_estado','required' => 'required'],
                 ) !!}
             </div>
         </div>

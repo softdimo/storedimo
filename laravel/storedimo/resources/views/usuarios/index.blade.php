@@ -289,7 +289,7 @@
                                                                             collect(['' => 'Seleccionar...'])
                                                                             ->union($tipos_empleado),
                                                                             isset($usuario) ? $usuario->id_tipo_persona : null,
-                                                                            ['class' => 'form-control',
+                                                                            ['class' => 'form-select',
                                                                             'id' => 'id_tipo_persona',
                                                                             'required' => 'required'])
                                                                         }}
@@ -304,7 +304,7 @@
                                                                                 collect(['' => 'Seleccionar...'])
                                                                                 ->union($tipos_documento),
                                                                                 isset($usuario) ? $usuario->id_tipo_documento : null,
-                                                                                ['class' => 'form-control', 'id' =>'id_tipo_documento'])
+                                                                                ['class' => 'form-select', 'id' =>'id_tipo_documento'])
                                                                             !!}
                                                                     </div>
                                                                 </div>
@@ -380,7 +380,7 @@
                                                                                 collect(['' => 'Seleccionar...'])
                                                                                 ->union($generos),
                                                                                 isset($usuario) ? $usuario->id_genero : null,
-                                                                                ['class' => 'form-control', 'id' =>'id_genero'])
+                                                                                ['class' => 'form-select', 'id' =>'id_genero'])
                                                                             !!}
                                                                     </div>
                                                                 </div>
@@ -408,7 +408,7 @@
                                                                             collect(['' => 'Seleccionar...'])
                                                                             ->union($roles),
                                                                             isset($usuario) ? $usuario->id_rol : null,
-                                                                            ['class' => 'form-control', 'id' =>'id_rol']
+                                                                            ['class' => 'form-select', 'id' =>'id_rol']
                                                                         )!!}
                                                                     </div>
                                                                 </div>
@@ -422,7 +422,7 @@
                                                                             collect(['' => 'Seleccionar...'])
                                                                             ->union($estados),
                                                                             isset($usuario) ? $usuario->id_estado : null,
-                                                                            ['class' => 'form-control', 'id' =>'id_estado_'.$usuario->id_usuario])
+                                                                            ['class' => 'form-select', 'id' =>'id_estado_'.$usuario->id_usuario])
                                                                         !!}
                                                                     </div>
                                                                 </div>

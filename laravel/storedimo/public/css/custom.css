@@ -151,13 +151,6 @@ footer {
     transform: translateX(-50%);
 }
 
-select {
-    -webkit-appearance: menulist !important;
-    -moz-appearance: menulist !important;
-    appearance: menulist !important;
-}
-
-
 #modal-overlay {
     display: none;
     position: fixed;
