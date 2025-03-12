@@ -18,6 +18,7 @@ class PagoEmpleadoIndex implements Responsable
                 ->leftjoin('tipo_persona','tipo_persona.id_tipo_persona','=','usuarios.id_tipo_persona')
                 ->leftjoin('tipo_documento','tipo_documento.id_tipo_documento','=','usuarios.id_tipo_documento')
                 ->leftjoin('tipos_pago','tipos_pago.id_tipo_pago','=','pago_empleados.id_tipo_pago')
+                ->leftjoin('periodos_pago','periodos_pago.id_periodo_pago','=','pago_empleados.id_periodo_pago')
                 ->select(
                     'id_pago_empleado',
                     'tipos_pago.id_tipo_pago',
@@ -34,11 +35,14 @@ class PagoEmpleadoIndex implements Responsable
                     'tipo_documento',
                     'valor_ventas',
                     'valor_comision',
+                    'periodos_pago.id_periodo_pago',
+                    'periodo_pago',
                     'cantidad_dias',
                     'valor_dia',
                     'valor_prima',
                     'valor_vacaciones',
                     'valor_cesantias',
+                    'salario_neto',
                     'valor_total',
                     'estados.id_estado',
                     'estado'

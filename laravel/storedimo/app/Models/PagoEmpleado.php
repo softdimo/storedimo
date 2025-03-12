@@ -20,11 +20,13 @@ class PagoEmpleado extends Model
         'id_usuario',
         'valor_ventas',
         'valor_comision',
+        'id_periodo_pago',
         'cantidad_dias',
         'valor_dia',
         'valor_prima',
         'valor_vacaciones',
         'valor_cesantias',
+        'salario_neto',
         'valor_total',
         'id_estado'
     ];
