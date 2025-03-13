@@ -137,7 +137,7 @@
                                     </tr>
 
                                     {{-- INICIO Modal REGISTRAR PAGO --}}
-                                    <div class="modal fade h-auto modal-gral" id="modalRegistrarPago_{{$pagoEmpleado->id_usuario}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" style="max-width: 70%">
+                                    <div class="modal fade modal-gral" id="modalRegistrarPago_{{$pagoEmpleado->id_usuario}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" style="max-width: 70%;height: 90% !important">
                                         <div class="modal-dialog m-0 mw-100">
                                             <div class="modal-content border-0">
                                                 {!! Form::open([
