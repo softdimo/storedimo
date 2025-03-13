@@ -142,24 +142,24 @@
                                                             <div class="row m-0">
                                                                 <div class="col-12 col-md-4" id="div_identificacion">
                                                                     <label for="identificacion" class="fw-bold" style="font-size: 12px">Identificación <span class="text-danger">*</span></label>
-                                                                    {!! Form::text('identificacion', isset($pagoEmpleado) ? $pagoEmpleado->identificacion : null, ['class' => 'form-control', 'id' => 'identificacion', 'required', 'readonly']) !!}
+                                                                    {!! Form::text('identificacion', isset($pagoEmpleado) ? $pagoEmpleado->identificacion : null, ['class' => 'form-control bg-dark-subtle', 'id' => 'identificacion', 'required', 'readonly']) !!}
                                                                 </div>
                             
                                                                 <div class="col-12 col-md-4" id="div_nombres">
                                                                     <label for="nombre_usuario" class="fw-bold" style="font-size: 12px">Nombres <span class="text-danger">*</span></label>
-                                                                    {!! Form::text('nombre_usuario', isset($pagoEmpleado) ? $pagoEmpleado->nombre_usuario . ' ' . $pagoEmpleado->apellido_usuario : null, ['class' => 'form-control', 'id' => 'nombre_usuario', 'readonly']) !!}
+                                                                    {!! Form::text('nombre_usuario', isset($pagoEmpleado) ? $pagoEmpleado->nombre_usuario . ' ' . $pagoEmpleado->apellido_usuario : null, ['class' => 'form-control bg-dark-subtle', 'id' => 'nombre_usuario', 'readonly']) !!}
                                                                 </div>
                             
                                                                 <div class="col-12 col-md-4" id="div_tipo_empleado">
                                                                     <label for="tipo_empleado" class="fw-bold" style="font-size: 12px">Tipo Empleado <span class="text-danger">*</span></label>
-                                                                    {!! Form::text('tipo_empleado', isset($pagoEmpleado) ? $pagoEmpleado->tipo_persona : null, ['class' => 'form-control', 'id' => 'tipo_empleado', 'readonly']) !!}
+                                                                    {!! Form::text('tipo_empleado', isset($pagoEmpleado) ? $pagoEmpleado->tipo_persona : null, ['class' => 'form-control bg-dark-subtle', 'id' => 'tipo_empleado', 'readonly']) !!}
                                                                 </div>
 
                                                                 <div class="col-12 col-md-4 mt-3" id="div_valor_base">
                                                                     <label for="valor_base" class="fw-bold" style="font-size: 12px">Valor Base <span class="text-danger">*</span></label>
                                                                     <div class="input-group">
                                                                         <span class="input-group-text">$</span>
-                                                                        {!! Form::text('valor_base', null, ['class' => 'form-control', 'id' => 'valor_base', 'readonly']) !!}
+                                                                        {!! Form::text('valor_base', null, ['class' => 'form-control bg-dark-subtle', 'id' => 'valor_base', 'readonly']) !!}
                                                                     </div>
                                                                 </div>
 
@@ -189,7 +189,7 @@
 
                                                                 <div class="col-12 col-md-4 mt-3" id="div_id_tipo_pago">
                                                                     <label for="id_tipo_pago" class="fw-bold" style="font-size: 12px">Tipo Pago <span class="text-danger">*</span></label>
-                                                                    {{ Form::select('id_tipo_pago', collect(['' => 'Seleccionar...'])->union($tipos_pago_nomina), isset($usuarioPrestamo) ? $usuarioPrestamo->id_tipo_persona : null, ['class' => 'form-select', 'id' => 'id_tipo_pago','required'=>'required']) }}
+                                                                    {{ Form::select('id_tipo_pago', collect(['' => 'Seleccionar...'])->union($tipos_pago_nomina), isset($usuarioPrestamo) ? $usuarioPrestamo->id_tipo_persona : 4, ['class' => 'form-select', 'id' => 'id_tipo_pago','required'=>'required']) }}
                                                                 </div>
 
                                                                 <div class="col-12 col-md-4 mt-3" id="div_id_periodo_pago">
@@ -199,14 +199,14 @@
 
                                                                 <div class="col-12 col-md-4 mt-3" id="div_cantidad_dias">
                                                                     <label for="cantidad_dias" class="fw-bold" style="font-size: 12px">Días a pagar <span class="text-danger">*</span></label>
-                                                                    {!! Form::text('cantidad_dias', null, ['class' => 'form-control', 'id' => 'cantidad_dias','required'=>'required']) !!}
+                                                                    {!! Form::number('cantidad_dias', null, ['class' => 'form-control', 'id' => 'cantidad_dias','required'=>'required', 'min'=>'0', 'max'=>'30','oninput' => "if(this.value > 30) this.value = 30;"]) !!}
                                                                 </div>
 
                                                                 <div class="col-12 col-md-4 mt-3" id="div_total_dias_pagar">
                                                                     <label for="total_dias_pagar" class="fw-bold" style="font-size: 12px">Total dias a pagar <span class="text-danger">*</span></label>
                                                                     <div class="input-group">
                                                                         <span class="input-group-text">$</span>
-                                                                        {!! Form::text('total_dias_pagar', null, ['class' => 'form-control', 'id' => 'total_dias_pagar', 'readonly']) !!}
+                                                                        {!! Form::text('total_dias_pagar', null, ['class' => 'form-control bg-dark-subtle', 'id' => 'total_dias_pagar', 'readonly']) !!}
                                                                         <span class="input-group-btn">
                                                                             <button class="input-group-text" type="button" id="idBtnCalcularPagoEnLiquidacion" onclick="calcularElPagoNormalEnLiquidacion()" style="background-color: #E0F8E0"> <b>Calcular</b>
                                                                             </button>
@@ -275,7 +275,7 @@
                                                                     <div class="col-12 col-md-4" id="div_salario_neto">
                                                                         <h5 class="fw-bold totales">
                                                                             Salario Neto:
-                                                                            {!! Form::text('salario_neto', null, ['class' => '', 'id' => 'salario_neto']) !!}
+                                                                            {!! Form::hidden('salario_neto', null, ['class' => '', 'id' => 'salario_neto']) !!}
                                                                             <span id="salario_neto"></span>
                                                                         </h5>
                                                                     </div>
@@ -283,7 +283,7 @@
                                                                     <div class="col-12 col-md-4" id="div_vacaciones">
                                                                         <h5 class="fw-bold totales">
                                                                             Vacaciones:
-                                                                            {!! Form::text('vacaciones', null, ['class' => '', 'id' => 'vacaciones']) !!}
+                                                                            {!! Form::hidden('vacaciones', null, ['class' => '', 'id' => 'vacaciones']) !!}
                                                                             <span id="vacaciones"></span>
                                                                         </h5>
                                                                     </div>
@@ -291,7 +291,7 @@
                                                                     <div class="col-12 col-md-4" id="div_comisiones">
                                                                         <h5 class="fw-bold totales">
                                                                             Comisiones:
-                                                                            {!! Form::text('comisiones', null, ['class' => '', 'id' => 'comisiones']) !!}
+                                                                            {!! Form::hidden('comisiones', null, ['class' => '', 'id' => 'comisiones']) !!}
                                                                             <span id="comisiones"></span>
                                                                         </h5>
                                                                     </div>
@@ -299,7 +299,7 @@
                                                                     <div class="col-12 col-md-4" id="div_cesantias">
                                                                         <h5 class="fw-bold totales">
                                                                             Comisiones:
-                                                                            {!! Form::text('cesantias', null, ['class' => '', 'id' => 'cesantias']) !!}
+                                                                            {!! Form::hidden('cesantias', null, ['class' => '', 'id' => 'cesantias']) !!}
                                                                             <span id="cesantias"></span>
                                                                         </h5>
                                                                     </div>
@@ -307,7 +307,7 @@
                                                                     <div class="col-12 col-md-4" id="div_total">
                                                                         <h5 class="fw-bold totales">
                                                                             Total:
-                                                                            {!! Form::text('total', null, ['class' => '', 'id' => 'total']) !!}
+                                                                            {!! Form::hidden('total', null, ['class' => '', 'id' => 'total']) !!}
                                                                             <span id="total"></span>
                                                                         </h5>
                                                                     </div>
@@ -490,6 +490,8 @@
                     salarioNeto.attr('required');
                     divComisiones.show();
                     comisiones.attr('required');
+
+                    idPeriodoPago.val('2');
                     
 
                     // ===================================================
@@ -567,6 +569,7 @@
 
                             divIdPeriodoPago.hide();
                             idPeriodoPago.removeAttr('required');
+                            idPeriodoPago.val('');
 
                             divIdPorcentajeComision.show();
                             idPorcentajeComision.removeAttr('required');
@@ -619,6 +622,7 @@
 
                             divIdPeriodoPago.show();
                             idPeriodoPago.attr('required');
+                            idPeriodoPago.val('2');
 
                             divIdPorcentajeComision.show();
                             idPorcentajeComision.removeAttr('required');
