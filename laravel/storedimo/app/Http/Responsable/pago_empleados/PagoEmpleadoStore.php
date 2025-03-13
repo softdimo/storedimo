@@ -21,37 +21,61 @@ class PagoEmpleadoStore implements Responsable
 
     public function toResponse($request)
     {
-        dd($request);
+        // dd($request);
         
         $idUsuario = request('id_usuario', null);
         $identificacion = request('identificacion', null);
-        $idTipoPersona = request('id_tipo_persona', null);
-        $fechaPrestamo = request('fecha_prestamo', null);
-        $fechaLimite = request('fecha_limite', null);
-        $valorPrestamo = request('valor_prestamo', null);
-        $descripcion = request('descripcion', null);
+        $valorBase = request('valor_base', null);
+        $fechaInicioLabores = request('fecha_inicio_labores', null);
+        $fechaFinalLabores = request('fecha_final_labores', null);
+        $idTipoPago = request('id_tipo_pago', null);
+        $idPeriodoPago = request('id_periodo_pago', null);
+        $cantidadDias = request('cantidad_dias', null);
+        $totalDiasPagar = request('total_dias_pagar', null);
+        $idPorcentajeComision = request('id_porcentaje_comision', null);
+        $valorDia = request('valor_dia', null);
+        $fechaUltimoPago = request('fecha_ultimo_pago', null);
+        $valorVentas = request('valor_ventas', null);
+        $pendientePrestamos = request('pendiente_prestamos', null);
+        $salarioNeto = request('salario_neto', null);
+        $vacaciones = request('vacaciones', null);
+        $comisiones = request('comisiones', null);
+        $cesantias = request('cesantias', null);
+        $total = request('total', null);
 
         try {
-            $peticionPrestamoStore = $this->clientApi->post($this->baseUri.'prestamo_store', [
+            $peticionPagoStore = $this->clientApi->post($this->baseUri.'pago_empleado_store', [
                 'json' => [
                     'id_usuario' => $idUsuario,
                     'identificacion' => $identificacion,
-                    'id_tipo_persona' => $idTipoPersona,
-                    'fecha_prestamo' => $fechaPrestamo,
-                    'fecha_limite' => $fechaLimite,
-                    'valor_prestamo' => $valorPrestamo,
-                    'descripcion' => $descripcion
+                    'valor_base' => $valorBase,
+                    'fecha_inicio_labores' => $fechaInicioLabores,
+                    'fecha_final_labores' => $fechaFinalLabores,
+                    'id_tipo_pago' => $idTipoPago,
+                    'id_periodo_pago' => $idPeriodoPago,
+                    'cantidad_dias' => $cantidadDias,
+                    'total_dias_pagar' => $totalDiasPagar,
+                    'id_porcentaje_comision' => $idPorcentajeComision,
+                    'valor_dia' => $valorDia,
+                    'fecha_ultimo_pago' => $fechaUltimoPago,
+                    'valor_ventas' => $valorVentas,
+                    'pendiente_prestamos' => $pendientePrestamos,
+                    'salario_neto' => $salarioNeto,
+                    'vacaciones' => $vacaciones,
+                    'comisiones' => $comisiones,
+                    'cesantias' => $cesantias,
+                    'total' => $total
                 ]
             ]);
-            $resPrestamoStore = json_decode($peticionPrestamoStore->getBody()->getContents());
+            $resPagoStore = json_decode($peticionPagoStore->getBody()->getContents());
 
-            if(isset($resPrestamoStore) && !is_null($resPrestamoStore) && !empty($resPrestamoStore)) {
+            if(isset($resPagoStore) && !is_null($resPagoStore) && !empty($resPagoStore)) {
 
-                return $this->respuestaExito('Préstamo registrado satisfactoriamente.', 'prestamos.index');
+                return $this->respuestaExito('Pago registrado satisfactoriamente.', 'pago_empleados.index');
                 
             }
         } catch (Exception $e) {
-            return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
+            return $this->respuestaException('Exception Pago Empleados, contacte a Soporte.');
         }
     }
 

@@ -15,24 +15,6 @@
             padding-bottom: 0.0rem !important;
         }
 
-        /* Oculta el icono de calendario nativo en Chrome, Safari y Edge */
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            display: none;
-            -webkit-appearance: none;
-        }
-
-        /* Oculta el icono en Firefox */
-        input[type="date"]::-moz-calendar-picker-indicator {
-            display: none;
-        }
-
-        /* Para navegadores que aún muestran el ícono nativo */
-        input[type="date"] {
-            position: relative;
-            z-index: 10;
-            background-color: transparent;
-        }
-
         .totales {
             padding: 10px 15px;
             background-color: #f5f5f5;
@@ -154,6 +136,8 @@
                                                             <h5>Registrar Pago</h5>
                                                         </div>
 
+                                                        {!! Form::hidden('id_usuario', isset($pagoEmpleado) ? $pagoEmpleado->id_usuario : null, ['class' => '', 'id' => 'id_usuario', 'required']) !!}
+
                                                         <div class="modal-body m-0">
                                                             <div class="row m-0">
                                                                 <div class="col-12 col-md-4" id="div_identificacion">
@@ -163,19 +147,19 @@
                             
                                                                 <div class="col-12 col-md-4" id="div_nombres">
                                                                     <label for="nombre_usuario" class="fw-bold" style="font-size: 12px">Nombres <span class="text-danger">*</span></label>
-                                                                    {!! Form::text('nombre_usuario', isset($pagoEmpleado) ? $pagoEmpleado->nombre_usuario . ' ' . $pagoEmpleado->apellido_usuario : null, ['class' => 'form-control', 'id' => 'nombre_usuario', 'required', 'readonly']) !!}
+                                                                    {!! Form::text('nombre_usuario', isset($pagoEmpleado) ? $pagoEmpleado->nombre_usuario . ' ' . $pagoEmpleado->apellido_usuario : null, ['class' => 'form-control', 'id' => 'nombre_usuario', 'readonly']) !!}
                                                                 </div>
                             
                                                                 <div class="col-12 col-md-4" id="div_tipo_empleado">
                                                                     <label for="tipo_empleado" class="fw-bold" style="font-size: 12px">Tipo Empleado <span class="text-danger">*</span></label>
-                                                                    {!! Form::text('tipo_empleado', isset($pagoEmpleado) ? $pagoEmpleado->tipo_persona : null, ['class' => 'form-control', 'id' => 'tipo_empleado', 'required', 'readonly']) !!}
+                                                                    {!! Form::text('tipo_empleado', isset($pagoEmpleado) ? $pagoEmpleado->tipo_persona : null, ['class' => 'form-control', 'id' => 'tipo_empleado', 'readonly']) !!}
                                                                 </div>
 
                                                                 <div class="col-12 col-md-4 mt-3" id="div_valor_base">
                                                                     <label for="valor_base" class="fw-bold" style="font-size: 12px">Valor Base <span class="text-danger">*</span></label>
                                                                     <div class="input-group">
                                                                         <span class="input-group-text">$</span>
-                                                                        {!! Form::text('valor_base', null, ['class' => 'form-control', 'id' => 'valor_base', 'required', 'readonly']) !!}
+                                                                        {!! Form::text('valor_base', null, ['class' => 'form-control', 'id' => 'valor_base', 'readonly']) !!}
                                                                     </div>
                                                                 </div>
 
@@ -187,7 +171,7 @@
                                                                         <span class="input-group-text">
                                                                             <i class="fa fa-calendar"></i>
                                                                         </span>
-                                                                        {!! Form::date('fecha_inicio_labores', null, ['class' => 'form-control', 'id' => 'fecha_inicio_labores', 'required']) !!}
+                                                                        {!! Form::text('fecha_inicio_labores', null, ['class' => 'form-control', 'id' => 'fecha_inicio_labores']) !!}
                                                                     </div>
                                                                 </div>
 
@@ -199,13 +183,13 @@
                                                                         <span class="input-group-text">
                                                                             <i class="fa fa-calendar"></i>
                                                                         </span>
-                                                                        {!! Form::date('fecha_final_labores', null, ['class' => 'form-control', 'id' => 'fecha_final_labores', 'required']) !!}
+                                                                        {!! Form::text('fecha_final_labores', null, ['class' => 'form-control', 'id' => 'fecha_final_labores']) !!}
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="col-12 col-md-4 mt-3" id="div_id_tipo_pago">
                                                                     <label for="id_tipo_pago" class="fw-bold" style="font-size: 12px">Tipo Pago <span class="text-danger">*</span></label>
-                                                                    {{ Form::select('id_tipo_pago', collect(['' => 'Seleccionar...'])->union($tipos_pago_nomina), isset($usuarioPrestamo) ? $usuarioPrestamo->id_tipo_persona : null, ['class' => 'form-select', 'id' => 'id_tipo_pago']) }}
+                                                                    {{ Form::select('id_tipo_pago', collect(['' => 'Seleccionar...'])->union($tipos_pago_nomina), isset($usuarioPrestamo) ? $usuarioPrestamo->id_tipo_persona : null, ['class' => 'form-select', 'id' => 'id_tipo_pago','required'=>'required']) }}
                                                                 </div>
 
                                                                 <div class="col-12 col-md-4 mt-3" id="div_id_periodo_pago">
@@ -215,14 +199,14 @@
 
                                                                 <div class="col-12 col-md-4 mt-3" id="div_cantidad_dias">
                                                                     <label for="cantidad_dias" class="fw-bold" style="font-size: 12px">Días a pagar <span class="text-danger">*</span></label>
-                                                                    {!! Form::text('cantidad_dias', null, ['class' => 'form-control', 'id' => 'cantidad_dias', 'required', 'readonly']) !!}
+                                                                    {!! Form::text('cantidad_dias', null, ['class' => 'form-control', 'id' => 'cantidad_dias','required'=>'required']) !!}
                                                                 </div>
 
                                                                 <div class="col-12 col-md-4 mt-3" id="div_total_dias_pagar">
                                                                     <label for="total_dias_pagar" class="fw-bold" style="font-size: 12px">Total dias a pagar <span class="text-danger">*</span></label>
                                                                     <div class="input-group">
                                                                         <span class="input-group-text">$</span>
-                                                                        {!! Form::text('total_dias_pagar', null, ['class' => 'form-control', 'id' => 'total_dias_pagar', 'required', 'readonly']) !!}
+                                                                        {!! Form::text('total_dias_pagar', null, ['class' => 'form-control', 'id' => 'total_dias_pagar', 'readonly']) !!}
                                                                         <span class="input-group-btn">
                                                                             <button class="input-group-text" type="button" id="idBtnCalcularPagoEnLiquidacion" onclick="calcularElPagoNormalEnLiquidacion()" style="background-color: #E0F8E0"> <b>Calcular</b>
                                                                             </button>
@@ -234,7 +218,7 @@
                                                                     <label for="id_porcentaje_comision" class="fw-bold" style="font-size: 12px">Porcentaje Comisión <span class="text-danger">*</span></label>
                                                                     <div class="input-group">
                                                                         <span class="input-group-text">%</span>
-                                                                        {!! Form::text('id_porcentaje_comision', null, ['class' => 'form-control', 'id' => 'id_porcentaje_comision', 'required', 'readonly']) !!}
+                                                                        {{ Form::select('id_porcentaje_comision', collect(['' => 'Seleccionar...'])->union($porcentajes_comision), isset($usuarioPrestamo) ? $usuarioPrestamo->id_porcentaje_comision : null, ['class' => 'form-select', 'id' => 'id_porcentaje_comision']) }}
                                                                     </div>
                                                                 </div>
 
@@ -242,7 +226,7 @@
                                                                     <label for="valor_dia" class="fw-bold" style="font-size: 12px">Valor día <span class="text-danger">*</span></label>
                                                                     <div class="input-group">
                                                                         <span class="input-group-text">$</span>
-                                                                        {!! Form::text('valor_dia', null, ['class' => 'form-control', 'id' => 'valor_dia', 'required', 'readonly']) !!}
+                                                                        {!! Form::text('valor_dia', null, ['class' => 'form-control', 'id' => 'valor_dia']) !!}
                                                                     </div>
                                                                 </div>
 
@@ -254,7 +238,7 @@
                                                                         <span class="input-group-text">
                                                                             <i class="fa fa-calendar"></i>
                                                                         </span>
-                                                                        {!! Form::date('fecha_ultimo_pago', null, ['class' => 'form-control', 'id' => 'fecha_ultimo_pago', 'required']) !!}
+                                                                        {!! Form::text('fecha_ultimo_pago', null, ['class' => 'form-control', 'id' => 'fecha_ultimo_pago']) !!}
                                                                     </div>
                                                                 </div>
 
@@ -262,7 +246,7 @@
                                                                     <label for="valor_ventas" class="fw-bold" style="font-size: 12px">Valor ventas</label>
                                                                     <div class="input-group">
                                                                         <span class="input-group-text">$</span>
-                                                                        {!! Form::text('valor_ventas', null, ['class' => 'form-control', 'id' => 'valor_ventas', 'required']) !!}
+                                                                        {!! Form::text('valor_ventas', null, ['class' => 'form-control', 'id' => 'valor_ventas']) !!}
                                                                         <button type="button" class="input-group-text" onclick="traervalorVentas()"><span class="fa fa-search-plus"></span></button>
                                                                         <button type="button" class="input-group-text" onclick="limpiarCampos()"><span class="fa fa-trash-o"></span></button>
                                                                     </div>
@@ -272,7 +256,7 @@
                                                                     <label for="pendiente_prestamos" class="fw-bold" style="font-size: 12px">Pendiente de Préstamos</label>
                                                                     <div class="input-group">
                                                                         <span class="input-group-text">$</span>
-                                                                        {!! Form::text('pendiente_prestamos', null, ['class' => 'form-control', 'id' => 'pendiente_prestamos', 'required']) !!}
+                                                                        {!! Form::text('pendiente_prestamos', null, ['class' => 'form-control', 'id' => 'pendiente_prestamos']) !!}
                                                                         <button type="button" class="input-group-text" onclick="traervalorprestamopen()"><span class="fa fa-search-plus"></span></button>
                                                                         <button type="button" class="input-group-text" onclick="limpiarCampos()"><span class="fa fa-trash-o"></span></button>
                                                                     </div>
@@ -291,7 +275,7 @@
                                                                     <div class="col-12 col-md-4" id="div_salario_neto">
                                                                         <h5 class="fw-bold totales">
                                                                             Salario Neto:
-                                                                            {!! Form::hidden('salario_neto', null, ['class' => '', 'id' => 'salario_neto', 'required']) !!}
+                                                                            {!! Form::text('salario_neto', null, ['class' => '', 'id' => 'salario_neto']) !!}
                                                                             <span id="salario_neto"></span>
                                                                         </h5>
                                                                     </div>
@@ -299,7 +283,7 @@
                                                                     <div class="col-12 col-md-4" id="div_vacaciones">
                                                                         <h5 class="fw-bold totales">
                                                                             Vacaciones:
-                                                                            {!! Form::hidden('vacaciones', null, ['class' => '', 'id' => 'vacaciones', 'required']) !!}
+                                                                            {!! Form::text('vacaciones', null, ['class' => '', 'id' => 'vacaciones']) !!}
                                                                             <span id="vacaciones"></span>
                                                                         </h5>
                                                                     </div>
@@ -307,7 +291,7 @@
                                                                     <div class="col-12 col-md-4" id="div_comisiones">
                                                                         <h5 class="fw-bold totales">
                                                                             Comisiones:
-                                                                            {!! Form::hidden('comisiones', null, ['class' => '', 'id' => 'comisiones', 'required']) !!}
+                                                                            {!! Form::text('comisiones', null, ['class' => '', 'id' => 'comisiones']) !!}
                                                                             <span id="comisiones"></span>
                                                                         </h5>
                                                                     </div>
@@ -315,7 +299,7 @@
                                                                     <div class="col-12 col-md-4" id="div_cesantias">
                                                                         <h5 class="fw-bold totales">
                                                                             Comisiones:
-                                                                            {!! Form::hidden('cesantias', null, ['class' => '', 'id' => 'cesantias', 'required']) !!}
+                                                                            {!! Form::text('cesantias', null, ['class' => '', 'id' => 'cesantias']) !!}
                                                                             <span id="cesantias"></span>
                                                                         </h5>
                                                                     </div>
@@ -323,7 +307,7 @@
                                                                     <div class="col-12 col-md-4" id="div_total">
                                                                         <h5 class="fw-bold totales">
                                                                             Total:
-                                                                            {!! Form::hidden('total', null, ['class' => '', 'id' => 'total', 'required']) !!}
+                                                                            {!! Form::text('total', null, ['class' => '', 'id' => 'total']) !!}
                                                                             <span id="total"></span>
                                                                         </h5>
                                                                     </div>

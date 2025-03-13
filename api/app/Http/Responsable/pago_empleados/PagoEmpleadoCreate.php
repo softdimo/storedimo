@@ -6,7 +6,6 @@ use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-// use App\Models\PagoEmpleado;
 use App\Models\Usuario;
 
 class PagoEmpleadoCreate implements Responsable
