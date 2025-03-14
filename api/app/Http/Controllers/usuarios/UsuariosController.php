@@ -125,11 +125,9 @@ class UsuariosController extends Controller
 
             if ($consultaUsuario) {
                 return response()->json($consultaUsuario);
-            } else {
-                return response()->json('no_user');
             }
         } catch (Exception $e) {
-            return response()->json('error_bd');
+            return response()->json(['error_bd'=>$e->getMessage()]);
         }
     }
 

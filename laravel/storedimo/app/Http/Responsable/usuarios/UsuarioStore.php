@@ -57,14 +57,7 @@ class UsuarioStore implements Responsable
             $usuario = strtolower($usuario);
             $complemento = "";
 
-            $consultausuario = $this->consultaUsuario($usuario.$complemento);
-
-            // while($this->consultaUsuario($usuario.$complemento))
-            // {
-            //     $complemento++;
-            // }
-            
-            if(property_exists($consultausuario, 'usuario'))
+            while($this->consultaUsuario($usuario.$complemento))
             {
                 $complemento++;
             }
@@ -99,12 +92,13 @@ class UsuarioStore implements Responsable
                 if(isset($resUsuarioStore) && !empty($resUsuarioStore))
                 {
                     return $this->respuestaExito(
-                        'Usuario creado satisfactoriamente.'. $usuario.$complemento . ' y la clave es: ' . $identificacion, 'usuarios.index'
+                        "Usuario creado satisfactoriamente.<br>
+                        El usuario es: <strong>" . $usuario . $complemento . "</strong><br>
+                        Y la clave es: <strong>" . $identificacion . "</strong>",
+                        'usuarios.index'
                     );
                 }
-            }
-            catch (Exception $e)
-            {
+            } catch (Exception $e) {
                 return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
             }
         }
@@ -158,7 +152,7 @@ class UsuarioStore implements Responsable
     // Método auxiliar para mensajes de exito
     private function respuestaExito($mensaje, $ruta)
     {
-        alert()->success('Exito', $mensaje);
+        alert()->success('Éxito', $mensaje)->toHtml();
         return redirect()->to(route($ruta));
     }
 

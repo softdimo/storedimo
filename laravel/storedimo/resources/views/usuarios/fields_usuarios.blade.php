@@ -99,7 +99,7 @@
         <div class="col-12 col-md-3 mt-4">
             <div class="form-group d-flex flex-column">
                 <label for="email" class="form-label">Correo Electrónico <span class="text-danger">*</span></label>
-                {!! Form::text('email', isset($usuario) ? $usuario->email : null, [
+                {!! Form::email('email', isset($usuario) ? $usuario->email : null, [
                     'class' => 'form-control', 'id' => 'email','required' => 'required'
                 ]) !!}
             </div>
