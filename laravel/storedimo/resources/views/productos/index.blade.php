@@ -194,21 +194,21 @@
                                                                     <div class="col-12 col-md-2">
                                                                         <div class="form-group d-flex flex-column">
                                                                             <label for="idProductoEdit" class="" style="font-size: 15px">Código<span class="text-danger">*</span></label>
-                                                                            {{ Form::text('idProductoEdit', isset($producto) ? $producto->id_producto : null, ['class'=>'form-control', 'id'=>'idProductoEdit', 'readonly'=>true ]) }}
+                                                                            {{ Form::text('idProductoEdit', isset($producto) ? $producto->id_producto : null, ['class'=>'form-control', 'id'=>'idProductoEdit','required'=>'required', 'readonly'=>true ]) }}
                                                                         </div>
                                                                     </div>
                                                                     {{-- =================== --}}
                                                                     <div class="col-12 col-md-5">
                                                                         <div class="form-group d-flex flex-column">
                                                                             <label for="nombreProductoEdit" class="" style="font-size: 15px">Nombre Producto<span class="text-danger">*</span></label>
-                                                                            {{Form::text('nombreProductoEdit', isset($producto) ? $producto->nombre_producto : null, ['class' => 'form-control', 'id' => 'nombreProductoEdit'])}}
+                                                                            {{Form::text('nombreProductoEdit', isset($producto) ? $producto->nombre_producto : null, ['class' => 'form-control', 'id' => 'nombreProductoEdit','required'=>'required'])}}
                                                                         </div>
                                                                     </div>
                                                                     {{-- =================== --}}
                                                                     <div class="col-12 col-md-5">
                                                                         <div class="form-group d-flex flex-column">
                                                                             <label for="categoriaEdit" class="" style="font-size: 15px">Categoría<span class="text-danger">*</span></label>
-                                                                            {!! Form::select('categoriaEdit', collect(['' => 'Seleccionar...'])->union($categorias), isset($producto) ? $producto->id_categoria : null, ['class' => 'form-select', 'id' => 'categoriaEdit']) !!}
+                                                                            {!! Form::select('categoriaEdit', collect(['' => 'Seleccionar...'])->union($categorias), isset($producto) ? $producto->id_categoria : null, ['class' => 'form-select', 'id' => 'categoriaEdit','required'=>'required']) !!}
                                                                         </div>
                                                                     </div>
                                                                     {{-- =================== --}}
@@ -222,28 +222,28 @@
                                                                     <div class="col-12 col-md-6 mt-md-3">
                                                                         <div class="form-group d-flex flex-column">
                                                                             <label for="precioUnitarioEdit" class="" style="font-size: 15px">Precio Unitario<span class="text-danger">*</span></label>
-                                                                            {{ Form::text('precioUnitarioEdit', isset($producto) ? $producto->precio_unitario : null,['class'=>'form-control', 'id'=>'precioUnitarioEdit']) }}
+                                                                            {{ Form::text('precioUnitarioEdit', isset($producto) ? $producto->precio_unitario : null,['class'=>'form-control', 'id'=>'precioUnitarioEdit','required'=>'required']) }}
                                                                         </div>
                                                                     </div>
                                                                     {{-- =================== --}}
                                                                     <div class="col-12 col-md-6 mt-md-3">
                                                                         <div class="form-group d-flex flex-column">
                                                                             <label for="precioDetalEdit" class="" style="font-size: 15px">Precio Detal<span class="text-danger">*</span></label>
-                                                                            {{ Form::text('precioDetalEdit', isset($producto) ? $producto->precio_detal : null,['class'=>'form-control', 'id'=>'precioDetalEdit']) }}
+                                                                            {{ Form::text('precioDetalEdit', isset($producto) ? $producto->precio_detal : null,['class'=>'form-control', 'id'=>'precioDetalEdit','required'=>'required']) }}
                                                                         </div>
                                                                     </div>
                                                                     {{-- =================== --}}
                                                                     <div class="col-12 col-md-6 mt-md-3">
                                                                         <div class="form-group d-flex flex-column">
                                                                             <label for="precioPorMayorEdit" class="" style="font-size: 15px">Precio al por Mayor<span class="text-danger">*</span></label>
-                                                                            {{ Form::text('precioPorMayorEdit', isset($producto) ? $producto->precio_por_mayor : null,['class'=>'form-control', 'id'=>'precioPorMayorEdit']) }}
+                                                                            {{ Form::text('precioPorMayorEdit', isset($producto) ? $producto->precio_por_mayor : null,['class'=>'form-control', 'id'=>'precioPorMayorEdit','required'=>'required']) }}
                                                                         </div>
                                                                     </div>
                                                                     {{-- =================== --}}
                                                                     <div class="col-12 col-md-6 mt-md-3">
                                                                         <div class="form-group d-flex flex-column">
                                                                             <label for="stockMinimoEdit" class="" style="font-size: 15px">Stock Mínimo<span class="text-danger">*</span></label>
-                                                                            {{ Form::text('stockMinimoEdit', isset($producto) ? $producto->stock_minimo : null,['class'=>'form-control', 'id'=>'stockMinimoEdit']) }}
+                                                                            {{ Form::text('stockMinimoEdit', isset($producto) ? $producto->stock_minimo : null,['class'=>'form-control', 'id'=>'stockMinimoEdit','required'=>'required']) }}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -512,47 +512,6 @@
             // ===========================================================
             // ===========================================================
 
-            // Valido que el precio unitario sea menor que el precio al detal
-            $('#precioDetalEdit').blur(function () {
-                let precioUnitario = parseFloat($('#precioUnitarioEdit').val()) || 0;
-                let precioDetal = parseFloat($('#precioDetalEdit').val()) || 0;
-
-                if (precioUnitario >= precioDetal) {
-                    Swal.fire(
-                        'Cuidado!',
-                        'El precio unitario debe ser menor que el precio al detal!',
-                        'warning'
-                    )
-                    $('#precioDetalEdit').val('');
-                }
-            });
-            
-            // ===========================================================
-            // ===========================================================
-
-            // Valido que el precio por mayor sea mayor que el unitario y menor que el precio al detal
-            $('#precioPorMayorEdit').blur(function () {
-                let precioUnitario = parseFloat($('#precioUnitarioEdit').val()) || 0;
-                let precioDetal = parseFloat($('#precioDetalEdit').val()) || 0;
-                let precioPorMayor = parseFloat($('#precioPorMayorEdit').val()) || 0;
-
-                console.log(precioUnitario);
-                console.log(precioDetal);
-                console.log(precioPorMayor);
-
-                if ( precioPorMayor <= precioUnitario || precioPorMayor >= precioDetal) {
-                    Swal.fire(
-                        'Cuidado!',
-                        'El precio al por mayor debe ser superior al precio unitario y menor que el precio al detal!',
-                        'warning'
-                    )
-                    $('#precioPorMayorEdit').val('');
-                }
-            });
-
-            // ===========================================================
-            // ===========================================================
-
             // Botón de submit de editar usuario
             $(document).on("submit", "form[id^='formCambiarEstadoProducto_']", function(e) {
                 const form = $(this);
@@ -605,6 +564,52 @@
             if (pdfUrl) {
                 window.open(pdfUrl, '_blank');
             }
+
+            // ===========================================================
+            // ===========================================================
+
+            $(document).on('shown.bs.modal', '[id^="modalEditarProducto_"]', function () {
+                // Buscar los elementos dentro de este modal
+                let modal = $(this); // Guardamos la referencia del modal
+                let inputPrecioUnitario = modal.find('[id^=precioUnitarioEdit]');
+                let inputPrecioDetal = modal.find('[id^=precioDetalEdit]');
+                let inputPrecioPorMayor = modal.find('[id^=precioPorMayorEdit]');
+
+                if (inputPrecioUnitario.length > 0) { // Al cargar el modal
+                    // Valido que el precio unitario sea menor que el precio al detal
+                    inputPrecioDetal.on("blur", function () {
+                        let precioUnitario = parseFloat(inputPrecioUnitario.val()) || 0;
+                        let precioDetal = parseFloat(inputPrecioDetal.val()) || 0;
+
+                        if (precioUnitario >= precioDetal) {
+                            Swal.fire(
+                                'Cuidado!',
+                                'El precio unitario debe ser menor que el precio al detal!',
+                                'warning'
+                            )
+                            inputPrecioDetal.val('');
+                        }
+                    });
+
+                    // ===================================================
+
+                    // Valido que el precio por mayor sea mayor que el unitario y menor que el precio al detal
+                    inputPrecioPorMayor.blur(function () {
+                        let precioUnitario = parseFloat(inputPrecioUnitario.val()) || 0;
+                        let precioDetal = parseFloat(inputPrecioDetal.val()) || 0;
+                        let precioPorMayor = parseFloat(inputPrecioPorMayor.val()) || 0;
+
+                        if ( precioPorMayor <= precioUnitario || precioPorMayor >= precioDetal) {
+                            Swal.fire(
+                                'Cuidado!',
+                                'El precio al por mayor debe ser superior al precio unitario y menor que el precio al detal!',
+                                'warning'
+                            )
+                            inputPrecioPorMayor.val('');
+                        }
+                    });
+                } // FIN inputPrecioUnitario.length > 0
+            }); // FIN '[id^="formEditarProducto_"]').on('shown.bs.modal'
         }); //FIN Document.ready
     </script>
 @stop

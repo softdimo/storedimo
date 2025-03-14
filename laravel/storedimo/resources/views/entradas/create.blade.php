@@ -538,6 +538,96 @@
 
             // ================================================
 
+            // Modal modal_registroProducto (Store)
+            $(document).on('shown.bs.modal', '[id^="modal_registroProducto"]', function () {
+                // Buscar los elementos dentro de este modal
+                let modal = $(this); // Guardamos la referencia del modal
+                let inputPrecioUnitario = modal.find('[id^=precio_unitario]');
+                let inputPrecioDetal = modal.find('[id^=precio_detal]');
+                let inputPrecioPorMayor = modal.find('[id^=precio_por_mayor]');
+
+                if (inputPrecioUnitario.length > 0) { // Al cargar el modal
+                    // Valido que el precio unitario sea menor que el precio al detal
+                    inputPrecioDetal.on("blur", function () {
+                        let precioUnitario = parseFloat(inputPrecioUnitario.val()) || 0;
+                        let precioDetal = parseFloat(inputPrecioDetal.val()) || 0;
+
+                        if (precioUnitario >= precioDetal) {
+                            Swal.fire(
+                                'Cuidado!',
+                                'El precio unitario debe ser menor que el precio al detal!',
+                                'warning'
+                            )
+                            inputPrecioDetal.val('');
+                        }
+                    });
+
+                    // ===================================================
+
+                    // Valido que el precio por mayor sea mayor que el unitario y menor que el precio al detal
+                    inputPrecioPorMayor.blur(function () {
+                        let precioUnitario = parseFloat(inputPrecioUnitario.val()) || 0;
+                        let precioDetal = parseFloat(inputPrecioDetal.val()) || 0;
+                        let precioPorMayor = parseFloat(inputPrecioPorMayor.val()) || 0;
+
+                        if ( precioPorMayor <= precioUnitario || precioPorMayor >= precioDetal) {
+                            Swal.fire(
+                                'Cuidado!',
+                                'El precio al por mayor debe ser superior al precio unitario y menor que el precio al detal!',
+                                'warning'
+                            )
+                            inputPrecioPorMayor.val('');
+                        }
+                    });
+                } // FIN inputPrecioUnitario.length > 0
+            }); // FIN '[id^="modal_registroProducto"]').on('shown.bs.modal'
+            
+            // ================================================
+
+            // Modal modalModificarPrecios (Update)
+            $(document).on('shown.bs.modal', '[id^="modalModificarPrecios"]', function () {
+                // Buscar los elementos dentro de este modal
+                let modal = $(this); // Guardamos la referencia del modal
+                let inputPrecioUnitarioEdit = modal.find('[id^=precioUnitarioEdit]');
+                let inputPrecioDetalEdit = modal.find('[id^=precioDetalEdit]');
+                let inputPrecioPorMayorEdit = modal.find('[id^=precioPorMayorEdit]');
+
+                if (inputPrecioUnitarioEdit.length > 0) { // Al cargar el modal
+                    // Valido que el precio unitario sea menor que el precio al detal
+                    inputPrecioDetalEdit.on("blur", function () {
+                        let precioUnitario = parseFloat(inputPrecioUnitarioEdit.val()) || 0;
+                        let precioDetal = parseFloat(inputPrecioDetalEdit.val()) || 0;
+
+                        if (precioUnitario >= precioDetal) {
+                            Swal.fire(
+                                'Cuidado!',
+                                'El precio unitario debe ser menor que el precio al detal!',
+                                'warning'
+                            )
+                            inputPrecioDetalEdit.val('');
+                        }
+                    });
+
+                    // ===================================================
+
+                    // Valido que el precio por mayor sea mayor que el unitario y menor que el precio al detal
+                    inputPrecioPorMayorEdit.blur(function () {
+                        let precioUnitario = parseFloat(inputPrecioUnitarioEdit.val()) || 0;
+                        let precioDetal = parseFloat(inputPrecioDetalEdit.val()) || 0;
+                        let precioPorMayor = parseFloat(inputPrecioPorMayorEdit.val()) || 0;
+
+                        if ( precioPorMayor <= precioUnitario || precioPorMayor >= precioDetal) {
+                            Swal.fire(
+                                'Cuidado!',
+                                'El precio al por mayor debe ser superior al precio unitario y menor que el precio al detal!',
+                                'warning'
+                            )
+                            inputPrecioPorMayorEdit.val('');
+                        }
+                    });
+                } // FIN inputPrecioUnitario.length > 0
+            }); // FIN '[id^="modalModificarPrecios"]').on('shown.bs.modal'
+
         });
 
         // ===================================================================================
