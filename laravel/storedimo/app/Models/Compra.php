@@ -15,6 +15,7 @@ class Compra extends Model
     protected $dates = ['deleted_at'];
     public $timestamps = true;
     protected $fillable = [
+        'id_empresa',
         'fecha_compra',
         'valor_compra',
         'id_proveedor',

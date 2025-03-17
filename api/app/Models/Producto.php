@@ -15,6 +15,7 @@ class Producto extends Model
     protected $dates = ['deleted_at'];
     public $timestamps = true;
     protected $fillable = [
+        'id_empresa',
         'nombre_producto',
         'id_categoria',
         'precio_unitario',

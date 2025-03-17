@@ -15,6 +15,7 @@ class PagoEmpleado extends Model
     protected $dates = ['deleted_at'];
     public $timestamps = true;
     protected $fillable = [
+        'id_empresa',
         'id_tipo_pago',
         'fecha_pago',
         'id_usuario',

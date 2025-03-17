@@ -15,6 +15,7 @@ class Venta extends Model
     protected $dates = ['deleted_at'];
     public $timestamps = true;
     protected $fillable = [
+        'id_empresa',
         'fecha_venta',
         'descuento',
         'subtotal_venta',

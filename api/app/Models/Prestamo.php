@@ -15,6 +15,8 @@ class Prestamo extends Model
     protected $dates = ['deleted_at'];
     public $timestamps = true;
     protected $fillable = [
+        'id_empresa',
+        'id_empresa',
         'id_estado_prestamo',
         'id_usuario',
         'valor_prestamo',

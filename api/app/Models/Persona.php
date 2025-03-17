@@ -15,6 +15,7 @@ class Persona extends Model
     protected $dates = ['deleted_at'];
     public $timestamps = true;
     protected $fillable = [
+        'id_empresa',
         'id_tipo_persona',
         'id_tipo_documento',
         'identificacion',
