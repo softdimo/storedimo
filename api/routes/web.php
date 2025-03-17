@@ -131,3 +131,14 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     // $router->put('venta_update/{id}', 'ventas\VentasController@update');
     // $router->post('consulta_venta', 'ventas\VentasController@consultaVenta');
 });
+
+// ========================================================================
+// ========================================================================
+
+// EMPRESAS
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('empresa_index', 'empresas\EmpresasController@index');
+    $router->post('empresa_store', 'empresas\EmpresasController@store');
+    $router->put('empresa_update', 'empresas\EmpresasController@update');
+});
+

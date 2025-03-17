@@ -159,3 +159,12 @@ Route::group(['namespace' => 'App\Http\Controllers\prestamos'], function () {
 Route::group(['namespace' => 'App\Http\Controllers\pago_empleados'], function () {
     Route::resource('pago_empleados', 'PagoEmpleadosController');
 });
+
+// ========================================================================
+// ========================================================================
+// ========================================================================
+
+// PAGO A EMPLEADOS
+Route::group(['namespace' => 'App\Http\Controllers\empresas'], function () {
+    Route::resource('empresas', 'EmpresasController');
+});

@@ -31,6 +31,29 @@
             </li>
 
             {{-- ==================================== --}}
+            
+            <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
+                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="empresas" role="button" data-bs-toggle="collapse" data-bs-target="#ul_empresas" aria-controls="ul_empresas" aria-expanded="false" aria-label="Toggle navigation">
+                    <div class="col-11">
+                        <i class="fa fa-industry text-center" style="color: #000; width: 10%"></i>
+                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Empresas</a>
+                    </div>
+                    <div class="col-1 text-center text-dark">
+                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
+                    </div>
+                </div>
+
+                <ul class="nav collapse navbar-collapse ps-3" id="ul_empresas">
+                    <li class="nav-item w-100">
+                        <a class="link-underline-light" href="{{route('empresas.create')}}">Registrar Empresas</a>
+                    </li>
+                    <li class="nav-item w-100">
+                        <a class="link-underline-light" href="{{route('empresas.index')}}">Listar Empresas</a>
+                    </li>
+                </ul>
+            </li>
+
+            {{-- ==================================== --}}
 
             <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
                 <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="personas" role="button" data-bs-toggle="collapse" data-bs-target="#ul_personas" aria-controls="ul_personas" aria-expanded="false" aria-label="Toggle navigation">
