@@ -33,6 +33,7 @@
                         <table class="table table-striped table-bordered w-100 mb-0" id="tbl_entradas" aria-describedby="entradas">
                             <thead>
                                 <tr class="header-table text-center">
+                                    {{-- <th>Empresa</th> --}}
                                     <th>Código Entrada</th>
                                     <th>Valor Total</th>
                                     <th>Fecha Registro Entrada</th>
@@ -45,6 +46,7 @@
                             <tbody>
                                 @foreach ($entradas as $entrada)
                                     <tr class="text-center">
+                                        {{-- <td>{{$entrada->empresa}}</td> --}}
                                         <td>{{$entrada->id_compra}}</td>
                                         <td>{{$entrada->valor_compra}}</td>
                                         <td>{{$entrada->fecha_compra}}</td>
@@ -120,6 +122,7 @@
                                             <thead>
                                                 <tr class="header-table text-center">
                                                     <th>Fecha Entrada</th>
+                                                    {{-- <th>Empresa</th> --}}
                                                     <th>Id Proveedor</th>
                                                     <th>Nombre Proveedor</th>
                                                     <th>Valor Total</th>
@@ -128,6 +131,7 @@
                                             <tbody>
                                                 <tr class="text-center">
                                                     <td>{{$entrada->fecha_compra}}</td>
+                                                    {{-- <td>{{$entrada->empresa}}</td> --}}
                                                     <td>{{$entrada->nit_empresa}}</td>
                                                     <td>{{$entrada->nombre_empresa}}</td>
                                                     <td>{{$entrada->valor_compra}}</td>

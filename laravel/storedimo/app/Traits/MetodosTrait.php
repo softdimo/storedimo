@@ -16,6 +16,7 @@ use App\Models\Persona;
 use App\Models\TipoPago;
 use App\Models\PeriodoPago;
 use App\Models\PorcentajeComision;
+use App\Models\Empresa;
 
 trait MetodosTrait
 {
@@ -84,6 +85,7 @@ trait MetodosTrait
         view()->share('tipos_pago_nomina', TipoPago::whereIn('id_tipo_pago', [4,5])->orderBy('tipo_pago')->pluck('tipo_pago', 'id_tipo_pago'));
         view()->share('periodos_pago', PeriodoPago::orderBy('periodo_pago')->pluck('periodo_pago', 'id_periodo_pago'));
         view()->share('porcentajes_comision', PorcentajeComision::orderBy('porcentaje_comision')->pluck('porcentaje_comision', 'id_porcentaje_comision'));
+        view()->share('empresas', Empresa::orderBy('nombre_empresa')->pluck('nombre_empresa', 'id_empresa'));
 
         view()->share('proveedores', Persona::whereIn('id_tipo_persona', [3, 4])
             ->selectRaw("id_persona,
