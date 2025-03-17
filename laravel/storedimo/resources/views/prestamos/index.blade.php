@@ -374,18 +374,6 @@
                         {{-- ====================================================== --}}
 
                         <div class="modal-footer border-0 justify-content-center">
-                            {{-- <div class="">
-                                <button type="submit" class="btn btn-success" id="btn_ver_abonos_{{$prestamo->id_prestamo}}">
-                                    <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
-                                </button>
-                            </div>
-
-                            <div class="">
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btn_cancelar_verAbonos_{{$prestamo->id_prestamo}}">
-                                    <i class="fa fa-remove" aria-hidden="true">  Cancelar</i>
-                                </button>
-                            </div> --}}
-
                             <div class="col-12">
                                 <button type="button" class="btn btn-primary btn-md active pull-right" style="background-color: #337AB7;" data-bs-dismiss="modal" id="btnDetalleAbonos_{{$prestamo->id_prestamo}}">
                                     <i class="fa fa-check-circle" aria-hidden="true"> Aceptar</i>

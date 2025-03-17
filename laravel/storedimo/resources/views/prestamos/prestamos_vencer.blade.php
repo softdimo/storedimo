@@ -14,6 +14,24 @@
             padding-top: 0.0rem !important;
             padding-bottom: 0.0rem !important;
         }
+
+        /* Oculta el icono de calendario nativo en Chrome, Safari y Edge */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            display: none;
+            -webkit-appearance: none;
+        }
+
+        /* Oculta el icono en Firefox */
+        input[type="date"]::-moz-calendar-picker-indicator {
+            display: none;
+        }
+
+        /* Para navegadores que aún muestran el ícono nativo */
+        input[type="date"] {
+            position: relative;
+            z-index: 10;
+            background-color: transparent;
+        }
     </style>
 @stop
 
@@ -100,7 +118,7 @@
 
                     <div class="rounded-top" style="border: solid 1px #337AB7;">
                         <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                            <h5>Detalle Abonos de: {{$prestamoVencer->nombre_usuario}} {{$prestamoVencer->apellido_usuario}}</h5>
+                            <h5>Detalle de Préstamos de: {{$prestamoVencer->nombre_usuario}} {{$prestamoVencer->apellido_usuario}}</h5>
                         </div>
 
                         <div class="modal-body m-0">
@@ -172,6 +190,153 @@
                 </div> <!-- FIN modal-content -->
             </div> <!-- FIN modal-dialog -->
         </div> <!-- FIN Modal VER DETALLES PRÉSTAMO VENCER -->
+
+        {{-- =============================================================== --}}
+        {{-- =============================================================== --}}
+
+        <!-- INICIO Modal ABONO Préstamo -->
+        <div class="modal fade h-auto modal-gral p-0" id="modalAbonarPrestamo_{{$prestamoVencer->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog m-0 mw-100">
+                <div class="modal-content p-3">
+                    {!! Form::open([
+                        'method' => 'POST',
+                        'route' => ['prestamos.store'],
+                        'class' => 'mt-0',
+                        'autocomplete' => 'off',
+                        'id' => 'formAbonoPrestamo_'.$prestamoVencer->id_usuario,
+                        ]) !!}
+                        @csrf
+
+                        {!! Form::hidden('id_prestamo', isset($prestamoVencer) ? $prestamoVencer->id_prestamo : null, ['class' => '', 'id' => 'id_prestamo', 'required']) !!}
+                        {!! Form::hidden('id_usuario', isset($prestamoVencer) ? $prestamoVencer->id_usuario : null, ['class' => '', 'id' => 'id_usuario', 'required']) !!}
+
+                        <div class="rounded-top" style="border: solid 1px #337AB7;">
+                            <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                <h5>Abono a Préstamos de: {{$prestamoVencer->nombre_usuario}} {{$prestamoVencer->apellido_usuario}}</h5>
+                            </div>
+
+                            <div class="modal-body m-0">
+                                <div class="row m-0">
+                                    <div class="col-12 col-md-6">
+                                        <label for="valor_prestamo" class="fw-bold" style="font-size: 12px">Valor Préstamo <span class="text-danger">*</span></label>
+                                        {!! Form::text('valor_prestamo', isset($prestamoVencer) ? $prestamoVencer->valor_prestamo : null, ['class' => 'form-control bg-secondary-subtle', 'id' => 'valor_prestamo', 'required', 'readonly']) !!}
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <label for="valor_pendiente" class="fw-bold" style="font-size: 12px">Valor Pendiente <span class="text-danger">*</span></label>
+                                        {!! Form::text('valor_pendiente', null, ['class' => 'form-control bg-secondary-subtle', 'id' => 'valor_pendiente', 'required', 'readonly']) !!}
+                                    </div>
+
+                                    <div class="col-12 col-md-6 mt-3">
+                                        <label for="valor_abono" class="fw-bold" style="font-size: 12px">Valor Abono <span class="text-danger">*</span></label>
+                                        {!! Form::text('valor_abono', null, ['class' => 'form-control', 'id' => 'valor_abono', 'required']) !!}
+                                    </div>
+                                </div>
+                            </div> <!-- FIN modal-body -->
+                        </div> <!-- FIN rounded-top -->
+
+                        {{-- ====================================================== --}}
+                        {{-- ====================================================== --}}
+
+                        <!-- Contenedor para el GIF -->
+                        <div id="loadingIndicatorAbonoPrestamo_{{$prestamoVencer->id_prestamo}}" class="loadingIndicator">
+                            <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                        </div>
+
+                        {{-- ====================================================== --}}
+                        {{-- ====================================================== --}}
+
+                        <div class="modal-footer border-0 justify-content-center">
+                            <div class="">
+                                <button type="submit" class="btn btn-success" id="btn_abono_prestamo_{{$prestamoVencer->id_prestamo}}">
+                                    <i class="fa fa-floppy-o"> Guardar</i>
+                                </button>
+                            </div>
+
+                            <div class="">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btn_cancelar_abono_{{$prestamoVencer->id_prestamo}}">
+                                    <i class="fa fa-remove">  Cancelar</i>
+                                </button>
+                            </div>
+                        </div>
+                    {!! Form::close() !!}
+                </div> <!-- FIN modal-content -->
+            </div> <!-- FIN modal-dialog -->
+        </div> <!-- FIN Modal ABONO Préstamo -->
+
+                
+        {{-- =============================================================== --}}
+        {{-- =============================================================== --}}
+
+        <!-- INICIO Modal MODIFICAR Préstamo -->
+        <div class="modal fade h-auto modal-gral p-0" id="modalModificarPrestamo_{{$prestamoVencer->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog m-0 mw-100">
+                <div class="modal-content p-3">
+                    {!! Form::open([
+                        'method' => 'POST',
+                        'route' => ['prestamos.store'],
+                        'class' => 'mt-0',
+                        'autocomplete' => 'off',
+                        'id' => 'formModificarPrestamo_'.$prestamoVencer->id_usuario,
+                        ]) !!}
+                        @csrf
+
+                        {!! Form::hidden('id_prestamo', isset($prestamoVencer) ? $prestamoVencer->id_prestamo : null, ['class' => '', 'id' => 'id_prestamo', 'required']) !!}
+                        {!! Form::hidden('id_usuario', isset($prestamoVencer) ? $prestamoVencer->id_usuario : null, ['class' => '', 'id' => 'id_usuario', 'required']) !!}
+
+                        <div class="rounded-top" style="border: solid 1px #337AB7;">
+                            <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                <h5>Modificar Fecha Límite</h5>
+                            </div>
+
+                            <div class="modal-body m-0">
+                                <div class="row m-0">
+                                    <div class="col-12 col-md-6">
+                                        <label for="fecha_limite" class="fw-bold" style="font-size: 12px">
+                                            Fecha Límite <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="calendar-addon" style="cursor: pointer;">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                            {!! Form::date('fecha_limite', null, ['class' => 'form-control', 'id' => 'fecha_limite', 'required']) !!}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- FIN modal-body -->
+                        </div> <!-- FIN rounded-top -->
+
+                        {{-- ====================================================== --}}
+                        {{-- ====================================================== --}}
+
+                        <!-- Contenedor para el GIF -->
+                        <div id="loadingIndicatorFechaLimite_{{$prestamoVencer->id_prestamo}}" class="loadingIndicator">
+                            <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                        </div>
+
+                        {{-- ====================================================== --}}
+                        {{-- ====================================================== --}}
+
+                        <div class="modal-footer border-0 justify-content-center">
+                            <div class="">
+                                <button type="submit" class="btn btn-success" id="btn_fecha_limite_{{$prestamoVencer->id_prestamo}}">
+                                    <i class="fa fa-floppy-o"> Modificar</i>
+                                </button>
+                            </div>
+
+                            <div class="">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btn_cancelar_fecha_{{$prestamoVencer->id_prestamo}}">
+                                    <i class="fa fa-remove">  Cancelar</i>
+                                </button>
+                            </div>
+                        </div>
+                    {!! Form::close() !!}
+                </div> <!-- FIN modal-content -->
+            </div> <!-- FIN modal-dialog -->
+        </div> <!-- FIN Modal MODIFICAR Préstamo -->
+
+        {{-- =============================================================== --}}
+        {{-- =============================================================== --}}
     @endforeach
 @stop
 
@@ -215,7 +380,6 @@
             });
             // CIERRE DataTable Préstamos por vencer
 
-            
             // ==============================================
 
             // INICIO DataTable Detalles Préstamo empleados
@@ -255,6 +419,63 @@
             // CIERRE DataTable Detalles Préstamo empleados
 
             // ==============================================
+
+            $(document).on("submit", "form[id^='formAbonoPrestamo_']", function(e) {
+                const form = $(this);
+                const formId = form.attr('id'); // Obtenemos el ID del formulario
+                const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
+
+                // Capturar el spinner y btns dinámicamente
+                const loadingIndicator = $(`#loadingIndicatorAbonoPrestamo_${id}`);
+                const submitButton = $(`#btn_abono_prestamo_${id}`);
+                const cancelButton = $(`#btn_cancelar_abono_${id}`);
+
+                // Deshabilitar botones
+                cancelButton.prop("disabled", true);
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+
+                // Cargar Spinner
+                loadingIndicator.show();
+            });
+            
+            // ==============================================
+
+            $(document).on("submit", "form[id^='formModificarPrestamo_']", function(e) {
+                const form = $(this);
+                const formId = form.attr('id'); // Obtenemos el ID del formulario
+                const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
+
+                // Capturar el spinner y btns dinámicamente
+                const loadingIndicator = $(`#loadingIndicatorFechaLimite_${id}`);
+                const submitButton = $(`#btn_fecha_limite_${id}`);
+                const cancelButton = $(`#btn_cancelar_fecha_${id}`);
+
+                // Deshabilitar botones
+                cancelButton.prop("disabled", true);
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+
+                // Cargar Spinner
+                loadingIndicator.show();
+            });
+
+            // ==============================================
+
+            let fechaInput = document.getElementById('fecha_limite');
+            let calendarIcon = document.getElementById('calendar-addon');
+
+            // Verificamos si el navegador soporta showPicker()
+            if (fechaInput.showPicker) {
+                calendarIcon.addEventListener('click', function() {
+                    fechaInput.focus(); // Forzamos el enfoque en el input dentro del modal
+                    setTimeout(() => fechaInput.showPicker(), 50); // Pequeño delay para evitar bloqueo
+                });
+            } else {
+                console.warn("showPicker() no es compatible con este navegador.");
+            }
+
+            // ==============================================
+
+
         });
     </script>
 @stop
