@@ -31,15 +31,6 @@
         {{-- ======================================================================= --}}
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
-            {{-- <div class="text-end">
-                <a href="#" class="text-blue">
-                    <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
-                </a> --}}
-            </div>
-
-            {{-- =============================================================== --}}
-            {{-- =============================================================== --}}
-
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
                 <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Préstamos Empleados</h5>
             
@@ -63,13 +54,13 @@
                                         <td class="text-danger">Gómez</td>
                                         <td class="text-danger">Empleado-fijo</td>
                                         <td>
-                                            <a href="#" role="button" class="btn rounded-circle btn-circle text-white" title="Detalles Préstamo" style="background-color: #286090">
-                                                <i class="fa fa-eye" aria-hidden="true"></i>
-                                            </a>
+                                            <button class="btn rounded-circle btn-circle text-white" title="Detalles Préstamo" style="background-color: #286090">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
 
-                                            <a href="#" role="button" class="btn btn-success rounded-circle btn-circle text-white" title="Generar PDF">
-                                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                                            </a>
+                                            <button class="btn btn-success rounded-circle btn-circle text-white" title="Generar PDF">
+                                                <i class="fa fa-file-pdf-o"></i>
+                                            </button>
                                         </td>
                                     </tr>
                             </tbody>
