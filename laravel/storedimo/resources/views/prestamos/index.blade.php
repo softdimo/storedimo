@@ -527,7 +527,7 @@
 
             // ==============================================
 
-            // INICIO DataTable Detalles Préstamo empleados
+            // INICIO DataTable  Ver Abonos
             var tblVerAbonos = $("#tbl_ver_abonos").DataTable({
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
@@ -561,7 +561,7 @@
             $('#modalVerAbonos_{{$prestamo->id_prestamo}}').on('shown.bs.modal', function () {
                 tblVerAbonos.columns.adjust();
             });
-            // CIERRE DataTable Detalles Préstamo empleados
+            // CIERRE DataTable Ver Abonos
 
 
         }); // FIN document.ready

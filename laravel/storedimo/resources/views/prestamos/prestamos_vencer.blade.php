@@ -337,6 +337,123 @@
 
         {{-- =============================================================== --}}
         {{-- =============================================================== --}}
+
+        
+        {{-- =============================================================== --}}
+        {{-- =============================================================== --}}
+
+        <!-- INICIO Modal VER DETALLES ABONO Préstamo -->
+        <div class="modal fade h-auto modal-gral p-0" id="modalVerAbonos_{{$prestamoVencer->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog m-0 mw-100">
+                <div class="modal-content p-3">
+                    <div class="rounded-top" style="border: solid 1px #337AB7;">
+                        <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                            <h5>Detalle Abonos de: {{$prestamoVencer->nombre_usuario}} {{$prestamoVencer->apellido_usuario}}</h5>
+                        </div>
+
+                        <div class="modal-body m-0">
+                            <div class="row m-0">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered m-100 mb-0" aria-describedby="entradas" id="tbl_ver_abonos">
+                                            <thead>
+                                                <tr class="header-table text-center">
+                                                    <th>Fecha Abono</th>
+                                                    <th>Valor</th>
+                                                    <th>Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="text-center">
+                                                    <td>{{$prestamoVencer->fecha_prestamo}}</td>
+                                                    <td>{{$prestamoVencer->valor_prestamo}}</td>
+                                                    <td>
+                                                        <button title="Abonar" class="btn btn-warning rounded-circle btn-circle text-white" data-bs-toggle="modal" data-bs-target="#modalEditarAbono_{{$prestamoVencer->id_prestamo}}">
+                                                            <i class="fa fa-money"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- FIN modal-body -->
+                    </div> <!-- FIN rounded-top -->
+
+                    {{-- ====================================================== --}}
+                    {{-- ====================================================== --}}
+
+                    <div class="modal-footer border-0 justify-content-center">
+                        <div class="col-12">
+                            <button type="button" class="btn btn-primary btn-md active pull-right" style="background-color: #337AB7;" data-bs-dismiss="modal" id="btnDetalleAbonos_{{$prestamoVencer->id_prestamo}}">
+                                <i class="fa fa-check-circle" aria-hidden="true"> Aceptar</i>
+                            </button>
+                        </div>
+                    </div>
+                </div> <!-- FIN modal-content -->
+            </div> <!-- FIN modal-dialog -->
+        </div> <!-- FIN Modal VER DETALLES ABONO Préstamo -->
+        
+        {{-- =============================================================== --}}
+        {{-- =============================================================== --}}
+
+        {{-- INICIO Modal ESTADO PRÉSTAMO --}}
+        <div class="modal fade h-auto modal-gral" id="modalCambiarEstadoPrestamo_{{$prestamoVencer->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog m-0">
+                <div class="modal-content w-100 border-0">
+                    {!! Form::open([
+                        'method' => 'POST',
+                        'route' => ['cambiar_estado_producto'],
+                        'class' => 'mt-2',
+                        'autocomplete' => 'off',
+                        'id' => 'formCambiarEstadoPrestamo_' . $prestamoVencer->id_prestamo]) !!}
+                        @csrf
+
+                        <div class="rounded-top" style="border: solid 1px #337AB7;">
+                            <div class="rounded-top text-white text-center"
+                                style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                <h5>Cambiar estado del préstamo</h5>
+                            </div>
+
+                            <div class="modal-body m-0">
+                                <div class="mt-4 mb-4 text-center">
+                                    <span class="text-danger fs-5">¿Realmente desea cambiar el estado del préstamo?</span>
+                                </div>
+                            </div> <!-- FIN modal-body -->
+
+                            {{ Form::hidden('id_prestamo', isset($prestamoVencer) ? $prestamoVencer->id_prestamo : null, ['class' => '', 'id' => 'id_prestamo']) }}
+                        </div>
+
+                        {{-- ====================================================== --}}
+                        {{-- ====================================================== --}}
+
+                        <!-- Contenedor para el GIF -->
+                        <div id="loadingIndicatorEstadoPrestamo_{{$prestamoVencer->id_prestamo}}"
+                            class="loadingIndicator">
+                            <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                        </div>
+
+                        {{-- ====================================================== --}}
+                        {{-- ====================================================== --}}
+
+                        <div class="modal-footer border-0 d-flex justify-content-around mt-3">
+                            <button type="submit" id="btn_cambiar_estado_prestamo_{{$prestamoVencer->id_prestamo}}"
+                                class="btn btn-success" title="Guardar Configuración">
+                                <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
+                            </button>
+
+                            <button type="button" id="btn_cancelar_estado_prestamo_{{$prestamoVencer->id_prestamo}}"
+                                class="btn btn-secondary" title="Cancelar"
+                                data-bs-dismiss="modal">
+                                <i class="fa fa-times" aria-hidden="true"> Cancelar</i>
+                            </button>
+                        </div>
+                    {!! Form::close() !!}
+                </div> {{-- FIN modal-content --}}
+            </div> {{-- FIN modal-dialog --}}
+        </div> {{-- FIN modal --}}
+        {{-- FINAL Modal ESTADO PRÉSTAMO--}}
     @endforeach
 @stop
 
@@ -419,6 +536,59 @@
             // CIERRE DataTable Detalles Préstamo empleados
 
             // ==============================================
+            
+            // INICIO DataTable  Ver Abonos
+            var tblVerAbonos = $("#tbl_ver_abonos").DataTable({
+                dom: 'Blfrtip',
+                "infoEmpty": "No hay registros",
+                stripe: true,
+                "bSort": false,
+                "autoWidth": false,
+                "scrollX": true,
+                "buttons": [
+                    {
+                        extend: 'copyHtml5',
+                        text: 'Copiar',
+                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary',
+                        init: function(api, node, config) {
+                            $(node).removeClass('dt-button')
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        text: 'Excel',
+                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary mr-3',
+                        customize: function( xlsx ) {
+                            var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                            $('row:first c', sheet).attr( 's', '42' );
+                        }
+                    }
+                ],
+                "pageLength": 10
+            });
+
+            // Ajustar columnas cuando el modal se muestra
+            $('#modalVerAbonos_{{$prestamoVencer->id_prestamo}}').on('shown.bs.modal', function () {
+                tblVerAbonos.columns.adjust();
+            });
+            // CIERRE DataTable Ver Abonos
+
+            // ==============================================
+
+            let fechaInput = document.getElementById('fecha_limite');
+            let calendarIcon = document.getElementById('calendar-addon');
+
+            // Verificamos si el navegador soporta showPicker()
+            if (fechaInput.showPicker) {
+                calendarIcon.addEventListener('click', function() {
+                    fechaInput.focus(); // Forzamos el enfoque en el input dentro del modal
+                    setTimeout(() => fechaInput.showPicker(), 50); // Pequeño delay para evitar bloqueo
+                });
+            } else {
+                console.warn("showPicker() no es compatible con este navegador.");
+            }
+
+            // ==============================================
 
             $(document).on("submit", "form[id^='formAbonoPrestamo_']", function(e) {
                 const form = $(this);
@@ -459,21 +629,27 @@
             });
 
             // ==============================================
+            
+            $(document).on("submit", "form[id^='formCambiarEstadoPrestamo_']", function(e) {
+                const form = $(this);
+                const formId = form.attr('id'); // Obtenemos el ID del formulario
+                const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
 
-            let fechaInput = document.getElementById('fecha_limite');
-            let calendarIcon = document.getElementById('calendar-addon');
+                // Capturar el spinner y btns dinámicamente
+                const loadingIndicator = $(`#loadingIndicatorEstadoPrestamo_${id}`);
+                const submitButton = $(`#btn_cambiar_estado_prestamo_${id}`);
+                const cancelButton = $(`#btn_cancelar_estado_prestamo_${id}`);
 
-            // Verificamos si el navegador soporta showPicker()
-            if (fechaInput.showPicker) {
-                calendarIcon.addEventListener('click', function() {
-                    fechaInput.focus(); // Forzamos el enfoque en el input dentro del modal
-                    setTimeout(() => fechaInput.showPicker(), 50); // Pequeño delay para evitar bloqueo
-                });
-            } else {
-                console.warn("showPicker() no es compatible con este navegador.");
-            }
+                // Deshabilitar botones
+                cancelButton.prop("disabled", true);
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+
+                // Cargar Spinner
+                loadingIndicator.show();
+            });
 
             // ==============================================
+
 
 
         });
