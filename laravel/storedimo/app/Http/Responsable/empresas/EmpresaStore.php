@@ -6,7 +6,6 @@ use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Empresa;
 use GuzzleHttp\Client;
 
 class EmpresaStore implements Responsable
@@ -25,32 +24,35 @@ class EmpresaStore implements Responsable
 
     public function toResponse($request)
     {
-        $fechaCompra = now()->format('Y-m-d H:i:s'); // Formato compatible con DATETIME en MySQL
-        $valorCompra = request('valor_compra', null);
-        $idProveedor = request('id_proveedor', null);
-        $idProductoCompra = request('id_producto_compra', null);
-        $usuLogueado = session('id_usuario');
-        $idEstado = 1;
+        $nitEmpresa = request('nit_empresa', null);
+        $nombreEmpresa = request('nombre_empresa', null);
+        $telefonoEmpresa = request('telefono_empresa', null);
+        $celularEmpresa = request('celular_empresa');
+        $emailEmpresa = request('email_empresa');
+        $direccionEmpresa = request('direccion_empresa');
+        $idEstado = request('id_estado');
         
         try {
-            $reqEntradaStore = $this->clientApi->post($this->baseUri.'entrada_store', [
+            $reqEmpresaStore = $this->clientApi->post($this->baseUri.'empresa_store', [
                 'json' => [
-                    'fecha_compra' => $fechaCompra,
-                    'valor_compra' => $valorCompra,
-                    'id_proveedor' => $idProveedor,
-                    'id_producto_compra' => $idProductoCompra,
-                    'id_usuario' => $usuLogueado,
-                    'id_estado' => $idEstado,
+                    'nit_empresa' => $nitEmpresa,
+                    'nombre_empresa' => $nombreEmpresa,
+                    'telefono_empresa' => $telefonoEmpresa,
+                    'celular_empresa' => $celularEmpresa,
+                    'email_empresa' => $emailEmpresa,
+                    'direccion_empresa' => $direccionEmpresa,
+                    'id_estado' => $idEstado
                 ]
             ]);
-            $resEntradaStore = json_decode($reqEntradaStore->getBody()->getContents());
+            $resEmpresaStore = json_decode($reqEmpresaStore->getBody()->getContents());
 
-            if(isset($resEntradaStore) && !empty($resEntradaStore) && !is_null($resEntradaStore)) {
-                alert()->success('Proceso Exitoso', 'compra creada satisfactoriamente');
-                return redirect()->to(route('entradas.index'));
+            if(isset($resEmpresaStore) && !empty($resEmpresaStore) && !is_null($resEmpresaStore)) {
+                alert()->success('Proceso Exitoso', 'Empresa creada satisfactoriamente');
+                return redirect()->to(route('empresas.index'));
             }
         } catch (Exception $e) {
-            alert()->error('Error', 'Creando la compra, contacte a Soporte.' . $e->getMessage());
+            dd($e);
+            alert()->error('Error', 'Creando la empresa, contacte a Soporte.');
             return back();
         }
 }

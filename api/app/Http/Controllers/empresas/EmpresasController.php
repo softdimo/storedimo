@@ -34,7 +34,7 @@ class EmpresasController extends Controller
      */
     public function create()
     {
-        // return new EmpresaCreate();
+        //
     }
 
     // ======================================================================
@@ -61,9 +61,9 @@ class EmpresasController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function show($idProducto)
+    public function show($idEmpresa)
     {
-        return new PrestamoShow($idProducto);
+        //
     }
 
     // ======================================================================
@@ -77,7 +77,7 @@ class EmpresasController extends Controller
      */
     public function edit()
     {
-        // return new PrestamoEdit($idProducto);
+        //
     }
 
     // ======================================================================
@@ -90,9 +90,9 @@ class EmpresasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $idProducto)
+    public function update(Request $request, $idEmpresa)
     {
-        return new EmpresaUpdate($request, $idProducto);
+        return new EmpresaUpdate($request, $idEmpresa);
     }
 
     // ======================================================================
@@ -104,9 +104,9 @@ class EmpresasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($idProducto)
+    public function destroy($idEmpresa)
     {
-        // return new PrestamoDestroy($idProducto);
+        //
     }
 
     // ======================================================================

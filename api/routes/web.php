@@ -139,6 +139,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('empresa_index', 'empresas\EmpresasController@index');
     $router->post('empresa_store', 'empresas\EmpresasController@store');
-    $router->put('empresa_update', 'empresas\EmpresasController@update');
+    $router->put('empresa_update/{idEmpresa}', 'empresas\EmpresasController@update');
 });
 

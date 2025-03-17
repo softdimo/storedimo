@@ -6,7 +6,6 @@ use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Categoria;
 use GuzzleHttp\Client;
 
 class EmpresaUpdate implements Responsable
@@ -25,36 +24,47 @@ class EmpresaUpdate implements Responsable
 
     public function toResponse($request)
     {
-        $idCategoria = request('id_categoria', null);
-        $categoria = request('categoria', null);
+        $idEmpresa = request('id_empresa', null);
+        $nitEmpresa = request('nit_empresa', null);
+        $nombreEmpresa = request('nombre_empresa', null);
+        $telefonoEmpresa = request('telefono_empresa', null);
+        $celularEmpresa = request('celular_empresa');
+        $emailEmpresa = request('email_empresa');
+        $direccionEmpresa = request('direccion_empresa');
+        $idEstado = request('id_estado');
 
         // ===================================================================
 
-        $consultaCategoria = $this->consultaCategoria($categoria);
+        // $consultaCategoria = $this->consultaCategoria($categoria);
 
-        if(isset($consultaCategoria) && !empty($consultaCategoria) && !is_null($consultaCategoria)) {
-            alert()->info('Info', 'Esta categoría ya existe.');
-            return back();
-        }
+        // if(isset($consultaCategoria) && !empty($consultaCategoria) && !is_null($consultaCategoria)) {
+        //     alert()->info('Info', 'Esta categoría ya existe.');
+        //     return back();
+        // }
 
         try {
-            $peticionCategoriaUpdate = $this->clientApi->put($this->baseUri.'categoria_update/'.$idCategoria, [
-                'json' => ['categoria' => $categoria]
+            $reqEmpresaUpdate = $this->clientApi->put($this->baseUri.'empresa_update/'.$idEmpresa, [
+                'json' => [
+                    'nit_empresa' => $nitEmpresa,
+                    'nombre_empresa' => $nombreEmpresa,
+                    'telefono_empresa' => $telefonoEmpresa,
+                    'celular_empresa' => $celularEmpresa,
+                    'email_empresa' => $emailEmpresa,
+                    'direccion_empresa' => $direccionEmpresa,
+                    'id_estado' => $idEstado
+                ]
             ]);
-            $respuestaCategoriaUpdate = json_decode($peticionCategoriaUpdate->getBody()->getContents());
+            $resEmpresaUpdate = json_decode($reqEmpresaUpdate->getBody()->getContents());
 
-            if(isset($respuestaCategoriaUpdate) && !empty($respuestaCategoriaUpdate))
-            {
-                alert()->success('Proceso Exitoso', 'Categoría editada satisfactoriamente');
-                return redirect()->to(route('categorias.index'));
-
+            if($resEmpresaUpdate) {
+                alert()->success('Proceso Exitoso', 'Empresa editada satisfactoriamente');
+                return redirect()->to(route('empresas.index'));
             } else {
-                $this->handleError('Error al editar la categoría, por favor contacte a Soporte.');
+                $this->handleError('Error editando la empresa, por favor contacte a Soporte.');
             }
-        }
-        catch (Exception $e)
-        {
-            $this->handleError('Error Exception, contacte a Soporte.' . $e->getMessage());
+        } catch (Exception $e) {
+            dd($e);
+            $this->handleError('Error Exception, contacte a Soporte.');
         }
 
         return back();
@@ -69,19 +79,19 @@ class EmpresaUpdate implements Responsable
     // ===================================================================
     // ===================================================================
 
-    public function consultaCategoria($categoria)
-    {
-        try
-        {
-            $peticionConsultaCategoria = $this->clientApi->post($this->baseUri.'consulta_categoria', [
-                'json' => ['categoria' => $categoria]
-            ]);
-            return json_decode($peticionConsultaCategoria->getBody()->getContents());
-        }
-        catch (Exception $e)
-        {
-            alert()->error('Error', 'Error Exception, inténtelo de nuevo, si el problema persiste, contacte a Soporte.'.$e->getMessage());
-            return back();
-        }
-    }
+    // public function consultaCategoria($categoria)
+    // {
+    //     try
+    //     {
+    //         $peticionConsultaCategoria = $this->clientApi->post($this->baseUri.'consulta_categoria', [
+    //             'json' => ['categoria' => $categoria]
+    //         ]);
+    //         return json_decode($peticionConsultaCategoria->getBody()->getContents());
+    //     }
+    //     catch (Exception $e)
+    //     {
+    //         alert()->error('Error', 'Error Exception, inténtelo de nuevo, si el problema persiste, contacte a Soporte.'.$e->getMessage());
+    //         return back();
+    //     }
+    // }
 }

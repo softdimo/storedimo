@@ -124,20 +124,124 @@
                                         <td>{{ $empresa->direccion_empresa }}</td>
                                         <td>{{ $empresa->estado }}</td>
                                         <td>
-                                            <a href="#modalEditarPersona_{{ $empresa->id_empresa }}"
-                                                id="verModal_{{ $empresa->id_empresa }}" rel="modal:open" class="btn btn-success rounded-circle btn-circle" title="Modificar">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            </a>
+                                            <button title="Editar Empresa" class="btn btn-success rounded-circle btn-circle text-white" data-bs-toggle="modal" data-bs-target="#modalEditarEmpresa_{{$empresa->id_empresa}}">
+                                                <i class="fa-pencil-square-o"></i>
+                                            </button>
 
-                                            <a href="#ex1_{{ $empresa->id_empresa }}" rel="modal:open">
-                                                <button class="btn btn-info">JQueryModal{{ $empresa->id_persona }}</button>
-                                            </a>
+                                            <button title="Cambiar Estado" class="btn btn-danger rounded-circle btn-circle text-white" data-bs-toggle="modal" data-bs-target="#modalCambiarEstadoEmpresa_{{$empresa->id_empresa}}">
+                                                <i class="fa fa-refresh"></i>
+                                            </button>
                                         </td>
 
                                         {{-- =============================================================== --}}
                                         {{-- =============================================================== --}}
 
-                                      
+                                        <!-- INICIO Modal EDITAR EMPRESA -->
+                                        <div class="modal fade h-auto modal-gral p-0" id="modalEditarEmpresa_{{$empresa->id_empresa}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+                                            <div class="modal-dialog m-0 mw-100">
+                                                <div class="modal-content p-3">
+                                                    {!! Form::open([
+                                                        'method' => 'PUT',
+                                                        'route' => ['empresas.update', $empresa->id_empresa],
+                                                        'class' => 'mt-0',
+                                                        'autocomplete' => 'off',
+                                                        'id' => 'formEditarEmpresa_'.$empresa->id_empresa,
+                                                        ]) !!}
+                                                        @csrf
+
+                                                        {!! Form::hidden('id_empresa', isset($empresa) ? $empresa->id_empresa : null, ['class' => '', 'id' => 'id_empresa', 'required']) !!}
+
+                                                        <div class="rounded-top" style="border: solid 1px #337AB7;">
+                                                            <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                                                <h5>Editar Empresa: {{$empresa->nombre_empresa}}</h5>
+                                                            </div>
+
+                                                            <div class="modal-body m-0">
+                                                                <div class="row m-0">
+                                                                    <div class="col-12 col-md-6">
+                                                                        <label for="nit_empresa" class="fw-bold" style="font-size: 12px">Nit Empresa
+                                                                            <span class="text-danger">*</span>
+                                                                        </label>
+                                                                        {!! Form::text('nit_empresa', isset($empresa) ? $empresa->nit_empresa : null, ['class' => 'form-control', 'id' => 'nit_empresa', 'required']) !!}
+                                                                    </div>
+
+                                                                    <div class="col-12 col-md-6">
+                                                                        <label for="nombre_empresa" class="fw-bold" style="font-size: 12px">Nombre Empresa
+                                                                            <span class="text-danger">*</span>
+                                                                        </label>
+                                                                        {!! Form::text('nombre_empresa', isset($empresa) ? $empresa->nombre_empresa : null, ['class' => 'form-control', 'id' => 'nombre_empresa', 'required']) !!}
+                                                                    </div>
+
+                                                                    <div class="col-12 col-md-6 mt-3">
+                                                                        <label for="telefono_empresa" class="fw-bold" style="font-size: 12px">Teléfono Empresa
+                                                                            <span class="text-danger">*</span>
+                                                                        </label>
+                                                                        {!! Form::text('telefono_empresa', isset($empresa) ? $empresa->telefono_empresa : null, ['class' => 'form-control', 'id' => 'telefono_empresa', 'required']) !!}
+                                                                    </div>
+
+                                                                    <div class="col-12 col-md-6 mt-3">
+                                                                        <label for="celular_empresa" class="fw-bold" style="font-size: 12px">Celular Empresa
+                                                                            <span class="text-danger">*</span>
+                                                                        </label>
+                                                                        {!! Form::text('celular_empresa', isset($empresa) ? $empresa->celular_empresa : null, ['class' => 'form-control', 'id' => 'celular_empresa', 'required']) !!}
+                                                                    </div>
+
+                                                                    <div class="col-12 col-md-6 mt-3">
+                                                                        <label for="email_empresa" class="fw-bold" style="font-size: 12px">Email
+                                                                            <span class="text-danger">*</span>
+                                                                        </label>
+                                                                        {!! Form::email('email_empresa', isset($empresa) ? $empresa->email_empresa : null, ['class' => 'form-control', 'id' => 'email_empresa']) !!}
+                                                                    </div>
+                                                        
+                                                                    {{-- ======================= --}}
+                                                                    
+                                                                    <div class="col-12 col-md-6 mt-3">
+                                                                        <label for="direccion_empresa" class="fw-bold" style="font-size: 12px">Dirección
+                                                                            <span class="text-danger">*</span>
+                                                                        </label>
+                                                                        {!! Form::text('direccion_empresa', isset($empresa) ? $empresa->direccion_empresa : null, ['class' => 'form-control', 'id' => 'direccion_empresa']) !!}
+                                                                    </div>
+                                                                    
+                                                                    {{-- ======================= --}}
+                                                                    
+                                                                    <div class="col-12 col-md-6 mt-3">
+                                                                        <label for="id_estado" class="fw-bold" style="font-size: 12px">Estado
+                                                                            <span class="text-danger">*</span>
+                                                                        </label>
+                                                                        {!! Form::select('id_estado', collect(['' => 'Seleccionar...'])->union($estados), isset($empresa) ? $empresa->id_estado : null, ['class' => 'form-select', 'id' => 'id_estado']) !!}
+                                                                    </div>
+                                                                </div>
+                                                            </div> <!-- FIN modal-body -->
+                                                        </div> <!-- FIN rounded-top -->
+
+                                                        {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
+
+                                                        <!-- Contenedor para el GIF -->
+                                                        <div id="loadingIndicatorEditarEmpresa_{{$empresa->id_empresa}}" class="loadingIndicator">
+                                                            <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                                                        </div>
+
+                                                        {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
+
+                                                        <div class="modal-footer border-0 justify-content-center">
+                                                            <div class="">
+                                                                <button type="submit" class="btn btn-success" id="btn_editar_empresa_{{$empresa->id_empresa}}">
+                                                                    <i class="fa fa-floppy-o" aria-hidden="true"> Editar</i>
+                                                                </button>
+                                                            </div>
+
+                                                            <div class="">
+                                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btn_cancelar_empresa_{{$empresa->id_empresa}}">
+                                                                    <i class="fa fa-remove" aria-hidden="true">  Cancelar</i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    {!! Form::close() !!}
+                                                </div> <!-- FIN modal-content -->
+                                            </div> <!-- FIN modal-dialog -->
+                                        </div> <!-- FIN Modal EDITAR EMPRESA -->
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -193,30 +297,25 @@
             // ===========================================================================================
             // ===========================================================================================
 
-            // $(document).on("submit", "form[id^='formEditarPersona_']", function(e) {
+            $(document).on("submit", "form[id^='formEditarEmpresa_']", function(e) {
+                const form = $(this);
+                const formId = form.attr('id'); // Obtenemos el ID del formulario
+                const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
 
-            //     const form = $(this);
-            //     const formId = form.attr('id'); // Obtenemos el ID del formulario
-            //     const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
+                // Capturar el indicador de carga dinámicamente
+                const submitButton = $(`#btn_editar_empresa_${id}`);
+                const cancelButton = $(`#btn_cancelar_empresa_${id}`);
+                const loadingIndicator = $(`#loadingIndicatorEditarEmpresa_${id}`);
 
-            //     // Capturar el indicador de carga dinámicamente
-            //     const loadingIndicator = $(`#loadingIndicatorEdit_${id}`);
+                // Lógica del botón
+                submitButton.prop("disabled", true).html(
+                    "Procesando... <i class='fa fa-spinner fa-spin'></i>"
+                );
+                cancelButton.prop("disabled", true);
 
-            //     // Capturar el botón de submit dinámicamente
-            //     const submitButton = $(`#btn_editar_${id}`);
-
-            //     // Capturar el botón de cancelar
-            //     const cancelButton = $(`#btn_cancelar_${id}`);
-
-            //     // Lógica del botón
-            //     submitButton.prop("disabled", true).html(
-            //         "Procesando... <i class='fa fa-spinner fa-spin'></i>"
-            //     );
-
-            //     // Lógica del botón cancelar
-            //     cancelButton.prop("disabled", true);
-            //     loadingIndicator.show();
-            // });
+                // Cargar Spinner
+                loadingIndicator.show();
+            });
 
         });
     </script>

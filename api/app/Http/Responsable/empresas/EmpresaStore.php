@@ -1,35 +1,37 @@
 <?php
 
-namespace App\Http\Responsable\entradas;
+namespace App\Http\Responsable\empresas;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Compra;
+use App\Models\Empresa;
 
-class EntradaStore implements Responsable
+class EmpresaStore implements Responsable
 {
     public function toResponse($request)
     {
-        $fechaCompra = request('fecha_compra', null);
-        $valorCompra = request('valor_compra', null);
-        $idProveedor = request('id_proveedor', null);
-        $idProductoCompra = request('id_producto_compra', null);
-        $usuLogueado = request('id_usuario', null);
-        $idEstado = request('id_estado', null);
+        $nitEmpresa = request('nit_empresa', null);
+        $nombreEmpresa = request('nombre_empresa', null);
+        $telefonoEmpresa = request('telefono_empresa', null);
+        $celularEmpresa = request('celular_empresa');
+        $emailEmpresa = request('email_empresa');
+        $direccionEmpresa = request('direccion_empresa');
+        $idEstado = request('id_estado');
 
         try {
-            $nuevaCompra = Compra::create([
-                'fecha_compra' => $fechaCompra,
-                'valor_compra' => $valorCompra,
-                'id_proveedor' => $idProveedor,
-                'id_producto' => $idProductoCompra,
-                'id_usuario' => $usuLogueado,
+            $nuevaEmpresa = Empresa::create([
+                'nit_empresa' => $nitEmpresa,
+                'nombre_empresa' => $nombreEmpresa,
+                'telefono_empresa' => $telefonoEmpresa,
+                'celular_empresa' => $celularEmpresa,
+                'email_empresa' => $emailEmpresa,
+                'direccion_empresa' => $direccionEmpresa,
                 'id_estado' => $idEstado
             ]);
 
-            if (isset($nuevaCompra) && !is_null($nuevaCompra) && !empty($nuevaCompra)) {
+            if (isset($nuevaEmpresa) && !is_null($nuevaEmpresa) && !empty($nuevaEmpresa)) {
                 return response()->json(['success' => true]);
             }
 
