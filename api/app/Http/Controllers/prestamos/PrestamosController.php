@@ -11,6 +11,7 @@ use App\Http\Responsable\prestamos\PrestamoIndex;
 use App\Http\Responsable\prestamos\PrestamoCreate;
 use App\Http\Responsable\prestamos\PrestamoStore;
 use App\Http\Responsable\prestamos\PrestamoUpdate;
+use App\Http\Responsable\prestamos\PrestamoVencer;
 use App\Http\Responsable\prestamos\PrestamoShow;
 use App\Http\Responsable\prestamos\PrestamoEdit;
 use App\Http\Responsable\prestamos\PrestamoDestroy;
@@ -137,19 +138,6 @@ class PrestamosController extends Controller
     // ======================================================================
     // ======================================================================
 
-    // public function queryValoresProducto($idProducto)
-    // {
-    //     try {
-    //         return Producto::where('id_producto', $idProducto)->first();
-
-    //     } catch (Exception $e) {
-    //         return response()->json(['error_bd' => $e->getMessage()]);
-    //     }
-    // }
-    
-    // ======================================================================
-    // ======================================================================
-
     public function queryPrestamo($idPrestamo)
     {
         try {
@@ -159,4 +147,15 @@ class PrestamosController extends Controller
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
+
+    // ======================================================================
+    // ======================================================================
+    
+    public function prestamoVencer()
+    {
+        return new PrestamoVencer();
+    }
+    
+    // ======================================================================
+    // ======================================================================
 }

@@ -10,6 +10,7 @@ use App\Http\Responsable\prestamos\PrestamoIndex;
 use App\Http\Responsable\prestamos\PrestamoCreate;
 use App\Http\Responsable\prestamos\PrestamoStore;
 use App\Http\Responsable\prestamos\PrestamoUpdate;
+use App\Http\Responsable\prestamos\PrestamoVencer;
 
 class PrestamosController extends Controller
 {
@@ -191,7 +192,9 @@ class PrestamosController extends Controller
                 {
                     return redirect()->to(route('login'));
                 } else {
-                    return view('prestamos.prestamos_vencer');
+                    return new PrestamoVencer();
+
+                    // return view('prestamos.prestamos_vencer');
                 }
             }
         } catch (Exception $e) {

@@ -111,6 +111,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('prestamo_index', 'prestamos\PrestamosController@index');
     $router->get('prestamo_create', 'prestamos\PrestamosController@create');
     $router->post('prestamo_store', 'prestamos\PrestamosController@store');
+    $router->get('prestamo_vencer', 'prestamos\PrestamosController@prestamoVencer');
     // $router->post('anular_prestamo/{idVenta}', 'ventas\VentasController@anularVenta');
 
     // $router->put('venta_update/{id}', 'ventas\VentasController@update');
