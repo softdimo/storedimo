@@ -314,8 +314,7 @@
                                                                             [
                                                                                 'class'=>'form-control',
                                                                                 'id'=>'cantidad_barcode_'.$producto->id_producto,
-                                                                                'placeholder'=>'Ingresar cantidad',
-                                                                                'required'=>'required'
+                                                                                'placeholder'=>'Ingresar cantidad'
                                                                             ]) }}
                                                                         </div>
                                                                         

@@ -15,7 +15,7 @@ class ProductoGenerarBarCode implements Responsable
     {
         $idProducto = request('id_producto_input', null);
         $nombreProducto = request('nombre_producto_input', null);
-        $cantidadBarcode = request('cantidad_barcode', null);
+        $cantidadBarcode = request('cantidad_barcode', 24);
 
         $rutaTempArchivoCodebar = "public/upfiles/productos/barcodes";
         $nombreArchivoCodebar = "{$idProducto}_{$nombreProducto}";
