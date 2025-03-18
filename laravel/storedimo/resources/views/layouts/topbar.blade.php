@@ -106,9 +106,9 @@
 
 {{-- INICIO Modal GANANCIAS --}}
 <div class="modal fade p-3 modal-gral h-auto" id="modal_ganancias" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content p-3">
-            <div class="" style="border: solid 1px #337AB7">
+    <div class="modal-dialog m-0">
+        <div class="modal-content border-0">
+            <div class="rounded-top" style="border: solid 1px #337AB7">
                 <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
                     <h5>Ganancias</h5>
                 </div>
@@ -162,9 +162,9 @@
 
 {{-- INICIO Modal INFORMACIÓN --}}
 <div class="modal fade modal-gral h-auto" id="modal_informacion" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content p-3">
-            <div class="" style="border: solid 1px #337AB7">
+    <div class="modal-dialog m-0">
+        <div class="modal-content border-0">
+            <div class="rounded-top" style="border: solid 1px #337AB7">
                 <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
                     <h5>Información</h5>
                 </div>
@@ -203,9 +203,9 @@
 
 {{-- INICIO Modal AYUDA --}}
 <div class="modal fade modal-gral h-auto" id="modal_ayuda" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content p-3">
-            <div class="" style="border: solid 1px #337AB7">
+    <div class="modal-dialog m-0">
+        <div class="modal-content border-0">
+            <div class="rounded-top" style="border: solid 1px #337AB7">
                 <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
                     <h5>Ayudas</h5>
                 </div>
