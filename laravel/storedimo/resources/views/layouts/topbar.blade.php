@@ -19,7 +19,7 @@
                     <ul class="navbar-nav justify-content-between">
                         <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_ganancias">
                             <a href="#" title="Ganancias" class="nav-link text-white">
-                                <i class="fa fa-bar-chart fa-1x" aria-hidden="false"></i>
+                                <i class="fa fa-bar-chart fa-1x"></i>
                             </a>
                         </li>
 
@@ -27,7 +27,7 @@
 
                         <li class="nav-item ms-2 me-2" data-bs-toggle="modal" data-bs-target="#modal_informacion">
                             <a href="#" title="Acerca de" class="nav-link text-white">
-                                <i class="fa fa-info-circle fa-1x" aria-hidden="false"></i>
+                                <i class="fa fa-info-circle fa-1x"></i>
                             </a>
                         </li>
 
@@ -35,7 +35,7 @@
                         
                         <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_ayuda">
                             <a href="#" title="Ayuda" class="nav-link text-white">
-                                <i class="fa fa-question-circle fa-1x" aria-hidden="false"></i>
+                                <i class="fa fa-question-circle fa-1x"></i>
                             </a>
                         </li>
 
@@ -43,7 +43,7 @@
 
                         <li class="nav-item dropdown">
                             <a href="#" title="Configuraciones" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">
-                                <i class="fa fa-cog fa-1x" aria-hidden="false"></i>
+                                <i class="fa fa-cog fa-1x"></i>
                             </a>
                             <ul class="dropdown-menu bg-white" style="right:0;left:auto">
                                 <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_configurar_ventas">
@@ -59,7 +59,7 @@
 
                         <li class="nav-item dropdown">
                             <a href="#" title="Notificaciones" class="nav-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-bell fa-1x" aria-hidden="false"></i>
+                                <i class="fa fa-bell fa-1x"></i>
                             </a>
                             <ul class="dropdown-menu bg-white" style="right:0;left:auto">
                                 <li class="nav-item">
@@ -75,22 +75,19 @@
 
                         <li class="nav-item dropdown" data-bs-toggle="modal" data-bs-target="#modal_usuario">
                             <a  href="#" title="Usuario" class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-user fa-fw fa-1x" aria-hidden="false"></i>
+                                <i class="fa fa-user fa-fw fa-1x"></i>
                             </a>
                             <ul class="dropdown-menu bg-white" style="right:0;left:auto">
                                 <li class="dropdown-item text-dark hover-li">
-                                    <i class="fa fa-user fa-fw fa-1x" aria-hidden="false"></i> SuperAdmin
-                                    <h6 class="">Victor Gómez</h6>
+                                    <i class="fa fa-user fa-fw fa-1x"></i> {{ $usuarioLogueado->rol }}
+                                    <h6 class="text-danger">{{ $usuarioLogueado->nombre_usuario }} {{ $usuarioLogueado->apellido_usuario }}</h6>
                                 </li>
 
                                 <li class="dropdown-item text-dark hover-li">
-                                    <i class="fa fa-sign-out fa-fw fa-1x" aria-hidden="false">
-                                        <a href="{{route('logout')}}" class="" style="text-decoration: none;">Cerrar Sesión</a>    
+                                    <i class="fa fa-sign-out fa-fw fa-1x">
+                                        <a href="{{route('logout')}}" class="" style="text-decoration: none;">Cerrar Sesión</a>
                                     </i>
-                                    
                                 </li>
-
-                                {{-- <li><a href="" class="dropdown-item text-dark hover-li">Cerrar Sesión</a></li> --}}
                             </ul>
                         </li>
                     </ul>
@@ -138,7 +135,7 @@
 
                     <div class="d-flex justify-content-center mt-5">
                         <button type="button" class="btn btn-primary" id="btn_consultar_ganancias" name="btnconsultarganancia" onclick="consultarGanancia()">
-                            <i class="fa fa-building-o" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#modal_generar_ganancias"> Generar Ganancias</i></button>
+                            <i class="fa fa-building-o" data-bs-toggle="modal" data-bs-target="#modal_generar_ganancias"> Generar Ganancias</i></button>
                     </div>
                 </div>
             </div>
@@ -148,7 +145,7 @@
 
             <div class="d-flex justify-content-end mt-2 p-3">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
-                    <i class="fa fa-remove" aria-hidden="true"> Cerrar</i>
+                    <i class="fa fa-remove"> Cerrar</i>
                 </button>
             </div>
         </div>
@@ -189,7 +186,7 @@
 
             <div class="d-flex justify-content-end mt-2 p-3">
                 <button type="button" class="btn btn-primary d-flex justify-content-end" data-bs-dismiss="modal">
-                    <i class="fa fa-check-circle" aria-hidden="true"> Aceptar</i>
+                    <i class="fa fa-check-circle"> Aceptar</i>
                 </button>
             </div>
         </div>
@@ -230,7 +227,7 @@
 
             <div class="d-flex justify-content-end mt-2 p-3">
                 <button type="button" class="btn btn-primary d-flex justify-content-end" data-bs-dismiss="modal">
-                    <i class="fa fa-check-circle" aria-hidden="true"> Aceptar</i>
+                    <i class="fa fa-check-circle"> Aceptar</i>
                 </button>
             </div>
         </div>
@@ -296,17 +293,17 @@
             <div class="d-flex justify-content-between mt-5">
                 <div>
                     <button type="button" class="btn btn-secondary" title="Cancelar" data-bs-dismiss="modal">
-                        <i class="fa fa-floppy-o" aria-hidden="true"> Cancelar</i>
+                        <i class="fa fa-floppy-o"> Cancelar</i>
                     </button>
                 </div>
 
                 <div>
                     <button type="button" class="btn btn-success" title="Guardar Configuración">
-                        <i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i>
+                        <i class="fa fa-floppy-o"> Guardar</i>
                     </button>
                     
                     <button type="button" class="btn btn-primary ms-3" title="Modificar Configuración">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"> Modificar</i>
+                        <i class="fa fa-pencil-square-o"> Modificar</i>
                     </button>
                 </div>
             </div>
@@ -380,17 +377,17 @@
             <div class="d-flex justify-content-between mt-5">
                 <div>
                     <button type="button" class="btn btn-secondary" title="Cancelar" data-bs-dismiss="modal">
-                        <i class="fa fa-remove" aria-hidden="true"> Cancelar</i>
+                        <i class="fa fa-remove"> Cancelar</i>
                     </button>
                 </div>
 
                 <div>
                     <button type="button" class="btn btn-success" title="Guardar">
-                        <i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i>
+                        <i class="fa fa-floppy-o"> Guardar</i>
                     </button>
                     
                     <button type="button" class="btn btn-primary ms-3" title="Modificar">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"> Modificar</i>
+                        <i class="fa fa-pencil-square-o"> Modificar</i>
                     </button>
                 </div>
             </div>
