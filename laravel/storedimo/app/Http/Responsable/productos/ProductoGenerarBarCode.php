@@ -47,7 +47,9 @@ class ProductoGenerarBarCode implements Responsable
 
             // Crear el PDF con los códigos QR
             $pdf = new \FPDF();
-            $pdf->AddPage();
+            $pdf->SetAutoPageBreak(false); // Evita saltos automáticos de página
+            $pdf->AddPage(); // Se agrega la primera página inicialmente
+
             $columnas = 4; // Número de columnas por fila
             $espaciadoX = 50; // Espaciado entre columnas
             $espaciadoY = 45; // Espaciado entre filas
@@ -55,12 +57,15 @@ class ProductoGenerarBarCode implements Responsable
             $yInicial = 10; // Posición inicial en Y
 
             for ($i = 0; $i < $cantidadBarcode; $i++) {
+                // Calcular posición del QR en la página
                 $x = $xInicial + ($i % $columnas) * $espaciadoX;
-                $y = $yInicial + (floor($i / $columnas) * $espaciadoY);
+                $y = $yInicial + (floor(($i % 24) / $columnas) * $espaciadoY); // Reinicia Y cada 24 códigos
+            
                 $pdf->Image($rutaCodebarImage, $x, $y, 40, 40);
-
-                if ($i % $columnas == ($columnas - 1)) {
-                    $pdf->Ln($espaciadoY); // Salto de línea cada dos imágenes
+            
+                // Si se completan 24 códigos, agregar una nueva página
+                if (($i + 1) % 24 == 0 && ($i + 1) < $cantidadBarcode) {
+                    $pdf->AddPage();
                 }
             }
 
@@ -69,10 +74,6 @@ class ProductoGenerarBarCode implements Responsable
 
             $pdfUrl = route('ver.pdf', ['archivo' => "{$nombreArchivoCodebar}.pdf"]);
             return redirect()->to(route('productos.index'))->with('pdfUrl', $pdfUrl);
-
-            // alert()->success('Éxito', "PDF generado correctamente. <a href='$pdfUrl' target='_blank'>Abrir PDF</a>");
-            // alert()->success('Éxito', 'PDF generado correctamente.');
-            // return redirect()->to(route('productos.index'));
 
         } catch (Exception $e) {
             dd($e);
