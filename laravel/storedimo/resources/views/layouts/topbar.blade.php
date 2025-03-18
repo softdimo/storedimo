@@ -244,9 +244,9 @@
 
 {{-- INICIO Modal CONFIGURAR VENTAS --}}
 <div class="modal fade modal-gral h-auto" id="modal_configurar_ventas" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content p-3 w-100">
-            <div class="" style="border: solid 1px #337AB7;">
+    <div class="modal-dialog m-0">
+        <div class="modal-content border-0">
+            <div class="rounded-top" style="border: solid 1px #337AB7;">
                 <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
                     <h5>Configuración Ventas</h5>
                 </div>
@@ -265,7 +265,7 @@
 
                         <div class="col-12 col-md-6">
                             <div class="form-group d-flex flex-column">
-                                <label for="p_minimo_descuento" class="" style="font-size: 15px">Porcentaje Mínimo Descuento<span class="text-danger">*</span></label>
+                                <label for="p_minimo_descuento" class="" style="font-size: 15px">% Mínimo Descuento<span class="text-danger">*</span></label>
                                 {{ Form::text('p_minimo_descuento', null,['class' => 'form-control', 'id' => 'p_minimo_descuento']) }}
                             </div>
                         </div>
@@ -279,7 +279,7 @@
 
                         <div class="col-12 col-md-6 mt-md-3">
                             <div class="form-group d-flex flex-column">
-                                <label for="p_maximo_descuento" class="" style="font-size: 15px">Porcentaje Máximo Descuento<span class="text-danger">*</span></label>
+                                <label for="p_maximo_descuento" class="" style="font-size: 15px">% Máximo Descuento<span class="text-danger">*</span></label>
                                 {{ Form::text('p_maximo_descuento', null,['class'=>'form-control', 'id'=>'p_maximo_descuento']) }}
                             </div>
                         </div>
@@ -290,7 +290,7 @@
             {{-- ====================================================== --}}
             {{-- ====================================================== --}}
 
-            <div class="d-flex justify-content-between mt-5">
+            <div class="d-flex justify-content-between mt-3">
                 <div>
                     <button type="button" class="btn btn-secondary" title="Cancelar" data-bs-dismiss="modal">
                         <i class="fa fa-floppy-o"> Cancelar</i>
@@ -321,9 +321,9 @@
 
 {{-- INICIO Modal CONFIGURAR PAGOS --}}
 <div class="modal fade modal-gral h-auto" id="modal_configurar_pago" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content p-3 w-100">
-            <div class="" style="border: solid 1px #337AB7;">
+    <div class="modal-dialog m-0">
+        <div class="modal-content border-0">
+            <div class="rounded-top" style="border: solid 1px #337AB7;">
                 <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
                     <h5>Configuración Pagos</h5>
                 </div>
@@ -374,7 +374,7 @@
             {{-- ====================================================== --}}
             {{-- ====================================================== --}}
 
-            <div class="d-flex justify-content-between mt-5">
+            <div class="d-flex justify-content-between mt-3">
                 <div>
                     <button type="button" class="btn btn-secondary" title="Cancelar" data-bs-dismiss="modal">
                         <i class="fa fa-remove"> Cancelar</i>
