@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Listar Entradas')
+@section('title', 'Listar Compras')
 
 @section('css')
     <style>
@@ -8,6 +8,24 @@
             padding-right: 0.3rem !important;
             padding-top: 0.0rem !important;
             padding-bottom: 0.0rem !important;
+        }
+
+        /* Oculta el icono de calendario nativo en Chrome, Safari y Edge */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            display: none;
+            -webkit-appearance: none;
+        }
+
+        /* Oculta el icono en Firefox */
+        input[type="date"]::-moz-calendar-picker-indicator {
+            display: none;
+        }
+
+        /* Para navegadores que aún muestran el ícono nativo */
+        input[type="date"] {
+            position: relative;
+            z-index: 2;
+            background-color: transparent;
         }
     </style>
 @stop
@@ -26,7 +44,7 @@
             </div>
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Entradas</h5>
+                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Compras</h5>
             
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
@@ -90,15 +108,85 @@
                     </div>
 
                     <div class="mt-5 mb-2 d-flex justify-content-center">
-                        <button class="btn rounded-2 me-3 text-white" type="submit" style="background-color: #286090">
+                        <button class="btn rounded-2 me-3 text-white" type="submit" style="background-color: #286090" data-bs-toggle="modal" data-bs-target="#modalReporteCompras">
                             <i class="fa fa-file-pdf-o"></i>
-                            Reporte Entradas
+                            Reporte Compras
                         </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    {{-- =============================================================== --}}
+    {{-- =============================================================== --}}
+
+    {{-- INICIO Modal REPORTE COMPRAS --}}
+    <div class="modal fade h-auto modal-gral" id="modalReporteCompras" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog m-0">
+            <div class="modal-content w-100 border-0">
+                <div class="rounded-top" style="border: solid 1px #337AB7;">
+                    <div class="rounded-top text-white text-center"
+                        style="background-color: #337AB7; border: solid 1px #337AB7;">
+                        <h5>Reporte Compras</h5>
+                    </div>
+
+                    <div class="modal-body m-0">
+                        <div class="row m-0">
+                            <div class="col-12 col-md-6">
+                                <label for="fecha_inicial" class="fw-bold" style="font-size: 12px">
+                                    Fecha Inicial <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group" id="calendar_addon_inicial" style="cursor: pointer;">
+                                    {!! Form::date('fecha_inicial', null, ['class' => 'form-control', 'id' => 'fecha_inicial', 'required']) !!}
+                                    <span class="input-group-text">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <label for="fecha_final" class="fw-bold" style="font-size: 12px">
+                                    Fecha Final <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group" id="calendar_addon_final" style="cursor: pointer;">
+                                    {!! Form::date('fecha_final', null, ['class' => 'form-control', 'id' => 'fecha_final', 'required']) !!}
+                                    <span class="input-group-text">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- FIN modal-body -->
+
+                    {{-- ====================================================== --}}
+                    {{-- ====================================================== --}}
+
+                    <div class="modal-footer border-0 d-flex justify-content-center mt-3">
+                        <button type="submit" id="btn_reporte_prestamos"
+                            class="btn btn-success" title="Guardar Configuración">
+                            <i class="fa fa-file-pdf-o"> Generar Pdf Compras</i>
+                        </button>
+                    </div>
+                </div> {{-- FIN Div rounded-top --}}
+
+                {{-- ====================================================== --}}
+                {{-- ====================================================== --}}
+
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-primary btn-md active pull-right" style="background-color: #337AB7;" data-bs-dismiss="modal" id="btnReportePrestamos">
+                            <i class="fa fa-check-circle"> Aceptar</i>
+                        </button>
+                    </div>
+                </div>
+            </div> {{-- FIN modal-content --}}
+        </div> {{-- FIN modal-dialog --}}
+    </div> {{-- FIN modal --}}
+    {{-- FINAL Modal REPORTE COMPRAS --}}
+
+    {{-- =============================================================== --}}
+    {{-- =============================================================== --}}
 
     @foreach ($entradas as $entrada)
         <!-- Modal Detalles compra -->
@@ -298,6 +386,45 @@
 
                 // Cargar Spinner
                 loadingIndicator.show();
+            });
+
+            // =========================================================================
+            // =========================================================================
+            // =========================================================================
+
+            $(document).on('shown.bs.modal', '#modalReporteCompras', function () {
+                let modal = $(this); // Referencia del modal
+
+                function configurarCalendario(inputId, iconoId) {
+                    let inputFecha = modal.find(`#${inputId}`);
+                    let iconoCalendario = modal.find(`#${iconoId}`);
+
+                    if (inputFecha.length > 0) {
+                        // Abre el calendario al hacer clic en el input
+                        inputFecha.on("focus", function () {
+                            if (typeof this.showPicker === "function") {
+                                this.showPicker();
+                            }
+                        });
+
+                        // Abre el calendario al hacer clic en el icono
+                        iconoCalendario.on("mousedown touchstart", function (event) {
+                            event.preventDefault();
+                            if (typeof inputFecha[0].showPicker === "function") {
+                                inputFecha[0].showPicker();
+                            }
+                        });
+
+                        // Evento para asegurarse de que la fecha se refleje
+                        inputFecha.on("change", function () {
+                            console.log("Fecha seleccionada:", inputFecha.val()); // Para depuración
+                        });
+                    }
+                }
+
+                // Configura ambos campos de fecha dentro del modal
+                configurarCalendario("fecha_inicial", "calendar_addon_inicial");
+                configurarCalendario("fecha_final", "calendar_addon_final");
             });
         }); // FIN document.ready
     </script>

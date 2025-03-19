@@ -16,43 +16,21 @@
         }
 
         /* Oculta el icono de calendario nativo en Chrome, Safari y Edge */
-        /* input[type="date"]::-webkit-calendar-picker-indicator {
+        input[type="date"]::-webkit-calendar-picker-indicator {
             display: none;
             -webkit-appearance: none;
-        } */
-
-        /* Oculta el icono en Firefox */
-        /* input[type="date"]::-moz-calendar-picker-indicator {
-            display: none;
-        } */
-
-        /* Para navegadores que aún muestran el ícono nativo */
-        /* input[type="date"] {
-            position: relative;
-            z-index: 2;
-            background-color: transparent;
-        } */
-
-        /* Oculta el icono del calendario en Chrome, Safari y Edge */
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            opacity: 0;
-            width: 0;
-            pointer-events: none;
         }
 
         /* Oculta el icono en Firefox */
         input[type="date"]::-moz-calendar-picker-indicator {
-            opacity: 0;
-            width: 0;
-            pointer-events: none;
+            display: none;
         }
 
-        /* Mantiene el input accesible y estilizado */
+        /* Para navegadores que aún muestran el ícono nativo */
         input[type="date"] {
             position: relative;
-            background-color: white;
-            cursor: pointer;
-            width: 100%;
+            z-index: 2;
+            background-color: transparent;
         }
     </style>
 @stop
@@ -163,7 +141,7 @@
 
                             <div class="col-12 col-md-6">
                                 <label for="fecha_final" class="fw-bold" style="font-size: 12px">
-                                    Fecha Inicial <span class="text-danger">*</span>
+                                    Fecha Final <span class="text-danger">*</span>
                                 </label>
                                 <div class="input-group" id="calendar_addon_final" style="cursor: pointer;">
                                     {!! Form::date('fecha_final', null, ['class' => 'form-control', 'id' => 'fecha_final', 'required']) !!}
@@ -174,15 +152,6 @@
                             </div>
                         </div>
                     </div> <!-- FIN modal-body -->
-
-                    {{-- ====================================================== --}}
-                    {{-- ====================================================== --}}
-
-                    <!-- Contenedor para el GIF -->
-                    <div id="loadingIndicatorReportePrestamos"
-                        class="loadingIndicator">
-                        <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
-                    </div>
 
                     {{-- ====================================================== --}}
                     {{-- ====================================================== --}}
