@@ -152,7 +152,24 @@ class ProductosController extends Controller
     public function queryProducto($idProducto)
     {
         try {
-            return Producto::where('id_producto', $idProducto)->first();
+            return Producto::leftjoin('categorias','categorias.id_categoria','=','productos.id_categoria')
+                ->select(
+                    'id_producto',
+                    'id_empresa',
+                    'nombre_producto',
+                    'categorias.id_categoria',
+                    'categoria',
+                    'precio_unitario',
+                    'precio_detal',
+                    'precio_por_mayor',
+                    'descripcion',
+                    'stock_minimo',
+                    'id_estado',
+                    'tamano',
+                    'cantidad'
+                )
+                ->where('id_producto', $idProducto)
+                ->first();
 
         } catch (Exception $e) {
             return response()->json(['error_bd' => $e->getMessage()]);
