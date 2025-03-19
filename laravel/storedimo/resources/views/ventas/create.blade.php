@@ -252,6 +252,12 @@
                             <div class="row">
                                 {!! Form::hidden('form_ventas', 'crearProductoVenta') !!}
 
+                                
+                                {{-- <div class="col-12 col-md-4">
+                                    <label for="id_tipo_persona" class="fw-bold" style="font-size: 12px">Proveedor <span class="text-danger">*</span></label>
+                                    {!! Form::select('id_tipo_persona', collect(['' => 'Seleccionar...'])->union($proveedores), null, ['class' => 'form-select', 'id' => 'id_tipo_persona']) !!}
+                                </div> --}}
+                        
                                 <div class="col-12 col-md-4">
                                     <label for="nombre_producto" class="fw-bold" style="font-size: 12px">Nombre Producto <span class="text-danger">*</span>
                                     </label>

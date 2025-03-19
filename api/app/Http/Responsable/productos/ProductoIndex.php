@@ -13,6 +13,7 @@ class ProductoIndex implements Responsable
         try {
             $productos = Producto::leftJoin('categorias', 'categorias.id_categoria', '=', 'productos.id_categoria')
                 ->leftJoin('estados', 'estados.id_estado', '=', 'productos.id_estado')
+                ->leftJoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'productos.id_tipo_persona')
                 ->select(
                     'id_producto',
                     'nombre_producto',
@@ -25,7 +26,9 @@ class ProductoIndex implements Responsable
                     'stock_minimo',
                     'productos.id_estado',
                     'estados.estado',
-                    'cantidad'
+                    'cantidad',
+                    'tipo_persona.id_tipo_persona',
+                    'tipo_persona'
                 )
                 ->orderBy('nombre_producto', 'ASC')
                 ->get();

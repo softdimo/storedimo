@@ -15,6 +15,7 @@ class ProductoStore implements Responsable
         $formEntradas = request('form_entradas', null); // Identifico el formulario origen entradas
         $formVentas = request('form_ventas', null); // Identifico el formulario origen ventas
 
+        $idTipoPersona = request('id_tipo_persona', null);
         $nombreProducto = request('nombre_producto', null);
         $idCategoria = request('id_categoria', null);
         $precioUnitario = request('precio_unitario', null);
@@ -40,6 +41,7 @@ class ProductoStore implements Responsable
         try {
             $peticionProductoStore = $clientApi->post($baseUri.'producto_store', [
                 'json' => [
+                    'id_tipo_persona' => $idTipoPersona,
                     'nombre_producto' => $nombreProducto,
                     'id_categoria' => $idCategoria,
                     'precio_unitario' => $precioUnitario,

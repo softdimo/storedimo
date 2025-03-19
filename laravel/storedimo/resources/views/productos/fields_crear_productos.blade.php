@@ -2,6 +2,15 @@
     <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Registrar Productos (Obligatorios * )</h5>
 
     <div class="row m-0 p-3" id="div_campos_usuarios">
+        {{-- <div class="col-12 col-md-3">
+            <div class="form-group d-flex flex-column">
+                <label for="id_tipo_persona" class="form-label">Proveedor <span class="text-danger">*</span></label>
+                {!! Form::select('id_tipo_persona', collect(['' => 'Seleccionar...'])->union($proveedores), null, ['class' => 'form-select', 'id' => 'id_tipo_persona']) !!}
+            </div>
+        </div> --}}
+
+        {{-- ======================= --}}
+
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
                 <label for="nombre_producto" class="form-label">Nombre Producto <span class="text-danger">*</span></label>

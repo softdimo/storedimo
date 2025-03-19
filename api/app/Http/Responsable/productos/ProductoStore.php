@@ -10,6 +10,7 @@ class ProductoStore implements Responsable
 {
     public function toResponse($request)
     {
+        $idTipoPersona = request('id_tipo_persona', null);
         $nombreProducto = request('nombre_producto', null);
         $idCategoria = request('id_categoria', null);
         $precioUnitario = request('precio_unitario', null);
@@ -23,6 +24,7 @@ class ProductoStore implements Responsable
 
         try {
             $nuevoProducto = Producto::create([
+                'id_tipo_persona' => $idTipoPersona,
                 'nombre_producto' => $nombreProducto,
                 'id_categoria' => $idCategoria,
                 'precio_unitario' => $precioUnitario,

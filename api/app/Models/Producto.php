@@ -16,6 +16,7 @@ class Producto extends Model
     public $timestamps = true;
     protected $fillable = [
         'id_empresa',
+        'id_tipo_persona',
         'nombre_producto',
         'id_categoria',
         'precio_unitario',
