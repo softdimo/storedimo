@@ -685,49 +685,41 @@
 
             // ==============================================
             // ==============================================
-        }); // FIN document.ready
 
-        document.addEventListener("DOMContentLoaded", function () {
-            // Función para abrir el calendario nativo
-            function abrirCalendario(input) {
-                if (input && input.type === "date") {
-                    // Simula un clic en el input para abrir el calendario nativo
-                    input.click();
-                }
-            }
+            $(document).on('shown.bs.modal', '#modalReportePrestamos', function () {
+                let modal = $(this); // Referencia del modal
 
-            // Función para configurar el calendario en un input específico
-            function configurarCalendario(idInput, idIcono) {
-                let inputFecha = document.getElementById(idInput);
-                let iconoCalendario = document.getElementById(idIcono);
+                function configurarCalendario(inputId, iconoId) {
+                    let inputFecha = modal.find(`#${inputId}`);
+                    let iconoCalendario = modal.find(`#${iconoId}`);
 
-                if (inputFecha) {
-                    // Abre el calendario al hacer clic en el input
-                    inputFecha.addEventListener("click", function (event) {
-                        event.preventDefault();
-                        abrirCalendario(inputFecha);
-                    });
+                    if (inputFecha.length > 0) {
+                        // Abre el calendario al hacer clic en el input
+                        inputFecha.on("focus", function () {
+                            if (typeof this.showPicker === "function") {
+                                this.showPicker();
+                            }
+                        });
 
-                    // Abre el calendario al hacer clic en el ícono
-                    if (iconoCalendario) {
-                        iconoCalendario.addEventListener("click", function (event) {
+                        // Abre el calendario al hacer clic en el icono
+                        iconoCalendario.on("mousedown touchstart", function (event) {
                             event.preventDefault();
-                            abrirCalendario(inputFecha);
+                            if (typeof inputFecha[0].showPicker === "function") {
+                                inputFecha[0].showPicker();
+                            }
+                        });
+
+                        // Evento para asegurarse de que la fecha se refleje
+                        inputFecha.on("change", function () {
+                            console.log("Fecha seleccionada:", inputFecha.val()); // Para depuración
                         });
                     }
-
-                    // Captura la fecha seleccionada
-                    inputFecha.addEventListener("change", function (event) {
-                        console.log("Fecha seleccionada:", event.target.value);
-                    });
                 }
-            }
 
-            // Configura los inputs de fecha
-            configurarCalendario("fecha_inicial", "calendar_addon_inicial");
-            configurarCalendario("fecha_final", "calendar_addon_final");
-        });
-
-
+                // Configura ambos campos de fecha dentro del modal
+                configurarCalendario("fecha_inicial", "calendar_addon_inicial");
+                configurarCalendario("fecha_final", "calendar_addon_final");
+            });
+        }); // FIN document.ready
     </script>
 @stop
