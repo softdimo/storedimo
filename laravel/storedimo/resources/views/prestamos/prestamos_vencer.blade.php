@@ -295,8 +295,8 @@
                                         <label for="fecha_limite" class="fw-bold" style="font-size: 12px">
                                             Fecha Límite <span class="text-danger">*</span>
                                         </label>
-                                        <div class="input-group">
-                                            <span class="input-group-text" id="calendar-addon" style="cursor: pointer;">
+                                        <div class="input-group" id="calendar-addon" style="cursor: pointer;">
+                                            <span class="input-group-text">
                                                 <i class="fa fa-calendar"></i>
                                             </span>
                                             {!! Form::date('fecha_limite', null, ['class' => 'form-control', 'id' => 'fecha_limite', 'required']) !!}
