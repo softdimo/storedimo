@@ -4,6 +4,7 @@ namespace App\Http\Controllers\entradas;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Responsable\entradas\EntradaIndex;
 use App\Http\Responsable\entradas\EntradaStore;
 use App\Http\Responsable\entradas\EntradaUpdate;
@@ -149,7 +150,25 @@ class EntradasController extends Controller
         $fechaFinal = request('fecha_final', null);
 
         try {
-            $compras = Compra::whereBetween('fecha_compra', [$fechaInicial, $fechaFinal])->get();
+            // $compras = Compra::whereBetween('fecha_compra', [$fechaInicial, $fechaFinal])->get();
+
+            $compras = Compra::leftJoin('personas', 'personas.id_persona', '=', 'compras.id_proveedor')
+                ->whereBetween('fecha_compra', [$fechaInicial, $fechaFinal])
+                ->whereIn('personas.id_tipo_persona', [3, 4]) // Filtra solo si hay una persona
+                ->select([
+                    'compras.id_compra',
+                    'compras.fecha_compra',
+                    'compras.valor_compra',
+                    'personas.id_persona',
+                    \DB::raw("
+                        CASE
+                            WHEN personas.nombre_empresa IS NOT NULL THEN personas.nombre_empresa
+                            ELSE CONCAT(personas.nombres_persona, ' ', personas.apellidos_persona)
+                        END AS nombre_proveedor
+                    ")
+                ])
+                ->orderByDesc('fecha_compra')
+                ->get();
 
             $total = $compras->sum('valor_compra');
 

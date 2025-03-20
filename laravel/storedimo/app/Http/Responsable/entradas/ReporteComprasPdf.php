@@ -40,16 +40,16 @@ class ReporteComprasPdf implements Responsable
         $pdf->SetFont('Arial', 'B', 16);
 
         // Título
-        $pdf->Cell(190, 10, "INFORME DE ENTRADAS", 0, 1, 'C');
+        $pdf->Cell(190, 10, "INFORME DE COMPRAS", 0, 1, 'C');
         $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell(190, 10, "Informe de: $fechaInicial hasta $fechaFinal", 0, 1, 'C');
+        $pdf->Cell(190, 10, "Desde: $fechaInicial hasta $fechaFinal", 0, 1, 'C');
         $pdf->Ln(5);
   
         // Encabezado de tabla
         $pdf->SetFont('Arial', 'B', 10);
         $pdf->Cell(30, 10, "Codigo", 1);
-        $pdf->Cell(50, 10, "Fecha Entrada", 1);
-        $pdf->Cell(50, 10, "Valor Total Entrada", 1);
+        $pdf->Cell(50, 10, "Fecha Compra", 1);
+        $pdf->Cell(50, 10, "Valor Total Compra", 1);
         $pdf->Cell(60, 10, "Proveedor", 1);
         $pdf->Ln();
 
@@ -59,7 +59,7 @@ class ReporteComprasPdf implements Responsable
             $pdf->Cell(30, 10, $compra->id_compra, 1);
             $pdf->Cell(50, 10, $compra->fecha_compra, 1);
             $pdf->Cell(50, 10, "$ " . number_format($compra->valor_compra, 2), 1);
-            $pdf->Cell(60, 10, $compra->id_proveedor, 1);
+            $pdf->Cell(60, 10, $compra->nombre_proveedor, 1);
             $pdf->Ln();
         }
 
@@ -67,7 +67,6 @@ class ReporteComprasPdf implements Responsable
         $pdf->Ln(5);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Cell(190, 10, "Total Entradas: $ " . number_format($total, 2), 0, 1, 'C');
-        // dd($pdf);
 
         // Salida del PDF
         $pdf->Output();
