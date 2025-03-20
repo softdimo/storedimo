@@ -85,9 +85,9 @@
                             <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Cliente <span class="text-danger">*</span></h5>
                             {{-- ============================================================== --}}
                             <div class="p-3 d-flex justify-content-between" id="" style="">
-                                {{ Form::select('cliente_venta', collect(['' => 'Seleccionar...'])->union($clientes), null, ['class' => 'form-select w-75 ms-auto me-auto', 'id' => 'cliente_venta', 'required']) }}
+                                {{ Form::select('cliente_venta', collect(['' => 'Seleccionar...'])->union($clientes_ventas), null, ['class' => 'form-select ms-auto me-auto', 'id' => 'cliente_venta', 'required','style' => 'width: 85%;']) }}
 
-                                <div class="w-25 d-flex justify-content-end">
+                                <div class="d-flex justify-content-end" style="width:15%">
                                     <button type="button" class="btn rounded-2 text-white" style="background-color: #337AB7" title="Registrar Cliente" data-bs-toggle="modal" data-bs-target="#modal_registroCliente">
                                         <i class="fa fa-plus plus"></i>
                                     </button>
