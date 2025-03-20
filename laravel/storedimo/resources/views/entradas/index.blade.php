@@ -126,48 +126,55 @@
         <div class="modal-dialog m-0">
             <div class="modal-content w-100 border-0">
                 <div class="rounded-top" style="border: solid 1px #337AB7;">
-                    <div class="rounded-top text-white text-center"
-                        style="background-color: #337AB7; border: solid 1px #337AB7;">
-                        <h5>Reporte Compras</h5>
-                    </div>
+                    {!!Form::open(['method' => 'POST',
+                        'route' => ['reporte_compras_pdf'],
+                        'class' => 'mt-2', 'autocomplete' => 'off',
+                        'id' => 'formReporteComprasPdf'])!!}
+                        @csrf
 
-                    <div class="modal-body m-0">
-                        <div class="row m-0">
-                            <div class="col-12 col-md-6">
-                                <label for="fecha_inicial" class="fw-bold" style="font-size: 12px">
-                                    Fecha Inicial <span class="text-danger">*</span>
-                                </label>
-                                <div class="input-group" id="calendar_addon_inicial" style="cursor: pointer;">
-                                    {!! Form::date('fecha_inicial', null, ['class' => 'form-control', 'id' => 'fecha_inicial', 'required']) !!}
-                                    <span class="input-group-text">
-                                        <i class="fa fa-calendar"></i>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="col-12 col-md-6">
-                                <label for="fecha_final" class="fw-bold" style="font-size: 12px">
-                                    Fecha Final <span class="text-danger">*</span>
-                                </label>
-                                <div class="input-group" id="calendar_addon_final" style="cursor: pointer;">
-                                    {!! Form::date('fecha_final', null, ['class' => 'form-control', 'id' => 'fecha_final', 'required']) !!}
-                                    <span class="input-group-text">
-                                        <i class="fa fa-calendar"></i>
-                                    </span>
-                                </div>
-                            </div>
+                        <div class="rounded-top text-white text-center"
+                            style="background-color: #337AB7; border: solid 1px #337AB7;">
+                            <h5>Reporte Compras</h5>
                         </div>
-                    </div> <!-- FIN modal-body -->
 
-                    {{-- ====================================================== --}}
-                    {{-- ====================================================== --}}
+                        <div class="modal-body m-0">
+                            <div class="row m-0">
+                                <div class="col-12 col-md-6">
+                                    <label for="fecha_inicial" class="fw-bold" style="font-size: 12px">
+                                        Fecha Inicial <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="input-group" id="calendar_addon_inicial" style="cursor: pointer;">
+                                        {!! Form::date('fecha_inicial', null, ['class' => 'form-control', 'id' => 'fecha_inicial', 'required']) !!}
+                                        <span class="input-group-text">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
 
-                    <div class="modal-footer border-0 d-flex justify-content-center mt-3">
-                        <button type="submit" id="btn_reporte_prestamos"
-                            class="btn btn-success" title="Guardar Configuración">
-                            <i class="fa fa-file-pdf-o"> Generar Pdf Compras</i>
-                        </button>
-                    </div>
+                                <div class="col-12 col-md-6">
+                                    <label for="fecha_final" class="fw-bold" style="font-size: 12px">
+                                        Fecha Final <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="input-group" id="calendar_addon_final" style="cursor: pointer;">
+                                        {!! Form::date('fecha_final', null, ['class' => 'form-control', 'id' => 'fecha_final', 'required']) !!}
+                                        <span class="input-group-text">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- FIN modal-body -->
+
+                        {{-- ====================================================== --}}
+                        {{-- ====================================================== --}}
+
+                        <div class="modal-footer border-0 d-flex justify-content-center mt-3">
+                            <button type="submit" id="btn_reporte_prestamos"
+                                class="btn btn-success" title="Guardar Configuración">
+                                <i class="fa fa-file-pdf-o"> Generar Pdf Compras</i>
+                            </button>
+                        </div>
+                    {!! Form::close() !!}
                 </div> {{-- FIN Div rounded-top --}}
 
                 {{-- ====================================================== --}}

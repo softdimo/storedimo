@@ -139,4 +139,28 @@ class EntradasController extends Controller
             }
         }
     }
+
+    // ===================================================================
+    // ===================================================================
+
+    public function reporteComprasPdf(Request $request)
+    {
+        $fechaInicial = request('fecha_inicial', null);
+        $fechaFinal = request('fecha_final', null);
+
+        try {
+            $compras = Compra::whereBetween('fecha_compra', [$fechaInicial, $fechaFinal])->get();
+
+            $total = $compras->sum('valor_compra');
+
+            return response()->json([
+                'compras' => $compras,
+                'total' => $total,
+            ], 200);
+
+
+        } catch (Exception $e) {
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
+    }
 }

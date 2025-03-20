@@ -10,6 +10,8 @@ use Exception;
 use App\Http\Responsable\entradas\EntradaIndex;
 use App\Http\Responsable\entradas\EntradaStore;
 use App\Http\Responsable\entradas\EntradaUpdate;
+use App\Http\Responsable\entradas\ReporteComprasPdf;
+
 
 class EntradasController extends Controller
 {
@@ -177,9 +179,6 @@ class EntradasController extends Controller
 
     // ======================================================================
     // ======================================================================
-    
-    // ======================================================================
-    // ======================================================================
 
     public function anularCompra(Request $request)
     {
@@ -197,5 +196,13 @@ class EntradasController extends Controller
             alert()->error('Error', 'Exception, contacte a Soporte.' . $e->getMessage());
             return back();
         }
+    }
+        
+    // ======================================================================
+    // ======================================================================
+
+    public function reporteComprasPdf()
+    {
+        return new ReporteComprasPdf();
     }
 }
