@@ -19,6 +19,8 @@ class VentaIndex implements Responsable
                 ->leftjoin('usuarios','usuarios.id_usuario','=','ventas.id_usuario')
                 ->leftjoin('estados','estados.id_estado','=','ventas.id_estado')
                 ->leftjoin('estados_credito','estados_credito.id_estado_credito','=','ventas.id_estado_credito')
+                ->leftjoin('tipo_persona','tipo_persona.id_tipo_persona','=','ventas.id_tipo_cliente')
+                ->leftjoin('empresas','empresas.id_empresa','=','ventas.id_empresa')
                 ->select(
                     'id_venta',
                     'fecha_venta',
@@ -37,7 +39,10 @@ class VentaIndex implements Responsable
                     'ventas.id_estado',
                     'estado',
                     'estados_credito.id_estado_credito',
-                    'estado_credito'
+                    'estado_credito',
+                    'id_tipo_cliente',
+                    'tipo_persona',
+                    'empresas.id_empresa'
                 )
                 ->orderByDesc('fecha_venta')
                 ->get();

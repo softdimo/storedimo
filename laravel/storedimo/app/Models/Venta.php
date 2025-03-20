@@ -16,6 +16,7 @@ class Venta extends Model
     public $timestamps = true;
     protected $fillable = [
         'id_empresa',
+        'id_tipo_cliente',
         'fecha_venta',
         'descuento',
         'subtotal_venta',
