@@ -122,14 +122,16 @@
     {{-- =============================================================== --}}
 
     {{-- INICIO Modal REPORTE COMPRAS --}}
-    <div class="modal fade h-auto modal-gral" id="modalReporteCompras" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal fade h-auto modal-gral p-3" id="modalReporteCompras" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog m-0">
             <div class="modal-content w-100 border-0">
                 <div class="rounded-top" style="border: solid 1px #337AB7;">
                     {!!Form::open(['method' => 'POST',
                         'route' => ['reporte_compras_pdf'],
-                        'class' => 'mt-2', 'autocomplete' => 'off',
-                        'id' => 'formReporteComprasPdf'])!!}
+                        'class' => '', 'autocomplete' => 'off',
+                        'id' => 'formReporteComprasPdf',
+                        'target' => '_blank' // 👉 Abrir en nueva pestaña
+                        ])!!}
                         @csrf
 
                         <div class="rounded-top text-white text-center"
