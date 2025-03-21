@@ -560,6 +560,16 @@
                 productosAgregados.push(producto);
 
                 actualizarDetalleVenta();
+
+                // Limpia los campos después de agregar un producto exitosamente
+                $('#cliente_venta').val('').trigger('change'); // Reiniciar selección de cliente
+                $('#producto_venta').val('').trigger('change'); // Reiniciar selección de producto
+
+                $('#p_detal_venta').html(0);  // Resetear precio detal
+                $('#p_x_mayor_venta').html(0);  // Resetear precio mayorista
+                $('#aplicar_x_mayor_venta').prop('checked', false); // Desmarcar checkbox
+
+                $('#cantidad_venta').val('');  // Limpiar cantidad
             });
             // FIN - Función agregar datos de las ventas
 
