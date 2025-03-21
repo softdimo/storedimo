@@ -31,6 +31,8 @@ class VentaIndex implements Responsable
                     'tipo_pago',
                     'productos.id_producto',
                     'nombre_producto',
+                    'precio_unitario',
+                    'cantidad',
                     'personas.id_persona as id_cliente',
                     'personas.identificacion',
                     DB::raw("CONCAT(nombres_persona, ' ', apellidos_persona) AS nombres_cliente"),

@@ -70,9 +70,14 @@
                                         <td>{{$venta->tipo_pago}}</td>
                                         <td>{{$venta->estado}}</td>
                                         <td>
-                                            <a href="#" role="button" class="btn rounded-circle btn-circle text-white" title="Detalles Ventas" style="background-color: #286090">
+                                            <button title="Ver Detalles"
+                                                class="btn rounded-circle btn-circle text-white"
+                                                title="Detalles Ventas"
+                                                style="background-color: #286090"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modalDetalleVenta_{{$venta->id_venta}}">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
-                                            </a>
+                                            </button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -95,6 +100,96 @@
             </div> {{-- FIN div_crear_usuario --}}
         </div>
     </div>
+
+    @foreach ($ventas as $venta)
+        <!-- INICIO Modal Detalles compra -->
+        <div class="modal fade h-auto modal-gral p-0" id="modalDetalleVenta_{{$venta->id_venta}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog m-0">
+                <div class="modal-content p-3 w-100">
+                    <div class="rounded-top" style="border: solid 1px #337AB7;">
+                        <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                            <h5>Detalle de Venta Código: {{$venta->id_venta}}</h5>
+                        </div>
+
+                        <div class="mt-3 mb-0 ps-3">
+                            <h6>Entrada realizada por: <span class="" style="color: #337AB7">{{$venta->nombres_usuario}}</span></h6>
+                        </div>
+
+                        <div class="modal-body p-0 m-0">
+                            <div class="row m-0">
+                                <div class="col-12 p-3 pt-1">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered w-100 mb-0" aria-describedby="venta">
+                                            <thead>
+                                                <tr class="header-table text-center">
+                                                    <th>Fecha Venta</th>
+                                                    <th>Nombre Cliente</th>
+                                                    <th>Subtotal</th>
+                                                    <th>Descuento</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="text-center">
+                                                    <td>{{$venta->fecha_venta}}</td>
+                                                    <td>{{$venta->nombres_cliente}}</td>
+                                                    <td>{{$venta->subtotal_venta}}</td>
+                                                    <td>{{$venta->descuento}}</td>
+                                                    <td>{{$venta->total_venta}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="">
+                                <div class="mt-3 mb-0 ps-3">
+                                    <h6 class="mb-0" style="color: #337AB7">Productos</h6>
+                                </div>
+
+                                <div class="row m-0">
+                                    <div class="col-12 p-3 pt-1">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered w-100 mb-0" aria-describedby="entradas">
+                                                <thead>
+                                                    <tr class="header-table text-center">
+                                                        <th>Producto</th>
+                                                        <th>Precio</th>
+                                                        <th>Cantidad</th>
+                                                        <th>Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="text-center">
+                                                        <td>{{$venta->nombre_producto}}</td>
+                                                        <td>{{$venta->precio_unitario}}</td>
+                                                        <td>{{$venta->cantidad}}</td>
+                                                        <td>{{$venta->total_venta}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-around mt-3">
+                        <button type="submit" title="Guardar Configuración" class="btn btn-success" id="btn_editar_categoria" style="background-color: #337AB7">
+                            <i class="fa fa-file-pdf-o"> Recibo Caja</i>
+                        </button>
+                        
+                        <button type="button" title="Cancelar" class="btn btn-secondary" data-bs-dismiss="modal" id="btn_editar_cancelar">
+                            <i class="fa fa-times" aria-hidden="true"> Cerrar</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIN Modal Detalles compra -->
+    @endforeach
 @stop
 
 {{-- =============================================================== --}}

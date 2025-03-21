@@ -87,6 +87,8 @@
                             <div class="p-3 d-flex justify-content-between" id="" style="">
                                 {{ Form::select('cliente_venta', collect(['' => 'Seleccionar...'])->union($clientes_ventas), null, ['class' => 'form-select ms-auto me-auto', 'id' => 'cliente_venta', 'required','style' => 'width: 85%;']) }}
 
+                                {{ Form::hidden('id_persona', null, ['class' => '', 'id' => 'id_persona', 'required']) }}
+
                                 <div class="d-flex justify-content-end" style="width:15%">
                                     <button type="button" class="btn rounded-2 text-white" style="background-color: #337AB7" title="Registrar Cliente" data-bs-toggle="modal" data-bs-target="#modal_registroCliente">
                                         <i class="fa fa-plus plus"></i>
@@ -686,7 +688,16 @@
         // ===================================================================================
         // ===================================================================================
 
+        document.getElementById('cliente_venta').addEventListener('change', function() {
+            var identificacion = this.options[this.selectedIndex].text.split(' - ')[0]; // Extrae la identificación
+            var clientesInfo = @json($clientes_info); // Convierte PHP a JSON
 
+            if (clientesInfo[identificacion]) {
+                document.getElementById('id_persona').value = clientesInfo[identificacion].id_persona;
+            } else {
+                document.getElementById('id_persona').value = '';
+            }
+        });
 
         // ===================================================================================
         // ===================================================================================

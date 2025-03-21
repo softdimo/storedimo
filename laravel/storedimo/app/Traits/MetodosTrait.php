@@ -98,14 +98,33 @@ trait MetodosTrait
             ->pluck('nombre', 'id_persona')
         );
 
-        view()->share('clientes_ventas', Persona::leftjoin('tipo_persona','tipo_persona.id_tipo_persona','=','personas.id_tipo_persona')
-            ->select(
-                'personas.id_tipo_persona',
-                DB::raw("CONCAT(identificacion, ' - ', nombres_persona, ' ', apellidos_persona, ' (', tipo_persona.tipo_persona, ')') AS nombres_cliente") 
-            )
-            ->whereIn('personas.id_tipo_persona', [5,6])
-            ->orderBy('tipo_persona.tipo_persona')
-            ->pluck('nombres_cliente', 'personas.id_tipo_persona')
-        );
+        // view()->share('clientes_ventas', Persona::leftjoin('tipo_persona','tipo_persona.id_tipo_persona','=','personas.id_tipo_persona')
+        //     ->select(
+        //         'personas.id_tipo_persona',
+        //         DB::raw("CONCAT(identificacion, ' - ', nombres_persona, ' ', apellidos_persona, ' (', tipo_persona.tipo_persona, ')') AS nombres_cliente")
+        //     )
+        //     ->whereIn('personas.id_tipo_persona', [5,6])
+        //     ->orderBy('tipo_persona.tipo_persona')
+        //     ->pluck('nombres_cliente', 'personas.id_tipo_persona')
+        // );
+
+        view()->share([
+            'clientes_ventas' => Persona::leftJoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'personas.id_tipo_persona')
+                ->select(
+                    'personas.id_persona',
+                    'personas.identificacion',
+                    'personas.id_tipo_persona',
+                    DB::raw("CONCAT(identificacion, ' - ', nombres_persona, ' ', apellidos_persona, ' (', tipo_persona.tipo_persona, ')') AS nombres_cliente")
+                )
+                ->whereIn('personas.id_tipo_persona', [5,6])
+                ->orderBy('tipo_persona.tipo_persona')
+                ->pluck('nombres_cliente', 'personas.id_tipo_persona'),
+        
+            'clientes_info' => Persona::leftJoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'personas.id_tipo_persona')
+                ->select('personas.id_persona', 'personas.identificacion')
+                ->whereIn('personas.id_tipo_persona', [5,6])
+                ->get()
+                ->keyBy('identificacion') // Permite buscar id_persona usando identificacion
+        ]);
     }
 }
