@@ -139,7 +139,7 @@
                                                                 <div class="row">
                                                                     <div class="col-12 col-md-6">
                                                                         <label for="identificacion" class="fw-bold" style="font-size: 12px">Identificación <span class="text-danger">*</span></label>
-                                                                        {!! Form::text('identificacion', isset($usuarioPrestamo) ? $usuarioPrestamo->identificacion : null, ['class' => 'form-control', 'id' => 'identificacion', 'required', 'readonly' => 'readonly']) !!}
+                                                                        {!! Form::text('identificacion', isset($usuarioPrestamo) ? $usuarioPrestamo->identificacion : null, ['class' => 'form-control bg-secondary-subtle', 'id' => 'identificacion', 'required', 'readonly' => 'readonly']) !!}
                                                                     </div>
 
                                                                     <div class="col-12 col-md-6">
