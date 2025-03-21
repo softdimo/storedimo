@@ -493,18 +493,23 @@
                 var clientesInfo = @json($clientes_info); // Convierte PHP a JSON
 
                 if (clientesInfo[identificacion]) {
-                    document.getElementById('id_persona').value = clientesInfo[identificacion].id_persona;
+                    // document.getElementById('id_persona').value = clientesInfo[identificacion].id_persona;
+                    $('#id_persona').val(clientesInfo[identificacion].id_persona);
                 } else {
-                    document.getElementById('id_persona').value = '';
+                    // document.getElementById('id_persona').value = '';
+                    $('#id_persona').val('');
                 }
 
 
                 let idCliVenta = $('#cliente_venta').val();
+                // $('#id_tipo_cliente_venta').val(idCliVenta);
 
                 if (idCliVenta == 5) {
-                    $('input[name="aplicar_x_mayor_venta"]').attr('checked', 'checked');
+                    // $('input[name="aplicar_x_mayor_venta"]').attr('checked', 'checked');
+                    $('input[name="aplicar_x_mayor_venta"]').prop('checked', true);
                 } else {
-                    $('input[name="aplicar_x_mayor_venta"]').removeAttr('checked');
+                    // $('input[name="aplicar_x_mayor_venta"]').removeAttr('checked');
+                    $('input[name="aplicar_x_mayor_venta"]').prop('checked', false);
                 }
             });
 
@@ -526,7 +531,10 @@
                 let cantidadVenta = parseInt($('#cantidad_venta').val());
                 let aplicarMayor = $('input[name="aplicar_x_mayor_venta"]').is(':checked')
 
-                if (idTipoClienteVenta == '' || idProductoVenta == '' || cantidadVenta == '' || cantidadVenta <= 0) {
+                let idPersona = $('#id_persona').val(); // Captura el id_persona
+
+                // if (idTipoClienteVenta == '' || idProductoVenta == '' || cantidadVenta == '' || cantidadVenta <= 0) {
+                if (!idTipoClienteVenta || !idProductoVenta || !cantidadVenta || cantidadVenta <= 0) {
                     Swal.fire('Cuidado!', 'Todos los campos son obligatorios y la cantidad debe ser mayor a 0!', 'error');
                     return;
                 }
@@ -534,18 +542,19 @@
                 let valorSubTotal = aplicarMayor ? cantidadVenta * pxMayorVenta : cantidadVenta * pDetalVenta;
                 
                 let producto = {
-                    tipoClienteVenta: idTipoClienteVenta,
+                    // tipoClienteVenta: idTipoClienteVenta,
                     id: idProductoVenta,
                     nombre: productoVenta,
                     cantidad: cantidadVenta,
-                    subtotal: valorSubTotal
+                    subtotal: valorSubTotal,
+                    // id_persona: idPersona // Guarda el id_persona en el objeto del producto
                 };
                 productosAgregados.push(producto);
 
                 actualizarDetalleVenta();
 
                 // Limpia los campos después de agregar un producto exitosamente
-                $('#cliente_venta').val('').trigger('change'); // Reiniciar selección de cliente
+                // $('#cliente_venta').val('').trigger('change'); // Reiniciar selección de cliente
                 $('#producto_venta').val('').trigger('change'); // Reiniciar selección de producto
 
                 $('#p_detal_venta').html(0);  // Resetear precio detal
