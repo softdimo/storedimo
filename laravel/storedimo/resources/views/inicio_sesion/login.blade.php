@@ -16,8 +16,8 @@
 @section('content')
     <div class="vh-100 d-flex flex-column align-items-center justify-content-center">
         <div class="w-25 border border-1 rounded">
-            <div class="d-flex justify-content-center p-1" style="background-color:#F5F5F5">
-                <img src="{{asset('imagenes/logo_storedimo.png')}}" alt="logo" class="text-center" width="250" height="100">
+            <div class="d-flex justify-content-center p-1" style="background-color:#FFFFFF">
+                <img src="{{asset('imagenes/logo_storedimo_fondo.png')}}" alt="logo" class="text-center" width="250" height="130">
             </div>
 
             {{-- =========================================================== --}}
