@@ -10,7 +10,7 @@
         <div class="row p-0 w-100 align-items-lg-center justify-content-between">
             <div class="logo-container col-4 col-md-2 text-center">
                 <a class="w-100" href="/home">
-                    <img src="{{asset('imagenes/logo.png')}}" alt="Logo" width="150" height="40" class="text-center">
+                    <img src="{{asset('imagenes/logo_storedimo.png')}}" alt="Logo" width="140" height="50" class="text-center">
                 </a>
             </div>
             {{-- ========================================== --}}
