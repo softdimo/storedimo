@@ -23,8 +23,6 @@ class VentaStore implements Responsable
 
     public function toResponse($request)
     {
-        // dd($request);
-        
         $idEmpresa = request('id_empresa', null);
         $idTipoCliente = request('cliente_venta', null);
         $fechaVenta = now()->format('Y-m-d H:i:s'); // Formato compatible con DATETIME en MySQL

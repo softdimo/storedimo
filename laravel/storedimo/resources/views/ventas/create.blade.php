@@ -237,7 +237,7 @@
                                     Guardar
                                 </button>
                             </div>
-                        </div> {{-- FIN div_derecho (Detalle Entrada) --}}
+                        </div> {{-- FIN div_derecho (Detalle Venta) --}}
                     </div> {{-- FIN div_lateral derecho interno registrar ventas, cubre ambos --}}
                 {!! Form::close() !!}
             </div> {{-- FIN div_registrar ventas (cubre ambos --}}
@@ -535,13 +535,21 @@
             }
 
             $('#cliente_venta').change(function () {
+                var identificacion = this.options[this.selectedIndex].text.split(' - ')[0]; // Extrae la identificación
+                var clientesInfo = @json($clientes_info); // Convierte PHP a JSON
+
+                if (clientesInfo[identificacion]) {
+                    document.getElementById('id_persona').value = clientesInfo[identificacion].id_persona;
+                } else {
+                    document.getElementById('id_persona').value = '';
+                }
+
+
                 let idCliVenta = $('#cliente_venta').val();
 
                 if (idCliVenta == 5) {
                     $('input[name="aplicar_x_mayor_venta"]').attr('checked', 'checked');
-                    
-                }
-                else {
+                } else {
                     $('input[name="aplicar_x_mayor_venta"]').removeAttr('checked');
                 }
             });
@@ -561,20 +569,6 @@
                 let pDetalVenta = $('#p_detal_venta').text();
                 let pxMayorVenta = $('#p_x_mayor_venta').text();
                 let cantidadVenta = $('#cantidad_venta').val();
-
-                // =========================================
-
-                // console.log(`Id Cliente Venta ${idClienteVenta}`);
-                // console.log(`nombre Cliente Venta ${clienteVenta}`);
-
-                // console.log(`Id Producto Venta ${idProductoVenta}`);
-                // console.log(`nombre Producto Venta ${productoVenta}`);
-
-                // console.log(`Precio Detal Venta ${pDetalVenta}`);
-                // console.log(`PRecio mayor de Venta ${pxMayorVenta}`);
-                // console.log(`Aplica precio al por mayor ${aplicarXMayorVenta}`);
-
-                // console.log(`Cantidad Venta ${cantidadVenta}`);
 
                 // =========================================
 
@@ -684,25 +678,5 @@
                 loadingIndicator.show();
             });
         }); // FIN Document Ready
-
-        // ===================================================================================
-        // ===================================================================================
-
-        document.getElementById('cliente_venta').addEventListener('change', function() {
-            var identificacion = this.options[this.selectedIndex].text.split(' - ')[0]; // Extrae la identificación
-            var clientesInfo = @json($clientes_info); // Convierte PHP a JSON
-
-            if (clientesInfo[identificacion]) {
-                document.getElementById('id_persona').value = clientesInfo[identificacion].id_persona;
-            } else {
-                document.getElementById('id_persona').value = '';
-            }
-        });
-
-        // ===================================================================================
-        // ===================================================================================
-
     </script>
 @stop
-
-

@@ -6,7 +6,6 @@
 {{-- =============================================================== --}}
 
 @section('css')
-    {{-- <link rel="stylesheet" href="{{ asset('css/custom.css') }}"> --}}
     <style>
         .btn-circle {
             padding-left: 0.3rem !important;
@@ -31,15 +30,6 @@
         {{-- ======================================================================= --}}
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
-            {{-- <div class="text-end">
-                <a href="#" class="text-blue">
-                    <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
-                </a>
-            </div> --}}
-
-            {{-- =============================================================== --}}
-            {{-- =============================================================== --}}
-
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
                 <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Ventas</h5>
             
@@ -101,8 +91,11 @@
         </div>
     </div>
 
+    {{-- =============================================================== --}}
+    {{-- =============================================================== --}}
+
     @foreach ($ventas as $venta)
-        <!-- INICIO Modal Detalles compra -->
+        <!-- INICIO Modal Detalles VENTA -->
         <div class="modal fade h-auto modal-gral p-0" id="modalDetalleVenta_{{$venta->id_venta}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
             <div class="modal-dialog m-0">
                 <div class="modal-content p-3 w-100">
@@ -188,7 +181,7 @@
                 </div>
             </div>
         </div>
-        <!-- FIN Modal Detalles compra -->
+        <!-- FIN Modal Detalles VENTA -->
     @endforeach
 @stop
 
