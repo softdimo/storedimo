@@ -458,34 +458,6 @@
 @section('scripts')
     <script>
         $( document ).ready(function() {
-            // INICIO - Validación Formulario Creación de Bajas de productos
-            // form_bajas = $("#form_bajas");
-
-            // form_bajas.validate({
-            //     rules:{
-            //         tipo_baja:{
-            //             required:true
-            //         },
-            //         producto:{
-            //             required:true
-            //         },
-            //         cantidad:{
-            //             required:false
-            //         },
-            //     },
-            //     errorPlacement: function(error, element) {
-            //     if ( element.hasClass('datapicker') ){
-            //             error.appendTo( element.closest("div.form-group") );
-            //         }else{
-            //             error.appendTo( element.parent() );
-            //         }
-            //     }
-            // });
-            // FIN - Validación Formulario Creación de Bajas de productos
-
-            // ===================================================================================
-            // ===================================================================================
-
             let idProducto = $('#producto_venta').val();
             console.log(idProducto);
 
@@ -556,58 +528,131 @@
 
             // ===================================================================================
             // ===================================================================================
-            
-            // INICIO - Función agregar datos de las ventas
-            $("#btn_agregar_venta").click(function() {
 
+            // INICIO - Función agregar datos de las ventas
+            let productosAgregados = [];
+
+            $("#btn_agregar_venta").click(function() {
                 let idClienteVenta = $('#cliente_venta').val();
                 let clienteVenta = $('#cliente_venta option:selected').text();
 
                 let idProductoVenta = $('#producto_venta').val();
                 let productoVenta = $('#producto_venta option:selected').text();
 
-                let pDetalVenta = $('#p_detal_venta').text();
-                let pxMayorVenta = $('#p_x_mayor_venta').text();
-                let cantidadVenta = $('#cantidad_venta').val();
+                let pDetalVenta = parseFloat($('#p_detal_venta').text());
+                let pxMayorVenta = parseFloat($('#p_x_mayor_venta').text());
+                let cantidadVenta = parseInt($('#cantidad_venta').val());
+                let aplicarMayor = $('#aplicar_x_mayor_venta').is(':checked');
 
-                // =========================================
-
-                if (idClienteVenta == '' || idProductoVenta == '' || cantidadVenta == '' ) {
-                    Swal.fire(
-                        'Cuidado!',
-                        'Todos los campos son obligatorios!',
-                        'error'
-                    );
-                } else {
-                    $('#div_ventas_datos_producto').removeClass('d-none');
-
-                    $('#nombre_producto_venta').html(productoVenta);
-
-                    $('#cantidad_producto_venta').html(cantidadVenta);
-
-                    if ($('input[name="aplicar_x_mayor_venta"]').not(':checked')) {
-                        let valorSubTotal = cantidadVenta * pDetalVenta;
-
-                        $('#valor_subTotal_venta').html(valorSubTotal);
-                        $('#valor_subTotal_venta').val(valorSubTotal);
-                        $('#sub_total_venta').html(valorSubTotal);
-                        $('#sub_total_venta').val(valorSubTotal);
-                        $('#total_venta').html(valorSubTotal);
-                        $('#total_venta').val(valorSubTotal);
-                    }
-                    
-                    if ($('input[name="aplicar_x_mayor_venta"]').is(':checked')) {
-                        let valorSubTotal = cantidadVenta * pxMayorVenta
-
-                        $('#valor_subTotal_venta').html(valorSubTotal);
-                        $('#valor_subTotal_venta').val(valorSubTotal);
-                        $('#sub_total_venta').html(valorSubTotal);
-                        $('#sub_total_venta').val(valorSubTotal);
-                        $('#total_venta').html(valorSubTotal);
-                        $('#total_venta').val(valorSubTotal);
-                    }
+                if (idClienteVenta == '' || idProductoVenta == '' || cantidadVenta == '' || cantidadVenta <= 0) {
+                    Swal.fire('Cuidado!', 'Todos los campos son obligatorios y la cantidad debe ser mayor a 0!', 'error');
+                    return;
                 }
-            }); // FIN - Función agregar datos de las ventas
+
+                let valorSubTotal = aplicarMayor ? cantidadVenta * pxMayorVenta : cantidadVenta * pDetalVenta;
+                
+                let producto = {
+                    id: idProductoVenta,
+                    nombre: productoVenta,
+                    cantidad: cantidadVenta,
+                    subtotal: valorSubTotal
+                };
+                productosAgregados.push(producto);
+
+                actualizarDetalleVenta();
+            });
+            // FIN - Función agregar datos de las ventas
+
+            // ===================================================================================
+            // ===================================================================================
+
+            function actualizarDetalleVenta() {
+                let detalleHTML = "";
+                let totalVenta = 0;
+
+                productosAgregados.forEach((producto, index) => {
+                    detalleHTML += `<div class="row p-3 border-bottom" id="producto_${index}">
+                                        <div class="col-9">
+                                            <h3>${producto.nombre}</h3>
+                                            <p>Cantidad: <span>${producto.cantidad}</span></p>
+                                            <p>Valor subtotal: $<span>${producto.subtotal}</span></p>
+                                        </div>
+                                        <div class="col-3 d-flex align-items-center">
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="eliminarProducto(${index})">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>`;
+                    totalVenta += producto.subtotal;
+                });
+
+                $('#div_ventas_datos_producto').html(detalleHTML).removeClass('d-none');
+                $('#sub_total_venta').val(totalVenta);
+                $('#total_venta').val(totalVenta);
+            }
+
+            // ===================================================================================
+            // ===================================================================================
+
+            window.eliminarProducto = function(index) {
+                productosAgregados.splice(index, 1);
+                actualizarDetalleVenta();
+            };
+
+            // ===================================================================================
+            // ===================================================================================
+
+            // INICIO - Función agregar datos de las ventas
+            // $("#btn_agregar_venta").click(function() {
+
+            //     let idClienteVenta = $('#cliente_venta').val();
+            //     let clienteVenta = $('#cliente_venta option:selected').text();
+
+            //     let idProductoVenta = $('#producto_venta').val();
+            //     let productoVenta = $('#producto_venta option:selected').text();
+
+            //     let pDetalVenta = $('#p_detal_venta').text();
+            //     let pxMayorVenta = $('#p_x_mayor_venta').text();
+            //     let cantidadVenta = $('#cantidad_venta').val();
+
+            //     // =========================================
+
+            //     if (idClienteVenta == '' || idProductoVenta == '' || cantidadVenta == '' ) {
+            //         Swal.fire(
+            //             'Cuidado!',
+            //             'Todos los campos son obligatorios!',
+            //             'error'
+            //         );
+            //     } else {
+            //         $('#div_ventas_datos_producto').removeClass('d-none');
+
+            //         $('#nombre_producto_venta').html(productoVenta);
+
+            //         $('#cantidad_producto_venta').html(cantidadVenta);
+
+            //         if ($('input[name="aplicar_x_mayor_venta"]').not(':checked')) {
+            //             let valorSubTotal = cantidadVenta * pDetalVenta;
+
+            //             $('#valor_subTotal_venta').html(valorSubTotal);
+            //             $('#valor_subTotal_venta').val(valorSubTotal);
+            //             $('#sub_total_venta').html(valorSubTotal);
+            //             $('#sub_total_venta').val(valorSubTotal);
+            //             $('#total_venta').html(valorSubTotal);
+            //             $('#total_venta').val(valorSubTotal);
+            //         }
+                    
+            //         if ($('input[name="aplicar_x_mayor_venta"]').is(':checked')) {
+            //             let valorSubTotal = cantidadVenta * pxMayorVenta
+
+            //             $('#valor_subTotal_venta').html(valorSubTotal);
+            //             $('#valor_subTotal_venta').val(valorSubTotal);
+            //             $('#sub_total_venta').html(valorSubTotal);
+            //             $('#sub_total_venta').val(valorSubTotal);
+            //             $('#total_venta').html(valorSubTotal);
+            //             $('#total_venta').val(valorSubTotal);
+            //         }
+            //     }
+            // }); // FIN - Función agregar datos de las ventas
 
             // ===================================================================================
             // ===================================================================================
