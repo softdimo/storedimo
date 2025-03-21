@@ -158,23 +158,9 @@
                                 <div class="">
                                     <strong class="p-3">Seleccione para agregar</strong>
         
-                                    <div class="row p-3 d-none" id="div_ventas_datos_producto">
-                                        <div class="col-12 col-md-9">
-                                            <h3 id="nombre_producto_venta"></h3>
-                                            <p>Cantidad: <span id="cantidad_producto_venta"></span></p>
-                                            <p>Valor subtotal: $<span id="valor_subTotal_venta"></span></p>
-                                        </div>
-                                        {{-- ========================== --}}
-                                        <div class="col-12 col-md-3">
-                                            <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar Venta" id="btn_del_venta">
-                                                <i class="fa fa-trash" aria-hidden="true"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <div class="row p-3 d-none" id="div_ventas_datos_producto"></div>
         
                                     <div class="" style="background-color: #F5F5F5; border-top: 1px solid #ddd;">
-                                        {{-- <p class="p-1 m-0 fw-bold" style="border-bottom: 1px solid #ddd;">Subtotal: $<span class="fw-normal" id="sub_total_venta"></span></p> --}}
-
                                         <div class="d-flex" style="border: 1px solid #ddd;">
                                             <p class="p-1 m-0 fw-bold w-25">Subtotal: $</p>
                                             {!! Form::text('sub_total_venta', null, ['class' => 'form-control w-75 bg-success-subtle', 'id' => 'sub_total_venta', 'required', 'readonly']) !!}
@@ -184,10 +170,6 @@
                                             <p class="p-1 m-0 fw-bold w-25">Descuento: $</p>
                                             {!! Form::text('descuento_total_venta', null, ['class' => 'form-control w-75 bg-success-subtle', 'id' => 'descuento_total_venta', 'required', 'readonly']) !!}
                                         </div>
-
-                                        {{-- <p class="p-1 m-0 fw-bold" style="border-bottom: 1px solid #ddd;">Descuento: $<span class="fw-normal" id="descuento_total_venta"></span></p> --}}
-
-                                        {{-- <p class="p-1 m-0 fw-bold">Total: $<span class="fw-normal" id="total_venta"></span></p> --}}
 
                                         <div class="d-flex" style="border: 1px solid #ddd;">
                                             <p class="p-1 m-0 fw-bold w-25">Total: $</p>
@@ -533,7 +515,7 @@
             let productosAgregados = [];
 
             $("#btn_agregar_venta").click(function() {
-                let idClienteVenta = $('#cliente_venta').val();
+                let idTipoClienteVenta = $('#cliente_venta').val();
                 let clienteVenta = $('#cliente_venta option:selected').text();
 
                 let idProductoVenta = $('#producto_venta').val();
@@ -542,9 +524,9 @@
                 let pDetalVenta = parseFloat($('#p_detal_venta').text());
                 let pxMayorVenta = parseFloat($('#p_x_mayor_venta').text());
                 let cantidadVenta = parseInt($('#cantidad_venta').val());
-                let aplicarMayor = $('#aplicar_x_mayor_venta').is(':checked');
+                let aplicarMayor = $('input[name="aplicar_x_mayor_venta"]').is(':checked')
 
-                if (idClienteVenta == '' || idProductoVenta == '' || cantidadVenta == '' || cantidadVenta <= 0) {
+                if (idTipoClienteVenta == '' || idProductoVenta == '' || cantidadVenta == '' || cantidadVenta <= 0) {
                     Swal.fire('Cuidado!', 'Todos los campos son obligatorios y la cantidad debe ser mayor a 0!', 'error');
                     return;
                 }
@@ -552,6 +534,7 @@
                 let valorSubTotal = aplicarMayor ? cantidadVenta * pxMayorVenta : cantidadVenta * pDetalVenta;
                 
                 let producto = {
+                    tipoClienteVenta: idTipoClienteVenta,
                     id: idProductoVenta,
                     nombre: productoVenta,
                     cantidad: cantidadVenta,
@@ -592,7 +575,8 @@
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </div>
-                                    </div>`;
+                                    </div>
+                    `;
                     totalVenta += producto.subtotal;
                 });
 
