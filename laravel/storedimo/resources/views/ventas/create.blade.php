@@ -130,7 +130,7 @@
                                 <label for="cantidad_venta" class="fw-bold">Cantidad <span class="text-danger">*</span></label>
                                 <div class="row align-items-center p-0 m-0">
                                     <div class="col-8 p-0 m-0">
-                                        {!! Form::text('cantidad_venta', null, ['class' => 'form-control rounded-end-0', 'id' => 'cantidad_venta', 'required', 'min' => '1', 'maxlength' => '4']) !!}
+                                        {!! Form::text('cantidad_venta', null, ['class' => 'form-control rounded-end-0', 'id' => 'cantidad_venta', 'min' => '1', 'maxlength' => '4']) !!}
                                     </div>
                                     
                                     <div class="col-4 m-0 p-0">
@@ -197,7 +197,7 @@
                                 
                                 <div class="col-12 col-md-6 d-flex flex-column">
                                     <label for="descuento" class="fw-bold">Descuento en Pesos <span class="text-danger">*</span></label>
-                                    {!! Form::number('tipo_pago', null, ['class' => 'form-control', 'id' => 'descuento', 'required']) !!}
+                                    {!! Form::number('descuento', null, ['class' => 'form-control', 'id' => 'descuento', 'required']) !!}
                                 </div>
                             </div>
 
@@ -214,7 +214,7 @@
                             {{-- ====================================================== --}}
 
                             <div class="d-flex justify-content-end mt-4 p-3" style="">
-                                <button class="btn btn-success rounded-2 me-3" type="submit">
+                                <button type="submit" class="btn btn-success rounded-2 me-3" id="btn_registar_venta">
                                     <i class="fa fa-floppy-o"></i>
                                     Guardar
                                 </button>
@@ -555,6 +555,8 @@
 
                 // Limpia los campos después de agregar un producto exitosamente
                 // $('#cliente_venta').val('').trigger('change'); // Reiniciar selección de cliente
+                $('#btn_agregar_venta').attr('required');
+
                 $('#producto_venta').val('').trigger('change'); // Reiniciar selección de producto
 
                 $('#p_detal_venta').html(0);  // Resetear precio detal
@@ -713,11 +715,17 @@
                 loadingIndicator.show();
             });
 
+            // ===================================================================================
+            // ===================================================================================
+
             // loadingIndicatorRegistrarVenta para cargar gif en el submit
             $(document).on("submit", "form[id^='formRegistrarVenta']", function(e) {
                 const form = $(this);
                 const submitButton = form.find('button[type="submit"]');
                 const loadingIndicator = form.find("div[id^='loadingIndicatorRegistrarVenta']"); // Busca el GIF del form actual
+
+                // Retirar required en el submit
+                $('#btn_registar_venta').removeAttr('required');
 
                 // Dessactivar Submit y Cancel
                 submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
@@ -725,6 +733,9 @@
                 // Cargar Spinner
                 loadingIndicator.show();
             });
+
+            // ===================================================================================
+            // ===================================================================================
         }); // FIN Document Ready
     </script>
 @stop
