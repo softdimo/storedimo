@@ -197,7 +197,7 @@
                                 
                                 <div class="col-12 col-md-6 d-flex flex-column">
                                     <label for="descuento" class="fw-bold">Descuento en Pesos <span class="text-danger">*</span></label>
-                                    {!! Form::number('descuento', null, ['class' => 'form-control', 'id' => 'descuento', 'required']) !!}
+                                    {!! Form::number('descuento', null, ['class' => 'form-control', 'id' => 'descuento', 'required','min'=>'0','oninput' => 'validity.valid||(value=\'\');']) !!}
                                 </div>
                             </div>
 

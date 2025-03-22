@@ -28,7 +28,7 @@ class VentaStore implements Responsable
         $idEmpresa = request('id_empresa', null);
         $idTipoCliente = request('cliente_venta', null);
         $fechaVenta = now()->format('Y-m-d H:i:s'); // Formato compatible con DATETIME en MySQL
-        $descuento = request('descuento_total_venta', null);
+        $descuento = request('descuento', null);
         $subtotalVenta = request('sub_total_venta', null);
         $totalVenta = request('total_venta', null);
         $idTipoPago = request('tipo_pago', null);
