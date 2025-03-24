@@ -493,22 +493,17 @@
                 var clientesInfo = @json($clientes_info); // Convierte PHP a JSON
 
                 if (clientesInfo[identificacion]) {
-                    // document.getElementById('id_persona').value = clientesInfo[identificacion].id_persona;
                     $('#id_persona').val(clientesInfo[identificacion].id_persona);
                 } else {
-                    // document.getElementById('id_persona').value = '';
                     $('#id_persona').val('');
                 }
 
 
                 let idCliVenta = $('#cliente_venta').val();
-                // $('#id_tipo_cliente_venta').val(idCliVenta);
 
                 if (idCliVenta == 5) {
-                    // $('input[name="aplicar_x_mayor_venta"]').attr('checked', 'checked');
                     $('input[name="aplicar_x_mayor_venta"]').prop('checked', true);
                 } else {
-                    // $('input[name="aplicar_x_mayor_venta"]').removeAttr('checked');
                     $('input[name="aplicar_x_mayor_venta"]').prop('checked', false);
                 }
             });
@@ -551,7 +546,6 @@
                 actualizarDetalleVenta();
 
                 // Limpia los campos después de agregar un producto exitosamente
-                // $('#cliente_venta').val('').trigger('change'); // Reiniciar selección de cliente
                 $('#btn_agregar_venta').attr('required');
 
                 $('#producto_venta').val('').trigger('change'); // Reiniciar selección de producto
@@ -600,61 +594,6 @@
                 productosAgregados.splice(index, 1);
                 actualizarDetalleVenta();
             };
-
-            // ===================================================================================
-            // ===================================================================================
-
-            // INICIO - Función agregar datos de las ventas
-            // $("#btn_agregar_venta").click(function() {
-
-            //     let idClienteVenta = $('#cliente_venta').val();
-            //     let clienteVenta = $('#cliente_venta option:selected').text();
-
-            //     let idProductoVenta = $('#producto_venta').val();
-            //     let productoVenta = $('#producto_venta option:selected').text();
-
-            //     let pDetalVenta = $('#p_detal_venta').text();
-            //     let pxMayorVenta = $('#p_x_mayor_venta').text();
-            //     let cantidadVenta = $('#cantidad_venta').val();
-
-            //     // =========================================
-
-            //     if (idClienteVenta == '' || idProductoVenta == '' || cantidadVenta == '' ) {
-            //         Swal.fire(
-            //             'Cuidado!',
-            //             'Todos los campos son obligatorios!',
-            //             'error'
-            //         );
-            //     } else {
-            //         $('#div_ventas_datos_producto').removeClass('d-none');
-
-            //         $('#nombre_producto_venta').html(productoVenta);
-
-            //         $('#cantidad_producto_venta').html(cantidadVenta);
-
-            //         if ($('input[name="aplicar_x_mayor_venta"]').not(':checked')) {
-            //             let valorSubTotal = cantidadVenta * pDetalVenta;
-
-            //             $('#valor_subTotal_venta').html(valorSubTotal);
-            //             $('#valor_subTotal_venta').val(valorSubTotal);
-            //             $('#sub_total_venta').html(valorSubTotal);
-            //             $('#sub_total_venta').val(valorSubTotal);
-            //             $('#total_venta').html(valorSubTotal);
-            //             $('#total_venta').val(valorSubTotal);
-            //         }
-                    
-            //         if ($('input[name="aplicar_x_mayor_venta"]').is(':checked')) {
-            //             let valorSubTotal = cantidadVenta * pxMayorVenta
-
-            //             $('#valor_subTotal_venta').html(valorSubTotal);
-            //             $('#valor_subTotal_venta').val(valorSubTotal);
-            //             $('#sub_total_venta').html(valorSubTotal);
-            //             $('#sub_total_venta').val(valorSubTotal);
-            //             $('#total_venta').html(valorSubTotal);
-            //             $('#total_venta').val(valorSubTotal);
-            //         }
-            //     }
-            // }); // FIN - Función agregar datos de las ventas
 
             // ===================================================================================
             // ===================================================================================

@@ -142,64 +142,35 @@
 
                                 {{-- ============ --}}
 
-                                <div class="d-none" id="div_compra_datos_producto">
-                                    <div class="row p-3">
-                                        <div class="col-12 col-md-9">
-                                            <h3 class="" id="nombre_producto"></h3>
-                                            <p class="">Cantidad: <span id="cantidad_producto"> </span></p>
-                                            <p class="">Valor subtotal: $ <span id="valor_subTotal"> </span></p>
-                                        </div>
-                                        {{-- ========================== --}}
-                                        <div class="col-12 col-md-3">
-                                            <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar" id="btn_del_entrada">
-                                                <i class="fa fa-trash" aria-hidden="true"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                <div class="d-none" id="div_compra_datos_producto"></div>
+
+                                {{-- ============ --}}
+
+                                <div class="d-flex" style="background-color: #F5F5F5">
+                                    <h3 class="col-3 d-flex align-middle">Total: $</h3>
+                                    {!! Form::text('valor_compra', null, ['class' => 'form-control w-100 fs-4', 'id' => 'valor_compra', 'required']) !!}
+                                </div>
+
+                                {{-- ============ --}}
+                                
+                                <!-- Contenedor para el GIF -->
+                                <div id="loadingIndicatorCrearEntrada" class="loadingIndicator">
+                                    <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
                                 </div>
 
                                 {{-- ============ --}}
 
-                                {!! Form::open([
-                                    'method' => 'POST',
-                                    'route' => ['entradas.store'],
-                                    'class' => 'mt-0',
-                                    'autocomplete' => 'off',
-                                    'id' => 'formCrearCompraEntrada',
-                                    'name' => 'crearCompraEntrada'
-                                    ]) !!}
-                                    @csrf
-
-                                    {!! Form::hidden('form_compra_entradas', 'crearCompraEntrada') !!} {{-- id del gormulario origen --}}
-                                    {!! Form::hidden('id_tipo_proveedor',null, ['id' => 'id_tipo_proveedor', 'required']) !!}
-                                    {!! Form::hidden('id_producto_compra',null, ['id' => 'id_producto_compra', 'required']) !!}
-
-                                    <div class="d-flex" style="background-color: #F5F5F5">
-                                        <h3 class="col-3 d-flex align-middle">Total: $</h3>
-                                        {!! Form::text('valor_compra', null, ['class' => 'form-control w-100 fs-4', 'id' => 'valor_compra', 'required']) !!}
-                                    </div>
-
-                                    {{-- ============ --}}
-                                    
-                                    <!-- Contenedor para el GIF -->
-                                    <div id="loadingIndicatorCrearEntrada" class="loadingIndicator">
-                                        <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
-                                    </div>
-
-                                    {{-- ============ --}}
-
-                                    <div class="d-flex justify-content-end mb-5 p-3" style="">
-                                        <button type="submit" class="btn btn-success rounded-2 me-3">
-                                            <i class="fa fa-floppy-o"></i>
-                                            Guardar
-                                        </button>
-                            
-                                        {{-- <button type="button" class="btn btn-danger rounded-2">
-                                            <i class="fa fa-remove"></i>
-                                            Cancelar
-                                        </button> --}}
-                                    </div>
-                                {!! Form::close() !!}
+                                <div class="d-flex justify-content-end mb-5 p-3" style="">
+                                    <button type="submit" class="btn btn-success rounded-2 me-3">
+                                        <i class="fa fa-floppy-o"></i>
+                                        Guardar
+                                    </button>
+                        
+                                    {{-- <button type="button" class="btn btn-danger rounded-2">
+                                        <i class="fa fa-remove"></i>
+                                        Cancelar
+                                    </button> --}}
+                                </div>
                             </div>
                         </div> {{-- FIN div_detalle-entradas --}}
                     </div>
@@ -646,23 +617,28 @@
             // ===================================================================================
             // ===================================================================================
 
+            // INICIO - Función agregar datos de las ventas
+            let productosAgregados = [];
+
             // INICIO - Función agregar datos de la entrada
             $("#btn_add_entrada").click(function() {
                 let idTipoProveedor = $('#id_tipo_proveedor').val();
                 let tipoProveedor = $('#id_tipo_proveedor option:selected').text();
 
                 let idProducto = $('#id_producto').val();
-                let producto = $('#id_producto option:selected').text();
+                let productoCompra = $('#id_producto option:selected').text();
 
-                let pUnitario = $('#p_unitario').text();
-                let cantidad = $('#cantidad').val();
+                let pUnitario = parseFloat($('#p_unitario').text());
+                let cantidad = parseInt($('#cantidad').val());
 
                 console.log(`Id proveedor ${idTipoProveedor}`);
                 console.log(`nombre proveedor ${tipoProveedor}`);
                 console.log(`Id Producto ${idProducto}`);
-                console.log(`nombre Producto ${producto}`);
+                console.log(`nombre Producto ${productoCompra}`);
                 console.log(`Precio Unitario ${pUnitario}`);
                 console.log(`Cantidad ${cantidad}`);
+
+                let idPersona = $('#id_persona').val(); // Captura el id_persona
 
                 if (!idTipoProveedor || !idProducto || !cantidad) {
                     Swal.fire(
@@ -671,55 +647,66 @@
                         'error'
                     );
                 } else {
-                    $('#div_compra_datos_producto').removeClass('d-none');
+                    let valorSubTotal = pUnitario * cantidad;
 
-                    $('#nombre_producto').html(producto);
+                    let producto = {
+                        idProductoCompra: idProducto,
+                        nombre: productoCompra,
+                        cantidad: cantidad,
+                        subtotal: valorSubTotal,
+                    };
+                    productosAgregados.push(producto);
 
-                    $('#cantidad_producto').html(cantidad);
+                    actualizarDetalleCompra();
 
-                    let valor_subTotal = pUnitario * cantidad;
+                    $('#btn_add_entrada').attr('required');
 
-                    $('#valor_subTotal').html(valor_subTotal);
-
-                    let valor_compra = pUnitario * cantidad;
-
-                    $('#valor_compra').val(valor_compra);
-
-                    $('#id_tipo_proveedor').val(idTipoProveedor);
+                    $('#id_producto').val('').trigger('change'); // Reiniciar selección de producto
+                    $('#p_unitario').html(0);  // Resetear precio unitario
+                    $('#p_detal').html(0);  // Resetear precio detal
+                    $('#p_x_mayor').html(0);  // Resetear precio mayorista
+                    $('#cantidad').val('');  // Limpiar cantidad
                 }
             });
             // FIN - Función agregar datos de la entrada
 
             // ===================================================================================
             // ===================================================================================
+            
+            function actualizarDetalleCompra() {
+                let detalleHTML = "";
+                let totalVenta = 0;
 
-            function delEntrada() {
-                // $('#tbl_bajas tr[name="'+idBaja+'"]').remove();
-                // $('tr[name="' + idBaja + '"]').remove();
+                productosAgregados.forEach((producto, index) => {
+                    detalleHTML += `<div class="row p-3 border-bottom" id="producto_${index}">
+                                        <div class="col-9">
+                                            <h3>${producto.nombre}</h3>
+                                            <p>Cantidad: <span>${producto.cantidad}</span></p>
+                                            <p>Valor subtotal: $<span>${producto.subtotal}</span></p>
+                                        </div>
+                                        <div class="col-3 d-flex align-items-center">
+                                            <button type="button" class="btn btn-danger btn-sm" onclick="eliminarProducto(${index})">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                    `;
+                    totalVenta += producto.subtotal;
+                });
+
+                $('#div_compra_datos_producto').html(detalleHTML).removeClass('d-none');
+                $('#sub_total_venta').val(totalVenta);
+                $('#valor_compra').val(totalVenta);
             }
 
-            $('#btn_del_entrada').on('click', function name(params) {
-                // alert(`eliminar entrada`);
-                
-                $('#nombre_producto').html('');
-                
-                $('#cantidad_producto').html('');
-                
-                $('#valor_subTotal').html('');
-                
-                $('#valor_compra').val('');
-                // $('#valor_compra').html('');
-
-                $('#div_compra_datos_producto').addClass('d-none');
-
-                $('#id_tipo_proveedor').val('');
-                // $('#id_tipo_proveedor option:selected').text();
-                $('#id_producto').val('');
-                // $('#producto option:selected').text();
-                // $('#p_unitario').html('');
-                $('#cantidad').val('');
-            })
+            // ===================================================================================
+            // ===================================================================================
             
+            window.eliminarProducto = function(index) {
+                productosAgregados.splice(index, 1);
+                actualizarDetalleCompra();
+            };
+
             // ===================================================================================
             // ===================================================================================
 
