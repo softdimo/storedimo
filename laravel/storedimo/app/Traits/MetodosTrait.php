@@ -116,5 +116,36 @@ trait MetodosTrait
                 ->get()
                 ->keyBy('identificacion') // Permite buscar id_persona usando identificacion
         ]);
+
+        view()->share([
+            'proveedores_compras' => Persona::leftJoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'personas.id_tipo_persona')
+                ->selectRaw("id_persona,
+                    CASE
+                        WHEN nombre_empresa IS NOT NULL THEN nombre_empresa
+                        ELSE CONCAT(nombres_persona, ' ', apellidos_persona)
+                    END AS proveedor"
+                )
+                ->select(
+                    'personas.id_persona',
+                    'personas.identificacion',
+                    'personas.nit_empresa',
+                    'personas.id_tipo_persona',
+                    DB::raw("
+                        CASE
+                            WHEN personas.id_tipo_persona = 4 THEN CONCAT(nit_empresa, ' - ', nombre_empresa, ' (', tipo_persona.tipo_persona, ')')
+                            ELSE CONCAT(identificacion, ' - ', nombres_persona, ' ', apellidos_persona, ' (', tipo_persona.tipo_persona, ')')
+                        END AS nombre_proveedor
+                    ")
+                )
+                ->whereIn('personas.id_tipo_persona', [3,4])
+                ->orderBy('tipo_persona.tipo_persona')
+                ->pluck('nombre_proveedor', 'personas.id_tipo_persona'),
+        
+            // 'clientes_info' => Persona::leftJoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'personas.id_tipo_persona')
+            //     ->select('personas.id_persona', 'personas.identificacion')
+            //     ->whereIn('personas.id_tipo_persona', [5,6])
+            //     ->get()
+            //     ->keyBy('identificacion') // Permite buscar id_persona usando identificacion
+        ]);
     }
 }

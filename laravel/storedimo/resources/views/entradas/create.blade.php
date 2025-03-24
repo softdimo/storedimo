@@ -72,7 +72,7 @@
                     <div class="w-100-div w-48 mb-auto" style="border: solid 1px #337AB7; border-radius: 5px;">
                         <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Proveedor <span class="text-danger">*</span></h5>
                         {{-- ============================================================== --}}
-                        {{ Form::select('proveedor', collect(['' => 'Seleccionar...'])->union($proveedores), null, ['class' => 'form-select mt-4 mb-4 w-75 ms-auto me-auto', 'id' => 'proveedor']) }}
+                        {{ Form::select('proveedor', collect(['' => 'Seleccionar...'])->union($proveedores_compras), null, ['class' => 'form-select mt-4 mb-4', 'id' => 'proveedor', 'style'=>'width:90%; margin:auto']) }}
                         {{-- ============================================================== --}}
 
                         <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Producto <span class="text-danger">*</span></h5>
