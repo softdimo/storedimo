@@ -68,132 +68,142 @@
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
                 <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Registrar Entradas</h5>
 
-                <div class="d-flex flex-column flex-md-row justify-content-between p-3">
-                    <div class="w-100-div w-48 mb-auto" style="border: solid 1px #337AB7; border-radius: 5px;">
-                        <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Proveedor <span class="text-danger">*</span></h5>
-                        {{-- ============================================================== --}}
-                        {{ Form::select('proveedor', collect(['' => 'Seleccionar...'])->union($proveedores_compras), null, ['class' => 'form-select mt-4 mb-4', 'id' => 'proveedor', 'style'=>'width:90%; margin:auto']) }}
-                        {{-- ============================================================== --}}
+                {!!Form::open(['method' => 'POST',
+                'route' => ['entradas.store'],
+                'class' => '', 'autocomplete' => 'off',
+                'id' => 'formRegistrarCompra'
+                ])!!}
+                    @csrf
 
-                        <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Producto <span class="text-danger">*</span></h5>
-                        {{-- ============================================================== --}}
-                        <div class="p-3 d-flex justify-content-between" id="" style="">
-                            <div class="d-flex justify-content-center w-75">
-                                {{ Form::select('id_producto', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-select', 'id' => 'id_producto']) }}
-                            </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between p-3">
+                        <div class="w-100-div w-48 mb-auto" style="border: solid 1px #337AB7; border-radius: 5px;">
+                            <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Proveedor <span class="text-danger">*</span></h5>
+                            {{-- ============================================================== --}}
+                            {{ Form::select('id_tipo_proveedor', collect(['' => 'Seleccionar...'])->union($proveedores_compras), null, ['class' => 'form-select mt-4 mb-4', 'id' => 'id_tipo_proveedor', 'style'=>'width:90%; margin:auto']) }}
 
-                            <div class="d-flex justify-content-end w-25">
-                                <button type="button" class="btn rounded-2 text-white" style="background-color: #337AB7" title="Registrar producto" data-bs-toggle="modal" data-bs-target="#modal_registroProducto">
-                                    <i class="fa fa-plus plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        {{-- ============================================================== --}}
-                        <div class="row p-3">
-                            <div class="col-md-3 text-center">
-                                <strong for="form-control fw-bold">Precio Unitario</strong>
-                                <p id="precio">$ <span class="" id="p_unitario">2000</span></p>
-                            </div>
-                            {{-- ============ --}}
-                            <div class="col-md-3 text-center">
-                                <strong for="form-control fw-bold">Precio al Detal</strong>
-                                <p id="precio2">$ <span class="" id="p_detal">2500</span></p>
-                            </div>
-                            {{-- ============ --}}
-                            <div class="col-md-3 text-center">
-                                <strong for="form-control fw-bold">Precio por Mayor</strong>
-                                <p id="precio3">$ <span class="" id="p_x_mayor">2100</span></p>
-                            </div>
-                            {{-- ============ --}}
-                            <div class="col-md-3 text-center">
-                                <button type="button" title="Modificar" data-bs-toggle="modal" data-bs-target="#modalModificarPrecios" class="btn btn-success btn-circle">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar"></i>
-                                </button>
-                            </div>
-                        </div>
-                        {{-- ============ --}}
-                        <div class="form-group p-3" id="cant">
-                            <label for="">Cantidad <span class="text-danger">*</span></label>
-                            
-                            {!! Form::number('cantidad', null, ['class' => 'form-control', 'id' => 'cantidad', 'required', 'min' => '1', 'maxlength' => '4']) !!}
-                        </div>
-                        {{-- ============ --}}
-                        <div class="p-3 d-flex justify-content-end">
-                            <button type="button" class="btn btn-primary" id="btn_add_entrada" title="Agregar Entrada">
-                                <i class="fa fa-plus plus"></i>Agregar
-                            </button>
-                        </div>
-                    </div>
-                    {{-- ============================================================== --}}
-                    <div class="w-100-div w-48 mt-5 mt-md-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                        <h5 class="border rounded-top text-white p-2 m-0" style="background-color: #337AB7">Detalle Entrada</h5>
-                        
-                        <div class="">
-                            <strong class="p-3">Seleccione para agregar</strong>
+                            {{ Form::hidden('id_persona', null, ['class' => '', 'id' => 'id_persona', 'required']) }}
+                            {{-- ============================================================== --}}
 
-                            {{-- ============ --}}
-
-                            <div class="d-none" id="div_datos_producto">
-                                <div class="row p-3">
-                                    <div class="col-12 col-md-9">
-                                        <h3 class="" id="nombre_producto"></h3>
-                                        <p class="">Cantidad: <span id="cantidad_producto"> </span></p>
-                                        <p class="">Valor subtotal: $ <span id="valor_subTotal"> </span></p>
-                                    </div>
-                                    {{-- ========================== --}}
-                                    <div class="col-12 col-md-3">
-                                        <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar" id="btn_del_entrada">
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {{-- ============ --}}
-
-                            {!! Form::open([
-                                'method' => 'POST',
-                                'route' => ['entradas.store'],
-                                'class' => 'mt-0',
-                                'autocomplete' => 'off',
-                                'id' => 'formCrearCompraEntrada',
-                                'name' => 'crearCompraEntrada'
-                                ]) !!}
-                                @csrf
-
-                                {!! Form::hidden('form_compra_entradas', 'crearCompraEntrada') !!} {{-- id del gormulario origen --}}
-                                {!! Form::hidden('id_proveedor',null, ['id' => 'id_proveedor', 'required']) !!}
-                                {!! Form::hidden('id_producto_compra',null, ['id' => 'id_producto_compra', 'required']) !!}
-
-                                <div class="d-flex" style="background-color: #F5F5F5">
-                                    <h3 class="col-3 d-flex align-middle">Total: $</h3>
-                                    {!! Form::text('valor_compra', null, ['class' => 'form-control w-100 fs-4', 'id' => 'valor_compra', 'required']) !!}
+                            <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Producto <span class="text-danger">*</span></h5>
+                            {{-- ============================================================== --}}
+                            <div class="p-3 d-flex justify-content-between" id="" style="">
+                                <div class="d-flex justify-content-center w-75">
+                                    {{ Form::select('id_producto', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-select', 'id' => 'id_producto']) }}
                                 </div>
 
+                                <div class="d-flex justify-content-end w-25">
+                                    <button type="button" class="btn rounded-2 text-white" style="background-color: #337AB7" title="Registrar producto" data-bs-toggle="modal" data-bs-target="#modal_registroProducto">
+                                        <i class="fa fa-plus plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            {{-- ============================================================== --}}
+                            <div class="row p-3">
+                                <div class="col-md-3 text-center">
+                                    <strong for="form-control fw-bold">Precio Unitario</strong>
+                                    <p id="precio">$ <span class="" id="p_unitario">2000</span></p>
+                                </div>
                                 {{-- ============ --}}
+                                <div class="col-md-3 text-center">
+                                    <strong for="form-control fw-bold">Precio al Detal</strong>
+                                    <p id="precio2">$ <span class="" id="p_detal">2500</span></p>
+                                </div>
+                                {{-- ============ --}}
+                                <div class="col-md-3 text-center">
+                                    <strong for="form-control fw-bold">Precio por Mayor</strong>
+                                    <p id="precio3">$ <span class="" id="p_x_mayor">2100</span></p>
+                                </div>
+                                {{-- ============ --}}
+                                <div class="col-md-3 text-center">
+                                    <button type="button" title="Modificar" data-bs-toggle="modal" data-bs-target="#modalModificarPrecios" class="btn btn-success btn-circle">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            {{-- ============ --}}
+                            <div class="form-group p-3" id="cant">
+                                <label for="">Cantidad <span class="text-danger">*</span></label>
                                 
-                                <!-- Contenedor para el GIF -->
-                                <div id="loadingIndicatorCrearEntrada" class="loadingIndicator">
-                                    <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                                {!! Form::number('cantidad', null, ['class' => 'form-control', 'id' => 'cantidad', 'required', 'min' => '1', 'maxlength' => '4']) !!}
+                            </div>
+                            {{-- ============ --}}
+                            <div class="p-3 d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary" id="btn_add_entrada" title="Agregar Entrada">
+                                    <i class="fa fa-plus plus"></i>Agregar
+                                </button>
+                            </div>
+                        </div>
+                        {{-- ============================================================== --}}
+                        <div class="w-100-div w-48 mt-5 mt-md-0" style="border: solid 1px #337AB7; border-radius: 5px;">
+                            <h5 class="border rounded-top text-white p-2 m-0" style="background-color: #337AB7">Detalle Entrada</h5>
+                            
+                            <div class="">
+                                <strong class="p-3">Seleccione para agregar</strong>
+
+                                {{-- ============ --}}
+
+                                <div class="d-none" id="div_compra_datos_producto">
+                                    <div class="row p-3">
+                                        <div class="col-12 col-md-9">
+                                            <h3 class="" id="nombre_producto"></h3>
+                                            <p class="">Cantidad: <span id="cantidad_producto"> </span></p>
+                                            <p class="">Valor subtotal: $ <span id="valor_subTotal"> </span></p>
+                                        </div>
+                                        {{-- ========================== --}}
+                                        <div class="col-12 col-md-3">
+                                            <button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar" id="btn_del_entrada">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 {{-- ============ --}}
 
-                                <div class="d-flex justify-content-end mb-5 p-3" style="">
-                                    <button type="submit" class="btn btn-success rounded-2 me-3">
-                                        <i class="fa fa-floppy-o"></i>
-                                        Guardar
-                                    </button>
-                        
-                                    <button type="button" class="btn btn-danger rounded-2">
-                                        <i class="fa fa-remove"></i>
-                                        Cancelar
-                                    </button>
-                                </div>
-                            {!! Form::close() !!}
-                        </div>
-                    </div> {{-- FIN div_detalle-entradas --}}
-                </div>
+                                {!! Form::open([
+                                    'method' => 'POST',
+                                    'route' => ['entradas.store'],
+                                    'class' => 'mt-0',
+                                    'autocomplete' => 'off',
+                                    'id' => 'formCrearCompraEntrada',
+                                    'name' => 'crearCompraEntrada'
+                                    ]) !!}
+                                    @csrf
+
+                                    {!! Form::hidden('form_compra_entradas', 'crearCompraEntrada') !!} {{-- id del gormulario origen --}}
+                                    {!! Form::hidden('id_tipo_proveedor',null, ['id' => 'id_tipo_proveedor', 'required']) !!}
+                                    {!! Form::hidden('id_producto_compra',null, ['id' => 'id_producto_compra', 'required']) !!}
+
+                                    <div class="d-flex" style="background-color: #F5F5F5">
+                                        <h3 class="col-3 d-flex align-middle">Total: $</h3>
+                                        {!! Form::text('valor_compra', null, ['class' => 'form-control w-100 fs-4', 'id' => 'valor_compra', 'required']) !!}
+                                    </div>
+
+                                    {{-- ============ --}}
+                                    
+                                    <!-- Contenedor para el GIF -->
+                                    <div id="loadingIndicatorCrearEntrada" class="loadingIndicator">
+                                        <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                                    </div>
+
+                                    {{-- ============ --}}
+
+                                    <div class="d-flex justify-content-end mb-5 p-3" style="">
+                                        <button type="submit" class="btn btn-success rounded-2 me-3">
+                                            <i class="fa fa-floppy-o"></i>
+                                            Guardar
+                                        </button>
+                            
+                                        {{-- <button type="button" class="btn btn-danger rounded-2">
+                                            <i class="fa fa-remove"></i>
+                                            Cancelar
+                                        </button> --}}
+                                    </div>
+                                {!! Form::close() !!}
+                            </div>
+                        </div> {{-- FIN div_detalle-entradas --}}
+                    </div>
+                {!! Form::close() !!}
             </div> {{-- FIN div_crear_usuario --}}
         </div>
     </div>
@@ -633,142 +643,142 @@
                 } // FIN inputPrecioUnitario.length > 0
             }); // FIN '[id^="modalModificarPrecios"]').on('shown.bs.modal'
 
-        });
+            // ===================================================================================
+            // ===================================================================================
 
-        // ===================================================================================
-        // ===================================================================================
+            // INICIO - Función agregar datos de la entrada
+            $("#btn_add_entrada").click(function() {
+                let idTipoProveedor = $('#id_tipo_proveedor').val();
+                let tipoProveedor = $('#id_tipo_proveedor option:selected').text();
 
-        // INICIO - Función agregar datos de la entrada
-        $("#btn_add_entrada").click(function() {
-            let idProveedor = $('#proveedor').val();
-            let proveedor = $('#proveedor option:selected').text();
-            let idProducto = $('#producto').val();
-            let producto = $('#producto option:selected').text();
-            let pUnitario = $('#p_unitario').text();
-            let cantidad = $('#cantidad').val();
+                let idProducto = $('#id_producto').val();
+                let producto = $('#id_producto option:selected').text();
 
-            console.log(`Id proveedor ${idProveedor}`);
-            console.log(`nombre proveedor ${proveedor}`);
-            console.log(`Id Producto ${idProducto}`);
-            console.log(`nombre Producto ${producto}`);
-            console.log(`Precio Unitario ${pUnitario}`);
-            console.log(`Cantidad ${cantidad}`);
+                let pUnitario = $('#p_unitario').text();
+                let cantidad = $('#cantidad').val();
 
-            if (idProveedor == '' || idProducto == '' || cantidad == '' ) {
-                Swal.fire(
-                    'Cuidado!',
-                    'Todos los campos son obligatorios!',
-                    'error'
-                );
-            } else {
-                $('#div_datos_producto').removeClass('d-none');
+                console.log(`Id proveedor ${idTipoProveedor}`);
+                console.log(`nombre proveedor ${tipoProveedor}`);
+                console.log(`Id Producto ${idProducto}`);
+                console.log(`nombre Producto ${producto}`);
+                console.log(`Precio Unitario ${pUnitario}`);
+                console.log(`Cantidad ${cantidad}`);
 
-                $('#nombre_producto').html(producto);
+                if (!idTipoProveedor || !idProducto || !cantidad) {
+                    Swal.fire(
+                        'Cuidado!',
+                        'Todos los campos son obligatorios!',
+                        'error'
+                    );
+                } else {
+                    $('#div_compra_datos_producto').removeClass('d-none');
 
-                $('#cantidad_producto').html(cantidad);
+                    $('#nombre_producto').html(producto);
 
-                let valor_subTotal = pUnitario * cantidad;
+                    $('#cantidad_producto').html(cantidad);
 
-                $('#valor_subTotal').html(valor_subTotal);
+                    let valor_subTotal = pUnitario * cantidad;
 
-                let valor_compra = pUnitario * cantidad;
+                    $('#valor_subTotal').html(valor_subTotal);
 
-                $('#valor_compra').val(valor_compra);
+                    let valor_compra = pUnitario * cantidad;
 
-                $('#id_proveedor').val(idProveedor);
+                    $('#valor_compra').val(valor_compra);
+
+                    $('#id_tipo_proveedor').val(idTipoProveedor);
+                }
+            });
+            // FIN - Función agregar datos de la entrada
+
+            // ===================================================================================
+            // ===================================================================================
+
+            function delEntrada() {
+                // $('#tbl_bajas tr[name="'+idBaja+'"]').remove();
+                // $('tr[name="' + idBaja + '"]').remove();
             }
-        });
-        // FIN - Función agregar datos de la entrada
 
-        // ===================================================================================
-        // ===================================================================================
+            $('#btn_del_entrada').on('click', function name(params) {
+                // alert(`eliminar entrada`);
+                
+                $('#nombre_producto').html('');
+                
+                $('#cantidad_producto').html('');
+                
+                $('#valor_subTotal').html('');
+                
+                $('#valor_compra').val('');
+                // $('#valor_compra').html('');
 
-        function delEntrada() {
-            // $('#tbl_bajas tr[name="'+idBaja+'"]').remove();
-            // $('tr[name="' + idBaja + '"]').remove();
-        }
+                $('#div_compra_datos_producto').addClass('d-none');
 
-        $('#btn_del_entrada').on('click', function name(params) {
-            // alert(`eliminar entrada`);
+                $('#id_tipo_proveedor').val('');
+                // $('#id_tipo_proveedor option:selected').text();
+                $('#id_producto').val('');
+                // $('#producto option:selected').text();
+                // $('#p_unitario').html('');
+                $('#cantidad').val('');
+            })
             
-            $('#nombre_producto').html('');
+            // ===================================================================================
+            // ===================================================================================
+
+            // formCrearProducto para cargar gif en el submit
+            $(document).on("submit", "form[id^='formCrearProducto']", function(e) {
+                const form = $(this);
+                const submitButton = form.find('button[type="submit"]');
+                const cancelButton = form.find('button[type="button"]');
+                const loadingIndicator = form.find("div[id^='loadingIndicatorCrearProducto']"); // Busca el GIF del form actual
+
+                // Dessactivar Submit y Cancel
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+                cancelButton.prop("disabled", true);
+
+                // Mostrar Spinner
+                loadingIndicator.show();
+            });
+        
+            // ===================================================================================
+            // ===================================================================================
             
-            $('#cantidad_producto').html('');
+            // formEditarProductoEntrada para cargar gif en el submit
+            $(document).on("submit", "form[id^='formEditarProductoEntrada']", function(e) {
+                const form = $(this);
+                const submitButton = form.find('button[type="submit"]');
+                const cancelButton = form.find('button[type="button"]');
+                const loadingIndicator = form.find("div[id^='loadingIndicatorEditarProducto']"); // Busca el GIF del form actual
+
+                // Dessactivar Submit y Cancel
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+                cancelButton.prop("disabled", true);
+
+                // Mostrar Spinner
+                loadingIndicator.show();
+            });
             
-            $('#valor_subTotal').html('');
+            // ===================================================================================
+            // ===================================================================================
             
-            $('#valor_compra').val('');
-            // $('#valor_compra').html('');
+            // formCrearProducto para cargar gif en el submit
+            $(document).on("submit", "form[id^='formCrearCompraEntrada']", function(e) {
+                const form = $(this);
+                const submitButton = form.find('button[type="submit"]');
+                const cancelButton = form.find('button[type="button"]');
+                const loadingIndicator = form.find("div[id^='loadingIndicatorCrearEntrada']"); // Busca el GIF del form actual
 
-            $('#div_datos_producto').addClass('d-none');
+                // Dessactivar Submit y Cancel
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+                cancelButton.prop("disabled", true);
 
-            $('#proveedor').val('');
-            // $('#proveedor option:selected').text();
-            $('#producto').val('');
-            // $('#producto option:selected').text();
-            // $('#p_unitario').html('');
-            $('#cantidad').val('');
-        })
-        
-        // ===================================================================================
-        // ===================================================================================
+                // Mostrar Spinner
+                loadingIndicator.show();
+            });
+            
+            // ===================================================================================
+            // ===================================================================================
 
-        // formCrearProducto para cargar gif en el submit
-        $(document).on("submit", "form[id^='formCrearProducto']", function(e) {
-            const form = $(this);
-            const submitButton = form.find('button[type="submit"]');
-            const cancelButton = form.find('button[type="button"]');
-            const loadingIndicator = form.find("div[id^='loadingIndicatorCrearProducto']"); // Busca el GIF del form actual
 
-            // Dessactivar Submit y Cancel
-            submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
-            cancelButton.prop("disabled", true);
-
-            // Mostrar Spinner
-            loadingIndicator.show();
-        });
-        
-        // ===================================================================================
-        // ===================================================================================
-        
-        // formEditarProductoEntrada para cargar gif en el submit
-        $(document).on("submit", "form[id^='formEditarProductoEntrada']", function(e) {
-            const form = $(this);
-            const submitButton = form.find('button[type="submit"]');
-            const cancelButton = form.find('button[type="button"]');
-            const loadingIndicator = form.find("div[id^='loadingIndicatorEditarProducto']"); // Busca el GIF del form actual
-
-            // Dessactivar Submit y Cancel
-            submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
-            cancelButton.prop("disabled", true);
-
-            // Mostrar Spinner
-            loadingIndicator.show();
-        });
-        
-        // ===================================================================================
-        // ===================================================================================
-        
-        // formCrearProducto para cargar gif en el submit
-        $(document).on("submit", "form[id^='formCrearCompraEntrada']", function(e) {
-            const form = $(this);
-            const submitButton = form.find('button[type="submit"]');
-            const cancelButton = form.find('button[type="button"]');
-            const loadingIndicator = form.find("div[id^='loadingIndicatorCrearEntrada']"); // Busca el GIF del form actual
-
-            // Dessactivar Submit y Cancel
-            submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
-            cancelButton.prop("disabled", true);
-
-            // Mostrar Spinner
-            loadingIndicator.show();
-        });
-        
-        // ===================================================================================
-        // ===================================================================================
-
-        
-
+        }); // FIN document.ready
     </script>
 @stop
 

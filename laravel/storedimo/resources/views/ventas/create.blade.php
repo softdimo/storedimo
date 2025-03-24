@@ -533,7 +533,6 @@
 
                 let idPersona = $('#id_persona').val(); // Captura el id_persona
 
-                // if (idTipoClienteVenta == '' || idProductoVenta == '' || cantidadVenta == '' || cantidadVenta <= 0) {
                 if (!idTipoClienteVenta || !idProductoVenta || !cantidadVenta || cantidadVenta <= 0) {
                     Swal.fire('Cuidado!', 'Todos los campos son obligatorios y la cantidad debe ser mayor a 0!', 'error');
                     return;
@@ -542,12 +541,10 @@
                 let valorSubTotal = aplicarMayor ? cantidadVenta * pxMayorVenta : cantidadVenta * pDetalVenta;
                 
                 let producto = {
-                    // tipoClienteVenta: idTipoClienteVenta,
                     id: idProductoVenta,
                     nombre: productoVenta,
                     cantidad: cantidadVenta,
                     subtotal: valorSubTotal,
-                    // id_persona: idPersona // Guarda el id_persona en el objeto del producto
                 };
                 productosAgregados.push(producto);
 
