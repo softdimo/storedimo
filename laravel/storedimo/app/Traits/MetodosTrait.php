@@ -141,11 +141,15 @@ trait MetodosTrait
                 ->orderBy('tipo_persona.tipo_persona')
                 ->pluck('nombre_proveedor', 'personas.id_tipo_persona'),
         
-            // 'clientes_info' => Persona::leftJoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'personas.id_tipo_persona')
-            //     ->select('personas.id_persona', 'personas.identificacion')
-            //     ->whereIn('personas.id_tipo_persona', [5,6])
-            //     ->get()
-            //     ->keyBy('identificacion') // Permite buscar id_persona usando identificacion
+                'proveedor_info' => Persona::leftJoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'personas.id_tipo_persona')
+                    ->select('personas.id_persona', 'personas.identificacion', 'personas.nit_empresa', 'personas.id_tipo_persona')
+                    ->whereIn('personas.id_tipo_persona', [3,4])
+                    ->get()
+                    ->mapWithKeys(function($item) {
+                        // Si es proveedor jurídico (id_tipo_persona == 4) usamos nit_empresa; si es natural, identificación.
+                        $key = $item->id_tipo_persona == 4 ? $item->nit_empresa : $item->identificacion;
+                        return [$key => $item];
+                    })
         ]);
     }
 }

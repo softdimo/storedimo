@@ -81,6 +81,7 @@
                             {{-- ============================================================== --}}
                             {{ Form::select('id_tipo_proveedor', collect(['' => 'Seleccionar...'])->union($proveedores_compras), null, ['class' => 'form-select mt-4 mb-4', 'id' => 'id_tipo_proveedor', 'style'=>'width:90%; margin:auto']) }}
 
+                            {{-- Campo oculto para id_persona --}}
                             {{ Form::hidden('id_persona', null, ['class' => '', 'id' => 'id_persona', 'required']) }}
                             {{-- ============================================================== --}}
 
@@ -124,7 +125,7 @@
                             <div class="form-group p-3" id="cant">
                                 <label for="">Cantidad <span class="text-danger">*</span></label>
                                 
-                                {!! Form::number('cantidad', null, ['class' => 'form-control', 'id' => 'cantidad', 'required', 'min' => '1', 'maxlength' => '4']) !!}
+                                {!! Form::number('cantidad', null, ['class' => 'form-control', 'id' => 'cantidad', 'min' => '1', 'maxlength' => '4']) !!}
                             </div>
                             {{-- ============ --}}
                             <div class="p-3 d-flex justify-content-end">
@@ -165,17 +166,12 @@
                                         <i class="fa fa-floppy-o"></i>
                                         Guardar
                                     </button>
-                        
-                                    {{-- <button type="button" class="btn btn-danger rounded-2">
-                                        <i class="fa fa-remove"></i>
-                                        Cancelar
-                                    </button> --}}
                                 </div>
                             </div>
                         </div> {{-- FIN div_detalle-entradas --}}
                     </div>
                 {!! Form::close() !!}
-            </div> {{-- FIN div_crear_usuario --}}
+            </div> {{-- FIN div_crear_compra --}}
         </div>
     </div>
 
@@ -617,6 +613,21 @@
             // ===================================================================================
             // ===================================================================================
 
+            $('#id_tipo_proveedor').change(function () {
+                // Extrae la parte del texto anterior al " - " y quita espacios adicionales
+                var clave = this.options[this.selectedIndex].text.split(' - ')[0].trim();
+                var proveedorInfo = @json($proveedor_info); // Convierte la variable PHP a JSON
+
+                if (proveedorInfo[clave]) {
+                    $('#id_persona').val(proveedorInfo[clave].id_persona);
+                } else {
+                    $('#id_persona').val('');
+                }
+            });
+
+            // ===================================================================================
+            // ===================================================================================
+
             // INICIO - Función agregar datos de las ventas
             let productosAgregados = [];
 
@@ -659,7 +670,7 @@
 
                     actualizarDetalleCompra();
 
-                    $('#btn_add_entrada').attr('required');
+                    $('#cantidad').attr('required');
 
                     $('#id_producto').val('').trigger('change'); // Reiniciar selección de producto
                     $('#p_unitario').html(0);  // Resetear precio unitario
@@ -746,16 +757,18 @@
             // ===================================================================================
             // ===================================================================================
             
-            // formCrearProducto para cargar gif en el submit
-            $(document).on("submit", "form[id^='formCrearCompraEntrada']", function(e) {
+            // formRegistrarCompra para cargar gif en el submit
+            $(document).on("submit", "form[id^='formRegistrarCompra']", function(e) {
                 const form = $(this);
                 const submitButton = form.find('button[type="submit"]');
-                const cancelButton = form.find('button[type="button"]');
+                // const cancelButton = form.find('button[type="button"]');
                 const loadingIndicator = form.find("div[id^='loadingIndicatorCrearEntrada']"); // Busca el GIF del form actual
+
+                $('#cantidad').removeAttr('required');
 
                 // Dessactivar Submit y Cancel
                 submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
-                cancelButton.prop("disabled", true);
+                // cancelButton.prop("disabled", true);
 
                 // Mostrar Spinner
                 loadingIndicator.show();
