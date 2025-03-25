@@ -223,7 +223,7 @@
                                         <table class="table table-striped table-bordered w-100 mb-0" aria-describedby="entradas">
                                             <thead>
                                                 <tr class="header-table text-center">
-                                                    <th>Fecha Entrada</th>
+                                                    <th>Fecha Compra</th>
                                                     {{-- <th>Empresa</th> --}}
                                                     <th>Id Proveedor</th>
                                                     <th>Nombre Proveedor</th>

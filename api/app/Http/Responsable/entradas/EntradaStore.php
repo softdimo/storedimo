@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Compra;
 use App\Models\CompraProducto;
+use App\Models\Producto;
 
 class EntradaStore implements Responsable
 {
@@ -44,6 +45,18 @@ class EntradaStore implements Responsable
                         'precio_unitario_compra' => $producto['p_unitario'],
                         'subtotal' => $producto['subtotal']
                     ]);
+
+                    // $cantidadProducto = Producto::select('cantidad')
+                    //     ->where('id_producto', $producto['id_producto'])
+                    //     ->where('id_persona', $idProveedor)
+                    //     ->first();
+
+                    // if ( !is_null($cantidadProducto)) {
+                    //     $cantidad = $cantidadProducto->cantidad + $producto['cantidad'];
+                    // } else {
+                    //     $cantidad = 0 + $producto['cantidad'];
+                    // }
+                    
                 }
 
                 return response()->json(['success' => true]);

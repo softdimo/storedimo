@@ -59,7 +59,7 @@
                 <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="personas" role="button" data-bs-toggle="collapse" data-bs-target="#ul_personas" aria-controls="ul_personas" aria-expanded="false" aria-label="Toggle navigation">
                     <div class="col-11">
                         <i class="fa fa-users text-center" style="color: #000; width: 10%"></i>
-                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Personas</a>
+                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Clientes-Proveedores</a>
                     </div>
                     <div class="col-1 text-center text-dark">
                         <span class="fa collapse-icon" aria-hidden="false" style=""></span>
@@ -68,16 +68,13 @@
 
                 <ul class="nav collapse navbar-collapse ps-3" id="ul_personas">
                     <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('personas.create')}}">Registrar Personas</a>
-                    </li>
-                    <li class="nav-item w-100">
-                        {{-- <a class="link-underline-light" href="{{route('personas.index')}}">Listar Personas</a> --}}
+                        <a class="link-underline-light" href="{{route('listar_clientes')}}">Listar Clientes</a>
                     </li>
                     <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('listar_proveedores')}}">Listar Proveedores</a>
                     </li>
                     <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('listar_clientes')}}">Listar Clientes</a>
+                        <a class="link-underline-light" href="{{route('personas.create')}}">Registrar Cliente-Proveedor</a>
                     </li>
                 </ul>
             </li>
