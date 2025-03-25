@@ -46,17 +46,22 @@ class EntradaStore implements Responsable
                         'subtotal' => $producto['subtotal']
                     ]);
 
-                    // $cantidadProducto = Producto::select('cantidad')
-                    //     ->where('id_producto', $producto['id_producto'])
-                    //     ->where('id_persona', $idProveedor)
-                    //     ->first();
+                    $cantidadProducto = Producto::select('cantidad')
+                        ->where('id_producto', $producto['id_producto'])
+                        ->where('id_persona', $idProveedor)
+                        ->first();
 
-                    // if ( !is_null($cantidadProducto)) {
-                    //     $cantidad = $cantidadProducto->cantidad + $producto['cantidad'];
-                    // } else {
-                    //     $cantidad = 0 + $producto['cantidad'];
-                    // }
-                    
+                    if ( !is_null($cantidadProducto)) {
+                        $cantidad = $cantidadProducto->cantidad + $producto['cantidad'];
+                    } else {
+                        $cantidad = 0 + $producto['cantidad'];
+                    }
+
+                    $producto = Producto::findOrFail($producto['id_producto']);
+
+                    $producto->cantidad = $cantidad;
+                    $producto->id_persona = $idProveedor;
+                    $producto->update();
                 }
 
                 return response()->json(['success' => true]);
