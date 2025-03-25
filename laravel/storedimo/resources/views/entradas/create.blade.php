@@ -663,6 +663,7 @@
                     let producto = {
                         idProductoCompra: idProducto,
                         nombre: productoCompra,
+                        pUnitario: pUnitario,
                         cantidad: cantidad,
                         subtotal: valorSubTotal,
                     };
@@ -694,6 +695,11 @@
                                             <h3>${producto.nombre}</h3>
                                             <p>Cantidad: <span>${producto.cantidad}</span></p>
                                             <p>Valor subtotal: $<span>${producto.subtotal}</span></p>
+
+                                            <input type="hidden" name="id_producto_compra[]" value="${producto.idProductoCompra}">
+                                            <input type="hidden" name="p_unitario_compra[]" value="${producto.pUnitario}">
+                                            <input type="hidden" name="cantidad_compra[]" value="${producto.cantidad}">
+                                            <input type="hidden" name="subtotal_compra[]" value="${producto.subtotal}">
                                         </div>
                                         <div class="col-3 d-flex align-items-center">
                                             <button type="button" class="btn btn-danger btn-sm" onclick="eliminarProducto(${index})">
