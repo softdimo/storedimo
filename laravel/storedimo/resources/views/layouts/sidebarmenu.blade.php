@@ -157,7 +157,7 @@
                 <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="personas"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_entradas" aria-controls="ul_entradas" aria-expanded="false" aria-label="Toggle navigation">
                     <div class="col-11">
                         <i class="fa fa-shopping-cart text-center text-dark" style="width: 10%"></i>
-                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Entradas</a>
+                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Compras</a>
                     </div>
                     <div class="col-1 text-center text-dark">
                         <span class="fa collapse-icon" aria-hidden="false" style=""></span>
@@ -166,10 +166,10 @@
 
                 <ul class="nav collapse navbar-collapse ps-3" id="ul_entradas">
                     <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('entradas.create')}}">Registrar Entradas</a>
+                        <a class="link-underline-light" href="{{route('entradas.create')}}">Registrar Compras</a>
                     </li>
                     <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('entradas.index')}}">Listar Entradas</a>
+                        <a class="link-underline-light" href="{{route('entradas.index')}}">Listar Compras</a>
                     </li>
                 </ul>
             </li>

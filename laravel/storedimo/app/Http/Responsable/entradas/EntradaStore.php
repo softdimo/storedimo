@@ -29,7 +29,7 @@ class EntradaStore implements Responsable
         $idEmpresa = request('id_empresa', null);
         $fechaCompra = now()->format('Y-m-d H:i:s'); // Formato compatible con DATETIME en MySQL
         $valorCompra = request('valor_compra', null);
-        $idProveedor = request('id_persona', null);
+        $idProveedor = request('id_tipo_proveedor', null);
         $usuLogueado = session('id_usuario');
         $idEstado = 1;
 

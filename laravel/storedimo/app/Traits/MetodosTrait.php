@@ -119,12 +119,6 @@ trait MetodosTrait
 
         view()->share([
             'proveedores_compras' => Persona::leftJoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'personas.id_tipo_persona')
-                ->selectRaw("id_persona,
-                    CASE
-                        WHEN nombre_empresa IS NOT NULL THEN nombre_empresa
-                        ELSE CONCAT(nombres_persona, ' ', apellidos_persona)
-                    END AS proveedor"
-                )
                 ->select(
                     'personas.id_persona',
                     'personas.identificacion',
@@ -139,17 +133,10 @@ trait MetodosTrait
                 )
                 ->whereIn('personas.id_tipo_persona', [3,4])
                 ->orderBy('tipo_persona.tipo_persona')
-                ->pluck('nombre_proveedor', 'personas.id_tipo_persona'),
-        
-                'proveedor_info' => Persona::leftJoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'personas.id_tipo_persona')
-                    ->select('personas.id_persona', 'personas.identificacion', 'personas.nit_empresa', 'personas.id_tipo_persona')
-                    ->whereIn('personas.id_tipo_persona', [3,4])
-                    ->get()
-                    ->mapWithKeys(function($item) {
-                        // Si es proveedor jurídico (id_tipo_persona == 4) usamos nit_empresa; si es natural, identificación.
-                        $key = $item->id_tipo_persona == 4 ? $item->nit_empresa : $item->identificacion;
-                        return [$key => $item];
-                    })
+                ->get() // Usamos get() en lugar de pluck()
+                ->mapWithKeys(function($item) {
+                    return [$item->id_persona => $item->nombre_proveedor]; // Usamos id_persona como clave única
+                })
         ]);
     }
 }

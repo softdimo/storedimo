@@ -62,8 +62,19 @@
                                         <td>{{$entrada->id_compra}}</td>
                                         <td>{{$entrada->valor_compra}}</td>
                                         <td>{{$entrada->fecha_compra}}</td>
-                                        <td>{{$entrada->nit_empresa}}</td>
-                                        <td>{{$entrada->nombre_empresa}}</td>
+
+                                        @if ($entrada->nit_empresa)
+                                            <td>{{$entrada->nit_empresa}}</td>
+                                        @else
+                                         <td>{{$entrada->identificacion}}</td>
+                                        @endif
+
+                                        @if ($entrada->nombre_empresa)
+                                            <td>{{$entrada->nombre_empresa}}</td>
+                                        @else
+                                            <td>{{$entrada->nombres_persona}} {{$entrada->apellidos_persona}}</td>
+                                        @endif
+                                        
                                         <td>{{$entrada->estado}}</td>
 
                                         @if ($entrada->id_estado == 1)
@@ -198,11 +209,11 @@
                 <div class="modal-content p-3 w-100">
                     <div class="rounded-top" style="border: solid 1px #337AB7;">
                         <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                            <h5>Detalle de Entrada Código: {{$entrada->id_compra}}</h5>
+                            <h5>Detalle de Compra Código: {{$entrada->id_compra}}</h5>
                         </div>
 
                         <div class="mt-3 mb-0 ps-3">
-                            <h6>Entrada realizada por: <span class="" style="color: #337AB7">{{$entrada->nombres_usuario}}</span></h6>
+                            <h6>Compra realizada por: <span class="" style="color: #337AB7">{{$entrada->nombres_usuario}}</span></h6>
                         </div>
 
                         <div class="modal-body p-0 m-0">
@@ -222,9 +233,18 @@
                                             <tbody>
                                                 <tr class="text-center">
                                                     <td>{{$entrada->fecha_compra}}</td>
-                                                    {{-- <td>{{$entrada->empresa}}</td> --}}
-                                                    <td>{{$entrada->nit_empresa}}</td>
-                                                    <td>{{$entrada->nombre_empresa}}</td>
+                                                    @if ($entrada->nit_empresa)
+                                                        <td>{{$entrada->nit_empresa}}</td>
+                                                    @else
+                                                        <td>{{$entrada->identificacion}}</td>
+                                                    @endif
+
+                                                    @if ($entrada->nombre_empresa)
+                                                        <td>{{$entrada->nombre_empresa}}</td>
+                                                    @else
+                                                        <td>{{$entrada->nombres_persona}} {{$entrada->apellidos_persona}}</td>
+                                                    @endif
+
                                                     <td>{{$entrada->valor_compra}}</td>
                                                 </tr>
                                             </tbody>
@@ -273,11 +293,11 @@
                     </div>
 
                     <div class="d-flex justify-content-around mt-3">
-                        <button type="submit" title="Guardar Configuración" class="btn btn-success" id="btn_editar_categoria" style="background-color: #337AB7">
-                            <i class="fa fa-file-pdf-o"> PdfDetalles Entradas</i>
-                        </button>
+                        <a href="{{ route('detalle_compras_pdf', $entrada->id_compra) }}" target="_blank" class="btn btn-success" style="background-color: #337AB7">
+                            <i class="fa fa-file-pdf-o"></i> Pdf Detalle Compra
+                        </a>
                         
-                        <button type="button" title="Cancelar" class="btn btn-secondary" data-bs-dismiss="modal" id="btn_editar_cancelar">
+                        <button type="button" title="Cancelar" class="btn btn-secondary" data-bs-dismiss="modal" id="btn_cancelar_detalle_compra">
                             <i class="fa fa-times" aria-hidden="true"> Cerrar</i>
                         </button>
                     </div>

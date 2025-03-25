@@ -36,7 +36,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="rounded-top text-white text-center p-2" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                                        <span class="modal-title fs-4"><strong>Ayuda de Entradas</strong></span>
+                                        <span class="modal-title fs-4"><strong>Ayuda de Compras</strong></span>
                                     </div>
                                     {{-- =========================== --}}
                                     <div class="p-3">
@@ -66,7 +66,7 @@
             {{-- =============================================================== --}}
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Registrar Entradas</h5>
+                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Registrar Compras</h5>
 
                 {!!Form::open(['method' => 'POST',
                 'route' => ['entradas.store'],
@@ -81,8 +81,6 @@
                             {{-- ============================================================== --}}
                             {{ Form::select('id_tipo_proveedor', collect(['' => 'Seleccionar...'])->union($proveedores_compras), null, ['class' => 'form-select mt-4 mb-4', 'id' => 'id_tipo_proveedor', 'style'=>'width:90%; margin:auto']) }}
 
-                            {{-- Campo oculto para id_persona --}}
-                            {{ Form::hidden('id_persona', null, ['class' => '', 'id' => 'id_persona', 'required']) }}
                             {{-- ============================================================== --}}
 
                             <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Producto <span class="text-danger">*</span></h5>
@@ -613,21 +611,6 @@
             // ===================================================================================
             // ===================================================================================
 
-            $('#id_tipo_proveedor').change(function () {
-                // Extrae la parte del texto anterior al " - " y quita espacios adicionales
-                var clave = this.options[this.selectedIndex].text.split(' - ')[0].trim();
-                var proveedorInfo = @json($proveedor_info); // Convierte la variable PHP a JSON
-
-                if (proveedorInfo[clave]) {
-                    $('#id_persona').val(proveedorInfo[clave].id_persona);
-                } else {
-                    $('#id_persona').val('');
-                }
-            });
-
-            // ===================================================================================
-            // ===================================================================================
-
             // Array agregrar Productos a comprar
             let productosAgregados = [];
 
@@ -649,7 +632,7 @@
                 console.log(`Precio Unitario ${pUnitario}`);
                 console.log(`Cantidad ${cantidad}`);
 
-                let idPersona = $('#id_persona').val(); // Captura el id_persona
+                // let idPersona = $('#id_persona').val(); // Captura el id_persona
 
                 if (!idTipoProveedor || !idProducto || !cantidad) {
                     Swal.fire(
@@ -779,13 +762,6 @@
                 // Mostrar Spinner
                 loadingIndicator.show();
             });
-            
-            // ===================================================================================
-            // ===================================================================================
-
-
         }); // FIN document.ready
     </script>
 @stop
-
-

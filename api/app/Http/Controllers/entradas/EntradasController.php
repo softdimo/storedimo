@@ -202,7 +202,43 @@ class EntradasController extends Controller
                 ->orderBy('nombre_producto')
                 ->get();
 
+                
+
             return response()->json($detalleCompra);
+
+        } catch (Exception $e) {
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
+    }
+        
+    // ===================================================================
+    // ===================================================================
+
+    public function detalleCompraProductoPdf($idCompra)
+    {
+        try {
+            $detalleCompraProductoPdf = Compra::leftJoin('compra_productos', 'compra_productos.id_compra', '=', 'compras.id_compra')
+                ->leftJoin('productos', 'productos.id_producto', '=', 'compra_productos.id_producto')
+                ->leftJoin('personas', 'personas.id_persona', '=', 'compras.id_proveedor')
+                ->where('compras.id_compra', $idCompra)
+                ->select(
+                    'compras.id_compra',
+                    'compras.fecha_compra',
+                    'compras.valor_compra',
+                    'compras.id_proveedor',
+                    'personas.nombre_empresa',
+                    'personas.nombres_persona',
+                    'personas.apellidos_persona',
+                    'compra_productos.id_producto',
+                    'compra_productos.cantidad',
+                    'compra_productos.precio_unitario_compra',
+                    'compra_productos.subtotal',
+                    'productos.nombre_producto'
+                )
+                ->orderBy('nombre_producto')
+                ->get();
+
+            return response()->json($detalleCompraProductoPdf);
 
         } catch (Exception $e) {
             return response()->json(['error_bd' => $e->getMessage()]);

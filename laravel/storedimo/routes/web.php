@@ -126,17 +126,7 @@ Route::group(['namespace' => 'App\Http\Controllers\entradas'], function () {
     Route::resource('entradas', 'EntradasController');
     Route::post('anular_compra', 'EntradasController@anularCompra')->name('anular_compra');
     Route::post('reporte_compras_pdf', 'EntradasController@reporteComprasPdf')->name('reporte_compras_pdf');
-
-    // Abre automáticamente el archivo con los códigos QR del producto recién solicitado
-    Route::get('/compras_pdf/{archivo}', function ($archivo) {
-        $rutaPdfCompras = storage_path("app/public/upfiles/compras/{$archivo}");
-    
-        if (!file_exists($rutaPdfCompras)) {
-            abort(404, "El archivo no existe.");
-        }
-    
-        return response()->file($rutaPdfCompras);
-    })->name('compras_pdf');
+    Route::get('detalle_compras_pdf/{idCompra}', 'EntradasController@detalleComprasPdf')->name('detalle_compras_pdf');
 });
 
 // ========================================================================

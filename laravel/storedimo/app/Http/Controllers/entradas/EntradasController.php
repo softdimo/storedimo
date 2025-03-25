@@ -11,6 +11,7 @@ use App\Http\Responsable\entradas\EntradaIndex;
 use App\Http\Responsable\entradas\EntradaStore;
 use App\Http\Responsable\entradas\EntradaUpdate;
 use App\Http\Responsable\entradas\ReporteComprasPdf;
+use App\Http\Responsable\entradas\DetalleComprasPdf;
 
 
 class EntradasController extends Controller
@@ -204,5 +205,13 @@ class EntradasController extends Controller
     public function reporteComprasPdf()
     {
         return new ReporteComprasPdf();
+    }
+
+    // ======================================================================
+    // ======================================================================
+
+    public function detalleComprasPdf($idCompra)
+    {
+        return new DetalleComprasPdf($idCompra);
     }
 }
