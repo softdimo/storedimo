@@ -9,6 +9,7 @@ use App\Http\Responsable\entradas\EntradaIndex;
 use App\Http\Responsable\entradas\EntradaStore;
 use App\Http\Responsable\entradas\EntradaUpdate;
 use App\Models\Compra;
+use App\Models\CompraProducto;
 
 
 class EntradasController extends Controller
@@ -150,8 +151,6 @@ class EntradasController extends Controller
         $fechaFinal = request('fecha_final', null);
 
         try {
-            // $compras = Compra::whereBetween('fecha_compra', [$fechaInicial, $fechaFinal])->get();
-
             $compras = Compra::leftJoin('personas', 'personas.id_persona', '=', 'compras.id_proveedor')
                 ->whereBetween('fecha_compra', [$fechaInicial, $fechaFinal])
                 ->whereIn('personas.id_tipo_persona', [3, 4]) // Filtra solo si hay una persona
@@ -177,6 +176,33 @@ class EntradasController extends Controller
                 'total' => $total,
             ], 200);
 
+
+        } catch (Exception $e) {
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
+    }
+    
+    // ===================================================================
+    // ===================================================================
+
+    public function detalleCompra($idCompra)
+    {
+        try {
+            $detalleCompra = CompraProducto::leftJoin('compras', 'compras.id_compra', '=', 'compra_productos.id_compra')
+                ->leftJoin('productos', 'productos.id_producto', '=', 'compra_productos.id_producto')
+                ->where('compra_productos.id_compra', $idCompra)
+                ->select(
+                    'compra_productos.id_compra',
+                    'compra_productos.id_producto',
+                    'nombre_producto',
+                    'compra_productos.cantidad',
+                    'precio_unitario_compra',
+                    'subtotal'
+                )
+                ->orderBy('nombre_producto')
+                ->get();
+
+            return response()->json($detalleCompra);
 
         } catch (Exception $e) {
             return response()->json(['error_bd' => $e->getMessage()]);

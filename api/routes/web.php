@@ -85,6 +85,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('entrada_store', 'entradas\EntradasController@store');
     $router->post('anular_compra/{idCompra}', 'entradas\EntradasController@anularCompra');
     $router->post('reporte_compras_pdf', 'entradas\EntradasController@reporteComprasPdf');
+    $router->post('detalle_compra/{idCompra}', 'entradas\EntradasController@detalleCompra');
 
     // $router->put('entrada_update/{id}', 'entradas\EntradasController@update');
 });

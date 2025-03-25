@@ -241,7 +241,7 @@
                                 <div class="row m-0">
                                     <div class="col-12 p-3 pt-1">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered w-100 mb-0" aria-describedby="entradas">
+                                            <table class="table table-striped table-bordered w-100 mb-0" aria-describedby="compra_detalle">
                                                 <thead>
                                                     <tr class="header-table text-center">
                                                         <th>Producto</th>
@@ -251,12 +251,14 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr class="text-center">
-                                                        <td>{{$entrada->nombre_producto}}</td>
-                                                        <td>{{$entrada->cantidad}}</td>
-                                                        <td>{{$entrada->precio_unitario}}</td>
-                                                        <td>{{$entrada->precio_unitario}}</td>
-                                                    </tr>
+                                                    @foreach ($entrada->detalles as $producto)
+                                                        <tr class="text-center">
+                                                            <td>{{ $producto->nombre_producto }}</td>
+                                                            <td>{{ $producto->cantidad }}</td>
+                                                            <td>{{ $producto->precio_unitario_compra }}</td>
+                                                            <td>{{ $producto->subtotal }}</td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>

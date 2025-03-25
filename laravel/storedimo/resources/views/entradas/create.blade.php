@@ -628,7 +628,7 @@
             // ===================================================================================
             // ===================================================================================
 
-            // INICIO - Función agregar datos de las ventas
+            // Array agregrar Productos a comprar
             let productosAgregados = [];
 
             // INICIO - Función agregar datos de la entrada
