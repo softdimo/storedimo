@@ -116,8 +116,8 @@
                                     {{-- ============================== --}}
                                     <tbody>
                                             <tr class="text-center align-middle">
-                                                <td>$ <span id="p_detal_venta">2500</span></td>
-                                                <td>$ <span id="p_x_mayor_venta">2100</span></td>
+                                                <td>$ <span id="p_detal_venta"></span></td>
+                                                <td>$ <span id="p_x_mayor_venta"></span></td>
                                                 <td id="">
                                                     {{ Form::checkbox( 'aplicar_x_mayor_venta', null, ['class' => 'form-control', 'id' => 'aplicar_x_mayor_venta'] ) }}
                                                 </td>
@@ -134,7 +134,7 @@
                                     </div>
                                     
                                     <div class="col-4 m-0 p-0">
-                                        <span class="form-control rounded-start-0 text-center" style="background-color: #EEEEEE">Unidades (19)</span>
+                                        <span class="form-control rounded-start-0 text-center" style="background-color: #EEEEEE">Unidades (<span id="cantidad_producto" class="text-success fw-bold"></span>)</span>
                                     </div>
                                 </div>
                             </div>
@@ -469,9 +469,11 @@
                         if (idProducto == '' ) {
                             $('#p_detal_venta').html(0);
                             $('#p_x_mayor_venta').html(0);
+                            $('#cantidad_producto').html(0);
                         } else {
                             $('#p_detal_venta').html(respuesta.precio_detal);
                             $('#p_x_mayor_venta').html(respuesta.precio_por_mayor);
+                            $('#cantidad_producto').html(respuesta.cantidad);
                         }
                     }
                 });
