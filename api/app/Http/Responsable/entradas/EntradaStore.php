@@ -32,7 +32,6 @@ class EntradaStore implements Responsable
                 'id_estado' => $idEstado
             ]);
             
-
             if ($crearCompra) {
 
                 $idCompra = $crearCompra->id_compra;

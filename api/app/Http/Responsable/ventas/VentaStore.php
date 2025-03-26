@@ -6,6 +6,8 @@ use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
 use App\Models\Venta;
+use App\Models\Producto;
+use App\Models\VentaProducto;
 
 class VentaStore implements Responsable
 {
@@ -15,26 +17,27 @@ class VentaStore implements Responsable
         $idTipoCliente = request('id_tipo_cliente', null);
         $fechaVenta = request('fecha_venta', null);
         $descuento = request('descuento', null);
-        $subtotalVenta = request('subtotal_venta', null);
+        // $subtotalVenta = request('subtotal_venta', null);
         $totalVenta = request('total_venta', null);
         $idTipoPago = request('id_tipo_pago', null);
-        $idProducto = request('id_producto', null);
+        // $idProducto = request('id_producto', null);
         $idCliente = request('id_cliente', null);
         $usuLogueado = request('id_usuario');
         $idEstado = request('id_estado');
         $idEstadoCredito = request('id_estado_credito', null);
         $fechaLimiteCredito = request('fecha_limite_credito', null);
+        $productos = request('productos', []);
 
         try {
-            $nuevaVenta = Venta::create([
+            $crearVenta = Venta::create([
                 'id_empresa' => $idEmpresa,
                 'id_tipo_cliente' => $idTipoCliente,
                 'fecha_venta' => $fechaVenta,
                 'descuento' => $descuento,
-                'subtotal_venta' => $subtotalVenta,
+                // 'subtotal_venta' => $subtotalVenta,
                 'total_venta' => $totalVenta,
                 'id_tipo_pago' => $idTipoPago,
-                'id_producto' => $idProducto,
+                // 'id_producto' => $idProducto,
                 'id_cliente' => $idCliente,
                 'id_usuario' => $usuLogueado,
                 'id_estado' => $idEstado,
@@ -42,7 +45,35 @@ class VentaStore implements Responsable
                 'fecha_limite_credito' => $fechaLimiteCredito
             ]);
 
-            if (isset($nuevaVenta) && !is_null($nuevaVenta) && !empty($nuevaVenta)) {
+            if ($crearVenta) {
+
+                $idVenta = $crearVenta->id_venta;
+
+                foreach ($productos as $producto) {
+                    VentaProducto::create([
+                        'id_venta' => $idVenta,
+                        'id_producto' => $producto['id_producto'],
+                        'cantidad' => $producto['cantidad'],
+                        'precio_detal_venta' => $producto['p_detal'],
+                        'precio_x_mayor_venta' => $producto['p_mayor'],
+                        'subtotal' => $producto['subtotal']
+                    ]);
+
+                    $cantidadProducto = Producto::select('cantidad')
+                        ->where('id_producto', $producto['id_producto'])
+                        // ->where('id_persona', $idProveedor)
+                        ->first();
+
+                    if ( !is_null($cantidadProducto) ) {
+                        $cantidad = $cantidadProducto->cantidad - $producto['cantidad'];
+                    }
+
+                    $producto = Producto::findOrFail($producto['id_producto']);
+
+                    $producto->cantidad = $cantidad;
+                    $producto->update();
+                }
+
                 return response()->json(['success' => true]);
             }
 

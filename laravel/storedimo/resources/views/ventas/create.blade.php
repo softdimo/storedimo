@@ -544,9 +544,11 @@
                 let valorSubTotal = aplicarMayor ? cantidadVenta * pxMayorVenta : cantidadVenta * pDetalVenta;
                 
                 let producto = {
-                    id: idProductoVenta,
+                    idProductoVenta: idProductoVenta,
                     nombre: productoVenta,
                     cantidad: cantidadVenta,
+                    pDetalVenta: pDetalVenta,
+                    pxMayorVenta: pxMayorVenta,
                     subtotal: valorSubTotal,
                 };
                 productosAgregados.push(producto);
@@ -579,6 +581,12 @@
                                             <h3>${producto.nombre}</h3>
                                             <p>Cantidad: <span>${producto.cantidad}</span></p>
                                             <p>Valor subtotal: $<span>${producto.subtotal}</span></p>
+
+                                            <input type="hidden" name="id_producto_venta[]" value="${producto.idProductoVenta}">
+                                            <input type="hidden" name="cantidad_venta[]" value="${producto.cantidad}">
+                                            <input type="hidden" name="p_detal_venta[]" value="${producto.pDetalVenta}">
+                                            <input type="hidden" name="p_mayor_venta[]" value="${producto.pxMayorVenta}">
+                                            <input type="hidden" name="subtotal_venta[]" value="${producto.subtotal}">
                                         </div>
                                         <div class="col-3 d-flex align-items-center">
                                             <button type="button" class="btn btn-danger btn-sm" onclick="eliminarProducto(${index})">
@@ -606,23 +614,23 @@
             // ===================================================================================
             // ===================================================================================
 
-            $('#btn_del_venta').on('click', function () {
-                alert(`Eliminar Venta`);
+            // $('#btn_del_venta').on('click', function () {
+            //     alert(`Eliminar Venta`);
 
-                $('#cliente_venta').val('');
-                $('#producto_venta').val('');
-                $('#cantidad_venta').val('');
+            //     $('#cliente_venta').val('');
+            //     $('#producto_venta').val('');
+            //     $('#cantidad_venta').val('');
 
-                $('#nombre_producto_venta').val('');
-                $('#cantidad_producto_venta').val('');
-                $('#valor_subTotal_venta').val('');
+            //     $('#nombre_producto_venta').val('');
+            //     $('#cantidad_producto_venta').val('');
+            //     $('#valor_subTotal_venta').val('');
 
-                $('#sub_total_venta').val('');
-                $('#descuento_total_venta').val('');
-                $('#total_venta').val('');
+            //     $('#sub_total_venta').val('');
+            //     $('#descuento_total_venta').val('');
+            //     $('#total_venta').val('');
 
-                $('#div_ventas_datos_producto').addClass('d-none');
-            });
+            //     $('#div_ventas_datos_producto').addClass('d-none');
+            // });
 
             // ===================================================================================
             // ===================================================================================

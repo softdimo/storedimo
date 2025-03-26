@@ -29,15 +29,21 @@ class VentaStore implements Responsable
         $idTipoCliente = request('id_tipo_persona', null);
         $fechaVenta = now()->format('Y-m-d H:i:s'); // Formato compatible con DATETIME en MySQL
         $descuento = request('descuento', null);
-        $subtotalVenta = request('sub_total_venta', null);
+        // $subtotalVenta = request('sub_total_venta', null);
         $totalVenta = request('total_venta', null);
         $idTipoPago = request('tipo_pago', null);
-        $idProducto = request('producto_venta', null);
+        // $idProducto = request('producto_venta', null);
         $idCliente = request('cliente_venta', null);
         $usuLogueado = session('id_usuario');
         $idEstado = 1;
         $idEstadoCredito = request('id_estado_credito', null);
         $fechaLimiteCredito = request('fecha_limite_credito', null);
+        
+        $idProductos = request('id_producto_venta', []); // Array productos
+        $cantidades = request('cantidad_venta', []);    // Array cantidades
+        $pDetalVenta = request('p_detal_venta', []);   // Array precios Detal
+        $pMayorVenta = request('p_mayor_venta', []);   // Array precios por Mayor
+        $subtotales = request('subtotal_venta', []);    // Array de subtotales
         
         try {
             $reqVentaStore = $this->clientApi->post($this->baseUri.'venta_store', [
@@ -46,10 +52,19 @@ class VentaStore implements Responsable
                     'id_tipo_cliente' => $idTipoCliente,
                     'fecha_venta' => $fechaVenta,
                     'descuento' => $descuento,
-                    'subtotal_venta' => $subtotalVenta,
+                    // 'subtotal_venta' => $subtotalVenta,
                     'total_venta' => $totalVenta,
                     'id_tipo_pago' => $idTipoPago,
-                    'id_producto' => $idProducto,
+                    // 'id_producto' => $idProducto,
+                    'productos' => array_map(function ($id, $cantidad, $precioDetal, $precioMayor, $subtotal) {
+                        return [
+                            'id_producto' => $id,
+                            'cantidad' => $cantidad,
+                            'p_detal' => $precioDetal,
+                            'p_mayor' => $precioMayor,
+                            'subtotal' => $subtotal
+                        ];
+                    }, $idProductos, $cantidades, $pDetalVenta,$pMayorVenta,  $subtotales), // Construcción del array
                     'id_cliente' => $idCliente,
                     'id_usuario' => $usuLogueado,
                     'id_estado' => $idEstado,
