@@ -552,7 +552,7 @@
                 let cantidadVenta = parseInt($('#cantidad_venta').val());
                 let aplicarMayor = $('input[name="aplicar_x_mayor_venta"]').is(':checked')
 
-                let idPersona = $('#id_tipo_persona').val(); // Captura el id_tipo_persona
+                // let idPersona = $('#id_tipo_persona').val(); // Captura el id_tipo_persona
 
                 if (!idTipoClienteVenta || !idProductoVenta || !cantidadVenta || cantidadVenta <= 0) {
                     Swal.fire('Cuidado!', 'Todos los campos son obligatorios y la cantidad debe ser mayor a 0!', 'error');
@@ -560,6 +560,12 @@
                 }
 
                 let valorSubTotal = aplicarMayor ? cantidadVenta * pxMayorVenta : cantidadVenta * pDetalVenta;
+
+                if (aplicarMayor) {
+                    pDetalVenta = '';
+                } else {
+                    pxMayorVenta = '';
+                }
                 
                 let producto = {
                     idProductoVenta: idProductoVenta,

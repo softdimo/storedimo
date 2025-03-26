@@ -10,6 +10,8 @@ use Exception;
 use App\Http\Responsable\ventas\VentaIndex;
 use App\Http\Responsable\ventas\VentaStore;
 use App\Http\Responsable\ventas\VentaUpdate;
+use App\Http\Responsable\ventas\ReporteVentasPdf;
+// use App\Http\Responsable\ventas\DetalleVentasPdf;
 
 class VentasController extends Controller
 {
@@ -198,5 +200,21 @@ class VentasController extends Controller
             alert()->error("Exception Index Ventas!");
             return redirect()->to(route('login'));
         }
+    }
+            
+    // ======================================================================
+    // ======================================================================
+
+    public function reporteVentasPdf()
+    {
+        return new ReporteVentasPdf();
+    }
+
+    // ======================================================================
+    // ======================================================================
+
+    public function detalleVentasPdf($idCompra)
+    {
+        // return new DetalleVentasPdf($idCompra);
     }
 }
