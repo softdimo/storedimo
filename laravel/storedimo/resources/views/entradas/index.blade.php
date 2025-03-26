@@ -113,7 +113,7 @@
                     </div>
 
                     <div class="mt-5 mb-2 d-flex justify-content-center">
-                        <button class="btn rounded-2 me-3 text-white" type="submit" style="background-color: #286090" data-bs-toggle="modal" data-bs-target="#modalReporteCompras">
+                        <button type="submit" class="btn rounded-2 me-3 text-white" style="background-color: #286090" data-bs-toggle="modal" data-bs-target="#modalReporteCompras">
                             <i class="fa fa-file-pdf-o"></i>
                             Reporte Compras
                         </button>

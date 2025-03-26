@@ -136,6 +136,9 @@ Route::group(['namespace' => 'App\Http\Controllers\entradas'], function () {
 // VENTAS
 Route::group(['namespace' => 'App\Http\Controllers\ventas'], function () {
     Route::resource('ventas', 'VentasController');
+    Route::post('reporte_ventas_pdf', 'VentasController@reporteVentasPdf')->name('reporte_ventas_pdf');
+    Route::get('detalle_ventas_pdf/{idVenta}', 'VentasController@detalleVentasPdf')->name('detalle_ventas_pdf');
+
     Route::get('credito_ventas', 'VentasController@listarCreditoVentas')->name('credito_ventas');
 });
 
