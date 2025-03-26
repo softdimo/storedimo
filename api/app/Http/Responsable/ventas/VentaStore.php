@@ -17,10 +17,8 @@ class VentaStore implements Responsable
         $idTipoCliente = request('id_tipo_cliente', null);
         $fechaVenta = request('fecha_venta', null);
         $descuento = request('descuento', null);
-        // $subtotalVenta = request('subtotal_venta', null);
         $totalVenta = request('total_venta', null);
         $idTipoPago = request('id_tipo_pago', null);
-        // $idProducto = request('id_producto', null);
         $idCliente = request('id_cliente', null);
         $usuLogueado = request('id_usuario');
         $idEstado = request('id_estado');
@@ -34,10 +32,8 @@ class VentaStore implements Responsable
                 'id_tipo_cliente' => $idTipoCliente,
                 'fecha_venta' => $fechaVenta,
                 'descuento' => $descuento,
-                // 'subtotal_venta' => $subtotalVenta,
                 'total_venta' => $totalVenta,
                 'id_tipo_pago' => $idTipoPago,
-                // 'id_producto' => $idProducto,
                 'id_cliente' => $idCliente,
                 'id_usuario' => $usuLogueado,
                 'id_estado' => $idEstado,

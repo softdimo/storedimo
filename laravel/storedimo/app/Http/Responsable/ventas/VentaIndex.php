@@ -22,9 +22,16 @@ class VentaIndex implements Responsable
             $peticion = $clientApi->get($baseUri . 'venta_index');
             $ventas = json_decode($peticion->getBody()->getContents());
 
+            // Obtener detalles de cada compra
+            foreach ($ventas as $venta) {
+                $detallePeticion = $clientApi->post($baseUri . 'detalle_venta/' . $venta->id_venta);
+                $venta->detalles = json_decode($detallePeticion->getBody()->getContents());
+            }
+
             return view('ventas.index', compact('ventas'));
 
         } catch (Exception $e) {
+            dd($e);
             alert()->error('Error', 'Exception Index Ventas, contacte a Soporte.');
             return back();
         }

@@ -248,12 +248,14 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr class="text-center">
-                                                        <td>{{$venta->nombre_producto}}</td>
-                                                        <td>{{$venta->precio_unitario}}</td>
-                                                        <td>{{$venta->cantidad}}</td>
-                                                        <td>{{$venta->total_venta}}</td>
-                                                    </tr>
+                                                    @foreach ($venta->detalles as $producto)
+                                                        <tr class="text-center">
+                                                            <td>{{$producto->nombre_producto}}</td>
+                                                            <td>{{$producto->precio_venta}}</td>
+                                                            <td>{{$producto->cantidad}}</td>
+                                                            <td>{{$producto->subtotal}}</td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>

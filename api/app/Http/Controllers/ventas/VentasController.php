@@ -9,6 +9,7 @@ use App\Http\Responsable\ventas\VentaIndex;
 use App\Http\Responsable\ventas\VentaStore;
 use App\Http\Responsable\ventas\VentaUpdate;
 use App\Models\Venta;
+use App\Models\VentaProducto;
 
 
 class VentasController extends Controller
@@ -185,4 +186,41 @@ class VentasController extends Controller
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
+
+    // ======================================================================
+    // ======================================================================
+    
+    public function detalleVenta($idVenta)
+    {
+        try {
+            $detalleVenta = VentaProducto::leftJoin('ventas', 'ventas.id_venta', '=', 'venta_productos.id_venta')
+                ->leftJoin('productos', 'productos.id_producto', '=', 'venta_productos.id_producto')
+                ->where('venta_productos.id_venta', $idVenta)
+                ->select(
+                    'venta_productos.id_venta',
+                    'venta_productos.id_producto',
+                    'nombre_producto',
+                    'venta_productos.cantidad',
+                    'subtotal',
+                    DB::raw("
+                        CASE
+                            WHEN precio_detal_venta IS NOT NULL THEN precio_detal_venta
+                            ELSE CONCAT(precio_x_mayor_venta)
+                        END AS precio_venta
+                    ")
+                )
+                ->orderBy('nombre_producto')
+                ->get();
+
+                
+
+            return response()->json($detalleVenta);
+
+        } catch (Exception $e) {
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
+    }
+
+    // ===================================================================
+    // ===================================================================
 }

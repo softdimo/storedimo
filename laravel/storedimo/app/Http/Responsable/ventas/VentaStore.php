@@ -23,16 +23,12 @@ class VentaStore implements Responsable
 
     public function toResponse($request)
     {
-        // dd($request);
-        
         $idEmpresa = request('id_empresa', null);
         $idTipoCliente = request('id_tipo_persona', null);
         $fechaVenta = now()->format('Y-m-d H:i:s'); // Formato compatible con DATETIME en MySQL
         $descuento = request('descuento', null);
-        // $subtotalVenta = request('sub_total_venta', null);
         $totalVenta = request('total_venta', null);
         $idTipoPago = request('tipo_pago', null);
-        // $idProducto = request('producto_venta', null);
         $idCliente = request('cliente_venta', null);
         $usuLogueado = session('id_usuario');
         $idEstado = 1;
@@ -52,10 +48,8 @@ class VentaStore implements Responsable
                     'id_tipo_cliente' => $idTipoCliente,
                     'fecha_venta' => $fechaVenta,
                     'descuento' => $descuento,
-                    // 'subtotal_venta' => $subtotalVenta,
                     'total_venta' => $totalVenta,
                     'id_tipo_pago' => $idTipoPago,
-                    // 'id_producto' => $idProducto,
                     'productos' => array_map(function ($id, $cantidad, $precioDetal, $precioMayor, $subtotal) {
                         return [
                             'id_producto' => $id,

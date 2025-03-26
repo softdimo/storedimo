@@ -101,6 +101,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('anular_venta/{idVenta}', 'ventas\VentasController@anularVenta');
 
     $router->post('reporte_ventas_pdf', 'ventas\VentasController@reporteVentasPdf');
+    $router->post('detalle_venta/{idVenta}', 'ventas\VentasController@detalleVenta');
 
     // $router->put('venta_update/{id}', 'ventas\VentasController@update');
     // $router->post('consulta_venta', 'ventas\VentasController@consultaVenta');
