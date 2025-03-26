@@ -101,20 +101,20 @@ trait MetodosTrait
         view()->share([
             'clientes_ventas' => Persona::leftJoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'personas.id_tipo_persona')
                 ->select(
-                    'personas.id_persona',
+                    'personas.id_persona', // Ahora usamos id_persona como clave
                     'personas.identificacion',
                     'personas.id_tipo_persona',
-                    DB::raw("CONCAT(identificacion, ' - ', nombres_persona, ' ', apellidos_persona, ' (', tipo_persona.tipo_persona, ')') AS nombres_cliente")
+                    DB::raw("CONCAT(nombres_persona, ' ', apellidos_persona, ' (', tipo_persona, ')',' - ', identificacion) AS nombres_cliente")
                 )
                 ->whereIn('personas.id_tipo_persona', [5,6])
-                ->orderBy('tipo_persona.tipo_persona')
-                ->pluck('nombres_cliente', 'personas.id_tipo_persona'),
-        
-            'clientes_info' => Persona::leftJoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'personas.id_tipo_persona')
-                ->select('personas.id_persona', 'personas.identificacion')
-                ->whereIn('personas.id_tipo_persona', [5,6])
-                ->get()
-                ->keyBy('identificacion') // Permite buscar id_persona usando identificacion
+                ->orderBy('nombres_cliente')
+                ->get() // Usamos get() en lugar de pluck()
+                ->mapWithKeys(function($cliente) {
+                    return [$cliente->id_persona => [
+                        'nombre' => $cliente->nombres_cliente, // Lo que se mostrará en el select
+                        'tipo' => $cliente->id_tipo_persona // id_tipo_persona Necesario para activar el checkbox
+                    ]];
+                }),
         ]);
 
         view()->share([

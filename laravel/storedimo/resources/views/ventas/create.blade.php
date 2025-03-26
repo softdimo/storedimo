@@ -85,7 +85,9 @@
                             <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Cliente <span class="text-danger">*</span></h5>
                             {{-- ============================================================== --}}
                             <div class="p-3 d-flex justify-content-between" id="" style="">
-                                {{ Form::select('cliente_venta', collect(['' => 'Seleccionar...'])->union($clientes_ventas), null, ['class' => 'form-select ms-auto me-auto', 'id' => 'cliente_venta', 'required','style' => 'width: 85%;']) }}
+                                {{ Form::select('cliente_venta', collect(['' => 'Seleccionar...'])
+                                    ->union(collect($clientes_ventas)->mapWithKeys(fn($cliente, $id) => [$id => $cliente['nombre']])),
+                                    null, ['class' => 'form-select ms-auto me-auto', 'id' => 'cliente_venta', 'required', 'style' => 'width: 85%;']) }}
 
                                 {{ Form::hidden('id_persona', null, ['class' => '', 'id' => 'id_persona', 'required']) }}
 
@@ -490,22 +492,23 @@
                 aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').removeAttr('checked');
             }
 
+            var clientesInfo = @json($clientes_ventas);
+
             $('#cliente_venta').change(function () {
-                var identificacion = this.options[this.selectedIndex].text.split(' - ')[0]; // Extrae la identificación
-                var clientesInfo = @json($clientes_info); // Convierte PHP a JSON
-
-                if (clientesInfo[identificacion]) {
-                    $('#id_persona').val(clientesInfo[identificacion].id_persona);
+                let idCliVenta = $(this).val();  // Obtiene el ID de la persona seleccionada
+                console.log("ID Cliente Venta:", idCliVenta);
+                
+                if (idCliVenta && clientesInfo[idCliVenta]) {
+                    let tipoPersona = clientesInfo[idCliVenta].tipo; // Obtiene id_tipo_persona
+                    console.log("Tipo Persona:", tipoPersona);
+                    
+                    if (tipoPersona == 5) {
+                        $('input[name="aplicar_x_mayor_venta"]').prop('checked', true);
+                    } else {
+                        $('input[name="aplicar_x_mayor_venta"]').prop('checked', false);
+                    }
                 } else {
-                    $('#id_persona').val('');
-                }
-
-
-                let idCliVenta = $('#cliente_venta').val();
-
-                if (idCliVenta == 5) {
-                    $('input[name="aplicar_x_mayor_venta"]').prop('checked', true);
-                } else {
+                    console.log("Cliente no encontrado en clientesInfo");
                     $('input[name="aplicar_x_mayor_venta"]').prop('checked', false);
                 }
             });
