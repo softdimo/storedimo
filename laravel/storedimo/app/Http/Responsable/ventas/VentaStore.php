@@ -26,14 +26,14 @@ class VentaStore implements Responsable
         // dd($request);
         
         $idEmpresa = request('id_empresa', null);
-        $idTipoCliente = request('cliente_venta', null);
+        $idTipoCliente = request('id_tipo_persona', null);
         $fechaVenta = now()->format('Y-m-d H:i:s'); // Formato compatible con DATETIME en MySQL
         $descuento = request('descuento', null);
         $subtotalVenta = request('sub_total_venta', null);
         $totalVenta = request('total_venta', null);
         $idTipoPago = request('tipo_pago', null);
         $idProducto = request('producto_venta', null);
-        $idCliente = request('id_persona', null);
+        $idCliente = request('cliente_venta', null);
         $usuLogueado = session('id_usuario');
         $idEstado = 1;
         $idEstadoCredito = request('id_estado_credito', null);

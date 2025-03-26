@@ -89,7 +89,7 @@
                                     ->union(collect($clientes_ventas)->mapWithKeys(fn($cliente, $id) => [$id => $cliente['nombre']])),
                                     null, ['class' => 'form-select ms-auto me-auto', 'id' => 'cliente_venta', 'required', 'style' => 'width: 85%;']) }}
 
-                                {{ Form::hidden('id_persona', null, ['class' => '', 'id' => 'id_persona', 'required']) }}
+                                {{ Form::hidden('id_tipo_persona', null, ['class' => '', 'id' => 'id_tipo_persona', 'required']) }}
 
                                 <div class="d-flex justify-content-end" style="width:15%">
                                     <button type="button" class="btn rounded-2 text-white" style="background-color: #337AB7" title="Registrar Cliente" data-bs-toggle="modal" data-bs-target="#modal_registroCliente">
@@ -502,6 +502,9 @@
                     let tipoPersona = clientesInfo[idCliVenta].tipo; // Obtiene id_tipo_persona
                     console.log("Tipo Persona:", tipoPersona);
                     
+                    $('#id_tipo_persona').val(tipoPersona);
+                    console.log($('#id_tipo_persona').val(tipoPersona));
+                    
                     if (tipoPersona == 5) {
                         $('input[name="aplicar_x_mayor_venta"]').prop('checked', true);
                     } else {
@@ -531,7 +534,7 @@
                 let cantidadVenta = parseInt($('#cantidad_venta').val());
                 let aplicarMayor = $('input[name="aplicar_x_mayor_venta"]').is(':checked')
 
-                let idPersona = $('#id_persona').val(); // Captura el id_persona
+                let idPersona = $('#id_tipo_persona').val(); // Captura el id_tipo_persona
 
                 if (!idTipoClienteVenta || !idProductoVenta || !cantidadVenta || cantidadVenta <= 0) {
                     Swal.fire('Cuidado!', 'Todos los campos son obligatorios y la cantidad debe ser mayor a 0!', 'error');
