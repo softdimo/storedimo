@@ -485,6 +485,24 @@
             // ===================================================================================
             // ===================================================================================
 
+            // INICIO - Validar la cantidad ingresada vs la cantidad disponible para vender el producto
+            $('#cantidad_venta').blur(function () {
+                let idProducto = $('#cantidad_producto').val();
+
+                let cantidadVenta = parseInt($('#cantidad_venta').val().trim()) || 0;
+                let cantidadProducto = parseInt($('#cantidad_producto').text().trim()) || 0;
+
+                if (cantidadVenta > cantidadProducto) {
+                    Swal.fire('Cuidado!', 'No puedes vender más de la cantidad disponible.!', 'warning');
+                    $('#cantidad_venta').val('');  // Limpiar cantidad a vender
+                    return;
+                }
+            });
+            // FIN - Validar la cantidad ingresada vs la cantidad disponible para vender el producto
+
+            // ===================================================================================
+            // ===================================================================================
+
             let aplicarXMayorVenta = $('#aplicar_x_mayor_venta').is(':checked');
             console.log(aplicarXMayorVenta);
 
