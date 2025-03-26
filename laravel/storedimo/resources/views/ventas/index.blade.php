@@ -13,6 +13,24 @@
             padding-top: 0.0rem !important;
             padding-bottom: 0.0rem !important;
         }
+
+        /* Oculta el icono de calendario nativo en Chrome, Safari y Edge */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            display: none;
+            -webkit-appearance: none;
+        }
+
+        /* Oculta el icono en Firefox */
+        input[type="date"]::-moz-calendar-picker-indicator {
+            display: none;
+        }
+
+        /* Para navegadores que aún muestran el ícono nativo */
+        input[type="date"] {
+            position: relative;
+            z-index: 2;
+            background-color: transparent;
+        }
     </style>
 @stop
 
@@ -300,7 +318,52 @@
                 "scrollX": true,
             });
             // CIERRE DataTable Lista Usuarios
-        });
+
+            // =========================================================================
+            // =========================================================================
+            // =========================================================================
+
+            $(document).on('shown.bs.modal', '#modalReporteVentas', function () {
+                let modal = $(this); // Referencia del modal
+
+                function configurarCalendario(inputId, iconoId) {
+                    let inputFecha = modal.find(`#${inputId}`);
+                    let iconoCalendario = modal.find(`#${iconoId}`);
+
+                    if (inputFecha.length > 0) {
+                        // Abre el calendario al hacer clic en el input
+                        inputFecha.on("focus", function () {
+                            if (typeof this.showPicker === "function") {
+                                this.showPicker();
+                            }
+                        });
+
+                        // Abre el calendario al hacer clic en el icono
+                        iconoCalendario.on("mousedown touchstart", function (event) {
+                            event.preventDefault();
+                            if (typeof inputFecha[0].showPicker === "function") {
+                                inputFecha[0].showPicker();
+                            }
+                        });
+
+                        // Evento para asegurarse de que la fecha se refleje
+                        inputFecha.on("change", function () {
+                            console.log("Fecha seleccionada:", inputFecha.val()); // Para depuración
+                        });
+                    }
+                }
+
+                // Configura ambos campos de fecha dentro del modal
+                configurarCalendario("fecha_inicial", "calendar_addon_inicial");
+                configurarCalendario("fecha_final", "calendar_addon_final");
+            });
+
+            // =========================================================================
+            // =========================================================================
+            // =========================================================================
+        }); // FIN document.ready
+
+
     </script>
 @stop
 

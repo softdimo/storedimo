@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ventas;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Responsable\ventas\VentaIndex;
 use App\Http\Responsable\ventas\VentaStore;
 use App\Http\Responsable\ventas\VentaUpdate;
@@ -143,34 +144,39 @@ class VentasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function reporteComprasPdf(Request $request)
+    public function reporteVentasPdf(Request $request)
     {
         $fechaInicial = request('fecha_inicial', null);
         $fechaFinal = request('fecha_final', null);
 
         try {
-            $ventas = Venta::leftJoin('personas', 'personas.id_persona', '=', 'compras.id_proveedor')
+            $ventas = Venta::leftJoin('empresas', 'empresas.id_empresa', '=', 'ventas.id_empresa')
+                ->leftJoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'ventas.id_tipo_cliente')
+                ->leftJoin('tipos_pago', 'tipos_pago.id_tipo_pago', '=', 'ventas.id_tipo_pago')
+                ->leftJoin('productos', 'productos.id_producto', '=', 'ventas.id_producto')
+                ->leftJoin('personas', 'personas.id_persona', '=', 'ventas.id_cliente')
+                ->leftJoin('usuarios', 'usuarios.id_usuario', '=', 'ventas.id_usuario')
+                ->leftJoin('estados', 'estados.id_estado', '=', 'ventas.id_estado')
+                ->leftJoin('estados_credito', 'estados_credito.id_estado_credito', '=', 'ventas.id_estado_credito')
                 ->whereBetween('fecha_venta', [$fechaInicial, $fechaFinal])
-                ->whereIn('personas.id_tipo_persona', [5, 6]) // Filtra solo si hay una persona
+                ->whereIn('ventas.id_tipo_cliente', [5, 6]) // Filtra solo si hay una persona
                 ->select([
                     'ventas.id_venta',
                     'ventas.fecha_venta',
-                    'ventas.valor_venta',
+                    'ventas.subtotal_venta',
+                    'ventas.descuento',
+                    'ventas.total_venta',
                     'personas.id_persona',
-                    \DB::raw("
-                        CASE
-                            WHEN personas.nombre_empresa IS NOT NULL THEN personas.nombre_empresa
-                            ELSE CONCAT(personas.nombres_persona, ' ', personas.apellidos_persona)
-                        END AS nombre_proveedor
-                    ")
+                    DB::raw("CONCAT(nombres_persona, ' ', apellidos_persona) AS nombres_cliente"),
+                    'tipo_pago'
                 ])
                 ->orderByDesc('fecha_venta')
                 ->get();
 
-            $total = $ventas->sum('valor_venta');
+            $total = $ventas->sum('total_venta');
 
             return response()->json([
-                'venta' => $ventas,
+                'ventas' => $ventas,
                 'total' => $total,
             ], 200);
 

@@ -40,33 +40,39 @@ class ReporteVentasPdf implements Responsable
         $pdf->SetFont('Arial', 'B', 16);
 
         // Título
-        $pdf->Cell(190, 10, "INFORME DE COMPRAS", 0, 1, 'C');
+        $pdf->Cell(190, 10, "INFORME DE VENTAS", 0, 1, 'C');
         $pdf->SetFont('Arial', '', 12);
         $pdf->Cell(190, 10, "Desde: $fechaInicial hasta $fechaFinal", 0, 1, 'C');
         $pdf->Ln(5);
   
         // Encabezado de tabla
         $pdf->SetFont('Arial', 'B', 10);
-        $pdf->Cell(30, 10, "Codigo", 1);
-        $pdf->Cell(50, 10, "Fecha Compra", 1);
-        $pdf->Cell(50, 10, "Valor Total Compra", 1);
-        // $pdf->Cell(60, 10, "Proveedor", 1);
+        $pdf->Cell(20, 10, "Codigo", 1);
+        $pdf->Cell(35, 10, "Fecha Venta", 1);
+        $pdf->Cell(30, 10, "Subtotal Venta", 1);
+        $pdf->Cell(20, 10, "Descuento", 1);
+        $pdf->Cell(30, 10, "Total Venta", 1);
+        $pdf->Cell(40, 10, "Cliente", 1);
+        $pdf->Cell(20, 10, "Tipo Pago", 1);
         $pdf->Ln();
 
         // Datos de compras
         $pdf->SetFont('Arial', '', 10);
         foreach ($ventas as $venta) {
-            $pdf->Cell(30, 10, $venta->id_venta, 1);
-            $pdf->Cell(50, 10, $venta->fecha_venta, 1);
-            $pdf->Cell(50, 10, "$ " . number_format($venta->valor_venta, 2), 1);
-            // $pdf->Cell(60, 10, $venta->nombre_proveedor, 1);
+            $pdf->Cell(20, 10, $venta->id_venta, 1);
+            $pdf->Cell(35, 10, $venta->fecha_venta, 1);
+            $pdf->Cell(30, 10, "$ " . number_format($venta->subtotal_venta, 2), 1);
+            $pdf->Cell(20, 10, "$ " . number_format($venta->descuento, 2), 1);
+            $pdf->Cell(30, 10, "$ " . number_format($venta->total_venta, 2), 1);
+            $pdf->Cell(40, 10, $venta->nombres_cliente, 1);
+            $pdf->Cell(20, 10, $venta->tipo_pago, 1);
             $pdf->Ln();
         }
 
         // Total de entradas
         $pdf->Ln(5);
         $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(190, 10, "Total Entradas: $ " . number_format($total, 2), 0, 1, 'C');
+        $pdf->Cell(190, 10, "Total Venta: $ " . number_format($total, 2), 0, 1, 'C');
 
         // Salida del PDF
         $pdf->Output();
