@@ -11,7 +11,7 @@ use App\Http\Responsable\ventas\VentaIndex;
 use App\Http\Responsable\ventas\VentaStore;
 use App\Http\Responsable\ventas\VentaUpdate;
 use App\Http\Responsable\ventas\ReporteVentasPdf;
-// use App\Http\Responsable\ventas\DetalleVentasPdf;
+use App\Http\Responsable\ventas\ReciboCajaVenta;
 
 class VentasController extends Controller
 {
@@ -213,8 +213,8 @@ class VentasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function detalleVentasPdf($idCompra)
+    public function reciboCajaVenta()
     {
-        // return new DetalleVentasPdf($idCompra);
+        return new ReciboCajaVenta();
     }
 }

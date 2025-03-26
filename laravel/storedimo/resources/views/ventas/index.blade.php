@@ -266,8 +266,16 @@
                     </div>
 
                     <div class="d-flex justify-content-around mt-3">
-                        <button type="submit" title="Guardar Configuración" class="btn btn-success" id="btn_editar_categoria" style="background-color: #337AB7">
-                            <i class="fa fa-file-pdf-o"> Recibo Caja</i>
+                        <button class="btn btn-success generar-pdf" style="background-color: #337AB7"
+                            data-id="{{$venta->id_venta}}"
+                            data-fecha="{{$venta->fecha_venta}}"
+                            data-usuario="{{$venta->nombres_usuario}}"
+                            data-cliente="{{$venta->nombres_cliente}}"
+                            data-subtotal="{{$venta->subtotal_venta}}"
+                            data-descuento="{{$venta->descuento}}"
+                            data-total="{{$venta->total_venta}}"
+                            data-detalles='@json($venta->detalles)'>
+                            <i class="fa fa-file-pdf-o"></i> Recibo Caja
                         </button>
                         
                         <button type="button" title="Cancelar" class="btn btn-secondary" data-bs-dismiss="modal" id="btn_editar_cancelar">
@@ -363,9 +371,41 @@
             // =========================================================================
             // =========================================================================
             // =========================================================================
+
+            document.querySelectorAll(".generar-pdf").forEach(button => {
+                button.addEventListener("click", function () {
+                    let venta = {
+                        id: this.dataset.id,
+                        fecha: this.dataset.fecha,
+                        usuario: this.dataset.usuario,
+                        cliente: this.dataset.cliente,
+                        subtotal: this.dataset.subtotal,
+                        descuento: this.dataset.descuento,
+                        total: this.dataset.total,
+                        detalles: JSON.parse(this.dataset.detalles)
+                    };
+
+                    fetch("/recibo_caja_venta", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                        },
+                        body: JSON.stringify(venta)
+                    })
+                    .then(response => response.blob())
+                    .then(blob => {
+                        let url = window.URL.createObjectURL(blob);
+                        window.open(url, "_blank");
+                    })
+                    .catch(error => console.error("Error al generar PDF:", error));
+                });
+            });
+
+            // =========================================================================
+            // =========================================================================
+            // =========================================================================
         }); // FIN document.ready
-
-
     </script>
 @stop
 
