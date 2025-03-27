@@ -125,7 +125,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 // ========================================================================
 // ========================================================================
 
-// PRESTAMOS
+// PAGO EMPLEADOS
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('pago_empleado_index', 'pago_empleados\PagoEmpleadosController@index');
     $router->get('pago_empleado_create', 'pago_empleados\PagoEmpleadosController@create');
@@ -145,4 +145,16 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('empresa_store', 'empresas\EmpresasController@store');
     $router->put('empresa_update/{idEmpresa}', 'empresas\EmpresasController@update');
 });
+
+
+// ========================================================================
+// ========================================================================
+
+// EXISTENCIAS-BAJAS
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('baja_index', 'existencias\ExistenciasController@bajaIndex');
+    $router->post('baja_store', 'existencias\ExistenciasController@store');
+    $router->put('baja_update/{idBaja}', 'existencias\ExistenciasController@update');
+});
+
 

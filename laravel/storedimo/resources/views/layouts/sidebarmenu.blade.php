@@ -140,7 +140,7 @@
                         <a class="link-underline-light" href="{{route('existencias.create')}}">Registrar Bajas</a>
                     </li>
                     <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('existencias.index')}}">Listar Bajas</a>
+                        <a class="link-underline-light" href="{{route('bajas_index')}}">Listar Bajas</a>
                     </li>
                     <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('stock_minimo')}}">Listar Productos en stock Mínimo</a>

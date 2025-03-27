@@ -72,8 +72,7 @@
                     {!!Form::open(['method' => 'POST',
                         'route' => ['registrar_bajas'],
                         'class' => '', 'autocomplete' => 'off',
-                        'id' => 'formReporteComprasPdf',
-                        'target' => '_blank' // 👉 Abrir en nueva pestaña
+                        'id' => 'formRegistrarBajas'
                         ])!!}
                         @csrf
                     <div class="d-flex flex-column flex-md-row justify-content-between p-3">
