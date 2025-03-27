@@ -69,12 +69,13 @@
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
                 <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Registar Bajas</h5>
 
-                    {!!Form::open(['method' => 'POST',
-                        'route' => ['registrar_bajas'],
-                        'class' => '', 'autocomplete' => 'off',
-                        'id' => 'formRegistrarBajas'
-                        ])!!}
-                        @csrf
+                {!!Form::open(['method' => 'POST',
+                    'route' => ['baja_store'],
+                    'class' => '', 'autocomplete' => 'off',
+                    'id' => 'formRegistrarBajas'
+                    ])!!}
+                    @csrf
+
                     <div class="d-flex flex-column flex-md-row justify-content-between p-3">
                         <div class="w-100-div w-48 mb-auto" style="border: solid 1px #337AB7; border-radius: 5px;">
                             <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Información de la Baja</h5>
@@ -82,21 +83,21 @@
                             <div class="p-3 d-flex flex-column" id="form_bajas" style="height: 50%;">
                                 <div>
                                     <label for="tipo_baja" class="form-label">Tipo de Baja <span class="text-danger">*</span></label>
-                                    {{ Form::select('tipo_baja', collect(['' => 'Seleccionar...'])->union($tipos_baja), null, ['class' => 'form-select', 'id' => 'tipo_baja', 'required']) }}
+                                    {{ Form::select('tipo_baja', collect(['' => 'Seleccionar...'])->union($tipos_baja), null, ['class' => 'form-select', 'id' => 'tipo_baja']) }}
                                 </div>
 
                                 <div class="mt-3">
                                     <label for="producto" class="form-label">Producto <span class="text-danger">*</span></label>
-                                    {{ Form::select('producto', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-select', 'id' => 'producto', 'required']) }}
+                                    {{ Form::select('producto', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-select', 'id' => 'producto']) }}
                                 </div>
 
                                 <div class="mt-3">
                                     <label for="cantidad" class="form-label">Cantidad <span class="text-danger">*</span></label>
-                                    {!! Form::text('cantidad', null, ['class' => 'form-control', 'id' => 'cantidad', 'required']) !!}
+                                    {!! Form::text('cantidad', null, ['class' => 'form-control', 'id' => 'cantidad']) !!}
                                 </div>
 
                                 <div class="d-flex justify-content-end mt-3">
-                                    <button class="btn rounded-2 me-3 text-white" type="submit" style="background-color: #337AB7" id="btn_add_baja">
+                                    <button type="button" class="btn rounded-2 me-3 text-white" style="background-color: #337AB7" id="btn_add_baja">
                                         <i class="fa fa-plus plus"></i>
                                         Agregar
                                     </button>
@@ -123,15 +124,14 @@
                                     </tbody>
                                 </table>
                                 {{-- ========================================== --}}
+                                <div id="loadingIndicatorRegistrarBajas" class="loadingIndicator">
+                                    <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                                </div>
+
                                 <div class="d-flex justify-content-end mb-5" style="">
-                                    <button class="btn btn-success rounded-2 me-3" type="submit">
+                                    <button type="submit" class="btn btn-success rounded-2 me-3" id="guardarBajas">
                                         <i class="fa fa-floppy-o"></i>
                                         Guardar
-                                    </button>
-                        
-                                    <button class="btn btn-danger rounded-2" type="submit">
-                                        <i class="fa fa-remove"></i>
-                                        Cancelar
                                     </button>
                                 </div>
                             </div>
@@ -150,74 +150,115 @@
 @section('scripts')
     <script>
         $( document ).ready(function() {
-            
-        
+            // INICIO - Función para agregar fila x fila cada producto para dar de baja
+            $("#btn_add_baja").click(function() {
 
-        // ===================================================================================
-        // ===================================================================================
+                let idtipoBaja = $('#tipo_baja').val();
+                let tipoBaja = $('#tipo_baja option:selected').text();
+                let idProducto = $('#producto').val();
+                let producto = $('#producto option:selected').text();
+                let cantidad = $('#cantidad').val();
 
-        // INICIO - Función para agregar fila x fila cada producto para dar de baja
-        $("#btn_add_baja").click(function() {
+                console.log(idtipoBaja);
+                console.log(tipoBaja);
+                console.log(idProducto);
+                console.log(producto);
+                console.log(cantidad);
 
-            let idtipoBaja = $('#tipo_baja').val();
-            let tipoBaja = $('#tipo_baja option:selected').text();
-            let idProducto = $('#producto').val();
-            let producto = $('#producto option:selected').text();
-            let cantidad = $('#cantidad').val();
+                if (tipoBaja == '' || producto == '' || cantidad == '' ) {
+                    Swal.fire(
+                        'Cuidado!',
+                        'Todos los campos son obligatorios!',
+                        'error'
+                    );
+                } else {
+                    var indiceSiguienteFila = $('#tbl_bajas tr').length;
 
-            console.log(idtipoBaja);
-            console.log(tipoBaja);
-            console.log(idProducto);
-            console.log(producto);
-            console.log(cantidad);
+                    // Crear una fila para la tabla
+                    let fila = `
+                        <tr class="" name="row_${indiceSiguienteFila}">
+                            <td class="text-center">${producto}</td>
+                            <td class="text-center">${cantidad}</td>
+                            <td class="text-center">${tipoBaja}</td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-danger rounded-circle btn-delete-baja" data-id="${indiceSiguienteFila}" title="Eliminar" style="background-color:red;">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    `;
 
-            if (tipoBaja == '' || producto == '' || cantidad == '' ) {
-                Swal.fire(
-                    'Cuidado!',
-                    'Todos los campos son obligatorios!',
-                    'error'
-                );
-            } else {
-                let fila = '';
-                var indiceSiguienteFila = $('#tbl_bajas tr').length;
+                    $('#tbl_bajas').append(fila);
 
-                console.log(indiceSiguienteFila);
+                    // Agregar inputs hidden dentro del formulario
+                    let hiddenInputs = `
+                        <div id="input_group_${indiceSiguienteFila}">
+                            <input type="hidden" name="id_producto[]" value="${idProducto}">
+                            <input type="hidden" name="cantidad_baja[]" value="${cantidad}">
+                            <input type="hidden" name="id_tipo_baja[]" value="${idtipoBaja}">
+                        </div>
+                    `;
 
-                fila +=
-                    '<tr class="" name="'+indiceSiguienteFila+'">'+
-                        '<td class="text-center">'+producto+'</td>'+
+                    $("#formRegistrarBajas").append(hiddenInputs);
 
-                        '<td class="text-center">'+cantidad+'</td>'+
+                    $('#tipo_baja').val('');
+                    $('#producto').val('');
+                    $('#cantidad').val('');
+                }
+            });
+            // FIN - Función para agregar fila x fila cada producto para dar de baja
 
-                        '<td class="text-center">'+tipoBaja+'</td>'+
-                        
-                        '<td class="text-center">'+
-                            '<button type="button" class="btn btn-danger rounded-circle btn-circle" title="Eliminar" onclick="delBaja('+indiceSiguienteFila+')">'+
-                                '<i class="fa fa-trash" aria-hidden="true"></i>'+
-                            '</button>'+
-                        '</td>'+
-                    '</tr>';
+            // ===================================================================================
+            // ===================================================================================
 
-                $('#tbl_bajas').append(fila);
+            // Capturar cualquier intento de envío del formulario y evitarlo si no es manual
+            $("#formRegistrarBajas").on("submit", function(event) {
+                // Si el submit no fue activado por el botón "Guardar", lo prevenimos
+                if (!event.originalEvent || event.originalEvent.submitter.id !== "guardarBajas") {
+                    console.log("Submit bloqueado porque no se hizo clic en 'Guardar'");
+                    event.preventDefault();
+                    return;
+                }
 
-                $('#tipo_baja').val('');
-                $('#producto').val('');
-                $('#cantidad').val('');
-            }
-        });
-        // FIN - Función para agregar fila x fila cada producto para dar de baja
+                console.log("Formulario enviado correctamente");
+            });
 
-        // ===================================================================================
-        // ===================================================================================
+            $("#guardarBajas").click(function() {
+                console.log("Clic en 'Guardar', enviando formulario...");
+                $("#formRegistrarBajas").off("submit").submit(); // Forzar el envío del formulario
+            });
 
-        function delBaja(idBaja) {
-            $('#tbl_bajas tr[name="'+idBaja+'"]').remove();
-        }
+            // Delegación de eventos para eliminar fila y evitar submit
+            $(document).on('click', '.btn-delete-baja', function(event) {
+                event.preventDefault(); // Evita el submit
+                event.stopPropagation(); // Detiene propagación
 
-        // ===================================================================================
-        // ===================================================================================
+                let idBaja = $(this).data('id'); // Obtiene el ID de la fila
+                $(`tr[name="row_${idBaja}"]`).remove(); // Elimina la fila de la tabla
+                $(`#input_group_${idBaja}`).remove(); // Elimina los inputs hidden
+            });
 
-    }); // FIN document.ready
+            // ===================================================================================
+            // ===================================================================================
+
+            // formRegistrarBajas para cargar gif en el submit
+            $(document).on("submit", "form[id^='formRegistrarBajas']", function(e) {
+                const form = $(this);
+                const submitButton = form.find('button[type="submit"]');
+                const loadingIndicator = form.find("div[id^='loadingIndicatorRegistrarBajas']"); // Busca el GIF del form actual
+
+                // Dessactivar Submit y Cancel
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+
+                // Mostrar Spinner
+                loadingIndicator.show();
+            });
+
+            // =========================================================================
+            // =========================================================================
+            // =========================================================================
+
+        }); // FIN document.ready
     </script>
 @stop
 

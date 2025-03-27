@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 use App\Traits\MetodosTrait;
 use Exception;
 use App\Http\Responsable\existencias\BajaIndex;
-use App\Http\Responsable\existencias\RegistrarBajas;
+use App\Http\Responsable\existencias\BajaStore;
 class ExistenciasController extends Controller
 {
     use MetodosTrait;
@@ -32,25 +32,25 @@ class ExistenciasController extends Controller
      */
     public function index()
     {
-        try {
-            if (!$this->checkDatabaseConnection()) {
-                return view('db_conexion');
-            } else {
-                $sesion = $this->validarVariablesSesion();
+        // try {
+        //     if (!$this->checkDatabaseConnection()) {
+        //         return view('db_conexion');
+        //     } else {
+        //         $sesion = $this->validarVariablesSesion();
 
-                if (empty($sesion[0]) || is_null($sesion[0]) &&
-                    empty($sesion[1]) || is_null($sesion[1]) &&
-                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-                {
-                    return redirect()->to(route('login'));
-                } else {
-                    return view('existencias.index');
-                }
-            }
-        } catch (Exception $e) {
-            alert()->error("Exception Index Existencias!");
-            return redirect()->to(route('login'));
-        }
+        //         if (empty($sesion[0]) || is_null($sesion[0]) &&
+        //             empty($sesion[1]) || is_null($sesion[1]) &&
+        //             empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+        //         {
+        //             return redirect()->to(route('login'));
+        //         } else {
+        //             return view('existencias.index');
+        //         }
+        //     }
+        // } catch (Exception $e) {
+        //     alert()->error("Exception Index Existencias!");
+        //     return redirect()->to(route('login'));
+        // }
     }
 
     // ======================================================================
@@ -184,7 +184,7 @@ class ExistenciasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function registrarBajas()
+    public function bajaStore()
     {
         try {
             if (!$this->checkDatabaseConnection()) {
@@ -198,7 +198,7 @@ class ExistenciasController extends Controller
                 {
                     return redirect()->to(route('login'));
                 } else {
-                    return new RegistrarBajas();
+                    return new BajaStore();
                 }
             }
         } catch (Exception $e) {

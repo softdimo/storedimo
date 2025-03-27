@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Responsable\existencias\BajaIndex;
+use App\Http\Responsable\existencias\BajaStore;
 // use App\Http\Responsable\existencias\ExistenciaStore;
 // use App\Http\Responsable\existencias\ExistenciaUpdate;
 use App\Models\Baja;
@@ -114,6 +115,14 @@ class ExistenciasController extends Controller
     public function bajaIndex()
     {
         return new BajaIndex();
+    }
+
+    // ======================================================================
+    // ======================================================================
+    
+    public function bajaStore()
+    {
+        return new BajaStore();
     }
 
     // ======================================================================
