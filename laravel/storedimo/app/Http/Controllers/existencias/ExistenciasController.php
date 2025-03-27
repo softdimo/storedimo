@@ -9,6 +9,7 @@ use App\Traits\MetodosTrait;
 use Exception;
 use App\Http\Responsable\existencias\BajaIndex;
 use App\Http\Responsable\existencias\BajaStore;
+use App\Http\Responsable\existencias\ReporteBajasPdf;
 class ExistenciasController extends Controller
 {
     use MetodosTrait;
@@ -207,10 +208,13 @@ class ExistenciasController extends Controller
         }
     }
     
- 
+    // ======================================================================
+    // ======================================================================
 
-    // ======================================================================
-    // ======================================================================
+    public function reporteBajasPdf()
+    {
+        return new ReporteBajasPdf();
+    }
     
     // ======================================================================
     // ======================================================================

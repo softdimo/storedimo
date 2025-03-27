@@ -116,6 +116,7 @@ Route::group(['namespace' => 'App\Http\Controllers\existencias'], function () {
     Route::resource('existencias', 'ExistenciasController');
     Route::get('bajas_index', 'ExistenciasController@bajasIndex')->name('bajas_index');
     Route::post('baja_store', 'ExistenciasController@bajaStore')->name('baja_store');
+    Route::post('reporte_bajas_pdf', 'ExistenciasController@reporteBajasPdf')->name('reporte_bajas_pdf');
 
     Route::get('stock_minimo', 'ExistenciasController@stockMinimo')->name('stock_minimo');
 });
@@ -169,7 +170,7 @@ Route::group(['namespace' => 'App\Http\Controllers\pago_empleados'], function ()
 // ========================================================================
 // ========================================================================
 
-// PAGO A EMPLEADOS
+// EMPRESAS
 Route::group(['namespace' => 'App\Http\Controllers\empresas'], function () {
     Route::resource('empresas', 'EmpresasController');
 });

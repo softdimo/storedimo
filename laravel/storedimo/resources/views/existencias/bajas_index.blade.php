@@ -151,7 +151,7 @@
             <div class="modal-content w-100 border-0">
                 <div class="rounded-top" style="border: solid 1px #337AB7;">
                     {!!Form::open(['method' => 'POST',
-                        'route' => ['reporte_ventas_pdf'],
+                        'route' => ['reporte_bajas_pdf'],
                         'class' => '', 'autocomplete' => 'off',
                         'id' => 'formReporteVentasPdf',
                         'target' => '_blank' // 👉 Abrir en nueva pestaña

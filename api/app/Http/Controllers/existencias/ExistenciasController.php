@@ -132,6 +132,7 @@ class ExistenciasController extends Controller
             $bajaDetalle = BajaDetalle::leftJoin('bajas', 'bajas.id_baja', '=', 'bajas_detalle.id_baja')
                 ->leftJoin('tipo_baja', 'tipo_baja.id_tipo_baja', '=', 'bajas_detalle.id_tipo_baja')
                 ->leftJoin('productos', 'productos.id_producto', '=', 'bajas_detalle.id_producto')
+                ->leftJoin('categorias', 'categorias.id_categoria', '=', 'productos.id_categoria')
                 ->where('bajas_detalle.id_baja', $idBaja)
                 ->select(
                     'bajas_detalle.id_baja',
@@ -140,6 +141,8 @@ class ExistenciasController extends Controller
                     'bajas_detalle.cantidad',
                     'tipo_baja.id_tipo_baja',
                     'tipo_baja',
+                    'categorias.id_categoria',
+                    'categoria',
                 )
                 ->orderBy('nombre_producto')
                 ->get();
@@ -156,40 +159,33 @@ class ExistenciasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    // public function reporteComprasPdf(Request $request)
-    // {
-    //     $fechaInicial = request('fecha_inicial', null);
-    //     $fechaFinal = request('fecha_final', null);
+    public function reporteBajasPdf(Request $request)
+    {
+        $fechaInicial = request('fecha_inicial', null);
+        $fechaFinal = request('fecha_final', null);
 
-    //     try {
-    //         $compras = Compra::leftJoin('personas', 'personas.id_persona', '=', 'compras.id_proveedor')
-    //             ->whereBetween('fecha_compra', [$fechaInicial, $fechaFinal])
-    //             ->whereIn('personas.id_tipo_persona', [3, 4]) // Filtra solo si hay una persona
-    //             ->select([
-    //                 'compras.id_compra',
-    //                 'compras.fecha_compra',
-    //                 'compras.valor_compra',
-    //                 'personas.id_persona',
-    //                 \DB::raw("
-    //                     CASE
-    //                         WHEN personas.nombre_empresa IS NOT NULL THEN personas.nombre_empresa
-    //                         ELSE CONCAT(personas.nombres_persona, ' ', personas.apellidos_persona)
-    //                     END AS nombre_proveedor
-    //                 ")
-    //             ])
-    //             ->orderByDesc('fecha_compra')
-    //             ->get();
+        try {
+            $bajas = BajaDetalle::leftJoin('bajas', 'bajas.id_baja', '=', 'bajas_detalle.id_baja')
+                ->leftJoin('productos', 'productos.id_producto', '=', 'bajas_detalle.id_producto')
+                ->leftJoin('tipo_baja', 'tipo_baja.id_tipo_baja', '=', 'bajas_detalle.id_tipo_baja')
+                ->leftJoin('categorias', 'categorias.id_categoria', '=', 'productos.id_categoria')
 
-    //         $total = $compras->sum('valor_compra');
+                ->whereBetween('fecha_baja', [$fechaInicial, $fechaFinal])
+                ->select([
+                    'productos.id_producto',
+                    'nombre_producto',
+                    'categoria',
+                    'fecha_baja',
+                    'bajas_detalle.cantidad',
+                    'tipo_baja'
+                ])
+                ->orderByDesc('fecha_baja')
+                ->get();
 
-    //         return response()->json([
-    //             'compras' => $compras,
-    //             'total' => $total,
-    //         ], 200);
+            return response()->json($bajas);
 
-
-    //     } catch (Exception $e) {
-    //         return response()->json(['error_bd' => $e->getMessage()]);
-    //     }
-    // }
+        } catch (Exception $e) {
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
+    }
 }
