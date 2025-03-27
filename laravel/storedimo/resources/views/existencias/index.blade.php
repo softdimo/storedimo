@@ -96,8 +96,8 @@
                                         <td>Activo</td>
                                         <td>2024-02-17</td>
                                         <td>
-                                            <a href="#" role="button" class="btn rounded-circle btn-circle text-white" title="Ver Detalles" style="background-color: #286090">
-                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                            <a href="#" role="button" class="btn rounded-circle btn-circle text-white" title="Ver Detalles" style="background-color: #286090" data-bs-toggle="modal" data-bs-target="#modalDetalleBaja">
+                                                <i class="fa fa-eye"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -120,6 +120,51 @@
             </div> {{-- FIN div_crear_usuario --}}
         </div>
     </div>
+
+    <!-- INICIO Modal DETALLES BAJA -->
+    <div class="modal fade h-auto modal-gral p-0" id="modalDetalleBaja" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog m-0">
+            <div class="modal-content p-3 w-100">
+                <div class="rounded-top" style="border: solid 1px #337AB7;">
+                    <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                        <h5>Detalle Baja Código: </h5>
+                    </div>
+
+                    <div class="modal-body p-0 m-0">
+                        <div class="row m-0">
+                            <div class="col-12 p-3 pt-1">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered w-100 mb-0" aria-describedby="venta">
+                                        <thead>
+                                            <tr class="header-table text-center">
+                                                <th>Producto</th>
+                                                <th>Cantidad</th>
+                                                <th>Tipo Baja</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="text-center">
+                                                <td>Producto</td>
+                                                <td>Cantidad</td>
+                                                <td>Tipo Baja</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-around mt-3">
+                    <button type="button" title="Cancelar" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fa fa-times"> Aceptar</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIN Modal DETALLES BAJA -->
 @stop
 
 {{-- =============================================================== --}}
@@ -132,7 +177,7 @@
 
     <script>
         $( document ).ready(function() {
-            // INICIO DataTable Lista Usuarios
+            // INICIO DataTable Bajas
             $("#tbl_bajas").DataTable({
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
@@ -160,8 +205,14 @@
                 "pageLength": 25,
                 "scrollX": true,
             });
-            // CIERRE DataTable Lista Usuarios
-        });
+            // CIERRE DataTable Bajas
+
+            // ============================================================
+            // ============================================================
+            // ============================================================
+
+
+        }); // FIN document.ready
     </script>
 @stop
 
