@@ -83,8 +83,8 @@
                                 <tr class="header-table text-center">
                                     <th>Código Bajas</th>
                                     <th>Empleado Responsable Baja</th>
-                                    <th>Estado</th>
                                     <th>Fecha Baja</th>
+                                    <th>Estado</th>
                                     <th>Ver Detalles</th>
                                 </tr>
                             </thead>
@@ -150,11 +150,13 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr class="text-center">
-                                                    <td>Producto</td>
-                                                    <td>Cantidad</td>
-                                                    <td>Tipo Baja</td>
-                                                </tr>
+                                                @foreach ($baja->detalles as $producto)
+                                                    <tr class="text-center">
+                                                        <td>{{$producto->nombre_producto}}</td>
+                                                        <td>{{$producto->cantidad}}</td>
+                                                        <td>{{$producto->tipo_baja}}</td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

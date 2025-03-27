@@ -154,7 +154,9 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('baja_index', 'existencias\ExistenciasController@bajaIndex');
     $router->post('baja_store', 'existencias\ExistenciasController@bajaStore');
-    $router->put('baja_update/{idBaja}', 'existencias\ExistenciasController@update');
+    $router->post('baja_detalle/{idBaja}', 'existencias\ExistenciasController@bajaDetalle');
+
+    // $router->put('baja_update/{idBaja}', 'existencias\ExistenciasController@update');
 });
 
 

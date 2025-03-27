@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Responsable\existencias\BajaIndex;
 use App\Http\Responsable\existencias\BajaStore;
-// use App\Http\Responsable\existencias\ExistenciaStore;
-// use App\Http\Responsable\existencias\ExistenciaUpdate;
 use App\Models\Baja;
 use App\Models\BajaDetalle;
 
@@ -128,39 +126,35 @@ class ExistenciasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    // public function entradaConsulta($idCompra)
-    // {
-    //     try {
-    //         return Compra::where('id_compra', $idCompra)->first();
+    public function bajaDetalle($idBaja)
+    {
+        try {
+            $bajaDetalle = BajaDetalle::leftJoin('bajas', 'bajas.id_baja', '=', 'bajas_detalle.id_baja')
+                ->leftJoin('tipo_baja', 'tipo_baja.id_tipo_baja', '=', 'bajas_detalle.id_tipo_baja')
+                ->leftJoin('productos', 'productos.id_producto', '=', 'bajas_detalle.id_producto')
+                ->where('bajas_detalle.id_baja', $idBaja)
+                ->select(
+                    'bajas_detalle.id_baja',
+                    'bajas_detalle.id_producto',
+                    'nombre_producto',
+                    'bajas_detalle.cantidad',
+                    'tipo_baja.id_tipo_baja',
+                    'tipo_baja',
+                )
+                ->orderBy('nombre_producto')
+                ->get();
 
-    //     } catch (Exception $e) {
-    //         return response()->json(['error_bd' => $e->getMessage()]);
-    //     }
-    // }
+                
+
+            return response()->json($bajaDetalle);
+
+        } catch (Exception $e) {
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
+    }
 
     // ======================================================================
     // ======================================================================
-
-    // public function anularCompra($idCompra)
-    // {
-    //     $compra = Compra::find($idCompra);
-
-    //     if (isset($compra) && !is_null($compra) && !empty($compra)) {
-
-    //         try {
-    //             $compra->id_estado = 2;
-    //             $compra->update();
-
-    //             return response()->json(['success' => true]);
-    
-    //         } catch (Exception $e) {
-    //             return response()->json(['error_bd' => $e->getMessage()]);
-    //         }
-    //     }
-    // }
-
-    // ===================================================================
-    // ===================================================================
 
     // public function reporteComprasPdf(Request $request)
     // {
@@ -193,69 +187,6 @@ class ExistenciasController extends Controller
     //             'total' => $total,
     //         ], 200);
 
-
-    //     } catch (Exception $e) {
-    //         return response()->json(['error_bd' => $e->getMessage()]);
-    //     }
-    // }
-    
-    // ===================================================================
-    // ===================================================================
-
-    // public function detalleCompra($idCompra)
-    // {
-    //     try {
-    //         $detalleCompra = CompraProducto::leftJoin('compras', 'compras.id_compra', '=', 'compra_productos.id_compra')
-    //             ->leftJoin('productos', 'productos.id_producto', '=', 'compra_productos.id_producto')
-    //             ->where('compra_productos.id_compra', $idCompra)
-    //             ->select(
-    //                 'compra_productos.id_compra',
-    //                 'compra_productos.id_producto',
-    //                 'nombre_producto',
-    //                 'compra_productos.cantidad',
-    //                 'precio_unitario_compra',
-    //                 'subtotal'
-    //             )
-    //             ->orderBy('nombre_producto')
-    //             ->get();
-
-                
-
-    //         return response()->json($detalleCompra);
-
-    //     } catch (Exception $e) {
-    //         return response()->json(['error_bd' => $e->getMessage()]);
-    //     }
-    // }
-        
-    // ===================================================================
-    // ===================================================================
-
-    // public function detalleCompraProductoPdf($idCompra)
-    // {
-    //     try {
-    //         $detalleCompraProductoPdf = Compra::leftJoin('compra_productos', 'compra_productos.id_compra', '=', 'compras.id_compra')
-    //             ->leftJoin('productos', 'productos.id_producto', '=', 'compra_productos.id_producto')
-    //             ->leftJoin('personas', 'personas.id_persona', '=', 'compras.id_proveedor')
-    //             ->where('compras.id_compra', $idCompra)
-    //             ->select(
-    //                 'compras.id_compra',
-    //                 'compras.fecha_compra',
-    //                 'compras.valor_compra',
-    //                 'compras.id_proveedor',
-    //                 'personas.nombre_empresa',
-    //                 'personas.nombres_persona',
-    //                 'personas.apellidos_persona',
-    //                 'compra_productos.id_producto',
-    //                 'compra_productos.cantidad',
-    //                 'compra_productos.precio_unitario_compra',
-    //                 'compra_productos.subtotal',
-    //                 'productos.nombre_producto'
-    //             )
-    //             ->orderBy('nombre_producto')
-    //             ->get();
-
-    //         return response()->json($detalleCompraProductoPdf);
 
     //     } catch (Exception $e) {
     //         return response()->json(['error_bd' => $e->getMessage()]);
