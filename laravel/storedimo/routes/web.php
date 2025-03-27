@@ -114,6 +114,8 @@ Route::group(['namespace' => 'App\Http\Controllers\productos'], function () {
 // EXISTENCIAS
 Route::group(['namespace' => 'App\Http\Controllers\existencias'], function () {
     Route::resource('existencias', 'ExistenciasController');
+    Route::post('registrar_bajas', 'ExistenciasController@registrarBajas')->name('registrar_bajas');
+
     Route::get('stock_minimo', 'ExistenciasController@stockMinimo')->name('stock_minimo');
 });
 

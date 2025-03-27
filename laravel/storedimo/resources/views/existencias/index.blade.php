@@ -156,9 +156,9 @@
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-around mt-3">
+                <div class="d-flex justify-content-end mt-3">
                     <button type="button" title="Cancelar" class="btn btn-secondary" data-bs-dismiss="modal">
-                        <i class="fa fa-times"> Aceptar</i>
+                        <i class="fa fa-times"> Cerrar</i>
                     </button>
                 </div>
             </div>

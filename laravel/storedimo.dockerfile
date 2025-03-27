@@ -14,12 +14,12 @@ RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list
 RUN apt update
 
-# ➤ Instalar PHP 8.2 y extensiones necesarias
+# ➤ Instalar PHP 8.3 y extensiones necesarias
 RUN apt-get install -y \
-    php8.2 php8.2-cli php8.2-common php8.2-curl php8.2-dev \
-    php8.2-gd php8.2-mbstring php8.2-odbc php8.2-opcache \
-    php8.2-pgsql php8.2-pdo php8.2-mysql php8.2-readline \
-    php8.2-sybase php8.2-xml php8.2-zip libapache2-mod-php8.2
+    php8.3 php8.3-cli php8.3-common php8.3-curl php8.3-dev \
+    php8.3-gd php8.3-mbstring php8.3-odbc php8.3-opcache \
+    php8.3-pgsql php8.3-pdo php8.3-mysql php8.3-readline \
+    php8.3-sybase php8.3-xml php8.3-zip libapache2-mod-php8.3
 
 # ➤ Instalar Composer
 RUN apt-get install -y composer
@@ -33,7 +33,7 @@ WORKDIR /var/www/html
 RUN composer require setasign/fpdf
 
 # ➤ Limpiar paquetes innecesarios
-RUN apt-get remove -y php8.3.*
+RUN apt-get remove -y php8.2.*
 RUN apt-get update && apt-get clean
 
 # ➤ Exponer puertos
@@ -43,13 +43,13 @@ EXPOSE 80 8000
 RUN rm -rf /var/www/html/*
 RUN rm -rf /etc/apache2/sites-available/000-default.conf
 RUN rm -rf /etc/apache2/apache2.conf
-RUN rm -rf /etc/php/8.2/apache2/php.ini
+RUN rm -rf /etc/php/8.3/apache2/php.ini
 
 # ➤ Copiar configuraciones personalizadas
 ARG CACHE_BUST=1
 COPY ./laravel/config_apache/000-default.conf /etc/apache2/sites-available/
 COPY ./laravel/config_apache/apache2.conf /etc/apache2/
-COPY ./laravel/config_php/php.ini /etc/php/8.2/apache2/
+COPY ./laravel/config_php/php.ini /etc/php/8.3/apache2/
 
 # ➤ Permisos y configuraciones finales
 RUN chmod -Rvc 777 /var/www/html

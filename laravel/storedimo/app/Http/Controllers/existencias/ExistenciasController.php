@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use App\Traits\MetodosTrait;
 use Exception;
+use App\Http\Responsable\existencias\RegistrarBajas;
 class ExistenciasController extends Controller
 {
     use MetodosTrait;
@@ -155,6 +156,29 @@ class ExistenciasController extends Controller
 
     // ======================================================================
     // ======================================================================
+
+    public function registrarBajas()
+    {
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return new RegistrarBajas();
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception stockMinimo Existencias!");
+            return redirect()->to(route('login'));
+        }
+    }
     
  
 
