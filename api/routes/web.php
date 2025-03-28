@@ -156,8 +156,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('baja_store', 'existencias\ExistenciasController@bajaStore');
     $router->post('baja_detalle/{idBaja}', 'existencias\ExistenciasController@bajaDetalle');
     $router->post('reporte_bajas_pdf', 'existencias\ExistenciasController@reporteBajasPdf');
-
-    // $router->put('baja_update/{idBaja}', 'existencias\ExistenciasController@update');
+    $router->get('stock_minimo_index', 'existencias\ExistenciasController@stockMinimoIndex');
 });
 
 

@@ -102,9 +102,6 @@
                             {{-- ============================== --}}
                             <tbody>
                                 @foreach ($pagoEmpleadosCreate as $pagoEmpleado)
-                                    @php
-                                        // dd($pagoEmpleado);
-                                    @endphp
                                     <tr class="text-center">
                                         <td>{{$pagoEmpleado->identificacion}}</td>
                                         <td>{{$pagoEmpleado->nombre_usuario}}</td>

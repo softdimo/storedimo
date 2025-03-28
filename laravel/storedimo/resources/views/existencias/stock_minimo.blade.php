@@ -58,14 +58,16 @@
                             </thead>
                             {{-- ============================== --}}
                             <tbody>
+                                @foreach ($stockMinimoIndex as $stockMinimo)
                                     <tr class="text-center">
-                                        <td>Código</td>
-                                        <td>Nombre Producto</td>
-                                        <td>Categoría</td>
-                                        <td>Descripción</td>
-                                        <td>Cantidad</td>
-                                        <td>Stock Mínimo</td>
+                                        <td>{{$stockMinimo->id_producto}}</td>
+                                        <td>{{$stockMinimo->nombre_producto}}</td>
+                                        <td>{{$stockMinimo->categoria}}</td>
+                                        <td>{{$stockMinimo->descripcion}}</td>
+                                        <td>{{$stockMinimo->cantidad}}</td>
+                                        <td>{{$stockMinimo->stock_minimo}}</td>
                                     </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

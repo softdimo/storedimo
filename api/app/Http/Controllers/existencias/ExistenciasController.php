@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Responsable\existencias\BajaIndex;
 use App\Http\Responsable\existencias\BajaStore;
+use App\Http\Responsable\existencias\StockMinimoIndex;
 use App\Models\Baja;
 use App\Models\BajaDetalle;
 
@@ -187,5 +188,13 @@ class ExistenciasController extends Controller
         } catch (Exception $e) {
             return response()->json(['error_bd' => $e->getMessage()]);
         }
+    }
+
+    // ======================================================================
+    // ======================================================================
+
+    public function stockMinimoIndex()
+    {
+        return new StockMinimoIndex();
     }
 }

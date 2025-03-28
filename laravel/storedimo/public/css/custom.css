@@ -151,11 +151,6 @@ footer {
     transform: translateX(-50%);
 }
 
-/* .modal-gral .modal-content {
-    flex-grow: 1;
-    overflow: auto;
-} */
-
 #modal-overlay {
     display: none;
     position: fixed;

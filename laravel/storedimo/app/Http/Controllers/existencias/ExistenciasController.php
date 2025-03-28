@@ -10,6 +10,7 @@ use Exception;
 use App\Http\Responsable\existencias\BajaIndex;
 use App\Http\Responsable\existencias\BajaStore;
 use App\Http\Responsable\existencias\ReporteBajasPdf;
+use App\Http\Responsable\existencias\StockMinimo;
 class ExistenciasController extends Controller
 {
     use MetodosTrait;
@@ -177,7 +178,7 @@ class ExistenciasController extends Controller
                 }
             }
         } catch (Exception $e) {
-            alert()->error("Exception Index Existencias!");
+            alert()->error("Exception Index Bajas!");
             return redirect()->to(route('login'));
         }
     }
@@ -203,7 +204,7 @@ class ExistenciasController extends Controller
                 }
             }
         } catch (Exception $e) {
-            alert()->error("Exception stockMinimo Existencias!");
+            alert()->error("Exception BajaStore Existencias!");
             return redirect()->to(route('login'));
         }
     }
@@ -233,11 +234,11 @@ class ExistenciasController extends Controller
                 {
                     return redirect()->to(route('login'));
                 } else {
-                    return view('existencias.stock_minimo');
+                    return new StockMinimo();
                 }
             }
         } catch (Exception $e) {
-            alert()->error("Exception stockMinimo Existencias!");
+            alert()->error("Exception stockMinimo!");
             return redirect()->to(route('login'));
         }
     }
