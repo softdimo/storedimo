@@ -71,7 +71,22 @@
                             </tbody>
                         </table>
                     </div>
-                </div> {{-- FIN div_campos_usuarios --}}
+                </div>
+
+                <div class="d-flex justify-content-center mt-3 mb-3">
+                    {{-- <button class="btn btn-success generar-pdf" style="background-color: #337AB7" 
+                        data-id="{{$stockMinimo->id_producto}}"
+                        data-producto="{{$stockMinimo->nombre_producto}}"
+                        data-categoria="{{$stockMinimo->categoria}}"
+                        data-cantidad="{{$stockMinimo->cantidad}}"
+                        data-stock_minimo="{{$stockMinimo->stock_minimo}}">
+                        <i class="fa fa-file-pdf-o"></i> Reporte stock Mínimo
+                    </button> --}}
+
+                    <button class="btn btn-success generar-pdf" style="background-color: #337AB7">
+                        <i class="fa fa-file-pdf-o"></i> Reporte stock Mínimo
+                    </button>
+                </div>
             </div> {{-- FIN div_crear_usuario --}}
         </div>
     </div>
@@ -87,7 +102,7 @@
 
     <script>
         $( document ).ready(function() {
-            // INICIO DataTable Lista Usuarios
+            // INICIO DataTable stock Mínimo
             $("#tbl_stock_minimo").DataTable({
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
@@ -115,8 +130,71 @@
                 "pageLength": 10,
                 "scrollX": true,
             });
-            // CIERRE DataTable Lista Usuarios
-        });
+            // CIERRE DataTable stock Mínimo
+
+            // =========================================================================
+            // =========================================================================
+            // =========================================================================
+
+            document.querySelector(".generar-pdf").addEventListener("click", function () {
+                let productos = [];
+
+                document.querySelectorAll("#tbl_stock_minimo tbody tr").forEach(row => {
+                    let producto = {
+                        id: row.cells[0].textContent,
+                        producto: row.cells[1].textContent,
+                        categoria: row.cells[2].textContent,
+                        descripcion: row.cells[3].textContent,
+                        cantidad: row.cells[4].textContent,
+                        stock_minimo: row.cells[5].textContent
+                    };
+                    productos.push(producto);
+                });
+
+                fetch("/stock_minimo_pdf", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                    },
+                    body: JSON.stringify({ productos }) // Enviamos un array de productos
+                })
+                .then(response => response.blob())
+                .then(blob => {
+                    let url = window.URL.createObjectURL(blob);
+                    window.open(url, "_blank");
+                })
+                .catch(error => console.error("Error al generar PDF:", error));
+            });
+
+            // document.querySelectorAll(".generar-pdf").forEach(button => {
+            //     button.addEventListener("click", function () {
+
+            //         let stock = {
+            //             id: this.dataset.id,
+            //             producto: this.dataset.producto,
+            //             categoria: this.dataset.categoria,
+            //             cantidad: this.dataset.cantidad,
+            //             stock_minimo: this.dataset.stock_minimo
+            //         };
+
+            //         fetch("/stock_minimo_pdf", {
+            //             method: "POST",
+            //             headers: {
+            //                 "Content-Type": "application/json",
+            //                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+            //             },
+            //             body: JSON.stringify(stock)
+            //         })
+            //         .then(response => response.blob())
+            //         .then(blob => {
+            //             let url = window.URL.createObjectURL(blob);
+            //             window.open(url, "_blank");
+            //         })
+            //         .catch(error => console.error("Error al generar PDF:", error));
+            //     });
+            // });
+        }); // FIN document.ready
     </script>
 @stop
 

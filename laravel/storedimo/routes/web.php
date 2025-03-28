@@ -119,6 +119,7 @@ Route::group(['namespace' => 'App\Http\Controllers\existencias'], function () {
     Route::post('reporte_bajas_pdf', 'ExistenciasController@reporteBajasPdf')->name('reporte_bajas_pdf');
 
     Route::get('stock_minimo', 'ExistenciasController@stockMinimo')->name('stock_minimo');
+    Route::post('stock_minimo_pdf', 'ExistenciasController@stockMinimoPdf')->name('stock_minimo_pdf');
 });
 
 // ========================================================================

@@ -11,6 +11,7 @@ use App\Http\Responsable\existencias\BajaIndex;
 use App\Http\Responsable\existencias\BajaStore;
 use App\Http\Responsable\existencias\ReporteBajasPdf;
 use App\Http\Responsable\existencias\StockMinimo;
+use App\Http\Responsable\existencias\StockMinimoPdf;
 class ExistenciasController extends Controller
 {
     use MetodosTrait;
@@ -241,5 +242,13 @@ class ExistenciasController extends Controller
             alert()->error("Exception stockMinimo!");
             return redirect()->to(route('login'));
         }
+    }
+
+    // ======================================================================
+    // ======================================================================
+
+    public function stockMinimoPdf()
+    {
+        return new StockMinimoPdf();
     }
 }
