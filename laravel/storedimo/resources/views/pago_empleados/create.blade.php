@@ -119,7 +119,7 @@
                                     </tr>
 
                                     {{-- INICIO Modal REGISTRAR PAGO --}}
-                                    <div class="modal fade modal-gral" id="modalRegistrarPago_{{$pagoEmpleado->id_usuario}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" style="max-width: 70%;height: 90% !important">
+                                    <div class="modal fade modal-gral" id="modalRegistrarPago_{{$pagoEmpleado->id_usuario}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" style="max-width: 70%;max-height: 90vh !important">
                                         <div class="modal-dialog m-0 mw-100">
                                             <div class="modal-content border-0">
                                                 {!! Form::open([
@@ -324,31 +324,31 @@
                                                                 </div>
                                                             </div>
                                                         </div> <!-- FIN modal-body -->
-                                                    </div>
 
-                                                    {{-- ====================================================== --}}
-                                                    {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
 
-                                                    <!-- Contenedor para el GIF -->
-                                                    <div id="loadingIndicatorRegistrarPago_{{$pagoEmpleado->id_usuario}}"
-                                                        class="loadingIndicator">
-                                                        <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
-                                                    </div>
+                                                        <!-- Contenedor para el GIF -->
+                                                        <div id="loadingIndicatorRegistrarPago_{{$pagoEmpleado->id_usuario}}"
+                                                            class="loadingIndicator">
+                                                            <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                                                        </div>
 
-                                                    {{-- ====================================================== --}}
-                                                    {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
 
-                                                    <div class="modal-footer border-0 d-flex justify-content-around mt-3">
-                                                        <button type="submit" id="btn_registrar_pago_{{$pagoEmpleado->id_usuario}}"
-                                                            class="btn btn-success" title="Guardar Configuración">
-                                                            <i class="fa fa-floppy-o"> Guardar</i>
-                                                        </button>
+                                                        <div class="modal-footer border-0 d-flex justify-content-around">
+                                                            <button type="submit" id="btn_registrar_pago_{{$pagoEmpleado->id_usuario}}"
+                                                                class="btn btn-success" title="Guardar Configuración">
+                                                                <i class="fa fa-floppy-o"> Guardar</i>
+                                                            </button>
 
-                                                        <button type="button" id="btn_cancelar_pago_{{$pagoEmpleado->id_usuario}}"
-                                                            class="btn btn-secondary" title="Cancelar"
-                                                            data-bs-dismiss="modal">
-                                                            <i class="fa fa-times"> Cancelar</i>
-                                                        </button>
+                                                            <button type="button" id="btn_cancelar_pago_{{$pagoEmpleado->id_usuario}}"
+                                                                class="btn btn-secondary" title="Cancelar"
+                                                                data-bs-dismiss="modal">
+                                                                <i class="fa fa-times"> Cancelar</i>
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 {!! Form::close() !!}
                                             </div> {{-- FIN modal-content --}}

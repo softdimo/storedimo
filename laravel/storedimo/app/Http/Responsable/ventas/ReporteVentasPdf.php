@@ -47,13 +47,13 @@ class ReporteVentasPdf implements Responsable
   
         // Encabezado de tabla
         $pdf->SetFont('Arial', 'B', 10);
-        $pdf->Cell(20, 10, "Codigo", 1);
+        $pdf->Cell(20, 10, utf8_decode("Código"), 1);
         $pdf->Cell(35, 10, "Fecha Venta", 1);
         $pdf->Cell(30, 10, "Subtotal Venta", 1);
         $pdf->Cell(20, 10, "Descuento", 1);
         $pdf->Cell(30, 10, "Total Venta", 1);
-        $pdf->Cell(40, 10, "Cliente", 1);
-        $pdf->Cell(20, 10, "Tipo Pago", 1);
+        $pdf->Cell(40, 10, utf8_decode("Cliente"), 1);
+        $pdf->Cell(20, 10, utf8_decode("Tipo Pago"), 1);
         $pdf->Ln();
 
         // Datos de compras
@@ -64,8 +64,8 @@ class ReporteVentasPdf implements Responsable
             $pdf->Cell(30, 10, "$ " . number_format($venta->subtotal_venta, 2), 1);
             $pdf->Cell(20, 10, "$ " . number_format($venta->descuento, 2), 1);
             $pdf->Cell(30, 10, "$ " . number_format($venta->total_venta, 2), 1);
-            $pdf->Cell(40, 10, $venta->nombres_cliente, 1);
-            $pdf->Cell(20, 10, $venta->tipo_pago, 1);
+            $pdf->Cell(40, 10, utf8_decode($venta->nombres_cliente), 1);
+            $pdf->Cell(20, 10, utf8_decode($venta->tipo_pago), 1);
             $pdf->Ln();
         }
 
