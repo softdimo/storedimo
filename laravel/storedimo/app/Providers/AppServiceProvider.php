@@ -26,23 +26,25 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('layouts.topbar', function ($view) {
+        View::composer('layouts.topbar', function ($view)
+        {
             try {
                 $idUsuario = session('id_usuario');
 
                 // Consultar el usuario en la base de datos
-                $usuario = Usuario::leftJoin('roles', 'roles.id_rol', '=', 'usuarios.id_rol')
+                $usuario = Usuario::leftJoin('roles', 'roles.id', '=', 'usuarios.id_rol')
                     ->where('id_usuario', $idUsuario)
                     ->select(
                         'nombre_usuario',
                         'apellido_usuario',
-                        'rol'
+                        'name AS rol'
                     )
                     ->first();
 
                 $view->with('usuarioLogueado', $usuario);
                
-            } catch (Exception $e) {
+            } catch (Exception $e)
+            {
                 alert()->error('Error', 'Exception Usuario Logueado');
                 return back();
             }

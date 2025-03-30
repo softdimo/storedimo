@@ -5,9 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Spatie\Permission\Traits\HasRoles;
+
 class Usuario extends Model
 {
     use SoftDeletes;
+    use HasRoles;
 
     protected $connection = 'mysql';
     protected $table = 'usuarios';
@@ -32,6 +35,6 @@ class Usuario extends Model
         'clave',
         'clave_fallas',
         'id_estado',
-        'id_rol',
+        'id_rol'
     ];
 }

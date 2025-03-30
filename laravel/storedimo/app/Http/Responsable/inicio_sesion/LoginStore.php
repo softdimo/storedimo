@@ -19,7 +19,8 @@ class LoginStore implements Responsable
         $usuario = request('usuario', null);
         $clave = request('clave', null);
 
-        if(!isset($usuario) || empty($usuario) || is_null($usuario) || !isset($clave) || empty($clave) || is_null($clave))
+        if(!isset($usuario) || empty($usuario) || is_null($usuario) || 
+            !isset($clave) || empty($clave) || is_null($clave))
         {
             alert()->error('Error','Usuario y Clave son requeridos!');
             return back();
@@ -34,14 +35,10 @@ class LoginStore implements Responsable
 
             $contarClaveErronea = $user['clave_fallas'];
 
-            // ==================================
-
             if($contarClaveErronea >= 4)
             {
                 $this->inactivarUsuario($user['id_usuario']);
             }
-
-            // ==================================
 
             if($user['id_estado'] == 2)
             {
@@ -51,7 +48,8 @@ class LoginStore implements Responsable
 
             // ==================================
 
-            if(Hash::check($clave, $user['clave'])) {
+            if(Hash::check($clave, $user['clave']))
+            {
                 $this->crearVariablesSesion($user);
                 $this->actualizarClaveFallas($user['id_usuario'], 0);
                 return redirect('usuarios');
@@ -74,8 +72,6 @@ class LoginStore implements Responsable
     }
 
     // ==================================================
-    // ==================================================
-    // ==================================================
     
     private function crearVariablesSesion($user)
     {
@@ -86,7 +82,6 @@ class LoginStore implements Responsable
         session()->put('sesion_iniciada', true);
     }
 
-    // ======================================================
     // ======================================================
 
     private function consultarUsuario($usuario)
@@ -106,14 +101,12 @@ class LoginStore implements Responsable
         }
         catch (Exception $e)
         {
-            dd($e);
             DB::connection('mysql')->rollback();
             alert()->error('Error', 'Error Exception');
             return redirect()->to(route('usuarios.index'));
         }
     }
 
-    // ======================================================
     // ======================================================
 
     private function inactivarUsuario($idUser)
@@ -130,13 +123,11 @@ class LoginStore implements Responsable
 
         } catch (Exception $e)
         {
-            dd($e);
             alert()->error('Error', 'Error Exception, si el problema persiste, contacte a Soporte.');
             return back();
         }
     }
 
-    // ======================================================
     // ======================================================
 
     private function actualizarClaveFallas($idUsuario, $contador)
@@ -154,7 +145,6 @@ class LoginStore implements Responsable
             json_decode($response->getBody()->getContents());
 
         } catch (Exception $e) {
-            dd($e);
             alert()->error('Error', 'Error Exception, si el problema persiste, contacte a Soporte.');
             return back();
         }

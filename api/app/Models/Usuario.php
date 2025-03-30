@@ -32,6 +32,6 @@ class Usuario extends Model
         'clave',
         'clave_fallas',
         'id_estado',
-        'id_rol',
+        'id_rol'
     ];
 }

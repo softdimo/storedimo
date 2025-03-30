@@ -46,10 +46,12 @@ class UsuarioStore implements Responsable
         // Consultamos si ya existe un usuario con la cedula ingresada
         $consultarIdentificacion = $this->consultarId($identificacion);
         
-        if(isset($consultarIdentificacion) && !empty($consultarIdentificacion) && !is_null($consultarIdentificacion)) {
+        if(isset($consultarIdentificacion) && !empty($consultarIdentificacion) && !is_null($consultarIdentificacion))
+        {
             alert()->info('Info', 'Este número de documento ya existe.');
             return back();
-        } else {
+        } else
+        {
             // Contruimos el nombre de usuario
             $separarApellidos = explode(" ", $apellidoUsuario);
             $usuario = substr($this->quitarCaracteresEspeciales(trim($nombreUsuario)), 0,1) . trim($this->quitarCaracteresEspeciales($separarApellidos[0]));
@@ -62,9 +64,8 @@ class UsuarioStore implements Responsable
                 $complemento++;
             }
 
-            // ===================================================================
-
-            try {
+            try
+            {
                 $peticionUsuarioStore = $this->clientApi->post($this->baseUri.'usuario_store', [
                     'json' => [
                         'nombre_usuario' => $nombreUsuario,
@@ -87,24 +88,25 @@ class UsuarioStore implements Responsable
 
                     ]
                 ]);
-                $resUsuarioStore = json_decode($peticionUsuarioStore->getBody()->getContents());
 
-                if(isset($resUsuarioStore) && !empty($resUsuarioStore))
+                $resUsuarioStore = json_decode($peticionUsuarioStore->getBody()->getContents());
+                
+                if(isset($resUsuarioStore) && !empty($resUsuarioStore) && $resUsuarioStore->success)
                 {
                     return $this->respuestaExito(
                         "Usuario creado satisfactoriamente.<br>
-                        El usuario es: <strong>" . $usuario . $complemento . "</strong><br>
-                        Y la clave es: <strong>" . $identificacion . "</strong>",
+                        El usuario es: <strong>" .  $resUsuarioStore->usuario->usuario . "</strong><br>
+                        Y la clave es: <strong>" . $resUsuarioStore->usuario->identificacion . "</strong>",
                         'usuarios.index'
                     );
                 }
-            } catch (Exception $e) {
+            } catch (Exception $e)
+            {
                 return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
             }
         }
     }
 
-    // ===================================================================
     // ===================================================================
 
     private function consultarId($identificacion)

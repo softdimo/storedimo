@@ -71,7 +71,7 @@ trait MetodosTrait
     public function shareData()
     {
         view()->share('categorias', Categoria::orderBy('categoria')->pluck('categoria', 'id_categoria'));
-        view()->share('roles', Rol::orderBy('rol')->pluck('rol', 'id_rol'));
+        view()->share('roles', Rol::orderBy('name')->pluck('name', 'id'));
         view()->share('estados', Estado::orderBy('estado')->pluck('estado', 'id_estado'));
         view()->share('tipos_documento', TipoDocumento::orderBy('tipo_documento')->pluck('tipo_documento', 'id_tipo_documento'));
         view()->share('tipos_empleado', TipoPersona::whereIn('id_tipo_persona', [1,2])->orderBy('tipo_persona')->pluck('tipo_persona', 'id_tipo_persona'));

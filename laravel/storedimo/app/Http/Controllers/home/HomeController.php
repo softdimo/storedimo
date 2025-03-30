@@ -6,10 +6,22 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Exception;
 use App\Http\Controllers\admin\AdministradorController;
+use App\Traits\MetodosTrait;
 use App\Models\Usuario;
+use GuzzleHttp\Client;
 
 class HomeController extends Controller
 {
+    use MetodosTrait;
+    protected $baseUri;
+    protected $clientApi;
+
+    public function __construct()
+    {
+        $this->shareData();
+        $this->baseUri = env('BASE_URI');
+        $this->clientApi = new Client(['base_uri' => $this->baseUri]);
+    }
     /**
      * Display a listing of the resource.
      *

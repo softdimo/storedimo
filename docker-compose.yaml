@@ -8,5 +8,5 @@ services:
       - ./laravel/storedimo:/var/www/html:delegated
     ports: 
       - '80:80'
-    env_file:
-      - ./laravel/storedimo/.env
+    # env_file:
+    #   - ./laravel/storedimo/.env

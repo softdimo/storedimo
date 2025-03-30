@@ -35,7 +35,7 @@ class RecuperarClaveUpdate implements Responsable
         $message = "";
 
         if ($usuClaveNueva != $usuclaveNuevaConfirmar) {
-            $message .= "La clave nueva y su confirmación tienen que ser la misma!";
+            $message .= "El campo de nueva clave y Confirmación de clave deben ser iguales.";
         } else {
             try {
                 $peticion = $this->clientApi->post($this->baseUri.'cambiar_clave/'.$usuIdRecuperarClave, ['json' => [

@@ -44,6 +44,7 @@ Route::group(['namespace' => 'App\Http\Controllers\inicio_sesion'], function () 
 // HOME
 Route::group(['namespace' => 'App\Http\Controllers\home'], function () {
     Route::resource('home', 'HomeController');
+    Route::resource('permisos', 'PermisosController');
 });
 
 // ========================================================================

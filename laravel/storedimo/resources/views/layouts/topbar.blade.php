@@ -52,6 +52,13 @@
                                 <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_configurar_pago">
                                     <a href="#" class="dropdown-item text-dark hover-li">Configuración de Pago</a>
                                 </li>
+                                @if(!is_null(session('sesion_iniciada')) && session('id_rol') == 3)
+                                    <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_configurar_permisos">
+                                        <a href="{{route('permisos.index')}}" class="dropdown-item text-dark hover-li">Asignación de Permisos</a>
+                                    </li>
+                                @else
+                                    <p>&nbsp;</p>
+                                @endif
                             </ul>
                         </li>
 
@@ -77,18 +84,29 @@
                             <a  href="#" title="Usuario" class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-user fa-fw fa-1x"></i>
                             </a>
-                            <ul class="dropdown-menu bg-white" style="right:0;left:auto">
-                                <li class="dropdown-item text-dark hover-li">
-                                    <i class="fa fa-user fa-fw fa-1x"></i> {{ $usuarioLogueado->rol }}
-                                    <h6 class="text-danger">{{ $usuarioLogueado->nombre_usuario }} {{ $usuarioLogueado->apellido_usuario }}</h6>
-                                </li>
 
-                                <li class="dropdown-item text-dark hover-li">
-                                    <i class="fa fa-sign-out fa-fw fa-1x">
-                                        <a href="{{route('logout')}}" class="" style="text-decoration: none;">Cerrar Sesión</a>
-                                    </i>
-                                </li>
-                            </ul>
+                            @if(session('sesion_iniciada'))
+                                <ul class="dropdown-menu bg-white" style="right:0;left:auto">
+                                    <li class="dropdown-item text-dark hover-li">
+                                        <i class="fa fa-user fa-fw fa-1x"></i> {{ $usuarioLogueado->rol }}
+                                        <h6 class="text-danger">{{ $usuarioLogueado->nombre_usuario }} {{ $usuarioLogueado->apellido_usuario }}</h6>
+                                    </li>
+
+                                    <li class="dropdown-item text-dark hover-li">
+                                        <i class="fa fa-sign-out fa-fw fa-1x">
+                                            <a href="{{route('logout')}}" class="" style="text-decoration: none;">Cerrar Sesión</a>
+                                        </i>
+                                    </li>
+                                </ul>
+                            @else
+                            <ul class="dropdown-menu bg-white" style="right:0;left:auto">
+                                    <li class="dropdown-item text-dark hover-li">
+                                        <i class="fa fa-sign-out fa-fw fa-1x">
+                                            <a href="{{route('logout')}}" class="" style="text-decoration: none;">Cerrar Sesión</a>
+                                        </i>
+                                    </li>
+                                </ul>
+                            @endif
                         </li>
                     </ul>
                 </div>
@@ -98,11 +116,6 @@
 </header>
 
 {{-- ==================================================================================== --}}
-{{-- ==================================================================================== --}}
-{{-- ==================================================================================== --}}
-{{-- ==================================================================================== --}}
-{{-- ==================================================================================== --}}
-
 
 {{-- INICIO Modal GANANCIAS --}}
 <div class="modal fade p-3 modal-gral h-auto" id="modal_ganancias" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
@@ -113,7 +126,6 @@
                     <h5>Ganancias</h5>
                 </div>
 
-                {{-- ====================================================== --}}
                 {{-- ====================================================== --}}
 
                 <div class="modal-body p-3">
@@ -141,7 +153,6 @@
             </div>
             
             {{-- ====================================================== --}}
-            {{-- ====================================================== --}}
 
             <div class="d-flex justify-content-end mt-2 p-3">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
@@ -154,11 +165,6 @@
 {{-- FINAL Modal GANANCIAS --}}
 
 {{-- ==================================================================================== --}}
-{{-- ==================================================================================== --}}
-{{-- ==================================================================================== --}}
-{{-- ==================================================================================== --}}
-{{-- ==================================================================================== --}}
-
 
 {{-- INICIO Modal INFORMACIÓN --}}
 <div class="modal fade modal-gral h-auto" id="modal_informacion" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
@@ -170,7 +176,6 @@
                 </div>
 
                 {{-- ====================================================== --}}
-                {{-- ====================================================== --}}
 
                 <div class="modal-body p-3">
                     <div class="row m-0 p-0">
@@ -181,7 +186,6 @@
                 </div>
             </div>
             
-            {{-- ====================================================== --}}
             {{-- ====================================================== --}}
 
             <div class="d-flex justify-content-end mt-2 p-3">
@@ -196,10 +200,6 @@
 
 {{-- ==================================================================================== --}}
 {{-- ==================================================================================== --}}
-{{-- ==================================================================================== --}}
-{{-- ==================================================================================== --}}
-{{-- ==================================================================================== --}}
-
 
 {{-- INICIO Modal AYUDA --}}
 <div class="modal fade modal-gral h-auto" id="modal_ayuda" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
@@ -211,7 +211,6 @@
                 </div>
 
                 {{-- ====================================================== --}}
-                {{-- ====================================================== --}}
 
                 <div class="modal-body">
                     <div class="row m-0 p-0">
@@ -222,7 +221,6 @@
                 </div>
             </div>
             
-            {{-- ====================================================== --}}
             {{-- ====================================================== --}}
 
             <div class="d-flex justify-content-end mt-2 p-3">
@@ -237,10 +235,6 @@
 
 {{-- ==================================================================================== --}}
 {{-- ==================================================================================== --}}
-{{-- ==================================================================================== --}}
-{{-- ==================================================================================== --}}
-{{-- ==================================================================================== --}}
-
 
 {{-- INICIO Modal CONFIGURAR VENTAS --}}
 <div class="modal fade modal-gral h-auto" id="modal_configurar_ventas" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
@@ -251,7 +245,6 @@
                     <h5>Configuración Ventas</h5>
                 </div>
 
-                {{-- ====================================================== --}}
                 {{-- ====================================================== --}}
 
                 <div class="modal-body p-0 m-0">
@@ -288,7 +281,6 @@
             </div>
             
             {{-- ====================================================== --}}
-            {{-- ====================================================== --}}
 
             <div class="d-flex justify-content-between mt-3">
                 <div>
@@ -313,11 +305,6 @@
 {{-- FINAL Modal CONFIGURAR VENTAS --}}
 
 {{-- ==================================================================================== --}}
-{{-- ==================================================================================== --}}
-{{-- ==================================================================================== --}}
-{{-- ==================================================================================== --}}
-{{-- ==================================================================================== --}}
-
 
 {{-- INICIO Modal CONFIGURAR PAGOS --}}
 <div class="modal fade modal-gral h-auto" id="modal_configurar_pago" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
@@ -329,7 +316,6 @@
                 </div>
 
                 {{-- ====================================================== --}}
-                {{-- ====================================================== --}}
 
                 <div class="modal-body p-0 m-0">
                     <div class="row m-0 pt-4 pb-4">
@@ -340,19 +326,23 @@
                             </div>
                         </div>
 
-                        <div class="col-12 col-md-6">
-                            <div class="form-group d-flex flex-column">
-                                <label for="periodo_pago" class="" style="font-size: 15px">Período de Pago<span class="text-danger">*</span></label>
-                                {{Form::select('periodo_pago', collect(['' => 'Seleccionar...'])->union($periodos_pago), null, ['class' => 'form-select', 'id' => 'periodo_pago'])}}
+                        @if(!is_null(session('sesion_iniciada')))
+                            <div class="col-12 col-md-6">
+                                <div class="form-group d-flex flex-column">
+                                    <label for="periodo_pago" class="" style="font-size: 15px">Período de Pago<span class="text-danger">*</span></label>
+                                    {{Form::select('periodo_pago', collect(['' => 'Seleccionar...'])->union($periodos_pago), null, ['class' => 'form-select', 'id' => 'periodo_pago'])}}
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-12 col-md-6 mt-md-3">
-                            <div class="form-group d-flex flex-column">
-                                <label for="porcentaje_comision" class="" style="font-size: 15px">Porcentaje Comisión<span class="text-danger">*</span></label>
-                                {{Form::select('porcentaje_comision', collect(['' => 'Seleccionar...'])->union($porcentajes_comision), null, ['class' => 'form-select', 'id' => 'porcentaje_comision'])}}
+                            <div class="col-12 col-md-6 mt-md-3">
+                                <div class="form-group d-flex flex-column">
+                                    <label for="porcentaje_comision" class="" style="font-size: 15px">Porcentaje Comisión<span class="text-danger">*</span></label>
+                                    {{Form::select('porcentaje_comision', collect(['' => 'Seleccionar...'])->union($porcentajes_comision), null, ['class' => 'form-select', 'id' => 'porcentaje_comision'])}}
+                                </div>
                             </div>
-                        </div>
+                        @else
+                        <p>&nbsp;</p>
+                        @endif
 
                         <div class="col-12 col-md-6 mt-md-3">
                             <div class="form-group d-flex flex-column">
@@ -371,7 +361,6 @@
                 </div>
             </div>
             
-            {{-- ====================================================== --}}
             {{-- ====================================================== --}}
 
             <div class="d-flex justify-content-between mt-3">

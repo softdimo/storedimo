@@ -30,11 +30,9 @@ class UsuarioStore implements Responsable
         $clave = request('clave', null);
         $claveFallas = request('clave_fallas', null);
 
-        // ================================================
-
         $nuevoUsuario = Usuario::create([
-            'nombre_usuario' => $nombreUsuario,
-            'apellido_usuario' => $apellidoUsuario,
+            'nombre_usuario' => ucwords($nombreUsuario),
+            'apellido_usuario' => ucwords($apellidoUsuario),
             'id_tipo_documento' => $idTipoDocumento,
             'identificacion' => $identificacion,
             'usuario' => $usuario,
@@ -52,20 +50,15 @@ class UsuarioStore implements Responsable
             'fecha_terminacion_contrato' => $fechaTerminacionContrato,
         ]);
 
-        // ================================================
-
-        if (isset($nuevoUsuario) && !is_null($nuevoUsuario) && !empty($nuevoUsuario)) {
+        if (isset($nuevoUsuario) && !is_null($nuevoUsuario) && !empty($nuevoUsuario))
+        {
             return response()->json([
                 'success' => true,
-                'message' => 'Usuario creado correctamente'
+                'message' => 'Usuario creado correctamente',
+                'usuario' => $nuevoUsuario
             ]);
         } else {
             return abort(404, 'No existe este usuario');
         }
     }
-
-    // ===================================================================
-    // ===================================================================
-
-
 }

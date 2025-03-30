@@ -13,9 +13,7 @@ use App\Models\Usuario;
 
 class RecuperarClave implements Responsable
 {
-
     // ===================================================================
-
     protected $baseUri;
     protected $clientApi;
 
@@ -27,7 +25,7 @@ class RecuperarClave implements Responsable
 
     // ===================================================================
     // ===================================================================
-    // ===================================================================
+
     public function toResponse($request)
     {
         try
@@ -49,7 +47,7 @@ class RecuperarClave implements Responsable
 
                 Mail::to($usuCorreoRecuperarClave)
                     ->send(new RecuperarClaveMail($usuIdRecuperarClave, $usuarioRecuperarClave, $usuCorreoRecuperarClave));
-                    alert()->info('Info','La información de recuperación de la clave, fue enviada a tu correo.');
+                    alert()->info('Info','La información de recuperación de la clave, ha sido enviada al correo.');
                     return redirect()->to(route('login'));
             } else {
                 alert()->error('Error','No encontramos este usuario.');
