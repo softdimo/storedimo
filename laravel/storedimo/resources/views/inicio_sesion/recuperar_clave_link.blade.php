@@ -12,7 +12,7 @@
         {{-- =========================================================== --}}
 
         <div class="d-flex justify-content-center align-items-center">
-            <form class="border border-dark-subtle p-3 rounded-4" method="post" action="{{route('recuperar_clave_update')}}" autocomplete="off">
+            <form class="border border-dark-subtle p-3 rounded-4" method="post" action="{{route('recuperar_clave_update')}}" autocomplete="off" id="formCambiarClaveLink">
                 @csrf
                 <span class="">Recuperar Clave</span>
 
@@ -36,8 +36,15 @@
 
                 {{-- ============================================ --}}
 
+                <!-- Contenedor para el GIF -->
+                <div id="loadingIndicatorStore" class="loadingIndicator">
+                    <img src="{{asset('imagenes/loading.gif')}}" alt="Procesando...">
+                </div>
+
+                {{-- ============================================ --}}
+
                 <div class="mt-4 d-flex justify-content-end">
-                    <button class="btn btn-primary" type="submit">Cambiar clave</button>
+                    <button type="submit" class="btn btn-primary">Cambiar clave</button>
                 </div>
 
                 {{-- ============================================ --}}
@@ -57,7 +64,38 @@
 @section('scripts')
     <script>
         $( document ).ready(function() {
-            $("#new_pass").trigger('focus');
+            $("#clave_nueva").trigger('focus');
+
+            // Botón de submit de editar usuario
+            $(document).on("submit", "form[id^='formCambiarClaveLink']", function(e) {
+                e.preventDefault(); // Evita el envío si hay errores
+
+                const form = $(this);
+                const submitButton = form.find('button[type="submit"]');
+                const loadingIndicator = form.find("div[id^='loadingIndicatorStore']"); // Busca el GIF del form actual
+
+                let nuevaClaveValor = $('#clave_nueva').val();
+                let confirmarClaveValor = $('#clave_nueva_confirmar').val();
+
+                if (nuevaClaveValor.trim() === '' || confirmarClaveValor.trim() === '') {
+                    Swal.fire('Cuidado!', 'Ambos campos de contraseña deben estar diligenciados!', 'warning');
+                    return;
+                }
+
+                if (nuevaClaveValor !== confirmarClaveValor) {
+                    Swal.fire('Error!', 'Las contraseñas no coinciden!', 'error');
+                    return;
+                }
+
+                // Dessactivar Botones
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+                
+                // Mostrar Spinner
+                loadingIndicator.show();
+
+                // Enviar formulario manualmente
+                this.submit();
+            });
         });
     </script>
 @endsection

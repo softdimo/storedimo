@@ -37,7 +37,7 @@
 @section('scripts')
     <script>
         $( document ).ready(function() {
-            $("#pass_recovery").trigger('focus');
+            $("#email").trigger('focus');
         });
     </script>
 @endsection
