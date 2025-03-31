@@ -206,8 +206,6 @@ class ExistenciasController extends Controller
         try {
             $productosStockMinimo = Producto::whereColumn('cantidad', '<', 'stock_minimo')->count();
 
-            // return response()->json($productosStockMinino);
-
             // Devolver un JSON estructurado correctamente
             return response()->json(['productos_bajo_stock' => $productosStockMinimo]);
 

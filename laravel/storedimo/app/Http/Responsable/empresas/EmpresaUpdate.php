@@ -35,13 +35,6 @@ class EmpresaUpdate implements Responsable
 
         // ===================================================================
 
-        // $consultaCategoria = $this->consultaCategoria($categoria);
-
-        // if(isset($consultaCategoria) && !empty($consultaCategoria) && !is_null($consultaCategoria)) {
-        //     alert()->info('Info', 'Esta categoría ya existe.');
-        //     return back();
-        // }
-
         try {
             $reqEmpresaUpdate = $this->clientApi->put($this->baseUri.'empresa_update/'.$idEmpresa, [
                 'json' => [
@@ -75,23 +68,4 @@ class EmpresaUpdate implements Responsable
     {
         alert()->error('Error', $message);
     }
-
-    // ===================================================================
-    // ===================================================================
-
-    // public function consultaCategoria($categoria)
-    // {
-    //     try
-    //     {
-    //         $peticionConsultaCategoria = $this->clientApi->post($this->baseUri.'consulta_categoria', [
-    //             'json' => ['categoria' => $categoria]
-    //         ]);
-    //         return json_decode($peticionConsultaCategoria->getBody()->getContents());
-    //     }
-    //     catch (Exception $e)
-    //     {
-    //         alert()->error('Error', 'Error Exception, inténtelo de nuevo, si el problema persiste, contacte a Soporte.'.$e->getMessage());
-    //         return back();
-    //     }
-    // }
 }

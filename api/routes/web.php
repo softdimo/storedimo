@@ -144,6 +144,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('empresa_index', 'empresas\EmpresasController@index');
     $router->post('empresa_store', 'empresas\EmpresasController@store');
     $router->put('empresa_update/{idEmpresa}', 'empresas\EmpresasController@update');
+    $router->post('consultar_empresa', 'empresas\EmpresasController@consultarEmpresa');
 });
 
 

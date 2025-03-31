@@ -112,45 +112,21 @@ class EmpresasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    // public function verificarPrestamo()
-    // {
-    //     $nombrePrestamo = request('nombre_producto', null);
-    //     $idCategoria = request('id_categoria', null);
+    public function consultarEmpresa(Request $request)
+    {
+        $nitEmpresa = request('nit_empresa', null);
+        $nombreEmpresa = request('nombre_empresa', null);
 
-    //     try {
-    //         $validarNombrePrestamo = Prestamo::where('nombre_producto', $nombrePrestamo)
-    //                 ->where('id_categoria', $idCategoria)
-    //                 ->first();
+        try {
+            $consultarEmpresa = Empresa::where('nit_empresa', $nitEmpresa)
+                    ->where('nombre_empresa', $nombreEmpresa)
+                    ->first();
 
-    //         if (isset($validarNombrePrestamo) && !is_null($validarNombrePrestamo) && !empty($validarNombrePrestamo)) {
-    //             return response()->json($validarNombrePrestamo);
-    //         }
-    //     } catch (Exception $e) {
-    //         return response()->json(['error_bd' => $e->getMessage()]);
-    //     }
-    // }
-
-    // ======================================================================
-    // ======================================================================
-
-    // public function queryPrestamo($idPrestamo)
-    // {
-    //     try {
-    //         return Prestamo::where('id_producto', $idPrestamo)->first();
-
-    //     } catch (Exception $e) {
-    //         return response()->json(['error_bd' => $e->getMessage()]);
-    //     }
-    // }
-
-    // ======================================================================
-    // ======================================================================
-    
-    // public function prestamoVencer()
-    // {
-    //     return new PrestamoVencer();
-    // }
-    
-    // ======================================================================
-    // ======================================================================
+            if (isset($consultarEmpresa) && !is_null($consultarEmpresa) && !empty($consultarEmpresa)) {
+                return response()->json($consultarEmpresa);
+            }
+        } catch (Exception $e) {
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
+    }
 }

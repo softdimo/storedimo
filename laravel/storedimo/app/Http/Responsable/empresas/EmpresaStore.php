@@ -31,29 +31,49 @@ class EmpresaStore implements Responsable
         $emailEmpresa = request('email_empresa');
         $direccionEmpresa = request('direccion_empresa');
         $idEstado = request('id_estado');
+
+        $consultarEmpresa = $this->consultarEmpresa($nitEmpresa, $nombreEmpresa);
         
         try {
-            $reqEmpresaStore = $this->clientApi->post($this->baseUri.'empresa_store', [
-                'json' => [
-                    'nit_empresa' => $nitEmpresa,
-                    'nombre_empresa' => $nombreEmpresa,
-                    'telefono_empresa' => $telefonoEmpresa,
-                    'celular_empresa' => $celularEmpresa,
-                    'email_empresa' => $emailEmpresa,
-                    'direccion_empresa' => $direccionEmpresa,
-                    'id_estado' => $idEstado
-                ]
-            ]);
-            $resEmpresaStore = json_decode($reqEmpresaStore->getBody()->getContents());
-
-            if(isset($resEmpresaStore) && !empty($resEmpresaStore) && !is_null($resEmpresaStore)) {
-                alert()->success('Proceso Exitoso', 'Empresa creada satisfactoriamente');
-                return redirect()->to(route('empresas.index'));
+            if (isset($consultarEmpresa) && !is_null($consultarEmpresa) && !empty($consultarEmpresa)) {
+                alert()->warning('Cuidado', 'Empresa existente');
+                return redirect()->route('empresas.create')->withInput();
+            } else {
+                $reqEmpresaStore = $this->clientApi->post($this->baseUri.'empresa_store', [
+                    'json' => [
+                        'nit_empresa' => $nitEmpresa,
+                        'nombre_empresa' => $nombreEmpresa,
+                        'telefono_empresa' => $telefonoEmpresa,
+                        'celular_empresa' => $celularEmpresa,
+                        'email_empresa' => $emailEmpresa,
+                        'direccion_empresa' => $direccionEmpresa,
+                        'id_estado' => $idEstado
+                    ]
+                ]);
+                $resEmpresaStore = json_decode($reqEmpresaStore->getBody()->getContents());
+    
+                if(isset($resEmpresaStore) && !empty($resEmpresaStore) && !is_null($resEmpresaStore)) {
+                    alert()->success('Proceso Exitoso', 'Empresa creada satisfactoriamente');
+                    return redirect()->to(route('empresas.index'));
+                }
             }
         } catch (Exception $e) {
-            dd($e);
             alert()->error('Error', 'Creando la empresa, contacte a Soporte.');
             return back();
         }
-}
-}
+    }
+
+    // ===================================================================
+    // ===================================================================
+
+    public function consultarEmpresa($nitEmpresa, $nombreEmpresa)
+    {
+        $consultarEmpresa = $this->clientApi->post($this->baseUri.'consultar_empresa', [
+            'json' => [
+                'nit_empresa' => $nitEmpresa,
+                'nombre_empresa' => $nombreEmpresa
+            ]
+        ]);
+        return json_decode($consultarEmpresa->getBody()->getContents());
+    }
+} // FIN Class EmpresaStore
