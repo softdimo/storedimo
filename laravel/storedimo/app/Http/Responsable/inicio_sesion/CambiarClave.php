@@ -63,7 +63,6 @@ class CambiarClave implements Responsable
                 }
                 catch (Exception $e)
                 {
-                    dd($e);
                     alert()->error('Error', 'Error Exception, si el problema persiste, contacte a Soporte.');
                     return back();
                 }
@@ -74,29 +73,6 @@ class CambiarClave implements Responsable
         } else {
             alert()->error('Error','Nueva Clave es requerida!');
             return back();
-        }
-    }
-
-    // ==================================================
-    // ==================================================
-    // ==================================================
-
-    private function consultarUsuarioCambioClave($idUsuario, $clave)
-    {
-        try {
-            $response = $this->clientApi->post($this->baseUri.'usuario_consulta_cambio_clave', ['json' => [
-                'usuario' => $usuario,
-                'clave' => $clave,
-            ]]);
-            $respuesta = json_decode($response->getBody()->getContents());
-
-            if(isset($respuesta) && !empty($respuesta)) {
-                return $respuesta;
-            }
-        } catch (Exception $e) {
-            dd($e);
-            alert()->error('Error', 'Error Exception');
-            return redirect()->to(route('cambiar_clave'));
         }
     }
 }

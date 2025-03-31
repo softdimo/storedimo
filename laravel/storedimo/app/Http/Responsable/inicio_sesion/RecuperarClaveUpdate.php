@@ -11,9 +11,6 @@ use GuzzleHttp\Client;
 
 class RecuperarClaveUpdate implements Responsable
 {
-
-    // ===================================================================
-
     protected $baseUri;
     protected $clientApi;
 
@@ -26,11 +23,21 @@ class RecuperarClaveUpdate implements Responsable
     // ===================================================================
     // ===================================================================
     // ===================================================================
+
     public function toResponse($request)
     {
         $usuIdRecuperarClave = request('id_usuario',null);
         $usuClaveNueva = request('clave_nueva',null);
         $usuclaveNuevaConfirmar = request('clave_nueva_confirmar',null);
+
+        if(!isset($usuClaveNueva) || empty($usuClaveNueva) || is_null($usuClaveNueva) || !isset($usuclaveNuevaConfirmar) || empty($usuclaveNuevaConfirmar) || is_null($usuclaveNuevaConfirmar))
+        {
+            alert()->error('Error','Ambas clave son requeridos!');
+            return back();
+        }
+
+        // ======================================================
+        // ======================================================
 
         $message = "";
 
@@ -47,10 +54,10 @@ class RecuperarClaveUpdate implements Responsable
                     alert()->success('Exito', 'Clave actualizada correctamente.');
                     return redirect()->to(route('login'));
                 } else {
-                   $message .= 'Error al actualizar la clave, intente nuevamente, si el problema persiste, contacte a soporte.';
+                   $message .= 'Error al actualizar la clave, si el problema persiste, contacte a soporte.';
                 }
             } catch (Exception $e) {
-                $message .= 'Error Exception, intente nuevamente, si el problema persiste, contacte a soporte.';
+                $message .= 'Error Exception, si el problema persiste, contacte a soporte.';
             }
         }
 
