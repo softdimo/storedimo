@@ -10,7 +10,7 @@ use App\Http\Responsable\existencias\BajaStore;
 use App\Http\Responsable\existencias\StockMinimoIndex;
 use App\Models\Baja;
 use App\Models\BajaDetalle;
-
+use App\Models\Producto;
 
 class ExistenciasController extends Controller
 {
@@ -196,5 +196,23 @@ class ExistenciasController extends Controller
     public function stockMinimoIndex()
     {
         return new StockMinimoIndex();
+    }
+    
+    // ======================================================================
+    // ======================================================================
+
+    public function alertaStockMinimo()
+    {
+        try {
+            $productosStockMinimo = Producto::whereColumn('cantidad', '<', 'stock_minimo')->count();
+
+            // return response()->json($productosStockMinino);
+
+            // Devolver un JSON estructurado correctamente
+            return response()->json(['productos_bajo_stock' => $productosStockMinimo]);
+
+        } catch (Exception $e) {
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
     }
 }

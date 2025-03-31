@@ -67,6 +67,7 @@
                         <li class="nav-item dropdown">
                             <a href="#" title="Notificaciones" class="nav-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-bell fa-1x"></i>
+                                <span id="notificaciones_stock" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none;">0</span>
                             </a>
                             <ul class="dropdown-menu bg-white" style="right:0;left:auto">
                                 <li class="nav-item">
@@ -384,4 +385,33 @@
     </div>
 </div>
 {{-- FINAL Modal CONFIGURAR PAGOS --}}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch("{{ route('alerta_stock_minimo_app') }}", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Requested-With": "XMLHttpRequest" , // Esta línea es clave
+                "Accept": "application/json"          // Indica que esperas JSON
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Error en la respuesta del servidor");
+            }
+            return response.json();
+        })
+        .then(data => {
+            let badge = document.getElementById("notificaciones_stock");
+            if (data.productos_bajo_stock > 0) {
+                badge.textContent = data.productos_bajo_stock ;
+                badge.style.display = "inline-block";
+            } else {
+                badge.style.display = "none";
+            }
+        })
+        .catch(error => console.error("Error al obtener notificaciones:", error));
+    });
+</script>
 

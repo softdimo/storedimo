@@ -31,15 +31,6 @@
         {{-- ======================================================================= --}}
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
-            {{-- <div class="text-end">
-                <a href="#" class="text-blue">
-                    <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
-                </a>
-            </div> --}}
-
-            {{-- =============================================================== --}}
-            {{-- =============================================================== --}}
-
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
                 <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Productos en Stock Mínimo</h5>
             
@@ -74,15 +65,6 @@
                 </div>
 
                 <div class="d-flex justify-content-center mt-3 mb-3">
-                    {{-- <button class="btn btn-success generar-pdf" style="background-color: #337AB7" 
-                        data-id="{{$stockMinimo->id_producto}}"
-                        data-producto="{{$stockMinimo->nombre_producto}}"
-                        data-categoria="{{$stockMinimo->categoria}}"
-                        data-cantidad="{{$stockMinimo->cantidad}}"
-                        data-stock_minimo="{{$stockMinimo->stock_minimo}}">
-                        <i class="fa fa-file-pdf-o"></i> Reporte stock Mínimo
-                    </button> --}}
-
                     <button class="btn btn-success generar-pdf" style="background-color: #337AB7">
                         <i class="fa fa-file-pdf-o"></i> Reporte stock Mínimo
                     </button>
@@ -166,34 +148,6 @@
                 })
                 .catch(error => console.error("Error al generar PDF:", error));
             });
-
-            // document.querySelectorAll(".generar-pdf").forEach(button => {
-            //     button.addEventListener("click", function () {
-
-            //         let stock = {
-            //             id: this.dataset.id,
-            //             producto: this.dataset.producto,
-            //             categoria: this.dataset.categoria,
-            //             cantidad: this.dataset.cantidad,
-            //             stock_minimo: this.dataset.stock_minimo
-            //         };
-
-            //         fetch("/stock_minimo_pdf", {
-            //             method: "POST",
-            //             headers: {
-            //                 "Content-Type": "application/json",
-            //                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-            //             },
-            //             body: JSON.stringify(stock)
-            //         })
-            //         .then(response => response.blob())
-            //         .then(blob => {
-            //             let url = window.URL.createObjectURL(blob);
-            //             window.open(url, "_blank");
-            //         })
-            //         .catch(error => console.error("Error al generar PDF:", error));
-            //     });
-            // });
         }); // FIN document.ready
     </script>
 @stop

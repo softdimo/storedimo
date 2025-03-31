@@ -118,9 +118,9 @@ Route::group(['namespace' => 'App\Http\Controllers\existencias'], function () {
     Route::get('bajas_index', 'ExistenciasController@bajasIndex')->name('bajas_index');
     Route::post('baja_store', 'ExistenciasController@bajaStore')->name('baja_store');
     Route::post('reporte_bajas_pdf', 'ExistenciasController@reporteBajasPdf')->name('reporte_bajas_pdf');
-
     Route::get('stock_minimo', 'ExistenciasController@stockMinimo')->name('stock_minimo');
     Route::post('stock_minimo_pdf', 'ExistenciasController@stockMinimoPdf')->name('stock_minimo_pdf');
+    Route::get('alerta_stock_minimo_app', 'ExistenciasController@alertaStockMinimo')->name('alerta_stock_minimo_app');
 });
 
 // ========================================================================

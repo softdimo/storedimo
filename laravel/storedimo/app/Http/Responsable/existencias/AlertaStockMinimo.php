@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
-class StockMinimo implements Responsable
+class AlertaStockMinimo implements Responsable
 {
     public function toResponse($request)
     {
@@ -19,10 +19,15 @@ class StockMinimo implements Responsable
             // ==============================================================
             
             // Realiza la solicitud a la API
-            $peticion = $clientApi->get($baseUri . 'stock_minimo_index');
-            $stockMinimoIndex = json_decode($peticion->getBody()->getContents());
+            $peticion = $clientApi->get($baseUri . 'alerta_stock_minimo');
+            $alertaStockMinimo = json_decode($peticion->getBody()->getContents(), true);
 
-            return view('existencias.stock_minimo', compact('stockMinimoIndex'));
+            // 🔹 Si la petición es AJAX, devolvemos JSON
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json($alertaStockMinimo);
+            }
+
+            return view('layouts.topbar', compact('alertaStockMinimo'));
         } catch (Exception $e) {
             alert()->error('Error', 'Exception Index stockMinimoIndex, contacte a Soporte.');
             return back();
