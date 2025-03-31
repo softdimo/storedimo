@@ -47,9 +47,13 @@
 
     <body>
         <div class="">
-            @if(Request()->path() == '/' || Request()->path() == "login" || Request()->path() == "logout")
-                @include('layouts.topbar_login')
-            @elseif(Request()->path() == "recuperar")
+            @if(
+                Request()->path() == '/' ||
+                Request()->path() == 'login' ||
+                Request()->path() == 'logout' ||
+                Request()->path() == 'recuperar_clave' ||
+                Request()->is('recuperar_clave_link*')
+            )
                 @include('layouts.topbar_login')
             @else
                 @include('layouts.topbar')

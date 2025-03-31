@@ -47,6 +47,6 @@
 
         <p>Este mensaje es automático, por favor no responder</p>
         <p>Gracias.</p>
-        <p><b>&copy; JGMC Digital</b></p>
+        <p><b>&copy; StoreDimo</b></p>
     </body>
 </html>
