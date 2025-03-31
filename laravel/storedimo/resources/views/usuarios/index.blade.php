@@ -193,7 +193,7 @@
                                                             </h5>
                                                         </div>
 
-                                                        {{ Form::hidden('id_usuario', isset($usuario) ? $usuario->id_usuario : null, ['class' => '', 'id' => 'id_usuario']) }}
+                                                        {{ Form::hidden('id_usuario', isset($usuario) ? $usuario->id_usuario : null, ['class' => '', 'id' => 'id_usuario', 'required' => 'required']) }}
 
                                                         {{-- ====================================================== --}}
                                                         {{-- ====================================================== --}}
@@ -205,7 +205,7 @@
                                                                         <label for="nueva_clave" class=""
                                                                             style="font-size: 15px">Nueva Contraseña<span
                                                                                 class="text-danger">*</span></label>
-                                                                        {{ Form::text('nueva_clave', null, ['class' => 'form-control', 'id' => 'nueva_clave_' . $usuario->id_usuario, 'placeholder' => 'Contraseña', 'required' => 'required']) }}
+                                                                        {{ Form::text('nueva_clave', null, ['class' => 'form-control', 'id' => 'nueva_clave_' . $usuario->id_usuario, 'placeholder' => 'Contraseña', 'required'=>'required']) }}
                                                                     </div>
                                                                 </div>
 
@@ -215,7 +215,7 @@
                                                                             style="font-size: 15px">Confirmar
                                                                             Contraseña<span
                                                                                 class="text-danger">*</span></label>
-                                                                        {{ Form::text('confirmar_clave', null, ['class' => 'form-control', 'id' => 'confirmar_clave_' . $usuario->id_usuario, 'placeholder' => 'Confirmar Contraseña', 'required' => 'required']) }}
+                                                                        {{ Form::text('confirmar_clave', null, ['class' => 'form-control', 'id' => 'confirmar_clave_' . $usuario->id_usuario, 'placeholder' => 'Confirmar Contraseña', 'required'=>'required']) }}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -235,13 +235,13 @@
                                                     {{-- ====================================================== --}}
 
                                                     <div class="d-flex justify-content-around mt-2">
-                                                        <button id="btn_editar_clave_{{ $usuario->id_usuario }}" type="submit"
-                                                            class="btn btn-success" title="Guardar Configuración">
+                                                        <button type="submit" title="Guardar Configuración" class="btn btn-success" id="btn_editar_clave_{{$usuario->id_usuario}}"
+                                                            >
                                                             <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
                                                         </button>
 
 
-                                                        <button type="button" class="btn btn-secondary" title="Cancelar"
+                                                        <button type="button" title="Cancelar" class="btn btn-secondary" id="btn_cancelar_clave_{{$usuario->id_usuario}}"
                                                             data-bs-dismiss="modal">
                                                             <i class="fa fa-times" aria-hidden="true"> Cancelar</i>
                                                         </button>
@@ -561,29 +561,45 @@
 
             // formCambiarClave para cargar gif en el submit
             $(document).on("submit", "form[id^='formCambiarClave_']", function(e) {
+                e.preventDefault(); // Evita el envío si hay errores
+
                 const form = $(this);
                 const formId = form.attr('id'); // Obtenemos el ID del formulario
                 const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
 
-                // Capturar el indicador de carga dinámicamente
+                // Identificar campos de nueva clave y confirmación
+                const nuevaClave = `#nueva_clave_${id}`;
+                const confirmarClave = `#confirmar_clave_${id}`;
+
+                let nuevaClaveValor = $(nuevaClave).val();
+                let confirmarClaveValor = $(confirmarClave).val();
+
+                if (nuevaClaveValor.trim() === '' || confirmarClaveValor.trim() === '') {
+                    Swal.fire('Cuidado!', 'Ambos campos de contraseña deben estar diligenciados!', 'warning');
+                    return;
+                }
+
+                if (nuevaClaveValor !== confirmarClaveValor) {
+                    Swal.fire('Error!', 'Las contraseñas no coinciden!', 'error');
+                    return;
+                }
+
+                // Deshabilitar campos
+                $(nuevaClave).prop("readonly", true);
+                $(confirmarClave).prop("readonly", true);
+
+                // Capturar el indicador de carga y botones dinámicamente
+                const submitButton = $(`#btn_editar_clave_${id}`);
+                const cancelButton = $(`#btn_cancelar_clave_${id}`);
                 const loadingIndicator = $(`#loadingIndicatorEditClave_${id}`);
 
-                // Capturar el botón de submit dinámicamente
-                const submitButton = $(`#btn_editar_clave_${id}`);
-
                 // Lógica del botón
-                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
                 loadingIndicator.show();
+                cancelButton.prop("disabled", true);
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
 
-                // Readonly para el campo nueva clave
-                const nuevaClave = `#nueva_clave_${id}`;
-                const nuevaClaveReadOnly = $(nuevaClave);
-                nuevaClaveReadOnly.prop("readonly", true);
-
-                // Readonly para el campo confirmar clave
-                const confirmarClave = `#confirmar_clave_${id}`;
-                const confirmarClaveReadOnly = $(confirmarClave);
-                confirmarClaveReadOnly.prop("readonly", true);
+                // Enviar formulario manualmente
+                this.submit();
             });
 
             // ===========================================================================================
