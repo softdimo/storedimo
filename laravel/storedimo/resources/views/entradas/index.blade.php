@@ -46,9 +46,9 @@
                             <thead>
                                 <tr class="header-table text-center">
                                     {{-- <th>Empresa</th> --}}
-                                    <th>Código Entrada</th>
+                                    <th>Código Compra</th>
                                     <th>Valor Total</th>
-                                    <th>Fecha Registro Entrada</th>
+                                    <th>Fecha Registro Compra</th>
                                     <th>Identificación Proveedor</th>
                                     <th>Nombre Proveedor</th>
                                     <th>Estado</th>

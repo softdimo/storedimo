@@ -44,7 +44,6 @@ class PrestamoCreate implements Responsable
                 )
                 ->orderBy('nombre_usuario')
                 ->get();
-
             return response()->json($usuarios);
             
         } catch (Exception $e) {
