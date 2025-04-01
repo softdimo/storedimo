@@ -144,7 +144,7 @@
 
                                                                     <div class="col-12 col-md-6">
                                                                         <label for="id_tipo_persona" class="fw-bold" style="font-size: 12px">Tipo Empleado <span class="text-danger">*</span></label>
-                                                                        {{ Form::select('id_tipo_persona', collect(['' => 'Seleccionar...'])->union($tipos_empleado), isset($usuarioPrestamo) ? $usuarioPrestamo->id_tipo_persona : null, ['class' => 'form-select', 'id' => 'id_tipo_persona']) }}
+                                                                        {!! Form::text('id_tipo_persona', isset($usuarioPrestamo) ? $usuarioPrestamo->tipo_persona : null, ['class' => 'form-control bg-secondary-subtle', 'id' => 'id_tipo_persona', 'required', 'readonly' => 'readonly']) !!}
                                                                     </div>
 
                                                                     <div class="col-12 col-md-6 mt-3">
