@@ -66,6 +66,14 @@
         $( document ).ready(function() {
             $("#clave_nueva").trigger('focus');
 
+            function validatePassword(nuevaClaveValor) {
+                let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+                if (!regex.test(nuevaClaveValor)) {
+                    return "La contraseña debe tener al menos una letra mayúscula, una letra minúscula, un número, un carácter especial, y ser de al menos 6 caracteres.";
+                }
+                return null;
+            }
+
             // Botón de submit de editar usuario
             $(document).on("submit", "form[id^='formCambiarClaveLink']", function(e) {
                 e.preventDefault(); // Evita el envío si hay errores
@@ -84,6 +92,14 @@
 
                 if (nuevaClaveValor !== confirmarClaveValor) {
                     Swal.fire('Error!', 'Las contraseñas no coinciden!', 'error');
+                    return;
+                }
+
+                // Validación de la seguridad de la contraseña
+                let errorMessage = validatePassword(nuevaClaveValor);
+
+                if (errorMessage) {
+                    Swal.fire('Error!', errorMessage, 'error');
                     return;
                 }
 
