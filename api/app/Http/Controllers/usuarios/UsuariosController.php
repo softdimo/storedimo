@@ -135,7 +135,7 @@ class UsuariosController extends Controller
     public function queryUsuarioUpdate($idUsuario)
     {
         try {
-            // Consultamos el id del usuario 
+            // Consultamos el id del usuario
             return Usuario::where('id_usuario', $idUsuario)->first();
         } catch (Exception $e) {
             return response()->json('error_bd');
@@ -148,7 +148,7 @@ class UsuariosController extends Controller
         $claveNueva = request('clave', null);
 
         try {
-            $cambioClave = Usuario::where('id_usuario',$idUsuario)
+            Usuario::where('id_usuario',$idUsuario)
                 ->update([
                     'clave' => Hash::make($claveNueva),
             ]);

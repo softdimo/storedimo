@@ -47,6 +47,11 @@ class CambiarClave implements Responsable
             if ($nuevaClave == $confirmarClave) {
 
                 try {
+                    if (!$this->validarContrasena($nuevaClave)) {
+                        alert()->info('Info', 'La contraseña no cumple con los requisitos de seguridad.');
+                        return back();
+                    }
+
                     $response = $this->clientApi->post($this->baseUri.'cambiar_clave/'.$idUsuario, ['json' => [
                         'clave' => $nuevaClave,
                     ]]);
@@ -74,5 +79,15 @@ class CambiarClave implements Responsable
             alert()->error('Error','Nueva Clave es requerida!');
             return back();
         }
+    }
+    
+    // ===================================================================
+    // ===================================================================
+    // ===================================================================
+
+    private function validarContrasena($nuevaClave)
+    {
+        // Verifica que la contraseña tenga al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.
+        return preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/', $nuevaClave);
     }
 }

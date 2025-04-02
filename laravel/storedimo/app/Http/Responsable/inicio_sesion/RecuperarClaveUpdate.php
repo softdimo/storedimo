@@ -45,6 +45,11 @@ class RecuperarClaveUpdate implements Responsable
             $message .= "El campo de nueva clave y Confirmación de clave deben ser iguales.";
         } else {
             try {
+                if (!$this->validarContrasena($usuClaveNueva)) {
+                    alert()->info('Info', 'La contraseña no cumple con los requisitos de seguridad.');
+                    return back();
+                }
+
                 $peticion = $this->clientApi->post($this->baseUri.'cambiar_clave/'.$usuIdRecuperarClave, ['json' => [
                     'clave' => $usuClaveNueva
                 ]]);
@@ -63,5 +68,15 @@ class RecuperarClaveUpdate implements Responsable
 
         alert()->error('error', $message);
         return back();
+    }
+
+    // ===================================================================
+    // ===================================================================
+    // ===================================================================
+
+    private function validarContrasena($usuClaveNueva)
+    {
+        // Verifica que la contraseña tenga al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.
+        return preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/', $usuClaveNueva);
     }
 }
