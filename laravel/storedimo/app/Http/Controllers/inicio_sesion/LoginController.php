@@ -26,10 +26,16 @@ class LoginController extends Controller
     public function index()
     {
         if (!$this->checkDatabaseConnection()) {
-            return view('db_conexion'); // Si la conexión falla, devuelve la vista de error
-        } else {
-            return view('inicio_sesion.login');
+            return view('db_conexion');
         }
+        
+        if (auth()->check()) {
+            return redirect('/usuarios');
+        }
+        
+        return response()
+            ->view('inicio_sesion.login')
+            ->header('Cache-Control', 'no-store');
     }
 
     // ======================================================================
@@ -126,16 +132,25 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         try {
-            Session::forget('id_usuario');
-            Session::forget('usuario');
-            Session::forget('id_rol');
-            Session::forget('sesion_iniciada');
-            Session::flush();
-            $request->session()->flush();
+            // Cierra la sesión del usuario autenticado
+            // auth()->logout();
+
+            // // Olvida las variables de sesión manualmente
+            // Session::forget(['id_usuario', 'usuario', 'id_rol', 'sesion_iniciada']);
+
+            // // Destruye toda la sesión y previene su reutilización
+            // $request->session()->flush();
+            // $request->session()->invalidate();
+            // $request->session()->regenerateToken();
+
+            // // Redirige al login
+            // return redirect()->route('login');
+
+            auth()->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
-
-            return redirect()->to(route('login'));
+            
+            return redirect('/login');
 
         } catch (Exception $e) {
             alert()->error('Ha ocurrido un error');
@@ -159,18 +174,6 @@ class LoginController extends Controller
     // ======================================================================
     // ======================================================================
     
-    /* public function cambiarClaveUpdate()
-    {
-        if (!$this->checkDatabaseConnection()) {
-            return view('db_conexion');
-        } else {
-            return new CambiarClave();
-        }
-    } */
-
-    // ======================================================================
-    // ======================================================================
-       
     public function recuperarClave()
     {
         if (!$this->checkDatabaseConnection()) {
@@ -215,6 +218,18 @@ class LoginController extends Controller
             return new RecuperarClaveUpdate();
         }
     }
+
+    // ======================================================================
+    // ======================================================================
+
+    // public function showLoginForm()
+    // {
+    //     if (auth()->check()) {
+    //         return redirect('usuarios.index');
+    //         // return redirect()->route('usuarios');
+    //     }
+    //     return view('login');
+    // }
 
     // ======================================================================
     // ======================================================================
