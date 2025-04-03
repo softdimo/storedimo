@@ -64,19 +64,9 @@
     <script>
         $( document ).ready(function() {
             // Limpieza inicial
-            $('#formLogin')[0].reset();
             $("#usuario").focus();
 
-            // Manejo del botón atrás
-            history.pushState(null, null, location.href);
-            window.onpopstate = function() {
-                if (window.location.pathname !== '/login') {
-                    window.location.href = '/login';
-                }
-            };
-
-            // Deshabilitar autocompletado
-            $('input').attr('autocomplete', 'off');
+            
         }); // FIN document.ready
     </script>
 @stop

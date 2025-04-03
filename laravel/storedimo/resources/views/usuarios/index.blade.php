@@ -697,26 +697,6 @@
                     inputFechaTerminacion.removeAttr('required');
                 }
             });
-
-            // ===========================================================================================
-
-            // Bloqueo absoluto del botón atrás
-            history.pushState(null, null, location.href);
-            window.addEventListener('popstate', function() {
-                // Forzar recarga completa ignorando caché
-                window.location.replace('/usuarios?t=' + Date.now());
-            });
-
-            // Verificación periódica de autenticación
-            setInterval(function() {
-                fetch('/check-auth')
-                    .then(response => response.json())
-                    .then(data => {
-                        if (!data.authenticated) {
-                            window.location.replace('/login');
-                        }
-                    });
-            }, 3000); // Verifica cada 3 segundos
         }); // FIN document.ready
     </script>
 @stop

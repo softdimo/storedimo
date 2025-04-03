@@ -20,20 +20,20 @@ Route::get('/', function () {
 })->name('login');
 
 // Ruta de verificación (mantener)
-Route::get('/check-auth', function() {
-    return response()->json(['authenticated' => auth()->check()]);
-});
+// Route::get('/check-auth', function() {
+//     return response()->json(['authenticated' => auth()->check()]);
+// });
 
 // Rutas públicas
-Route::middleware(['prevent-back-history'])->group(function () {
-    Route::get('/login', [LoginController::class, 'index'])->name('login');
-    Route::redirect('/', '/login');
-});
+// Route::middleware(['prevent-back-history'])->group(function () {
+//     Route::get('/login', [LoginController::class, 'index'])->name('login');
+//     Route::redirect('/', '/login');
+// });
 
 // Rutas protegidas
-Route::middleware(['auth', 'prevent-back-history'])->group(function () {
-    Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
-});
+// Route::middleware(['auth', 'prevent-back-history'])->group(function () {
+//     Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
+// });
 // ========================================================================
 // ========================================================================
 // ========================================================================

@@ -23,11 +23,7 @@ class UsuarioIndex implements Responsable
             $usuarioIndex = json_decode($response->getBody()->getContents());
 
             if(isset($usuarioIndex) && !empty($usuarioIndex) && !is_null($usuarioIndex)) {
-                // return view('usuarios.index', compact('usuarioIndex'));
-
-                return response()
-                    ->view('usuarios.index', compact('usuarioIndex'))
-                    ->header('Cache-Control', 'no-store');
+                return view('usuarios.index', compact('usuarioIndex'));
             }
         } catch (Exception $e) {
             dd($e);

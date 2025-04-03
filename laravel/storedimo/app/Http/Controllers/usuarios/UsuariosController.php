@@ -43,8 +43,7 @@ class UsuariosController extends Controller
                 {
                     return redirect()->to(route('login'));
                 } else {
-                    // return new UsuarioIndex();
-                    return (new UsuarioIndex())->toResponse(request());
+                    return new UsuarioIndex();
                 }
             }
         } catch (Exception $e) {

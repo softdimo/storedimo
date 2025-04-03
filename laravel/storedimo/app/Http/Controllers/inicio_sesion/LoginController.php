@@ -29,13 +29,7 @@ class LoginController extends Controller
             return view('db_conexion');
         }
         
-        if (auth()->check()) {
-            return redirect('/usuarios');
-        }
-        
-        return response()
-            ->view('inicio_sesion.login')
-            ->header('Cache-Control', 'no-store');
+        return view('inicio_sesion.login');
     }
 
     // ======================================================================
@@ -133,24 +127,18 @@ class LoginController extends Controller
     {
         try {
             // Cierra la sesión del usuario autenticado
-            // auth()->logout();
-
-            // // Olvida las variables de sesión manualmente
-            // Session::forget(['id_usuario', 'usuario', 'id_rol', 'sesion_iniciada']);
-
-            // // Destruye toda la sesión y previene su reutilización
-            // $request->session()->flush();
-            // $request->session()->invalidate();
-            // $request->session()->regenerateToken();
-
-            // // Redirige al login
-            // return redirect()->route('login');
-
             auth()->logout();
+
+            // Olvida las variables de sesión manualmente
+            Session::forget(['id_usuario', 'usuario', 'id_rol', 'sesion_iniciada']);
+
+            // Destruye toda la sesión y previene su reutilización
+            $request->session()->flush();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
-            
-            return redirect('/login');
+
+            // Redirige al login
+            return redirect()->route('login');
 
         } catch (Exception $e) {
             alert()->error('Ha ocurrido un error');

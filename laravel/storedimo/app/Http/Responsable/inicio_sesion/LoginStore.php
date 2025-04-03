@@ -53,7 +53,6 @@ class LoginStore implements Responsable
                 $this->crearVariablesSesion($user);
                 $this->actualizarClaveFallas($user['id_usuario'], 0);
                 // return redirect('usuarios');
-                session()->flash('cache_control', true);
                 return redirect()->route('usuarios.index');
                 
             } else {
