@@ -110,6 +110,7 @@ Route::group(['namespace' => 'App\Http\Controllers\productos'], function () {
     Route::post('query_barcode_producto/{idProducto}', 'ProductosController@queryBarCodeProducto')->name('query_barcode_producto');
     Route::post('producto_barcode', 'ProductosController@productoGenerarBarCode')->name('producto_barcode');
     Route::post('query_valores_producto', 'ProductosController@queryValoresProducto')->name('query_valores_producto');
+    Route::get('reporte_productos_pdf', 'ProductosController@reporteProductosPdf')->name('reporte_productos_pdf');
 
     // ========================================================================
     

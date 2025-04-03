@@ -33,9 +33,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('consulta_recuperar_clave', 'usuarios\UsuariosController@consultaRecuperarClave');
     $router->post('inactivar_usuario/{idUsuario}', 'usuarios\UsuariosController@inactivarUsuario');
     $router->post('actualizar_clave_fallas/{idUsuario}', 'usuarios\UsuariosController@actualizarClaveFallas');
-    
-    // $router->post('usuario_destroy/{id}', 'usuarios\UsuariosController@destroy');
-    // $router->get('usuario_show/{id}', 'usuarios\UsuariosController@show');
 });
 
 // =====================================================================
@@ -62,6 +59,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->put('producto_update/{idProducto}', 'productos\ProductosController@update');
     $router->post('cambiar_estado_producto/{idProducto}', 'productos\ProductosController@destroy');
     $router->post('query_producto/{idProducto}', 'productos\ProductosController@queryProducto');
+    $router->get('reporte_productos_pdf', 'productos\ProductosController@reporteProductosPdf');
 });
 
 // ========================================================================
@@ -87,8 +85,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('reporte_compras_pdf', 'entradas\EntradasController@reporteComprasPdf');
     $router->post('detalle_compra/{idCompra}', 'entradas\EntradasController@detalleCompra');
     $router->post('detalle_compra_pdf/{idCompra}', 'entradas\EntradasController@detalleCompraProductoPdf');
-
-    // $router->put('entrada_update/{id}', 'entradas\EntradasController@update');
 });
 
 // ========================================================================
@@ -102,9 +98,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->post('reporte_ventas_pdf', 'ventas\VentasController@reporteVentasPdf');
     $router->post('detalle_venta/{idVenta}', 'ventas\VentasController@detalleVenta');
-
-    // $router->put('venta_update/{id}', 'ventas\VentasController@update');
-    // $router->post('consulta_venta', 'ventas\VentasController@consultaVenta');
 });
 
 // ========================================================================
@@ -116,10 +109,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('prestamo_create', 'prestamos\PrestamosController@create');
     $router->post('prestamo_store', 'prestamos\PrestamosController@store');
     $router->get('prestamo_vencer', 'prestamos\PrestamosController@prestamoVencer');
-    // $router->post('anular_prestamo/{idVenta}', 'ventas\VentasController@anularVenta');
-
-    // $router->put('venta_update/{id}', 'ventas\VentasController@update');
-    // $router->post('consulta_venta', 'ventas\VentasController@consultaVenta');
 });
 
 // ========================================================================
@@ -130,10 +119,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('pago_empleado_index', 'pago_empleados\PagoEmpleadosController@index');
     $router->get('pago_empleado_create', 'pago_empleados\PagoEmpleadosController@create');
     $router->post('pago_empleado_store', 'pago_empleados\PagoEmpleadosController@store');
-    // $router->post('anular_prestamo/{idVenta}', 'ventas\VentasController@anularVenta');
-
-    // $router->put('venta_update/{id}', 'ventas\VentasController@update');
-    // $router->post('consulta_venta', 'ventas\VentasController@consultaVenta');
 });
 
 // ========================================================================

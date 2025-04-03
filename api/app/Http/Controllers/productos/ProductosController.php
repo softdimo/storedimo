@@ -13,6 +13,7 @@ use App\Http\Responsable\productos\ProductoShow;
 use App\Http\Responsable\productos\ProductoEdit;
 use App\Http\Responsable\productos\ProductoUpdate;
 use App\Http\Responsable\productos\ProductoDestroy;
+use App\Http\Responsable\productos\ReporteProductosPdf;
 use App\Models\Producto;
 
 class ProductosController extends Controller
@@ -136,19 +137,6 @@ class ProductosController extends Controller
     // ======================================================================
     // ======================================================================
 
-    // public function queryValoresProducto($idProducto)
-    // {
-    //     try {
-    //         return Producto::where('id_producto', $idProducto)->first();
-
-    //     } catch (Exception $e) {
-    //         return response()->json(['error_bd' => $e->getMessage()]);
-    //     }
-    // }
-    
-    // ======================================================================
-    // ======================================================================
-
     public function queryProducto($idProducto)
     {
         try {
@@ -174,5 +162,13 @@ class ProductosController extends Controller
         } catch (Exception $e) {
             return response()->json(['error_bd' => $e->getMessage()]);
         }
+    }
+
+    // ======================================================================
+    // ======================================================================
+
+    public function reporteProductosPdf()
+    {
+        return new ReporteProductosPdf();
     }
 }

@@ -13,6 +13,7 @@ use App\Http\Responsable\productos\ProductoUpdate;
 use App\Http\Responsable\productos\ProductoDestroy;
 use App\Http\Responsable\productos\ProductoQueryBarCode;
 use App\Http\Responsable\productos\ProductoGenerarBarCode;
+use App\Http\Responsable\productos\ReporteProductosPdf;
 use GuzzleHttp\Client;
 use App\Traits\MetodosTrait;
 
@@ -380,4 +381,33 @@ class ProductosController extends Controller
             return back();
         }
     }
+    
+    // ======================================================================
+    // ======================================================================
+        
+    public function reporteProductosPdf()
+    {
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+    
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return new ReporteProductosPdf();
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception ReporteProductosPdf!");
+            return back();
+        }
+    }
+    
+    // ======================================================================
+    // ======================================================================
 }

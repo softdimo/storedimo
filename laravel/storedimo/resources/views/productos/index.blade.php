@@ -431,10 +431,10 @@
                     {{-- ========================================================= --}}
             
                     <div class="mt-5 mb-2 d-flex justify-content-center">
-                        <button type="submit" class="btn rounded-2 me-3 text-white" style="background-color: #286090">
+                        <a href="{{ route('reporte_productos_pdf') }}" target="_blank" class="btn rounded-2 me-3 text-white" style="background-color: #286090">
                             <i class="fa fa-file-pdf-o"></i>
-                            Reporte PDF Productos
-                        </button>
+                            Reporte Productos
+                        </a>
                     </div>
                 </div> {{-- FIN div_ --}}
             </div> {{-- FIN div_ --}}
@@ -451,10 +451,6 @@
     <script src="{{asset('DataTables/Buttons-2.3.4/js/buttons.html5.min.js')}}"></script>
 
     <script>
-        // Variables globales para almacenar id_producto y nombre_producto para generar el código de barras
-        // let idProductoGlobal;
-        // let nombreProductoGlobal;
-
         $(document).ready(function() {
             // @if(isset($productos) && count($productos) > 0)
                 // INICIO DataTable Lista Productos
