@@ -149,7 +149,7 @@
                                                                                 <span class="text-danger">*</span></label>
                                                                             {{ Form::select('id_tipo_persona',
                                                                                 collect(['' => 'Seleccionar...'])
-                                                                                ->union($tipos_persona),
+                                                                                ->union($clientes),
                                                                                 isset($persona) ? $persona->id_tipo_persona : null,
                                                                                 [
                                                                                     'class' => 'form-select',
