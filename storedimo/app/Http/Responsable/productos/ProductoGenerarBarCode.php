@@ -16,7 +16,7 @@ class ProductoGenerarBarCode implements Responsable
     {
         $idProducto = request('id_producto_input', null);
         $nombreProducto = request('nombre_producto_input', null);
-        $cantidadBarcode = request('cantidad_barcode', 15);
+        $cantidadBarcode = request('cantidad_barcode', 12);
 
         $rutaTempArchivoCodebar = "public/upfiles/productos/barcodes";
         $slugNombreProducto = Str::slug($nombreProducto); // Para evitar espacios en el nombre del archivo
@@ -56,17 +56,17 @@ class ProductoGenerarBarCode implements Responsable
 
             $columnas = 3;
             $espaciadoX = 70;
-            $espaciadoY = 55;
-            $xInicial = 10;
-            $yInicial = 10;
+            $espaciadoY = 70;
+            $xInicial = 5;
+            $yInicial = 5;
 
             for ($i = 0; $i < $cantidadBarcode; $i++) {
                 $x = $xInicial + ($i % $columnas) * $espaciadoX;
-                $y = $yInicial + (floor(($i % 15) / $columnas) * $espaciadoY);
+                $y = $yInicial + (floor(($i % 12) / $columnas) * $espaciadoY);
 
                 $pdf->Image($rutaCodebarImage, $x, $y, 60, 60);
 
-                if (($i + 1) % 15 == 0 && ($i + 1) < $cantidadBarcode) {
+                if (($i + 1) % 12 == 0 && ($i + 1) < $cantidadBarcode) {
                     $pdf->AddPage();
                 }
             }
@@ -79,7 +79,6 @@ class ProductoGenerarBarCode implements Responsable
             return redirect()->to(route('productos.index'))->with('pdfUrl', $pdfUrl);
 
         } catch (Exception $e) {
-            dd($e);
             alert()->error('Error', 'Error al generar el código QR.');
             return redirect()->to(route('productos.index'));
         }
