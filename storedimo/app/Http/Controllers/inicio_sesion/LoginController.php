@@ -28,6 +28,11 @@ class LoginController extends Controller
         if (!$this->checkDatabaseConnection()) {
             return view('db_conexion');
         }
+
+        // Si el usuario ya inició sesión con tus variables
+        if (session()->has('sesion_iniciada') && session('sesion_iniciada') === true) {
+            return redirect()->route('home.index');
+        }
         
         return view('inicio_sesion.login');
     }

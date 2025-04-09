@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UsuarioController;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\inicio_sesion\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,20 +18,14 @@ Route::get('/', function () {
     return view('inicio_sesion.login');
 })->name('login');
 
-// Ruta de verificación (mantener)
-Route::get('/check-auth', function() {
-    return response()->json(['authenticated' => auth()->check()]);
-});
+// ========================================================================
+// ========================================================================
+// ========================================================================
 
 // Rutas públicas
 Route::middleware(['prevent-back-history'])->group(function () {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::redirect('/', '/login');
-});
-
-// Rutas protegidas
-Route::middleware(['auth', 'prevent-back-history'])->group(function () {
-    Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
 });
 
 // ========================================================================
