@@ -11,7 +11,7 @@ class Rol extends Model
 
     protected $connection = 'mysql';
     protected $table = 'roles';
-    protected $primaryKey = 'id_rol';
+    protected $primaryKey = 'id';
     protected $dates = ['deleted_at'];
     public $timestamps = true;
     protected $fillable = [
