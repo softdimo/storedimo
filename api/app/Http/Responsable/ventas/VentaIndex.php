@@ -17,8 +17,7 @@ class VentaIndex implements Responsable
                 ->leftjoin('productos','productos.id_producto','=','ventas.id_producto')
                 ->leftjoin('personas','personas.id_persona','=','ventas.id_cliente')
                 ->leftjoin('usuarios','usuarios.id_usuario','=','ventas.id_usuario')
-                ->leftjoin('estados','estados.id_estado','=','ventas.id_estado')
-                ->leftjoin('estados_credito','estados_credito.id_estado_credito','=','ventas.id_estado_credito')
+                ->leftjoin('estados','estados.id_estado','=','ventas.id_estado_credito')
                 ->leftjoin('tipo_persona','tipo_persona.id_tipo_persona','=','ventas.id_tipo_cliente')
                 ->leftjoin('empresas','empresas.id_empresa','=','ventas.id_empresa')
                 ->select(
@@ -38,10 +37,8 @@ class VentaIndex implements Responsable
                     DB::raw("CONCAT(nombres_persona, ' ', apellidos_persona) AS nombres_cliente"),
                     'ventas.id_usuario',
                     DB::raw("CONCAT(nombre_usuario, ' ', apellido_usuario) AS nombres_usuario"),
-                    'ventas.id_estado',
+                    'ventas.id_estado_credito',
                     'estado',
-                    'estados_credito.id_estado_credito',
-                    'estado_credito',
                     'id_tipo_cliente',
                     'tipo_persona',
                     'empresas.id_empresa'
