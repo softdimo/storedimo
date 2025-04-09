@@ -14,7 +14,7 @@ class PrestamoCreate implements Responsable
     public function toResponse($request)
     {
         try {
-            $usuarios = Usuario::leftjoin('roles_2', 'roles_2.id_rol', '=', 'usuarios.id_rol')
+            $usuarios = Usuario::leftjoin('roles', 'roles.id', '=', 'usuarios.id_rol')
                 ->leftjoin('estados', 'estados.id_estado', '=', 'usuarios.id_estado')
                 ->leftjoin('tipo_documento', 'tipo_documento.id_tipo_documento', '=', 'usuarios.id_tipo_documento')
                 ->leftjoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'usuarios.id_tipo_persona')
@@ -28,7 +28,7 @@ class PrestamoCreate implements Responsable
                     'tipo_documento',
                     'identificacion',
                     'email',
-                    'rol',
+                    'name AS rol',
                     'usuarios.id_rol',
                     'estado',
                     'usuarios.id_estado',

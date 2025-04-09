@@ -29,25 +29,28 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // try {
-            // $adminCtrl = new AdministradorController();
-            // $sesion = $adminCtrl->validarVariablesSesion();
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
 
-            // if (empty($sesion[0]) || is_null($sesion[0]) &&
-            //     empty($sesion[1]) || is_null($sesion[1]) &&
-            //     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-            // {
-            //     return view('inicio_sesion.login');
-            // } else {
-            //     $usuLogueado = session('id_usuario');
-                // $usuario = Usuario::select('nombres')->where('id_usuario',$usuLogueado)->first();
-                return view('home.index');
-        //     }
-        // } catch (Exception $e) {
-        //     alert()->error("Error Exception!");
-        //     return redirect()->to(route('login'));
-        // }
+        
+            $sesionInvalida = collect($sesion)->slice(0, 3)->contains(fn($val) => empty($val)) || !$sesion[3]; 
+
+            if ($sesionInvalida) {
+                return redirect()->route('login');
+            }
+
+            return view('home.index');
+   
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Index Usuario!");
+            return redirect()->to(route('login'));
+        }
     }
+
 
     // ======================================================================
     // ======================================================================
