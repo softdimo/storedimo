@@ -1,3 +1,2 @@
 /vendor/
-/api/.env
-/storedimo/.env
+**/.env

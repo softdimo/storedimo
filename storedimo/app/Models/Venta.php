@@ -25,7 +25,6 @@ class Venta extends Model
         'id_producto',
         'id_cliente',
         'id_usuario',
-        'id_estado',
         'id_estado_credito',
         'fecha_limite_credito'
     ];

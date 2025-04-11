@@ -52,8 +52,8 @@ class LoginStore implements Responsable
             {
                 $this->crearVariablesSesion($user);
                 $this->actualizarClaveFallas($user['id_usuario'], 0);
-                // return redirect('usuarios');
-                return redirect()->route('usuarios.index');
+                
+                return redirect()->route('home.index');
                 
             } else {
                 $contarClaveErronea += 1;
@@ -120,7 +120,11 @@ class LoginStore implements Responsable
             // Realiza la solicitud POST a la API
             $clientApi = new Client(['base_uri' => $baseUri]);
 
-            $response = $clientApi->post($baseUri.'inactivar_usuario/'.$idUser, ['json' => []]);
+            $response = $clientApi->post($baseUri.'inactivar_usuario/'.$idUser,
+                [
+                    'json' => ['id_audit' => $idUser]
+                ]
+            );
             json_decode($response->getBody()->getContents());
 
         } catch (Exception $e)
@@ -141,8 +145,13 @@ class LoginStore implements Responsable
             // Realiza la solicitud POST a la API
             $clientApi = new Client(['base_uri' => $baseUri]);
 
-            $response = $clientApi->post($baseUri.'actualizar_clave_fallas/'.$idUsuario, 
-                ['json' => ['clave_fallas' => $contador]]
+            $response = $clientApi->post($baseUri.'actualizar_clave_fallas/'.$idUsuario,
+                [
+                    'json' => [
+                        'clave_fallas' => $contador,
+                        'id_audit' => $idUsuario
+                    ]
+                ]
             );
             json_decode($response->getBody()->getContents());
 

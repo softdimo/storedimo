@@ -31,7 +31,6 @@ class VentaIndex implements Responsable
             return view('ventas.index', compact('ventas'));
 
         } catch (Exception $e) {
-            dd($e);
             alert()->error('Error', 'Exception Index Ventas, contacte a Soporte.');
             return back();
         }
