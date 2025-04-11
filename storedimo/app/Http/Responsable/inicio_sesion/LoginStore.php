@@ -120,7 +120,11 @@ class LoginStore implements Responsable
             // Realiza la solicitud POST a la API
             $clientApi = new Client(['base_uri' => $baseUri]);
 
-            $response = $clientApi->post($baseUri.'inactivar_usuario/'.$idUser, ['json' => []]);
+            $response = $clientApi->post($baseUri.'inactivar_usuario/'.$idUser,
+                [
+                    'json' => ['id_audit' => $idUser]
+                ]
+            );
             json_decode($response->getBody()->getContents());
 
         } catch (Exception $e)
@@ -142,7 +146,12 @@ class LoginStore implements Responsable
             $clientApi = new Client(['base_uri' => $baseUri]);
 
             $response = $clientApi->post($baseUri.'actualizar_clave_fallas/'.$idUsuario,
-                ['json' => ['clave_fallas' => $contador]]
+                [
+                    'json' => [
+                        'clave_fallas' => $contador,
+                        'id_audit' => $idUsuario
+                    ]
+                ]
             );
             json_decode($response->getBody()->getContents());
 
