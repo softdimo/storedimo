@@ -19,6 +19,7 @@ class ProductoDestroy implements Responsable
 
             // Realiza la solicitud a la API
             $response = $clientApi->post($baseUri . 'cambiar_estado_producto/'.$idProducto);
+            // , 'id_audit' => session('id_usuario')
             $respuesta = json_decode($response->getBody()->getContents());
 
             if(isset($respuesta) && !empty($respuesta)) {

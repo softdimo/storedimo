@@ -42,7 +42,8 @@ class ProductoUpdate implements Responsable
                     'precio_unitario' => $precioUnitarioEdit ?? $productoActual->precio_unitario,
                     'precio_detal' => $precioDetalEdit ?? $productoActual->precio_detal,
                     'precio_por_mayor' => $precioPorMayorEdit ?? $productoActual->precio_por_mayor,
-                    'stock_minimo' => $stockMinimoEdit ?? $productoActual->stock_minimo
+                    'stock_minimo' => $stockMinimoEdit ?? $productoActual->stock_minimo,
+                    'id_audit' => session('id_usuario')
                 ]
             ]);
             $respuestaProductoUpdate = json_decode($peticionProductoUpdate->getBody()->getContents());

@@ -74,6 +74,7 @@ class PersonaStore implements Responsable
                         'nit_empresa' => $nitEmpresa,
                         'nombre_empresa' => $nombreEmpresa,
                         'telefono_empresa' => $telefonoEmpresa,
+                        'id_audit' => session('id_usuario')
                     ]
                 ]);
                 $resPersonaStore = json_decode($peticionPersonaStore->getBody()->getContents());

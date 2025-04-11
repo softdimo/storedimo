@@ -38,7 +38,8 @@ class PrestamoStore implements Responsable
                     'fecha_prestamo' => $fechaPrestamo,
                     'fecha_limite' => $fechaLimite,
                     'valor_prestamo' => $valorPrestamo,
-                    'descripcion' => $descripcion
+                    'descripcion' => $descripcion,
+                    'id_audit' => session('id_usuario')
                 ]
             ]);
             $resPrestamoStore = json_decode($peticionPrestamoStore->getBody()->getContents());

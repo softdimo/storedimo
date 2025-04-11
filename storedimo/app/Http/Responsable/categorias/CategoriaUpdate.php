@@ -39,7 +39,7 @@ class CategoriaUpdate implements Responsable
 
         try {
             $peticionCategoriaUpdate = $this->clientApi->put($this->baseUri.'categoria_update/'.$idCategoria, [
-                'json' => ['categoria' => $categoria]
+                'json' => ['categoria' => $categoria, 'id_audit' => session('id_usuario')]
             ]);
             $respuestaCategoriaUpdate = json_decode($peticionCategoriaUpdate->getBody()->getContents());
 

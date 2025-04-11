@@ -54,7 +54,8 @@ class EntradaStore implements Responsable
                         ];
                     }, $idProductos, $pUnitarios, $cantidades, $subtotales), // Construcción del array
                     'id_usuario' => $usuLogueado,
-                    'id_estado' => $idEstado
+                    'id_estado' => $idEstado,
+                    'id_audit' => session('id_usuario')
                 ]
             ]);
             $resEntradaStore = json_decode($reqEntradaStore->getBody()->getContents());
