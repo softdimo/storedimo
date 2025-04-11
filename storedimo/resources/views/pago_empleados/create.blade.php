@@ -138,17 +138,17 @@
                                                         <div class="modal-body m-0">
                                                             <div class="row m-0">
                                                                 <div class="col-12 col-md-4" id="div_identificacion">
-                                                                    <label for="identificacion" class="fw-bold" style="font-size: 12px">Identificación <span class="text-danger">*</span></label>
+                                                                    <label for="identificacion" class="fw-bold" style="font-size: 12px">Identificación <span class="text-danger"></span></label>
                                                                     {!! Form::text('identificacion', isset($pagoEmpleado) ? $pagoEmpleado->identificacion : null, ['class' => 'form-control bg-dark-subtle', 'id' => 'identificacion', 'required', 'readonly']) !!}
                                                                 </div>
                             
                                                                 <div class="col-12 col-md-4" id="div_nombres">
-                                                                    <label for="nombre_usuario" class="fw-bold" style="font-size: 12px">Nombres <span class="text-danger">*</span></label>
+                                                                    <label for="nombre_usuario" class="fw-bold" style="font-size: 12px">Nombres <span class="text-danger"></span></label>
                                                                     {!! Form::text('nombre_usuario', isset($pagoEmpleado) ? $pagoEmpleado->nombre_usuario . ' ' . $pagoEmpleado->apellido_usuario : null, ['class' => 'form-control bg-dark-subtle', 'id' => 'nombre_usuario', 'readonly']) !!}
                                                                 </div>
                             
                                                                 <div class="col-12 col-md-4" id="div_tipo_empleado">
-                                                                    <label for="tipo_empleado" class="fw-bold" style="font-size: 12px">Tipo Empleado <span class="text-danger">*</span></label>
+                                                                    <label for="tipo_empleado" class="fw-bold" style="font-size: 12px">Tipo Empleado <span class="text-danger"></span></label>
                                                                     {!! Form::text('tipo_empleado', isset($pagoEmpleado) ? $pagoEmpleado->tipo_persona : null, ['class' => 'form-control bg-dark-subtle', 'id' => 'tipo_empleado', 'readonly']) !!}
                                                                 </div>
 
