@@ -14,22 +14,27 @@ use App\Http\Controllers\inicio_sesion\LoginController;
 |
 */
 
-// Rutas públicas
-Route::middleware(['prevent-back-history'])->group(function () {
-    Route::get('/login', [LoginController::class, 'index'])->name('login');
-    Route::redirect('/', '/login');
-});
-
 // ========================================================================
 // ========================================================================
 
-Route::middleware(['web'])->group(function () {
+// Route::middleware(['web'])->group(function () {
+Route::middleware(['web', 'prevent-back-history'])->group(function () {
     Route::get('/', function () {
         return view('inicio_sesion.login');
     })->name('login');
     
     // ========================================================================
     // ========================================================================
+
+    // Rutas públicas
+    Route::middleware(['prevent-back-history'])->group(function () {
+        Route::get('/login', [LoginController::class, 'index'])->name('login');
+        Route::redirect('/', '/login');
+    });
+
+    // ========================================================================
+    // ========================================================================
+
 
     // LOGIN
     Route::group(['namespace' => 'App\Http\Controllers\inicio_sesion'], function () {
@@ -177,18 +182,3 @@ Route::middleware(['web'])->group(function () {
     // ========================================================================
     // ========================================================================
 }); // FIN Route::middleware(['web'])
-
-
-// Forzar SSL y cabeceras adicionales en producción
-// if (env('APP_ENV') === 'production') {
-//     URL::forceScheme('https');
-    
-//     Route::middleware(function ($request, $next) {
-//         return $next($request)->withHeaders([
-//             'Strict-Transport-Security' => 'max-age=31536000; includeSubDomains',
-//             'X-Content-Type-Options' => 'nosniff',
-//             'X-Frame-Options' => 'DENY',
-//             'X-XSS-Protection' => '1; mode=block'
-//         ]);
-//     });
-// }
