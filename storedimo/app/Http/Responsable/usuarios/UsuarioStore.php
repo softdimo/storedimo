@@ -85,7 +85,7 @@ class UsuarioStore implements Responsable
                         'fecha_terminacion_contrato' => $fechaTerminacionContrato,
                         'clave' => Hash::make($identificacion),
                         'clave_fallas' => 0,
-
+                        'id_audit' => session('id_usuario')
                     ]
                 ]);
 

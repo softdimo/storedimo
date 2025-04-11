@@ -82,6 +82,12 @@ class LoginStore implements Responsable
         session()->put('usuario', $user['usuario']);
         session()->put('id_rol', $user['id_rol']);
         session()->put('sesion_iniciada', true);
+
+        // Confirmar que sí están activas
+        // session()->all();
+
+        // Mostrar todas las variables de sesión activas (útil para tinker/debug)
+        \Log::debug('Variables de sesión creadas:', session()->all());
     }
 
     // ======================================================

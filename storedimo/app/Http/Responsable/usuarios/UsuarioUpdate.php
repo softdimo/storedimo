@@ -62,20 +62,28 @@ class UsuarioUpdate implements Responsable
                         'id_estado' => $idEstado,
                         'fecha_contrato' => $fechaContrato,
                         'fecha_terminacion_contrato' => $fechaTerminacionContrato,
-                    ]
+                        'id_audit' => session('id_usuario')
+                    ],
                 ]);
                 $resUsuarioUpdate = json_decode($peticionUsuarioUpdate->getBody()->getContents());
 
-                if(isset($resUsuarioUpdate) && !empty($resUsuarioUpdate))
-                {
+                if (is_object($resUsuarioUpdate) && property_exists($resUsuarioUpdate, 'success') && $resUsuarioUpdate->success) {
                     return $this->respuestaExito(
                         'Usuario editado satisfactoriamente.', 'usuarios.index'
                     );
+                } else {
+                    dd('Contenido inesperado:', $resUsuarioUpdate);
                 }
-            }
-            catch (Exception $e)
-            {
-                return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
+
+                // if ($resUsuarioUpdate->success) {
+                //     return $this->respuestaExito(
+                //         'Usuario editado satisfactoriamente.', 'usuarios.index'
+                //     );
+                // }
+                
+            } catch (Exception $e) {
+                dd($e);
+                return $this->respuestaException('Exception, contacte a Soporte.');
             }
         // }
     }

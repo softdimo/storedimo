@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\inicio_sesion\LoginController;
+use App\Models\Usuario;
+use OwenIt\Auditing\Models\Audit;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,14 @@ use App\Http\Controllers\inicio_sesion\LoginController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::middleware(['web'])->group(function () {
+
+    // USUARIOS
+    Route::group(['namespace' => 'App\Http\Controllers\usuarios'], function () {
+        Route::resource('usuarios', 'UsuariosController');
+    });
+});
 
 Route::get('/', function () {
     return view('inicio_sesion.login');
@@ -56,15 +66,6 @@ Route::group(['namespace' => 'App\Http\Controllers\inicio_sesion'], function () 
 Route::group(['namespace' => 'App\Http\Controllers\home'], function () {
     Route::resource('home', 'HomeController');
     Route::resource('permisos', 'PermisosController');
-});
-
-// ========================================================================
-// ========================================================================
-// ========================================================================
-
-// USUARIOS
-Route::group(['namespace' => 'App\Http\Controllers\usuarios'], function () {
-    Route::resource('usuarios', 'UsuariosController');
 });
 
 // ========================================================================
