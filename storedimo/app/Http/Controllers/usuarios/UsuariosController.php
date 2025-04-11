@@ -11,7 +11,6 @@ use App\Http\Responsable\usuarios\UsuarioStore;
 use App\Http\Responsable\usuarios\UsuarioUpdate;
 use GuzzleHttp\Client;
 use App\Traits\MetodosTrait;
-use App\Models\Usuario;
 
 class UsuariosController extends Controller
 {
@@ -24,15 +23,6 @@ class UsuariosController extends Controller
         $this->shareData();
         $this->baseUri = env('BASE_URI');
         $this->clientApi = new Client(['base_uri' => $this->baseUri]);
-
-        if (!session()->has('sesion_iniciada')) {
-            $user = Usuario::find(2); // Simula usuario
-            session()->put('id_usuario', $user->id_usuario);
-            session()->put('usuario', $user->usuario);
-            session()->put('id_rol', $user->id_rol);
-            session()->put('sesion_iniciada', true);
-            \Log::debug('Sesión simulada desde controller');
-        }
     }
     /**
      * Display a listing of the resource.

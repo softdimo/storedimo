@@ -6,15 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Permission\Traits\HasRoles;
 
-use OwenIt\Auditing\Contracts\Auditable; // Interfaz
-use OwenIt\Auditing\Auditable as AuditableTrait; // Trait
-
-class Usuario extends Model implements Auditable
-// class Usuario extends Model implements \OwenIt\Auditing\Contracts\Auditable
+class Usuario extends Model
 {
     use SoftDeletes;
     use HasRoles;
-    use AuditableTrait;
 
     protected $connection = 'mysql';
     protected $table = 'usuarios';

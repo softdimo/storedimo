@@ -67,20 +67,11 @@ class UsuarioUpdate implements Responsable
                 ]);
                 $resUsuarioUpdate = json_decode($peticionUsuarioUpdate->getBody()->getContents());
 
-                if (is_object($resUsuarioUpdate) && property_exists($resUsuarioUpdate, 'success') && $resUsuarioUpdate->success) {
+                if ($resUsuarioUpdate->success) {
                     return $this->respuestaExito(
                         'Usuario editado satisfactoriamente.', 'usuarios.index'
                     );
-                } else {
-                    dd('Contenido inesperado:', $resUsuarioUpdate);
                 }
-
-                // if ($resUsuarioUpdate->success) {
-                //     return $this->respuestaExito(
-                //         'Usuario editado satisfactoriamente.', 'usuarios.index'
-                //     );
-                // }
-                
             } catch (Exception $e) {
                 dd($e);
                 return $this->respuestaException('Exception, contacte a Soporte.');

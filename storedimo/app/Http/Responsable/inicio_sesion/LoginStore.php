@@ -82,12 +82,6 @@ class LoginStore implements Responsable
         session()->put('usuario', $user['usuario']);
         session()->put('id_rol', $user['id_rol']);
         session()->put('sesion_iniciada', true);
-
-        // Confirmar que sí están activas
-        // session()->all();
-
-        // Mostrar todas las variables de sesión activas (útil para tinker/debug)
-        \Log::debug('Variables de sesión creadas:', session()->all());
     }
 
     // ======================================================
@@ -147,7 +141,7 @@ class LoginStore implements Responsable
             // Realiza la solicitud POST a la API
             $clientApi = new Client(['base_uri' => $baseUri]);
 
-            $response = $clientApi->post($baseUri.'actualizar_clave_fallas/'.$idUsuario, 
+            $response = $clientApi->post($baseUri.'actualizar_clave_fallas/'.$idUsuario,
                 ['json' => ['clave_fallas' => $contador]]
             );
             json_decode($response->getBody()->getContents());
