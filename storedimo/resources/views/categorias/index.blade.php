@@ -178,11 +178,11 @@
                                                                     <div class="row m-0 pt-4 pb-4">
                                                                             <div class="col-12 col-md-3">
                                                                                 <div class="form-group d-flex flex-column">
-                                                                                    <label for="id_categoria" class="" style="font-size: 15px">Código<span class="text-danger">*</span></label>
+                                                                                    <label for="id_categoria" class="" style="font-size: 15px">Código<span class="text-danger"></span></label>
                                                                                     {{Form::text('id_categoria',
                                                                                         isset($categoria) ? $categoria->id_categoria : null,
                                                                                         [
-                                                                                            'class'=>'form-control',
+                                                                                            'class'=>'form-control bg-secondary-subtle',
                                                                                             'id'=>'id_categoria_'.$categoria->id_categoria,
                                                                                             'readonly'
                                                                                         ])

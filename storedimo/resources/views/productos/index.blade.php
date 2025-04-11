@@ -193,8 +193,8 @@
                                                                 <div class="row m-0 pt-4 pb-4">
                                                                     <div class="col-12 col-md-2">
                                                                         <div class="form-group d-flex flex-column">
-                                                                            <label for="idProductoEdit" class="" style="font-size: 15px">Código<span class="text-danger">*</span></label>
-                                                                            {{ Form::text('idProductoEdit', isset($producto) ? $producto->id_producto : null, ['class'=>'form-control', 'id'=>'idProductoEdit','required'=>'required', 'readonly'=>true ]) }}
+                                                                            <label for="idProductoEdit" class="" style="font-size: 15px">Código<span class="text-danger"></span></label>
+                                                                            {{ Form::text('idProductoEdit', isset($producto) ? $producto->id_producto : null, ['class'=>'form-control bg-secondary-subtle', 'id'=>'idProductoEdit','required'=>'required', 'readonly'=>true ]) }}
                                                                         </div>
                                                                     </div>
                                                                     {{-- =================== --}}
