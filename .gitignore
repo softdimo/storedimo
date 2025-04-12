@@ -3,8 +3,8 @@
 /vendor/
 
 # Laravel y archivos de entorno
-.env
-.env.backup
+/.env
+/.env.backup
 .phpunit.result.cache
 /storage/*.key
 
