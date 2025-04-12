@@ -24,8 +24,6 @@ class BajaStore implements Responsable
 
     public function toResponse($request)
     {
-        // dd($request);
-
         $responsableBaja = session('id_usuario');
         $fechaBaja = now()->format('Y-m-d H:i:s'); // Formato compatible con DATETIME en MySQL
         $idEstado = 1;
@@ -47,6 +45,7 @@ class BajaStore implements Responsable
                             'id_tipo_baja' => $idTiposBaja
                         ];
                     }, $idProductos, $cantidades, $idTiposBaja), // Construcción del array
+                    'id_audit' => session('id_usuario')
                 ]
             ]);
             $resBajaStore = json_decode($reqBajaStore->getBody()->getContents());
@@ -56,7 +55,6 @@ class BajaStore implements Responsable
                 return redirect()->to(route('bajas_index'));
             }
         } catch (Exception $e) {
-            dd($e);
             alert()->error('Error', 'Registrando la baja, contacte a Soporte.');
             return back();
         }

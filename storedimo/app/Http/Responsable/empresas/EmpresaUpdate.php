@@ -44,7 +44,8 @@ class EmpresaUpdate implements Responsable
                     'celular_empresa' => $celularEmpresa,
                     'email_empresa' => $emailEmpresa,
                     'direccion_empresa' => $direccionEmpresa,
-                    'id_estado' => $idEstado
+                    'id_estado' => $idEstado,
+                    'id_audit' => session('id_usuario')
                 ]
             ]);
             $resEmpresaUpdate = json_decode($reqEmpresaUpdate->getBody()->getContents());

@@ -137,19 +137,6 @@ class PagoEmpleadosController extends Controller
     // ======================================================================
     // ======================================================================
 
-    // public function queryValoresProducto($idProducto)
-    // {
-    //     try {
-    //         return Producto::where('id_producto', $idProducto)->first();
-
-    //     } catch (Exception $e) {
-    //         return response()->json(['error_bd' => $e->getMessage()]);
-    //     }
-    // }
-    
-    // ======================================================================
-    // ======================================================================
-
     public function queryPagoEmpleado($idPagoEmpleado)
     {
         try {

@@ -20,21 +20,19 @@ use App\Http\Controllers\inicio_sesion\LoginController;
 // Route::middleware(['web'])->group(function () {
 Route::middleware(['web', 'prevent-back-history'])->group(function () {
     Route::get('/', function () {
-        return view('inicio_sesion.login');
+        // return view('inicio_sesion.login');
+        return redirect()->route('login');
     })->name('login');
     
     // ========================================================================
     // ========================================================================
 
     // Rutas públicas
-    Route::middleware(['prevent-back-history'])->group(function () {
-        Route::get('/login', [LoginController::class, 'index'])->name('login');
-        Route::redirect('/', '/login');
-    });
+    Route::redirect('/', '/login');
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
 
     // ========================================================================
     // ========================================================================
-
 
     // LOGIN
     Route::group(['namespace' => 'App\Http\Controllers\inicio_sesion'], function () {

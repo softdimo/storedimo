@@ -186,7 +186,7 @@ class EntradasController extends Controller
         $idCompra = request('id_compra', null);
 
         try {
-            $reqAnularCompra = $this->clientApi->post($this->baseUri.'anular_compra/'.$idCompra, ['json' => []]);
+            $reqAnularCompra = $this->clientApi->post($this->baseUri.'anular_compra/'.$idCompra, ['json' => ['id_audit' => session('id_usuario')]]);
             $resAnularCompra = json_decode($reqAnularCompra->getBody()->getContents());
 
             if(isset($resAnularCompra) && !empty($resAnularCompra) && !is_null($resAnularCompra)) {
