@@ -152,7 +152,7 @@ class ProductosController extends Controller
                     'precio_por_mayor',
                     'descripcion',
                     'stock_minimo',
-                    'id_estado',
+                    'categorias.id_estado',
                     'tamano',
                     'cantidad'
                 )
