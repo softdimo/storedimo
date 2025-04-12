@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Responsable\categorias\CategoriaIndex;
 use App\Http\Responsable\categorias\CategoriaStore;
 use App\Http\Responsable\categorias\CategoriaUpdate;
+use App\Http\Responsable\categorias\CategoriaDestroy;
 use App\Models\Categoria;
 
 
@@ -101,9 +102,9 @@ class CategoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($idCategoria)
     {
-        //
+        return new CategoriaDestroy($idCategoria);
     }
 
     // ======================================================================

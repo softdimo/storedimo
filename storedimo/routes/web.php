@@ -82,6 +82,7 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
     Route::group(['namespace' => 'App\Http\Controllers\categorias'], function () {
         Route::resource('categorias', 'CategoriasController');
         Route::post('editar_categoria', 'CategoriasController@update')->name('editar_categoria');
+        Route::post('cambiar_estado_categoria', 'CategoriasController@destroy')->name('cambiar_estado_categoria');
     });
 
     // ========================================================================

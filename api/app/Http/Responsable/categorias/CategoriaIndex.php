@@ -13,7 +13,13 @@ class CategoriaIndex implements Responsable
     public function toResponse($request)
     {
         try {
-            $categorias = Categoria::select('id_categoria', 'categoria')->orderBy('categoria', 'ASC')->get();
+            $categorias = Categoria::leftJoin('estados', 'estados.id_estado', '=', 'categorias.id_estado')
+            ->select(
+                'id_categoria', 
+                'categoria',
+                'categorias.id_estado',
+                'estados.estado'
+                )->orderBy('categoria', 'ASC')->get();
 
             if (isset($categorias) && !is_null($categorias) && !empty($categorias)) {
                 return response()->json($categorias);

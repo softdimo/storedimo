@@ -5,9 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Categoria extends Model
+use OwenIt\Auditing\Contracts\Auditable; // Interfaz
+use OwenIt\Auditing\Auditable as AuditableTrait; // Trait
+
+// class Categoria extends Model
+class Categoria extends Model implements Auditable
 {
     use SoftDeletes;
+    use AuditableTrait;
 
     protected $connection = 'mysql';
     protected $table = 'categorias';
@@ -16,5 +21,6 @@ class Categoria extends Model
     public $timestamps = true;
     protected $fillable = [
         'categoria',
+        'id_estado',
     ];
 }
