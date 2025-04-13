@@ -161,3 +161,30 @@ footer {
     background: rgba(0, 0, 0, 0.5); /* Oscurecimiento */
     z-index: 1000; /* Debe estar debajo del modal */
 }
+
+/* Estilos grid permisos */
+.permiso-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+@media (min-width: 640px) {
+    .permiso-grid {
+        grid-template-columns: 1fr 1fr; /* 2 columnas a partir de 640px (sm) */
+    }
+}
+
+.permiso-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.permiso-item label {
+    margin-left: 8px;
+}
+
+.pointer {
+    cursor: pointer;
+}

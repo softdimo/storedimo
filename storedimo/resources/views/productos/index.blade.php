@@ -542,7 +542,8 @@
             // ===========================================================
 
             // formEditarProducto para cargar gif en el submit
-            $(document).on("submit", "form[id^='formEditarProducto_']", function(e) {
+            $(document).on("submit", "form[id^='formEditarProducto_']", function(e)
+            {
                 const form = $(this);
                 const formId = form.attr('id'); // Obtenemos el ID del formulario
                 const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario

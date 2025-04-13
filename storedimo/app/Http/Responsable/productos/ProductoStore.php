@@ -53,6 +53,7 @@ class ProductoStore implements Responsable
                     'id_audit' => session('id_usuario')
                 ]
             ]);
+            
             $respuestaProductoStore = json_decode($peticionProductoStore->getBody()->getContents());
 
             // ========================================================
