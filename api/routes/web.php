@@ -19,7 +19,6 @@ $router->get('/', function () use ($router) {
 
 
 // =====================================================================
-// =====================================================================
 
 // USUARIOS
 $router->group(['prefix' => 'api'], function () use ($router) {
@@ -36,7 +35,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 });
 
 // =====================================================================
-// =====================================================================
 
 // CATEGORIAS
 $router->group(['prefix' => 'api'], function () use ($router) {
@@ -47,7 +45,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('cambiar_estado_categoria/{idCategoria}', 'categorias\CategoriasController@destroy');
 });
 
-// ========================================================================
 // ========================================================================
 
 // PRODUCTOS
@@ -64,7 +61,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 });
 
 // ========================================================================
-// ========================================================================
 
 // PERSONAS
 $router->group(['prefix' => 'api'], function () use ($router) {
@@ -75,7 +71,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->put('persona_update/{idPersona}', 'personas\PersonasController@update');
 });
 
-// ========================================================================
 // ========================================================================
 
 // ENTRADAS
@@ -89,7 +84,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 });
 
 // ========================================================================
-// ========================================================================
 
 // VENTAS
 $router->group(['prefix' => 'api'], function () use ($router) {
@@ -102,7 +96,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 });
 
 // ========================================================================
-// ========================================================================
 
 // PRESTAMOS
 $router->group(['prefix' => 'api'], function () use ($router) {
@@ -113,7 +106,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 });
 
 // ========================================================================
-// ========================================================================
 
 // PAGO EMPLEADOS
 $router->group(['prefix' => 'api'], function () use ($router) {
@@ -122,7 +114,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('pago_empleado_store', 'pago_empleados\PagoEmpleadosController@store');
 });
 
-// ========================================================================
 // ========================================================================
 
 // EMPRESAS
@@ -133,8 +124,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('consultar_empresa', 'empresas\EmpresasController@consultarEmpresa');
 });
 
-
-// ========================================================================
 // ========================================================================
 
 // EXISTENCIAS-BAJAS
@@ -146,5 +135,12 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('stock_minimo_index', 'existencias\ExistenciasController@stockMinimoIndex');
     $router->get('alerta_stock_minimo', 'existencias\ExistenciasController@alertaStockMinimo');
 });
+
+// Roles y Permisos
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->post('guardar_rol', 'roles_permisos\RolesPermisosController@crearRol');
+    $router->post('guardar_permiso', 'roles_permisos\RolesPermisosController@crearPermiso');
+});
+
 
 
