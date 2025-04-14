@@ -58,9 +58,9 @@ class CambiarClave implements Responsable
                     ]]);
                     $claveCambiada = json_decode($response->getBody()->getContents());
     
-                    if(isset($claveCambiada) && !is_null($claveCambiada) && !empty($claveCambiada)) {
+                    if($claveCambiada) {
                         alert()->success('Bien', 'Clave cambiada satisfactoriamente');
-                        return redirect()->to(route('login'));
+                        return redirect()->route('logout');
     
                     } else {
                         alert()->error('Error', 'Error al cambiar la clave, por favor contacte a Soporte.');
@@ -89,6 +89,7 @@ class CambiarClave implements Responsable
     private function validarContrasena($nuevaClave)
     {
         // Verifica que la contraseña tenga al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.
-        return preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/', $nuevaClave);
+        $regex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&+\-\/_¿¡#.,:;=~^(){}\[\]<>`|"\'"])[A-Za-z\d@$!%*?&+\-\/_¿¡#.,:;=~^(){}\[\]<>`|"\'"]{6,}$/';
+        return preg_match($regex, $nuevaClave);
     }
 }
