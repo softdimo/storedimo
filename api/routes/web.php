@@ -73,6 +73,17 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
 // ========================================================================
 
+// PROVEEDORES
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('proveedores_index', 'proveedores\ProveedoresController@index');
+    // $router->post('query_id_persona', 'personas\PersonasController@consultarIdPersona');
+    // $router->post('query_nit_empresa', 'personas\PersonasController@consultarNitEmpresa');
+    // $router->post('persona_store', 'personas\PersonasController@store');
+    // $router->put('persona_update/{idPersona}', 'personas\PersonasController@update');
+});
+
+// ========================================================================
+
 // ENTRADAS
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('entrada_index', 'entradas\EntradasController@index');
@@ -136,11 +147,15 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('alerta_stock_minimo', 'existencias\ExistenciasController@alertaStockMinimo');
 });
 
+// ========================================================================
+
 // Roles y Permisos
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('guardar_rol', 'roles_permisos\RolesPermisosController@crearRol');
     $router->post('guardar_permiso', 'roles_permisos\RolesPermisosController@crearPermiso');
 });
+
+// ========================================================================
 
 
 
