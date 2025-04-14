@@ -5,9 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Usuario extends Model
+use OwenIt\Auditing\Contracts\Auditable; // Interfaz
+use OwenIt\Auditing\Auditable as AuditableTrait; // Trait
+
+// class Usuario extends Model
+class Usuario extends Model implements Auditable
 {
     use SoftDeletes;
+    use AuditableTrait;
 
     protected $connection = 'mysql';
     protected $table = 'usuarios';
@@ -34,4 +39,9 @@ class Usuario extends Model
         'id_estado',
         'id_rol'
     ];
+
+    public function getAuthIdentifier()
+    {
+        return $this->id_usuario;
+    }
 }

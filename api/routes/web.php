@@ -44,6 +44,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('categoria_store', 'categorias\CategoriasController@store');
     $router->put('categoria_update/{id}', 'categorias\CategoriasController@update');
     $router->post('consulta_categoria', 'categorias\CategoriasController@consultaCategoria');
+    $router->post('cambiar_estado_categoria/{idCategoria}', 'categorias\CategoriasController@destroy');
 });
 
 // ========================================================================

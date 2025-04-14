@@ -8,6 +8,7 @@ use Exception;
 use App\Http\Responsable\categorias\CategoriaIndex;
 use App\Http\Responsable\categorias\CategoriaStore;
 use App\Http\Responsable\categorias\CategoriaUpdate;
+use App\Http\Responsable\categorias\CategoriaDestroy;
 use GuzzleHttp\Client;
 use App\Models\Categoria;
 use Illuminate\Support\Facades\DB;
@@ -164,8 +165,26 @@ class CategoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                $sesionInvalida = collect($sesion)->slice(0, 3)->contains(fn($val) => empty($val)) || !$sesion[3]; 
+
+                if ($sesionInvalida) {
+                    return redirect()->route('login');
+                }
+
+                return new CategoriaDestroy();
+                
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Destroy Productos!");
+            return back();
+        }
     }
 }

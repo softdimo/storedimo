@@ -106,7 +106,6 @@ class ReporteProductosPdf implements Responsable
             return json_decode($peticionReporteProductosPdf->getBody()->getContents());
 
         } catch (Exception $e) {
-            dd($e);
             alert()->error('Error', 'Exception reporteProductosPdf, contacte a Soporte.');
             return back();
         }

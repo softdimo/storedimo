@@ -194,7 +194,6 @@ class PrestamosController extends Controller
                 } else {
                     return new PrestamoVencer();
 
-                    // return view('prestamos.prestamos_vencer');
                 }
             }
         } catch (Exception $e) {

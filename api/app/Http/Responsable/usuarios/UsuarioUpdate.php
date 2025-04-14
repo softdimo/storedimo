@@ -5,6 +5,8 @@ namespace App\Http\Responsable\usuarios;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
+use OwenIt\Auditing\Facades\Auditor;
+use Illuminate\Support\Facades\Config;
 use App\Models\Usuario;
 
 class UsuarioUpdate implements Responsable
@@ -20,12 +22,9 @@ class UsuarioUpdate implements Responsable
 
     public function toResponse($request)
     {
-        // $idUsuario = $request->route('idUsuario');
-        // $usuario = Usuario::find($idUsuario);
-
         $usuario = Usuario::find($this->idUsuario);
 
-        if (isset($usuario) && !is_null($usuario) && !empty($usuario)) {
+        if ($usuario) {
             try {
                 $usuario->nombre_usuario = $request->input('nombre_usuario');
                 $usuario->apellido_usuario = $request->input('apellido_usuario');
@@ -41,6 +40,7 @@ class UsuarioUpdate implements Responsable
                 $usuario->id_estado = $request->input('id_estado');
                 $usuario->fecha_contrato = $request->input('fecha_contrato');
                 $usuario->fecha_terminacion_contrato = $request->input('fecha_terminacion_contrato');
+                
                 $usuario->update();
 
                 return response()->json(['success' => true]);

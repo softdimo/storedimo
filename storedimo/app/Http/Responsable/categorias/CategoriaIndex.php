@@ -21,6 +21,7 @@ class CategoriaIndex implements Responsable
             // Realiza la solicitud a la API
             $response = $clientApi->get($baseUri . 'categoria_index');
             $categorias = json_decode($response->getBody()->getContents());
+            // dd($categorias);
 
             return view('categorias.index', compact('categorias'));
         } catch (Exception $e) {

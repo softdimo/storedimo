@@ -34,8 +34,9 @@ class CategoriaStore implements Responsable
             return back();
         } else {
             try {
+                // Pasamos el id_estado de las nuevas categorías por default en 1 "activo" 
                 $peticionCategoriaStore = $this->clientApi->post($this->baseUri.'categoria_store', [
-                    'json' => ['categoria' => $categoria]
+                    'json' => ['categoria' => $categoria, 'id_estado' => 1, 'id_audit' => session('id_usuario')]
                 ]);
                 $respuestaCategoriaStore = json_decode($peticionCategoriaStore->getBody()->getContents());
 

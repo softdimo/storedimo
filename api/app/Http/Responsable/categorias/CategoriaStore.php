@@ -13,11 +13,13 @@ class CategoriaStore implements Responsable
     public function toResponse($request)
     {
         $categoria = request('categoria', null);
+        $idEstado = request('id_estado', null);
 
         // ================================================
 
         $nuevaCategoria = Categoria::create([
             'categoria' => $categoria,
+            'id_estado' => $idEstado,
         ]);
 
         // ================================================

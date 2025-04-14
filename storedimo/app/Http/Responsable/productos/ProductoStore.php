@@ -49,7 +49,8 @@ class ProductoStore implements Responsable
                     'precio_por_mayor' => $precioPorMayor,
                     'descripcion' => $descripcion,
                     'stock_minimo' => $stockMinimo,
-                    'id_estado' => $idEstado
+                    'id_estado' => $idEstado,
+                    'id_audit' => session('id_usuario')
                 ]
             ]);
             $respuestaProductoStore = json_decode($peticionProductoStore->getBody()->getContents());

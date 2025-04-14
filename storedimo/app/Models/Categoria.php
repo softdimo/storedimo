@@ -16,5 +16,6 @@ class Categoria extends Model
     public $timestamps = true;
     protected $fillable = [
         'categoria',
+        'id_estado',
     ];
 }

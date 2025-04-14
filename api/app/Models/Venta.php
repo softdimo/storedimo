@@ -5,9 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Venta extends Model
+use OwenIt\Auditing\Contracts\Auditable; // Interfaz
+use OwenIt\Auditing\Auditable as AuditableTrait; // Trait
+
+// class Venta extends Model
+class Venta extends Model implements Auditable
 {
     use SoftDeletes;
+    use AuditableTrait;
 
     protected $connection = 'mysql';
     protected $table = 'ventas';
@@ -25,7 +30,6 @@ class Venta extends Model
         'id_producto',
         'id_cliente',
         'id_usuario',
-        'id_estado',
         'id_estado_credito',
         'fecha_limite_credito'
     ];
