@@ -74,6 +74,13 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
         Route::get('listar_clientes', 'PersonasController@listarClientes')->name('listar_clientes');
     });
 
+    // ========================================================================
+    // ========================================================================
+
+    // PROVEEDORES
+    Route::group(['namespace' => 'App\Http\Controllers\proveedores'], function () {
+        Route::resource('proveedores', 'ProveedoresController');
+    });
 
     // ========================================================================
     // ========================================================================
