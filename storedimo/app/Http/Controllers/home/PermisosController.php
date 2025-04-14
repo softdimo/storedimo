@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Traits\MetodosTrait;
 use GuzzleHttp\Client;
 use Exception;
+use App\Http\Responsable\roles_permisos\PermisosStore;
 
 class PermisosController extends Controller
 {
@@ -28,7 +29,28 @@ class PermisosController extends Controller
      */
     public function index()
     {
-        return view('home.permisos');
+        try
+        {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+    
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else
+                {
+                    return view('home.permisos');;
+                }
+            }
+        } catch (Exception $e)
+        {
+            alert()->error("Exception Index Permisos!");
+            return back();
+        }
     }
 
     /**
@@ -49,7 +71,27 @@ class PermisosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try
+        {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+    
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return new PermisosStore();
+                }
+            }
+        } catch (Exception $e)
+        {
+            alert()->error("Exception Store Permisos!");
+            return back();
+        }
     }
 
     /**

@@ -1,9 +1,3 @@
-<style>
-    /* Cambia el color de fondo del li al pasar el ratón sobre él */
-    /* .hover-li:hover {
-      background-color: #337AB7;
-    } */
-</style>
 
 <header class="topbar m-0">
     <nav class="navbar navbar-expand-lg m-0 text-white" data-bs-theme="dark" style="background-color: #337AB7">
@@ -52,13 +46,25 @@
                                 <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_configurar_pago">
                                     <a href="#" class="dropdown-item text-dark hover-li">Configuración de Pago</a>
                                 </li>
+
+                                <!-- Rol Softdimo (roles y permisos)  -->
                                 @if(!is_null(session('sesion_iniciada')) && session('id_rol') == 3)
-                                    <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_configurar_permisos">
-                                        <a href="{{route('permisos.index')}}" class="dropdown-item text-dark hover-li">Asignación de Permisos</a>
+                                    <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_crear_permiso">
+                                        <a href="#" class="dropdown-item text-dark hover-li">Creación de Permisos</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="{{route('permisos.index')}}" 
+                                            class="dropdown-item text-dark hover-li">Asignación de Permisos</a>
+                                    </li>
+
+                                    <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_crear_roles">
+                                        <a href="#" class="dropdown-item text-dark hover-li">Creación de Roles</a>
                                     </li>
                                 @else
                                     <p>&nbsp;</p>
                                 @endif
+
                             </ul>
                         </li>
 
@@ -118,6 +124,9 @@
 
 {{-- ==================================================================================== --}}
 
+@include('layouts.modal_roles')
+@include('layouts.modal_permisos')
+
 {{-- INICIO Modal GANANCIAS --}}
 <div class="modal fade p-3 modal-gral h-auto" id="modal_ganancias" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog m-0">
@@ -147,7 +156,8 @@
                     </div>
 
                     <div class="d-flex justify-content-center mt-5">
-                        <button type="button" class="btn btn-primary" id="btn_consultar_ganancias" name="btnconsultarganancia" onclick="consultarGanancia()">
+                        <button type="button" class="btn btn-primary" id="btn_consultar_ganancias"
+                                name="btnconsultarganancia" onclick="consultarGanancia()">
                             <i class="fa fa-building-o" data-bs-toggle="modal" data-bs-target="#modal_generar_ganancias"> Generar Ganancias</i></button>
                     </div>
                 </div>
@@ -233,9 +243,6 @@
     </div>
 </div>
 {{-- FINAL Modal AYUDA --}}
-
-{{-- ==================================================================================== --}}
-{{-- ==================================================================================== --}}
 
 {{-- INICIO Modal CONFIGURAR VENTAS --}}
 <div class="modal fade modal-gral h-auto" id="modal_configurar_ventas" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
@@ -412,6 +419,69 @@
             }
         })
         .catch(error => console.error("Error al obtener notificaciones:", error));
+    });
+
+     $("#formCrearRol").on("submit", function (e)
+     {
+        let rol = $("#role").val();
+
+        if(rol == undefined || rol == "" || rol.length == 0)
+        {
+            Swal.fire(
+                'Error!',
+                'Nombre Rol es obligatorio!',
+                'error'
+            )
+            return false ;
+
+        } else 
+        {
+            const form = $(this);
+            const submitButton = form.find('button[type="submit"]');
+            const cancelButton = form.find('button[type="button"]');
+            const loadingIndicator = form.find("div[id^='loadingIndicatorStore']"); // Busca el GIF del form actual
+    
+            // Dessactivar Botones
+            submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+            cancelButton.prop("disabled", true);
+            
+            // Mostrar Spinner
+            loadingIndicator.show();
+
+            return true;
+        }
+    });
+
+     // formCrearUsuario para cargar gif en el submit
+     $("#formCrearPermiso").on("submit", function (e)
+     {
+        let permiso = $("#permission").val();
+
+        if(permiso == undefined || permiso == "" || permiso.length == 0)
+        {
+            Swal.fire(
+                'Error!',
+                'Nombre Permiso es obligatorio!',
+                'error'
+            )
+            return false ;
+
+        } else 
+        {
+            const form = $(this);
+            const submitButton = form.find('button[type="submit"]');
+            const cancelButton = form.find('button[type="button"]');
+            const loadingIndicator = form.find("div[id^='loadingIndicatorStore']"); // Busca el GIF del form actual
+    
+            // Dessactivar Botones
+            submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+            cancelButton.prop("disabled", true);
+            
+            // Mostrar Spinner
+            loadingIndicator.show();
+
+            return true;
+        }
     });
 </script>
 
