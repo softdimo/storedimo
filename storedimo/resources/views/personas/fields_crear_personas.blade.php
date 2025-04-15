@@ -1,12 +1,12 @@
 <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px 5px 0 0;">
-    <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Registrar Personas (Obligatorios * )</h5>
+    <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Registrar Clientes (Obligatorios * )</h5>
 
     <div class="m-0 p-3" id="div_campos_usuarios">
         <div class="row">
             <div class="col-12 col-md-3">
                 <div class="form-group d-flex flex-column">
-                    <label for="id_tipo_persona" class="form-label">Tipo persona <span class="text-danger">*</span></label>
-                    {!! Form::select('id_tipo_persona', collect(['' => 'Seleccionar...'])->union($tipos_persona), null, ['class' => 'form-select', 'id' => 'id_tipo_persona', 'required'=>'required']) !!}
+                    <label for="id_tipo_persona" class="form-label">Tipo Cliente <span class="text-danger">*</span></label>
+                    {!! Form::select('id_tipo_persona', collect(['' => 'Seleccionar...'])->union($clientes), null, ['class' => 'form-select', 'id' => 'id_tipo_persona', 'required'=>'required']) !!}
                 </div>
             </div>
 

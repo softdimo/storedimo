@@ -19,6 +19,7 @@ use App\Models\PorcentajeComision;
 use App\Models\Empresa;
 use App\Models\Usuario;
 use App\Models\Permission;
+use App\Models\Proveedor;
 
 trait MetodosTrait
 {
@@ -97,17 +98,19 @@ trait MetodosTrait
                                     ->pluck('user', 'id_usuario'));
         view()->share('permisos', Permission::orderBy('id')->get());
 
-        view()->share('proveedores', Persona::whereIn('id_tipo_persona', [3, 4])
-            ->selectRaw("id_persona,
+        // (ventas.create, línea 276), (entradas.create, línea 220), (productos.fields_crear_productos , línea 8)
+        view()->share('proveedores', Proveedor::whereIn('id_tipo_persona', [3, 4])
+            ->selectRaw("id_proveedor,
                 CASE
-                    WHEN nombre_empresa IS NOT NULL THEN nombre_empresa
-                    ELSE CONCAT(nombres_persona, ' ', apellidos_persona)
+                    WHEN proveedor_juridico IS NOT NULL THEN proveedor_juridico
+                    ELSE CONCAT(nombres_proveedor, ' ', apellidos_proveedor)
                 END AS nombre"
             )
             ->orderBy('nombre')
-            ->pluck('nombre', 'id_persona')
+            ->pluck('nombre', 'id_proveedor')
         );
 
+        // ventas.create
         view()->share([
             'clientes_ventas' => Persona::leftJoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'personas.id_tipo_persona')
                 ->select(
@@ -127,25 +130,26 @@ trait MetodosTrait
                 }),
         ]);
 
+        // entradas.create
         view()->share([
-            'proveedores_compras' => Persona::leftJoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'personas.id_tipo_persona')
+            'proveedores_compras' => Proveedor::leftJoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'proveedores.id_tipo_persona')
                 ->select(
-                    'personas.id_persona',
-                    'personas.identificacion',
-                    'personas.nit_empresa',
-                    'personas.id_tipo_persona',
+                    'proveedores.id_proveedor',
+                    'proveedores.identificacion',
+                    'proveedores.nit_proveedor',
+                    'proveedores.id_tipo_persona',
                     DB::raw("
                         CASE
-                            WHEN personas.id_tipo_persona = 4 THEN CONCAT(nit_empresa, ' - ', nombre_empresa, ' (', tipo_persona.tipo_persona, ')')
-                            ELSE CONCAT(identificacion, ' - ', nombres_persona, ' ', apellidos_persona, ' (', tipo_persona.tipo_persona, ')')
+                            WHEN proveedores.id_tipo_persona = 4 THEN CONCAT(nit_proveedor, ' - ', proveedor_juridico, ' (', tipo_persona.tipo_persona, ')')
+                            ELSE CONCAT(identificacion, ' - ', nombres_proveedor, ' ', apellidos_proveedor, ' (', tipo_persona.tipo_persona, ')')
                         END AS nombre_proveedor
                     ")
                 )
-                ->whereIn('personas.id_tipo_persona', [3,4])
+                ->whereIn('proveedores.id_tipo_persona', [3,4])
                 ->orderBy('tipo_persona.tipo_persona')
                 ->get() // Usamos get() en lugar de pluck()
                 ->mapWithKeys(function($item) {
-                    return [$item->id_persona => $item->nombre_proveedor]; // Usamos id_persona como clave única
+                    return [$item->id_proveedor => $item->nombre_proveedor]; // Usamos id_persona como clave única
                 })
         ]);
     }

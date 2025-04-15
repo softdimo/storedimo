@@ -100,17 +100,17 @@
                             <div class="row p-3">
                                 <div class="col-md-3 text-center">
                                     <strong for="form-control fw-bold">Precio Unitario</strong>
-                                    <p id="precio">$ <span class="" id="p_unitario">2000</span></p>
+                                    <p id="precio">$ <span class="" id="p_unitario"></span></p>
                                 </div>
                                 {{-- ============ --}}
                                 <div class="col-md-3 text-center">
                                     <strong for="form-control fw-bold">Precio al Detal</strong>
-                                    <p id="precio2">$ <span class="" id="p_detal">2500</span></p>
+                                    <p id="precio2">$ <span class="" id="p_detal"></span></p>
                                 </div>
                                 {{-- ============ --}}
                                 <div class="col-md-3 text-center">
                                     <strong for="form-control fw-bold">Precio por Mayor</strong>
-                                    <p id="precio3">$ <span class="" id="p_x_mayor">2100</span></p>
+                                    <p id="precio3">$ <span class="" id="p_x_mayor"></span></p>
                                 </div>
                                 {{-- ============ --}}
                                 <div class="col-md-3 text-center">

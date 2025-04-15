@@ -44,7 +44,7 @@ class DetalleComprasPdf implements Responsable
         $fechaCompra = $compra[0]->fecha_compra;
         $valorCompra = $compra[0]->valor_compra;
         $idEstado = $compra[0]->id_estado ?? 1; // Si no viene, asumimos estado activo
-        $nombreEmpresa = $compra[0]->nombre_empresa ?? $compra[0]->nombres_persona .' '. $compra[0]->apellidos_persona;
+        $nombreEmpresa = $compra[0]->proveedor_juridico ?? $compra[0]->nombres_proveedor .' '. $compra[0]->apellidos_proveedor;
 
         // Crear instancia de FPDF
         $pdf = new \FPDF();

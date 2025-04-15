@@ -63,16 +63,16 @@
                                         <td>{{$entrada->valor_compra}}</td>
                                         <td>{{$entrada->fecha_compra}}</td>
 
-                                        @if ($entrada->nit_empresa)
-                                            <td>{{$entrada->nit_empresa}}</td>
+                                        @if ($entrada->nit_proveedor)
+                                            <td>{{$entrada->nit_proveedor}}</td>
                                         @else
                                          <td>{{$entrada->identificacion}}</td>
                                         @endif
 
-                                        @if ($entrada->nombre_empresa)
-                                            <td>{{$entrada->nombre_empresa}}</td>
+                                        @if ($entrada->proveedor_juridico)
+                                            <td>{{$entrada->proveedor_juridico}}</td>
                                         @else
-                                            <td>{{$entrada->nombres_persona}} {{$entrada->apellidos_persona}}</td>
+                                            <td>{{$entrada->nombres_proveedor}} {{$entrada->apellidos_proveedor}}</td>
                                         @endif
                                         
                                         <td>{{$entrada->estado}}</td>
@@ -233,16 +233,16 @@
                                             <tbody>
                                                 <tr class="text-center">
                                                     <td>{{$entrada->fecha_compra}}</td>
-                                                    @if ($entrada->nit_empresa)
-                                                        <td>{{$entrada->nit_empresa}}</td>
+                                                    @if ($entrada->nit_proveedor)
+                                                        <td>{{$entrada->nit_proveedor}}</td>
                                                     @else
                                                         <td>{{$entrada->identificacion}}</td>
                                                     @endif
 
-                                                    @if ($entrada->nombre_empresa)
-                                                        <td>{{$entrada->nombre_empresa}}</td>
+                                                    @if ($entrada->proveedor_juridico)
+                                                        <td>{{$entrada->proveedor_juridico}}</td>
                                                     @else
-                                                        <td>{{$entrada->nombres_persona}} {{$entrada->apellidos_persona}}</td>
+                                                        <td>{{$entrada->nombres_proveedor}} {{$entrada->apellidos_proveedor}}</td>
                                                     @endif
 
                                                     <td>{{$entrada->valor_compra}}</td>

@@ -30,7 +30,6 @@ class EntradaIndex implements Responsable
 
             return view('entradas.index', compact('entradas'));
         } catch (Exception $e) {
-            dd($e);
             alert()->error('Error', 'Exception Index Entradas, contacte a Soporte.');
             return back();
         }

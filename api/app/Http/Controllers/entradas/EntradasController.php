@@ -151,18 +151,18 @@ class EntradasController extends Controller
         $fechaFinal = request('fecha_final', null);
 
         try {
-            $compras = Compra::leftJoin('personas', 'personas.id_persona', '=', 'compras.id_proveedor')
+            $compras = Compra::leftJoin('proveedores', 'proveedores.id_proveedor', '=', 'compras.id_proveedor')
                 ->whereBetween('fecha_compra', [$fechaInicial, $fechaFinal])
-                ->whereIn('personas.id_tipo_persona', [3, 4]) // Filtra solo si hay una persona
+                ->whereIn('proveedores.id_tipo_persona', [3, 4]) // Filtra solo si hay una persona
                 ->select([
                     'compras.id_compra',
                     'compras.fecha_compra',
                     'compras.valor_compra',
-                    'personas.id_persona',
+                    'proveedores.id_proveedor',
                     \DB::raw("
                         CASE
-                            WHEN personas.nombre_empresa IS NOT NULL THEN personas.nombre_empresa
-                            ELSE CONCAT(personas.nombres_persona, ' ', personas.apellidos_persona)
+                            WHEN proveedores.proveedor_juridico IS NOT NULL THEN proveedores.proveedor_juridico
+                            ELSE CONCAT(proveedores.nombres_proveedor, ' ', proveedores.apellidos_proveedor)
                         END AS nombre_proveedor
                     ")
                 ])
@@ -219,16 +219,16 @@ class EntradasController extends Controller
         try {
             $detalleCompraProductoPdf = Compra::leftJoin('compra_productos', 'compra_productos.id_compra', '=', 'compras.id_compra')
                 ->leftJoin('productos', 'productos.id_producto', '=', 'compra_productos.id_producto')
-                ->leftJoin('personas', 'personas.id_persona', '=', 'compras.id_proveedor')
+                ->leftJoin('proveedores', 'proveedores.id_proveedor', '=', 'compras.id_proveedor')
                 ->where('compras.id_compra', $idCompra)
                 ->select(
                     'compras.id_compra',
                     'compras.fecha_compra',
                     'compras.valor_compra',
                     'compras.id_proveedor',
-                    'personas.nombre_empresa',
-                    'personas.nombres_persona',
-                    'personas.apellidos_persona',
+                    'proveedores.proveedor_juridico',
+                    'proveedores.nombres_proveedor',
+                    'proveedores.apellidos_proveedor',
                     'compra_productos.id_producto',
                     'compra_productos.cantidad',
                     'compra_productos.precio_unitario_compra',

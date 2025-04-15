@@ -13,21 +13,21 @@ class EntradaIndex implements Responsable
     public function toResponse($request)
     {
         try {
-            $entradas = Compra::leftjoin('personas','personas.id_persona','=','compras.id_proveedor')
+            $entradas = Compra::leftjoin('proveedores','proveedores.id_proveedor','=','compras.id_proveedor')
                 ->leftjoin('usuarios','usuarios.id_usuario','=','compras.id_usuario')
                 ->leftjoin('productos','productos.id_producto','=','compras.id_producto')
                 ->leftjoin('estados','estados.id_estado','=','compras.id_estado')
                 ->leftjoin('empresas','empresas.id_empresa','=','compras.id_empresa')
                 ->select(
-                    'id_compra',
+                    'compras.id_compra',
                     'fecha_compra',
                     'valor_compra',
-                    'id_proveedor',
-                    'personas.nombre_empresa',
-                    'personas.nit_empresa',
-                    'personas.identificacion',
-                    'personas.nombres_persona',
-                    'personas.apellidos_persona',
+                    'compras.id_proveedor',
+                    'proveedores.proveedor_juridico',
+                    'proveedores.nit_proveedor',
+                    'proveedores.identificacion',
+                    'proveedores.nombres_proveedor',
+                    'proveedores.apellidos_proveedor',
                     'compras.id_usuario',
                     'empresas.id_empresa',
                     'empresas.nombre_empresa as empresa',
