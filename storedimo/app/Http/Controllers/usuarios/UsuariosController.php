@@ -11,6 +11,7 @@ use App\Http\Responsable\usuarios\UsuarioStore;
 use App\Http\Responsable\usuarios\UsuarioUpdate;
 use GuzzleHttp\Client;
 use App\Traits\MetodosTrait;
+use Illuminate\Validation\ValidationException;
 
 class UsuariosController extends Controller
 {
@@ -271,6 +272,43 @@ class UsuariosController extends Controller
         } catch (Exception $e) {
             alert()->error("Error Exception!");
             return back();
+        }
+    }
+
+    public function emailValidator(Request $request)
+    {
+        \Log::info('Email recibido: ' . $request->input('email'));
+        
+        try {
+            $request->validate([
+                'email' => [
+                    'required',
+                    'string',
+                    'email:rfc,dns',
+                    'max:255'
+                ]
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'valido' => false,
+                'error' => 'El correo no tiene un formato válido.'
+            ], 422);
+        }
+        try {
+            $response = $this->clientApi->post($this->baseUri.'validar_email', [
+                'json' => [
+                    'email' => $request->input('email')
+                ]
+            ]);
+            return response()->json(json_decode($response->getBody()->getContents(), true));
+
+        } catch (\Exception $e) {
+            \Log::error('Error al validar email: ' . $e->getMessage());
+            
+            return response()->json([
+                'error' => 'No se pudo validar el email',
+                'valido' => false
+            ], 500);
         }
     }
 }

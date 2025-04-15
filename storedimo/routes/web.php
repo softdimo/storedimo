@@ -62,6 +62,7 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
     // USUARIOS
     Route::group(['namespace' => 'App\Http\Controllers\usuarios'], function () {
         Route::resource('usuarios', 'UsuariosController');
+        Route::post('email_validator', 'UsuariosController@emailValidator')->name('email_validator');
     });
 
     // ========================================================================

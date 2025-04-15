@@ -32,16 +32,17 @@ class CategoriaDestroy implements Responsable
 
         try {
             if ($idEstado == 1) {
-                $cambiarEstadoCategoria = Categoria::where('id_categoria', $idCategoria)->update(['id_estado' => 2,]);
+                $categoria->id_estado = 2;
             } else {
-                $cambiarEstadoCategoria = Categoria::where('id_categoria', $idCategoria)->update(['id_estado' => 1,]);
+                $categoria->id_estado = 1;
             }
 
-            if (isset($cambiarEstadoCategoria) && !is_null($cambiarEstadoCategoria) && !empty($cambiarEstadoCategoria)) {
-                return response()->json(['success' => true]);
-            } else {
-                return response()->json(['message' => 'No existe categoría'], 404);
-            }
+            $categoria->save();
+
+            
+            return response()->json(['success' => true]);
+            
+
         } catch (Exception $e) {
             return response()->json(['error_bd' => $e->getMessage()]);
         }

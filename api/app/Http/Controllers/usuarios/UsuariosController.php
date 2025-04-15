@@ -197,4 +197,14 @@ class UsuariosController extends Controller
             return response()->json('error_bd');
         }
     }
+
+    public function validarEmail(Request $request)
+    {
+        $email = $request->input('email');
+        $existe = Usuario::where('email', $email)->exists();
+        
+        return response()->json([
+            'valido' => !$existe
+        ]);
+    }
 }

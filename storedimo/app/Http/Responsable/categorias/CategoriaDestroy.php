@@ -18,17 +18,22 @@ class CategoriaDestroy implements Responsable
             $clientApi = new Client(['base_uri' => $baseUri]);
 
             // Realiza la solicitud a la API
-            $response = $clientApi->post($baseUri . 'cambiar_estado_categoria/'.$idCategoria);
+            $response = $clientApi->post(
+                $baseUri . 'cambiar_estado_categoria/' . $idCategoria,
+                [
+                    'json' => ['id_audit' => session('id_usuario')]
+                ]
+            );
+
             $respuesta = json_decode($response->getBody()->getContents());
 
-            if(isset($respuesta) && !empty($respuesta)) {
+            if (isset($respuesta->success) && $respuesta->success === true) {
 
                 alert()->success('Proceso Exitoso', 'Estado cambiado satisfactoriamente');
                 return redirect()->to(route('categorias.index'));
             }
         } catch (Exception $e) {
-
-            alert()->error('Error', 'Cambiando el estado de la categoría, contacte a Soporte.' . $e->getMessage());
+            alert()->error('Error', 'Cambiando el estado de la categoría, contacte a Soporte.');
             return back();
         }
     }
