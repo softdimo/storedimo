@@ -13,6 +13,7 @@ use GuzzleHttp\Client;
 use App\Traits\MetodosTrait;
 use Illuminate\Validation\ValidationException;
 
+
 class UsuariosController extends Controller
 {
     use MetodosTrait;
@@ -38,10 +39,11 @@ class UsuariosController extends Controller
             } else {
                 $sesion = $this->validarVariablesSesion();
 
-                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                if (
+                    empty($sesion[0]) || is_null($sesion[0]) &&
                     empty($sesion[1]) || is_null($sesion[1]) &&
-                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-                {
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3]
+                ) {
                     return redirect()->to(route('login'));
                 } else {
                     return new UsuarioIndex();
@@ -69,10 +71,11 @@ class UsuariosController extends Controller
             } else {
                 $sesion = $this->validarVariablesSesion();
 
-                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                if (
+                    empty($sesion[0]) || is_null($sesion[0]) &&
                     empty($sesion[1]) || is_null($sesion[1]) &&
-                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-                {
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3]
+                ) {
                     return redirect()->to(route('login'));
                 } else {
                     return view('usuarios.create');
@@ -101,10 +104,11 @@ class UsuariosController extends Controller
             } else {
                 $sesion = $this->validarVariablesSesion();
 
-                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                if (
+                    empty($sesion[0]) || is_null($sesion[0]) &&
                     empty($sesion[1]) || is_null($sesion[1]) &&
-                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-                {
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3]
+                ) {
                     return redirect()->to(route('login'));
                 } else {
                     return new UsuarioStore();
@@ -147,10 +151,11 @@ class UsuariosController extends Controller
             } else {
                 $sesion = $this->validarVariablesSesion();
 
-                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                if (
+                    empty($sesion[0]) || is_null($sesion[0]) &&
                     empty($sesion[1]) || is_null($sesion[1]) &&
-                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-                {
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3]
+                ) {
                     return redirect()->to(route('login'));
                 } else {
                     $usuario = $this->queryUsuarioUpdate($idUsuario);
@@ -163,7 +168,7 @@ class UsuariosController extends Controller
             return redirect()->to(route('login'));
         }
     }
-    
+
     // ======================================================================
     // ======================================================================
 
@@ -182,10 +187,11 @@ class UsuariosController extends Controller
             } else {
                 $sesion = $this->validarVariablesSesion();
 
-                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                if (
+                    empty($sesion[0]) || is_null($sesion[0]) &&
                     empty($sesion[1]) || is_null($sesion[1]) &&
-                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-                {
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3]
+                ) {
                     return redirect()->to(route('login'));
                 } else {
                     return new UsuarioUpdate();
@@ -222,10 +228,11 @@ class UsuariosController extends Controller
             } else {
                 $sesion = $this->validarVariablesSesion();
 
-                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                if (
+                    empty($sesion[0]) || is_null($sesion[0]) &&
                     empty($sesion[1]) || is_null($sesion[1]) &&
-                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-                {
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3]
+                ) {
                     return redirect()->to(route('login'));
                 } else {
                     return view('personas.listar_proveedores');
@@ -236,7 +243,7 @@ class UsuariosController extends Controller
             return redirect()->to(route('login'));
         }
     }
-    
+
     // ======================================================================
     // ======================================================================
 
@@ -248,10 +255,11 @@ class UsuariosController extends Controller
             } else {
                 $sesion = $this->validarVariablesSesion();
 
-                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                if (
+                    empty($sesion[0]) || is_null($sesion[0]) &&
                     empty($sesion[1]) || is_null($sesion[1]) &&
-                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-                {
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3]
+                ) {
                     return redirect()->to(route('login'));
                 } else {
                     return view('personas.listar_clientes');
@@ -266,9 +274,8 @@ class UsuariosController extends Controller
     public function queryUsuarioUpdate($idUsuario)
     {
         try {
-            $response = $this->clientApi->post($this->baseUri.'query_usuario_update/'.$idUsuario, ['json' => []]);
+            $response = $this->clientApi->post($this->baseUri . 'query_usuario_update/' . $idUsuario, ['json' => []]);
             return json_decode($response->getBody()->getContents());
-
         } catch (Exception $e) {
             alert()->error("Error Exception!");
             return back();
@@ -277,8 +284,6 @@ class UsuariosController extends Controller
 
     public function emailValidator(Request $request)
     {
-        \Log::info('Email recibido: ' . $request->input('email'));
-        
         try {
             $request->validate([
                 'email' => [
@@ -295,16 +300,13 @@ class UsuariosController extends Controller
             ], 422);
         }
         try {
-            $response = $this->clientApi->post($this->baseUri.'validar_email', [
+            $response = $this->clientApi->post($this->baseUri . 'validar_email', [
                 'json' => [
                     'email' => $request->input('email')
                 ]
             ]);
             return response()->json(json_decode($response->getBody()->getContents(), true));
-
         } catch (\Exception $e) {
-            \Log::error('Error al validar email: ' . $e->getMessage());
-            
             return response()->json([
                 'error' => 'No se pudo validar el email',
                 'valido' => false
