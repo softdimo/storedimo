@@ -5,7 +5,6 @@ namespace App\Http\Responsable\proveedores;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
 class ProveedorStore implements Responsable
@@ -24,71 +23,67 @@ class ProveedorStore implements Responsable
         $idTipoPersona = request('id_tipo_persona', null);
         $idTipoDocumento = request('id_tipo_documento', null);
         $identificacion = request('identificacion', null);
-        $nombrePersona = request('nombres_persona', null);
-        $apellidoPersona = request('apellidos_persona', null);
-        $numeroTelefono = request('numero_telefono', null);
-        $celular = request('celular', null);
-        $email = request('email', null);
+        $nombreProveedor = request('nombres_proveedor', null);
+        $apellidoProveedor = request('apellidos_proveedor', null);
+        $telefonoProveedor = request('telefono_proveedor', null);
+        $celularProveedor = request('celular_proveedor', null);
+        $emailProveedor = request('email_proveedor', null);
         $idGenero = request('id_genero', null);
-        $direccion = request('direccion', null);
+        $direccionProveedor = request('direccion_proveedor', null);
         $idEstado = 1;
-        $nitEmpresa = request('nit_empresa', null);
-        $nombreEmpresa = request('nombre_empresa', null);
-        $telefonoEmpresa = request('telefono_empresa', null);
+        $nitProveedor = request('nit_proveedor', null);
+        $proveedorJuridico = request('proveedor_juridico', null);
+        $telefonoJuridico = request('telefono_juridico', null);
 
         if (isset($identificacion) && !is_null($identificacion) && !empty($identificacion)) {
             if(strlen($identificacion) < 6) {
                 alert()->info('Info', 'El documento debe se de mínimo 6 caracteres');
-                return back();
+                return back()->withInput();
             }
 
-            $consultarIdentificacion = $this->consultarIdPersona($identificacion);
+            $consultarIdentificacionProveedor = $this->consultarIdentificacionProveedor($identificacion);
         } else {
-            if(strlen($nitEmpresa) < 11) {
-                alert()->info('Info', 'El Nit debe se de mínimo 11 caracteres incuyendo el guión y dígito de verificación');
-                return back();
+            if(strlen($nitProveedor) < 10) {
+                alert()->info('Info', 'El Nit debe se de mínimo 10 caracteres incuyendo el dígito de verificación');
+                return back()->withInput();
             }
 
-            $consultarNit = $this->consultarNitEmpresa($nitEmpresa);
+            $consultarNitProveedor = $this->consultarNitProveedor($nitProveedor);
         }
         
-        if( isset($consultarIdentificacion) && !empty($consultarIdentificacion) && !is_null($consultarIdentificacion)
-            || isset($consultarNit) && !empty($consultarNit) && !is_null($consultarNit) ) {
+        if( isset($consultarIdentificacionProveedor) && !empty($consultarIdentificacionProveedor) && !is_null($consultarIdentificacionProveedor) ||
+            isset($consultarNitProveedor) && !empty($consultarNitProveedor) && !is_null($consultarNitProveedor) ) {
+
             alert()->info('Info', 'Este número identificación ya existe.');
-            return back();
+            return back()->withInput();
+
         } else {
             try {
-                $peticionPersonaStore = $this->clientApi->post($this->baseUri.'persona_store', [
+                $peticionProveedorStore = $this->clientApi->post($this->baseUri.'proveedor_store', [
                     'json' => [
                         'id_tipo_persona' => $idTipoPersona,
                         'id_tipo_documento' => $idTipoDocumento,
                         'identificacion' => $identificacion,
-                        'nombres_persona' => $nombrePersona,
-                        'apellidos_persona' => $apellidoPersona,
-                        'numero_telefono' => $numeroTelefono,
-                        'celular' => $celular,
-                        'email' => $email,
+                        'nombres_proveedor' => $nombreProveedor,
+                        'apellidos_proveedor' => $apellidoProveedor,
+                        'telefono_proveedor' => $telefonoProveedor,
+                        'celular_proveedor' => $celularProveedor,
+                        'email_proveedor' => $emailProveedor,
                         'id_genero' => $idGenero,
-                        'direccion' => $direccion,
+                        'direccion_proveedor' => $direccionProveedor,
                         'id_estado' => $idEstado,
-                        'nit_empresa' => $nitEmpresa,
-                        'nombre_empresa' => $nombreEmpresa,
-                        'telefono_empresa' => $telefonoEmpresa,
+                        'nit_proveedor' => $nitProveedor,
+                        'proveedor_juridico' => $proveedorJuridico,
+                        'telefono_juridico' => $telefonoJuridico,
                         'id_audit' => session('id_usuario')
                     ]
                 ]);
-                $resPersonaStore = json_decode($peticionPersonaStore->getBody()->getContents());
+                $resProveedorStore = json_decode($peticionProveedorStore->getBody()->getContents());
 
-                if(isset($resPersonaStore) && !empty($resPersonaStore)) {
-                    if ($idTipoPersona == 3 || $idTipoPersona == 4) {
-                        return $this->respuestaExito('Persona creada satisfactoriamente.', 'listar_proveedores');
-                    } else {
-                        return $this->respuestaExito('Persona creada satisfactoriamente.', 'listar_clientes');
-                    }
+                if($resProveedorStore) {
+                    return $this->respuestaExito('Proveedor creado satisfactoriamente.', 'proveedores.index');
                 }
-            }
-            catch (Exception $e)
-            {
+            } catch (Exception $e) {
                 return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
             }
         }
@@ -97,9 +92,9 @@ class ProveedorStore implements Responsable
     // ===================================================================
     // ===================================================================
 
-    private function consultarIdPersona($identificacion)
+    private function consultarIdentificacionProveedor($identificacion)
     {
-        $queryIdentificacion = $this->clientApi->post($this->baseUri.'query_id_persona', [
+        $queryIdentificacion = $this->clientApi->post($this->baseUri.'query_identificacion_proveedor', [
             'json' => ['identificacion' => $identificacion]
         ]);
         return json_decode($queryIdentificacion->getBody()->getContents());
@@ -108,12 +103,12 @@ class ProveedorStore implements Responsable
     // ===================================================================
     // ===================================================================
     
-    private function consultarNitEmpresa($nitEmpresa)
+    private function consultarNitProveedor($nitProveedor)
     {
-        $queryNitEmpresa = $this->clientApi->post($this->baseUri.'query_nit_empresa', [
-            'query' => ['nit_empresa' => $nitEmpresa]
+        $queryNitProveedor = $this->clientApi->post($this->baseUri.'query_nit_proveedor', [
+            'query' => ['nit_proveedor' => $nitProveedor]
         ]);
-        return json_decode($queryNitEmpresa->getBody()->getContents());
+        return json_decode($queryNitProveedor->getBody()->getContents());
     }
 
     // ===================================================================

@@ -84,6 +84,13 @@
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
                 <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Proveedores</h5>
+
+                <div class="row pe-3 mt-3">
+                    <div class="col-12 d-flex justify-content-end">
+                        <a href="{{ route('proveedores.create') }}" class="btn text-white"
+                            style="background-color:#337AB7">Crear Proveedor</a>
+                    </div>
+                </div>
             
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
@@ -103,277 +110,270 @@
                             </thead>
                             {{-- ============================== --}}
                             <tbody>
-                                {{-- @php
-                                    dd($resProveedoresIndex);
-                                @endphp --}}
-
                                 @foreach ($resProveedoresIndex as $proveedor)
-                                    {{-- @php
-                                        dd($proveedor);
-                                    @endphp --}}
-                                        <tr class="text-center">
-                                            <td>{{$proveedor->tipo_persona}}</td>
-                                            <td>{{$proveedor->nombre_empresa}}</td>
-                                            <td>{{$proveedor->nit_empresa}}</td>
-                                            <td>{{$proveedor->nombres_persona}}</td>
-                                            <td>{{$proveedor->apellidos_persona}}</td>
-                                            <td>{{$proveedor->identificacion}}</td>
-                                            <td>{{$proveedor->celular}}</td>
-                                            <td>{{$proveedor->estado}}</td>
-                                            <td>
-                                                <button type="button" class="btn btn-success rounded-circle btn-circle"
-                                                    title="Editar Proveedor"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#modalEditarProveedor_{{ $proveedor->id_proveedor}}">
-                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                                </button>
-                                            </td>
+                                    <tr class="text-center">
+                                        <td>{{$proveedor->tipo_persona}}</td>
+                                        <td>{{$proveedor->proveedor_juridico}}</td>
+                                        <td>{{$proveedor->nit_proveedor}}</td>
+                                        <td>{{$proveedor->nombres_proveedor}}</td>
+                                        <td>{{$proveedor->apellidos_proveedor}}</td>
+                                        <td>{{$proveedor->identificacion}}</td>
+                                        <td>{{$proveedor->celular_proveedor}}</td>
+                                        <td>{{$proveedor->estado}}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-success rounded-circle btn-circle"
+                                                title="Editar Proveedor"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modalEditarProveedor_{{ $proveedor->id_proveedor}}">
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            </button>
+                                        </td>
 
-                                            {{-- INICIO Modal EDITAR PROVEEDOR --}}
-                                            <div class="modal fade h-auto modal-gral"
-                                                id="modalEditarProveedor_{{$proveedor->id_persona}}" tabindex="-1"
-                                                data-bs-backdrop="static"
-                                                data-bs-keyboard="false" aria-hidden="true"
-                                                style="max-width: 55%;">
-                                                <div class="modal-dialog m-0 mw-100">
-                                                    <div class="modal-content w-100 border-0">
-                                                        {!! Form::model($proveedor,[
-                                                            'method' => 'PUT',
-                                                            'route' => ['proveedores.update', $proveedor->id_proveedor],
-                                                            'class' => 'mt-2',
-                                                            'autocomplete' => 'off',
-                                                            'id' => 'formEditarProveedor_' . $proveedor->id_proveedor]) !!}
-                                                            @csrf
-                                                            <div class="rounded-top text-white text-center"
-                                                                style="background-color: #337AB7; border: solid 1px #337AB7;">
-                                                                <h5 class="align-middle">Editar Proveedor</h5>
-                                                            </div>
+                                        {{-- INICIO Modal EDITAR PROVEEDOR --}}
+                                        <div class="modal fade h-auto modal-gral"
+                                            id="modalEditarProveedor_{{$proveedor->id_proveedor}}" tabindex="-1"
+                                            data-bs-backdrop="static"
+                                            data-bs-keyboard="false" aria-hidden="true"
+                                            style="max-width: 55%;">
+                                            <div class="modal-dialog m-0 mw-100">
+                                                <div class="modal-content w-100 border-0">
+                                                    {!! Form::model($proveedor,[
+                                                        'method' => 'PUT',
+                                                        'route' => ['proveedores.update', $proveedor->id_proveedor],
+                                                        'class' => 'mt-2',
+                                                        'autocomplete' => 'off',
+                                                        'id' => 'formEditarProveedor_' . $proveedor->id_proveedor]) !!}
+                                                        @csrf
+                                                        <div class="rounded-top text-white text-center"
+                                                            style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                                            <h5 class="m-0 pt-1 pb-1">Editar Proveedor</h5>
+                                                        </div>
 
-                                                            {{ Form::hidden('id_proveedor', isset($proveedor) ? $proveedor->id_proveedor : null, ['class' => '', 'id' => 'id_proveedor']) }}
+                                                        {{ Form::hidden('id_proveedor', isset($proveedor) ? $proveedor->id_proveedor : null, ['class' => '', 'id' => 'id_proveedor']) }}
 
-                                                            {{-- ====================================================== --}}
-                                                            {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
 
-                                                            <div class="modal-body p-0 m-0" style="border: solid 1px #337AB7;">
-                                                                <div class="row m-4">
-                                                                    <div class="col-12 col-md-4">
-                                                                        <div class="form-group d-flex flex-column">
-                                                                            <label for="id_tipo_persona" class="" style="font-size: 15px">Tipo Proveedor
+                                                        <div class="modal-body p-0 m-0" style="border: solid 1px #337AB7;">
+                                                            <div class="row m-4">
+                                                                <div class="col-12 col-md-4">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="id_tipo_persona" class="" style="font-size: 15px">Tipo Proveedor
+                                                                            <span class="text-danger">*</span></label>
+                                                                        {{ Form::select('id_tipo_persona',
+                                                                            collect(['' => 'Seleccionar...'])
+                                                                            ->union($tipos_persona),
+                                                                            isset($proveedor) ? $proveedor->id_tipo_persona : null,
+                                                                            ['class' => 'form-select',
+                                                                            'id' => 'id_tipo_persona_'.$proveedor->id_tipo_persona,
+                                                                            'required' => 'required'])
+                                                                        }}
+                                                                    </div>
+                                                                </div>
+                                                                {{-- ======================= --}}
+                                                                <div class="col-12 col-md-4">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="id_tipo_documento" class="" style="font-size: 15px">Tipo de documento
                                                                                 <span class="text-danger">*</span></label>
-                                                                            {{ Form::select('id_tipo_persona',
+                                                                            {!! Form::select('id_tipo_documento',
                                                                                 collect(['' => 'Seleccionar...'])
-                                                                                ->union($tipos_persona),
-                                                                                isset($proveedor) ? $proveedor->id_tipo_persona : null,
-                                                                                ['class' => 'form-select',
-                                                                                'id' => 'id_tipo_persona_'.$proveedor->id_tipo_persona,
-                                                                                'required' => 'required'])
-                                                                            }}
-                                                                        </div>
-                                                                    </div>
-                                                                    {{-- ======================= --}}
-                                                                    <div class="col-12 col-md-4">
-                                                                        <div class="form-group d-flex flex-column">
-                                                                            <label for="id_tipo_documento" class="" style="font-size: 15px">Tipo de documento
-                                                                                    <span class="text-danger">*</span></label>
-                                                                                {!! Form::select('id_tipo_documento',
-                                                                                    collect(['' => 'Seleccionar...'])
-                                                                                    ->union($tipos_documento),
-                                                                                    isset($proveedor) ? $proveedor->id_tipo_documento : null,
-                                                                                    [
-                                                                                        'class' => 'form-select',
-                                                                                        'id' =>'id_tipo_documento',
-                                                                                        'required' => 'required'
-                                                                                    ])
-                                                                                !!}
-                                                                        </div>
-                                                                    </div>
-                                                                    {{-- ======================= --}}
-                                                                    <div class="col-12 col-md-4"  id="div_identificacion">
-                                                                        <div class="form-group d-flex flex-column">
-                                                                            <label for="identificacion" class="" style="font-size: 15px">Número de documento</label>
-                                                                            {{ Form::text('identificacion',
-                                                                                isset($proveedor) ? $proveedor->identificacion : null,
-                                                                                [
-                                                                                    'class' => 'form-control',
-                                                                                    'id' => 'identificacion'
-                                                                                ]) }}
-                                                                        </div>
-                                                                    </div>
-                                                                    {{-- ======================= --}}
-                                                                    <div class="col-12 col-md-4 mt-4" id="div_nombres_persona">
-                                                                        <div class="form-group d-flex flex-column">
-                                                                            <label for="nombre_usuario" class="" style="font-size: 15px">Nombres
-                                                                                <span class="text-danger">*</span></label>
-                                                                            {{ Form::text('nombres_persona',
-                                                                                isset($proveedor) ? $proveedor->nombres_proveedor : null,
-                                                                                [
-                                                                                    'class' => 'form-control',
-                                                                                    'id' => 'nombres_persona'
-                                                                                ])
-                                                                            }}
-                                                                        </div>
-                                                                    </div>
-                                                                    {{-- ======================= --}}
-                                                                    <div class="col-12 col-md-4 mt-4" id="div_apellidos_persona">
-                                                                        <div class="form-group d-flex flex-column">
-                                                                            <label for="apellido_usuario" class="" style="font-size: 15px">Apellidos
-                                                                                <span class="text-danger">*</span>
-                                                                            </label>
-                                                                            {{ Form::text('apellidos_persona',
-                                                                                isset($proveedor) ? $proveedor->apellidos_proveedor : null,
-                                                                                [
-                                                                                    'class' => 'form-control',
-                                                                                    'id' => 'apellidos_persona'
-                                                                                ]) }}
-                                                                        </div>
-                                                                    </div>
-                                                                    {{-- ======================= --}}
-                                                                    <div class="col-12 col-md-4 mt-4" id="div_numero_telefono">
-                                                                        <div class="form-group d-flex flex-column">
-                                                                            <label for="numero_telefono" class="" style="font-size: 15px">Número Teléfono</label>
-                                                                            {{ Form::text('numero_telefono',
-                                                                                isset($proveedor) ? $proveedor->telefono_proveedor : null,
-                                                                                [
-                                                                                    'class' => 'form-control',
-                                                                                    'id' => 'numero_telefono'
-                                                                                ])
-                                                                            }}
-                                                                        </div>
-                                                                    </div>
-                                                                    {{-- ======================= --}}
-                                                                    <div class="col-12 col-md-4 mt-4" id="div_celular">
-                                                                        <div class="form-group d-flex flex-column">
-                                                                            <label for="celular" class="" style="font-size: 15px">Celular
-                                                                                <span class="text-danger">*</span>
-                                                                            </label>
-                                                                            {{ Form::text('celular',
-                                                                                isset($proveedor) ? $proveedor->celular_proveedor : null,
-                                                                                [
-                                                                                    'class' => 'form-control',
-                                                                                    'id' => 'celular',
-                                                                                    'required' => 'required'
-                                                                                ])
-                                                                            }}
-                                                                        </div>
-                                                                    </div>
-                                                                    {{-- ======================= --}}
-                                                                    <div class="col-12 col-md-4 mt-4" id="div_email">
-                                                                        <div class="form-group d-flex flex-column">
-                                                                            <label for="email" class="" style="font-size: 15px">Correo
-                                                                                <span class="text-danger">*</span></label>
-                                                                            {{ Form::email('email',
-                                                                                isset($proveedor) ? $proveedor->email_proveedor : null,
-                                                                                [
-                                                                                    'class' => 'form-control',
-                                                                                    'id' => 'email',
-                                                                                    'required' => 'required'
-                                                                                ])
-                                                                            }}
-                                                                        </div>
-                                                                    </div>
-                                                                    {{-- ======================= --}}
-                                                                    <div class="col-12 col-md-4 mt-4" id="div_id_genero">
-                                                                        <div class="form-group d-flex flex-column">
-                                                                            <label for="id_genero" class="" style="font-size: 15px">Género
-                                                                                    <span class="text-danger">*</span></label>
-                                                                                {!! Form::select('id_genero',
-                                                                                    collect(['' => 'Seleccionar...'])
-                                                                                    ->union($generos),
-                                                                                    isset($proveedor) ? $proveedor->id_genero : null,
-                                                                                    ['class' => 'form-select', 'id' =>'id_genero'])
-                                                                                !!}
-                                                                        </div>
-                                                                    </div>
-                                                                    {{-- ======================= --}}                                                                    
-                                                                    <div class="col-12 col-md-4 mt-4" id="div_direccion">
-                                                                        <div class="form-group d-flex flex-column">
-                                                                            <label for="direccion" class="" style="font-size: 15px">Dirección</label>
-                                                                            {{Form::text('direccion',
-                                                                                isset($proveedor) ? $proveedor->direccion_proveedor : null,
-                                                                                ['class' => 'form-control', 'id' => 'direccion']
-                                                                            )}}
-                                                                        </div>
-                                                                    </div>
-                                                                    {{-- ======================= --}}
-                                                                    <div class="col-12 col-md-4 mt-4" id="div_id_estado">
-                                                                        <div class="form-group d-flex flex-column">
-                                                                            <label for="id_estado" class="" style="font-size: 15px">Estado
-                                                                                <span class="text-danger">*</span>
-                                                                            </label>
-                                                                            {!! Form::select('id_estado',
-                                                                                collect(['' => 'Seleccionar...'])
-                                                                                ->union($estados),
-                                                                                isset($proveedor) ? $proveedor->id_estado : null,
+                                                                                ->union($tipos_documento),
+                                                                                isset($proveedor) ? $proveedor->id_tipo_documento : null,
                                                                                 [
                                                                                     'class' => 'form-select',
-                                                                                    'id' =>'id_estado_'.$proveedor->id_estado
+                                                                                    'id' =>'id_tipo_documento',
+                                                                                    'required' => 'required'
                                                                                 ])
                                                                             !!}
-                                                                        </div>
                                                                     </div>
                                                                 </div>
-
-                                                                {{-- ============================================== --}}
-
-                                                                <div class="row m-4" id="div_proveedor_juridico">
-                                                                    <div class="col-12 col-md-4">
-                                                                        <div class="form-group d-flex flex-column">
-                                                                            <label for="nit_empresa" class="form-label">Nit Empresa<span class="text-danger">*</span></label>
-                                                                            {!! Form::text('nit_empresa', null, ['class' => 'form-control', 'id' => 'nit_empresa']) !!}
-                                                                        </div>
-                                                                    </div>
-                                                        
-                                                                    {{-- ======================= --}}
-                                                                    
-                                                                    <div class="col-12 col-md-4">
-                                                                        <div class="form-group d-flex flex-column">
-                                                                            <label for="nombre_empresa" class="form-label">Nombre Empresa<span class="text-danger">*</span></label>
-                                                                            {!! Form::text('nombre_empresa', null, ['class' => 'form-control', 'id' => 'nombre_empresa']) !!}
-                                                                        </div>
-                                                                    </div>
-                                                        
-                                                                    {{-- ======================= --}}
-                                                                    
-                                                                    <div class="col-12 col-md-4">
-                                                                        <div class="form-group d-flex flex-column">
-                                                                            <label for="telefono_empresa" class="form-label">Teléfono Empresa<span class="text-danger">*</span></label>
-                                                                            {!! Form::text('telefono_empresa', null, ['class' => 'form-control', 'id' => 'telefono_empresa']) !!}
-                                                                        </div>
+                                                                {{-- ======================= --}}
+                                                                <div class="col-12 col-md-4"  id="div_identificacion">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="identificacion" class="" style="font-size: 15px">Número de documento</label>
+                                                                        {{ Form::text('identificacion',
+                                                                            isset($proveedor) ? $proveedor->identificacion : null,
+                                                                            [
+                                                                                'class' => 'form-control',
+                                                                                'id' => 'identificacion'
+                                                                            ]) }}
                                                                     </div>
                                                                 </div>
-                                                            </div> {{-- FIN modal-body --}}
+                                                                {{-- ======================= --}}
+                                                                <div class="col-12 col-md-4 mt-4" id="div_nombres_persona">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="nombre_usuario" class="" style="font-size: 15px">Nombres
+                                                                            <span class="text-danger">*</span></label>
+                                                                        {{ Form::text('nombres_persona',
+                                                                            isset($proveedor) ? $proveedor->nombres_proveedor : null,
+                                                                            [
+                                                                                'class' => 'form-control',
+                                                                                'id' => 'nombres_persona'
+                                                                            ])
+                                                                        }}
+                                                                    </div>
+                                                                </div>
+                                                                {{-- ======================= --}}
+                                                                <div class="col-12 col-md-4 mt-4" id="div_apellidos_persona">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="apellido_usuario" class="" style="font-size: 15px">Apellidos
+                                                                            <span class="text-danger">*</span>
+                                                                        </label>
+                                                                        {{ Form::text('apellidos_persona',
+                                                                            isset($proveedor) ? $proveedor->apellidos_proveedor : null,
+                                                                            [
+                                                                                'class' => 'form-control',
+                                                                                'id' => 'apellidos_persona'
+                                                                            ]) }}
+                                                                    </div>
+                                                                </div>
+                                                                {{-- ======================= --}}
+                                                                <div class="col-12 col-md-4 mt-4" id="div_numero_telefono">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="numero_telefono" class="" style="font-size: 15px">Número Teléfono</label>
+                                                                        {{ Form::text('numero_telefono',
+                                                                            isset($proveedor) ? $proveedor->telefono_proveedor : null,
+                                                                            [
+                                                                                'class' => 'form-control',
+                                                                                'id' => 'numero_telefono'
+                                                                            ])
+                                                                        }}
+                                                                    </div>
+                                                                </div>
+                                                                {{-- ======================= --}}
+                                                                <div class="col-12 col-md-4 mt-4" id="div_celular">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="celular" class="" style="font-size: 15px">Celular
+                                                                            <span class="text-danger">*</span>
+                                                                        </label>
+                                                                        {{ Form::text('celular',
+                                                                            isset($proveedor) ? $proveedor->celular_proveedor : null,
+                                                                            [
+                                                                                'class' => 'form-control',
+                                                                                'id' => 'celular',
+                                                                                'required' => 'required'
+                                                                            ])
+                                                                        }}
+                                                                    </div>
+                                                                </div>
+                                                                {{-- ======================= --}}
+                                                                <div class="col-12 col-md-4 mt-4" id="div_email">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="email" class="" style="font-size: 15px">Correo
+                                                                            <span class="text-danger">*</span></label>
+                                                                        {{ Form::email('email',
+                                                                            isset($proveedor) ? $proveedor->email_proveedor : null,
+                                                                            [
+                                                                                'class' => 'form-control',
+                                                                                'id' => 'email',
+                                                                                'required' => 'required'
+                                                                            ])
+                                                                        }}
+                                                                    </div>
+                                                                </div>
+                                                                {{-- ======================= --}}
+                                                                <div class="col-12 col-md-4 mt-4" id="div_id_genero">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="id_genero" class="" style="font-size: 15px">Género
+                                                                                <span class="text-danger">*</span></label>
+                                                                            {!! Form::select('id_genero',
+                                                                                collect(['' => 'Seleccionar...'])
+                                                                                ->union($generos),
+                                                                                isset($proveedor) ? $proveedor->id_genero : null,
+                                                                                ['class' => 'form-select', 'id' =>'id_genero'])
+                                                                            !!}
+                                                                    </div>
+                                                                </div>
+                                                                {{-- ======================= --}}
+                                                                <div class="col-12 col-md-4 mt-4" id="div_direccion">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="direccion" class="" style="font-size: 15px">Dirección</label>
+                                                                        {{Form::text('direccion',
+                                                                            isset($proveedor) ? $proveedor->direccion_proveedor : null,
+                                                                            ['class' => 'form-control', 'id' => 'direccion']
+                                                                        )}}
+                                                                    </div>
+                                                                </div>
+                                                                {{-- ======================= --}}
+                                                                <div class="col-12 col-md-4 mt-4" id="div_id_estado">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="id_estado" class="" style="font-size: 15px">Estado
+                                                                            <span class="text-danger">*</span>
+                                                                        </label>
+                                                                        {!! Form::select('id_estado',
+                                                                            collect(['' => 'Seleccionar...'])
+                                                                            ->union($estados),
+                                                                            isset($proveedor) ? $proveedor->id_estado : null,
+                                                                            [
+                                                                                'class' => 'form-select',
+                                                                                'id' =>'id_estado_'.$proveedor->id_estado
+                                                                            ])
+                                                                        !!}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            {{-- ============================================== --}}
+
+                                                            <div class="row m-4" id="div_proveedor_juridico">
+                                                                <div class="col-12 col-md-4">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="nit_empresa" class="form-label">Nit Proveedor<span class="text-danger">*</span></label>
+                                                                        {!! Form::text('nit_proveedor', isset($proveedor) ? $proveedor->nit_proveedor : null, ['class' => 'form-control', 'id' => 'nit_empresa']) !!}
+                                                                    </div>
+                                                                </div>
+                                                    
+                                                                {{-- ======================= --}}
+                                                                
+                                                                <div class="col-12 col-md-4">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="nombre_empresa" class="form-label">Nombre Proveedor<span class="text-danger">*</span></label>
+                                                                        {!! Form::text('proveedor_juridico', isset($proveedor) ? $proveedor->proveedor_juridico : null, ['class' => 'form-control', 'id' => 'nombre_empresa']) !!}
+                                                                    </div>
+                                                                </div>
+                                                    
+                                                                {{-- ======================= --}}
+                                                                
+                                                                <div class="col-12 col-md-4">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="telefono_empresa" class="form-label">Teléfono Proveedor<span class="text-danger">*</span></label>
+                                                                        {!! Form::text('telefono_juridico', isset($proveedor) ? $proveedor->telefono_juridico : null, ['class' => 'form-control', 'id' => 'telefono_empresa']) !!}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> {{-- FIN modal-body --}}
+
+                                                        {{-- ====================================================== --}}
+                                                        {{-- ====================================================== --}}
+
+                                                        <div class="modal-footer d-block mt-0 border border-0">
+                                                            <!-- Contenedor para el GIF -->
+                                                            <div id="loadingIndicatorEditProveedor_{{$proveedor->id_proveedor}}"
+                                                                class="loadingIndicator">
+                                                                <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                                                            </div>
 
                                                             {{-- ====================================================== --}}
                                                             {{-- ====================================================== --}}
 
-                                                            <div class="modal-footer d-block mt-0 border border-0">
-                                                                <!-- Contenedor para el GIF -->
-                                                                <div id="loadingIndicatorEditProveedor_{{$proveedor->id_proveedor}}"
-                                                                    class="loadingIndicator">
-                                                                    <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
-                                                                </div>
+                                                            <div class="d-flex justify-content-center mt-3">
+                                                                <button id="btn_cancelar_proveedor_{{$proveedor->id_proveedor}}"
+                                                                    type="button" class="btn btn-secondary me-3"
+                                                                    data-bs-dismiss="modal">
+                                                                    <i class="fa fa-times" aria-hidden="true"> Cancelar</i>
+                                                                </button>
 
-                                                                {{-- ====================================================== --}}
-                                                                {{-- ====================================================== --}}
-
-                                                                <div class="d-flex justify-content-around mt-3">
-                                                                    <button type="submit" id="btn_editar_proveedor_{{$proveedor->id_proveedor}}"
-                                                                        class="btn btn-success">
-                                                                        <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
-                                                                    </button>
-
-                                                                    <button id="btn_cancelar_proveedor_{{$proveedor->id_proveedor}}"
-                                                                        type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">
-                                                                        <i class="fa fa-times" aria-hidden="true"> Cancelar</i>
-                                                                    </button>
-                                                                </div>
-                                                            </div> {{-- modal-footer --}}
-                                                        {!! Form::close() !!}
-                                                    </div> {{-- modal-content --}}
-                                                </div> {{-- modal-dialog --}}
-                                            </div> {{-- FINAL Modal EDITAR PROVEEDOR  --}}
-                                        </tr>
+                                                                <button type="submit" id="btn_editar_proveedor_{{$proveedor->id_proveedor}}"
+                                                                    class="btn btn-success">
+                                                                    <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
+                                                                </button>
+                                                            </div>
+                                                        </div> {{-- modal-footer --}}
+                                                    {!! Form::close() !!}
+                                                </div> {{-- modal-content --}}
+                                            </div> {{-- modal-dialog --}}
+                                        </div> {{-- FINAL Modal EDITAR PROVEEDOR  --}}
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>

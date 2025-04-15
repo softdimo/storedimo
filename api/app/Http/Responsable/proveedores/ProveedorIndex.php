@@ -39,9 +39,13 @@ class ProveedorIndex implements Responsable
                     'proveedor_juridico',
                     'telefono_juridico'
                 )
-                ->orderBy('proveedor_juridico')
+                ->orderByRaw("
+                    CASE
+                        WHEN proveedor_juridico IS NOT NULL THEN proveedor_juridico
+                        ELSE nombres_proveedor
+                    END ASC
+                ")
                 ->get();
-                // ->toSql();
 
             return response()->json($proveedores);
             

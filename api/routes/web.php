@@ -77,9 +77,10 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 // PROVEEDORES
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('proveedores_index', 'proveedores\ProveedoresController@index');
-    // $router->post('query_id_persona', 'personas\PersonasController@consultarIdPersona');
-    // $router->post('query_nit_empresa', 'personas\PersonasController@consultarNitEmpresa');
-    // $router->post('persona_store', 'personas\PersonasController@store');
+    $router->post('query_identificacion_proveedor', 'proveedores\ProveedoresController@consultarIdentificacionProveedor');
+    $router->post('query_nit_proveedor', 'proveedores\ProveedoresController@consultarNitProveedor');
+    $router->post('proveedor_store', 'proveedores\ProveedoresController@store');
+
     // $router->put('persona_update/{idPersona}', 'personas\PersonasController@update');
 });
 

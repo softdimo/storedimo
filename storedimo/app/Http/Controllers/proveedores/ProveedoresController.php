@@ -112,7 +112,7 @@ class ProveedoresController extends Controller
                 }
             }
         } catch (Exception $e) {
-            alert()->error("Exception Store Usuario!");
+            alert()->error("Exception Store Proveedor!");
             return redirect()->to(route('login'));
         }
     }

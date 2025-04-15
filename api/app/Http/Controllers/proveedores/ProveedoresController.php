@@ -106,21 +106,25 @@ class ProveedoresController extends Controller
         //
     }
 
-    // public function consultarIdPersona()
-    // {
-    //     $identificacion = request('identificacion', null);
-        
-    //     // Consultamos si ya existe un usuario con la cedula ingresada
-    //     return Persona::where('identificacion', $identificacion)->first();
-    // }
+    // ======================================================================
+    // ======================================================================
 
-    // public function consultarNitEmpresa()
-    // {
-    //     $nitEmpresa = request('nit_empresa', null);
+    public function consultarIdentificacionProveedor()
+    {
+        $identificacion = request('identificacion', null);
         
-    //     // Consultamos si ya existe un usuario con la cedula ingresada
-    //     return Persona::where('nit_empresa', $nitEmpresa)->first();
-    // }
+        // Consultamos si ya existe un proveedor con la identificación ingresada
+        return Proveedor::where('identificacion', $identificacion)->first();
+    }
 
-    
+    // ======================================================================
+    // ======================================================================
+
+    public function consultarNitProveedor()
+    {
+        $nitProveedor = request('nit_proveedor', null);
+        
+        // Consultamos si ya existe un proveedor con el nit ingresado
+        return Proveedor::where('nit_proveedor', $nitProveedor)->first();
+    }
 }

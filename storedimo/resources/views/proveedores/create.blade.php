@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Crear Personas')
+@section('title', 'Crear Proveedores')
 
 {{-- =============================================================== --}}
 {{-- =============================================================== --}}
@@ -23,16 +23,22 @@
         {{-- ======================================================================= --}}
 
         <div class="p-3" style="width: 80%">
-            <div class="text-end">
-                <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal" data-bs-target="#modalAyudaCrearPersonas">
-                    <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
-                </a>
+            <div class="d-flex justify-content-between pe-3 mt-3">
+                <div class="">
+                    <a href="{{ route('proveedores.index') }}" class="btn text-white" style="background-color:#337AB7">Proveedores</a>
+                </div>
+
+                <div class="">
+                    <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal" data-bs-target="#modalAyudaCrearProveedor">
+                        <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
+                    </a>
+                </div>
             </div>
 
             {{-- =============================================================== --}}
             {{-- =============================================================== --}}
             
-            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaCrearPersonas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
+            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaCrearProveedor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
                 <div class="modal-dialog m-0 mw-100">
                     <div class="modal-content border-0">
                         <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
@@ -73,6 +79,7 @@
                 @csrf
             
                 @include('proveedores.fields_crear_proveedores')
+                
             {!! Form::close() !!}
         </div>
     </div>

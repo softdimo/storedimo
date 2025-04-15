@@ -79,9 +79,9 @@
             {{-- ==================================== --}}
                         
             <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="empresas" role="button" data-bs-toggle="collapse" data-bs-target="#ul_proveedores" aria-controls="ul_proveedores" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="proveedores" role="button" data-bs-toggle="collapse" data-bs-target="#ul_proveedores" aria-controls="ul_proveedores" aria-expanded="false" aria-label="Toggle navigation">
                     <div class="col-11">
-                        <i class="fa fa-industry text-center" style="color: #000; width: 10%"></i>
+                        <i class="fa fa-users text-center" style="color: #000; width: 10%"></i>
                         <a href="#" class="text-decoration-none" style="width: 80%" id="">Proveedores</a>
                     </div>
                     <div class="col-1 text-center text-dark">
