@@ -69,6 +69,8 @@ $app->configure('app');
 
 $app->configure('audit');
 
+$app->configure('permission');
+
 $app->register(\OwenIt\Auditing\AuditingServiceProvider::class);
 class_alias(\OwenIt\Auditing\Facades\Auditor::class, 'Auditor');
 

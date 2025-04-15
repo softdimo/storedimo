@@ -75,6 +75,13 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
         Route::get('listar_clientes', 'PersonasController@listarClientes')->name('listar_clientes');
     });
 
+    // ========================================================================
+    // ========================================================================
+
+    // PROVEEDORES
+    Route::group(['namespace' => 'App\Http\Controllers\proveedores'], function () {
+        Route::resource('proveedores', 'ProveedoresController');
+    });
 
     // ========================================================================
     // ========================================================================
@@ -178,7 +185,13 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
     Route::group(['namespace' => 'App\Http\Controllers\empresas'], function () {
         Route::resource('empresas', 'EmpresasController');
     });
+
+    // Rutas roles y permisos
+    Route::group(['namespace' => 'App\Http\Controllers\roles_permisos'], function ()
+    {
+        Route::post('crear_rol', 'RolesPermisosController@guardarRol')->name('crear_rol');
+        Route::post('crear_permiso', 'RolesPermisosController@guardarPermiso')->name('crear_permiso');
+    });
     
-    // ========================================================================
     // ========================================================================
 }); // FIN Route::middleware(['web'])

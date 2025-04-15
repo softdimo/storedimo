@@ -1,5 +1,26 @@
-/vendor
-/.idea
+# Dependencias
+/node_modules/
+/vendor/
+
+# Laravel y archivos de entorno
+.env
+.env.backup
+.phpunit.result.cache
+/storage/*.key
+
+# Archivos públicos generados
+/public/hot
+/public/storage
+
+# Docker y Homestead
+docker-compose.override.yml
 Homestead.json
 Homestead.yaml
-.phpunit.result.cache
+
+# Logs de errores
+npm-debug.log
+yarn-error.log
+
+# Configs del editor (opcional, pero común)
+.idea/
+.vscode/

@@ -152,9 +152,10 @@ class UsuariosController extends Controller
                 ->update([
                     'clave' => Hash::make($claveNueva),
             ]);
-            return response()->json('clave_cambiada');
+            return response()->json(true);
+
         } catch (Exception $e) {
-            return response()->json('error_bd');
+            return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
 

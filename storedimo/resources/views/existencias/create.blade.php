@@ -159,12 +159,6 @@
                 let producto = $('#producto option:selected').text();
                 let cantidad = $('#cantidad').val();
 
-                console.log(idtipoBaja);
-                console.log(tipoBaja);
-                console.log(idProducto);
-                console.log(producto);
-                console.log(cantidad);
-
                 if (tipoBaja == '' || producto == '' || cantidad == '' ) {
                     Swal.fire(
                         'Cuidado!',
