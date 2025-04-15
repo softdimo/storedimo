@@ -20,21 +20,21 @@ class ProveedorUpdate implements Responsable
     }
     public function toResponse($request)
     {
-        $idPersona = request('id_persona', null);
+        $idProveedor = request('id_proveedor', null);
         $idTipoPersona = request('id_tipo_persona', null);
         $idTipoDocumento = request('id_tipo_documento', null);
         $identificacion = request('identificacion', null);
-        $nombrePersona = request('nombres_persona', null);
-        $apellidoPersona = request('apellidos_persona', null);
-        $numeroTelefono = request('numero_telefono', null);
-        $celular = request('celular', null);
-        $email = request('email', null);
+        $nombreProveedor = request('nombres_proveedor', null);
+        $apellidoProveedor = request('apellidos_proveedor', null);
+        $telefonoProveedor = request('telefono_proveedor', null);
+        $celularProveedor = request('celular_proveedor', null);
+        $emailProveedor = request('email_proveedor', null);
         $idGenero = request('id_genero', null);
-        $direccion = request('direccion', null);
+        $direccionProveedor = request('direccion_proveedor', null);
         $idEstado = request('id_estado', null);
-        $nitEmpresa = request('nit_empresa', null);
-        $nombreEmpresa = request('nombre_empresa', null);
-        $telefonoEmpresa = request('telefono_empresa', null);
+        $nitProveedor = request('nit_proveedor', null);
+        $proveedorJuridico = request('proveedor_juridico', null);
+        $telefonoJuridico = request('telefono_juridico', null);
         
         if (isset($identificacion) && !is_null($identificacion) && !empty($identificacion)) {
             if(strlen($identificacion) < 6) {
@@ -42,44 +42,39 @@ class ProveedorUpdate implements Responsable
                 return back();
             }
         } else {
-            if(strlen($nitEmpresa) < 11) {
-                alert()->info('Info', 'El Nit debe se de mínimo 11 caracteres incuyendo el guión y dígito de verificación');
+            if(strlen($nitProveedor) < 10) {
+                alert()->info('Info', 'El Nit debe se de mínimo 10 caracteres incuyendo el guión y dígito de verificación');
                 return back();
             }
         }
 
         try {
-            $peticionPersonaUpdate = $this->clientApi->put($this->baseUri.'persona_update/'. $idPersona , [
+            $peticionProveedorUpdate = $this->clientApi->put($this->baseUri.'proveedor_update/'. $idProveedor , [
                 'json' => [
                     'id_tipo_persona' => $idTipoPersona,
                     'id_tipo_documento' => $idTipoDocumento,
                     'identificacion' => $identificacion,
-                    'nombres_persona' => $nombrePersona,
-                    'apellidos_persona' => $apellidoPersona,
-                    'numero_telefono' => $numeroTelefono,
-                    'celular' => $celular,
-                    'email' => $email,
+                    'nombres_proveedor' => $nombreProveedor,
+                    'apellidos_proveedor' => $apellidoProveedor,
+                    'telefono_proveedor' => $telefonoProveedor,
+                    'celular_proveedor' => $celularProveedor,
+                    'email_proveedor' => $emailProveedor,
                     'id_genero' => $idGenero,
-                    'direccion' => $direccion,
+                    'direccion_proveedor' => $direccionProveedor,
                     'id_estado' => $idEstado,
-                    'nit_empresa' => $nitEmpresa,
-                    'nombre_empresa' => $nombreEmpresa,
-                    'telefono_empresa' => $telefonoEmpresa,
+                    'nit_proveedor' => $nitProveedor,
+                    'proveedor_juridico' => $proveedorJuridico,
+                    'telefono_juridico' => $telefonoJuridico,
                     'id_audit' => session('id_usuario')
                 ]
             ]);
-            $resPersonaUpdate = json_decode($peticionPersonaUpdate->getBody()->getContents());
+            $resProveedorUpdate = json_decode($peticionProveedorUpdate->getBody()->getContents());
 
-            if(isset($resPersonaUpdate) && !empty($resPersonaUpdate)) {
-
-                if ($idTipoPersona == 3 || $idTipoPersona == 4) {
-                    return $this->respuestaExito('Persona editada satisfactoriamente.', 'listar_proveedores');
-                } else {
-                    return $this->respuestaExito('Persona editada satisfactoriamente.', 'listar_clientes');
-                }
+            if($resProveedorUpdate) {
+                return $this->respuestaExito('Proveedor editado satisfactoriamente.', 'proveedores.index');
             }
         } catch (Exception $e) {
-            return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
+            return $this->respuestaException('Exception, contacte a Soporte.');
         }
         
     }

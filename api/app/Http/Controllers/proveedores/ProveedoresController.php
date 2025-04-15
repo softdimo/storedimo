@@ -87,9 +87,9 @@ class ProveedoresController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $idPersona)
+    public function update(Request $request, $idProveedor)
     {
-        return new ProveedorUpdate($request, $idPersona);
+        return new ProveedorUpdate($request, $idProveedor);
     }
 
     // ======================================================================

@@ -1,46 +1,47 @@
 <?php
 
-namespace App\Http\Responsable\personas;
+namespace App\Http\Responsable\proveedores;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
-use App\Models\Persona;
+use App\Models\Proveedor;
 
-class PersonaUpdate implements Responsable
+class ProveedorUpdate implements Responsable
 {
     protected $request;
-    protected $idPersona;
+    protected $idProveedor;
 
-    public function __construct(Request $request, $idPersona)
+    public function __construct(Request $request, $idProveedor)
     {
         $this->request = $request;
-        $this->idPersona = $idPersona;
+        $this->idProveedor = $idProveedor;
     }
 
     public function toResponse($request)
     {
-        $persona = Persona::find($this->idPersona);
+        $proveedor = Proveedor::findOrFail($this->idProveedor);
+
         try {
-            if (isset($persona) && !is_null($persona) && !empty($persona)) {
+            if (isset($proveedor) && !is_null($proveedor) && !empty($proveedor)) {
             
-                $persona->id_tipo_persona = $request->input('id_tipo_persona');
-                $persona->id_tipo_documento = $request->input('id_tipo_documento');
-                $persona->identificacion = $request->input('identificacion');
-                $persona->nombres_persona = $request->input('nombres_persona');
-                $persona->apellidos_persona = $request->input('apellidos_persona');
-                $persona->numero_telefono = $request->input('numero_telefono');
-                $persona->celular = $request->input('celular');
-                $persona->email = $request->input('email');
-                $persona->id_genero = $request->input('id_genero');
-                $persona->direccion = $request->input('direccion');
-                $persona->id_estado = $request->input('id_estado');
-                $persona->nit_empresa = $request->input('nit_empresa');
-                $persona->nombre_empresa = $request->input('nombre_empresa');
-                $persona->telefono_empresa = $request->input('telefono_empresa');
-                $persona->update();
+                $proveedor->id_tipo_persona = $request->input('id_tipo_persona');
+                $proveedor->id_tipo_documento = $request->input('id_tipo_documento');
+                $proveedor->identificacion = $request->input('identificacion');
+                $proveedor->nombres_proveedor = $request->input('nombres_proveedor');
+                $proveedor->apellidos_proveedor = $request->input('apellidos_proveedor');
+                $proveedor->telefono_proveedor = $request->input('telefono_proveedor');
+                $proveedor->celular_proveedor = $request->input('celular_proveedor');
+                $proveedor->email_proveedor = $request->input('email_proveedor');
+                $proveedor->id_genero = $request->input('id_genero');
+                $proveedor->direccion_proveedor = $request->input('direccion_proveedor');
+                $proveedor->id_estado = $request->input('id_estado');
+                $proveedor->nit_proveedor = $request->input('nit_proveedor');
+                $proveedor->proveedor_juridico = $request->input('proveedor_juridico');
+                $proveedor->telefono_juridico = $request->input('telefono_juridico');
+                $proveedor->save();
     
-                return response()->json(['success' => true]);
+                return response()->json(true);
             }
             
         } catch (Exception $e) {

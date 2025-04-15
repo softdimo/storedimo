@@ -162,7 +162,7 @@
                                                                             <span class="text-danger">*</span></label>
                                                                         {{ Form::select('id_tipo_persona',
                                                                             collect(['' => 'Seleccionar...'])
-                                                                            ->union($tipos_persona),
+                                                                            ->union($tipos_proveedor),
                                                                             isset($proveedor) ? $proveedor->id_tipo_persona : null,
                                                                             ['class' => 'form-select',
                                                                             'id' => 'id_tipo_persona_'.$proveedor->id_tipo_persona,
@@ -204,7 +204,7 @@
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="nombre_usuario" class="" style="font-size: 15px">Nombres
                                                                             <span class="text-danger">*</span></label>
-                                                                        {{ Form::text('nombres_persona',
+                                                                        {{ Form::text('nombres_proveedor',
                                                                             isset($proveedor) ? $proveedor->nombres_proveedor : null,
                                                                             [
                                                                                 'class' => 'form-control',
@@ -216,10 +216,10 @@
                                                                 {{-- ======================= --}}
                                                                 <div class="col-12 col-md-4 mt-4" id="div_apellidos_persona">
                                                                     <div class="form-group d-flex flex-column">
-                                                                        <label for="apellido_usuario" class="" style="font-size: 15px">Apellidos
+                                                                        <label for="apellidos_persona" class="" style="font-size: 15px">Apellidos
                                                                             <span class="text-danger">*</span>
                                                                         </label>
-                                                                        {{ Form::text('apellidos_persona',
+                                                                        {{ Form::text('apellidos_proveedor',
                                                                             isset($proveedor) ? $proveedor->apellidos_proveedor : null,
                                                                             [
                                                                                 'class' => 'form-control',
@@ -231,7 +231,7 @@
                                                                 <div class="col-12 col-md-4 mt-4" id="div_numero_telefono">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="numero_telefono" class="" style="font-size: 15px">Número Teléfono</label>
-                                                                        {{ Form::text('numero_telefono',
+                                                                        {{ Form::text('telefono_proveedor',
                                                                             isset($proveedor) ? $proveedor->telefono_proveedor : null,
                                                                             [
                                                                                 'class' => 'form-control',
@@ -246,7 +246,7 @@
                                                                         <label for="celular" class="" style="font-size: 15px">Celular
                                                                             <span class="text-danger">*</span>
                                                                         </label>
-                                                                        {{ Form::text('celular',
+                                                                        {{ Form::text('celular_proveedor',
                                                                             isset($proveedor) ? $proveedor->celular_proveedor : null,
                                                                             [
                                                                                 'class' => 'form-control',
@@ -261,7 +261,7 @@
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="email" class="" style="font-size: 15px">Correo
                                                                             <span class="text-danger">*</span></label>
-                                                                        {{ Form::email('email',
+                                                                        {{ Form::email('email_proveedor',
                                                                             isset($proveedor) ? $proveedor->email_proveedor : null,
                                                                             [
                                                                                 'class' => 'form-control',
@@ -288,7 +288,7 @@
                                                                 <div class="col-12 col-md-4 mt-4" id="div_direccion">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="direccion" class="" style="font-size: 15px">Dirección</label>
-                                                                        {{Form::text('direccion',
+                                                                        {{Form::text('direccion_proveedor',
                                                                             isset($proveedor) ? $proveedor->direccion_proveedor : null,
                                                                             ['class' => 'form-control', 'id' => 'direccion']
                                                                         )}}
@@ -523,7 +523,7 @@
                         inputApellidosPersona.attr('required', true);
 
                         divNumeroTelefono.show('slow');
-                        inputNumeroTelefono.attr('required', true);
+                        inputNumeroTelefono.removeAttr('required', true);
 
                         divCelular.addClass('mt-4');
 
@@ -617,7 +617,7 @@
                             inputApellidosPersona.attr('required', true);
 
                             divNumeroTelefono.show('slow');
-                            inputNumeroTelefono.attr('required', true);
+                            inputNumeroTelefono.removeAttr('required', true);
 
                             divCelular.show('slow');
                             divCelular.addClass('mt-4');

@@ -173,7 +173,7 @@ class ProveedoresController extends Controller
                 }
             }
         } catch (Exception $e) {
-            alert()->error("Exception Update Usuario!");
+            alert()->error("Exception Update Proveedor!");
             return redirect()->to(route('login'));
         }
     }

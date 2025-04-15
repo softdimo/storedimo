@@ -139,7 +139,7 @@
                     $('#apellidos_persona').attr('required');
 
                     $('#div_numero_telefono').show('slow');
-                    $('#numero_telefono').attr('required');
+                    $('#numero_telefono').removeAttr('required');
 
                     $('#div_celular').show('slow');
                     $('#div_celular').addClass('mt-3');
