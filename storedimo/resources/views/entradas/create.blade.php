@@ -264,13 +264,10 @@
                     {{-- ====================================================== --}}
                     {{-- ====================================================== --}}
 
-                    <div class="modal-footer border-0 justify-content-center">
-                        <div class="">
-                            <button type="submit" class="btn btn-success" name="crearProductoEntrada"><i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i></button>
-                        </div>
-                        <div class="">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" ><i class="fa fa-remove" aria-hidden="true"> Cancelar</i></button>
-                        </div>
+                    <div class="modal-footer border-0 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-success me-3" name="crearProductoEntrada"><i class="fa fa-floppy-o"> Guardar</i></button>
+                        
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" ><i class="fa fa-remove"> Cancelar</i></button>
                     </div>
                 {!! Form::close() !!}
             </div>
@@ -395,18 +392,14 @@
                         {{-- ====================================================== --}}
                         {{-- ====================================================== --}}
 
-                        <div class="modal-footer border-0 justify-content-center">
-                            <div class="">
-                                <button type="submit" class="btn btn-success">
-                                    <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
-                                </button>
-                            </div>
+                        <div class="modal-footer border-0 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-success me-3">
+                                <i class="fa fa-floppy-o"> Modificar</i>
+                            </button>
 
-                            <div class="">
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                                    <i class="fa fa-remove" aria-hidden="true">  Cancelar</i>
-                                </button>
-                            </div>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                <i class="fa fa-remove">  Cancelar</i>
+                            </button>
                         </div>
                     {!! Form::close() !!}
                 </div> {{-- FIN modal-body --}}

@@ -216,33 +216,10 @@
                     </li>
                 </ul>
             </li>
-
+            
             {{-- ==================================== --}}
 
-            <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="pestamos_empleados"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_pestamos_empleados" aria-controls="ul_pestamos_empleados" aria-expanded="false" aria-label="Toggle navigation">
-                    <div class="col-11">
-                        <i class="fa fa-credit-card text-center text-dark" style="width: 10%"></i>
-                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Préstamos a Empleados</a>
-                    </div>
-                    <div class="col-1 text-center text-dark">
-                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
-                    </div>
-                </div>
-
-                <ul class="nav collapse navbar-collapse ps-3" id="ul_pestamos_empleados">
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('prestamos.create')}}">Registrar Préstamos</a>
-                    </li>
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('prestamos.index')}}">Listar Préstamos</a>
-                    </li>
-                </ul>
-            </li>
-
-            {{-- ==================================== --}}
-
-            <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
+            {{-- <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
                 <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="pago_empleados"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_pago_empleados" aria-controls="ul_pago_empleados" aria-expanded="false" aria-label="Toggle navigation">
                     <div class="col-11">
                         <i class="fa fa-money text-center text-dark" style="width: 10%"></i>
@@ -261,7 +238,30 @@
                         <a class="link-underline-light" href="{{route('pago_empleados.index')}}">Listar Pagos</a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
+
+            {{-- ==================================== --}}
+
+            {{-- <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
+                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="pestamos_empleados"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_pestamos_empleados" aria-controls="ul_pestamos_empleados" aria-expanded="false" aria-label="Toggle navigation">
+                    <div class="col-11">
+                        <i class="fa fa-credit-card text-center text-dark" style="width: 10%"></i>
+                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Préstamos a Empleados</a>
+                    </div>
+                    <div class="col-1 text-center text-dark">
+                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
+                    </div>
+                </div>
+
+                <ul class="nav collapse navbar-collapse ps-3" id="ul_pestamos_empleados">
+                    <li class="nav-item w-100">
+                        <a class="link-underline-light" href="{{route('prestamos.create')}}">Registrar Préstamos</a>
+                    </li>
+                    <li class="nav-item w-100">
+                        <a class="link-underline-light" href="{{route('prestamos.index')}}">Listar Préstamos</a>
+                    </li>
+                </ul>
+            </li> --}}
         </ul>
     </nav>
 </aside>

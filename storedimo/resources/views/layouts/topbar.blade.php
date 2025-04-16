@@ -79,9 +79,9 @@
                                 <li class="nav-item">
                                     <a href="{{route('stock_minimo')}}" class="dropdown-item text-dark hover-li"><i class="fa fa-cubes fa-fw"></i> Hay productos por debajo del stock mínimo</a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="{{route('prestamos_vencer')}}" class="dropdown-item text-dark hover-li"><i class="fa fa-money fa-fw"></i> Hay Préstamos a punto de vencer</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
 

@@ -459,10 +459,10 @@
                                                     {{-- ====================================================== --}}
                                                     {{-- ====================================================== --}}
 
-                                                    <div class="d-flex justify-content-around mt-3">
+                                                    <div class="d-flex justify-content-center mt-3">
                                                         <button type="submit"
                                                             id="btn_cambiar_estado_producto_{{ $producto->id_producto }}"
-                                                            class="btn btn-success" title="Guardar Configuración">
+                                                            class="btn btn-success me-3" title="Guardar Configuración">
                                                             <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
                                                         </button>
 

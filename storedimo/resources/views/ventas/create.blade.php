@@ -321,15 +321,12 @@
                     {{-- ====================================================== --}}
                     {{-- ====================================================== --}}
 
-                    <div class="modal-footer border-0 justify-content-center">
-                        <div class="">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"> Guardar</i></button>
-                        </div>
-                        <div class="">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                                <i class="fa fa-remove" aria-hidden="true"> Cancelar</i>
-                            </button>
-                        </div>
+                    <div class="modal-footer border-0 d-flex justify-content-center mt-0">
+                        <button type="submit" class="btn btn-success me-3"><i class="fa fa-floppy-o"> Guardar</i></button>
+
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                            <i class="fa fa-remove"> Cancelar</i>
+                        </button>
                     </div>
                 {!! Form::close() !!}
           </div>
