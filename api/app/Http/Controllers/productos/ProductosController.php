@@ -155,7 +155,8 @@ class ProductosController extends Controller
                     'categorias.id_estado',
                     'tamano',
                     'cantidad',
-                    'referencia'
+                    'referencia',
+                    'fecha_vencimiento'
                 )
                 ->where('id_producto', $idProducto)
                 ->first();

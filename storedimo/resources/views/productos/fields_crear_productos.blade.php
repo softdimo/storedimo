@@ -80,6 +80,15 @@
                 {!! Form::text('referencia', null, ['class' => 'form-control', 'id' => 'referencia']) !!}
             </div>
         </div>
+               
+        {{-- ======================= --}}
+        
+        <div class="col-12 col-md-3 mt-3" id="">
+            <div class="form-group d-flex flex-column">
+                <label for="fecha_vencimiento" class="form-label">Fecha Vencimiento <span class="text-danger">*</span></label>
+                {!! Form::date('fecha_vencimiento', null, ['class' => 'form-control', 'id' => 'fecha_vencimiento']) !!}
+            </div>
+        </div>
 
         {{-- ========================================================= --}}
         {{-- ========================================================= --}}

@@ -22,6 +22,7 @@ class ProductoUpdate implements Responsable
         $precioDetalEdit = request('precioDetalEdit', null);
         $stockMinimoEdit = request('stockMinimoEdit', null);
         $referencia = request('referenciaEdit', null);
+        $fechaVencimiento = request('fechaVencimientoEdit', null);
 
         // ===================================================================
         // ===================================================================
@@ -45,6 +46,7 @@ class ProductoUpdate implements Responsable
                     'precio_por_mayor' => $precioPorMayorEdit ?? $productoActual->precio_por_mayor,
                     'stock_minimo' => $stockMinimoEdit ?? $productoActual->stock_minimo,
                     'referencia' => $referencia,
+                    'fecha_vencimiento' => $fechaVencimiento,
                     'id_audit' => session('id_usuario')
                 ]
             ]);

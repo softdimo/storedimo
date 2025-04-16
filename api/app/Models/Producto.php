@@ -33,6 +33,7 @@ class Producto extends Model implements Auditable
         'id_estado',
         'tamano',
         'cantidad',
-        'referencia'
+        'referencia',
+        'fecha_vencimiento'
     ];
 }

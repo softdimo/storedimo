@@ -126,6 +126,7 @@
                                     <th>Descripción</th>
                                     <th>Cantidad</th>
                                     <th>Stock Mínimo</th>
+                                    <th>Fecha Vencimiento</th>
                                     <th>Estado</th>
                                     <th>Opciones</th>
                                 </tr>
@@ -141,6 +142,7 @@
                                         <td>{{ $producto->descripcion }}</td>
                                         <td>{{ $producto->cantidad }}</td>
                                         <td>{{ $producto->stock_minimo }}</td>
+                                        <td>{{ $producto->fecha_vencimiento }}</td>
                                         <td>{{ $producto->estado }}</td>
 
                                         @if ($producto->id_estado == 1 || $producto->id_estado == '1')
@@ -196,7 +198,7 @@
                                                         'id' => 'formEditarProducto_' . $producto->id_producto,
                                                     ]) !!}
                                                     @csrf
-                                                    <div class="" style="border: solid 1px #337AB7;">
+                                                    <div class="rounded-top" style="border: solid 1px #337AB7;">
                                                         <div class="rounded-top text-white text-center"
                                                             style="background-color: #337AB7; border: solid 1px #337AB7;">
                                                             <h5>Modificar Producto (Obligatorios *)</h5>
@@ -244,11 +246,11 @@
                                                                         <label for="descripcionEdit" class=""
                                                                             style="font-size: 15px">Descripción<span
                                                                                 class="text-danger">*</span></label>
-                                                                        {{ Form::textarea('descripcionEdit', isset($producto) ? $producto->descripcion : null, ['class' => 'form-control', 'id' => 'descripcionEdit', 'rows' => 3, 'style' => 'resize: none;']) }}
+                                                                        {{ Form::textarea('descripcionEdit', isset($producto) ? $producto->descripcion : null, ['class' => 'form-control', 'id' => 'descripcionEdit', 'rows' => 2, 'style' => 'resize: none;']) }}
                                                                     </div>
                                                                 </div>
                                                                 {{-- =================== --}}
-                                                                <div class="col-12 col-md-6 mt-md-3">
+                                                                <div class="col-12 col-md-4 mt-md-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="precioUnitarioEdit" class=""
                                                                             style="font-size: 15px">Precio Unitario<span
@@ -257,7 +259,7 @@
                                                                     </div>
                                                                 </div>
                                                                 {{-- =================== --}}
-                                                                <div class="col-12 col-md-6 mt-md-3">
+                                                                <div class="col-12 col-md-4 mt-md-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="precioDetalEdit" class=""
                                                                             style="font-size: 15px">Precio Detal<span
@@ -266,16 +268,17 @@
                                                                     </div>
                                                                 </div>
                                                                 {{-- =================== --}}
-                                                                <div class="col-12 col-md-6 mt-md-3">
+                                                                <div class="col-12 col-md-4 mt-md-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="precioPorMayorEdit" class=""
-                                                                            style="font-size: 15px">Precio al por
-                                                                            Mayor<span class="text-danger">*</span></label>
+                                                                            style="font-size: 15px">Precio x Mayor
+                                                                            <span class="text-danger">*</span>
+                                                                        </label>
                                                                         {{ Form::text('precioPorMayorEdit', isset($producto) ? $producto->precio_por_mayor : null, ['class' => 'form-control', 'id' => 'precioPorMayorEdit', 'required' => 'required']) }}
                                                                     </div>
                                                                 </div>
                                                                 {{-- =================== --}}
-                                                                <div class="col-12 col-md-6 mt-md-3">
+                                                                <div class="col-12 col-md-4 mt-md-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="stockMinimoEdit" class=""
                                                                             style="font-size: 15px">Stock Mínimo<span
@@ -284,12 +287,21 @@
                                                                     </div>
                                                                 </div>
                                                                 {{-- =================== --}}
-                                                                <div class="col-12 col-md-6 mt-md-3">
+                                                                <div class="col-12 col-md-4 mt-md-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="referenciaEdit" class=""
                                                                             style="font-size: 15px">Referencia<span
                                                                                 class="text-danger">*</span></label>
                                                                         {{ Form::text('referenciaEdit', isset($producto) ? $producto->referencia : null, ['class' => 'form-control', 'id' => 'referenciaEdit', 'required' => 'required']) }}
+                                                                    </div>
+                                                                </div>
+                                                                {{-- =================== --}}
+                                                                <div class="col-12 col-md-4 mt-md-3">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="fechaVencimientoEdit" class=""
+                                                                            style="font-size: 15px">Fecha Vencimiento<span
+                                                                                class="text-danger">*</span></label>
+                                                                        {{ Form::date('fechaVencimientoEdit', isset($producto) ? $producto->fecha_vencimiento : null, ['class' => 'form-control', 'id' => 'fechaVencimientoEdit', 'required' => 'required']) }}
                                                                     </div>
                                                                 </div>
                                                             </div>

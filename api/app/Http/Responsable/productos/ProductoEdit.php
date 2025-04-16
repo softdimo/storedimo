@@ -37,7 +37,8 @@ class ProductoEdit implements Responsable
                     'precio_unitario',
                     'precio_detal',
                     'precio_por_mayor',
-                    'referencia'
+                    'referencia',
+                    'fecha_vencimiento'
                 )
                 ->where('id_producto', $idProducto)
                 ->first();

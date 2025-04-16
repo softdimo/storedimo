@@ -37,6 +37,7 @@ class ProductoUpdate implements Responsable
             $producto->precio_detal = $this->request->input('precio_detal');
             $producto->precio_por_mayor = $this->request->input('precio_por_mayor');
             $producto->referencia = $this->request->input('referencia');
+            $producto->fecha_vencimiento = $this->request->input('fecha_vencimiento');
             $producto->update();
 
             return response()->json([

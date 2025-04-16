@@ -29,7 +29,8 @@ class ProductoIndex implements Responsable
                     'cantidad',
                     'tipo_persona.id_tipo_persona',
                     'tipo_persona',
-                    'referencia'
+                    'referencia',
+                    'fecha_vencimiento'
                 )
                 ->orderBy('nombre_producto', 'ASC')
                 ->get();

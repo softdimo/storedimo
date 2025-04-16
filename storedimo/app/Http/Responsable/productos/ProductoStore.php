@@ -25,6 +25,7 @@ class ProductoStore implements Responsable
         $stockMinimo = request('stock_minimo', null);
         $idEstado = 1;
         $referencia = request('referencia', null);
+        $fechaVencimiento = request('fecha_vencimiento', null);
 
         // ========================================================
 
@@ -52,6 +53,7 @@ class ProductoStore implements Responsable
                     'stock_minimo' => $stockMinimo,
                     'id_estado' => $idEstado,
                     'referencia' => $referencia,
+                    'fecha_vencimiento' => $fechaVencimiento,
                     'id_audit' => session('id_usuario')
                 ]
             ]);

@@ -28,6 +28,7 @@ class Producto extends Model
         'id_estado',
         'tamano',
         'cantidad',
-        'referencia'
+        'referencia',
+        'fecha_vencimiento'
     ];
 }
