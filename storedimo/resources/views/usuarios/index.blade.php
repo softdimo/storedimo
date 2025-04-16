@@ -289,7 +289,7 @@
                                                     @csrf
                                                     <div class="rounded-top text-white text-center"
                                                         style="background-color: #337AB7; border: solid 1px #337AB7;">
-                                                        <h5>Editar Usuario</h5>
+                                                        <h5 class="m-0 pt-1 pb-1">Editar Usuario</h5>
                                                     </div>
 
                                                     {{ Form::hidden('id_usuario', isset($usuario) ? $usuario->id_usuario : null, ['class' => '', 'id' => 'id_usuario']) }}
@@ -413,7 +413,7 @@
                                                         {{-- ============================================== --}}
 
                                                         <div class="row m-2">
-                                                            <div class="col-12 col-md-4">
+                                                            <div class="col-12 col-md-3">
                                                                 <div class="form-group d-flex flex-column">
                                                                     <label for="direccion" class=""
                                                                         style="font-size: 15px">Dirección</label>
@@ -424,7 +424,7 @@
                                                                 </div>
                                                             </div>
                                                             {{-- ======================= --}}
-                                                            <div class="col-12 col-md-4">
+                                                            <div class="col-12 col-md-3">
                                                                 <div class="form-group d-flex flex-column">
                                                                     <label for="id_rol" class=""
                                                                         style="font-size: 15px">Rol
@@ -439,7 +439,7 @@
                                                                 </div>
                                                             </div>
                                                             {{-- ======================= --}}
-                                                            <div class="col-12 col-md-4">
+                                                            <div class="col-12 col-md-3">
                                                                 <div class="form-group d-flex flex-column">
                                                                     <label for="id_estado" class=""
                                                                         style="font-size: 15px">Estado
@@ -453,14 +453,10 @@
                                                                     ) !!}
                                                                 </div>
                                                             </div>
-                                                        </div>
-
-                                                        {{-- ============================================== --}}
-
-                                                        <div class="row m-2">
-                                                            <div class="col-12 col-md-6">
+                                                            {{-- ======================= --}}
+                                                            <div class="col-12 col-md-3">
                                                                 <div class="form-group d-flex flex-column">
-                                                                    <label for="fecha_contrato" class="form-label">Fecha
+                                                                    <label for="fecha_contrato" class="">Fecha
                                                                         contrato
                                                                         <span class="text-danger">*</span>
                                                                     </label>
@@ -471,14 +467,12 @@
                                                                     ]) !!}
                                                                 </div>
                                                             </div>
-
                                                             {{-- ======================= --}}
-
-                                                            <div class="col-12 col-md-6"
+                                                            <div class="col-12 col-md-3"
                                                                 id="div_fecha_terminacion_contrato_{{ $usuario->id_usuario }}">
                                                                 <div class="form-group d-flex flex-column">
                                                                     <label for="fecha_terminacion_contrato"
-                                                                        class="form-label">Fecha terminación contrato
+                                                                        class="">Fecha terminación contrato
                                                                         <span class="text-danger">*</span>
                                                                     </label>
                                                                     {!! Form::date('fecha_terminacion_contrato', isset($usuario) ? $usuario->fecha_terminacion_contrato : null, [

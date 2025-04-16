@@ -134,7 +134,7 @@ body {
 .loadingIndicator {
     display: none;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 5px;
 }
 
 .loadingIndicator>img {
