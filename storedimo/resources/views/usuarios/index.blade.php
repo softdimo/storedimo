@@ -249,9 +249,9 @@
                                                     {{-- ====================================================== --}}
                                                     {{-- ====================================================== --}}
 
-                                                    <div class="d-flex justify-content-around mt-2">
+                                                    <div class="d-flex justify-content-center mt-2">
                                                         <button type="submit" title="Guardar Configuración"
-                                                            class="btn btn-success"
+                                                            class="btn btn-success me-3"
                                                             id="btn_editar_clave_{{ $usuario->id_usuario }}">
                                                             <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
                                                         </button>
@@ -504,9 +504,9 @@
                                                         {{-- ====================================================== --}}
                                                         {{-- ====================================================== --}}
 
-                                                        <div class="d-flex justify-content-around mt-3">
+                                                        <div class="d-flex justify-content-center mt-3">
                                                             <button id="btn_editar_user_{{ $usuario->id_usuario }}"
-                                                                type="submit" class="btn btn-success"
+                                                                type="submit" class="btn btn-success me-3"
                                                                 title="Guardar Configuración">
                                                                 <i class="fa fa-floppy-o" aria-hidden="true">
                                                                     Modificar</i>

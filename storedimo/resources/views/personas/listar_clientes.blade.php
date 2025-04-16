@@ -289,9 +289,9 @@
                                                                 {{-- ====================================================== --}}
                                                                 {{-- ====================================================== --}}
 
-                                                                <div class="d-flex justify-content-around mt-3">
+                                                                <div class="d-flex justify-content-center mt-2">
                                                                     <button type="submit" id="btn_editar_cliente_{{$persona->id_persona}}"
-                                                                        class="btn btn-success">
+                                                                        class="btn btn-success me-3">
                                                                         <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
                                                                     </button>
 

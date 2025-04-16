@@ -205,8 +205,8 @@
                                             <div class="modal fade h-auto modal-gral"
                                                 id="modal_editar_categoria_{{ $categoria->id_categoria }}" tabindex="-1"
                                                 data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content p-3 w-100">
+                                                <div class="modal-dialog m-0 mw-100">
+                                                    <div class="modal-content p-0 w-100 border-0">
                                                         {!! Form::open([
                                                             'method' => 'POST',
                                                             'route' => ['editar_categoria'],
@@ -215,7 +215,7 @@
                                                             'id' => 'formEditarCategoria_' . $categoria->id_categoria,
                                                         ]) !!}
                                                         @csrf
-                                                        <div class="" style="border: solid 1px #337AB7;">
+                                                        <div class="rounded-top" style="border: solid 1px #337AB7;">
                                                             <div class="rounded-top text-white text-center"
                                                                 style="background-color: #337AB7; border: solid 1px #337AB7;">
                                                                 <h5>Modificar Categoría</h5>
@@ -267,9 +267,9 @@
                                                         {{-- ====================================================== --}}
                                                         {{-- ====================================================== --}}
 
-                                                        <div class="d-flex justify-content-around mt-5">
+                                                        <div class="d-flex justify-content-center mt-3">
                                                             <button type="submit" title="Guardar Configuración"
-                                                                class="btn btn-success"
+                                                                class="btn btn-success me-3"
                                                                 id="btn_editar_categoria_{{ $categoria->id_categoria }}">
                                                                 <i class="fa fa-floppy-o" aria-hidden="true">
                                                                     Modificar</i>

@@ -127,10 +127,6 @@
                                             <button title="Editar Empresa" class="btn btn-success rounded-circle btn-circle text-white" data-bs-toggle="modal" data-bs-target="#modalEditarEmpresa_{{$empresa->id_empresa}}">
                                                 <i class="fa fa-pencil-square-o"></i>
                                             </button>
-
-                                            <button title="Cambiar Estado" class="btn btn-danger rounded-circle btn-circle text-white" data-bs-toggle="modal" data-bs-target="#modalCambiarEstadoEmpresa_{{$empresa->id_empresa}}">
-                                                <i class="fa fa-refresh"></i>
-                                            </button>
                                         </td>
 
                                         {{-- =============================================================== --}}
@@ -225,16 +221,16 @@
                                                         {{-- ====================================================== --}}
                                                         {{-- ====================================================== --}}
 
-                                                        <div class="modal-footer border-0 justify-content-center">
+                                                        <div class="d-flex border-0 justify-content-center mt-2">
                                                             <div class="">
-                                                                <button type="submit" class="btn btn-success" id="btn_editar_empresa_{{$empresa->id_empresa}}">
-                                                                    <i class="fa fa-floppy-o" aria-hidden="true"> Editar</i>
+                                                                <button type="submit" class="btn btn-success me-3" id="btn_editar_empresa_{{$empresa->id_empresa}}">
+                                                                    <i class="fa fa-floppy-o"> Editar</i>
                                                                 </button>
                                                             </div>
 
                                                             <div class="">
                                                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="btn_cancelar_empresa_{{$empresa->id_empresa}}">
-                                                                    <i class="fa fa-remove" aria-hidden="true">  Cancelar</i>
+                                                                    <i class="fa fa-remove">  Cancelar</i>
                                                                 </button>
                                                             </div>
                                                         </div>
