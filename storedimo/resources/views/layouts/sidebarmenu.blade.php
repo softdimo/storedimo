@@ -211,9 +211,9 @@
                     <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('ventas.index')}}">Listar Ventas</a>
                     </li>
-                    <li class="nav-item w-100">
+                    {{-- <li class="nav-item w-100">
                         <a class="link-underline-light" href="{{route('credito_ventas')}}">Listar Créditos-Abonos</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
             

@@ -299,9 +299,8 @@
                                                                 <div class="col-12 col-md-4 mt-md-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="fechaVencimientoEdit" class=""
-                                                                            style="font-size: 15px">Fecha Vencimiento<span
-                                                                                class="text-danger">*</span></label>
-                                                                        {{ Form::date('fechaVencimientoEdit', isset($producto) ? $producto->fecha_vencimiento : null, ['class' => 'form-control', 'id' => 'fechaVencimientoEdit', 'required' => 'required']) }}
+                                                                            style="font-size: 15px">Fecha Vencimiento</label>
+                                                                        {{ Form::date('fechaVencimientoEdit', isset($producto) ? $producto->fecha_vencimiento : null, ['class' => 'form-control', 'id' => 'fechaVencimientoEdit']) }}
                                                                     </div>
                                                                 </div>
                                                             </div>
