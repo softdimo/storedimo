@@ -273,7 +273,7 @@
                                         {{-- ====================================================== --}}
 
                                         {{-- INICIO Modal EDITAR USUARIO --}}
-                                        <div class="modal fade h-auto modal-gral"
+                                        <div class="modal fade h-auto modal-gral p-3"
                                             id="modalEditarUsuario_{{ $usuario->id_usuario }}" tabindex="-1"
                                             data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true"
                                             style="max-width: 55%;">
@@ -298,7 +298,7 @@
                                                     {{-- ====================================================== --}}
 
                                                     <div class="modal-body p-0 m-0" style="border: solid 1px #337AB7;">
-                                                        <div class="row m-4">
+                                                        <div class="row m-2">
                                                             <div class="col-12 col-md-4">
                                                                 <div class="form-group d-flex flex-column">
                                                                     <label for="id_tipo_persona" class=""
@@ -339,7 +339,7 @@
 
                                                         {{-- ============================================== --}}
 
-                                                        <div class="row m-4">
+                                                        <div class="row m-2">
                                                             <div class="col-12 col-md-4">
                                                                 <div class="form-group d-flex flex-column">
                                                                     <label for="nombre_usuario" class=""
@@ -369,7 +369,7 @@
 
                                                         {{-- ============================================== --}}
 
-                                                        <div class="row m-4">
+                                                        <div class="row m-2">
                                                             <div class="col-12 col-md-4">
                                                                 <div class="form-group d-flex flex-column">
                                                                     <label for="celular" class=""
@@ -412,7 +412,7 @@
 
                                                         {{-- ============================================== --}}
 
-                                                        <div class="row m-4">
+                                                        <div class="row m-2">
                                                             <div class="col-12 col-md-4">
                                                                 <div class="form-group d-flex flex-column">
                                                                     <label for="direccion" class=""
@@ -457,7 +457,7 @@
 
                                                         {{-- ============================================== --}}
 
-                                                        <div class="row m-4">
+                                                        <div class="row m-2">
                                                             <div class="col-12 col-md-6">
                                                                 <div class="form-group d-flex flex-column">
                                                                     <label for="fecha_contrato" class="form-label">Fecha
