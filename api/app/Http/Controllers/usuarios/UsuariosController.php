@@ -208,4 +208,14 @@ class UsuariosController extends Controller
             'valido' => !$existe
         ]);
     }
+
+    public function validarIdentificacion(Request $request)
+    {
+        $identificacion = $request->input('identificacion');
+        $existe = Usuario::where('identificacion', $identificacion)->exists();
+        
+        return response()->json([
+            'valido' => !$existe
+        ]);
+    }
 }

@@ -47,6 +47,7 @@
                     'minlength' => 6,
                     'required' => 'required',
                 ]) !!}
+                <small id="documento-error" class="text-danger d-none">Este documento ya está registrado.</small>
             </div>
         </div>
 
@@ -79,7 +80,7 @@
         <div class="col-12 col-md-3 mt-4">
             <div class="form-group d-flex flex-column">
                 <label for="numero_telefono" class="form-label">Número de teléfono</label>
-                {!! Form::text('numero_telefono', null, [
+                {!! Form::number('numero_telefono', null, [
                     'class' => 'form-control',
                     'id' => 'numero_telefono',
                 ]) !!}
@@ -91,7 +92,7 @@
         <div class="col-12 col-md-3 mt-4">
             <div class="form-group d-flex flex-column">
                 <label for="celular" class="form-label">Número de Celular <span class="text-danger">*</span></label>
-                {!! Form::text('celular', null, ['class' => 'form-control', 'id' => 'celular', 'required' => 'required']) !!}
+                {!! Form::number('celular', null, ['class' => 'form-control', 'id' => 'celular', 'required' => 'required']) !!}
             </div>
         </div>
 
