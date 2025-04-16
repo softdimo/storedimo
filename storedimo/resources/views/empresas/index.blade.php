@@ -125,7 +125,7 @@
                                         <td>{{ $empresa->estado }}</td>
                                         <td>
                                             <button title="Editar Empresa" class="btn btn-success rounded-circle btn-circle text-white" data-bs-toggle="modal" data-bs-target="#modalEditarEmpresa_{{$empresa->id_empresa}}">
-                                                <i class="fa-pencil-square-o"></i>
+                                                <i class="fa fa-pencil-square-o"></i>
                                             </button>
 
                                             <button title="Cambiar Estado" class="btn btn-danger rounded-circle btn-circle text-white" data-bs-toggle="modal" data-bs-target="#modalCambiarEstadoEmpresa_{{$empresa->id_empresa}}">

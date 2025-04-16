@@ -157,7 +157,7 @@ body {
 }
 
 .modal-gral {
-    top: 5% !important;
+    top: 3% !important;
     left: 50% !important;
     transform: translateX(-50%);
 }

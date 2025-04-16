@@ -206,7 +206,7 @@
                                                         {{-- ====================================================== --}}
 
                                                         <div class="modal-body p-0 m-0">
-                                                            <div class="row m-0 pt-4 pb-4">
+                                                            <div class="row m-0 pt-2 pb-4">
                                                                 <div class="col-12 col-md-2">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="idProductoEdit" class=""

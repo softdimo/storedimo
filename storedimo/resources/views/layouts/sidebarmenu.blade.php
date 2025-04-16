@@ -163,7 +163,7 @@
                         <a class="link-underline-light" href="{{route('bajas_index')}}">Listar Bajas</a>
                     </li>
                     <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('stock_minimo')}}">Listar Productos en stock Mínimo</a>
+                        <a class="link-underline-light" href="{{route('stock_minimo')}}">Productos en stock Mínimo</a>
                     </li>
                 </ul>
             </li>
