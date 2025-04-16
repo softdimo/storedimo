@@ -163,53 +163,112 @@
             const emailInput = document.getElementById('email');
             const errorMsg = document.getElementById('email-error');
 
-                emailInput.addEventListener('blur', async () => {
-                    const email = emailInput.value.trim();
-                    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    errorMsg.classList.add('d-none');
-                    emailInput.classList.remove('is-invalid');
+            emailInput.addEventListener('blur', async () => {
+                const email = emailInput.value.trim();
+                const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                errorMsg.classList.add('d-none');
+                emailInput.classList.remove('is-invalid');
 
-                    if (!regexCorreo.test(email)) {
-                        errorMsg.textContent = 'Ingrese un correo válido.';
-                        errorMsg.classList.remove('d-none');
-                        emailInput.classList.add('is-invalid');
-                        return;
-                    }
+                if (!regexCorreo.test(email)) {
+                    errorMsg.textContent = 'Ingrese un correo válido.';
+                    errorMsg.classList.remove('d-none');
+                    emailInput.classList.add('is-invalid');
+                    return;
+                }
 
-                    try {
-                        const response = await fetch("{{ route('email_validator') }}", {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Accept': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector(
-                                        'meta[name="csrf-token"]')
-                                    .content
-                            },
-                            body: JSON.stringify({
-                                email
-                            })
-                        });
+                try {
+                    const response = await fetch("{{ route('email_validator') }}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector(
+                                    'meta[name="csrf-token"]')
+                                .content
+                        },
+                        body: JSON.stringify({
+                            email
+                        })
+                    });
 
-                        if (!response.ok) throw new Error('Error en la petición');
+                    if (!response.ok) throw new Error('Error en la petición');
 
-                        const data = await response.json();
+                    const data = await response.json();
 
-                        if (!data.valido) {
-                            errorMsg.textContent = 'Este correo ya está registrado.';
-                            emailInput.value = '';
-                            errorMsg.classList.remove('d-none');
-                            emailInput.classList.add('is-invalid');
-                        }
-                    } catch (error) {
-                        console.error('Error al validar el correo:', error);
-                        errorMsg.textContent = 'Ocurrió un error. Intente más tarde.';
+                    if (!data.valido) {
+                        errorMsg.textContent = 'Este correo ya está registrado.';
+                        emailInput.value = '';
                         errorMsg.classList.remove('d-none');
                         emailInput.classList.add('is-invalid');
                     }
-                });
+                } catch (error) {
+                    console.error('Error al validar el correo:', error);
+                    errorMsg.textContent = 'Ocurrió un error. Intente más tarde.';
+                    errorMsg.classList.remove('d-none');
+                    emailInput.classList.add('is-invalid');
+                }
+            });
 
-            //======================================================================//
+            //========================== Fin validación correo=================================//
+
+            //======================== Validación de documento ==============================//
+
+
+            const documentoInput = document.getElementById('identificacion');
+            const errorDocumentoMsg = document.getElementById('documento-error');
+
+            documentoInput.addEventListener('blur', async () => {
+                const documento = documentoInput.value.trim();
+                const regexDocumento = /^[0-9]+$/;
+                errorDocumentoMsg.classList.add('d-none');
+                documentoInput.classList.remove('is-invalid');
+
+                if (documento === '') {
+                    errorDocumentoMsg.textContent = 'Este campo es obligatorio.';
+                    errorDocumentoMsg.classList.remove('d-none');
+                    documentoInput.classList.add('is-invalid');
+                    return;
+                }
+
+                if (!regexDocumento.test(documento)) {
+                    errorDocumentoMsg.textContent = 'Ingrese una identificación válida.';
+                    errorDocumentoMsg.classList.remove('d-none');
+                    documentoInput.classList.add('is-invalid');
+                    return;
+                }
+
+                try {
+                    const response = await fetch("{{ route('identification_validator') }}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                .content
+                        },
+                        body: JSON.stringify({
+                            identificacion: documento
+                        })
+                    });
+
+                    if (!response.ok) throw new Error('Error en la petición');
+
+                    const data = await response.json();
+
+                    if (!data.valido) {
+                        errorDocumentoMsg.textContent = 'Este documento ya está registrado.';
+                        documentoInput.value = '';
+                        errorDocumentoMsg.classList.remove('d-none');
+                        documentoInput.classList.add('is-invalid');
+                    }
+                } catch (error) {
+                    console.error('Error al validar el documento:', error);
+                    errorDocumentoMsg.textContent = 'Ocurrió un error. Intente más tarde.';
+                    errorDocumentoMsg.classList.remove('d-none');
+                    documentoInput.classList.add('is-invalid');
+                }
+            });
+            //=========================== Fin validación documento ==============================//
 
             // ===================================================================================
 
