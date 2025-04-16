@@ -39,7 +39,7 @@
                         <table class="table table-striped table-bordered w-100 mb-0" id="tbl_stock_minimo" aria-describedby="stock_minimo">
                             <thead>
                                 <tr class="header-table text-center">
-                                    <th>Código</th>
+                                    <th>Referencia</th>
                                     <th>Nombre Producto</th>
                                     <th>Categoría</th>
                                     <th>Descripción</th>
@@ -51,7 +51,7 @@
                             <tbody>
                                 @foreach ($stockMinimoIndex as $stockMinimo)
                                     <tr class="text-center">
-                                        <td>{{$stockMinimo->id_producto}}</td>
+                                        <td>{{$stockMinimo->referencia}}</td>
                                         <td>{{$stockMinimo->nombre_producto}}</td>
                                         <td>{{$stockMinimo->categoria}}</td>
                                         <td>{{$stockMinimo->descripcion}}</td>

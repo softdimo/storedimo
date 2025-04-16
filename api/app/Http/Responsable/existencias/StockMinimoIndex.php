@@ -24,6 +24,7 @@ class StockMinimoIndex implements Responsable
                     'precio_por_mayor',
                     'descripcion',
                     'stock_minimo',
+                    'referencia',
                     'productos.id_estado',
                     'estados.estado',
                     'cantidad',
