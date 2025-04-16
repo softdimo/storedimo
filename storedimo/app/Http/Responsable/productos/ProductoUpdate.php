@@ -21,6 +21,7 @@ class ProductoUpdate implements Responsable
         $precioPorMayorEdit = request('precioPorMayorEdit', null);
         $precioDetalEdit = request('precioDetalEdit', null);
         $stockMinimoEdit = request('stockMinimoEdit', null);
+        $referencia = request('referenciaEdit', null);
 
         // ===================================================================
         // ===================================================================
@@ -43,6 +44,7 @@ class ProductoUpdate implements Responsable
                     'precio_detal' => $precioDetalEdit ?? $productoActual->precio_detal,
                     'precio_por_mayor' => $precioPorMayorEdit ?? $productoActual->precio_por_mayor,
                     'stock_minimo' => $stockMinimoEdit ?? $productoActual->stock_minimo,
+                    'referencia' => $referencia,
                     'id_audit' => session('id_usuario')
                 ]
             ]);
@@ -61,7 +63,7 @@ class ProductoUpdate implements Responsable
                 }
             }
         } catch (Exception $e) {
-            alert()->error('Error', 'Excepción, intente de nuevo, si el problema persiste, contacte a Soporte.' . $e->getMessage());
+            alert()->error('Error', 'Excepción, intente de nuevo, si el problema persiste, contacte a Soporte.');
             return back();
         }
     }

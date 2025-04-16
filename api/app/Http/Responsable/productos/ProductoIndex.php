@@ -28,7 +28,8 @@ class ProductoIndex implements Responsable
                     'estados.estado',
                     'cantidad',
                     'tipo_persona.id_tipo_persona',
-                    'tipo_persona'
+                    'tipo_persona',
+                    'referencia'
                 )
                 ->orderBy('nombre_producto', 'ASC')
                 ->get();

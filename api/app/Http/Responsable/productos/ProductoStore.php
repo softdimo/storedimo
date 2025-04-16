@@ -19,6 +19,7 @@ class ProductoStore implements Responsable
         $descripcion = request('descripcion', null);
         $stockMinimo = request('stock_minimo', null);
         $idEstado = request('id_estado', null);
+        $referencia = request('referencia', null);
 
         // ================================================
 
@@ -33,6 +34,7 @@ class ProductoStore implements Responsable
                 'descripcion' => $descripcion,
                 'stock_minimo' => $stockMinimo,
                 'id_estado' => $idEstado,
+                'referencia' => $referencia
             ]);
     
             if (isset($nuevoProducto) && !is_null($nuevoProducto) && !empty($nuevoProducto)) {

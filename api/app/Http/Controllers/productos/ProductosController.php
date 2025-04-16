@@ -154,7 +154,8 @@ class ProductosController extends Controller
                     'stock_minimo',
                     'categorias.id_estado',
                     'tamano',
-                    'cantidad'
+                    'cantidad',
+                    'referencia'
                 )
                 ->where('id_producto', $idProducto)
                 ->first();

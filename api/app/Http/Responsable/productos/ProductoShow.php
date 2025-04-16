@@ -29,6 +29,7 @@ class ProductoShow implements Responsable
             $producto = Producto::select(
                 'id_producto',
                 'nombre_producto',
+                'referencia',
                 DB::raw("CONCAT('$', REPLACE(TO_CHAR(precio_unitario, '999G999G999'), ',', '.')) AS precio_unitario"),
                 DB::raw("CONCAT('$', REPLACE(TO_CHAR(precio_detal, '999G999G999'), ',', '.')) AS precio_detal"),
                 DB::raw("CONCAT('$', REPLACE(TO_CHAR(precio_por_mayor, '999G999G999'), ',', '.')) AS precio_por_mayor")

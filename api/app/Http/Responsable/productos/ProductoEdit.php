@@ -36,7 +36,8 @@ class ProductoEdit implements Responsable
                     'stock_minimo',
                     'precio_unitario',
                     'precio_detal',
-                    'precio_por_mayor'
+                    'precio_por_mayor',
+                    'referencia'
                 )
                 ->where('id_producto', $idProducto)
                 ->first();

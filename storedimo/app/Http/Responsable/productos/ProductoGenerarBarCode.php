@@ -15,12 +15,13 @@ class ProductoGenerarBarCode implements Responsable
     public function toResponse($request)
     {
         $idProducto = request('id_producto_input', null);
+        $referencia = request('referencia_input', null);
         $nombreProducto = request('nombre_producto_input', null);
         $cantidadBarcode = request('cantidad_barcode', 12);
 
         $rutaTempArchivoCodebar = "public/upfiles/productos/barcodes";
         $slugNombreProducto = Str::slug($nombreProducto); // Para evitar espacios en el nombre del archivo
-        $nombreArchivoCodebar = "{$idProducto}_{$slugNombreProducto}";
+        $nombreArchivoCodebar = "{$referencia}_{$slugNombreProducto}";
         $rutaCodebarImage = storage_path("app/{$rutaTempArchivoCodebar}/{$nombreArchivoCodebar}.png");
         $rutaCodebarPdf = storage_path("app/{$rutaTempArchivoCodebar}/{$nombreArchivoCodebar}.pdf");
 
@@ -30,7 +31,7 @@ class ProductoGenerarBarCode implements Responsable
 
             // Generar los datos para el código QR
             $infoQr = json_encode([
-                'codigo' => $idProducto,
+                'referencia' => $referencia,
                 'nombre' => $nombreProducto,
                 'precio' => $infoProducto->precio_unitario,
                 'cat' => $infoProducto->categoria

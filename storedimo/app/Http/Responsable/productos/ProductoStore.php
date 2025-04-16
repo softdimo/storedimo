@@ -24,6 +24,7 @@ class ProductoStore implements Responsable
         $descripcion = request('descripcion', null);
         $stockMinimo = request('stock_minimo', null);
         $idEstado = 1;
+        $referencia = request('referencia', null);
 
         // ========================================================
 
@@ -50,6 +51,7 @@ class ProductoStore implements Responsable
                     'descripcion' => $descripcion,
                     'stock_minimo' => $stockMinimo,
                     'id_estado' => $idEstado,
+                    'referencia' => $referencia,
                     'id_audit' => session('id_usuario')
                 ]
             ]);

@@ -119,7 +119,8 @@
                             aria-describedby="productos">
                             <thead>
                                 <tr class="header-table text-center">
-                                    <th>Código</th>
+                                    {{-- <th>Código</th> --}}
+                                    <th>Referencia</th>
                                     <th>Nombre Producto</th>
                                     <th>Categoría</th>
                                     <th>Descripción</th>
@@ -131,10 +132,10 @@
                             </thead>
                             {{-- ============================== --}}
                             <tbody>
-                                {{-- @if (isset($productos) && count($productos) > 0) --}}
                                 @foreach ($productos as $producto)
                                     <tr class="text-center">
-                                        <td>{{ $producto->id_producto }}</td>
+                                        {{-- <td>{{ $producto->id_producto }}</td> --}}
+                                        <td>{{ $producto->referencia }}</td>
                                         <td>{{ $producto->nombre_producto }}</td>
                                         <td>{{ $producto->categoria }}</td>
                                         <td>{{ $producto->descripcion }}</td>
@@ -282,6 +283,15 @@
                                                                         {{ Form::text('stockMinimoEdit', isset($producto) ? $producto->stock_minimo : null, ['class' => 'form-control', 'id' => 'stockMinimoEdit', 'required' => 'required']) }}
                                                                     </div>
                                                                 </div>
+                                                                {{-- =================== --}}
+                                                                <div class="col-12 col-md-6 mt-md-3">
+                                                                    <div class="form-group d-flex flex-column">
+                                                                        <label for="referenciaEdit" class=""
+                                                                            style="font-size: 15px">Referencia<span
+                                                                                class="text-danger">*</span></label>
+                                                                        {{ Form::text('referenciaEdit', isset($producto) ? $producto->referencia : null, ['class' => 'form-control', 'id' => 'referenciaEdit', 'required' => 'required']) }}
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -343,11 +353,12 @@
                                                             style="background-color: #337AB7; border: solid 1px #337AB7;">
                                                             <h5>Producto: <span
                                                                     id="nombre_producto">{{ $producto->nombre_producto }}</span>
-                                                                - Código: <span
-                                                                    id="id_producto">{{ $producto->id_producto }}</span>
+                                                                - Referencia: <span
+                                                                    id="referencia">{{ $producto->referencia }}</span>
                                                             </h5>
 
                                                             {{ Form::hidden('id_producto_input', isset($producto) ? $producto->id_producto : null, ['class' => '', 'id' => 'id_producto_input', 'required' => 'required']) }}
+                                                            {{ Form::hidden('referencia_input', isset($producto) ? $producto->referencia : null, ['class' => '', 'id' => 'referencia_input', 'required' => 'required']) }}
                                                             {{ Form::hidden('nombre_producto_input', isset($producto) ? $producto->nombre_producto : null, ['class' => 'form-control', 'id' => 'nombre_producto_input', 'required' => 'required']) }}
                                                         </div>
                                                         {{-- ====================================================== --}}
@@ -470,11 +481,6 @@
                                         {{-- FINAL Modal ESTADO PRODUCTO --}}
                                     </tr>
                                 @endforeach
-                                {{-- @else
-                                    <tr>
-                                        <td colspan="8" class="text-center">No hay productos disponibles.</td>
-                                    </tr>
-                                @endif --}}
                             </tbody>
                         </table>
                     </div>

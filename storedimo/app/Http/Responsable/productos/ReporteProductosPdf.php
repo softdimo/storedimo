@@ -52,7 +52,7 @@ class ReporteProductosPdf implements Responsable
   
         // Encabezado de tabla
         $pdf->SetFont('Arial', 'B', 10);
-        $pdf->Cell(15, 10, utf8_decode("Código"), 1, 0, 'C');
+        $pdf->Cell(15, 10, utf8_decode("Ref"), 1, 0, 'C');
         $pdf->Cell(50, 10, utf8_decode("Producto"), 1, 0, 'C');
         $pdf->Cell(30, 10, utf8_decode("Categoría"), 1, 0, 'C');
         $pdf->Cell(20, 10, utf8_decode("Cantidad"), 1, 0, 'C');
@@ -80,7 +80,7 @@ class ReporteProductosPdf implements Responsable
         // Datos de Productos
         $pdf->SetFont('Arial', '', 10);
         foreach ($productos as $producto) {
-            $pdf->Cell(15, 10, $producto->id_producto, 1, 0, 'C');
+            $pdf->Cell(15, 10, $producto->referencia, 1, 0, 'C');
             $pdf->Cell(50, 10, utf8_decode($producto->nombre_producto), 1, 0, 'C');
             $pdf->Cell(30, 10, utf8_decode($producto->categoria), 1, 0, 'C');
             $pdf->Cell(20, 10, utf8_decode($producto->cantidad), 1, 0, 'C');

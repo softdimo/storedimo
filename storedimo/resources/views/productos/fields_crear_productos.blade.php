@@ -71,6 +71,15 @@
                 {!! Form::number('stock_minimo', null, ['class' => 'form-control', 'id' => 'stock_minimo', 'min' => 1, 'max' => 50, 'oninput' => 'validity.valid||(value=\'\');']) !!}
             </div>
         </div>
+        
+        {{-- ======================= --}}
+        
+        <div class="col-12 col-md-3 mt-3" id="">
+            <div class="form-group d-flex flex-column">
+                <label for="referencia" class="form-label">Referencia <span class="text-danger">*</span></label>
+                {!! Form::text('referencia', null, ['class' => 'form-control', 'id' => 'referencia']) !!}
+            </div>
+        </div>
 
         {{-- ========================================================= --}}
         {{-- ========================================================= --}}

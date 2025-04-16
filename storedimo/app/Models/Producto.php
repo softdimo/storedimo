@@ -27,6 +27,7 @@ class Producto extends Model
         'stock_minimo',
         'id_estado',
         'tamano',
-        'cantidad'
+        'cantidad',
+        'referencia'
     ];
 }

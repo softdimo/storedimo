@@ -28,7 +28,8 @@ class ReporteProductosPdf implements Responsable
                     'estados.estado',
                     'cantidad',
                     'tipo_persona.id_tipo_persona',
-                    'tipo_persona'
+                    'tipo_persona',
+                    'referencia'
                 )
                 ->where('productos.id_estado', 1)
                 ->orderBy('nombre_producto', 'ASC')
