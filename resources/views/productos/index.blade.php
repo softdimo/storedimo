@@ -501,13 +501,13 @@
                     {{-- ========================================================= --}}
                     {{-- ========================================================= --}}
 
-                    <div class="mt-5 mb-2 d-flex justify-content-center">
+                    {{-- <div class="mt-5 mb-2 d-flex justify-content-center">
                         <a href="{{ route('reporte_productos_pdf') }}" target="_blank"
                             class="btn rounded-2 me-3 text-white" style="background-color: #286090">
                             <i class="fa fa-file-pdf-o"></i>
                             Reporte Productos
                         </a>
-                    </div>
+                    </div> --}}
                 </div> {{-- FIN div_ --}}
             </div> {{-- FIN div_ --}}
         </div>
@@ -530,13 +530,12 @@
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
                 stripe: true,
-                "bSort": false,
-                "buttons": [{
-                        extend: 'copyHtml5',
-                        text: 'Copiar',
-                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary',
-                        init: function(api, node, config) {
-                            $(node).removeClass('dt-button')
+                bSort: true,
+                buttons: [{
+                        text: 'PDF',
+                        className: 'waves-effect waves-light btn-rounded btn-sm btn-danger',
+                        action: function() {
+                            window.open("{{ route('reporte_productos_pdf') }}", "_blank");
                         }
                     },
                     {
@@ -559,8 +558,7 @@
             // ===========================================================
 
             // formEditarProducto para cargar gif en el submit
-            $(document).on("submit", "form[id^='formEditarProducto_']", function(e)
-            {
+            $(document).on("submit", "form[id^='formEditarProducto_']", function(e) {
                 const form = $(this);
                 const formId = form.attr('id'); // Obtenemos el ID del formulario
                 const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario

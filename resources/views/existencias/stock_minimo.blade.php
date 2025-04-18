@@ -32,11 +32,17 @@
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Productos en Stock Mínimo</h5>
-            
+                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">
+                    Productos en Stock Mínimo</h5>
+
+                <div id="loader-pdf" style="display:none;" class="text-center mt-3">
+                    <i class="fa fa-spinner fa-spin"></i> Generando PDF, por favor espera...
+                </div>
+
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_stock_minimo" aria-describedby="stock_minimo">
+                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_stock_minimo"
+                            aria-describedby="stock_minimo">
                             <thead>
                                 <tr class="header-table text-center">
                                     <th>Referencia</th>
@@ -51,12 +57,12 @@
                             <tbody>
                                 @foreach ($stockMinimoIndex as $stockMinimo)
                                     <tr class="text-center">
-                                        <td>{{$stockMinimo->referencia}}</td>
-                                        <td>{{$stockMinimo->nombre_producto}}</td>
-                                        <td>{{$stockMinimo->categoria}}</td>
-                                        <td>{{$stockMinimo->descripcion}}</td>
-                                        <td>{{$stockMinimo->cantidad}}</td>
-                                        <td>{{$stockMinimo->stock_minimo}}</td>
+                                        <td>{{ $stockMinimo->referencia }}</td>
+                                        <td>{{ $stockMinimo->nombre_producto }}</td>
+                                        <td>{{ $stockMinimo->categoria }}</td>
+                                        <td>{{ $stockMinimo->descripcion }}</td>
+                                        <td>{{ $stockMinimo->cantidad }}</td>
+                                        <td>{{ $stockMinimo->stock_minimo }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -64,11 +70,11 @@
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-center mt-3 mb-3">
+                {{-- <div class="d-flex justify-content-center mt-3 mb-3">
                     <button class="btn btn-success generar-pdf" style="background-color: #337AB7">
                         <i class="fa fa-file-pdf-o"></i> Reporte stock Mínimo
                     </button>
-                </div>
+                </div> --}}
             </div> {{-- FIN div_crear_usuario --}}
         </div>
     </div>
@@ -79,33 +85,34 @@
 {{-- =============================================================== --}}
 
 @section('scripts')
-    <script src="{{asset('DataTables/datatables.min.js')}}"></script>
-    <script src="{{asset('DataTables/Buttons-2.3.4/js/buttons.html5.min.js')}}"></script>
+    <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
+    <script src="{{ asset('DataTables/Buttons-2.3.4/js/buttons.html5.min.js') }}"></script>
 
     <script>
-        $( document ).ready(function() {
+        $(document).ready(function() {
             // INICIO DataTable stock Mínimo
             $("#tbl_stock_minimo").DataTable({
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
                 stripe: true,
-                "bSort": false,
-                "buttons": [
-                    {
-                        extend: 'copyHtml5',
-                        text: 'Copiar',
-                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary',
+                bSort: false,
+                buttons: [{
+                        text: 'PDF',
+                        className: 'waves-effect waves-light btn-rounded btn-sm btn-danger me-3',
+                        action: function() {
+                            generarPDFStockMinimo()
+                        },
                         init: function(api, node, config) {
-                            $(node).removeClass('dt-button')
+                            $(node).removeClass('dt-button');
                         }
                     },
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',
                         className: 'waves-effect waves-light btn-rounded btn-sm btn-primary mr-3',
-                        customize: function( xlsx ) {
+                        customize: function(xlsx) {
                             var sheet = xlsx.xl.worksheets['sheet1.xml'];
-                            $('row:first c', sheet).attr( 's', '42' );
+                            $('row:first c', sheet).attr('s', '42');
                         }
                     }
                 ],
@@ -118,7 +125,10 @@
             // =========================================================================
             // =========================================================================
 
-            document.querySelector(".generar-pdf").addEventListener("click", function () {
+            //document.querySelector(".generar-pdf").addEventListener("click", function() {
+            function generarPDFStockMinimo() {
+                let loader = document.getElementById("loader-pdf");
+                loader.style.display = "block";
                 let productos = [];
 
                 document.querySelectorAll("#tbl_stock_minimo tbody tr").forEach(row => {
@@ -134,22 +144,26 @@
                 });
 
                 fetch("/stock_minimo_pdf", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-                    },
-                    body: JSON.stringify({ productos }) // Enviamos un array de productos
-                })
-                .then(response => response.blob())
-                .then(blob => {
-                    let url = window.URL.createObjectURL(blob);
-                    window.open(url, "_blank");
-                })
-                .catch(error => console.error("Error al generar PDF:", error));
-            });
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]')
+                                .getAttribute("content")
+                        },
+                        body: JSON.stringify({
+                            productos
+                        }) // Enviamos un array de productos
+                    })
+                    .then(response => response.blob())
+                    .then(blob => {
+                        let url = window.URL.createObjectURL(blob);
+                        window.open(url, "_blank");
+                    })
+                    .catch(error => console.error("Error al generar PDF:", error))
+                    .finally(() => {
+                        loader.style.display = "none"; // Ocultar loader siempre
+                    });
+            };
         }); // FIN document.ready
     </script>
 @stop
-
-
