@@ -318,12 +318,6 @@
                     {{-- ========================================================= --}}
                     {{-- ========================================================= --}}
             
-                    <div class="mt-5 mb-2 d-flex justify-content-center">
-                        <button type="submit" class="btn rounded-2 me-3 text-white" style="background-color: #286090">
-                            <i class="fa fa-file-pdf-o"></i>
-                            Reporte PDF de Proveedores
-                        </button>
-                    </div>
                 </div> {{-- FIN div_campos_usuarios --}}
             </div> {{-- FIN div_crear_usuario --}}
             
@@ -346,14 +340,22 @@
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
                 stripe: true,
-                "bSort": false,
-                "buttons": [
+                bSort: true,
+                buttons: [
                     {
-                        extend: 'copyHtml5',
-                        text: 'Copiar',
-                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary',
-                        init: function(api, node, config) {
-                            $(node).removeClass('dt-button')
+                        extend: 'pdfHtml5',
+                        text: 'PDF',
+                        className: 'waves-effect waves-light btn-rounded btn-sm btn-danger',
+                        orientation: 'landscape',
+                        pageSize: 'A4', // se ajustará dinámicamente abajo
+                        title: 'Listado de Clientes',
+                        exportOptions: {
+                            columns: ':visible:not(:last-child)'
+                        },
+                        customize: function(doc) {
+                            const columnCount = $('#tbl_clientes thead th').length;
+                            doc.pageSize = 'A5';
+                            doc.defaultStyle.fontSize = 15;
                         }
                     },
                     {

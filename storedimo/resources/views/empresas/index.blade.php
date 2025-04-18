@@ -264,16 +264,24 @@
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
                 stripe: true,
-                "bSort": false,
-                "autoWidth": false,
-                "scrollX": true,
-                "buttons": [
+                bSort: true,
+                autoWidth: false,
+                scrollX: true,
+                buttons: [
                     {
-                        extend: 'copyHtml5',
-                        text: 'Copiar',
-                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary',
-                        init: function(api, node, config) {
-                            $(node).removeClass('dt-button')
+                        extend: 'pdfHtml5',
+                        text: 'PDF',
+                        className: 'waves-effect waves-light btn-rounded btn-sm btn-danger',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+                        title: 'Listado de Empresas',
+                        exportOptions: {
+                            columns: ':visible:not(:last-child)'
+                        },
+                        customize: function(doc) {
+                            const columnCount = $('#tbl_proveedores thead th').length;
+                            doc.pageSize = 'A4';
+                            doc.defaultStyle.fontSize = 12;
                         }
                     },
                     {
