@@ -5,6 +5,7 @@ namespace App\Http\Controllers\roles_permisos;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Responsable\roles_permisos\RolesPermisosStore;
+use App\Http\Responsable\roles_permisos\RolesPermisosShow;
 
 class RolesPermisosController extends Controller
 {
@@ -17,5 +18,16 @@ class RolesPermisosController extends Controller
     {
         $rolesPermisos = new RolesPermisosStore();
         return  $rolesPermisos->crearPermiso($request);
+    }
+
+    function crearPermisosUsuario(Request $request)
+    {
+        $rolesPermisos = new RolesPermisosStore();
+        return  $rolesPermisos->crearPermisosPorUsuario($request);
+    }
+
+    function consultarPermisosPorUsuario(Request $request)
+    {
+        return new RolesPermisosShow();
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
 use App\Models\Roles;
 use App\Models\Permission;
+use App\Models\ModelHasPermissions;
 
 class RolesPermisosStore implements Responsable
 {   
@@ -114,5 +115,41 @@ class RolesPermisosStore implements Responsable
         return Permission::select('name', 'guard_name')
                 ->where('name', $name)
                 ->count();
+    }
+
+    public function crearPermisosPorUsuario($request)
+    {
+        try 
+        {
+            foreach($request->permissions as $permissions)
+            {
+                // Asigna los permisos nuevos y actualiza si alguno tuvo un cambio
+                $modelHasPermissions = ModelHasPermissions::updateOrCreate([
+                    'permission_id' => $permissions,
+                    'model_type' => 'App\Models\Usuario',
+                    'model_id' => $request->usuario_id
+                ]);
+            }
+
+            if($modelHasPermissions)
+            {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Permisos asignados correctamente'
+                ]);
+            }
+
+            return response()->json([
+                'error' => true,
+                'message' => 'Ha ocurrido un error asignando los permisos'
+            ]);
+            
+        } catch (Exception $e) 
+        {
+            return response()->json([
+                'error' => true,
+                'message' => 'Ha ocurrido un error de base de datos asignando los permisos'
+            ]);
+        }
     }
 }
