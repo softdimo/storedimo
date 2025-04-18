@@ -12,6 +12,19 @@
             </div>
         </div>
 
+        <div class="col-12 col-md-3">
+            <p>&nbsp;</p>
+        </div>
+
+        <div class="col-12 col-md-3">
+              <!-- Contenedor para el GIF -->
+            <div id="loadingPermissions"
+                class="ocultar">
+                <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando..." height="50" width="50">
+                <p><strong>Procesando...</strong></p>
+            </div>
+        </div>
+
         <div class="row pb-4 pt-4">
             <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
                 <h6 class="border rounded text-center pt-2 pb-2 m-0" style="background-color: #EEEEEE;">Listado de Permisos</h6>
@@ -24,7 +37,7 @@
                 <label for="seleccionar_todos" class="pointer"><strong>Seleccionar/Quitar todos</strong></label>
             </div>
 
-                <div class="permiso-grid">
+                <div class="permiso-grid" id="permisos-grid">
                     @foreach ($permisos as $permiso)
                         <div class="permiso-item">
                             <input 
@@ -51,12 +64,12 @@
         {{-- ====================================================== --}}
 
         <div class="mt-5 mb-2 d-flex justify-content-center">
-            <button type="submit" class="btn btn-success rounded-2 me-3">
+            <button type="submit" class="btn btn-success rounded-2 me-3" id="bt-guardar-permisos">
                 <i class="fa fa-floppy-o"></i>
                 Guardar
             </button>
 
-            <button type="button" class="btn btn-secondary rounded-2">
+            <button type="button" class="btn btn-secondary rounded-2" id="bt-cancel-permisos">
                 <i class="fa fa-remove"></i>
                 Cancelar
             </button>

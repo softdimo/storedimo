@@ -97,6 +97,7 @@ trait MetodosTrait
                                     ->where('id_estado', 1)
                                     ->pluck('user', 'id_usuario'));
         view()->share('permisos', Permission::orderBy('id')->get());
+        view()->share('permisosAsignados', []);
 
         // (ventas.create, línea 276), (entradas.create, línea 220), (productos.fields_crear_productos , línea 8)
         view()->share('proveedores', Proveedor::whereIn('id_tipo_persona', [3, 4])

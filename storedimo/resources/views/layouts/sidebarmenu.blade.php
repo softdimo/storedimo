@@ -1,7 +1,8 @@
 <aside class="vh-100" style="border: 1px solid #e7e7e7">
     <nav class="w-100 " role="">
         <ul class="nav navbar-nav d-flex flex-column justify-content-center flex-nowrap" id="sidebarnav">
-            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center" style="background-color: #EEEEEE; border-bottom: 1px solid #e7e7e7">
+            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center" 
+                style="background-color: #EEEEEE; border-bottom: 1px solid #e7e7e7">
                 <i class="fa fa-th-list text-center" style="color: #000; width: 10%"></i>
                 <a href="/home" class="nav-link active text-decoration-none text-start" style="width: 80%">Menú Principal</a>
                 <span class="" style="width: 10%"></span>

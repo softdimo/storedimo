@@ -15,7 +15,7 @@
 
 @section('content')
     <div class="d-flex p-0">
-        <div class="p-0" style="width: 20%">
+        <div class="p-0" style="width: 15%">
             @include('layouts.sidebarmenu')
         </div>
 

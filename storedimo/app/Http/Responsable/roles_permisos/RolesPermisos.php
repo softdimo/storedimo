@@ -85,4 +85,28 @@ class RolesPermisos implements Responsable
             return back();
         }
     }
+
+    public function consultarPermisosPorUsuario($request)
+    {
+        try
+        {
+            $usuario = request('usuarioId', null);
+
+            $peticionPermisos = $this->clientApi->post($this->baseUri . 'consultar_permisos',
+            [
+                'json' => [
+                    'usuarioId' => $usuario,
+                    'id_audit' => session('id_usuario')
+                ]
+            ]);
+
+            $permisos = $peticionPermisos->getBody()->getContents();
+
+            return $permisos;
+
+        } catch (Exception $e)
+        {
+            return response()->json("error_exception");
+        }
+    }
 }

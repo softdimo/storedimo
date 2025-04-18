@@ -192,6 +192,7 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
     {
         Route::post('crear_rol', 'RolesPermisosController@guardarRol')->name('crear_rol');
         Route::post('crear_permiso', 'RolesPermisosController@guardarPermiso')->name('crear_permiso');
+        Route::post('traer_permisos_usuario', 'RolesPermisosController@consultarPermisosPorUsuario')->name('traer_permisos_usuario');
     });
     
     // ========================================================================
