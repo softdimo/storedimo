@@ -553,15 +553,17 @@
             // INICIO DataTable Lista Usuarios
             $("#tbl_usuarios").DataTable({
                 dom: 'Blfrtip',
-                "infoEmpty": "No hay registros",
+                infoEmpty: "No hay registros",
                 stripe: true,
-                "bSort": false,
-                "buttons": [{
-                        extend: 'copyHtml5',
-                        text: 'Copiar',
-                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary',
-                        init: function(api, node, config) {
-                            $(node).removeClass('dt-button')
+                buttons: [{
+                        extend: 'pdfHtml5',
+                        text: 'PDF',
+                        className: 'waves-effect waves-light btn-rounded btn-sm btn-danger',
+                        orientation: 'landscape',
+                        pageSize: 'A3',
+                        title: 'Listado de Usuarios',
+                        exportOptions: {
+                            columns: ':visible:not(:last-child)'
                         }
                     },
                     {
@@ -574,13 +576,14 @@
                         }
                     }
                 ],
-                "pageLength": 10,
-                "scrollX": true,
+                pageLength: 10,
+                scrollX: true
             });
+
             // CIERRE DataTable Lista Usuarios
 
 
-            
+
             // ===========================================================================================
 
             function validatePassword(nuevaClaveValor) {

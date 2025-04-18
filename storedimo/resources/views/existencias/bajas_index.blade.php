@@ -50,53 +50,63 @@
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
             <div class="text-end">
-                <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal" data-bs-target="#modalAyudaListarBajas">
+                <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal"
+                    data-bs-target="#modalAyudaListarBajas">
                     <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
                 </a>
             </div>
 
-            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaListarBajas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
+            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaListarBajas" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
                 <div class="modal-dialog m-0 mw-100">
                     <div class="modal-content border-0">
                         <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="rounded-top text-white text-center p-2" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                    <div class="rounded-top text-white text-center p-2"
+                                        style="background-color: #337AB7; border: solid 1px #337AB7;">
                                         <span class="modal-title fs-4"><strong>Ayuda de Listar Bajas</strong></span>
                                     </div>
                                     {{-- =========================== --}}
                                     <div class="p-3">
-                                        <p class="text-justify">En esta sección solo se mostrará más detalladamente la información de la baja que fue registrada, pero en caso de querer anular una baja tener en cuenta la siguiente recomendación.</p>
-    
+                                        <p class="text-justify">En esta sección solo se mostrará más detalladamente la
+                                            información de la baja que fue registrada, pero en caso de querer anular una
+                                            baja tener en cuenta la siguiente recomendación.</p>
+
                                         <ol>
-                                            <li class="text-justify">Una baja solo podrá ser anulada el mismo día en fue registrada</li>
-                                            <li class="text-justify">En las fechas del reporte de las bajas, evitar ingresar fechas mayores o menores a los 3 meses.</li>
+                                            <li class="text-justify">Una baja solo podrá ser anulada el mismo día en fue
+                                                registrada</li>
+                                            <li class="text-justify">En las fechas del reporte de las bajas, evitar ingresar
+                                                fechas mayores o menores a los 3 meses.</li>
                                         </ol>
-                                    </div> {{--FINpanel-body --}}
-                                </div> {{--FIN col-12 --}}
-                            </div> {{--FIN modal-body .row --}}
-                        </div> {{--FIN modal-body --}}
+                                    </div> {{-- FINpanel-body --}}
+                                </div> {{-- FIN col-12 --}}
+                            </div> {{-- FIN modal-body .row --}}
+                        </div> {{-- FIN modal-body --}}
                         {{-- =========================== --}}
                         <div class="row mt-3">
                             <div class="col-12">
-                                <button type="button" class="btn btn-primary btn-md active pull-right" data-bs-dismiss="modal" style="background-color: #337AB7;">
+                                <button type="button" class="btn btn-primary btn-md active pull-right"
+                                    data-bs-dismiss="modal" style="background-color: #337AB7;">
                                     <i class="fa fa-check-circle" aria-hidden="true">&nbsp;Aceptar</i>
                                 </button>
                             </div>
                         </div>
-                    </div> {{--FIN modal-content --}}
-                </div> {{--FIN modal-dialog --}}
-            </div> {{--FIN modalAyudaModificacionProductos --}}
+                    </div> {{-- FIN modal-content --}}
+                </div> {{-- FIN modal-dialog --}}
+            </div> {{-- FIN modalAyudaModificacionProductos --}}
 
             {{-- =============================================================== --}}
             {{-- =============================================================== --}}
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Bajas</h5>
-            
+                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar
+                    Bajas</h5>
+
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_bajas" aria-describedby="bajas">
+                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_bajas"
+                            aria-describedby="bajas">
                             <thead>
                                 <tr class="header-table text-center">
                                     <th>Código Bajas</th>
@@ -110,12 +120,15 @@
                             <tbody>
                                 @foreach ($bajasIndex as $baja)
                                     <tr class="text-center">
-                                        <td>{{$baja->id_baja}}</td>
-                                        <td>{{$baja->nombres_usuario}}</td>
-                                        <td>{{$baja->fecha_baja}}</td>
-                                        <td>{{$baja->estado}}</td>
+                                        <td>{{ $baja->id_baja }}</td>
+                                        <td>{{ $baja->nombres_usuario }}</td>
+                                        <td>{{ $baja->fecha_baja }}</td>
+                                        <td>{{ $baja->estado }}</td>
                                         <td>
-                                            <a href="#" role="button" class="btn rounded-circle btn-circle text-white" title="Ver Detalles" style="background-color: #286090" data-bs-toggle="modal" data-bs-target="#modalDetalleBaja_{{$baja->id_baja}}">
+                                            <a href="#" role="button"
+                                                class="btn rounded-circle btn-circle text-white" title="Ver Detalles"
+                                                style="background-color: #286090" data-bs-toggle="modal"
+                                                data-bs-target="#modalDetalleBaja_{{ $baja->id_baja }}">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                         </td>
@@ -124,21 +137,22 @@
                             </tbody>
                         </table>
                     </div>
-                    
+
                     {{-- ========================================================= --}}
                     {{-- ========================================================= --}}
                     {{-- ========================================================= --}}
                     {{-- ========================================================= --}}
-            
-                    <div class="mt-5 mb-2 d-flex justify-content-center">
-                        <button type="button" class="btn rounded-2 me-3 text-white" style="background-color: #286090" data-bs-toggle="modal" data-bs-target="#modalReporteBajas">
+
+                    <!-- <div class="mt-5 mb-2 d-flex justify-content-center">
+                        <button type="button" class="btn rounded-2 me-3 text-white" style="background-color: #286090"
+                            data-bs-toggle="modal" data-bs-target="#modalReporteBajas">
                             <i class="fa fa-file-pdf-o"></i>
-                            Reporte Bajas
+                            Reporte Bajas 1
                         </button>
-                    </div>
-                </div> {{-- FIN div_campos_usuarios --}}
-            </div> {{-- FIN div_crear_usuario --}}
-        </div>
+                </div> -->
+            </div> {{-- FIN div_campos_usuarios --}}
+        </div> {{-- FIN div_crear_usuario --}}
+    </div>
     </div> {{-- FIN contenedor principal --}}
 
     {{-- =============================================================== --}}
@@ -146,60 +160,62 @@
     {{-- =============================================================== --}}
 
     {{-- INICIO Modal REPORTE VENTAS --}}
-    <div class="modal fade h-auto modal-gral p-3" id="modalReporteBajas" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal fade h-auto modal-gral p-3" id="modalReporteBajas" tabindex="-1" data-bs-backdrop="static"
+        data-bs-keyboard="false">
         <div class="modal-dialog m-0">
             <div class="modal-content w-100 border-0">
                 <div class="rounded-top" style="border: solid 1px #337AB7;">
-                    {!!Form::open(['method' => 'POST',
+                    {!! Form::open([
+                        'method' => 'POST',
                         'route' => ['reporte_bajas_pdf'],
-                        'class' => '', 'autocomplete' => 'off',
+                        'class' => '',
+                        'autocomplete' => 'off',
                         'id' => 'formReporteVentasPdf',
-                        'target' => '_blank' // 👉 Abrir en nueva pestaña
-                        ])!!}
-                        @csrf
+                        'target' => '_blank', // 👉 Abrir en nueva pestaña
+                    ]) !!}
+                    @csrf
 
-                        <div class="rounded-top text-white text-center"
-                            style="background-color: #337AB7; border: solid 1px #337AB7;">
-                            <h5>Reporte Bajas</h5>
-                        </div>
+                    <div class="rounded-top text-white text-center"
+                        style="background-color: #337AB7; border: solid 1px #337AB7;">
+                        <h5>Reporte Bajas</h5>
+                    </div>
 
-                        <div class="modal-body m-0">
-                            <div class="row m-0">
-                                <div class="col-12 col-md-6">
-                                    <label for="fecha_inicial" class="fw-bold" style="font-size: 12px">
-                                        Fecha Inicial <span class="text-danger">*</span>
-                                    </label>
-                                    <div class="input-group" id="calendar_addon_inicial" style="cursor: pointer;">
-                                        {!! Form::date('fecha_inicial', null, ['class' => 'form-control', 'id' => 'fecha_inicial', 'required']) !!}
-                                        <span class="input-group-text">
-                                            <i class="fa fa-calendar"></i>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="col-12 col-md-6">
-                                    <label for="fecha_final" class="fw-bold" style="font-size: 12px">
-                                        Fecha Final <span class="text-danger">*</span>
-                                    </label>
-                                    <div class="input-group" id="calendar_addon_final" style="cursor: pointer;">
-                                        {!! Form::date('fecha_final', null, ['class' => 'form-control', 'id' => 'fecha_final', 'required']) !!}
-                                        <span class="input-group-text">
-                                            <i class="fa fa-calendar"></i>
-                                        </span>
-                                    </div>
+                    <div class="modal-body m-0">
+                        <div class="row m-0">
+                            <div class="col-12 col-md-6">
+                                <label for="fecha_inicial" class="fw-bold" style="font-size: 12px">
+                                    Fecha Inicial <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group" id="calendar_addon_inicial" style="cursor: pointer;">
+                                    {!! Form::date('fecha_inicial', null, ['class' => 'form-control', 'id' => 'fecha_inicial', 'required']) !!}
+                                    <span class="input-group-text">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
                                 </div>
                             </div>
-                        </div> <!-- FIN modal-body -->
 
-                        {{-- ====================================================== --}}
-                        {{-- ====================================================== --}}
-
-                        <div class="modal-footer border-0 d-flex justify-content-center mt-3">
-                            <button type="submit" id="btn_reporte_ventas"
-                                class="btn btn-success">
-                                <i class="fa fa-file-pdf-o"> Generar</i>
-                            </button>
+                            <div class="col-12 col-md-6">
+                                <label for="fecha_final" class="fw-bold" style="font-size: 12px">
+                                    Fecha Final <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group" id="calendar_addon_final" style="cursor: pointer;">
+                                    {!! Form::date('fecha_final', null, ['class' => 'form-control', 'id' => 'fecha_final', 'required']) !!}
+                                    <span class="input-group-text">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
+                    </div> <!-- FIN modal-body -->
+
+                    {{-- ====================================================== --}}
+                    {{-- ====================================================== --}}
+
+                    <div class="modal-footer border-0 d-flex justify-content-center mt-3">
+                        <button type="submit" id="btn_reporte_ventas" class="btn btn-success">
+                            <i class="fa fa-file-pdf-o"> Generar</i>
+                        </button>
+                    </div>
                     {!! Form::close() !!}
                 </div> {{-- FIN Div rounded-top --}}
 
@@ -208,7 +224,8 @@
 
                 <div class="row mt-3">
                     <div class="col-12">
-                        <button type="button" class="btn btn-primary btn-md active pull-right" style="background-color: #337AB7;" data-bs-dismiss="modal">
+                        <button type="button" class="btn btn-primary btn-md active pull-right"
+                            style="background-color: #337AB7;" data-bs-dismiss="modal">
                             <i class="fa fa-check-circle"> Aceptar</i>
                         </button>
                     </div>
@@ -224,19 +241,22 @@
 
     @foreach ($bajasIndex as $baja)
         <!-- INICIO Modal DETALLES BAJA -->
-        <div class="modal fade h-auto modal-gral p-0" id="modalDetalleBaja_{{$baja->id_baja}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+        <div class="modal fade h-auto modal-gral p-0" id="modalDetalleBaja_{{ $baja->id_baja }}" tabindex="-1"
+            data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
             <div class="modal-dialog m-0">
                 <div class="modal-content p-3 w-100">
                     <div class="rounded-top" style="border: solid 1px #337AB7;">
-                        <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                            <h5>Detalle Baja Código: {{$baja->id_baja}}</h5>
+                        <div class="rounded-top text-white text-center"
+                            style="background-color: #337AB7; border: solid 1px #337AB7;">
+                            <h5>Detalle Baja Código: {{ $baja->id_baja }}</h5>
                         </div>
 
                         <div class="modal-body p-0 m-0">
                             <div class="row m-0">
                                 <div class="col-12 p-3 pt-1">
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-bordered w-100 mb-0" aria-describedby="venta">
+                                        <table class="table table-striped table-bordered w-100 mb-0"
+                                            aria-describedby="venta">
                                             <thead>
                                                 <tr class="header-table text-center">
                                                     <th>Producto</th>
@@ -247,9 +267,9 @@
                                             <tbody>
                                                 @foreach ($baja->detalles as $producto)
                                                     <tr class="text-center">
-                                                        <td>{{$producto->nombre_producto}}</td>
-                                                        <td>{{$producto->cantidad}}</td>
-                                                        <td>{{$producto->tipo_baja}}</td>
+                                                        <td>{{ $producto->nombre_producto }}</td>
+                                                        <td>{{ $producto->cantidad }}</td>
+                                                        <td>{{ $producto->tipo_baja }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -277,33 +297,38 @@
 {{-- =============================================================== --}}
 
 @section('scripts')
-    <script src="{{asset('DataTables/datatables.min.js')}}"></script>
-    <script src="{{asset('DataTables/Buttons-2.3.4/js/buttons.html5.min.js')}}"></script>
+    <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
+    <script src="{{ asset('DataTables/Buttons-2.3.4/js/buttons.html5.min.js') }}"></script>
 
     <script>
-        $( document ).ready(function() {
+        $(document).ready(function() {
             // INICIO DataTable Bajas
             $("#tbl_bajas").DataTable({
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
                 stripe: true,
-                "bSort": false,
-                "buttons": [
+                bSort: true,
+                buttons: [
                     {
-                        extend: 'copyHtml5',
-                        text: 'Copiar',
-                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary',
+                        text: 'PDF',
+                        className: 'waves-effect waves-light btn-rounded btn-sm btn-danger',
+                        action: function() {
+                            let modal = new bootstrap.Modal(document.getElementById(
+                                'modalReporteBajas'));
+                            modal.show();
+                        },
                         init: function(api, node, config) {
-                            $(node).removeClass('dt-button')
+                            $(node).removeClass(
+                            'dt-button');
                         }
                     },
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',
                         className: 'waves-effect waves-light btn-rounded btn-sm btn-primary mr-3',
-                        customize: function( xlsx ) {
+                        customize: function(xlsx) {
                             var sheet = xlsx.xl.worksheets['sheet1.xml'];
-                            $('row:first c', sheet).attr( 's', '42' );
+                            $('row:first c', sheet).attr('s', '42');
                         }
                     }
                 ],
@@ -316,7 +341,7 @@
             // ============================================================
             // ============================================================
 
-            $(document).on('shown.bs.modal', '#modalReporteBajas', function () {
+            $(document).on('shown.bs.modal', '#modalReporteBajas', function() {
                 let modal = $(this); // Referencia del modal
 
                 function configurarCalendario(inputId, iconoId) {
@@ -325,14 +350,14 @@
 
                     if (inputFecha.length > 0) {
                         // Abre el calendario al hacer clic en el input
-                        inputFecha.on("focus", function () {
+                        inputFecha.on("focus", function() {
                             if (typeof this.showPicker === "function") {
                                 this.showPicker();
                             }
                         });
 
                         // Abre el calendario al hacer clic en el icono
-                        iconoCalendario.on("mousedown touchstart", function (event) {
+                        iconoCalendario.on("mousedown touchstart", function(event) {
                             event.preventDefault();
                             if (typeof inputFecha[0].showPicker === "function") {
                                 inputFecha[0].showPicker();
@@ -340,7 +365,7 @@
                         });
 
                         // Evento para asegurarse de que la fecha se refleje
-                        inputFecha.on("change", function () {
+                        inputFecha.on("change", function() {
                             console.log("Fecha seleccionada:", inputFecha.val()); // Para depuración
                         });
                     }
@@ -359,5 +384,3 @@
         }); // FIN document.ready
     </script>
 @stop
-
-

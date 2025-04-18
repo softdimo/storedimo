@@ -420,13 +420,21 @@
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
                 stripe: true,
-                "bSort": false,
-                "buttons": [{
-                        extend: 'copyHtml5',
-                        text: 'Copiar',
-                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary',
-                        init: function(api, node, config) {
-                            $(node).removeClass('dt-button')
+                bSort: true,
+                buttons: [{
+                        extend: 'pdfHtml5',
+                        text: 'PDF',
+                        className: 'waves-effect waves-light btn-rounded btn-sm btn-danger',
+                        orientation: 'landscape',
+                        pageSize: 'A4', // se ajustará dinámicamente abajo
+                        title: 'Listado de Personas',
+                        exportOptions: {
+                            columns: ':visible:not(:last-child)'
+                        },
+                        customize: function(doc) {
+                            const columnCount = $('#tbl_personas thead th').length;
+                            doc.pageSize = 'A5';
+                            doc.defaultStyle.fontSize = 12;
                         }
                     },
                     {
