@@ -49,11 +49,13 @@
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar Ventas</h5>
-            
+                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar
+                    Ventas</h5>
+
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_ventas" aria-describedby="ventas">
+                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_ventas"
+                            aria-describedby="ventas">
                             <thead>
                                 <tr class="header-table text-center">
                                     <th>Código</th>
@@ -70,20 +72,18 @@
                             <tbody>
                                 @foreach ($ventas as $venta)
                                     <tr class="text-center align-middle">
-                                        <td>{{$venta->id_venta}}</td>
-                                        <td>{{$venta->total_venta}}</td>
-                                        <td>{{$venta->fecha_venta}}</td>
-                                        <td>{{$venta->identificacion}}</td>
-                                        <td>{{$venta->nombres_cliente}}</td>
-                                        <td>{{$venta->tipo_pago}}</td>
-                                        <td>{{$venta->estado}}</td>
+                                        <td>{{ $venta->id_venta }}</td>
+                                        <td>{{ $venta->total_venta }}</td>
+                                        <td>{{ $venta->fecha_venta }}</td>
+                                        <td>{{ $venta->identificacion }}</td>
+                                        <td>{{ $venta->nombres_cliente }}</td>
+                                        <td>{{ $venta->tipo_pago }}</td>
+                                        <td>{{ $venta->estado }}</td>
                                         <td>
-                                            <button title="Ver Detalles"
-                                                class="btn rounded-circle btn-circle text-white"
-                                                title="Detalles Ventas"
-                                                style="background-color: #286090"
+                                            <button title="Ver Detalles" class="btn rounded-circle btn-circle text-white"
+                                                title="Detalles Ventas" style="background-color: #286090"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#modalDetalleVenta_{{$venta->id_venta}}">
+                                                data-bs-target="#modalDetalleVenta_{{ $venta->id_venta }}">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                             </button>
                                         </td>
@@ -98,12 +98,13 @@
                     {{-- ========================================================= --}}
                     {{-- ========================================================= --}}
 
-                    <div class="mt-5 mb-2 d-flex justify-content-center">
-                        <button type="submit" class="btn rounded-2 me-3 text-white" style="background-color: #286090" data-bs-toggle="modal" data-bs-target="#modalReporteVentas">
+                    {{-- <div class="mt-5 mb-2 d-flex justify-content-center">
+                        <button type="submit" class="btn rounded-2 me-3 text-white" style="background-color: #286090"
+                            data-bs-toggle="modal" data-bs-target="#modalReporteVentas">
                             <i class="fa fa-file-pdf-o"></i>
                             Reporte Ventas
                         </button>
-                    </div>
+                    </div> --}}
                 </div> {{-- FIN div_campos_usuarios --}}
             </div> {{-- FIN div_crear_usuario --}}
         </div>
@@ -111,62 +112,64 @@
 
     {{-- =============================================================== --}}
     {{-- =============================================================== --}}
-    
+
     {{-- INICIO Modal REPORTE VENTAS --}}
-    <div class="modal fade h-auto modal-gral p-3" id="modalReporteVentas" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal fade h-auto modal-gral p-3" id="modalReporteVentas" tabindex="-1" data-bs-backdrop="static"
+        data-bs-keyboard="false">
         <div class="modal-dialog m-0">
             <div class="modal-content w-100 border-0">
                 <div class="rounded-top" style="border: solid 1px #337AB7;">
-                    {!!Form::open(['method' => 'POST',
+                    {!! Form::open([
+                        'method' => 'POST',
                         'route' => ['reporte_ventas_pdf'],
-                        'class' => '', 'autocomplete' => 'off',
+                        'class' => '',
+                        'autocomplete' => 'off',
                         'id' => 'formReporteVentasPdf',
-                        'target' => '_blank' // 👉 Abrir en nueva pestaña
-                        ])!!}
-                        @csrf
+                        'target' => '_blank', // 👉 Abrir en nueva pestaña
+                    ]) !!}
+                    @csrf
 
-                        <div class="rounded-top text-white text-center"
-                            style="background-color: #337AB7; border: solid 1px #337AB7;">
-                            <h5>Reporte Ventas</h5>
-                        </div>
+                    <div class="rounded-top text-white text-center"
+                        style="background-color: #337AB7; border: solid 1px #337AB7;">
+                        <h5>Reporte Ventas</h5>
+                    </div>
 
-                        <div class="modal-body m-0">
-                            <div class="row m-0">
-                                <div class="col-12 col-md-6">
-                                    <label for="fecha_inicial" class="fw-bold" style="font-size: 12px">
-                                        Fecha Inicial <span class="text-danger">*</span>
-                                    </label>
-                                    <div class="input-group" id="calendar_addon_inicial" style="cursor: pointer;">
-                                        {!! Form::date('fecha_inicial', null, ['class' => 'form-control', 'id' => 'fecha_inicial', 'required']) !!}
-                                        <span class="input-group-text">
-                                            <i class="fa fa-calendar"></i>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="col-12 col-md-6">
-                                    <label for="fecha_final" class="fw-bold" style="font-size: 12px">
-                                        Fecha Final <span class="text-danger">*</span>
-                                    </label>
-                                    <div class="input-group" id="calendar_addon_final" style="cursor: pointer;">
-                                        {!! Form::date('fecha_final', null, ['class' => 'form-control', 'id' => 'fecha_final', 'required']) !!}
-                                        <span class="input-group-text">
-                                            <i class="fa fa-calendar"></i>
-                                        </span>
-                                    </div>
+                    <div class="modal-body m-0">
+                        <div class="row m-0">
+                            <div class="col-12 col-md-6">
+                                <label for="fecha_inicial" class="fw-bold" style="font-size: 12px">
+                                    Fecha Inicial <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group" id="calendar_addon_inicial" style="cursor: pointer;">
+                                    {!! Form::date('fecha_inicial', null, ['class' => 'form-control', 'id' => 'fecha_inicial', 'required']) !!}
+                                    <span class="input-group-text">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
                                 </div>
                             </div>
-                        </div> <!-- FIN modal-body -->
 
-                        {{-- ====================================================== --}}
-                        {{-- ====================================================== --}}
-
-                        <div class="modal-footer border-0 d-flex justify-content-center mt-3">
-                            <button type="submit" id="btn_reporte_ventas"
-                                class="btn btn-success">
-                                <i class="fa fa-file-pdf-o"> Generar Pdf Ventas</i>
-                            </button>
+                            <div class="col-12 col-md-6">
+                                <label for="fecha_final" class="fw-bold" style="font-size: 12px">
+                                    Fecha Final <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group" id="calendar_addon_final" style="cursor: pointer;">
+                                    {!! Form::date('fecha_final', null, ['class' => 'form-control', 'id' => 'fecha_final', 'required']) !!}
+                                    <span class="input-group-text">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
+                    </div> <!-- FIN modal-body -->
+
+                    {{-- ====================================================== --}}
+                    {{-- ====================================================== --}}
+
+                    <div class="modal-footer border-0 d-flex justify-content-center mt-3">
+                        <button type="submit" id="btn_reporte_ventas" class="btn btn-success">
+                            <i class="fa fa-file-pdf-o"> Generar Pdf Ventas</i>
+                        </button>
+                    </div>
                     {!! Form::close() !!}
                 </div> {{-- FIN Div rounded-top --}}
 
@@ -175,7 +178,8 @@
 
                 <div class="row mt-3">
                     <div class="col-12">
-                        <button type="button" class="btn btn-primary btn-md active pull-right" style="background-color: #337AB7;" data-bs-dismiss="modal" id="btnReporteVentas">
+                        <button type="button" class="btn btn-primary btn-md active pull-right"
+                            style="background-color: #337AB7;" data-bs-dismiss="modal" id="btnReporteVentas">
                             <i class="fa fa-check-circle"> Aceptar</i>
                         </button>
                     </div>
@@ -190,23 +194,27 @@
 
     @foreach ($ventas as $venta)
         <!-- INICIO Modal Detalles VENTA -->
-        <div class="modal fade h-auto modal-gral p-0" id="modalDetalleVenta_{{$venta->id_venta}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+        <div class="modal fade h-auto modal-gral p-0" id="modalDetalleVenta_{{ $venta->id_venta }}" tabindex="-1"
+            data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
             <div class="modal-dialog m-0">
                 <div class="modal-content p-3 w-100">
                     <div class="rounded-top" style="border: solid 1px #337AB7;">
-                        <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                            <h5>Detalle de Venta Código: {{$venta->id_venta}}</h5>
+                        <div class="rounded-top text-white text-center"
+                            style="background-color: #337AB7; border: solid 1px #337AB7;">
+                            <h5>Detalle de Venta Código: {{ $venta->id_venta }}</h5>
                         </div>
 
                         <div class="mt-3 mb-0 ps-3">
-                            <h6>Entrada realizada por: <span class="" style="color: #337AB7">{{$venta->nombres_usuario}}</span></h6>
+                            <h6>Entrada realizada por: <span class=""
+                                    style="color: #337AB7">{{ $venta->nombres_usuario }}</span></h6>
                         </div>
 
                         <div class="modal-body p-0 m-0">
                             <div class="row m-0">
                                 <div class="col-12 p-3 pt-1">
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-bordered w-100 mb-0" aria-describedby="venta">
+                                        <table class="table table-striped table-bordered w-100 mb-0"
+                                            aria-describedby="venta">
                                             <thead>
                                                 <tr class="header-table text-center">
                                                     <th>Fecha Venta</th>
@@ -218,11 +226,11 @@
                                             </thead>
                                             <tbody>
                                                 <tr class="text-center">
-                                                    <td>{{$venta->fecha_venta}}</td>
-                                                    <td>{{$venta->nombres_cliente}}</td>
-                                                    <td>{{$venta->subtotal_venta}}</td>
-                                                    <td>{{$venta->descuento}}</td>
-                                                    <td>{{$venta->total_venta}}</td>
+                                                    <td>{{ $venta->fecha_venta }}</td>
+                                                    <td>{{ $venta->nombres_cliente }}</td>
+                                                    <td>{{ $venta->subtotal_venta }}</td>
+                                                    <td>{{ $venta->descuento }}</td>
+                                                    <td>{{ $venta->total_venta }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -238,7 +246,8 @@
                                 <div class="row m-0">
                                     <div class="col-12 p-3 pt-1">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered w-100 mb-0" aria-describedby="entradas">
+                                            <table class="table table-striped table-bordered w-100 mb-0"
+                                                aria-describedby="entradas">
                                                 <thead>
                                                     <tr class="header-table text-center">
                                                         <th>Producto</th>
@@ -250,10 +259,10 @@
                                                 <tbody>
                                                     @foreach ($venta->detalles as $producto)
                                                         <tr class="text-center">
-                                                            <td>{{$producto->nombre_producto}}</td>
-                                                            <td>{{$producto->precio_venta}}</td>
-                                                            <td>{{$producto->cantidad}}</td>
-                                                            <td>{{$producto->subtotal}}</td>
+                                                            <td>{{ $producto->nombre_producto }}</td>
+                                                            <td>{{ $producto->precio_venta }}</td>
+                                                            <td>{{ $producto->cantidad }}</td>
+                                                            <td>{{ $producto->subtotal }}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -267,18 +276,15 @@
 
                     <div class="d-flex justify-content-around mt-3">
                         <button class="btn btn-success generar-pdf" style="background-color: #337AB7"
-                            data-id="{{$venta->id_venta}}"
-                            data-fecha="{{$venta->fecha_venta}}"
-                            data-usuario="{{$venta->nombres_usuario}}"
-                            data-cliente="{{$venta->nombres_cliente}}"
-                            data-subtotal="{{$venta->subtotal_venta}}"
-                            data-descuento="{{$venta->descuento}}"
-                            data-total="{{$venta->total_venta}}"
-                            data-detalles='@json($venta->detalles)'>
+                            data-id="{{ $venta->id_venta }}" data-fecha="{{ $venta->fecha_venta }}"
+                            data-usuario="{{ $venta->nombres_usuario }}" data-cliente="{{ $venta->nombres_cliente }}"
+                            data-subtotal="{{ $venta->subtotal_venta }}" data-descuento="{{ $venta->descuento }}"
+                            data-total="{{ $venta->total_venta }}" data-detalles='@json($venta->detalles)'>
                             <i class="fa fa-file-pdf-o"></i> Recibo Caja
                         </button>
-                        
-                        <button type="button" title="Cancelar" class="btn btn-secondary" data-bs-dismiss="modal" id="btn_editar_cancelar">
+
+                        <button type="button" title="Cancelar" class="btn btn-secondary" data-bs-dismiss="modal"
+                            id="btn_editar_cancelar">
                             <i class="fa fa-times" aria-hidden="true"> Cerrar</i>
                         </button>
                     </div>
@@ -294,33 +300,36 @@
 {{-- =============================================================== --}}
 
 @section('scripts')
-    <script src="{{asset('DataTables/datatables.min.js')}}"></script>
-    <script src="{{asset('DataTables/Buttons-2.3.4/js/buttons.html5.min.js')}}"></script>
+    <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
+    <script src="{{ asset('DataTables/Buttons-2.3.4/js/buttons.html5.min.js') }}"></script>
 
     <script>
-        $( document ).ready(function() {
+        $(document).ready(function() {
             // INICIO DataTable Lista Usuarios
             $("#tbl_ventas").DataTable({
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
                 stripe: true,
-                "bSort": false,
-                "buttons": [
-                    {
-                        extend: 'copyHtml5',
-                        text: 'Copiar',
-                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary',
+                bSort: true,
+                buttons: [{
+                        text: 'PDF',
+                        className: 'waves-effect waves-light btn-rounded btn-sm btn-danger',
+                        action: function() {
+                            let modal = new bootstrap.Modal(document.getElementById(
+                                'modalReporteVentas'));
+                            modal.show();
+                        },
                         init: function(api, node, config) {
-                            $(node).removeClass('dt-button')
+                            $(node).removeClass('dt-button');
                         }
                     },
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',
                         className: 'waves-effect waves-light btn-rounded btn-sm btn-primary mr-3',
-                        customize: function( xlsx ) {
+                        customize: function(xlsx) {
                             var sheet = xlsx.xl.worksheets['sheet1.xml'];
-                            $('row:first c', sheet).attr( 's', '42' );
+                            $('row:first c', sheet).attr('s', '42');
                         }
                     }
                 ],
@@ -333,7 +342,7 @@
             // =========================================================================
             // =========================================================================
 
-            $(document).on('shown.bs.modal', '#modalReporteVentas', function () {
+            $(document).on('shown.bs.modal', '#modalReporteVentas', function() {
                 let modal = $(this); // Referencia del modal
 
                 function configurarCalendario(inputId, iconoId) {
@@ -342,14 +351,14 @@
 
                     if (inputFecha.length > 0) {
                         // Abre el calendario al hacer clic en el input
-                        inputFecha.on("focus", function () {
+                        inputFecha.on("focus", function() {
                             if (typeof this.showPicker === "function") {
                                 this.showPicker();
                             }
                         });
 
                         // Abre el calendario al hacer clic en el icono
-                        iconoCalendario.on("mousedown touchstart", function (event) {
+                        iconoCalendario.on("mousedown touchstart", function(event) {
                             event.preventDefault();
                             if (typeof inputFecha[0].showPicker === "function") {
                                 inputFecha[0].showPicker();
@@ -357,7 +366,7 @@
                         });
 
                         // Evento para asegurarse de que la fecha se refleje
-                        inputFecha.on("change", function () {
+                        inputFecha.on("change", function() {
                             console.log("Fecha seleccionada:", inputFecha.val()); // Para depuración
                         });
                     }
@@ -373,7 +382,7 @@
             // =========================================================================
 
             document.querySelectorAll(".generar-pdf").forEach(button => {
-                button.addEventListener("click", function () {
+                button.addEventListener("click", function() {
                     let venta = {
                         id: this.dataset.id,
                         fecha: this.dataset.fecha,
@@ -386,23 +395,22 @@
                     };
 
                     fetch("/recibo_caja_venta", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-                        },
-                        body: JSON.stringify(venta)
-                    })
-                    .then(response => response.blob())
-                    .then(blob => {
-                        let url = window.URL.createObjectURL(blob);
-                        window.open(url, "_blank");
-                    })
-                    .catch(error => console.error("Error al generar PDF:", error));
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector(
+                                    'meta[name="csrf-token"]').getAttribute("content")
+                            },
+                            body: JSON.stringify(venta)
+                        })
+                        .then(response => response.blob())
+                        .then(blob => {
+                            let url = window.URL.createObjectURL(blob);
+                            window.open(url, "_blank");
+                        })
+                        .catch(error => console.error("Error al generar PDF:", error));
                 });
             });
         }); // FIN document.ready
     </script>
 @stop
-
-

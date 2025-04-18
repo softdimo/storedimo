@@ -1,0 +1,65 @@
+<div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px 5px 0 0;">
+    <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0"
+        style="background-color: #337AB7">Asignación de Permisos (Obligatorios * )</h5>
+
+    <div class="row m-0 p-3" id="div_campos_usuarios">
+    
+        <div class="col-12 col-md-3">
+            <div class="form-group d-flex flex-column">
+                <label for="usuario_id" class="form-label">Usuario <span class="text-danger">*</span></label>
+                {!! Form::select('id_usuario', collect(['' => 'Seleccionar...'])->union($usuarios), null,
+                    ['class' => 'form-select', 'id' => 'id_usuario', 'required']) !!}
+            </div>
+        </div>
+
+        <div class="row pb-4 pt-4">
+            <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                <h6 class="border rounded text-center pt-2 pb-2 m-0" style="background-color: #EEEEEE;">Listado de Permisos</h6>
+            </div>
+
+            <div class="col-16 col-md-16 pt-4">
+            {{-- Checkbox para seleccionar todos --}}
+            <div class="permiso-item" style="padding-bottom: 20px;">
+                <input type="checkbox" id="seleccionar_todos">
+                <label for="seleccionar_todos" class="pointer"><strong>Seleccionar/Quitar todos</strong></label>
+            </div>
+
+                <div class="permiso-grid">
+                    @foreach ($permisos as $permiso)
+                        <div class="permiso-item">
+                            <input 
+                                type="checkbox" 
+                                class="permiso-checkbox"
+                                name="permisos[]" 
+                                value="{{ $permiso->id }}" 
+                                id="permiso_{{ $permiso->id }}"
+                                {{ in_array($permiso->id, $permisosAsignados ?? []) ? 'checked' : '' }}
+                            >
+                            <label for="permiso_{{ $permiso->id }}" class="pointer">{{ $permiso->name }}</label>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenedor para el GIF -->
+        <div id="loadingIndicatorStore"
+            class="loadingIndicator">
+            <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+        </div>
+
+        {{-- ====================================================== --}}
+
+        <div class="mt-5 mb-2 d-flex justify-content-center">
+            <button type="submit" class="btn btn-success rounded-2 me-3">
+                <i class="fa fa-floppy-o"></i>
+                Guardar
+            </button>
+
+            <button type="button" class="btn btn-secondary rounded-2">
+                <i class="fa fa-remove"></i>
+                Cancelar
+            </button>
+        </div>
+    </div>
+</div>

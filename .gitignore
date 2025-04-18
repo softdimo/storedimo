@@ -1,29 +1,26 @@
-# ───── DEPENDENCIAS ─────
-api/vendor/
-api/node_modules/
-storedimo/vendor/
-storedimo/node_modules/
+# Dependencias
+/node_modules/
+/vendor/
 
-# ───── ARCHIVOS DE ENTORNO Y CLAVES ─────
-api/.env
-storedimo/.env
+# Laravel y archivos de entorno
+/.env
 .env.backup
 .phpunit.result.cache
 /storage/*.key
 
-# ───── ARCHIVOS GENERADOS (Laravel) ─────
-public/hot
-public/storage
+# Archivos públicos generados
+/public/hot
+/public/storage
 
-# ───── DOCKER Y HOMESTEAD ─────
+# Docker y Homestead
 docker-compose.override.yml
 Homestead.json
 Homestead.yaml
 
-# ───── LOGS DE ERRORES ─────
+# Logs de errores
 npm-debug.log
 yarn-error.log
 
-# ───── CONFIGS DE EDITORES ─────
+# Configs del editor (opcional, pero común)
 .idea/
 .vscode/
