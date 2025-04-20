@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Roles;
 use App\Models\Permission;
 use App\Models\ModelHasPermissions;
+use App\Http\Responsable\roles_permisos\RolesPermisosShow;
 
 class RolesPermisosStore implements Responsable
 {   
@@ -123,7 +124,6 @@ class RolesPermisosStore implements Responsable
         {
             foreach($request->permissions as $permissions)
             {
-                // Asigna los permisos nuevos y actualiza si alguno tuvo un cambio
                 $modelHasPermissions = ModelHasPermissions::updateOrCreate([
                     'permission_id' => $permissions,
                     'model_type' => 'App\Models\Usuario',
@@ -146,6 +146,7 @@ class RolesPermisosStore implements Responsable
             
         } catch (Exception $e) 
         {
+            return response()->json($e);
             return response()->json([
                 'error' => true,
                 'message' => 'Ha ocurrido un error de base de datos asignando los permisos'

@@ -16,7 +16,7 @@ class RolesPermisosShow implements Responsable
             $usuario = request('usuarioId', null);
 
             $consulta = ModelHasPermissions::select('permission_id')
-                        ->where('model_id', $usuario)
+                        ->where('model_id', isset($usuario) ? $usuario : $request->usuario_id)
                         ->get();
 
             return response()->json(["resultado" => $consulta]);
