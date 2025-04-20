@@ -268,7 +268,8 @@
 </aside>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function ()
+    {
         const elementosColapsar = document.querySelectorAll('.colapsar');
 
         elementosColapsar.forEach(colapsar => {

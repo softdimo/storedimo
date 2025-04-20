@@ -1,6 +1,6 @@
 <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px 5px 0 0;">
     <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0"
-        style="background-color: #337AB7">Asignación de Permisos (Obligatorios * )</h5>
+        style="background-color: #337AB7">Desasignación de Permisos (Obligatorios * )</h5>
 
     <div class="row m-0 p-3" id="div_campos_usuarios">
     
@@ -16,15 +16,6 @@
             <p>&nbsp;</p>
         </div>
 
-        <div class="col-12 col-md-3">
-              <!-- Contenedor para el GIF -->
-            <div id="loadingPermissions"
-                class="ocultar">
-                <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando..." height="50" width="50">
-                <p><strong>Procesando...</strong></p>
-            </div>
-        </div>
-
         <div class="row pb-4 pt-4">
             <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
                 <h6 class="border rounded text-center pt-2 pb-2 m-0" style="background-color: #EEEEEE;">Listado de Permisos</h6>
@@ -32,7 +23,7 @@
 
             <div class="row pt-4">
                 <div class="col-xs-12 col-sm-12 col-md6">
-                    <p><strong>Por favor, seleccione los permisos que deseas asignar</strong></p>
+                    <p><strong>Por favor, seleccione los permisos que deseas quitar</strong></p>
                 </div>
             </div>
 

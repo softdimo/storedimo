@@ -17,7 +17,7 @@
                     <i class="fa fa-question-circle fa-2x" aria-hidden="true" title="Ayuda" style="color: #337AB7"></i>
                 </a>
             </div>
-            <h2 class="text-uppercase text-center" style="color: #337AB7">Permisos</h2>
+            <h2 class="text-uppercase text-center" style="color: #337AB7">Asignar Permisos</h2>
 
             {!! Form::open(['method' => 'POST', 'route' => ['permisos.store'],
                 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'formAsignarPermisos']) !!}

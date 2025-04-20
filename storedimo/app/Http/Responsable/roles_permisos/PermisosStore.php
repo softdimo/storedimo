@@ -42,6 +42,8 @@ class PermisosStore implements Responsable
     
                 $permission = json_decode($peticionPermisoStore->getBody()->getContents());
 
+                dd($permission);
+
                 if(isset($permission->success) && isset($permission->success))
                 {
                     alert()->success($permission->message);

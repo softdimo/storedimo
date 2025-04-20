@@ -53,9 +53,22 @@
                                         <a href="#" class="dropdown-item text-dark hover-li">Creación de Permisos</a>
                                     </li>
 
+                                    <ul class="dropdown-menu bg-white" style="right:0;left:auto">
+                                        <li class="dropdown-item text-dark hover-li">
+                                            <i class="fa fa-sign-out fa-fw fa-1x">
+                                                <a href="{{route('logout')}}" class="" style="text-decoration: none;">Cerrar Sesión</a>
+                                            </i>
+                                        </li>
+                                    </ul>
+
                                     <li class="nav-item">
                                         <a href="{{route('permisos.index')}}" 
-                                            class="dropdown-item text-dark hover-li">Asignación de Permisos</a>
+                                            class="dropdown-item text-dark hover-li">Asignar Permisos</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="{{route('permisos.create')}}" 
+                                            class="dropdown-item text-dark hover-li">Quitar Permisos</a>
                                     </li>
 
                                     <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_crear_roles">
@@ -106,7 +119,7 @@
                                     </li>
                                 </ul>
                             @else
-                            <ul class="dropdown-menu bg-white" style="right:0;left:auto">
+                                <ul class="dropdown-menu bg-white" style="right:0;left:auto">
                                     <li class="dropdown-item text-dark hover-li">
                                         <i class="fa fa-sign-out fa-fw fa-1x">
                                             <a href="{{route('logout')}}" class="" style="text-decoration: none;">Cerrar Sesión</a>

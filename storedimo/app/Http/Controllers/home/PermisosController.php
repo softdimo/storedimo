@@ -60,7 +60,28 @@ class PermisosController extends Controller
      */
     public function create()
     {
-        //
+        try
+        {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+    
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else
+                {
+                    return view('home.permisos_quitar');;
+                }
+            }
+        } catch (Exception $e)
+        {
+            alert()->error("Exception Quitar Permisos!");
+            return back();
+        }
     }
 
     /**
