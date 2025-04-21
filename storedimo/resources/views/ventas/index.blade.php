@@ -194,8 +194,8 @@
 
     @foreach ($ventas as $venta)
         <!-- INICIO Modal Detalles VENTA -->
-        <div class="modal fade h-auto modal-gral p-0" id="modalDetalleVenta_{{ $venta->id_venta }}" tabindex="-1"
-            data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+        <div class="modal fade h-auto modal-gral p-0" id="modalDetalleVenta_{{$venta->id_venta}}" tabindex="-1"
+            data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="max-height: 96vh">
             <div class="modal-dialog m-0">
                 <div class="modal-content p-3 w-100">
                     <div class="rounded-top" style="border: solid 1px #337AB7;">
@@ -205,8 +205,7 @@
                         </div>
 
                         <div class="mt-3 mb-0 ps-3">
-                            <h6>Entrada realizada por: <span class=""
-                                    style="color: #337AB7">{{ $venta->nombres_usuario }}</span></h6>
+                            <h6>Entrada realizada por: <span style="color: #337AB7">{{$venta->nombres_usuario}}</span></h6>
                         </div>
 
                         <div class="modal-body p-0 m-0">
@@ -240,14 +239,14 @@
 
                             <div class="">
                                 <div class="mt-3 mb-0 ps-3">
-                                    <h6 class="mb-0" style="color: #337AB7">Productos</h6>
+                                    <h4 class="mb-0" style="color: #337AB7">Productos</h4>
                                 </div>
 
                                 <div class="row m-0">
                                     <div class="col-12 p-3 pt-1">
                                         <div class="table-responsive">
                                             <table class="table table-striped table-bordered w-100 mb-0"
-                                                aria-describedby="entradas">
+                                                aria-describedby="ventas" id="tblDetalleVentaProductos_{{$venta->id_venta}}">
                                                 <thead>
                                                     <tr class="header-table text-center">
                                                         <th>Producto</th>
@@ -274,8 +273,8 @@
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-around mt-3">
-                        <button class="btn btn-success generar-pdf" style="background-color: #337AB7"
+                    <div class="d-flex justify-content-center mt-3">
+                        <button class="btn btn-success generar-pdf me-3" style="background-color: #337AB7"
                             data-id="{{ $venta->id_venta }}" data-fecha="{{ $venta->fecha_venta }}"
                             data-usuario="{{ $venta->nombres_usuario }}" data-cliente="{{ $venta->nombres_cliente }}"
                             data-subtotal="{{ $venta->subtotal_venta }}" data-descuento="{{ $venta->descuento }}"
@@ -337,6 +336,33 @@
                 "scrollX": true,
             });
             // CIERRE DataTable Lista Usuarios
+
+            // =========================================================================
+            // =========================================================================
+            // =========================================================================
+            
+            $('[id^=modalDetalleVenta_]').on('shown.bs.modal', function () {
+                const modalId = $(this).attr('id');
+                const idVenta = modalId.replace('modalDetalleVenta_', '');
+                const tableId = `#tblDetalleVentaProductos_${idVenta}`;
+
+                // Evitar reinicialización
+                if (!$.fn.DataTable.isDataTable(tableId)) {
+                    $(tableId).DataTable({
+                        // dom: 'Blfrtip',
+                        dom: 'lrtip', // sin botones, solo length, table, info, pagination
+                        infoEmpty: 'No hay registros',
+                        stripe: true,
+                        bSort: false,
+                        autoWidth: false,
+                        scrollX: true,
+                        pageLength: 10
+                    });
+                } else {
+                    // Solo ajustar columnas si ya está inicializado
+                    $(tableId).DataTable().columns.adjust();
+                }
+            });
 
             // =========================================================================
             // =========================================================================

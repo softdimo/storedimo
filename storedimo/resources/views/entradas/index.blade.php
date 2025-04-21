@@ -208,7 +208,7 @@
 
     @foreach ($entradas as $entrada)
         <!-- Modal Detalles compra -->
-        <div class="modal fade modal-gral p-0" id="modalDetalleEntrada_{{$entrada->id_compra}}" tabindex="-1"
+        <div class="modal fade h-auto modal-gral p-0" id="modalDetalleEntrada_{{$entrada->id_compra}}" tabindex="-1"
             data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="max-height: 96vh">
             <div class="modal-dialog m-0">
                 <div class="modal-content p-3 w-100">
@@ -301,9 +301,9 @@
                         <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
                     </div>
 
-                    <div class="d-flex justify-content-around mt-3">
+                    <div class="d-flex justify-content-center mt-3">
                         <a href="{{ route('detalle_compras_pdf', $entrada->id_compra) }}" target="_blank"
-                            class="btn btn-success" style="background-color: #337AB7">
+                            class="btn btn-success me-3" style="background-color: #337AB7">
                             <i class="fa fa-file-pdf-o"></i> Pdf Detalle Compra
                         </a>
 
