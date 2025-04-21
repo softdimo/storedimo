@@ -196,8 +196,8 @@ class EntradasController extends Controller
                     'compra_productos.id_producto',
                     'nombre_producto',
                     'compra_productos.cantidad',
-                    'precio_unitario_compra',
-                    'subtotal'
+                    DB::raw("CONCAT('$', FORMAT(precio_unitario_compra, 0, 'de_DE')) as precio_unitario_compra"),
+                    DB::raw("CONCAT('$', FORMAT(subtotal, 0, 'de_DE')) as subtotal"),
                 )
                 ->orderBy('nombre_producto')
                 ->get();

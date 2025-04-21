@@ -26,6 +26,7 @@ class VentaIndex implements Responsable
                     'descuento',
                     'subtotal_venta',
                     'total_venta',
+                    DB::raw("CONCAT('$', FORMAT(total_venta, 0, 'de_DE')) as total_venta_index"),
                     'tipos_pago.id_tipo_pago',
                     'tipo_pago',
                     'productos.id_producto',

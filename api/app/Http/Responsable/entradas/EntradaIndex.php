@@ -21,7 +21,7 @@ class EntradaIndex implements Responsable
                 ->select(
                     'compras.id_compra',
                     'fecha_compra',
-                    'valor_compra',
+                    DB::raw("CONCAT('$', FORMAT(valor_compra, 0, 'de_DE')) as valor_compra"),
                     'compras.id_proveedor',
                     'proveedores.proveedor_juridico',
                     'proveedores.nit_proveedor',

@@ -179,7 +179,7 @@
                     {{-- ====================================================== --}}
 
                     <div class="modal-footer border-0 d-flex justify-content-center mt-3">
-                        <button type="submit" id="btn_reporte_prestamos" class="btn btn-success"
+                        <button type="submit" id="btn_reporte_compras" class="btn btn-success"
                             title="Guardar Configuración">
                             <i class="fa fa-file-pdf-o"> Generar Pdf Compras</i>
                         </button>

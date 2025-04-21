@@ -73,7 +73,7 @@
                                 @foreach ($ventas as $venta)
                                     <tr class="text-center align-middle">
                                         <td>{{ $venta->id_venta }}</td>
-                                        <td>{{ $venta->total_venta }}</td>
+                                        <td>{{ $venta->total_venta_index }}</td>
                                         <td>{{ $venta->fecha_venta }}</td>
                                         <td>{{ $venta->identificacion }}</td>
                                         <td>{{ $venta->nombres_cliente }}</td>
@@ -230,7 +230,7 @@
                                                     <td>{{ $venta->nombres_cliente }}</td>
                                                     <td>{{ $venta->subtotal_venta }}</td>
                                                     <td>{{ $venta->descuento }}</td>
-                                                    <td>{{ $venta->total_venta }}</td>
+                                                    <td>{{ $venta->total_venta_index }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -260,9 +260,9 @@
                                                     @foreach ($venta->detalles as $producto)
                                                         <tr class="text-center">
                                                             <td>{{ $producto->nombre_producto }}</td>
-                                                            <td>{{ $producto->precio_venta }}</td>
+                                                            <td>{{ $producto->precio_venta_detalle }}</td>
                                                             <td>{{ $producto->cantidad }}</td>
-                                                            <td>{{ $producto->subtotal }}</td>
+                                                            <td>{{ $producto->subtotal_detalle }}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
