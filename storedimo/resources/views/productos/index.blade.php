@@ -120,15 +120,15 @@
                             <thead>
                                 <tr class="header-table text-center">
                                     {{-- <th>Código</th> --}}
-                                    <th>Referencia</th>
-                                    <th>Nombre Producto</th>
-                                    <th>Categoría</th>
-                                    <th>Descripción</th>
-                                    <th>Cantidad</th>
-                                    <th>Stock Mínimo</th>
-                                    <th>Fecha Vencimiento</th>
-                                    <th>Estado</th>
-                                    <th>Opciones</th>
+                                    <th class="align-middle">Referencia</th>
+                                    <th class="align-middle">Nombre Producto</th>
+                                    <th class="align-middle">Categoría</th>
+                                    <th class="align-middle">Descripción</th>
+                                    <th class="align-middle">Cantidad</th>
+                                    <th class="align-middle">Stock Mínimo</th>
+                                    <th class="align-middle">Fecha Vencimiento</th>
+                                    <th class="align-middle">Estado</th>
+                                    <th class="align-middle">Opciones</th>
                                 </tr>
                             </thead>
                             {{-- ============================== --}}
@@ -136,17 +136,26 @@
                                 @foreach ($productos as $producto)
                                     <tr class="text-center">
                                         {{-- <td>{{ $producto->id_producto }}</td> --}}
-                                        <td>{{ $producto->referencia }}</td>
-                                        <td>{{ $producto->nombre_producto }}</td>
-                                        <td>{{ $producto->categoria }}</td>
-                                        <td>{{ $producto->descripcion }}</td>
-                                        <td>{{ $producto->cantidad }}</td>
-                                        <td>{{ $producto->stock_minimo }}</td>
-                                        <td>{{ $producto->fecha_vencimiento }}</td>
-                                        <td>{{ $producto->estado }}</td>
+                                        <td class="align-middle">{{ $producto->referencia }}</td>
+                                        <td class="align-middle">{{ $producto->nombre_producto }}</td>
+                                        <td class="align-middle">{{ $producto->categoria }}</td>
+                                        <td class="align-middle">{{ $producto->descripcion }}</td>
+
+                                        @if (is_null($producto->cantidad))
+                                            <td class="bg-warning-subtle align-middle">Sin compra realizada</td>
+                                        @elseif ($producto->cantidad < $producto->stock_minimo)
+                                            <td class="bg-danger-subtle align-middle">{{ $producto->cantidad }}</td>
+                                        @else
+                                            <td class="bg-success-subtle align-middle">{{ $producto->cantidad }}</td>
+                                        @endif
+
+                                        <td class="align-middle">{{ $producto->stock_minimo }}</td>
+
+                                        <td class="align-middle">{{ $producto->fecha_vencimiento }}</td>
+                                        <td class="align-middle">{{ $producto->estado }}</td>
 
                                         @if ($producto->id_estado == 1 || $producto->id_estado == '1')
-                                            <td>
+                                            <td class="align-middle">
                                                 <button class="btn btn-success rounded-circle btn-circle"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#modalEditarProducto_{{ $producto->id_producto }}"
@@ -169,7 +178,7 @@
                                                 </button>
                                             </td>
                                         @else
-                                            <td>
+                                            <td class="align-middle">
                                                 <button class="btn btn-danger rounded-circle btn-circle"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#modalCambiarEstadoProducto_{{ $producto->id_producto }}"
