@@ -134,14 +134,27 @@
                         </div>
                         {{-- ============================================================== --}}
                         <div class="w-100-div w-48 mt-5 mt-md-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                            <h5 class="border rounded-top text-white p-2 m-0" style="background-color: #337AB7">Detalle Entrada</h5>
+                            <h5 class="border rounded-top text-white p-2 m-0" style="background-color: #337AB7">Detalle Compras</h5>
                             
                             <div class="">
-                                <strong class="p-3">Seleccione para agregar</strong>
+                                {{-- <div class="d-none" id="div_compra_datos_producto"></div> --}}
 
-                                {{-- ============ --}}
-
-                                <div class="d-none" id="div_compra_datos_producto"></div>
+                                <div class="table-responsive p-3 d-flex flex-column justify-content-between h-100" style="">
+                                    <table class="table table-striped table-bordered w-100 mb-0" id="tbl_compras" aria-describedby="compras">
+                                        <thead>
+                                            <tr class="header-table text-center">
+                                                <th>Producto</th>
+                                                <th>Cantidad</th>
+                                                <th>subtotal</th>
+                                                <th>Opción</th>
+                                            </tr>
+                                        </thead>
+                                        {{-- ============================== --}}
+                                        <tbody>
+                                            <tr class="text-center"></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
 
                                 {{-- ============ --}}
 
@@ -604,11 +617,12 @@
             // ===================================================================================
             // ===================================================================================
 
-            // Array agregrar Productos a comprar
-            let productosAgregados = [];
+            // INICIO - Función para agregar fila x fila cada producto para comprar
+            let totalVenta = 0;
+            let indiceSiguienteFila = 0;
 
-            // INICIO - Función agregar datos de la entrada
             $("#btn_add_entrada").click(function() {
+
                 let idTipoProveedor = $('#id_tipo_proveedor').val();
                 let tipoProveedor = $('#id_tipo_proveedor option:selected').text();
 
@@ -625,80 +639,84 @@
                 console.log(`Precio Unitario ${pUnitario}`);
                 console.log(`Cantidad ${cantidad}`);
 
-                // let idPersona = $('#id_persona').val(); // Captura el id_persona
-
                 if (!idTipoProveedor || !idProducto || !cantidad) {
                     Swal.fire(
                         'Cuidado!',
                         'Todos los campos son obligatorios!',
                         'error'
                     );
-                } else {
-                    let valorSubTotal = pUnitario * cantidad;
-
-                    let producto = {
-                        idProductoCompra: idProducto,
-                        nombre: productoCompra,
-                        pUnitario: pUnitario,
-                        cantidad: cantidad,
-                        subtotal: valorSubTotal,
-                    };
-                    productosAgregados.push(producto);
-
-                    actualizarDetalleCompra();
-
-                    $('#cantidad').attr('required');
-
-                    $('#id_producto').val('').trigger('change'); // Reiniciar selección de producto
-                    $('#p_unitario').html(0);  // Resetear precio unitario
-                    $('#p_detal').html(0);  // Resetear precio detal
-                    $('#p_x_mayor').html(0);  // Resetear precio mayorista
-                    $('#cantidad').val('');  // Limpiar cantidad
+                    return;
                 }
-            });
-            // FIN - Función agregar datos de la entrada
 
-            // ===================================================================================
-            // ===================================================================================
-            
-            function actualizarDetalleCompra() {
-                let detalleHTML = "";
-                let totalVenta = 0;
+                let valorSubTotal = pUnitario * cantidad;
+                totalVenta += valorSubTotal; // Acumular total
+                
+                // Crear una fila para la tabla
+                let fila = `
+                    <tr class="" id="row_${indiceSiguienteFila}">
+                        <td class="text-center">${productoCompra}</td>
+                        <td class="text-center">${cantidad}</td>
+                        <td class="text-center">${valorSubTotal}</td>
+                        <td class="text-center">
+                            <button type="button" data-id="${indiceSiguienteFila}" class="btn btn-danger btn-sm btn-eliminar-fila" style="background-color:red;">
+                                <i class="fa fa-trash text-white"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
 
-                productosAgregados.forEach((producto, index) => {
-                    detalleHTML += `<div class="row p-3 border-bottom" id="producto_${index}">
-                                        <div class="col-9">
-                                            <h3>${producto.nombre}</h3>
-                                            <p>Cantidad: <span>${producto.cantidad}</span></p>
-                                            <p>Valor subtotal: $<span>${producto.subtotal}</span></p>
+                $('#tbl_compras tbody').append(fila);
 
-                                            <input type="hidden" name="id_producto_compra[]" value="${producto.idProductoCompra}">
-                                            <input type="hidden" name="p_unitario_compra[]" value="${producto.pUnitario}">
-                                            <input type="hidden" name="cantidad_compra[]" value="${producto.cantidad}">
-                                            <input type="hidden" name="subtotal_compra[]" value="${producto.subtotal}">
-                                        </div>
-                                        <div class="col-3 d-flex align-items-center">
-                                            <button type="button" class="btn btn-danger btn-sm" onclick="eliminarProducto(${index})">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                    `;
-                    totalVenta += producto.subtotal;
-                });
+                // Agregar inputs hidden dentro del formulario
+                let hiddenInputs = `
+                    <div id="input_group_${indiceSiguienteFila}">
+                        <input type="hidden" name="id_producto_compra[]" value="${idProducto}">
+                        <input type="hidden" name="p_unitario_compra[]" value="${pUnitario}">
+                        <input type="hidden" name="cantidad_compra[]" value="${cantidad}">
+                        <input type="hidden" name="subtotal_compra[]" value="${valorSubTotal}">
+                    </div>
+                `;
 
-                $('#div_compra_datos_producto').html(detalleHTML).removeClass('d-none');
-                $('#sub_total_venta').val(totalVenta);
+                $("#formRegistrarCompra").append(hiddenInputs);
+
+                // Actualizar total
                 $('#valor_compra').val(totalVenta);
-            }
+
+                $('#cantidad').attr('required');
+
+                $('#id_producto').val('').trigger('change'); // Reiniciar selección de producto
+                $('#p_unitario').html(0);  // Resetear precio unitario
+                $('#p_detal').html(0);  // Resetear precio detal
+                $('#p_x_mayor').html(0);  // Resetear precio mayorista
+                $('#cantidad').val('');  // Limpiar cantidad
+
+                indiceSiguienteFila++;
+            });
+            // FIN - Función para agregar fila x fila cada producto para comprar
 
             // ===================================================================================
             // ===================================================================================
-            
-            window.eliminarProducto = function(index) {
-                productosAgregados.splice(index, 1);
-                actualizarDetalleCompra();
-            };
+
+            $(document).on('click', '.btn-eliminar-fila', function () {
+                let idFila = $(this).data('id');
+
+                // Obtener texto del subtotal y convertir a número
+                let subtotalTexto = $(`#row_${idFila} td:nth-child(3)`).text().trim();
+                let subtotal = parseFloat(subtotalTexto);
+
+                if (isNaN(subtotal)) {
+                    console.warn(`No se pudo obtener el subtotal de la fila ${idFila}. Valor leído: "${subtotalTexto}"`);
+                    subtotal = 0;
+                }
+
+                // Restar subtotal del total acumulado
+                totalVenta -= subtotal;
+                $('#valor_compra').val(totalVenta);
+
+                // Eliminar fila y sus inputs ocultos
+                $(`#row_${idFila}`).remove();
+                $(`#input_group_${idFila}`).remove();
+            });
 
             // ===================================================================================
             // ===================================================================================
