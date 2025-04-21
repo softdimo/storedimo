@@ -603,7 +603,7 @@
                 $('#aplicar_x_mayor_venta').prop('checked', false); // Desmarcar checkbox
 
                 $('#cantidad_venta').val('');  // Limpiar cantidad
-                $('#cantidad_producto').val('');  // Limpiar cantidad disponible
+                $('#cantidad_producto').html(0);  // Limpiar cantidad disponible
             });
             // FIN - Función agregar datos de las ventas
 
