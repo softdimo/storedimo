@@ -32,7 +32,7 @@ class ProductoIndex implements Responsable
                     'referencia',
                     'fecha_vencimiento'
                 )
-                ->orderBy('nombre_producto', 'ASC')
+                ->orderBy('nombre_producto', 'asc')
                 ->get();
 
             if (isset($productos) && !is_null($productos) && !empty($productos)) {
