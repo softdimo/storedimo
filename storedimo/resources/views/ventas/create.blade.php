@@ -158,9 +158,26 @@
                                 <h5 class="border rounded-top text-white p-2 m-0" style="background-color: #337AB7">Detalle Venta</h5>
                             
                                 <div class="">
-                                    <strong class="p-3">Seleccione para agregar</strong>
+                                    {{-- <strong class="p-3">Seleccione para agregar</strong> --}}
         
-                                    <div class="row p-3 d-none" id="div_ventas_datos_producto"></div>
+                                    {{-- <div class="row p-3 d-none" id="div_ventas_datos_producto"></div> --}}
+
+                                    <div class="table-responsive p-3 d-flex flex-column justify-content-between h-100" style="">
+                                        <table class="table table-striped table-bordered w-100 mb-0" id="tabla_detalle_venta" aria-describedby="ventas">
+                                            <thead>
+                                                <tr class="header-table text-center">
+                                                    <th>Producto</th>
+                                                    <th>Cantidad</th>
+                                                    <th>subtotal</th>
+                                                    <th>Opción</th>
+                                                </tr>
+                                            </thead>
+                                            {{-- ============================== --}}
+                                            <tbody>
+                                                {{-- <tr class="text-center"></tr> --}}
+                                            </tbody>
+                                        </table>
+                                    </div>
         
                                     <div class="" style="background-color: #F5F5F5; border-top: 1px solid #ddd;">
                                         <div class="d-flex" style="border: 1px solid #ddd;">
@@ -577,7 +594,7 @@
                 actualizarDetalleVenta();
 
                 // Limpia los campos después de agregar un producto exitosamente
-                $('#btn_agregar_venta').attr('required');
+                $('#cantidad_venta').attr('required');
 
                 $('#producto_venta').val('').trigger('change'); // Reiniciar selección de producto
 
@@ -586,6 +603,7 @@
                 $('#aplicar_x_mayor_venta').prop('checked', false); // Desmarcar checkbox
 
                 $('#cantidad_venta').val('');  // Limpiar cantidad
+                $('#cantidad_producto').val('');  // Limpiar cantidad disponible
             });
             // FIN - Función agregar datos de las ventas
 
@@ -597,29 +615,29 @@
                 let totalVenta = 0;
 
                 productosAgregados.forEach((producto, index) => {
-                    detalleHTML += `<div class="row p-3 border-bottom" id="producto_${index}">
-                                        <div class="col-9">
-                                            <h3>${producto.nombre}</h3>
-                                            <p>Cantidad: <span>${producto.cantidad}</span></p>
-                                            <p>Valor subtotal: $<span>${producto.subtotal}</span></p>
+                    detalleHTML += `
+                        <tr id="row_${index}">
+                            <td class="text-center">${producto.nombre}</td>
+                            <td class="text-center">${producto.cantidad}</td>
+                            <td class="text-center">$${producto.subtotal}</td>
+                            <td class="text-center">
+                                <button type="button" onclick="eliminarProducto(${index})" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-trash text-white"></i>
+                                </button>
+                            </td>
 
-                                            <input type="hidden" name="id_producto_venta[]" value="${producto.idProductoVenta}">
-                                            <input type="hidden" name="cantidad_venta[]" value="${producto.cantidad}">
-                                            <input type="hidden" name="p_detal_venta[]" value="${producto.pDetalVenta}">
-                                            <input type="hidden" name="p_mayor_venta[]" value="${producto.pxMayorVenta}">
-                                            <input type="hidden" name="subtotal_venta[]" value="${producto.subtotal}">
-                                        </div>
-                                        <div class="col-3 d-flex align-items-center">
-                                            <button type="button" class="btn btn-danger btn-sm" onclick="eliminarProducto(${index})">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                            <input type="hidden" name="id_producto_venta[]" value="${producto.idProductoVenta}">
+                            <input type="hidden" name="cantidad_venta[]" value="${producto.cantidad}">
+                            <input type="hidden" name="p_detal_venta[]" value="${producto.pDetalVenta}">
+                            <input type="hidden" name="p_mayor_venta[]" value="${producto.pxMayorVenta}">
+                            <input type="hidden" name="subtotal_venta[]" value="${producto.subtotal}">
+                        </tr>
                     `;
+
                     totalVenta += producto.subtotal;
                 });
 
-                $('#div_ventas_datos_producto').html(detalleHTML).removeClass('d-none');
+                $('#tabla_detalle_venta tbody').html(detalleHTML); // Asegúrate que tengas <tbody> en tu tabla
                 $('#sub_total_venta').val(totalVenta);
                 $('#total_venta').val(totalVenta);
             }
@@ -631,27 +649,6 @@
                 productosAgregados.splice(index, 1);
                 actualizarDetalleVenta();
             };
-
-            // ===================================================================================
-            // ===================================================================================
-
-            // $('#btn_del_venta').on('click', function () {
-            //     alert(`Eliminar Venta`);
-
-            //     $('#cliente_venta').val('');
-            //     $('#producto_venta').val('');
-            //     $('#cantidad_venta').val('');
-
-            //     $('#nombre_producto_venta').val('');
-            //     $('#cantidad_producto_venta').val('');
-            //     $('#valor_subTotal_venta').val('');
-
-            //     $('#sub_total_venta').val('');
-            //     $('#descuento_total_venta').val('');
-            //     $('#total_venta').val('');
-
-            //     $('#div_ventas_datos_producto').addClass('d-none');
-            // });
 
             // ===================================================================================
             // ===================================================================================
