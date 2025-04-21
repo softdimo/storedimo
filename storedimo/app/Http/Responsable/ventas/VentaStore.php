@@ -63,7 +63,8 @@ class VentaStore implements Responsable
                     'id_usuario' => $usuLogueado,
                     'id_estado' => $idEstado,
                     'id_estado_credito' => $idEstadoCredito,
-                    'fecha_limite_credito' => $fechaLimiteCredito
+                    'fecha_limite_credito' => $fechaLimiteCredito,
+                    'id_audit' => session('id_usuario')
                 ]
             ]);
             $resVentaStore = json_decode($reqVentaStore->getBody()->getContents());
