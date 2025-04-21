@@ -31,6 +31,7 @@ class BajaStore implements Responsable
         $idProductos = request('id_producto', []); // Array de productos
         $cantidades = request('cantidad_baja', []); // Array de cantidades
         $idTiposBaja = request('id_tipo_baja', []); // Array tipos de baja
+        $observaciones = request('observaciones_baja', []); // Array observaciones baja
 
         try {
             $reqBajaStore = $this->clientApi->post($this->baseUri.'baja_store', [
@@ -38,19 +39,20 @@ class BajaStore implements Responsable
                     'id_responsable_baja' => $responsableBaja,
                     'fecha_baja' => $fechaBaja,
                     'id_estado_baja' => $idEstado,
-                    'productos' => array_map(function ($idProductos, $cantidades, $idTiposBaja) {
+                    'productos' => array_map(function ($idProductos, $cantidades, $idTiposBaja, $observaciones) {
                         return [
                             'id_producto' => $idProductos,
                             'cantidad' => $cantidades,
-                            'id_tipo_baja' => $idTiposBaja
+                            'id_tipo_baja' => $idTiposBaja,
+                            'observaciones' => $observaciones
                         ];
-                    }, $idProductos, $cantidades, $idTiposBaja), // Construcción del array
+                    }, $idProductos, $cantidades, $idTiposBaja, $observaciones), // Construcción del array
                     'id_audit' => session('id_usuario')
                 ]
             ]);
             $resBajaStore = json_decode($reqBajaStore->getBody()->getContents());
 
-            if(isset($resBajaStore) && !empty($resBajaStore) && !is_null($resBajaStore)) {
+            if($resBajaStore) {
                 alert()->success('Proceso Exitoso', 'Baja registrada satisfactoriamente');
                 return redirect()->to(route('bajas_index'));
             }

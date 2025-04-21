@@ -140,6 +140,7 @@ class ExistenciasController extends Controller
                     'bajas_detalle.id_producto',
                     'nombre_producto',
                     'bajas_detalle.cantidad',
+                    'bajas_detalle.observaciones',
                     'tipo_baja.id_tipo_baja',
                     'tipo_baja',
                     'categorias.id_categoria',
@@ -178,6 +179,7 @@ class ExistenciasController extends Controller
                     'categoria',
                     'fecha_baja',
                     'bajas_detalle.cantidad',
+                    'bajas_detalle.observaciones',
                     'tipo_baja'
                 ])
                 ->orderByDesc('fecha_baja')

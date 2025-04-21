@@ -96,6 +96,11 @@
                                     {!! Form::text('cantidad', null, ['class' => 'form-control', 'id' => 'cantidad']) !!}
                                 </div>
 
+                                <div class="mt-3">
+                                    <label for="observaciones" class="form-label">Observaciones <span class="text-danger">*</span></label>
+                                    {!! Form::text('observaciones', null, ['class' => 'form-control', 'id' => 'observaciones']) !!}
+                                </div>
+
                                 <div class="d-flex justify-content-end mt-3">
                                     <button type="button" class="btn rounded-2 me-3 text-white" style="background-color: #337AB7" id="btn_add_baja">
                                         <i class="fa fa-plus plus"></i>
@@ -150,6 +155,34 @@
 @section('scripts')
     <script>
         $( document ).ready(function() {
+
+            $("#cantidad").blur(function() {
+                let idProducto = $('#producto').val();
+                let cantidad = $('#cantidad').val();
+
+                $.ajax({
+                    url: "{{route('query_valores_producto')}}",
+                    type: "POST",
+                    dataType: "JSON",
+                    data: {
+                        '_token': "{{ csrf_token() }}",
+                        'id_producto': idProducto
+                    },
+                    success: function (respuesta) {
+                        console.log(respuesta);
+                        console.log(respuesta.cantidad);
+
+                        if (respuesta.cantidad == null || respuesta.cantidad < cantidad) {
+                            Swal.fire('Cuidado!','Este producto no tiene existencia disponible para dar de baja!','warning')
+                            $('#cantidad').val('');
+                        }
+                    }
+                });
+            });
+
+            // ===================================================================================
+            // ===================================================================================
+
             // INICIO - Función para agregar fila x fila cada producto para dar de baja
             $("#btn_add_baja").click(function() {
 
@@ -158,6 +191,7 @@
                 let idProducto = $('#producto').val();
                 let producto = $('#producto option:selected').text();
                 let cantidad = $('#cantidad').val();
+                let observaciones = $('#observaciones').val();
 
                 if (tipoBaja == '' || producto == '' || cantidad == '' ) {
                     Swal.fire(
@@ -190,6 +224,7 @@
                             <input type="hidden" name="id_producto[]" value="${idProducto}">
                             <input type="hidden" name="cantidad_baja[]" value="${cantidad}">
                             <input type="hidden" name="id_tipo_baja[]" value="${idtipoBaja}">
+                            <input type="hidden" name="observaciones_baja[]" value="${observaciones}">
                         </div>
                     `;
 
@@ -198,6 +233,7 @@
                     $('#tipo_baja').val('');
                     $('#producto').val('');
                     $('#cantidad').val('');
+                    $('#observaciones').val('');
                 }
             });
             // FIN - Función para agregar fila x fila cada producto para dar de baja

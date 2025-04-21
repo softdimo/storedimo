@@ -18,6 +18,7 @@ class BajaDetalle extends Model
         'id_baja',
         'id_tipo_baja',
         'id_producto',
-        'cantidad'
+        'cantidad',
+        'observaciones'
     ];
 }

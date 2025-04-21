@@ -366,14 +366,8 @@ class ProductosController extends Controller
                 {
                     return redirect()->to(route('login'));
                 } else {
-                    try {
-                        $queryValoresProducto = $this->clientApi->post($this->baseUri.'query_producto/'.$idProducto, ['query' => []]);
-                        return json_decode($queryValoresProducto->getBody()->getContents());
-                        
-                    } catch (Exception $e) {
-                        alert()->error('Error', 'Excepción, si el problema persiste, contacte a Soporte.' . $e->getMessage());
-                        return back();
-                    }
+                    $queryValoresProducto = $this->clientApi->post($this->baseUri.'query_producto/'.$idProducto, ['query' => []]);
+                    return json_decode($queryValoresProducto->getBody()->getContents());
                 }
             }
         } catch (Exception $e) {

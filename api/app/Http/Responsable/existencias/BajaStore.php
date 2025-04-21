@@ -35,7 +35,8 @@ class BajaStore implements Responsable
                         'id_baja' => $idBaja,
                         'id_tipo_baja' => $producto['id_tipo_baja'],
                         'id_producto' => $producto['id_producto'],
-                        'cantidad' => $producto['cantidad']
+                        'cantidad' => $producto['cantidad'],
+                        'observaciones' => $producto['observaciones']
                     ]);
 
                     $cantidadProducto = Producto::select('cantidad')
@@ -52,7 +53,7 @@ class BajaStore implements Responsable
                     $producto->update();
                 }
 
-                return response()->json(['success' => true]);
+                return response()->json(true);
             }
 
         } catch (Exception $e) {

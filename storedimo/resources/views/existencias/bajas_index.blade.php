@@ -262,6 +262,7 @@
                                                     <th>Producto</th>
                                                     <th>Cantidad</th>
                                                     <th>Tipo Baja</th>
+                                                    <th>Observaciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -270,6 +271,7 @@
                                                         <td>{{ $producto->nombre_producto }}</td>
                                                         <td>{{ $producto->cantidad }}</td>
                                                         <td>{{ $producto->tipo_baja }}</td>
+                                                        <td>{{ $producto->observaciones }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
