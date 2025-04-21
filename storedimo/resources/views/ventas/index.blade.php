@@ -64,7 +64,7 @@
                                     <th>Identificación Cliente</th>
                                     <th>Nombre Cliente</th>
                                     <th>Tipo Pago</th>
-                                    <th>Estado</th>
+                                    <th>Vendedor</th>
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
@@ -78,7 +78,7 @@
                                         <td>{{ $venta->identificacion }}</td>
                                         <td>{{ $venta->nombres_cliente }}</td>
                                         <td>{{ $venta->tipo_pago }}</td>
-                                        <td>{{ $venta->estado }}</td>
+                                        <td>{{ $venta->nombres_usuario }}</td>
                                         <td>
                                             <button title="Ver Detalles" class="btn rounded-circle btn-circle text-white"
                                                 title="Detalles Ventas" style="background-color: #286090"

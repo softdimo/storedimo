@@ -53,7 +53,7 @@
                                     <th>Fecha Registro Compra</th>
                                     <th>Identificación Proveedor</th>
                                     <th>Nombre Proveedor</th>
-                                    <th>Estado</th>
+                                    <th>Comprador</th>
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
@@ -77,7 +77,7 @@
                                             <td>{{ $entrada->nombres_proveedor }} {{ $entrada->apellidos_proveedor }}</td>
                                         @endif
 
-                                        <td>{{ $entrada->estado }}</td>
+                                        <td>{{ $entrada->nombres_usuario }}</td>
 
                                         @if ($entrada->id_estado == 1)
                                             <td>
