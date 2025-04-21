@@ -208,8 +208,8 @@
 
     @foreach ($entradas as $entrada)
         <!-- Modal Detalles compra -->
-        <div class="modal fade h-auto modal-gral p-0" id="modalDetalleEntrada_{{ $entrada->id_compra }}" tabindex="-1"
-            data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+        <div class="modal fade modal-gral p-0" id="modalDetalleEntrada_{{$entrada->id_compra}}" tabindex="-1"
+            data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="max-height: 96vh">
             <div class="modal-dialog m-0">
                 <div class="modal-content p-3 w-100">
                     <div class="rounded-top" style="border: solid 1px #337AB7;">
@@ -219,8 +219,7 @@
                         </div>
 
                         <div class="mt-3 mb-0 ps-3">
-                            <h6>Compra realizada por: <span class=""
-                                    style="color: #337AB7">{{ $entrada->nombres_usuario }}</span></h6>
+                            <h6>Compra realizada por: <span style="color: #337AB7">{{$entrada->nombres_usuario}}</span></h6>
                         </div>
 
                         <div class="modal-body p-0 m-0">
@@ -264,14 +263,14 @@
 
                             <div class="">
                                 <div class="mt-3 mb-0 ps-3">
-                                    <h6 class="mb-0" style="color: #337AB7">Productos</h6>
+                                    <h4 class="mb-0" style="color: #337AB7">Productos</h4>
                                 </div>
 
                                 <div class="row m-0">
                                     <div class="col-12 p-3 pt-1">
                                         <div class="table-responsive">
                                             <table class="table table-striped table-bordered w-100 mb-0"
-                                                aria-describedby="compra_detalle">
+                                                aria-describedby="compra_detalle" id="tblDetalleCompraProductos_{{ $entrada->id_compra }}">
                                                 <thead>
                                                     <tr class="header-table text-center">
                                                         <th>Producto</th>
@@ -381,13 +380,14 @@
 
     <script>
         $(document).ready(function() {
-            // INICIO DataTable Lista Usuarios
+            // INICIO DataTable
             $("#tbl_entradas").DataTable({
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
                 stripe: true,
                 bSort: true,
-                buttons: [{
+                buttons: [
+                    {
                         text: 'PDF',
                         className: 'waves-effect waves-light btn-rounded btn-sm btn-danger',
                         action: function() {
@@ -411,7 +411,34 @@
                 ],
                 "pageLength": 10,
                 "scrollX": true,
-            }); // CIERRE DataTable Lista Usuarios
+            }); // CIERRE DataTable
+
+            // =========================================================================
+            // =========================================================================
+            // =========================================================================
+
+            $('[id^=modalDetalleEntrada_]').on('shown.bs.modal', function () {
+                const modalId = $(this).attr('id');
+                const idCompra = modalId.replace('modalDetalleEntrada_', '');
+                const tableId = `#tblDetalleCompraProductos_${idCompra}`;
+
+                // Evitar reinicialización
+                if (!$.fn.DataTable.isDataTable(tableId)) {
+                    $(tableId).DataTable({
+                        // dom: 'Blfrtip',
+                        dom: 'lrtip', // sin botones, solo length, table, info, pagination
+                        infoEmpty: 'No hay registros',
+                        stripe: true,
+                        bSort: false,
+                        autoWidth: false,
+                        scrollX: true,
+                        pageLength: 10
+                    });
+                } else {
+                    // Solo ajustar columnas si ya está inicializado
+                    $(tableId).DataTable().columns.adjust();
+                }
+            });
 
             // =========================================================================
             // =========================================================================

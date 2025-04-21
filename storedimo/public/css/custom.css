@@ -21,7 +21,7 @@ body {
 } */
 
 .dt-buttons {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .dataTables_length {
@@ -199,3 +199,69 @@ body {
 .pointer {
     cursor: pointer;
 }
+
+/* ========================================= */
+/* INICIO Media Query TopMenu */
+
+@media (max-width: 992px) {
+    .menu-container {
+		order: 1 !important;
+		display: flex;
+		flex-direction: column;
+		padding-left: 0;
+		padding-right: 0;
+		justify-content: center;
+        position: relative;
+        width: 50% !important;
+	}
+
+    .navbar .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+	}
+
+    .navbar-toggler {
+		width: 100%;
+		margin-left: auto !important;
+		margin-right: auto !important;
+	}
+
+    #navbarNavDropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1050;
+        background-color: #337AB7 !important;
+        width: 100vw !important;
+        padding-left: 1rem !important;
+        margin-top: 0.5rem !important;
+    }
+
+	.logo-container {
+		order: 2 !important;
+        width: 50% !important;
+        padding-left: 0;
+		padding-right: 0;
+        display: flex;
+		justify-content: center;
+	}
+
+	.logo-container a {
+		display: flex;
+		justify-content: center;
+	}
+
+	.logo-container a img{
+		width: 100% !important;
+		height: 100% !important;
+	}
+
+    /* FIN Media Query TopMenu  */
+
+    
+
+	
+}
+ /* FIN Media Query  */
+
+/* ========================================= */
