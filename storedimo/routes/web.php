@@ -109,6 +109,7 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
         Route::post('producto_barcode', 'ProductosController@productoGenerarBarCode')->name('producto_barcode');
         Route::post('query_valores_producto', 'ProductosController@queryValoresProducto')->name('query_valores_producto');
         Route::get('reporte_productos_pdf', 'ProductosController@reporteProductosPdf')->name('reporte_productos_pdf');
+        Route::post('verificar_referencia', 'ProductosController@referenceValidator')->name('verificar_referencia');
 
         // ========================================================================
         

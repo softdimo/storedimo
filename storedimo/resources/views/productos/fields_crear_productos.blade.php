@@ -78,6 +78,7 @@
             <div class="form-group d-flex flex-column">
                 <label for="referencia" class="form-label">Referencia <span class="text-danger">*</span></label>
                 {!! Form::text('referencia', null, ['class' => 'form-control', 'id' => 'referencia']) !!}
+                <small id="reference-error" class="text-danger d-none">Esta referencia ya existe.</small>
             </div>
         </div>
                

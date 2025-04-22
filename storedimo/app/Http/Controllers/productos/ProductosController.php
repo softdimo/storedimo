@@ -404,4 +404,42 @@ class ProductosController extends Controller
     
     // ======================================================================
     // ======================================================================
+
+    /**
+     * Valida que el campo de referencia sea único y no exista ya.
+     *
+     * @param Request $request Contiene el campo 'referencia' a validar
+     * @return \Illuminate\Http\JsonResponse Retorna JSON indicando si la referencia es válida o ya está registrada
+     */
+    public function referenceValidator(Request $request)
+    {
+        try {
+            $request->validate([
+                'referencia' => [
+                    'required',
+                    'string',
+                    'regex:/^[a-zA-Z0-9_-]+$/',
+                ]
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'valido' => false,
+                'error' => 'La referencia no tiene un formato válido.'
+            ], 422);
+        }
+
+        try {
+            $response = $this->clientApi->post($this->baseUri . 'verificar_referencia', [
+                'json' => [
+                    'referencia' => $request->input('referencia')
+                ]
+            ]);
+            return response()->json(json_decode($response->getBody()->getContents(), true));
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'No se pudo validar la referencia',
+                'valido' => false
+            ], 500);
+        }
+    }
 }

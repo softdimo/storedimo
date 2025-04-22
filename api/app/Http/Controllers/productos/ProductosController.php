@@ -173,4 +173,20 @@ class ProductosController extends Controller
     {
         return new ReporteProductosPdf();
     }
+
+    /**
+     * Valida que la referencia del producto no exista a la hora de crear un nuevo producto
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function referenceValidator(Request $request)
+    {
+        $referencia = $request->input('referencia');
+        $existe = Producto::where('referencia', $referencia)->exists();
+        
+        return response()->json([
+            'valido' => !$existe
+        ]);
+    }
 }

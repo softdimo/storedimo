@@ -60,6 +60,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('cambiar_estado_producto/{idProducto}', 'productos\ProductosController@destroy');
     $router->post('query_producto/{idProducto}', 'productos\ProductosController@queryProducto');
     $router->get('reporte_productos_pdf', 'productos\ProductosController@reporteProductosPdf');
+    $router->post('verificar_referencia', 'productos\ProductosController@referenceValidator');
 });
 
 // ========================================================================
