@@ -109,6 +109,12 @@
     <script>
         $( document ).ready(function() {
 
+            $('.select2').select2({
+                placeholder: "Seleccionar...",
+                allowClear: false,
+                width: '100%'
+            });
+
             // formCrearEmpresas para cargar gif en el submit
             $(document).on("submit", "form[id^='formCrearEmpresas']", function (e) {
                 const form = $(this);

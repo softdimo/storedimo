@@ -273,10 +273,10 @@
                                         {{-- ====================================================== --}}
 
                                         {{-- INICIO Modal EDITAR USUARIO --}}
-                                        <div class="modal fade h-auto modal-gral p-3"
+                                        <div class="modal fade h-auto modal-gral p-3 custom-height"
                                             id="modalEditarUsuario_{{ $usuario->id_usuario }}" tabindex="-1"
                                             data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true"
-                                            style="max-width: 55%;">
+                                            style="max-width: 55%; max-height: 60vh;">
                                             <div class="modal-dialog m-0 mw-100">
                                                 <div class="modal-content w-100 border-0">
                                                     {!! Form::model($usuario, [
@@ -308,7 +308,7 @@
                                                                         'id_tipo_persona',
                                                                         collect(['' => 'Seleccionar...'])->union($tipos_empleado),
                                                                         isset($usuario) ? $usuario->id_tipo_persona : null,
-                                                                        ['class' => 'form-select', 'id' => 'id_tipo_persona', 'required' => 'required'],
+                                                                        ['class' => 'form-select select2', 'id' => 'id_tipo_persona', 'required' => 'required'],
                                                                     ) }}
                                                                 </div>
                                                             </div>
@@ -322,7 +322,7 @@
                                                                         'id_tipo_documento',
                                                                         collect(['' => 'Seleccionar...'])->union($tipos_documento),
                                                                         isset($usuario) ? $usuario->id_tipo_documento : null,
-                                                                        ['class' => 'form-select', 'id' => 'id_tipo_documento'],
+                                                                        ['class' => 'form-select select2', 'id' => 'id_tipo_documento'],
                                                                     ) !!}
                                                                 </div>
                                                             </div>
@@ -397,14 +397,15 @@
                                                             {{-- ======================= --}}
                                                             <div class="col-12 col-md-4">
                                                                 <div class="form-group d-flex flex-column">
-                                                                    <label for="id_genero" class=""
-                                                                        style="font-size: 15px">Género
-                                                                        <span class="text-danger">*</span></label>
+                                                                    <label for="id_rol" class=""
+                                                                        style="font-size: 15px">Rol
+                                                                        <span class="text-danger">*</span>
+                                                                    </label>
                                                                     {!! Form::select(
-                                                                        'id_genero',
-                                                                        collect(['' => 'Seleccionar...'])->union($generos),
-                                                                        isset($usuario) ? $usuario->id_genero : null,
-                                                                        ['class' => 'form-select', 'id' => 'id_genero'],
+                                                                        'id_rol',
+                                                                        collect(['' => 'Seleccionar...'])->union($roles),
+                                                                        isset($usuario) ? $usuario->id_rol : null,
+                                                                        ['class' => 'form-select select2', 'id' => 'id_rol'],
                                                                     ) !!}
                                                                 </div>
                                                             </div>
@@ -425,18 +426,20 @@
                                                             </div>
                                                             {{-- ======================= --}}
                                                             <div class="col-12 col-md-3">
+
                                                                 <div class="form-group d-flex flex-column">
-                                                                    <label for="id_rol" class=""
-                                                                        style="font-size: 15px">Rol
-                                                                        <span class="text-danger">*</span>
-                                                                    </label>
+                                                                    <label for="id_genero" class=""
+                                                                        style="font-size: 15px">Género
+                                                                        <span class="text-danger">*</span></label>
                                                                     {!! Form::select(
-                                                                        'id_rol',
-                                                                        collect(['' => 'Seleccionar...'])->union($roles),
-                                                                        isset($usuario) ? $usuario->id_rol : null,
-                                                                        ['class' => 'form-select', 'id' => 'id_rol'],
+                                                                        'id_genero',
+                                                                        collect(['' => 'Seleccionar...'])->union($generos),
+                                                                        isset($usuario) ? $usuario->id_genero : null,
+                                                                        ['class' => 'form-select select2', 'id' => 'id_genero'],
                                                                     ) !!}
                                                                 </div>
+
+                                                                
                                                             </div>
                                                             {{-- ======================= --}}
                                                             <div class="col-12 col-md-3">
@@ -449,7 +452,7 @@
                                                                         'id_estado',
                                                                         collect(['' => 'Seleccionar...'])->union($estados),
                                                                         isset($usuario) ? $usuario->id_estado : null,
-                                                                        ['class' => 'form-select', 'id' => 'id_estado_' . $usuario->id_usuario],
+                                                                        ['class' => 'form-select select2', 'id' => 'id_estado_' . $usuario->id_usuario],
                                                                     ) !!}
                                                                 </div>
                                                             </div>
@@ -550,6 +553,13 @@
 
     <script>
         $(document).ready(function() {
+
+            $('.select2').select2({
+                placeholder: "Seleccionar...",
+                allowClear: false,
+                width: '100%'
+            });
+
             // INICIO DataTable Lista Usuarios
             $("#tbl_usuarios").DataTable({
                 dom: 'Blfrtip',
@@ -679,12 +689,19 @@
             // ===========================================================================================
 
             $(document).on('shown.bs.modal', '.modal', function() {
+
+                // Reinicializa los select2 dentro del modal
+                $(this).find('.select2').select2({
+                    dropdownParent: $(this),
+                    placeholder: 'Seleccionar...',
+                    width: '100%',
+                    allowClear: false
+                });
                 // Buscar el select dentro del modal
                 let selectEstado = $(this).find('[id^=id_estado_]');
 
                 if (selectEstado.length > 0) {
                     let idEstado = selectEstado.val(); // Obtener el valor actual del select
-                    console.log(`Estado al abrir el modal: ${idEstado}`);
 
                     // Buscar los elementos dentro de este modal
                     let divFechaTerminacion = $(this).find('[id^=div_fecha_terminacion_contrato]');

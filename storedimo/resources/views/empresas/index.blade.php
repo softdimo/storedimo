@@ -188,6 +188,15 @@
                                                                         </label>
                                                                         {!! Form::email('email_empresa', isset($empresa) ? $empresa->email_empresa : null, ['class' => 'form-control', 'id' => 'email_empresa']) !!}
                                                                     </div>
+
+                                                                    {{-- ======================= --}}
+                                                                    
+                                                                    <div class="col-12 col-md-6 mt-3">
+                                                                        <label for="id_estado" class="fw-bold" style="font-size: 12px">Estado
+                                                                            <span class="text-danger">*</span>
+                                                                        </label>
+                                                                        {!! Form::select('id_estado', collect(['' => 'Seleccionar...'])->union($estados), isset($empresa) ? $empresa->id_estado : null, ['class' => 'form-select select2', 'id' => 'id_estado']) !!}
+                                                                    </div>
                                                         
                                                                     {{-- ======================= --}}
                                                                     
@@ -198,14 +207,6 @@
                                                                         {!! Form::text('direccion_empresa', isset($empresa) ? $empresa->direccion_empresa : null, ['class' => 'form-control', 'id' => 'direccion_empresa']) !!}
                                                                     </div>
                                                                     
-                                                                    {{-- ======================= --}}
-                                                                    
-                                                                    <div class="col-12 col-md-6 mt-3">
-                                                                        <label for="id_estado" class="fw-bold" style="font-size: 12px">Estado
-                                                                            <span class="text-danger">*</span>
-                                                                        </label>
-                                                                        {!! Form::select('id_estado', collect(['' => 'Seleccionar...'])->union($estados), isset($empresa) ? $empresa->id_estado : null, ['class' => 'form-select', 'id' => 'id_estado']) !!}
-                                                                    </div>
                                                                 </div>
                                                             </div> <!-- FIN modal-body -->
                                                         </div> <!-- FIN rounded-top -->
@@ -319,6 +320,15 @@
 
                 // Cargar Spinner
                 loadingIndicator.show();
+            });
+
+            $(document).on('shown.bs.modal', '.modal', function() {
+                $(this).find('.select2').select2({
+                    dropdownParent: $(this),
+                    placeholder: 'Seleccionar...',
+                    width: '100%',
+                    allowClear: false
+                });
             });
 
         });

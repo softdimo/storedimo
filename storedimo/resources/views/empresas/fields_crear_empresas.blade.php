@@ -60,7 +60,7 @@
             <div class="col-12 col-md-3 mt-3" id="div_direccion">
                 <div class="form-group d-flex flex-column">
                     <label for="id_estado" class="form-label">Estado</label>
-                    {!! Form::select('id_estado', collect(['' => 'Seleccionar...'])->union($estados), 1, ['class' => 'form-select', 'id' => 'id_estado']) !!}
+                    {!! Form::select('id_estado', collect(['' => 'Seleccionar...'])->union($estados), 1, ['class' => 'form-select select2', 'id' => 'id_estado']) !!}
                 </div>
             </div>
         </div>
