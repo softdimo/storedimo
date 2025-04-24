@@ -152,7 +152,7 @@
                                                                                 ->union($clientes),
                                                                                 isset($persona) ? $persona->id_tipo_persona : null,
                                                                                 [
-                                                                                    'class' => 'form-select',
+                                                                                    'class' => 'form-select select2',
                                                                                     'id' => 'id_tipo_persona_'.$persona->id_tipo_persona,
                                                                                     'required' => 'required'
                                                                                 ])
@@ -169,7 +169,7 @@
                                                                                     ->union($tipos_documento),
                                                                                     isset($persona) ? $persona->id_tipo_documento : null,
                                                                                     [
-                                                                                        'class' => 'form-select',
+                                                                                        'class' => 'form-select select2',
                                                                                         'id' =>'id_tipo_documento',
                                                                                         'required' => 'required'
                                                                                     ])
@@ -225,13 +225,25 @@
                                                                         </div>
                                                                     </div>
                                                                     {{-- ======================= --}}
-                                                                    <div class="col-12 col-md-4 mt-4" id="div_email">
+
+                                                                    <div class="col-12 col-md-4 mt-4" id="div_id_estado">
                                                                         <div class="form-group d-flex flex-column">
-                                                                            <label for="email" class="" style="font-size: 15px">Correo
-                                                                                <span class="text-danger">*</span></label>
-                                                                            {{ Form::email('email', isset($persona) ? $persona->email : null, ['class' => 'form-control', 'id' => 'email', 'required' => 'required']) }}
+                                                                            <label for="id_estado" class="" style="font-size: 15px">Estado
+                                                                                <span class="text-danger">*</span>
+                                                                            </label>
+                                                                            {!! Form::select('id_estado',
+                                                                                collect(['' => 'Seleccionar...'])
+                                                                                ->union($estados),
+                                                                                isset($persona) ? $persona->id_estado : null,
+                                                                                [
+                                                                                    'class' => 'form-select select2',
+                                                                                    'id' =>'id_estado_'.$persona->id_estado,
+                                                                                    'required' => 'required'
+                                                                                ])
+                                                                            !!}
                                                                         </div>
                                                                     </div>
+
                                                                     {{-- ======================= --}}
                                                                     <div class="col-12 col-md-4 mt-4" id="div_id_genero">
                                                                         <div class="form-group d-flex flex-column">
@@ -241,7 +253,7 @@
                                                                                     collect(['' => 'Seleccionar...'])
                                                                                     ->union($generos),
                                                                                     isset($persona) ? $persona->id_genero : null,
-                                                                                    ['class' => 'form-select', 'id' =>'id_genero','required' => 'required'])
+                                                                                    ['class' => 'form-select select2', 'id' =>'id_genero','required' => 'required'])
                                                                                 !!}
                                                                         </div>
                                                                     </div>
@@ -256,23 +268,15 @@
                                                                         </div>
                                                                     </div>
                                                                     {{-- ======================= --}}
-                                                                    <div class="col-12 col-md-4 mt-4" id="div_id_estado">
+                                                                    
+                                                                    <div class="col-12 col-md-4 mt-4" id="div_email">
                                                                         <div class="form-group d-flex flex-column">
-                                                                            <label for="id_estado" class="" style="font-size: 15px">Estado
-                                                                                <span class="text-danger">*</span>
-                                                                            </label>
-                                                                            {!! Form::select('id_estado',
-                                                                                collect(['' => 'Seleccionar...'])
-                                                                                ->union($estados),
-                                                                                isset($persona) ? $persona->id_estado : null,
-                                                                                [
-                                                                                    'class' => 'form-select',
-                                                                                    'id' =>'id_estado_'.$persona->id_estado,
-                                                                                    'required' => 'required'
-                                                                                ])
-                                                                            !!}
+                                                                            <label for="email" class="" style="font-size: 15px">Correo
+                                                                                <span class="text-danger">*</span></label>
+                                                                            {{ Form::email('email', isset($persona) ? $persona->email : null, ['class' => 'form-control', 'id' => 'email', 'required' => 'required']) }}
                                                                         </div>
                                                                     </div>
+
                                                                 </div>
                                                             </div> {{-- FIN modal-body --}}
 
@@ -374,6 +378,16 @@
             // CIERRE DataTable Lista Clientes
 
             // ===========================================================================================
+
+            $(document).on('shown.bs.modal', '.modal', function() {
+                $(this).find('.select2').select2({
+                    dropdownParent: $(this),
+                    placeholder: 'Seleccionar...',
+                    width: '100%',
+                    allowClear: false
+                });
+            });
+
             // ===========================================================================================
 
             // Botón de submit de editar Cliente

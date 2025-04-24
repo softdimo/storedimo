@@ -85,6 +85,12 @@
 @section('scripts')
     <script>
         $( document ).ready(function() {
+            $('.select2').select2({
+                placeholder: "Seleccionar...",
+                allowClear: false,
+                width: '100%'
+            });
+            
             $('#div_proveedor_juridico').hide();
 
             $('#id_tipo_persona').change(function () {
