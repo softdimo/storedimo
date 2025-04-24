@@ -168,6 +168,7 @@ class VentasController extends Controller
                     'ventas.total_venta',
                     'personas.id_persona',
                     DB::raw("CONCAT(nombres_persona, ' ', apellidos_persona) AS nombres_cliente"),
+                    DB::raw("CONCAT(nombre_usuario, ' ', apellido_usuario) AS vendedor"),
                     'tipo_pago'
                 ])
                 ->orderByDesc('fecha_venta')
