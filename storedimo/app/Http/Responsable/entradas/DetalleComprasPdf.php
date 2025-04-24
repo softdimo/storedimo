@@ -52,12 +52,12 @@ class DetalleComprasPdf implements Responsable
         $pdf->SetFont('Arial', 'B', 16);
 
         // Título principal
-        $pdf->Cell(0, 10, utf8_decode('Reporte compras'), 0, 1, 'C');
+        $pdf->Cell(0, 10, utf8_decode('REPORTE COMPRAS'), 0, 1, 'C');
         $pdf->Ln(5); // Espacio
 
         // Código de la compra
         $pdf->SetFont('Arial', 'B', 14);
-        $pdf->Cell(0, 10, utf8_decode('DETALLE DE COMPRA CÓDIGO: ') . $idCompra, 0, 1, 'C');
+        $pdf->Cell(0, 10, utf8_decode('Detalle de Compra Código: ') . $idCompra, 0, 1, 'C');
         $pdf->Ln(3);
 
         // Estado de la compra
@@ -74,36 +74,37 @@ class DetalleComprasPdf implements Responsable
 
         // Tabla de Información General
         $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(50, 10, 'Fecha Compra', 1);
-        $pdf->Cell(60, 10, 'Nombre Proveedor', 1);
-        $pdf->Cell(40, 10, 'Total Compra', 1);
+        $pdf->Cell(50, 10, 'Fecha Compra', 1, 0, 'C');
+        $pdf->Cell(60, 10, 'Nombre Proveedor', 1, 0, 'C');
+        $pdf->Cell(40, 10, 'Total Compra', 1, 0, 'C');
         $pdf->Ln();
 
         $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell(50, 10, $fechaCompra, 1);
-        $pdf->Cell(60, 10, utf8_decode($nombreEmpresa ?? 'Anónimo'), 1);
-        $pdf->Cell(40, 10, '$ ' . number_format($valorCompra, 2), 1);
+        $pdf->Cell(50, 10, $fechaCompra, 1, 0, 'C');
+        $pdf->Cell(60, 10, utf8_decode($nombreEmpresa ?? 'Anónimo'), 1, 0, 'C');
+        $pdf->Cell(40, 10, '$ ' . number_format($valorCompra, 2), 1, 0, 'R');
         $pdf->Ln(10);
 
         // Sección de Productos
+        $pdf->Ln(10);
         $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(0, 10, utf8_decode('Productos'), 0, 1);
-        $pdf->Ln(3);
+        $pdf->Cell(0, 10, utf8_decode('PRODUCTOS'), 0, 1);
+        $pdf->Ln(1);
 
         // Encabezado de la tabla de productos
-        $pdf->Cell(70, 10, 'Nombre Producto', 1);
-        $pdf->Cell(30, 10, 'Cantidad', 1);
-        $pdf->Cell(40, 10, 'Precio', 1);
-        $pdf->Cell(40, 10, 'Total', 1);
+        $pdf->Cell(70, 10, 'Nombre Producto', 1, 0, 'C');
+        $pdf->Cell(30, 10, 'Cantidad', 1, 0, 'C');
+        $pdf->Cell(40, 10, 'Precio', 1, 0, 'C');
+        $pdf->Cell(40, 10, 'Total', 1, 0, 'c');
         $pdf->Ln();
 
         // Productos
         $pdf->SetFont('Arial', '', 12);
         foreach ($compra as $producto) {
-            $pdf->Cell(70, 10, utf8_decode($producto->nombre_producto), 1);
-            $pdf->Cell(30, 10, $producto->cantidad . ' unidades', 1);
-            $pdf->Cell(40, 10, '$ ' . number_format($producto->precio_unitario_compra, 2), 1);
-            $pdf->Cell(40, 10, '$ ' . number_format($producto->subtotal, 2), 1);
+            $pdf->Cell(70, 10, utf8_decode($producto->nombre_producto), 1, 0, 'C');
+            $pdf->Cell(30, 10, $producto->cantidad . ' unidades', 1, 0, 'C');
+            $pdf->Cell(40, 10, '$ ' . number_format($producto->precio_unitario_compra, 2), 1, 0, 'R');
+            $pdf->Cell(40, 10, '$ ' . number_format($producto->subtotal, 2), 1, 0, 'R');
             $pdf->Ln();
         }
 

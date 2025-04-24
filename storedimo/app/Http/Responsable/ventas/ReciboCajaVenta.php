@@ -32,12 +32,8 @@ class ReciboCajaVenta implements Responsable
         $pdf->SetFont('Arial', 'B', 12);
 
         // Encabezado
-        $pdf->Cell(190, 10, 'STOREDIMO', 0, 1, 'C');
-        $pdf->SetFont('Arial', '', 10);
-        $pdf->Cell(190, 6, 'Nit: 123456789-0', 0, 1, 'C');
-        $pdf->Cell(190, 6, utf8_decode('Centro Comercial Cisneros'), 0, 1, 'C');
-        $pdf->Cell(190, 6, utf8_decode('Teléfono: 513-10-12'), 0, 1, 'C');
-        $pdf->Cell(190, 6, utf8_decode('Cra. 51 N° 44 - 69, Local 144 B - Medellín'), 0, 1, 'C');
+        $pdf->SetFont('Arial', 'B', 20);
+        $pdf->Cell(190, 10, "RECIBO VENTA", 0, 1, 'C');
 
         // Información de la venta
         $pdf->Ln(5);
@@ -62,8 +58,8 @@ class ReciboCajaVenta implements Responsable
             $pdf->Cell(30, 6, $producto['id_producto'], 1, 0, 'C');
             $pdf->Cell(70, 6, utf8_decode($producto['nombre_producto']), 1, 0, 'C');
             $pdf->Cell(30, 6, $producto['cantidad'], 1, 0, 'C');
-            $pdf->Cell(30, 6, '$ ' . number_format($producto['precio_venta'], 2), 1, 0, 'C');
-            $pdf->Cell(30, 6, '$ ' . number_format($producto['subtotal'], 2), 1, 1, 'C');
+            $pdf->Cell(30, 6, '$ ' . number_format($producto['precio_venta'], 2), 1, 0, 'R');
+            $pdf->Cell(30, 6, '$ ' . number_format($producto['subtotal'], 2), 1, 1, 'R');
         }
 
         // Información final
@@ -71,7 +67,11 @@ class ReciboCajaVenta implements Responsable
         $pdf->SetFont('Arial', 'B', 10);
         $pdf->Cell(95, 6, 'Tipo de pago: Contado', 0, 0, 'L');
         $pdf->Cell(95, 6, 'Descuento: $ ' . number_format($venta['descuento'], 2), 0, 1, 'R');
-        $pdf->Cell(95, 6, 'Valor total a pagar: $ ' . number_format($venta['total'], 2), 0, 1, 'R');
+
+        // Total de entradas
+        $pdf->Ln(5);
+        $pdf->SetFont('Arial', 'B', 16);
+        $pdf->Cell(190, 10, 'Valor total a pagar: $ ' . number_format($venta['total'], 2), 0, 1, 'C');
 
         $pdf->Ln(10);
         $pdf->SetFont('Arial', 'I', 10);

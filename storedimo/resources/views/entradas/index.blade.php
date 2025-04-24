@@ -62,7 +62,7 @@
                                     <tr class="text-center">
                                         {{-- <td>{{$entrada->empresa}}</td> --}}
                                         <td>{{ $entrada->id_compra }}</td>
-                                        <td>{{ $entrada->valor_compra }}</td>
+                                        <td class="text-end">{{ $entrada->valor_compra }}</td>
                                         <td>{{ $entrada->fecha_compra }}</td>
 
                                         @if ($entrada->nit_proveedor)
@@ -253,7 +253,7 @@
                                                             {{ $entrada->apellidos_proveedor }}</td>
                                                     @endif
 
-                                                    <td>{{ $entrada->valor_compra }}</td>
+                                                    <td class="text-end">{{ $entrada->valor_compra }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -284,8 +284,8 @@
                                                         <tr class="text-center">
                                                             <td>{{ $producto->nombre_producto }}</td>
                                                             <td>{{ $producto->cantidad }}</td>
-                                                            <td>{{ $producto->precio_unitario_compra }}</td>
-                                                            <td>{{ $producto->subtotal }}</td>
+                                                            <td class="text-end">{{ $producto->precio_unitario_compra }}</td>
+                                                            <td class="text-end">{{ $producto->subtotal }}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
