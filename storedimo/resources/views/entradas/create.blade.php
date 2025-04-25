@@ -79,7 +79,7 @@
                         <div class="w-100-div w-48 mb-auto" style="border: solid 1px #337AB7; border-radius: 5px;">
                             <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Proveedor <span class="text-danger">*</span></h5>
                             {{-- ============================================================== --}}
-                            {{ Form::select('id_tipo_proveedor', collect(['' => 'Seleccionar...'])->union($proveedores_compras), null, ['class' => 'form-select mt-4 mb-4', 'id' => 'id_tipo_proveedor', 'style'=>'width:90%; margin:auto']) }}
+                            {{ Form::select('id_tipo_proveedor', collect(['' => 'Seleccionar...'])->union($proveedores_compras), null, ['class' => 'form-select select2 select2-spaced', 'id' => 'id_tipo_proveedor', 'style'=>'width:90%; margin:auto']) }}
 
                             {{-- ============================================================== --}}
 
@@ -87,7 +87,7 @@
                             {{-- ============================================================== --}}
                             <div class="p-3 d-flex justify-content-between" id="" style="">
                                 <div class="d-flex justify-content-center w-75">
-                                    {{ Form::select('id_producto', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-select', 'id' => 'id_producto']) }}
+                                    {{ Form::select('id_producto', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-select select2', 'id' => 'id_producto']) }}
                                 </div>
 
                                 <div class="d-flex justify-content-end w-25">
@@ -240,7 +240,7 @@
 
                                 <div class="col-12 col-md-4">
                                     <label for="categoria" class="fw-bold" style="font-size: 12px">Categoría <span class="text-danger">*</span></label>
-                                    {!! Form::select('id_categoria',collect(['' => 'Seleccionar...'])->union($categorias),null,['class' => 'form-select', 'id' => 'id_categoria','required'=>'required']) !!}
+                                    {!! Form::select('id_categoria',collect(['' => 'Seleccionar...'])->union($categorias),null,['class' => 'form-select select2', 'id' => 'id_categoria','required'=>'required']) !!}
                                 </div>
 
                                 <div class="col-12 col-md-4">
@@ -474,6 +474,12 @@
 @section('scripts')
     <script>
         $( document ).ready(function() {
+            $('.select2').select2({
+                placeholder: "Seleccionar...",
+                allowClear: false,
+                width: '100%'
+            });
+
             let idProducto = $('#id_producto').val();
             console.log(idProducto);
 
@@ -526,6 +532,14 @@
 
             // Modal modal_registroProducto (Store)
             $(document).on('shown.bs.modal', '[id^="modal_registroProducto"]', function () {
+
+                $(this).find('.select2').select2({
+                    dropdownParent: $(this),
+                    placeholder: 'Seleccionar...',
+                    width: '100%',
+                    allowClear: false
+                });
+
                 // Buscar los elementos dentro de este modal
                 let modal = $(this); // Guardamos la referencia del modal
                 let inputPrecioUnitario = modal.find('[id^=precio_unitario]');

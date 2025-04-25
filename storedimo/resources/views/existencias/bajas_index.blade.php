@@ -143,13 +143,13 @@
                     {{-- ========================================================= --}}
                     {{-- ========================================================= --}}
 
-                    <!-- <div class="mt-5 mb-2 d-flex justify-content-center">
+                    <div class="mt-5 mb-2 d-flex justify-content-center">
                         <button type="button" class="btn rounded-2 me-3 text-white" style="background-color: #286090"
                             data-bs-toggle="modal" data-bs-target="#modalReporteBajas">
                             <i class="fa fa-file-pdf-o"></i>
-                            Reporte Bajas 1
+                            Reporte Bajas
                         </button>
-                </div> -->
+                </div>
             </div> {{-- FIN div_campos_usuarios --}}
         </div> {{-- FIN div_crear_usuario --}}
     </div>
@@ -312,16 +312,19 @@
                 bSort: true,
                 buttons: [
                     {
+                        extend: 'pdfHtml5',
                         text: 'PDF',
                         className: 'waves-effect waves-light btn-rounded btn-sm btn-danger',
-                        action: function() {
-                            let modal = new bootstrap.Modal(document.getElementById(
-                                'modalReporteBajas'));
-                            modal.show();
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+                        title: 'Listado de Bajas',
+                        exportOptions: {
+                            columns: ':visible:not(:last-child)'
                         },
-                        init: function(api, node, config) {
-                            $(node).removeClass(
-                            'dt-button');
+                        customize: function(doc) {
+                            const columnCount = $('#tbl_bajas thead th').length;
+                            doc.pageSize = 'A5';
+                            doc.defaultStyle.fontSize = 12;
                         }
                     },
                     {

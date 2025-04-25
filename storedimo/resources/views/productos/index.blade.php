@@ -245,7 +245,7 @@
                                                                             'categoriaEdit',
                                                                             collect(['' => 'Seleccionar...'])->union($categorias),
                                                                             isset($producto) ? $producto->id_categoria : null,
-                                                                            ['class' => 'form-select', 'id' => 'categoriaEdit', 'required' => 'required'],
+                                                                            ['class' => 'form-select select2', 'id' => 'categoriaEdit', 'required' => 'required'],
                                                                         ) !!}
                                                                     </div>
                                                                 </div>
@@ -646,6 +646,14 @@
             // ===========================================================
 
             $(document).on('shown.bs.modal', '[id^="modalEditarProducto_"]', function() {
+
+                $(this).find('.select2').select2({
+                    dropdownParent: $(this),
+                    placeholder: 'Seleccionar...',
+                    width: '100%',
+                    allowClear: false
+                });
+                
                 // Buscar los elementos dentro de este modal
                 let modal = $(this); // Guardamos la referencia del modal
                 let inputPrecioUnitario = modal.find('[id^=precioUnitarioEdit]');

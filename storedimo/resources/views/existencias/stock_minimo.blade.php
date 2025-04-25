@@ -70,11 +70,11 @@
                     </div>
                 </div>
 
-                {{-- <div class="d-flex justify-content-center mt-3 mb-3">
+                <div class="d-flex justify-content-center mt-3 mb-3">
                     <button class="btn btn-success generar-pdf" style="background-color: #337AB7">
                         <i class="fa fa-file-pdf-o"></i> Reporte stock Mínimo
                     </button>
-                </div> --}}
+                </div>
             </div> {{-- FIN div_crear_usuario --}}
         </div>
     </div>
@@ -95,15 +95,21 @@
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
                 stripe: true,
-                bSort: false,
+                bSort: true,
                 buttons: [{
+                        extend: 'pdfHtml5',
                         text: 'PDF',
-                        className: 'waves-effect waves-light btn-rounded btn-sm btn-danger me-3',
-                        action: function() {
-                            generarPDFStockMinimo()
+                        className: 'waves-effect waves-light btn-rounded btn-sm btn-danger',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+                        title: 'Productos en Stock Mínimo',
+                        exportOptions: {
+                            columns: ':visible:not(:last-child)'
                         },
-                        init: function(api, node, config) {
-                            $(node).removeClass('dt-button');
+                        customize: function(doc) {
+                            const columnCount = $('#tbl_stock_minimo thead th').length;
+                            doc.pageSize = 'A5';
+                            doc.defaultStyle.fontSize = 12;
                         }
                     },
                     {
@@ -125,8 +131,8 @@
             // =========================================================================
             // =========================================================================
 
-            //document.querySelector(".generar-pdf").addEventListener("click", function() {
-            function generarPDFStockMinimo() {
+            document.querySelector(".generar-pdf").addEventListener("click", function() {
+            //function generarPDFStockMinimo() {
                 let loader = document.getElementById("loader-pdf");
                 loader.style.display = "block";
                 let productos = [];
@@ -163,7 +169,7 @@
                     .finally(() => {
                         loader.style.display = "none"; // Ocultar loader siempre
                     });
-            };
+            });
         }); // FIN document.ready
     </script>
 @stop
