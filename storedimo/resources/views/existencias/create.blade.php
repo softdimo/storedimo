@@ -83,12 +83,12 @@
                             <div class="p-3 d-flex flex-column" id="form_bajas" style="height: 50%;">
                                 <div>
                                     <label for="tipo_baja" class="form-label">Tipo de Baja <span class="text-danger">*</span></label>
-                                    {{ Form::select('tipo_baja', collect(['' => 'Seleccionar...'])->union($tipos_baja), null, ['class' => 'form-select', 'id' => 'tipo_baja']) }}
+                                    {{ Form::select('tipo_baja', collect(['' => 'Seleccionar...'])->union($tipos_baja), null, ['class' => 'form-select select2', 'id' => 'tipo_baja']) }}
                                 </div>
 
                                 <div class="mt-3">
                                     <label for="producto" class="form-label">Producto <span class="text-danger">*</span></label>
-                                    {{ Form::select('producto', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-select', 'id' => 'producto']) }}
+                                    {{ Form::select('producto', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-select select2', 'id' => 'producto']) }}
                                 </div>
 
                                 <div class="mt-3">
@@ -155,6 +155,12 @@
 @section('scripts')
     <script>
         $( document ).ready(function() {
+
+            $('.select2').select2({
+                placeholder: "Seleccionar...",
+                allowClear: false,
+                width: '100%'
+            });
 
             $("#cantidad").blur(function() {
                 let idProducto = $('#producto').val();

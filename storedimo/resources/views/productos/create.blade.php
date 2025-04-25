@@ -109,6 +109,13 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
+
+            $('.select2').select2({
+                placeholder: "Seleccionar...",
+                allowClear: false,
+                width: '100%'
+            });
+            
             // Valido si el nombre del producto existe
             $('#id_categoria').blur(function() {
                 let nombreProducto = $('#nombre_producto').val();

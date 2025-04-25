@@ -177,7 +177,7 @@
                                                                         'id_tipo_persona',
                                                                         collect(['' => 'Seleccionar...'])->union($tipos_proveedor),
                                                                         isset($proveedor) ? $proveedor->id_tipo_persona : null,
-                                                                        ['class' => 'form-select', 'id' => 'id_tipo_persona_' . $proveedor->id_tipo_persona, 'required' => 'required'],
+                                                                        ['class' => 'form-select select2', 'id' => 'id_tipo_persona_' . $proveedor->id_tipo_persona, 'required' => 'required'],
                                                                     ) }}
                                                                 </div>
                                                             </div>
@@ -192,7 +192,7 @@
                                                                         collect(['' => 'Seleccionar...'])->union($tipos_documento),
                                                                         isset($proveedor) ? $proveedor->id_tipo_documento : null,
                                                                         [
-                                                                            'class' => 'form-select',
+                                                                            'class' => 'form-select select2',
                                                                             'id' => 'id_tipo_documento',
                                                                             'required' => 'required',
                                                                         ],
@@ -283,7 +283,7 @@
                                                                         'id_genero',
                                                                         collect(['' => 'Seleccionar...'])->union($generos),
                                                                         isset($proveedor) ? $proveedor->id_genero : null,
-                                                                        ['class' => 'form-select', 'id' => 'id_genero'],
+                                                                        ['class' => 'form-select select2', 'id' => 'id_genero'],
                                                                     ) !!}
                                                                 </div>
                                                             </div>
@@ -310,7 +310,7 @@
                                                                         collect(['' => 'Seleccionar...'])->union($estados),
                                                                         isset($proveedor) ? $proveedor->id_estado : null,
                                                                         [
-                                                                            'class' => 'form-select',
+                                                                            'class' => 'form-select select2',
                                                                             'id' => 'id_estado_' . $proveedor->id_estado,
                                                                         ],
                                                                     ) !!}
@@ -482,6 +482,14 @@
             // ===========================================================================================
 
             $(document).on('shown.bs.modal', '[id^="modalEditarProveedor_"]', function() {
+
+                $(this).find('.select2').select2({
+                    dropdownParent: $(this),
+                    placeholder: 'Seleccionar...',
+                    width: '100%',
+                    allowClear: false
+                });
+                
                 // Buscar el select dentro del modal
                 let modal = $(this); // Guardamos la referencia del modal
                 let selectTipoPersona = modal.find('[id^=id_tipo_persona_]');

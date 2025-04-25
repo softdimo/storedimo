@@ -5,7 +5,7 @@
         {{-- <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
                 <label for="id_tipo_persona" class="form-label">Proveedor <span class="text-danger">*</span></label>
-                {!! Form::select('id_tipo_persona', collect(['' => 'Seleccionar...'])->union($proveedores), null, ['class' => 'form-select', 'id' => 'id_tipo_persona']) !!}
+                {!! Form::select('id_tipo_persona', collect(['' => 'Seleccionar...'])->union($proveedores), null, ['class' => 'form-select select2', 'id' => 'id_tipo_persona']) !!}
             </div>
         </div> --}}
 
@@ -23,7 +23,7 @@
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
                 <label for="id_categoria" class="form-label">Categoría <span class="text-danger">*</span></label>
-                {!! Form::select('id_categoria', collect(['' => 'Seleccionar...'])->union($categorias), null, ['class' => 'form-select', 'id' => 'id_categoria']) !!}
+                {!! Form::select('id_categoria', collect(['' => 'Seleccionar...'])->union($categorias), null, ['class' => 'form-select select2', 'id' => 'id_categoria']) !!}
             </div>
         </div>
 

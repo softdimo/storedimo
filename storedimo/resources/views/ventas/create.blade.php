@@ -87,7 +87,7 @@
                             <div class="p-3 d-flex justify-content-between" id="" style="">
                                 {{ Form::select('cliente_venta', collect(['' => 'Seleccionar...'])
                                     ->union(collect($clientes_ventas)->mapWithKeys(fn($cliente, $id) => [$id => $cliente['nombre']])),
-                                    null, ['class' => 'form-select ms-auto me-auto', 'id' => 'cliente_venta', 'required', 'style' => 'width: 85%;']) }}
+                                    null, ['class' => 'form-select select2 ms-auto me-auto', 'id' => 'cliente_venta', 'required', 'style' => 'width: 85%;']) }}
 
                                 {{ Form::hidden('id_tipo_persona', null, ['class' => '', 'id' => 'id_tipo_persona', 'required']) }}
 
@@ -102,7 +102,7 @@
                             {{-- ============================================================== --}}
                             <div class="p-3 d-flex justify-content-between" id="" style="">
                                 <div class="d-flex justify-content-center w-100">
-                                    {{ Form::select('producto_venta', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-select', 'id' => 'producto_venta']) }}
+                                    {{ Form::select('producto_venta', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-select select2', 'id' => 'producto_venta']) }}
                                 </div>
                             </div>
                             {{-- ============================================================== --}}
@@ -205,7 +205,7 @@
                                             <span class="text-danger">*</span>
                                         </label>
 
-                                        {!! Form::select('tipo_pago', collect(['' => 'Seleccionar...'])->union($tipos_pago_ventas), null, ['class' => 'form-select', 'id' => 'tipo_pago', 'required']) !!}
+                                        {!! Form::select('tipo_pago', collect(['' => 'Seleccionar...'])->union($tipos_pago_ventas), null, ['class' => 'form-select select2', 'id' => 'tipo_pago', 'required']) !!}
                                     </div>
                                 </div>
 
@@ -301,7 +301,7 @@
 
                                 <div class="col-12 col-md-4">
                                     <label for="id_categoria" class="fw-bold" style="font-size: 12px">Categoría <span class="text-danger">*</span></label>
-                                    {!! Form::select('id_categoria',collect(['' => 'Seleccionar...'])->union($categorias),null,['class' => 'form-select', 'id' => 'id_categoria','required'=>'required']) !!}
+                                    {!! Form::select('id_categoria',collect(['' => 'Seleccionar...'])->union($categorias),null,['class' => 'form-select select2 select2-categoria', 'id' => 'id_categoria','required'=>'required']) !!}
                                 </div>
 
                                 <div class="col-12 col-md-4">
@@ -456,6 +456,21 @@
 @section('scripts')
     <script>
         $( document ).ready(function() {
+            $('.select2').select2({
+                placeholder: "Seleccionar...",
+                allowClear: false,
+                width: '100%'
+            });
+
+            $(document).on('shown.bs.modal', '.modal', function() {
+                $(this).find('.select2').select2({
+                    dropdownParent: $(this),
+                    placeholder: 'Seleccionar...',
+                    width: '100%',
+                    allowClear: false
+                });
+            });
+
             let idProducto = $('#producto_venta').val();
             console.log(idProducto);
 
