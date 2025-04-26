@@ -61,7 +61,7 @@
         {{-- ====================================================== --}}
 
         <div class="mt-5 mb-2 d-flex justify-content-center">
-            <button type="submit" class="btn btn-success rounded-2 me-3" id="bt-guardar-permisos">
+            <button type="submit" class="btn btn-success rounded-2 me-3" id="bt-eliminar-permisos">
                 <i class="fa fa-floppy-o"></i>
                 Guardar
             </button>

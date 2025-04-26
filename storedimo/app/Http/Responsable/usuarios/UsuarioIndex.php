@@ -12,11 +12,10 @@ class UsuarioIndex implements Responsable
 {
     public function toResponse($request)
     {
-        try {
+        try
+        {
             $baseUri = env('BASE_URI');
             $clientApi = new Client(['base_uri' => $baseUri]);
-
-            // ==============================================================
             
             // Realiza la solicitud a la API
             $response = $clientApi->get($baseUri . 'usuarios_index');
@@ -25,8 +24,8 @@ class UsuarioIndex implements Responsable
             if(isset($usuarioIndex) && !empty($usuarioIndex) && !is_null($usuarioIndex)) {
                 return view('usuarios.index', compact('usuarioIndex'));
             }
-        } catch (Exception $e) {
-            dd($e);
+        } catch (Exception $e)
+        {
             alert()->error('Error', 'Error Exception, contacte a Soporte.');
             return back();
         }

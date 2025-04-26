@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use GuzzleHttp\Client;
 
-class PermisosStore implements Responsable
+class PermisosDestroy implements Responsable
 {
     protected $baseUri;
     protected $clientApi;
@@ -31,7 +31,7 @@ class PermisosStore implements Responsable
 
             if(isset($arrayPermisos) && !is_null($arrayPermisos) && !empty($arrayPermisos))
             {
-                $peticionPermisoStore = $this->clientApi->post($this->baseUri . 'crear_permiso_usuario',
+                $peticionPermisoStore = $this->clientApi->post($this->baseUri . 'eliminar_permiso_usuario',
                 [
                     'json' => [
                         'permissions' => $arrayPermisos,
@@ -40,17 +40,17 @@ class PermisosStore implements Responsable
                     ]
                 ]);
     
-                $permission = json_decode($peticionPermisoStore->getBody()->getContents());
+                $permissions = json_decode($peticionPermisoStore->getBody()->getContents());
 
-                if(isset($permission->success) && isset($permission->success))
+                if(isset($permissions->success) && isset($permissions->success))
                 {
-                    alert()->success($permission->message);
+                    alert()->success($permissions->message);
                     return back();
                 }
 
-                if(isset($permission->error) && $permission->error)
+                if(isset($permissions->error) && $permissions->error)
                 {
-                    alert()->error($permission->message);
+                    alert()->error($permissions->message);
                     return back();
                 }
 
@@ -62,7 +62,7 @@ class PermisosStore implements Responsable
 
         } catch (Exception $e)
         {
-            alert()->error("Ha ocurrido un error asignando los permisos!");
+            alert()->error("Ha ocurrido un error quitando los permisos!");
             return back();
         }
     }

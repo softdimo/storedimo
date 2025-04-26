@@ -250,6 +250,24 @@ body {
     cursor: pointer;
 }
 
+/* Para permitir submenús */
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu > .dropdown-menu {
+    top: 0;
+    right: 100%;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+    display: none;
+    position: absolute;
+}
+
+.dropdown-submenu:hover > .dropdown-menu {
+    display: block;
+}
+
 /* ========================================= */
 /* INICIO Media Query TopMenu */
 

@@ -20,6 +20,7 @@ use App\Models\Empresa;
 use App\Models\Usuario;
 use App\Models\Permission;
 use App\Models\Proveedor;
+use App\Models\ModelHasPermissions;
 
 trait MetodosTrait
 {
@@ -153,5 +154,20 @@ trait MetodosTrait
                     return [$item->id_proveedor => $item->nombre_proveedor]; // Usamos id_persona como clave única
                 })
         ]);
+    }
+
+    public function permisosPorUsuario($idUsuario)
+    {
+        return ModelHasPermissions::where('model_id', $idUsuario)
+                                    ->orderBy('permission_id')
+                                    ->pluck('permission_id')
+                                    ->toArray();
+    }
+
+    public function permisos()
+    {
+        return Permission::orderBy('id')
+                                    ->pluck('id')
+                                    ->toArray();
     }
 }

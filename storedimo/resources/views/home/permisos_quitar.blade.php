@@ -19,7 +19,7 @@
             </div>
             <h2 class="text-uppercase text-center" style="color: #337AB7">Quitar Permisos</h2>
 
-            {!! Form::open(['method' => 'POST', 'route' => ['permisos.store'],
+            {!! Form::open(['method' => 'POST', 'route' => ['eliminar'],
                 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'formQuitarPermisos']) !!}
             @csrf
         
@@ -31,10 +31,6 @@
 @stop
 @section('scripts')
 <script>
-
-    // Variable que se comparte desde el trait
-    let permisosAsignados = @json($permisosAsignados);
-    const permisos = @json($permisos);
 
         $("#formQuitarPermisos").on("submit", function (e)
      {

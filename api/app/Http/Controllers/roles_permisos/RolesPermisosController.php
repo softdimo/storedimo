@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Responsable\roles_permisos\RolesPermisosStore;
 use App\Http\Responsable\roles_permisos\RolesPermisosShow;
+use App\Http\Responsable\roles_permisos\RolesPermisosDestroy;
 
 class RolesPermisosController extends Controller
 {
@@ -29,5 +30,10 @@ class RolesPermisosController extends Controller
     function consultarPermisosPorUsuario(Request $request)
     {
         return new RolesPermisosShow();
+    }
+
+    function eliminarPermisosPorUsuario(Request $request)
+    {
+        return new RolesPermisosDestroy();
     }
 }

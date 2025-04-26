@@ -54,6 +54,7 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
     Route::group(['namespace' => 'App\Http\Controllers\home'], function () {
         Route::resource('home', 'HomeController');
         Route::resource('permisos', 'PermisosController');
+        Route::post('eliminar', 'PermisosController@eliminar')->name('eliminar');
     });
 
     // ========================================================================

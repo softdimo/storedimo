@@ -12,19 +12,21 @@ use App\Http\Responsable\usuarios\UsuarioUpdate;
 use GuzzleHttp\Client;
 use App\Traits\MetodosTrait;
 use Illuminate\Validation\ValidationException;
-
+use Illuminate\Support\Facades\Auth;
 
 class UsuariosController extends Controller
 {
     use MetodosTrait;
     protected $baseUri;
     protected $clientApi;
+    protected $permissions;
 
     public function __construct()
     {
         $this->shareData();
         $this->baseUri = env('BASE_URI');
         $this->clientApi = new Client(['base_uri' => $this->baseUri]);
+        $this->permissions = $this->permisos();
     }
     /**
      * Display a listing of the resource.
@@ -45,17 +47,20 @@ class UsuariosController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3]
                 ) {
                     return redirect()->to(route('login'));
-                } else {
+                } else
+                {
+                    $permisosUsuario = $this->permisosPorUsuario($sesion[0]);
+                    dd("todos los permisos ", $this->permissions, "permisos por usuario", $permisosUsuario);
                     return new UsuarioIndex();
                 }
             }
         } catch (Exception $e) {
+            dd($e);
             alert()->error("Exception Index Usuario!");
             return redirect()->to(route('login'));
         }
     }
 
-    // ======================================================================
     // ======================================================================
 
     /**

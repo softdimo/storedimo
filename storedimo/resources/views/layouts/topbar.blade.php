@@ -47,37 +47,28 @@
                                     <a href="#" class="dropdown-item text-dark hover-li">Configuración de Pago</a>
                                 </li>
 
-                                <!-- Rol Softdimo (roles y permisos)  -->
                                 @if(!is_null(session('sesion_iniciada')) && session('id_rol') == 3)
-                                    <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_crear_permiso">
-                                        <a href="#" class="dropdown-item text-dark hover-li">Creación de Permisos</a>
+                                
+                                <!-- Submenú de Permisos -->
+                                <li class="dropdown-submenu">
+                                    <a class="dropdown-item dropdown-toggle text-dark hover-li" href="#">Roles y Permisos</a>
+                                        <ul class="dropdown-menu bg-white">
+                                            <li data-bs-toggle="modal" data-bs-target="#modal_crear_permiso">
+                                                <a href="#" class="dropdown-item text-dark hover-li">Creación de Permisos</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item text-dark hover-li" href="{{ route('permisos.index') }}">Asignar Permisos</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item text-dark hover-li" href="{{ route('permisos.create') }}">Quitar Permisos</a>
+                                            </li>
+                                            <li data-bs-toggle="modal" data-bs-target="#modal_crear_roles">
+                                                <a href="#" class="dropdown-item text-dark hover-li">Creación de Roles</a>
+                                            </li>
+                                        </ul>
                                     </li>
 
-                                    <ul class="dropdown-menu bg-white" style="right:0;left:auto">
-                                        <li class="dropdown-item text-dark hover-li">
-                                            <i class="fa fa-sign-out fa-fw fa-1x">
-                                                <a href="{{route('logout')}}" class="" style="text-decoration: none;">Cerrar Sesión</a>
-                                            </i>
-                                        </li>
-                                    </ul>
-
-                                    <li class="nav-item">
-                                        <a href="{{route('permisos.index')}}" 
-                                            class="dropdown-item text-dark hover-li">Asignar Permisos</a>
-                                    </li>
-
-                                    <li class="nav-item">
-                                        <a href="{{route('permisos.create')}}" 
-                                            class="dropdown-item text-dark hover-li">Quitar Permisos</a>
-                                    </li>
-
-                                    <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_crear_roles">
-                                        <a href="#" class="dropdown-item text-dark hover-li">Creación de Roles</a>
-                                    </li>
-                                @else
-                                    <p>&nbsp;</p>
                                 @endif
-
                             </ul>
                         </li>
 
