@@ -30,6 +30,10 @@ body {
     color: #555;
 }
 
+.table thead th {
+    cursor: pointer;
+}
+
 .dataTables_length label select {
     height: 34px;
     padding: 6px 12px;
