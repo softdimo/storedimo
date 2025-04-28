@@ -43,11 +43,14 @@ class ProveedoresController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                     return new ProveedorIndex();
+                } else
+                {
+                    $vista = new ProveedorIndex();
+                    return $this->validarAccesos($sesion[0], 7, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Index Proveedor!");
             return redirect()->to(route('login'));
         }

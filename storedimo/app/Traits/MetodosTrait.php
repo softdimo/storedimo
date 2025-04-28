@@ -21,6 +21,7 @@ use App\Models\Usuario;
 use App\Models\Permission;
 use App\Models\Proveedor;
 use App\Models\ModelHasPermissions;
+use App\Http\Responsable\usuarios\UsuarioIndex;
 
 trait MetodosTrait
 {
@@ -169,5 +170,24 @@ trait MetodosTrait
         return Permission::orderBy('id')
                                     ->pluck('id')
                                     ->toArray();
+    }
+
+    public function validarAccesos($usuarioId, $permissionId, $vista)
+    {
+        $permisosUsuario = $this->permisosPorUsuario($usuarioId);
+
+        if(in_array($permissionId, $permisosUsuario))
+        {
+            if(isset($vista) && !is_null($vista) && is_string($vista))
+            {
+                return view($vista);
+            } else 
+            {
+                return $vista;
+            }
+        } else
+        {
+            return view('errors.403');
+        }
     }
 }

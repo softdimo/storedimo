@@ -10,13 +10,11 @@ use OwenIt\Auditing\Auditable as AuditableTrait; // Trait
 
 class Permission extends Model implements Auditable
 {
-    use SoftDeletes;
     use AuditableTrait;
 
     protected $connection = 'mysql';
     protected $table = 'permissions';
     protected $primaryKey = 'id';
-    protected $dates = ['deleted_at'];
     public $timestamps = true;
     protected $fillable = [
         'name',

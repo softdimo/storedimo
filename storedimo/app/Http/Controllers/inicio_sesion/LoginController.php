@@ -156,11 +156,24 @@ class LoginController extends Controller
 
     public function cambiarClave(Request $request)
     {
-        if (!$this->checkDatabaseConnection()) {
+        if (!$this->checkDatabaseConnection())
+        {
             return view('db_conexion');
-        } else {
-            return new CambiarClave();
+        } else
+        {
+            $sesion = $this->validarVariablesSesion();
 
+            if (
+                empty($sesion[0]) || is_null($sesion[0]) &&
+                empty($sesion[1]) || is_null($sesion[1]) &&
+                empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+            {
+                return redirect()->to(route('login'));
+            } else
+            {
+                $vista = new CambiarClave();
+                return $this->validarAccesos($sesion[0], 11, $vista);
+            }
         }
     }
 
@@ -169,7 +182,8 @@ class LoginController extends Controller
     
     public function recuperarClave()
     {
-        if (!$this->checkDatabaseConnection()) {
+        if (!$this->checkDatabaseConnection())
+        {
             return view('db_conexion');
         } else {
             return view('inicio_sesion.recuperar_clave');
@@ -193,9 +207,11 @@ class LoginController extends Controller
 
     public function recuperarClaveLink($usuIdRecuperarClave)
     {
-        if (!$this->checkDatabaseConnection()) {
+        if (!$this->checkDatabaseConnection())
+        {
             return view('db_conexion');
-        } else {
+        } else
+        {
             return view('inicio_sesion.recuperar_clave_link', compact('usuIdRecuperarClave'));
         }
     }
@@ -205,9 +221,11 @@ class LoginController extends Controller
 
     public function recuperarClaveUpdate(Request $request) 
     {
-        if (!$this->checkDatabaseConnection()) {
+        if (!$this->checkDatabaseConnection())
+        {
             return view('db_conexion');
-        } else {
+        } else
+        {
             return new RecuperarClaveUpdate();
         }
     }

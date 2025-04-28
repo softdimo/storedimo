@@ -19,21 +19,42 @@ class UsuariosController extends Controller
     use MetodosTrait;
     protected $baseUri;
     protected $clientApi;
-    protected $permissions;
 
     public function __construct()
     {
         $this->shareData();
         $this->baseUri = env('BASE_URI');
         $this->clientApi = new Client(['base_uri' => $this->baseUri]);
-        $this->permissions = $this->permisos();
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
+    {
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                if (
+                    empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else
+                {
+                    $vista = new UsuarioIndex();
+                    return $this->validarAccesos($sesion[0], 3, $vista);
+                }
+            }
+        } catch (Exception $e)
+        {
+            alert()->error("Exception Index Usuario!");
+            return redirect()->to(route('login'));
+        }
+    }
+
+    public function create()
     {
         try {
             if (!$this->checkDatabaseConnection()) {
@@ -49,64 +70,26 @@ class UsuariosController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
-                    $permisosUsuario = $this->permisosPorUsuario($sesion[0]);
-                    dd("todos los permisos ", $this->permissions, "permisos por usuario", $permisosUsuario);
-                    return new UsuarioIndex();
+                    $vista = 'usuarios.create';
+                    return $this->validarAccesos($sesion[0], 3, $vista);
                 }
             }
-        } catch (Exception $e) {
-            dd($e);
-            alert()->error("Exception Index Usuario!");
-            return redirect()->to(route('login'));
-        }
-    }
-
-    // ======================================================================
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        try {
-            if (!$this->checkDatabaseConnection()) {
-                return view('db_conexion');
-            } else {
-                $sesion = $this->validarVariablesSesion();
-
-                if (
-                    empty($sesion[0]) || is_null($sesion[0]) &&
-                    empty($sesion[1]) || is_null($sesion[1]) &&
-                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3]
-                ) {
-                    return redirect()->to(route('login'));
-                } else {
-                    return view('usuarios.create');
-                }
-            }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Create Usuario!");
             return redirect()->to(route('login'));
         }
     }
 
-    // ======================================================================
-    // ======================================================================
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        try {
-            if (!$this->checkDatabaseConnection()) {
+        try
+        {
+            if (!$this->checkDatabaseConnection())
+            {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 if (
@@ -115,39 +98,24 @@ class UsuariosController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3]
                 ) {
                     return redirect()->to(route('login'));
-                } else {
-                    return new UsuarioStore();
+                } else
+                {
+                    $vista = new UsuarioStore();
+                    return $this->validarAccesos($sesion[0], 9, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Store Usuario!");
             return redirect()->to(route('login'));
         }
     }
 
-    // ======================================================================
-    // ======================================================================
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    // ======================================================================
-    // ======================================================================
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($idUsuario)
     {
         try {
@@ -162,115 +130,79 @@ class UsuariosController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3]
                 ) {
                     return redirect()->to(route('login'));
-                } else {
+                } else
+                {
                     $usuario = $this->queryUsuarioUpdate($idUsuario);
-
                     return view('usuarios.edit', compact('usuario'));
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e) 
+        {
             alert()->error("Exception Edit Usuario!");
             return redirect()->to(route('login'));
         }
     }
 
-    // ======================================================================
-    // ======================================================================
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $idUsuario)
     {
-        try {
-            if (!$this->checkDatabaseConnection()) {
+        try
+        {
+            if (!$this->checkDatabaseConnection())
+            {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 if (
                     empty($sesion[0]) || is_null($sesion[0]) &&
                     empty($sesion[1]) || is_null($sesion[1]) &&
-                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3]
-                ) {
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
                     return redirect()->to(route('login'));
-                } else {
-                    return new UsuarioUpdate();
+                } else
+                {
+                    $vista = new UsuarioUpdate();
+                    return $this->validarAccesos($sesion[0], 10, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Update Usuario!");
             return redirect()->to(route('login'));
         }
     }
 
-    // ======================================================================
-    // ======================================================================
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
     }
 
-    // ======================================================================
-    // ======================================================================
-
-    public function listarProveedores()
-    {
-        try {
-            if (!$this->checkDatabaseConnection()) {
-                return view('db_conexion');
-            } else {
-                $sesion = $this->validarVariablesSesion();
-
-                if (
-                    empty($sesion[0]) || is_null($sesion[0]) &&
-                    empty($sesion[1]) || is_null($sesion[1]) &&
-                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3]
-                ) {
-                    return redirect()->to(route('login'));
-                } else {
-                    return view('personas.listar_proveedores');
-                }
-            }
-        } catch (Exception $e) {
-            alert()->error("Exception Store Usuario!");
-            return redirect()->to(route('login'));
-        }
-    }
-
-    // ======================================================================
-    // ======================================================================
-
     public function listarClientes()
     {
-        try {
-            if (!$this->checkDatabaseConnection()) {
+        try
+        {
+            if (!$this->checkDatabaseConnection())
+            {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 if (
                     empty($sesion[0]) || is_null($sesion[0]) &&
                     empty($sesion[1]) || is_null($sesion[1]) &&
-                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3]
-                ) {
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
                     return redirect()->to(route('login'));
-                } else {
-                    return view('personas.listar_clientes');
+                } else
+                {
+                    $vista = 'personas.listar_clientes';
+                    return $this->validarAccesos($sesion[0], 1, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Store Usuario!");
             return redirect()->to(route('login'));
         }
@@ -278,10 +210,12 @@ class UsuariosController extends Controller
 
     public function queryUsuarioUpdate($idUsuario)
     {
-        try {
+        try
+        {
             $response = $this->clientApi->post($this->baseUri . 'query_usuario_update/' . $idUsuario, ['json' => []]);
             return json_decode($response->getBody()->getContents());
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Error Exception!");
             return back();
         }
@@ -359,7 +293,8 @@ class UsuariosController extends Controller
                 ]
             ]);
             return response()->json(json_decode($response->getBody()->getContents(), true));
-        } catch (\Exception $e) {
+        } catch (\Exception $e)
+        {
             return response()->json([
                 'error' => 'No se pudo validar la identificación',
                 'valido' => false

@@ -20,7 +20,8 @@ class ProveedorIndex implements Responsable
             $resProveedoresIndex = json_decode($peticion->getBody()->getContents());
 
             return view('proveedores.index', compact('resProveedoresIndex'));
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error('Error', 'Exception resProveedoresIndex, contacte a Soporte.');
             return back();
         }

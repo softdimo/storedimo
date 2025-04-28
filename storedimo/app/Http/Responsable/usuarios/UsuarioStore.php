@@ -107,8 +107,6 @@ class UsuarioStore implements Responsable
         }
     }
 
-    // ===================================================================
-
     private function consultarId($identificacion)
     {
         $queryIdentificacion = $this->clientApi->post($this->baseUri.'query_identificacion', [

@@ -276,7 +276,7 @@
                                         <div class="modal fade h-auto modal-gral p-3 custom-height"
                                             id="modalEditarUsuario_{{ $usuario->id_usuario }}" tabindex="-1"
                                             data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true"
-                                            style="max-width: 55%; max-height: 60vh;">
+                                            style="max-width: 55%; max-height: 70vh;">
                                             <div class="modal-dialog m-0 mw-100">
                                                 <div class="modal-content w-100 border-0">
                                                     {!! Form::model($usuario, [

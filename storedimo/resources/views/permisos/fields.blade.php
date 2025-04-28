@@ -4,7 +4,7 @@
 
     <div class="row m-0 p-3" id="div_campos_usuarios">
     
-        <div class="col-12 col-md-3">
+        <div class="col-12 col-md-4">
             <div class="form-group d-flex flex-column">
                 <label for="usuario_id" class="form-label">Usuario <span class="text-danger">*</span></label>
                 {!! Form::select('id_usuario', collect(['' => 'Seleccionar...'])->union($usuarios), null,
@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <div class="col-12 col-md-3">
+        <div class="col-12 col-md-2">
             <p>&nbsp;</p>
         </div>
 

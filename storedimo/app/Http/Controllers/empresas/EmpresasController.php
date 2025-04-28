@@ -34,10 +34,13 @@ class EmpresasController extends Controller
      */
     public function index()
     {
-        try {
-            if (!$this->checkDatabaseConnection()) {
+        try
+        {
+            if (!$this->checkDatabaseConnection())
+            {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -45,11 +48,14 @@ class EmpresasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new EmpresaIndex();
+                } else
+                {
+                    $vista = new EmpresaIndex();
+                    return $this->validarAccesos($sesion[0], 6, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Index Entradas!");
             return redirect()->to(route('login'));
         }
@@ -76,19 +82,20 @@ class EmpresasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return view('empresas.create');
+                } else
+                {
+                    $vista = 'empresas.create';
+                    return $this->validarAccesos($sesion[0], 4, $vista);
                 }
             }
-        } catch (Exception $e) {
-            alert()->error("Exception Index Existencias!");
+        } catch (Exception $e)
+        {
+            alert()->error("Exception Create Empresas!");
             return redirect()->to(route('login'));
         }
     }
 
     // ======================================================================
-    // ======================================================================
-
     /**
      * Store a newly created resource in storage.
      *
@@ -113,7 +120,7 @@ class EmpresasController extends Controller
                 }
             }
         } catch (Exception $e) {
-            alert()->error("Exception Index Empresas!");
+            alert()->error("Exception Store Empresas!");
             return redirect()->to(route('login'));
         }
     }
@@ -159,9 +166,11 @@ class EmpresasController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            if (!$this->checkDatabaseConnection()) {
+            if (!$this->checkDatabaseConnection())
+            {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -169,11 +178,14 @@ class EmpresasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new EmpresaUpdate();
+                } else
+                {
+                    $vista = new EmpresaUpdate();
+                    return $this->validarAccesos($sesion[0], 12, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Update Empresas!");
             return redirect()->to(route('login'));
         }

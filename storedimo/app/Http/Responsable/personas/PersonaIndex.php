@@ -12,13 +12,16 @@ class PersonaIndex implements Responsable
 {
     public function toResponse($request)
     {
-        try {
+        try
+        {
             $baseUri = env('BASE_URI');
             $clientApi = new Client(['base_uri' => $baseUri]);
 
             $response = $clientApi->get($baseUri . 'personas_index');
             return json_decode($response->getBody()->getContents());
-        } catch (Exception $e) {
+            
+        } catch (Exception $e)
+        {
             return null;
         }
     }

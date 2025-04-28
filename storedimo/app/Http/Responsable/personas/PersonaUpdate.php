@@ -85,16 +85,12 @@ class PersonaUpdate implements Responsable
     }
 
     // ===================================================================
-    // ===================================================================
-
     // Método auxiliar para mensajes de exito
     private function respuestaExito($mensaje, $ruta)
     {
         alert()->success('Exito', $mensaje);
         return redirect()->to(route($ruta));
     }
-
-    // ========================================================
 
     // Método auxiliar para manejar errores
     private function respuestaError($mensaje, $ruta)
