@@ -273,8 +273,41 @@ body {
 }
 
 /* ========================================= */
-/* INICIO Media Query TopMenu */
+/* ========================================= */
 
+/* Estilos Input tipo file */
+.file-container .div-file {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.file-container .div-file::before {
+    background-color: #337AB7;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    content: 'Seleccionar Archivo';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    font-size: 14px;
+}
+
+.file {
+    opacity: 0;
+    height: 40px;
+    display: inline-block;
+}
+
+/* ========================================= */
+/* ========================================= */
+
+/* INICIO Media Query TopMenu */
 @media (max-width: 992px) {
     .menu-container {
 		order: 1 !important;

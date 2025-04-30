@@ -29,6 +29,7 @@ class ProductoEdit implements Responsable
             $producto = Producto::leftJoin('categorias', 'categorias.id_categoria', '=', 'productos.id_categoria')
                 ->select(
                     'id_producto',
+                    'imagenProducto',
                     'nombre_producto',
                     'categorias.id_categoria',
                     'categorias.categoria',

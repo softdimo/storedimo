@@ -14,7 +14,7 @@
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
                 <label for="nombre_producto" class="form-label">Nombre Producto <span class="text-danger">*</span></label>
-                {!! Form::text('nombre_producto', null, ['class' => 'form-control', 'id' => 'nombre_producto']) !!}
+                {!! Form::text('nombre_producto', null, ['class' => 'form-control', 'id' => 'nombre_producto', 'required']) !!}
             </div>
         </div>
 
@@ -23,7 +23,7 @@
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
                 <label for="id_categoria" class="form-label">Categoría <span class="text-danger">*</span></label>
-                {!! Form::select('id_categoria', collect(['' => 'Seleccionar...'])->union($categorias), null, ['class' => 'form-select select2', 'id' => 'id_categoria']) !!}
+                {!! Form::select('id_categoria', collect(['' => 'Seleccionar...'])->union($categorias), null, ['class' => 'form-select select2', 'id' => 'id_categoria', 'required']) !!}
             </div>
         </div>
 
@@ -32,7 +32,7 @@
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
                 <label for="precio_unitario" class="form-label">Precio Unitario <span class="text-danger">*</span></label>
-                {!! Form::number('precio_unitario', null, ['class' => 'form-control', 'id' => 'precio_unitario', 'min' => 0, 'oninput' => 'validity.valid||(value=\'\');']) !!}
+                {!! Form::number('precio_unitario', null, ['class' => 'form-control', 'id' => 'precio_unitario', 'required', 'min' => 0, 'oninput' => 'validity.valid||(value=\'\');']) !!}
             </div>
         </div>
 
@@ -41,7 +41,7 @@
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
                 <label for="precio_detal" class="form-label">Precio al Detal <span class="text-danger">*</span></label>
-                {!! Form::number('precio_detal', null, ['class' => 'form-control', 'id' => 'precio_detal', 'min' => 0, 'oninput' => 'validity.valid||(value=\'\');']) !!}
+                {!! Form::number('precio_detal', null, ['class' => 'form-control', 'id' => 'precio_detal', 'required', 'min' => 0, 'oninput' => 'validity.valid||(value=\'\');']) !!}
             </div>
         </div>
 
@@ -50,7 +50,7 @@
         <div class="col-12 col-md-3 mt-3">
             <div class="form-group d-flex flex-column">
                 <label for="precio_por_mayor" class="form-label">Precio al por Mayor <span class="text-danger">*</span></label>
-                {!! Form::number('precio_por_mayor', null, ['class' => 'form-control', 'id' => 'precio_por_mayor', 'min' => 0, 'oninput' => 'validity.valid||(value=\'\');']) !!}
+                {!! Form::number('precio_por_mayor', null, ['class' => 'form-control', 'id' => 'precio_por_mayor', 'required', 'min' => 0, 'oninput' => 'validity.valid||(value=\'\');']) !!}
             </div>
         </div>
 
@@ -68,7 +68,7 @@
         <div class="col-12 col-md-3 mt-3" id="">
             <div class="form-group d-flex flex-column">
                 <label for="stock_minimo" class="form-label">Stock Mínimo <span class="text-danger">*</span></label>
-                {!! Form::number('stock_minimo', null, ['class' => 'form-control', 'id' => 'stock_minimo', 'min' => 1, 'max' => 50, 'oninput' => 'validity.valid||(value=\'\');']) !!}
+                {!! Form::number('stock_minimo', null, ['class' => 'form-control', 'id' => 'stock_minimo', 'required', 'min' => 1, 'max' => 50, 'oninput' => 'validity.valid||(value=\'\');']) !!}
             </div>
         </div>
         
@@ -77,17 +77,30 @@
         <div class="col-12 col-md-3 mt-3" id="">
             <div class="form-group d-flex flex-column">
                 <label for="referencia" class="form-label">Referencia <span class="text-danger">*</span></label>
-                {!! Form::text('referencia', null, ['class' => 'form-control', 'id' => 'referencia']) !!}
+                {!! Form::text('referencia', null, ['class' => 'form-control', 'id' => 'referencia', 'required']) !!}
                 <small id="reference-error" class="text-danger d-none">Esta referencia ya existe.</small>
             </div>
         </div>
-               
+
         {{-- ======================= --}}
         
         <div class="col-12 col-md-3 mt-3" id="">
             <div class="form-group d-flex flex-column">
                 <label for="fecha_vencimiento" class="form-label">Fecha Vencimiento</label>
                 {!! Form::date('fecha_vencimiento', null, ['class' => 'form-control', 'id' => 'fecha_vencimiento']) !!}
+            </div>
+        </div>
+
+        {{-- ======================= --}}
+
+        <div class="col-12 col-md-3 mt-3">
+            <div class="form-group d-flex flex-column file-container">
+                <label for="imagen_producto" class="form-label">Imagen</label>
+                <div class="div-file">
+                    {!! Form::file('imagen_producto', ['class' => 'form-control file', 'id' => 'imagen_producto', 'onchange' => 'displaySelectedFile("imagen_producto","selected_imagen_producto")',
+                    'accept' => 'image/jpg,image/jpeg,image/png,image/webp']) !!}
+                </div>
+                <span id="selected_imagen_producto" class="text-danger hidden"></span>
             </div>
         </div>
 

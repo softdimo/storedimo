@@ -23,6 +23,7 @@ class Producto extends Model implements Auditable
         'id_empresa',
         'id_persona',
         'id_tipo_persona',
+        'imagen_producto',
         'nombre_producto',
         'id_categoria',
         'precio_unitario',

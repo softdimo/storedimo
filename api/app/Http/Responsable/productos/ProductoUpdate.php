@@ -29,6 +29,7 @@ class ProductoUpdate implements Responsable
 
         if (isset($producto) && !is_null($producto) && !empty($producto)) {
             
+            $producto->imagen_producto = $this->request->input('imagen_producto');
             $producto->nombre_producto = $this->request->input('nombre_producto');
             $producto->id_categoria = $this->request->input('id_categoria');
             $producto->descripcion = $this->request->input('descripcion');

@@ -93,10 +93,12 @@
                 'class' => 'mt-2',
                 'autocomplete' => 'off',
                 'id' => 'formCrearProducto',
+                'enctype' => 'multipart/form-data',
+                'file' => true
             ]) !!}
-            @csrf
+                @csrf
 
-            @include('productos.fields_crear_productos')
+                @include('productos.fields_crear_productos')
             {!! Form::close() !!}
         </div>
     </div>
@@ -271,5 +273,57 @@
                 loadingIndicator.show();
             });
         }); // FIN document.ready
+
+        // =============================================
+
+        // Funcionalidad input tipo file para imagen producto
+        function displaySelectedFile(inputId, displayElementId) {
+            const input = document.getElementById(inputId);
+            const displayElement = document.getElementById(displayElementId);
+            const file = input.files[0];
+
+            // Reset
+            displayElement.textContent = '';
+            displayElement.classList.add('hidden');
+
+            if (file) {
+                const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+                const maxSizeMB = 2;
+                const fileSizeMB = file.size / (1024 * 1024);
+
+                if (!allowedTypes.includes(file.type)) {
+                    displayElement.textContent = 'Formato no permitido. Solo JPG, JPEG, PNG o WEBP.';
+                    displayElement.classList.remove('hidden');
+                    input.value = ''; // limpia el input
+                    return;
+                }
+
+                if (fileSizeMB > maxSizeMB) {
+                    displayElement.textContent = 'El archivo excede los 2MB permitidos.';
+                    displayElement.classList.remove('hidden');
+                    input.value = ''; // limpia el input
+                    return;
+                }
+
+                // Todo bien
+                displayElement.textContent = file.name;
+                displayElement.classList.remove('hidden');
+            }
+        }
+
+        // function displaySelectedFile(inputId, displayElementId) {
+        //     const input = document.getElementById(inputId);
+        //     const selectedFile = input.files[0];
+        //     const displayElement = document.getElementById(displayElementId);
+
+        //     if (selectedFile) {
+        //         const selectedFileName = selectedFile.name;
+        //         displayElement.textContent = selectedFileName;
+        //         displayElement.classList.remove('hidden');
+        //     } else {
+        //         displayElement.textContent = '';
+        //         displayElement.classList.add('hidden');
+        //     }
+        // }
     </script>
 @stop

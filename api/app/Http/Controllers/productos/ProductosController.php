@@ -144,6 +144,7 @@ class ProductosController extends Controller
                 ->select(
                     'id_producto',
                     'id_empresa',
+                    'imagen_producto',
                     'nombre_producto',
                     'categorias.id_categoria',
                     'categoria',

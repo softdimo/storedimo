@@ -25,6 +25,37 @@ class ProductoUpdate implements Responsable
         $fechaVencimiento = request('fechaVencimientoEdit', null);
 
         // ===================================================================
+
+        $imagenProductoBase64Edit = null;
+
+        if ($request->hasFile('imagenProductoEdit')) {
+            $imagenProducto = $request->file('imagenProductoEdit');
+
+            if ($imagenProducto->isValid()) {
+                // Validación de tipo MIME
+                $tiposPermitidos = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'];
+                $tipoMime = $imagenProducto->getMimeType();
+
+                if (!in_array($tipoMime, $tiposPermitidos)) {
+                    alert()->error('Error', 'El tipo de imagen no es válido. Solo se permiten JPG, JPEG, PNG o WEBP.');
+                    return back();
+                }
+
+                // Validación de tamaño (2 MB = 2048 KB)
+                $tamanioMaximoKB = 2048;
+                $tamanioArchivoKB = $imagenProducto->getSize() / 1024;
+
+                if ($tamanioArchivoKB > $tamanioMaximoKB) {
+                    alert()->error('Error', 'La imagen excede el tamaño máximo permitido de 2 MB.');
+                    return back();
+                }
+
+                // Codificación base64
+                $contenido = file_get_contents($imagenProducto);
+                $imagenProductoBase64Edit = 'data:' . $imagenProducto->getMimeType() . ';base64,' . base64_encode($contenido);
+            }
+        }
+
         // ===================================================================
 
         $baseUri = env('BASE_URI');
@@ -38,6 +69,7 @@ class ProductoUpdate implements Responsable
             // Enviar la actualización solo con los datos necesarios
             $peticionProductoUpdate = $clientApi->put($baseUri.'producto_update/'.$idProducto, [
                 'json' => [
+                    'imagen_producto' => $imagenProductoBase64Edit ?? $productoActual->imagen_producto,
                     'nombre_producto' => $nombreProductoEdit ?? $productoActual->nombre_producto,
                     'id_categoria' => $categoriaEdit ?? $productoActual->id_categoria,
                     'descripcion' => $descripcionEdit ?? $productoActual->descripcion,
