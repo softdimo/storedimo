@@ -85,12 +85,12 @@
 
                             <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Producto <span class="text-danger">*</span></h5>
                             {{-- ============================================================== --}}
-                            <div class="p-3 d-flex justify-content-between" id="" style="">
+                            <div class="pt-3 pe-2 pb-3 ps-3 d-flex justify-content-between" id="" style="">
                                 <div class="d-flex justify-content-center w-75">
                                     {{ Form::select('id_producto', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-select select2', 'id' => 'id_producto']) }}
                                 </div>
 
-                                <div class="d-flex justify-content-end w-25">
+                                <div class="d-flex justify-content-center w-25">
                                     <button type="button" class="btn rounded-2 text-white" style="background-color: #337AB7" title="Registrar producto" data-bs-toggle="modal" data-bs-target="#modal_registroProducto">
                                         <i class="fa fa-plus plus"></i>
                                     </button>
@@ -114,8 +114,8 @@
                                 </div>
                                 {{-- ============ --}}
                                 <div class="col-md-3 text-center">
-                                    <button type="button" title="Modificar" data-bs-toggle="modal" data-bs-target="#modalModificarPrecios" class="btn btn-success btn-circle">
-                                        <i class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar"></i>
+                                    <button type="button" title="Modificar Precios Producto" data-bs-toggle="modal" data-bs-target="#modalModificarPrecios" class="btn btn-success btn-circle">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true" title="Modificar Precios Producto"></i>
                                     </button>
                                 </div>
                             </div>
@@ -128,7 +128,7 @@
                             {{-- ============ --}}
                             <div class="p-3 d-flex justify-content-end">
                                 <button type="button" class="btn btn-primary" id="btn_add_entrada" title="Agregar Entrada">
-                                    <i class="fa fa-plus plus"></i>Agregar
+                                    <i class="fa fa-plus plus"></i> Agregar
                                 </button>
                             </div>
                         </div>
@@ -137,8 +137,6 @@
                             <h5 class="border rounded-top text-white p-2 m-0" style="background-color: #337AB7">Detalle Compras</h5>
                             
                             <div class="">
-                                {{-- <div class="d-none" id="div_compra_datos_producto"></div> --}}
-
                                 <div class="table-responsive p-3 d-flex flex-column justify-content-between h-100" style="">
                                     <table class="table table-striped table-bordered w-100 mb-0" id="tbl_compras" aria-describedby="compras">
                                         <thead>
@@ -158,8 +156,8 @@
 
                                 {{-- ============ --}}
 
-                                <div class="d-flex" style="background-color: #F5F5F5">
-                                    <h3 class="col-3 d-flex align-middle">Total: $</h3>
+                                <div class="mt-3 p-3 d-flex" style="background-color: #F5F5F5">
+                                    <h3 class="col-3 text-center align-content-center">Total: $</h3>
                                     {!! Form::text('valor_compra', null, ['class' => 'form-control w-100 fs-4', 'id' => 'valor_compra', 'required']) !!}
                                 </div>
 
