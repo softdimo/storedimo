@@ -127,10 +127,10 @@
     {{-- =============================================================== --}}
 
     {{-- INICIO Modal REPORTE COMPRAS --}}
-    <div class="modal fade h-auto modal-gral p-3" id="modalReporteCompras" tabindex="-1" data-bs-backdrop="static"
+    <div class="modal fade" id="modalReporteCompras" tabindex="-1" data-bs-backdrop="static"
         data-bs-keyboard="false">
-        <div class="modal-dialog m-0">
-            <div class="modal-content w-100 border-0">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
                 <div class="rounded-top" style="border: solid 1px #337AB7;">
                     {!! Form::open([
                         'method' => 'POST',
@@ -208,10 +208,10 @@
 
     @foreach ($entradas as $entrada)
         <!-- Modal Detalles compra -->
-        <div class="modal fade h-auto modal-gral p-0" id="modalDetalleEntrada_{{$entrada->id_compra}}" tabindex="-1"
+        <div class="modal fade" id="modalDetalleEntrada_{{$entrada->id_compra}}" tabindex="-1"
             data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="max-height: 96vh">
-            <div class="modal-dialog m-0">
-                <div class="modal-content p-3 w-100">
+            <div class="modal-dialog">
+                <div class="modal-content p-3">
                     <div class="rounded-top" style="border: solid 1px #337AB7;">
                         <div class="rounded-top text-white text-center"
                             style="background-color: #337AB7; border: solid 1px #337AB7;">
@@ -321,10 +321,10 @@
         {{-- ====================================================== --}}
 
         <!-- Modal Anular compra -->
-        <div class="modal fade h-auto modal-gral p-0" id="modalAnularCompra_{{ $entrada->id_compra }}" tabindex="-1"
+        <div class="modal fade" id="modalAnularCompra_{{ $entrada->id_compra }}" tabindex="-1"
             data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-            <div class="modal-dialog m-0">
-                <div class="modal-content p-3 w-100">
+            <div class="modal-dialog">
+                <div class="modal-content p-3">
                     {!! Form::open([
                         'method' => 'POST',
                         'route' => ['anular_compra'],

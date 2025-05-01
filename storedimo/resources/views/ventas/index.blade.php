@@ -114,10 +114,10 @@
     {{-- =============================================================== --}}
 
     {{-- INICIO Modal REPORTE VENTAS --}}
-    <div class="modal fade h-auto modal-gral p-3" id="modalReporteVentas" tabindex="-1" data-bs-backdrop="static"
+    <div class="modal fade" id="modalReporteVentas" tabindex="-1" data-bs-backdrop="static"
         data-bs-keyboard="false">
-        <div class="modal-dialog m-0">
-            <div class="modal-content w-100 border-0">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
                 <div class="rounded-top" style="border: solid 1px #337AB7;">
                     {!! Form::open([
                         'method' => 'POST',
@@ -194,10 +194,10 @@
 
     @foreach ($ventas as $venta)
         <!-- INICIO Modal Detalles VENTA -->
-        <div class="modal fade h-auto modal-gral p-0" id="modalDetalleVenta_{{$venta->id_venta}}" tabindex="-1"
+        <div class="modal fade" id="modalDetalleVenta_{{$venta->id_venta}}" tabindex="-1"
             data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="max-height: 96vh">
-            <div class="modal-dialog m-0">
-                <div class="modal-content p-3 w-100">
+            <div class="modal-dialog">
+                <div class="modal-content p-3">
                     <div class="rounded-top" style="border: solid 1px #337AB7;">
                         <div class="rounded-top text-white text-center"
                             style="background-color: #337AB7; border: solid 1px #337AB7;">

@@ -109,8 +109,8 @@
 
     @foreach ($prestamosVencer as $prestamoVencer)
         <!-- INICIO Modal VER DETALLES PRÉSTAMO VENCER -->
-        <div class="modal fade h-auto modal-gral p-0" id="modalPrestamoVencer_{{$prestamoVencer->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="max-width: 80%;">
-            <div class="modal-dialog m-0 mw-100">
+        <div class="modal fade" id="modalPrestamoVencer_{{$prestamoVencer->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="max-width: 80%;">
+            <div class="modal-dialog">
                 <div class="modal-content p-3">
 
                     {!! Form::hidden('id_prestamo', isset($prestamoVencer) ? $prestamoVencer->id_prestamo : null, ['class' => '', 'id' => 'id_prestamo', 'required']) !!}
@@ -195,8 +195,8 @@
         {{-- =============================================================== --}}
 
         <!-- INICIO Modal ABONO Préstamo -->
-        <div class="modal fade h-auto modal-gral p-0" id="modalAbonarPrestamo_{{$prestamoVencer->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-            <div class="modal-dialog m-0 mw-100">
+        <div class="modal fade" id="modalAbonarPrestamo_{{$prestamoVencer->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog">
                 <div class="modal-content p-3">
                     {!! Form::open([
                         'method' => 'POST',
@@ -269,8 +269,8 @@
         {{-- =============================================================== --}}
 
         <!-- INICIO Modal MODIFICAR Préstamo -->
-        <div class="modal fade h-auto modal-gral p-0" id="modalModificarPrestamo_{{$prestamoVencer->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-            <div class="modal-dialog m-0 mw-100">
+        <div class="modal fade" id="modalModificarPrestamo_{{$prestamoVencer->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog">
                 <div class="modal-content p-3">
                     {!! Form::open([
                         'method' => 'POST',
@@ -343,8 +343,8 @@
         {{-- =============================================================== --}}
 
         <!-- INICIO Modal VER DETALLES ABONO Préstamo -->
-        <div class="modal fade h-auto modal-gral p-0" id="modalVerAbonos_{{$prestamoVencer->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-            <div class="modal-dialog m-0 mw-100">
+        <div class="modal fade" id="modalVerAbonos_{{$prestamoVencer->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog">
                 <div class="modal-content p-3">
                     <div class="rounded-top" style="border: solid 1px #337AB7;">
                         <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
@@ -399,9 +399,9 @@
         {{-- =============================================================== --}}
 
         {{-- INICIO Modal ESTADO PRÉSTAMO --}}
-        <div class="modal fade h-auto modal-gral" id="modalCambiarEstadoPrestamo_{{$prestamoVencer->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-            <div class="modal-dialog m-0">
-                <div class="modal-content w-100 border-0">
+        <div class="modal fade" id="modalCambiarEstadoPrestamo_{{$prestamoVencer->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content p-3">
                     {!! Form::open([
                         'method' => 'POST',
                         'route' => ['cambiar_estado_producto'],

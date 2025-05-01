@@ -38,10 +38,10 @@
                 </a>
             </div>
 
-            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaCategorias" tabindex="-1" role="dialog"
-                aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
-                <div class="modal-dialog m-0 mw-100">
-                    <div class="modal-content border-0">
+            <div class="modal fade" id="modalAyudaCategorias" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+                <div class="modal-dialog" style="min-width: 60%;">
+                    <div class="modal-content p-3">
                         <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
                             <div class="row">
                                 <div class="col-12">
@@ -202,11 +202,11 @@
                                             {{-- =============================================================== --}}
 
                                             {{-- INICIO Modal EDITAR CATEGORÍA --}}
-                                            <div class="modal fade h-auto modal-gral"
+                                            <div class="modal fade"
                                                 id="modal_editar_categoria_{{ $categoria->id_categoria }}" tabindex="-1"
                                                 data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-                                                <div class="modal-dialog m-0 mw-100">
-                                                    <div class="modal-content p-0 w-100 border-0">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content p-3">
                                                         {!! Form::open([
                                                             'method' => 'POST',
                                                             'route' => ['editar_categoria'],
@@ -288,12 +288,12 @@
                                             {{-- FINAL Modal EDITAR CATEGORÍA --}}
 
                                             {{-- INICIO Modal ESTADO CATEGORIA --}}
-                                            <div class="modal fade h-auto modal-gral"
+                                            <div class="modal fade"
                                                 id="modalCambiarEstadoCategoria_{{ $categoria->id_categoria }}"
                                                 tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
                                                 aria-hidden="true">
-                                                <div class="modal-dialog m-0">
-                                                    <div class="modal-content w-100 border-0">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content p-3">
                                                         {!! Form::open([
                                                             'method' => 'POST',
                                                             'route' => ['cambiar_estado_categoria'],

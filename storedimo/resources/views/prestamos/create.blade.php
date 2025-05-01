@@ -37,9 +37,9 @@
                 </a>
             </div>
 
-            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaRegistrarVentas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
-                <div class="modal-dialog m-0 mw-100">
-                    <div class="modal-content border-0">
+            <div class="modal fade" id="modalAyudaRegistrarVentas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
+                <div class="modal-dialog">
+                    <div class="modal-content p-3">
                         <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
                             <div class="row">
                                 <div class="col-12">
@@ -107,9 +107,9 @@
                                         </td>
 
                                         {{-- INICIO Modal Registrar Préstamo --}}
-                                        <div class="modal fade h-auto modal-gral p-0" id="modalRegistrarPrestamo_{{$usuarioPrestamo->id_usuario}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
-                                            <div class="modal-dialog m-0">
-                                                <div class="modal-content">
+                                        <div class="modal fade" id="modalRegistrarPrestamo_{{$usuarioPrestamo->id_usuario}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content p-3">
                                                     <div class="modal-header justify-content-between border-0 pb-1">
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>

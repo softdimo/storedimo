@@ -43,10 +43,10 @@
                 </a>
             </div>
 
-            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaModificacionProductos" tabindex="-1" role="dialog"
-                aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
-                <div class="modal-dialog m-0 mw-100">
-                    <div class="modal-content border-0">
+            <div class="modal fade" id="modalAyudaModificacionProductos" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+                <div class="modal-dialog" style="min-width: 85%;">
+                    <div class="modal-content p-3">
                         <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
                             <div class="row">
                                 <div class="col-12">
@@ -86,8 +86,8 @@
                                                 </ol>
                                             </li>
                                         </ul>
-                                        <p class="text-justify">El icono de color azul es de solo información.</p>
-                                        <p class="text-justify">El icono rojo pertenece al cambio de estado, el cual pedirá
+                                        <p class="text-justify mb-0">El icono de color azul es de solo información.</p>
+                                        <p class="text-justify mt-0 mb-0">El icono rojo pertenece al cambio de estado, el cual pedirá
                                             confirmación en el momento de pulsar sobre el.</p>
                                     </div> {{-- FINpanel-body --}}
                                 </div> {{-- FIN col-12 --}}
@@ -203,11 +203,11 @@
                                         {{-- =========================================================================== --}}
 
                                         {{-- INICIO Modal MODIFICAR PRODUCTO --}}
-                                        <div class="modal fade h-auto modal-gral p-0"
+                                        <div class="modal fade"
                                             id="modalEditarProducto_{{ $producto->id_producto }}" tabindex="-1"
                                             role="dialog" aria-labelledby="myModalLabel" data-bs-keyboard="false"
                                             data-bs-backdrop="static">
-                                            <div class="modal-dialog m-0">
+                                            <div class="modal-dialog" style="min-width: 50%">
                                                 <div class="modal-content p-3">
                                                     {!! Form::open([
                                                         'method' => 'POST',
@@ -386,12 +386,12 @@
                                         {{-- =========================================================================== --}}
 
                                         {{-- INICIO Modal CÓDIGO DE BARRAS PRODUCTO --}}
-                                        <div class="modal fade h-auto modal-gral p-0"
+                                        <div class="modal fade"
                                             id="barCodeModal_{{ $producto->id_producto }}" tabindex="-1" role="dialog"
                                             aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static"
                                             data-bs-keyboard="false">
-                                            <div class="modal-dialog m-0">
-                                                <div class="modal-content p-3 w-100">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content p-3">
                                                     {!! Form::open([
                                                         'method' => 'POST',
                                                         'route' => ['producto_barcode'],
@@ -468,11 +468,11 @@
                                         {{-- =========================================================================== --}}
 
                                         {{-- INICIO Modal ESTADO PRODUCTO --}}
-                                        <div class="modal fade h-auto modal-gral"
+                                        <div class="modal fade"
                                             id="modalCambiarEstadoProducto_{{ $producto->id_producto }}" tabindex="-1"
                                             data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-                                            <div class="modal-dialog m-0">
-                                                <div class="modal-content w-100 border-0">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content p-3">
                                                     {!! Form::open([
                                                         'method' => 'POST',
                                                         'route' => ['cambiar_estado_producto'],

@@ -29,9 +29,9 @@
                 </a>
             </div>
 
-            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaRegistrarEntradas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
-                <div class="modal-dialog m-0 mw-100">
-                    <div class="modal-content border-0">
+            <div class="modal fade" id="modalAyudaRegistrarEntradas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+                <div class="modal-dialog" style="min-width: 60%;">
+                    <div class="modal-content p-3">
                         <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
                             <div class="row">
                                 <div class="col-12">
@@ -191,9 +191,9 @@
     {{-- ==================================================================================== --}}
 
     {{-- INICIO MODAL REGISTRAR PRODUCTO --}}
-    <div class="modal fade h-auto modal-gral p-0" id="modal_registroProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
-        <div class="modal-dialog m-0">
-            <div class="modal-content">
+    <div class="modal fade" id="modal_registroProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
                 <div class="modal-header justify-content-between border-0 pb-1">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mod_ayuda_registroProducto" title="Ayuda Registrar producto">
                         <i class="fa fa-question" aria-hidden="true" title="Ayuda"></i>
@@ -291,9 +291,9 @@
     {{-- ==================================================================================== --}}
 
     {{-- INICIO Modal Ayuda de Registrar Productos --}}
-    <div class="modal fade h-auto modal-gral p-0" id="mod_ayuda_registroProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
-        <div class="modal-dialog m-0">
-            <div class="modal-content">
+    <div class="modal fade" id="mod_ayuda_registroProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
                 <div class="modal-header d-none"></div>
 
                 {{-- ====================================================== --}}
@@ -338,9 +338,9 @@
     {{-- ==================================================================================== --}}
 
     {{-- INICIO Modal Modificar Precios --}}
-    <div class="modal fade h-auto modal-gral p-0" id="modalModificarPrecios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
-        <div class="modal-dialog m-0">
-            <div class="modal-content">
+    <div class="modal fade" id="modalModificarPrecios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
                 <div class="modal-header justify-content-between border-0 pb-1">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mod_ayuda_precios" title="Ayuda Modificar Precios">
                         <i class="fa fa-question" aria-hidden="true" title="Ayuda"></i>
@@ -423,9 +423,9 @@
     {{-- ==================================================================================== --}}
 
     {{-- INICIO Modal Ayuda Modificar Precios --}}
-    <div class="modal fade h-auto modal-gral p-0" id="mod_ayuda_precios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+    <div class="modal fade" id="mod_ayuda_precios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content p-3">
                 <div class="modal-header d-none"></div>
 
                 {{-- ====================================================== --}}

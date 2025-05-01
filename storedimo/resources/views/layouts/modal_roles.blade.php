@@ -1,8 +1,8 @@
 {{-- INICIO Modal Crear Roles --}}
-<div class="modal fade modal-gral h-auto" id="modal_crear_roles"
+<div class="modal fade" id="modal_crear_roles"
     tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-    <div class="modal-dialog m-0">
-        <div class="modal-content border-0">
+    <div class="modal-dialog">
+        <div class="modal-content p-3">
             <div class="rounded-top" style="border: solid 1px #337AB7;">
                 <div class="rounded-top text-white text-center" 
                         style="background-color: #337AB7; border: solid 1px #337AB7;">

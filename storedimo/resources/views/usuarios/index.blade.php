@@ -50,10 +50,10 @@
             {{-- ======================================================================= --}}
             {{-- ======================================================================= --}}
 
-            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaListarUsuarios" tabindex="-1" role="dialog"
-                aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
-                <div class="modal-dialog m-0 mw-100">
-                    <div class="modal-content border-0">
+            <div class="modal fade" id="modalAyudaListarUsuarios" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+                <div class="modal-dialog" style="min-width: 75%;">
+                    <div class="modal-content p-3">
                         <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
                             <div class="row">
                                 <div class="col-12">
@@ -186,11 +186,11 @@
                                         {{-- ====================================================== --}}
 
                                         {{-- INICIO Modal CAMBIAR CONTRASEÑA --}}
-                                        <div class="modal fade h-auto modal-gral"
+                                        <div class="modal fade"
                                             id="modal_cambiar_clave_{{ $usuario->id_usuario }}" tabindex="-1"
-                                            data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-                                            <div class="modal-dialog m-0">
-                                                <div class="modal-content w-100 border-0">
+                                            data-bs-backdrop="static" data-bs-keyboard="false">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content p-3">
                                                     {!! Form::open([
                                                         'method' => 'POST',
                                                         'route' => ['cambiar_clave'],
@@ -273,12 +273,11 @@
                                         {{-- ====================================================== --}}
 
                                         {{-- INICIO Modal EDITAR USUARIO --}}
-                                        <div class="modal fade h-auto modal-gral p-3 custom-height"
+                                        <div class="modal fade"
                                             id="modalEditarUsuario_{{ $usuario->id_usuario }}" tabindex="-1"
-                                            data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true"
-                                            style="max-width: 55%; max-height: 70vh;">
-                                            <div class="modal-dialog m-0 mw-100">
-                                                <div class="modal-content w-100 border-0">
+                                            data-bs-backdrop="static" data-bs-keyboard="false">
+                                            <div class="modal-dialog" style="min-width: 60%">
+                                                <div class="modal-content p-3">
                                                     {!! Form::model($usuario, [
                                                         'method' => 'PUT',
                                                         'route' => ['usuarios.update', $usuario->id_usuario],

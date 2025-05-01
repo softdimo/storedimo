@@ -35,16 +35,10 @@
                 </a>
             </div>
 
-            {{-- <div class="text-end">
-                <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal" data-bs-target="#modalAyudaRegistrarProductos">
-                    <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
-                </a>
-            </div> --}}
-
-            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaRegistrarProductos" tabindex="-1" role="dialog"
-                aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
-                <div class="modal-dialog m-0 mw-100">
-                    <div class="modal-content border-0">
+            <div class="modal fade" id="modalAyudaRegistrarProductos" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+                <div class="modal-dialog" style="min-width: 60%;">
+                    <div class="modal-content p-3">
                         <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
                             <div class="row">
                                 <div class="col-12">

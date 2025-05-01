@@ -32,7 +32,7 @@
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
             <div class="text-end">
-                <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal" data-bs-target="#modalAyudaListarPersonas">
+                <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal" data-bs-target="#modalAyudaListarEmpresas">
                     <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
                 </a>
             </div>
@@ -40,14 +40,14 @@
             {{-- ======================================================================= --}}
             {{-- ======================================================================= --}}
 
-            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaListarPersonas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
-                <div class="modal-dialog m-0 mw-100">
-                    <div class="modal-content border-0">
+            <div class="modal fade" id="modalAyudaListarEmpresas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+                <div class="modal-dialog" style="min-width: 75%;">
+                    <div class="modal-content p-3">
                         <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="rounded-top text-white text-center p-2" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                                        <span class="modal-title fs-5"><strong>Ayuda de Listar Personas</strong></span>
+                                        <span class="modal-title fs-5"><strong>Ayuda de Listar Empresas</strong></span>
                                     </div>
                                     {{-- =========================== --}}
                                     <div class="p-3">
@@ -60,16 +60,9 @@
                                                     <li class="text-justify">Todos los campos que poseen el asterisco (*) son obligatorios, por lo tanto sino se diligencian,
                                                     el sistema no le dejará seguir.</li>
                                                     <li class="text-justify">Los campos nombre de empresa e email no pueden ser idénticos a datos ya registrados.</li>
-                                                    {{-- <li class="text-justify">Al cambiar un empleado temporal a vinculado, el campo fecha de contrato cargará la fecha actual inicialmente, si usted desea cambiar esa fecha, está no puede ser menor ni superior a los 3 meses.</li> --}}
                                                 </ol>
                                                 <br>
                                             </li>
-                                            {{-- <li><strong>Opción de Cambio de Contraseña:</strong>
-                                                <ol>Tener en cuenta a la hora de cambiar una contraseña lo siguente:
-                                                    <li class="text-justify">La longitud de la contraseña debe ser mayor a 4 caracteres.</li>
-                                                    <li class="text-justify">Ambos campos deben coincidir.</li>
-                                                </ol>
-                                            </li> --}}
                                         </ul>
                                         <p class="text-justify">Por seguridad el empleado rol administrador no se le permitirá el cambio de estado</p>
                                     </div> {{--FINpanel-body --}}
@@ -133,8 +126,8 @@
                                         {{-- =============================================================== --}}
 
                                         <!-- INICIO Modal EDITAR EMPRESA -->
-                                        <div class="modal fade h-auto modal-gral p-0" id="modalEditarEmpresa_{{$empresa->id_empresa}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-                                            <div class="modal-dialog m-0 mw-100">
+                                        <div class="modal fade" id="modalEditarEmpresa_{{$empresa->id_empresa}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+                                            <div class="modal-dialog">
                                                 <div class="modal-content p-3">
                                                     {!! Form::open([
                                                         'method' => 'PUT',

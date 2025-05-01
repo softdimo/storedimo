@@ -45,9 +45,9 @@
                 </a>
             </div>
 
-            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaRegistrarPagos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
-                <div class="modal-dialog m-0 mw-100">
-                    <div class="modal-content border-0">
+            <div class="modal fade" id="modalAyudaRegistrarPagos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
+                <div class="modal-dialog">
+                    <div class="modal-content p-3">
                         <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
                             <div class="row">
                                 <div class="col-12">
@@ -116,9 +116,9 @@
                                     </tr>
 
                                     {{-- INICIO Modal REGISTRAR PAGO --}}
-                                    <div class="modal fade modal-gral" id="modalRegistrarPago_{{$pagoEmpleado->id_usuario}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" style="max-width: 70%;max-height: 90vh !important">
-                                        <div class="modal-dialog m-0 mw-100">
-                                            <div class="modal-content border-0">
+                                    <div class="modal fade" id="modalRegistrarPago_{{$pagoEmpleado->id_usuario}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" style="max-width: 70%;max-height: 90vh !important">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content p-3">
                                                 {!! Form::open([
                                                     'method' => 'POST',
                                                     'route' => ['pago_empleados.store'],
