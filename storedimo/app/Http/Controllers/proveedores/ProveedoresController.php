@@ -32,10 +32,12 @@ class ProveedoresController extends Controller
      */
     public function index(Request $request)
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -57,7 +59,6 @@ class ProveedoresController extends Controller
     }
 
     // ======================================================================
-    // ======================================================================
 
     /**
      * Show the form for creating a new resource.
@@ -77,9 +78,12 @@ class ProveedoresController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
+                } else
+                {
                     $this->shareData();
-                    return view('proveedores.create');
+
+                    $vista = 'proveedores.create';
+                    return $this->validarAccesos($sesion[0], 8, $vista);
                 }
             }
         } catch (Exception $e) {
@@ -88,7 +92,6 @@ class ProveedoresController extends Controller
         }
     }
 
-    // ======================================================================
     // ======================================================================
 
     /**
@@ -110,8 +113,10 @@ class ProveedoresController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new ProveedorStore();
+                } else 
+                {
+                    $vista = new ProveedorStore();
+                    return $this->validarAccesos($sesion[0], 26, $vista);
                 }
             }
         } catch (Exception $e) {
@@ -120,7 +125,6 @@ class ProveedoresController extends Controller
         }
     }
 
-    // ======================================================================
     // ======================================================================
 
     /**
@@ -135,7 +139,6 @@ class ProveedoresController extends Controller
     }
 
     // ======================================================================
-    // ======================================================================
 
     /**
      * Show the form for editing the specified resource.
@@ -149,7 +152,6 @@ class ProveedoresController extends Controller
     }
     
     // ======================================================================
-    // ======================================================================
 
     /**
      * Update the specified resource in storage.
@@ -161,7 +163,8 @@ class ProveedoresController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            if (!$this->checkDatabaseConnection()) {
+            if (!$this->checkDatabaseConnection())
+            {
                 return view('db_conexion');
             } else {
                 $sesion = $this->validarVariablesSesion();
@@ -171,17 +174,19 @@ class ProveedoresController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new ProveedorUpdate();
+                } else
+                {
+                    $vista = new ProveedorUpdate();
+                    return $this->validarAccesos($sesion[0], 15, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Update Proveedor!");
             return redirect()->to(route('login'));
         }
     }
 
-    // ======================================================================
     // ======================================================================
 
     /**

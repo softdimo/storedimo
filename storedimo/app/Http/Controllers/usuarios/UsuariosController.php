@@ -71,7 +71,7 @@ class UsuariosController extends Controller
                 } else
                 {
                     $vista = 'usuarios.create';
-                    return $this->validarAccesos($sesion[0], 3, $vista);
+                    return $this->validarAccesos($sesion[0], 2, $vista);
                 }
             }
         } catch (Exception $e)

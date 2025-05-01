@@ -39,7 +39,7 @@ class CategoriaUpdate implements Responsable
 
         try {
             $peticionCategoriaUpdate = $this->clientApi->put($this->baseUri.'categoria_update/'.$idCategoria, [
-                'json' => ['categoria' => $categoria, 'id_audit' => session('id_usuario')]
+                'json' => ['categoria' => ucwords($categoria), 'id_audit' => session('id_usuario')]
             ]);
             $respuestaCategoriaUpdate = json_decode($peticionCategoriaUpdate->getBody()->getContents());
 
@@ -48,7 +48,8 @@ class CategoriaUpdate implements Responsable
                 alert()->success('Proceso Exitoso', 'Categoría editada satisfactoriamente');
                 return redirect()->to(route('categorias.index'));
 
-            } else {
+            } else
+            {
                 $this->handleError('Error al editar la categoría, por favor contacte a Soporte.');
             }
         }

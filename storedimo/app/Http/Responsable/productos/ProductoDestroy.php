@@ -13,7 +13,8 @@ class ProductoDestroy implements Responsable
     {
         $idProducto = request('id_producto', null);
 
-        try {
+        try
+        {
             $baseUri = env('BASE_URI');
             $clientApi = new Client(['base_uri' => $baseUri]);
 
@@ -30,8 +31,8 @@ class ProductoDestroy implements Responsable
                 alert()->success('Proceso Exitoso', 'Estado cambiado satisfactoriamente');
                 return redirect()->to(route('productos.index'));
             }
-        } catch (Exception $e) {
-
+        } catch (Exception $e)
+        {
             alert()->error('Error', 'Cambiando el estado del producto, contacte a Soporte.');
             return back();
         }

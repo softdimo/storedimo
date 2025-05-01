@@ -40,11 +40,14 @@ class CategoriasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new CategoriaIndex();
+                } else
+                {
+                    $vista = new CategoriaIndex();
+                    return $this->validarAccesos($sesion[0], 5, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Index Categorias!");
             return back();
         }
@@ -74,10 +77,12 @@ class CategoriasController extends Controller
      */
     public function store(Request $request)
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
     
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -85,17 +90,19 @@ class CategoriasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new CategoriaStore();
+                } else
+                {
+                    $vista = new CategoriaStore();
+                    return $this->validarAccesos($sesion[0], 16, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Store Categorias!");
             return back();
         }
     }
 
-    // ======================================================================
     // ======================================================================
 
     /**
@@ -135,10 +142,12 @@ class CategoriasController extends Controller
      */
     public function update(Request $request)
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
     
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -146,12 +155,15 @@ class CategoriasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new CategoriaUpdate();
+                } else
+                {
+                    $vista = new CategoriaUpdate();
+                    return $this->validarAccesos($sesion[0], 17, $vista);
                 }
             }
-        } catch (Exception $e) {
-            alert()->error("Exception Store Categorias!");
+        } catch (Exception $e)
+        {
+            alert()->error("Exception Update Categorias!");
             return back();
         }
     }
@@ -167,23 +179,28 @@ class CategoriasController extends Controller
      */
     public function destroy()
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 $sesionInvalida = collect($sesion)->slice(0, 3)->contains(fn($val) => empty($val)) || !$sesion[3]; 
 
-                if ($sesionInvalida) {
+                if ($sesionInvalida)
+                {
                     return redirect()->route('login');
                 }
 
-                return new CategoriaDestroy();
+                $vista = new CategoriaDestroy();
+                return $this->validarAccesos($sesion[0], 18, $vista);
                 
             }
-        } catch (Exception $e) {
-            alert()->error("Exception Destroy Productos!");
+        } catch (Exception $e)
+        {
+            alert()->error("Exception Destroy Categorías!");
             return back();
         }
     }

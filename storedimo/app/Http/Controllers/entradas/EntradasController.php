@@ -28,7 +28,6 @@ class EntradasController extends Controller
     }
 
     // ======================================================================
-    // ======================================================================
 
     /**
      * Display a listing of the resource.
@@ -37,10 +36,12 @@ class EntradasController extends Controller
      */
     public function index()
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -48,17 +49,19 @@ class EntradasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new EntradaIndex();
+                } else
+                {
+                    $vista = new EntradaIndex();
+                    return $this->validarAccesos($sesion[0], 38, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Index Entradas!");
             return redirect()->to(route('login'));
         }
     }
 
-    // ======================================================================
     // ======================================================================
 
     /**
@@ -68,10 +71,12 @@ class EntradasController extends Controller
      */
     public function create()
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -79,17 +84,19 @@ class EntradasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return view('entradas.create');
+                } else
+                {
+                    $vista = 'entradas.create';
+                    return $this->validarAccesos($sesion[0], 36, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Index Existencias!");
             return redirect()->to(route('login'));
         }
     }
 
-    // ======================================================================
     // ======================================================================
 
     /**
@@ -100,10 +107,12 @@ class EntradasController extends Controller
      */
     public function store(Request $request)
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -111,17 +120,19 @@ class EntradasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new EntradaStore();
+                } else
+                {
+                    $vista = new EntradaStore();
+                    return $this->validarAccesos($sesion[0], 39, $vista);
                 }
             }
-        } catch (Exception $e) {
-            alert()->error("Exception Index Existencias!");
+        } catch (Exception $e)
+        {
+            alert()->error("Exception Store Entradas!");
             return redirect()->to(route('login'));
         }
     }
 
-    // ======================================================================
     // ======================================================================
 
     /**
@@ -136,7 +147,6 @@ class EntradasController extends Controller
     }
 
     // ======================================================================
-    // ======================================================================
 
     /**
      * Show the form for editing the specified resource.
@@ -149,7 +159,6 @@ class EntradasController extends Controller
         //
     }
 
-    // ======================================================================
     // ======================================================================
 
     /**
@@ -165,7 +174,6 @@ class EntradasController extends Controller
     }
 
     // ======================================================================
-    // ======================================================================
 
     /**
      * Remove the specified resource from storage.
@@ -179,39 +187,87 @@ class EntradasController extends Controller
     }
 
     // ======================================================================
-    // ======================================================================
 
     public function anularCompra(Request $request)
     {
         $idCompra = request('id_compra', null);
 
-        try {
+        try
+        {
             $reqAnularCompra = $this->clientApi->post($this->baseUri.'anular_compra/'.$idCompra, ['json' => ['id_audit' => session('id_usuario')]]);
             $resAnularCompra = json_decode($reqAnularCompra->getBody()->getContents());
 
-            if(isset($resAnularCompra) && !empty($resAnularCompra) && !is_null($resAnularCompra)) {
+            if(isset($resAnularCompra) && !empty($resAnularCompra) && !is_null($resAnularCompra))
+            {
                 alert()->success('Proceso Exitoso', 'Estado compra cambiado satisfactoriamente');
                 return redirect()->to(route('entradas.index'));
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error('Error', 'Exception, contacte a Soporte.' . $e->getMessage());
             return back();
         }
     }
         
     // ======================================================================
-    // ======================================================================
 
     public function reporteComprasPdf()
     {
-        return new ReporteComprasPdf();
+        try
+        {
+            if (!$this->checkDatabaseConnection())
+            {
+                return view('db_conexion');
+            } else
+            {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else
+                {
+                    $vista = new ReporteComprasPdf();
+                    return $this->validarAccesos($sesion[0], 40, $vista);
+                }
+            }
+        } catch (Exception $e)
+        {
+            alert()->error("Exception stockMinimo!");
+            return redirect()->to(route('login'));
+        }
     }
 
-    // ======================================================================
     // ======================================================================
 
     public function detalleComprasPdf($idCompra)
     {
-        return new DetalleComprasPdf($idCompra);
+        try
+        {
+            if (!$this->checkDatabaseConnection())
+            {
+                return view('db_conexion');
+            } else
+            {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else
+                {
+                    $vista = new DetalleComprasPdf($idCompra);
+                    return $this->validarAccesos($sesion[0], 41, $vista);
+                }
+            }
+        } catch (Exception $e)
+        {
+            alert()->error("Exception stockMinimo!");
+            return redirect()->to(route('login'));
+        }
     }
 }

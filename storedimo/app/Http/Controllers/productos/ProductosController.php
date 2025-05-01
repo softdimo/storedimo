@@ -36,10 +36,12 @@ class ProductosController extends Controller
      */
     public function index()
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
     
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -47,17 +49,19 @@ class ProductosController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new ProductoIndex();
+                } else
+                {
+                    $vista = new ProductoIndex();
+                    return $this->validarAccesos($sesion[0], 19, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Index Productos!");
             return back();
         }
     }
 
-    // ======================================================================
     // ======================================================================
 
     /**
@@ -67,10 +71,13 @@ class ProductosController extends Controller
      */
     public function create()
     {
-        try {
-            if (!$this->checkDatabaseConnection()) {
+        try
+        {
+            if (!$this->checkDatabaseConnection())
+            {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
     
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -78,17 +85,19 @@ class ProductosController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return view('productos.create');
+                } else
+                {
+                    $vista = 'productos.create';
+                    return $this->validarAccesos($sesion[0], 20, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Create Productos!");
             return back();
         }
     }
 
-    // ======================================================================
     // ======================================================================
 
     /**
@@ -99,10 +108,13 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            if (!$this->checkDatabaseConnection()) {
+        try
+        {
+            if (!$this->checkDatabaseConnection())
+            {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
     
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -110,17 +122,19 @@ class ProductosController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new ProductoStore();
+                } else
+                {
+                    $vista = new ProductoStore();
+                    return $this->validarAccesos($sesion[0], 27, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Store Productos!");
             return back();
         }
     }
 
-    // ======================================================================
     // ======================================================================
 
     /**
@@ -131,10 +145,13 @@ class ProductosController extends Controller
      */
     public function show($idProducto)
     {
-        try {
-            if (!$this->checkDatabaseConnection()) {
+        try
+        {
+            if (!$this->checkDatabaseConnection())
+            {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
     
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -142,17 +159,19 @@ class ProductosController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new ProductoShow($idProducto);
+                } else
+                {
+                    $vista = new ProductoShow();
+                    return $this->validarAccesos($sesion[0], 21, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Show Productos!");
             return back();
         }
     }
 
-    // ======================================================================
     // ======================================================================
 
     /**
@@ -164,9 +183,11 @@ class ProductosController extends Controller
     public function edit($idProducto)
     {
         try {
-            if (!$this->checkDatabaseConnection()) {
+            if (!$this->checkDatabaseConnection())
+            {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
     
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -174,17 +195,18 @@ class ProductosController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
+                } else
+                {
                     return new ProductoEdit($idProducto);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Edit Productos!");
             return back();
         }
     }
 
-    // ======================================================================
     // ======================================================================
 
     /**
@@ -199,7 +221,8 @@ class ProductosController extends Controller
         try {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
     
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -207,17 +230,19 @@ class ProductosController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new ProductoUpdate();
+                } else
+                {
+                    $vista = new ProductoUpdate();
+                    return $this->validarAccesos($sesion[0], 28, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Update Productos!");
             return back();
         }
     }
 
-    // ======================================================================
     // ======================================================================
 
     /**
@@ -228,7 +253,8 @@ class ProductosController extends Controller
      */
     public function destroy()
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
             } else {
@@ -239,8 +265,10 @@ class ProductosController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new ProductoDestroy();
+                } else
+                {
+                    $vista = new ProductoDestroy();
+                    return $this->validarAccesos($sesion[0], 29, $vista);
                 }
             }
         } catch (Exception $e) {
@@ -254,8 +282,10 @@ class ProductosController extends Controller
 
     public function verificarProducto(Request $request)
     {
-        try {
-            if (!$this->checkDatabaseConnection()) {
+        try
+        {
+            if (!$this->checkDatabaseConnection())
+            {
                 return view('db_conexion');
             } else {
                 $sesion = $this->validarVariablesSesion();
@@ -289,8 +319,9 @@ class ProductosController extends Controller
                     }
                 }
             }
-        } catch (Exception $e) {
-            alert()->error("Exception Update Usuario!");
+        } catch (Exception $e)
+        {
+            alert()->error("Exception Verificar producto!");
             return redirect()->to(route('login'));
         }
     }
@@ -300,10 +331,12 @@ class ProductosController extends Controller
     
     public function queryBarCodeProducto($idProducto)
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
     
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -311,11 +344,14 @@ class ProductosController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new ProductoQueryBarCode($idProducto);
+                } else
+                {
+                    $vista = new ProductoQueryBarCode($idProducto);
+                    return $this->validarAccesos($sesion[0], 30, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Query BarCode Productos!");
             return back();
         }
@@ -326,10 +362,12 @@ class ProductosController extends Controller
         
     public function productoGenerarBarCode()
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
     
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -337,8 +375,10 @@ class ProductosController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new ProductoGenerarBarCode();
+                } else
+                {
+                    $vista = new ProductoGenerarBarCode;
+                    return $this->validarAccesos($sesion[0], 30, $vista);
                 }
             }
         } catch (Exception $e) {
@@ -348,13 +388,13 @@ class ProductosController extends Controller
     }
     
     // ======================================================================
-    // ======================================================================
 
     public function queryValoresProducto()
     {
         $idProducto = request('id_producto', null);
 
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
             } else {
@@ -365,7 +405,8 @@ class ProductosController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
+                } else
+                {
                     $queryValoresProducto = $this->clientApi->post($this->baseUri.'query_producto/'.$idProducto, ['query' => []]);
                     return json_decode($queryValoresProducto->getBody()->getContents());
                 }
@@ -377,14 +418,15 @@ class ProductosController extends Controller
     }
     
     // ======================================================================
-    // ======================================================================
         
     public function reporteProductosPdf()
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
     
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -392,8 +434,10 @@ class ProductosController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new ReporteProductosPdf();
+                } else
+                {
+                    $vista = new ReporteProductosPdf;
+                    return $this->validarAccesos($sesion[0], 31, $vista);
                 }
             }
         } catch (Exception $e) {
@@ -402,7 +446,6 @@ class ProductosController extends Controller
         }
     }
     
-    // ======================================================================
     // ======================================================================
 
     /**
@@ -413,7 +456,8 @@ class ProductosController extends Controller
      */
     public function referenceValidator(Request $request)
     {
-        try {
+        try
+        {
             $request->validate([
                 'referencia' => [
                     'required',
@@ -428,16 +472,18 @@ class ProductosController extends Controller
             ], 422);
         }
 
-        try {
+        try
+        {
             $response = $this->clientApi->post($this->baseUri . 'verificar_referencia', [
                 'json' => [
                     'referencia' => $request->input('referencia')
                 ]
             ]);
             return response()->json(json_decode($response->getBody()->getContents(), true));
-        } catch (\Exception $e) {
+        } catch (\Exception $e)
+        {
             return response()->json([
-                'error' => 'No se pudo validar la referencia',
+                'error' => 'No ha sido posible validar la referencia',
                 'valido' => false
             ], 500);
         }
