@@ -12,11 +12,11 @@
         </div>
 
         <div class="p-1 d-flex flex-column" style="width: 80%">
-            <div class="text-end">
+            {{-- <div class="text-end">
                 <a class="nav-link text-blue" href="">
                     <i class="fa fa-question-circle fa-2x" aria-hidden="true" title="Ayuda" style="color: #337AB7"></i>
                 </a>
-            </div>
+            </div> --}}
             <h2 class="text-uppercase text-center" style="color: #337AB7">Asignar Permisos</h2>
 
             {!! Form::open(['method' => 'POST', 'route' => ['permisos.store'],

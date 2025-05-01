@@ -35,21 +35,14 @@
                             <img src="{{asset('imagenes/loading.gif')}}" alt="Procesando...">
                         </div>
 
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-5">
-                                <button type="submit" class="btn btn-success btn-sm" title="Guardar Rol" id="btn_crear_rol">
-                                    <i class="fa fa-floppy-o"> Guardar</i>
-                                </button>
-                            </div>
+                        <div class="d-flex justify-content-center mt-3">
+                            <button type="submit" class="btn btn-success btn-sm me-3" title="Guardar Rol" id="btn_crear_rol">
+                                <i class="fa fa-floppy-o"> Guardar</i>
+                            </button>
 
-                            <div class="col-xs-12 col-sm-12 col-md-2">&nbsp;</div>
-
-                            <div class="col-xs-12 col-sm-12 col-md-5">
-                                <button type="button" class="btn btn-secondary btn-sm"
-                                        title="Cancelar" data-bs-dismiss="modal" id="btn_cancelar_rol">
-                                    <i class="fa fa-close"> Cancelar</i>
-                                </button>
-                            </div>
+                            <button type="button" class="btn btn-secondary btn-sm" title="Cancelar" data-bs-dismiss="modal" id="btn_cancelar_rol">
+                                <i class="fa fa-close"> Cancelar</i>
+                            </button>
                         </div>
                     </div>
                 {!! Form::close() !!}
