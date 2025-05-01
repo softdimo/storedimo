@@ -98,8 +98,8 @@
 
     @foreach ($pagoEmpleadosIndex as $pagoEmpleado)
         <!-- INICIO Modal Detalle Pago -->
-        <div class="modal fade h-auto modal-gral p-0" id="modalDetallesPago_{{$pagoEmpleado->id_pago_empleado}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="max-width: 80%;">
-            <div class="modal-dialog m-0 mw-100">
+        <div class="modal fade" id="modalDetallesPago_{{$pagoEmpleado->id_pago_empleado}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="max-width: 80%;">
+            <div class="modal-dialog">
                 <div class="modal-content p-3">
                     <div class="rounded-top" style="border: solid 1px #337AB7;">
                         <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">

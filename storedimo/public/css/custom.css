@@ -205,28 +205,6 @@ body {
     display: none !important;
 }
 
-.modal-gral {
-    top: 3% !important;
-    left: 50% !important;
-    transform: translateX(-50%);
-}
-
-/* Alto personalizado para el modal de editar usuario*/
-.custom-height {
-    min-height: 60% !important;
-}
-
-#modal-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Oscurecimiento */
-    z-index: 1000; /* Debe estar debajo del modal */
-}
-
 /* Estilos grid permisos */
 .permiso-grid {
     display: grid;
@@ -273,8 +251,41 @@ body {
 }
 
 /* ========================================= */
-/* INICIO Media Query TopMenu */
+/* ========================================= */
 
+/* Estilos Input tipo file */
+.file-container .div-file {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.file-container .div-file::before {
+    background-color: #337AB7;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    content: 'Seleccionar Archivo';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    font-size: 14px;
+}
+
+.file {
+    opacity: 0;
+    height: 40px;
+    display: inline-block;
+}
+
+/* ========================================= */
+/* ========================================= */
+
+/* INICIO Media Query TopMenu */
 @media (max-width: 992px) {
     .menu-container {
 		order: 1 !important;

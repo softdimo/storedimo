@@ -16,6 +16,7 @@ class ProductoIndex implements Responsable
                 ->leftJoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'productos.id_tipo_persona')
                 ->select(
                     'id_producto',
+                    'imagen_producto',
                     'nombre_producto',
                     'productos.id_categoria',
                     'categorias.categoria',

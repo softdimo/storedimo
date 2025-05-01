@@ -1,8 +1,8 @@
 {{-- INICIO Modal Crear Roles --}}
-<div class="modal fade modal-gral h-auto" id="modal_crear_roles"
+<div class="modal fade" id="modal_crear_roles"
     tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-    <div class="modal-dialog m-0">
-        <div class="modal-content border-0">
+    <div class="modal-dialog">
+        <div class="modal-content p-3">
             <div class="rounded-top" style="border: solid 1px #337AB7;">
                 <div class="rounded-top text-white text-center" 
                         style="background-color: #337AB7; border: solid 1px #337AB7;">
@@ -35,21 +35,14 @@
                             <img src="{{asset('imagenes/loading.gif')}}" alt="Procesando...">
                         </div>
 
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-5">
-                                <button type="submit" class="btn btn-success btn-sm" title="Guardar Rol" id="btn_crear_rol">
-                                    <i class="fa fa-floppy-o"> Guardar</i>
-                                </button>
-                            </div>
+                        <div class="d-flex justify-content-center mt-3">
+                            <button type="submit" class="btn btn-success btn-sm me-3" title="Guardar Rol" id="btn_crear_rol">
+                                <i class="fa fa-floppy-o"> Guardar</i>
+                            </button>
 
-                            <div class="col-xs-12 col-sm-12 col-md-2">&nbsp;</div>
-
-                            <div class="col-xs-12 col-sm-12 col-md-5">
-                                <button type="button" class="btn btn-secondary btn-sm"
-                                        title="Cancelar" data-bs-dismiss="modal" id="btn_cancelar_rol">
-                                    <i class="fa fa-close"> Cancelar</i>
-                                </button>
-                            </div>
+                            <button type="button" class="btn btn-secondary btn-sm" title="Cancelar" data-bs-dismiss="modal" id="btn_cancelar_rol">
+                                <i class="fa fa-close"> Cancelar</i>
+                            </button>
                         </div>
                     </div>
                 {!! Form::close() !!}

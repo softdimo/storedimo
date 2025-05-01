@@ -29,6 +29,38 @@ class ProductoStore implements Responsable
 
         // ========================================================
 
+        $imagenProductoBase64 = null;
+
+        if ($request->hasFile('imagen_producto')) {
+            $imagenProducto = $request->file('imagen_producto');
+
+            if ($imagenProducto->isValid()) {
+                // Validación de tipo MIME
+                $tiposPermitidos = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'];
+                $tipoMime = $imagenProducto->getMimeType();
+
+                if (!in_array($tipoMime, $tiposPermitidos)) {
+                    alert()->error('Error', 'El tipo de imagen no es válido. Solo se permiten JPG, JPEG, PNG o WEBP.');
+                    return back();
+                }
+
+                // Validación de tamaño (2 MB = 2048 KB)
+                $tamanioMaximoKB = 2048;
+                $tamanioArchivoKB = $imagenProducto->getSize() / 1024;
+
+                if ($tamanioArchivoKB > $tamanioMaximoKB) {
+                    alert()->error('Error', 'La imagen excede el tamaño máximo permitido de 2 MB.');
+                    return back();
+                }
+
+                // Codificación base64
+                $contenido = file_get_contents($imagenProducto);
+                $imagenProductoBase64 = 'data:' . $imagenProducto->getMimeType() . ';base64,' . base64_encode($contenido);
+            }
+        }
+
+        // ========================================================
+
         if ( isset($formEntradas) && !is_null($formEntradas) && !empty($formEntradas) ) {
             $formStore = $formEntradas;
         } else {
@@ -44,6 +76,7 @@ class ProductoStore implements Responsable
             $peticionProductoStore = $clientApi->post($baseUri.'producto_store', [
                 'json' => [
                     'id_tipo_persona' => $idTipoPersona,
+                    'imagen_producto' => $imagenProductoBase64,
                     'nombre_producto' => $nombreProducto,
                     'id_categoria' => $idCategoria,
                     'precio_unitario' => $precioUnitario,

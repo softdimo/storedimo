@@ -32,14 +32,14 @@
             {{-- =============================================================== --}}
             {{-- =============================================================== --}}
             
-            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaCrearPersonas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
-                <div class="modal-dialog m-0 mw-100">
-                    <div class="modal-content border-0">
+            <div class="modal fade" id="modalAyudaCrearPersonas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+                <div class="modal-dialog" style="min-width: 75%;">
+                    <div class="modal-content p-3">
                         <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="rounded-top text-white text-center p-2" style="background-color: #337AB7; border: solid 1px #337AB7;">
-                                        <span class="modal-title fs-5"><strong>Ayuda Registrar Personas</strong></span>
+                                        <span class="modal-title fs-5"><strong>Ayuda Registrar Clientes</strong></span>
                                     </div>
                                     {{-- =========================== --}}
                                     <div class="p-3">

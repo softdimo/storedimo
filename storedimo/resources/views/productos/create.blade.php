@@ -35,16 +35,10 @@
                 </a>
             </div>
 
-            {{-- <div class="text-end">
-                <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal" data-bs-target="#modalAyudaRegistrarProductos">
-                    <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
-                </a>
-            </div> --}}
-
-            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaRegistrarProductos" tabindex="-1" role="dialog"
-                aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
-                <div class="modal-dialog m-0 mw-100">
-                    <div class="modal-content border-0">
+            <div class="modal fade" id="modalAyudaRegistrarProductos" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+                <div class="modal-dialog" style="min-width: 60%;">
+                    <div class="modal-content p-3">
                         <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
                             <div class="row">
                                 <div class="col-12">
@@ -93,10 +87,12 @@
                 'class' => 'mt-2',
                 'autocomplete' => 'off',
                 'id' => 'formCrearProducto',
+                'enctype' => 'multipart/form-data',
+                'file' => true
             ]) !!}
-            @csrf
+                @csrf
 
-            @include('productos.fields_crear_productos')
+                @include('productos.fields_crear_productos')
             {!! Form::close() !!}
         </div>
     </div>
@@ -271,5 +267,57 @@
                 loadingIndicator.show();
             });
         }); // FIN document.ready
+
+        // =============================================
+
+        // Funcionalidad input tipo file para imagen producto
+        function displaySelectedFile(inputId, displayElementId) {
+            const input = document.getElementById(inputId);
+            const displayElement = document.getElementById(displayElementId);
+            const file = input.files[0];
+
+            // Reset
+            displayElement.textContent = '';
+            displayElement.classList.add('hidden');
+
+            if (file) {
+                const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+                const maxSizeMB = 2;
+                const fileSizeMB = file.size / (1024 * 1024);
+
+                if (!allowedTypes.includes(file.type)) {
+                    displayElement.textContent = 'Formato no permitido. Solo JPG, JPEG, PNG o WEBP.';
+                    displayElement.classList.remove('hidden');
+                    input.value = ''; // limpia el input
+                    return;
+                }
+
+                if (fileSizeMB > maxSizeMB) {
+                    displayElement.textContent = 'El archivo excede los 2MB permitidos.';
+                    displayElement.classList.remove('hidden');
+                    input.value = ''; // limpia el input
+                    return;
+                }
+
+                // Todo bien
+                displayElement.textContent = file.name;
+                displayElement.classList.remove('hidden');
+            }
+        }
+
+        // function displaySelectedFile(inputId, displayElementId) {
+        //     const input = document.getElementById(inputId);
+        //     const selectedFile = input.files[0];
+        //     const displayElement = document.getElementById(displayElementId);
+
+        //     if (selectedFile) {
+        //         const selectedFileName = selectedFile.name;
+        //         displayElement.textContent = selectedFileName;
+        //         displayElement.classList.remove('hidden');
+        //     } else {
+        //         displayElement.textContent = '';
+        //         displayElement.classList.add('hidden');
+        //     }
+        // }
     </script>
 @stop

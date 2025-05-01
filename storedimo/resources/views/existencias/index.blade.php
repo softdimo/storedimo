@@ -37,9 +37,9 @@
                 </a>
             </div>
 
-            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaListarBajas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
-                <div class="modal-dialog m-0 mw-100">
-                    <div class="modal-content border-0">
+            <div class="modal fade" id="modalAyudaListarBajas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+                <div class="modal-dialog">
+                    <div class="modal-content p-3">
                         <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
                             <div class="row">
                                 <div class="col-12">
@@ -122,9 +122,9 @@
     </div>
 
     <!-- INICIO Modal DETALLES BAJA -->
-    <div class="modal fade h-auto modal-gral p-0" id="modalDetalleBaja" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-        <div class="modal-dialog m-0">
-            <div class="modal-content p-3 w-100">
+    <div class="modal fade" id="modalDetalleBaja" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
                 <div class="rounded-top" style="border: solid 1px #337AB7;">
                     <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
                         <h5>Detalle Baja Código: </h5>

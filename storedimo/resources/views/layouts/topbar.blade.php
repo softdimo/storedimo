@@ -132,9 +132,9 @@
 @include('layouts.modal_permisos')
 
 {{-- INICIO Modal GANANCIAS --}}
-<div class="modal fade p-3 modal-gral h-auto" id="modal_ganancias" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-    <div class="modal-dialog m-0">
-        <div class="modal-content border-0">
+<div class="modal fade" id="modal_ganancias" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content p-3">
             <div class="rounded-top" style="border: solid 1px #337AB7">
                 <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
                     <h5>Ganancias</h5>
@@ -182,9 +182,9 @@
 {{-- ==================================================================================== --}}
 
 {{-- INICIO Modal INFORMACIÓN --}}
-<div class="modal fade modal-gral h-auto" id="modal_informacion" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-    <div class="modal-dialog m-0">
-        <div class="modal-content border-0">
+<div class="modal fade" id="modal_informacion" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content p-3">
             <div class="rounded-top" style="border: solid 1px #337AB7">
                 <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
                     <h5>Información</h5>
@@ -217,9 +217,9 @@
 {{-- ==================================================================================== --}}
 
 {{-- INICIO Modal AYUDA --}}
-<div class="modal fade modal-gral h-auto" id="modal_ayuda" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-    <div class="modal-dialog m-0">
-        <div class="modal-content border-0">
+<div class="modal fade" id="modal_ayuda" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content p-3">
             <div class="rounded-top" style="border: solid 1px #337AB7">
                 <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
                     <h5>Ayudas</h5>
@@ -249,9 +249,9 @@
 {{-- FINAL Modal AYUDA --}}
 
 {{-- INICIO Modal CONFIGURAR VENTAS --}}
-<div class="modal fade modal-gral h-auto" id="modal_configurar_ventas" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-    <div class="modal-dialog m-0">
-        <div class="modal-content border-0">
+<div class="modal fade" id="modal_configurar_ventas" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content p-3">
             <div class="rounded-top" style="border: solid 1px #337AB7;">
                 <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
                     <h5>Configuración Ventas</h5>
@@ -319,9 +319,9 @@
 {{-- ==================================================================================== --}}
 
 {{-- INICIO Modal CONFIGURAR PAGOS --}}
-<div class="modal fade modal-gral h-auto" id="modal_configurar_pago" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-    <div class="modal-dialog m-0">
-        <div class="modal-content border-0">
+<div class="modal fade" id="modal_configurar_pago" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content p-3">
             <div class="rounded-top" style="border: solid 1px #337AB7;">
                 <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
                     <h5>Configuración Pagos</h5>

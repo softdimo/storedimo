@@ -116,9 +116,9 @@
     {{-- =============================================================== --}}
 
     {{-- INICIO Modal REPORTE PRÉSTAMOS --}}
-    <div class="modal fade h-auto modal-gral" id="modalReportePrestamos" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
-        <div class="modal-dialog m-0">
-            <div class="modal-content w-100 border-0">
+    <div class="modal fade" id="modalReportePrestamos" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
                 <div class="rounded-top" style="border: solid 1px #337AB7;">
                     <div class="rounded-top text-white text-center"
                         style="background-color: #337AB7; border: solid 1px #337AB7;">
@@ -184,8 +184,8 @@
 
     @foreach ($prestamosIndex as $prestamo)
         <!-- INICIO Modal Detalle Préstamo -->
-        <div class="modal fade h-auto modal-gral p-0" id="modalDetallePrestamo_{{$prestamo->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="max-width: 80%;">
-            <div class="modal-dialog m-0 mw-100">
+        <div class="modal fade" id="modalDetallePrestamo_{{$prestamo->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="max-width: 80%;">
+            <div class="modal-dialog">
                 <div class="modal-content p-3">
                     <div class="rounded-top" style="border: solid 1px #337AB7;">
                         <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
@@ -263,8 +263,8 @@
         {{-- =============================================================== --}}
 
         <!-- INICIO Modal ABONO Préstamo -->
-        <div class="modal fade h-auto modal-gral p-0" id="modalAbonoPrestamo_{{$prestamo->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-            <div class="modal-dialog m-0 mw-100">
+        <div class="modal fade" id="modalAbonoPrestamo_{{$prestamo->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog">
                 <div class="modal-content p-3">
                     {!! Form::open([
                         'method' => 'POST',
@@ -336,8 +336,8 @@
         {{-- =============================================================== --}}
 
         <!-- INICIO Modal MODIFICAR Préstamo -->
-        <div class="modal fade h-auto modal-gral p-0" id="modalModificarPrestamo_{{$prestamo->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-            <div class="modal-dialog m-0 mw-100">
+        <div class="modal fade" id="modalModificarPrestamo_{{$prestamo->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog">
                 <div class="modal-content p-3">
                     {!! Form::open([
                         'method' => 'POST',
@@ -399,8 +399,8 @@
         {{-- =============================================================== --}}
 
         <!-- INICIO Modal VER DETALLES ABONO Préstamo -->
-        <div class="modal fade h-auto modal-gral p-0" id="modalVerAbonos_{{$prestamo->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-            <div class="modal-dialog m-0 mw-100">
+        <div class="modal fade" id="modalVerAbonos_{{$prestamo->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog">
                 <div class="modal-content p-3">
                     {!! Form::open([
                         'method' => 'POST',
@@ -476,9 +476,9 @@
         {{-- =============================================================== --}}
 
         {{-- INICIO Modal ESTADO PRÉSTAMO --}}
-        <div class="modal fade h-auto modal-gral" id="modalCambiarEstadoPrestamo_{{$prestamo->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-            <div class="modal-dialog m-0">
-                <div class="modal-content w-100 border-0">
+        <div class="modal fade" id="modalCambiarEstadoPrestamo_{{$prestamo->id_prestamo}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content p-0">
                     {!! Form::open([
                         'method' => 'POST',
                         'route' => ['cambiar_estado_producto'],

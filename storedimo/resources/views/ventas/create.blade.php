@@ -29,9 +29,9 @@
                 </a>
             </div>
 
-            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaRegistrarVentas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
-                <div class="modal-dialog m-0 mw-100">
-                    <div class="modal-content border-0">
+            <div class="modal fade" id="modalAyudaRegistrarVentas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+                <div class="modal-dialog" style="min-width: 60%;">
+                    <div class="modal-content p-3">
                         <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
                             <div class="row">
                                 <div class="col-12">
@@ -179,18 +179,18 @@
                                         </table>
                                     </div>
         
-                                    <div class="" style="background-color: #F5F5F5; border-top: 1px solid #ddd;">
-                                        <div class="d-flex" style="border: 1px solid #ddd;">
+                                    <div class="p-2" style="background-color: #F5F5F5; border-top: 1px solid #ddd;">
+                                        <div class="d-flex rounded-end" style="border: 1px solid #ddd;">
                                             <p class="p-1 m-0 fw-bold w-25">Subtotal: $</p>
                                             {!! Form::text('sub_total_venta', null, ['class' => 'form-control w-75 bg-success-subtle', 'id' => 'sub_total_venta', 'required', 'readonly']) !!}
                                         </div>
 
-                                        <div class="d-flex mt-2 mb-2" style="border: 1px solid #ddd;">
+                                        <div class="d-flex mt-2 mb-2 rounded-end" style="border: 1px solid #ddd;">
                                             <p class="p-1 m-0 fw-bold w-25">Descuento: $</p>
                                             {!! Form::text('descuento_total_venta', null, ['class' => 'form-control w-75 bg-success-subtle', 'id' => 'descuento_total_venta', 'required', 'readonly']) !!}
                                         </div>
 
-                                        <div class="d-flex" style="border: 1px solid #ddd;">
+                                        <div class="d-flex rounded-end" style="border: 1px solid #ddd;">
                                             <p class="p-1 m-0 fw-bold w-25">Total: $</p>
                                             {!! Form::text('total_venta', null, ['class' => 'form-control w-75 bg-success-subtle', 'id' => 'total_venta', 'required', 'readonly']) !!}
                                         </div>
@@ -252,9 +252,9 @@
     {{-- ==================================================================================== --}}
 
     {{-- INICIO MODAL REGISTRAR PRODUCTO --}}
-    <div class="modal fade h-auto modal-gral p-0" id="modal_registroCliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
-        <div class="modal-dialog m-0">
-            <div class="modal-content">
+    <div class="modal fade" id="modal_registroCliente" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
                 <div class="modal-header justify-content-between border-0 pb-1">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mod_ayuda_registroProducto" title="Ayuda Registrar producto">
                         <i class="fa fa-question" aria-hidden="true" title="Ayuda"></i>
@@ -358,9 +358,9 @@
     {{-- ==================================================================================== --}}
 
     {{-- INICIO Modal Ayuda de Registrar Productos --}}
-    <div class="modal fade h-auto modal-gral p-0" id="mod_ayuda_registroProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
-        <div class="modal-dialog m-0">
-            <div class="modal-content">
+    <div class="modal fade" id="mod_ayuda_registroProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
                 <div class="modal-header d-none"></div>
 
                 {{-- ====================================================== --}}
@@ -407,9 +407,9 @@
     {{-- ==================================================================================== --}}
 
     {{-- INICIO Modal Ayuda Modificar Precios --}}
-    <div class="modal fade h-auto modal-gral p-0" id="mod_ayuda_precios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
-        <div class="modal-dialog m-0">
-            <div class="modal-content">
+    <div class="modal fade" id="mod_ayuda_precios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
                 <div class="modal-header d-none"></div>
 
                 {{-- ====================================================== --}}

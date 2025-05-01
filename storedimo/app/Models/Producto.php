@@ -18,6 +18,7 @@ class Producto extends Model
         'id_empresa',
         'id_persona',
         'id_tipo_persona',
+        'imagen_producto',
         'nombre_producto',
         'id_categoria',
         'precio_unitario',

@@ -43,10 +43,10 @@
                 </a>
             </div>
 
-            <div class="modal fade h-auto modal-gral p-3" id="modalAyudaModificacionProductos" tabindex="-1" role="dialog"
-                aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
-                <div class="modal-dialog m-0 mw-100">
-                    <div class="modal-content border-0">
+            <div class="modal fade" id="modalAyudaModificacionProductos" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+                <div class="modal-dialog" style="min-width: 85%;">
+                    <div class="modal-content p-3">
                         <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
                             <div class="row">
                                 <div class="col-12">
@@ -86,8 +86,8 @@
                                                 </ol>
                                             </li>
                                         </ul>
-                                        <p class="text-justify">El icono de color azul es de solo información.</p>
-                                        <p class="text-justify">El icono rojo pertenece al cambio de estado, el cual pedirá
+                                        <p class="text-justify mb-0">El icono de color azul es de solo información.</p>
+                                        <p class="text-justify mt-0 mb-0">El icono rojo pertenece al cambio de estado, el cual pedirá
                                             confirmación en el momento de pulsar sobre el.</p>
                                     </div> {{-- FINpanel-body --}}
                                 </div> {{-- FIN col-12 --}}
@@ -121,6 +121,7 @@
                                 <tr class="header-table text-center">
                                     {{-- <th>Código</th> --}}
                                     <th class="align-middle">Referencia</th>
+                                    <th class="align-middle">Imagen</th>
                                     <th class="align-middle">Nombre Producto</th>
                                     <th class="align-middle">Categoría</th>
                                     <th class="align-middle">Descripción</th>
@@ -137,6 +138,15 @@
                                     <tr class="text-center">
                                         {{-- <td>{{ $producto->id_producto }}</td> --}}
                                         <td class="align-middle">{{ $producto->referencia }}</td>
+
+                                        @if (is_null($producto->imagen_producto))
+                                            <td class="align-middle"></td>
+                                       @else
+                                            <td class="align-middle">
+                                                <img src="{{ $producto->imagen_producto }}" alt="Producto" style="max-width: 50px;">
+                                            </td>
+                                        @endif
+
                                         <td class="align-middle">{{ $producto->nombre_producto }}</td>
                                         <td class="align-middle">{{ $producto->categoria }}</td>
                                         <td class="align-middle">{{ $producto->descripcion }}</td>
@@ -193,11 +203,11 @@
                                         {{-- =========================================================================== --}}
 
                                         {{-- INICIO Modal MODIFICAR PRODUCTO --}}
-                                        <div class="modal fade h-auto modal-gral p-0"
+                                        <div class="modal fade"
                                             id="modalEditarProducto_{{ $producto->id_producto }}" tabindex="-1"
                                             role="dialog" aria-labelledby="myModalLabel" data-bs-keyboard="false"
                                             data-bs-backdrop="static">
-                                            <div class="modal-dialog m-0">
+                                            <div class="modal-dialog" style="min-width: 50%">
                                                 <div class="modal-content p-3">
                                                     {!! Form::open([
                                                         'method' => 'POST',
@@ -205,6 +215,8 @@
                                                         'class' => 'm-0 p-0',
                                                         'autocomplete' => 'off',
                                                         'id' => 'formEditarProducto_' . $producto->id_producto,
+                                                        'enctype' => 'multipart/form-data',
+                                                        'file' => true
                                                     ]) !!}
                                                     @csrf
                                                     <div class="rounded-top" style="border: solid 1px #337AB7;">
@@ -250,12 +262,33 @@
                                                                     </div>
                                                                 </div>
                                                                 {{-- =================== --}}
-                                                                <div class="col-12 mt-md-3">
+                                                                <div class="col-12 col-md-6 mt-md-3">
                                                                     <div class="form-group d-flex flex-column">
                                                                         <label for="descripcionEdit" class=""
                                                                             style="font-size: 15px">Descripción<span
                                                                                 class="text-danger">*</span></label>
                                                                         {{ Form::textarea('descripcionEdit', isset($producto) ? $producto->descripcion : null, ['class' => 'form-control', 'id' => 'descripcionEdit', 'rows' => 2, 'style' => 'resize: none;']) }}
+                                                                    </div>
+                                                                </div>
+                                                                {{-- =================== --}}
+                                                                {{-- <div class="col-12 col-md-6 mt-md-3">
+                                                                    <div class="form-group d-flex flex-column file-container">
+                                                                        <label for="imagen_producto" class="form-label">Imagen</label>
+                                                                        <div class="div-file">
+                                                                            {!! Form::file('imagenProductoEdit', ['class' => 'form-control file', 'id' => 'imagenProductoEdit', 'onchange' => 'displaySelectedFile("imagenProductoEdit","selected_imagen_producto")', 'accept' => 'image/jpg,image/jpeg,image/png,image/webp']) !!}
+                                                                        </div>
+                                                                        <span id="selected_imagen_producto" class="text-danger hidden"></span>
+                                                                    </div>
+                                                                </div> --}}
+
+                                                                <div class="col-12 col-md-6 mt-md-3">
+                                                                    <div class="form-group d-flex flex-column file-container">
+                                                                        <label for="imagen_producto" class="">Imagen</label>
+                                                                        <div class="div-file">
+                                                                            {!! Form::file('imagenProductoEdit', ['class' => 'form-control file', 'id' => 'imagenProductoEdit_' . $producto->id_producto, 'onchange' => 'displaySelectedFile("imagenProductoEdit_' . $producto->id_producto . '","selected_imagen_producto_' . $producto->id_producto . '")',
+                                                                            'accept' => 'image/jpg,image/jpeg,image/png,image/webp']) !!}
+                                                                        </div>
+                                                                        <span id="selected_imagen_producto_{{ $producto->id_producto }}" class="text-danger hidden"></span>
                                                                     </div>
                                                                 </div>
                                                                 {{-- =================== --}}
@@ -353,12 +386,12 @@
                                         {{-- =========================================================================== --}}
 
                                         {{-- INICIO Modal CÓDIGO DE BARRAS PRODUCTO --}}
-                                        <div class="modal fade h-auto modal-gral p-0"
+                                        <div class="modal fade"
                                             id="barCodeModal_{{ $producto->id_producto }}" tabindex="-1" role="dialog"
                                             aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static"
                                             data-bs-keyboard="false">
-                                            <div class="modal-dialog m-0">
-                                                <div class="modal-content p-3 w-100">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content p-3">
                                                     {!! Form::open([
                                                         'method' => 'POST',
                                                         'route' => ['producto_barcode'],
@@ -435,11 +468,11 @@
                                         {{-- =========================================================================== --}}
 
                                         {{-- INICIO Modal ESTADO PRODUCTO --}}
-                                        <div class="modal fade h-auto modal-gral"
+                                        <div class="modal fade"
                                             id="modalCambiarEstadoProducto_{{ $producto->id_producto }}" tabindex="-1"
                                             data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-                                            <div class="modal-dialog m-0">
-                                                <div class="modal-content w-100 border-0">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content p-3">
                                                     {!! Form::open([
                                                         'method' => 'POST',
                                                         'route' => ['cambiar_estado_producto'],
@@ -696,5 +729,42 @@
                 } // FIN inputPrecioUnitario.length > 0
             }); // FIN '[id^="formEditarProducto_"]').on('shown.bs.modal'
         }); //FIN Document.ready
+
+        // =============================================
+
+        // Funcionalidad input tipo file para imagen producto
+        function displaySelectedFile(inputId, displayElementId) {
+            const input = document.getElementById(inputId);
+            const displayElement = document.getElementById(displayElementId);
+            const file = input.files[0];
+
+            // Reset
+            displayElement.textContent = '';
+            displayElement.classList.add('hidden');
+
+            if (file) {
+                const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+                const maxSizeMB = 2;
+                const fileSizeMB = file.size / (1024 * 1024);
+
+                if (!allowedTypes.includes(file.type)) {
+                    displayElement.textContent = 'Formato no permitido. Solo JPG, JPEG, PNG o WEBP.';
+                    displayElement.classList.remove('hidden');
+                    input.value = ''; // limpia el input
+                    return;
+                }
+
+                if (fileSizeMB > maxSizeMB) {
+                    displayElement.textContent = 'El archivo excede los 2MB permitidos.';
+                    displayElement.classList.remove('hidden');
+                    input.value = ''; // limpia el input
+                    return;
+                }
+
+                // Todo bien
+                displayElement.textContent = file.name;
+                displayElement.classList.remove('hidden');
+            }
+        }
     </script>
 @stop
