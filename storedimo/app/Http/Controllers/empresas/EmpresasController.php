@@ -105,9 +105,11 @@ class EmpresasController extends Controller
     public function store(Request $request)
     {
         try {
-            if (!$this->checkDatabaseConnection()) {
+            if (!$this->checkDatabaseConnection())
+            {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -115,11 +117,14 @@ class EmpresasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new EmpresaStore();
+                } else
+                {
+                    $vista = new EmpresaStore();
+                    return $this->validarAccesos($sesion[0], 22, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Store Empresas!");
             return redirect()->to(route('login'));
         }

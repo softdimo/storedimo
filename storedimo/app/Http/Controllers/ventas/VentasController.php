@@ -27,7 +27,6 @@ class VentasController extends Controller
     }
 
     // ======================================================================
-    // ======================================================================
     /**
      * Display a listing of the resource.
      *
@@ -35,10 +34,13 @@ class VentasController extends Controller
      */
     public function index()
     {
-        try {
-            if (!$this->checkDatabaseConnection()) {
+        try
+        {
+            if (!$this->checkDatabaseConnection())
+            {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -46,11 +48,14 @@ class VentasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new VentaIndex();
+                } else
+                {
+                    $vista = new VentaIndex();
+                    return $this->validarAccesos($sesion[0], 43, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Index Ventas!");
             return redirect()->to(route('login'));
         }
@@ -66,10 +71,12 @@ class VentasController extends Controller
      */
     public function create()
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -77,17 +84,19 @@ class VentasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return view('ventas.create');
+                } else
+                {
+                    $vista = 'ventas.create';
+                    return $this->validarAccesos($sesion[0], 44, $vista);
                 }
             }
-        } catch (Exception $e) {
-            alert()->error("Exception Index Ventas!");
+        } catch (Exception $e)
+        {
+            alert()->error("Exception Create Ventas!");
             return redirect()->to(route('login'));
         }
     }
 
-    // ======================================================================
     // ======================================================================
 
     /**
@@ -98,10 +107,12 @@ class VentasController extends Controller
      */
     public function store(Request $request)
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -109,17 +120,19 @@ class VentasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new VentaStore();
+                } else
+                {
+                    $vista = new VentaStore();
+                    return $this->validarAccesos($sesion[0], 45, $vista);
                 }
             }
-        } catch (Exception $e) {
-            alert()->error("Exception Index Ventas!");
+        } catch (Exception $e)
+        {
+            alert()->error("Exception Store Ventas!");
             return redirect()->to(route('login'));
         }
     }
 
-    // ======================================================================
     // ======================================================================
 
     /**
@@ -181,8 +194,10 @@ class VentasController extends Controller
 
     public function listarCreditoVentas()
     {
-        try {
-            if (!$this->checkDatabaseConnection()) {
+        try
+        {
+            if (!$this->checkDatabaseConnection())
+            {
                 return view('db_conexion');
             } else {
                 $sesion = $this->validarVariablesSesion();
@@ -192,29 +207,79 @@ class VentasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return view('ventas.credito_ventas');
+                } else
+                {
+                    $vista = 'ventas.credito_ventas';
+                    return $this->validarAccesos($sesion[0], 46, $vista);
+                    
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Index Ventas!");
             return redirect()->to(route('login'));
         }
     }
             
     // ======================================================================
-    // ======================================================================
 
     public function reporteVentasPdf()
     {
-        return new ReporteVentasPdf();
+        try
+        {
+            if (!$this->checkDatabaseConnection())
+            {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else
+                {
+                    $vista = new ReporteVentasPdf();
+                    return $this->validarAccesos($sesion[0], 47, $vista);
+                    
+                }
+            }
+        } catch (Exception $e)
+        {
+            alert()->error("Exception Reporte Ventas Pdf!");
+            return redirect()->to(route('login'));
+        }
     }
 
-    // ======================================================================
     // ======================================================================
 
     public function reciboCajaVenta()
     {
-        return new ReciboCajaVenta();
+        try
+        {
+            if (!$this->checkDatabaseConnection())
+            {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else
+                {
+                    $vista = new ReciboCajaVenta();
+                    return $this->validarAccesos($sesion[0], 48, $vista);
+                    
+                }
+            }
+        } catch (Exception $e)
+        {
+            alert()->error("Exception ReciboCajaVenta!");
+            return redirect()->to(route('login'));
+        }
     }
 }

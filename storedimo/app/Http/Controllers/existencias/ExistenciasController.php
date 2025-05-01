@@ -27,7 +27,6 @@ class ExistenciasController extends Controller
     }
 
     // ======================================================================
-    // ======================================================================
 
     /**
      * Display a listing of the resource.
@@ -40,7 +39,6 @@ class ExistenciasController extends Controller
     }
 
     // ======================================================================
-    // ======================================================================
 
     /**
      * Show the form for creating a new resource.
@@ -49,10 +47,13 @@ class ExistenciasController extends Controller
      */
     public function create()
     {
-        try {
-            if (!$this->checkDatabaseConnection()) {
+        try
+        {
+            if (!$this->checkDatabaseConnection())
+            {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -60,17 +61,19 @@ class ExistenciasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return view('existencias.create');
+                } else
+                {
+                    $vista = 'existencias.create';
+                    return $this->validarAccesos($sesion[0], 13, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Create Existencias!");
             return redirect()->to(route('login'));
         }
     }
 
-    // ======================================================================
     // ======================================================================
 
     /**
@@ -85,7 +88,6 @@ class ExistenciasController extends Controller
     }
 
     // ======================================================================
-    // ======================================================================
 
     /**
      * Display the specified resource.
@@ -99,7 +101,6 @@ class ExistenciasController extends Controller
     }
 
     // ======================================================================
-    // ======================================================================
 
     /**
      * Show the form for editing the specified resource.
@@ -112,7 +113,6 @@ class ExistenciasController extends Controller
         //
     }
 
-    // ======================================================================
     // ======================================================================
 
     /**
@@ -128,7 +128,6 @@ class ExistenciasController extends Controller
     }
 
     // ======================================================================
-    // ======================================================================
 
     /**
      * Remove the specified resource from storage.
@@ -142,14 +141,15 @@ class ExistenciasController extends Controller
     }
 
     // ======================================================================
-    // ======================================================================
 
     public function bajasIndex()
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -157,25 +157,29 @@ class ExistenciasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new BajaIndex();
+                } else
+                {
+                    $vista = new BajaIndex();
+                    return $this->validarAccesos($sesion[0], 14, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception Index Bajas!");
             return redirect()->to(route('login'));
         }
     }
 
     // ======================================================================
-    // ======================================================================
 
     public function bajaStore()
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -183,25 +187,29 @@ class ExistenciasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new BajaStore();
+                } else
+                {
+                    $vista = new BajaStore();
+                    return $this->validarAccesos($sesion[0], 32, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception BajaStore Existencias!");
             return redirect()->to(route('login'));
         }
     }
     
     // ======================================================================
-    // ======================================================================
 
     public function reporteBajasPdf()
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -209,8 +217,10 @@ class ExistenciasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new ReporteBajasPdf();
+                } else
+                {
+                    $vista = new ReporteBajasPdf();
+                    return $this->validarAccesos($sesion[0], 33, $vista);
                 }
             }
         } catch (Exception $e) {
@@ -219,12 +229,12 @@ class ExistenciasController extends Controller
         }
     }
     
-    // ======================================================================
     // ======================================================================
 
     public function stockMinimo()
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
             } else {
@@ -235,25 +245,29 @@ class ExistenciasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new StockMinimo();
+                } else
+                {
+                    $vista = new StockMinimo();
+                    return $this->validarAccesos($sesion[0], 34, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception stockMinimo!");
             return redirect()->to(route('login'));
         }
     }
 
     // ======================================================================
-    // ======================================================================
 
     public function stockMinimoPdf()
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -261,25 +275,29 @@ class ExistenciasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new StockMinimoPdf();
+                } else
+                {
+                    $vista = new StockMinimoPdf();
+                    return $this->validarAccesos($sesion[0], 35, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception stockMinimo!");
             return redirect()->to(route('login'));
         }
     }
     
     // ======================================================================
-    // ======================================================================
 
     public function alertaStockMinimo()
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -287,11 +305,14 @@ class ExistenciasController extends Controller
                     empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
                 {
                     return redirect()->to(route('login'));
-                } else {
-                    return new AlertaStockMinimo();
+                } else
+                {
+                    $vista = new AlertaStockMinimo();
+                    return $this->validarAccesos($sesion[0], 37, $vista);
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error("Exception stockMinimo!");
             return redirect()->to(route('login'));
         }
