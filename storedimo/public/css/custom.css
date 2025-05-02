@@ -332,18 +332,16 @@ body {
 	.logo-container a {
 		display: flex;
 		justify-content: center;
+		align-items: center;
 	}
 
 	.logo-container a img{
 		width: 100% !important;
-		height: 100% !important;
+		height: 50% !important;
 	}
 
     /* FIN Media Query TopMenu  */
 
-    
-
-	
 }
  /* FIN Media Query  */
 

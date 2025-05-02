@@ -9,6 +9,10 @@
             </div>
             {{-- ========================================== --}}
             <div class="menu-container col-4 col-md-8">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon text-white"></span>
+                </button>
+
                 <div class="collapse d-lg-flex justify-content-lg-end" id="navbarNavDropdown">
                     <ul class="navbar-nav justify-content-between">
                         <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_ganancias">
@@ -19,7 +23,7 @@
 
                         {{-- ==================== --}}
 
-                        <li class="nav-item ms-2 me-2" data-bs-toggle="modal" data-bs-target="#modal_informacion">
+                        <li class="nav-item ms-md-2 me-2" data-bs-toggle="modal" data-bs-target="#modal_informacion">
                             <a href="#" title="Acerca de" class="nav-link text-white">
                                 <i class="fa fa-info-circle fa-1x"></i>
                             </a>
@@ -77,7 +81,7 @@
                         <li class="nav-item dropdown">
                             <a href="#" title="Notificaciones" class="nav-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-bell fa-1x"></i>
-                                <span id="notificaciones_stock" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none;">0</span>
+                                <span id="notificaciones_stock" class="position-absolute top-0 start-md-100 translate-middle badge rounded-pill bg-danger" style="display: none;">0</span>
                             </a>
                             <ul class="dropdown-menu bg-white" style="right:0;left:auto">
                                 <li class="nav-item">
