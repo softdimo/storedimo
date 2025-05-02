@@ -15,11 +15,13 @@ class CategoriaIndex implements Responsable
         try {
             $categorias = Categoria::leftJoin('estados', 'estados.id_estado', '=', 'categorias.id_estado')
             ->select(
-                'id_categoria', 
+                'id_categoria',
                 'categoria',
                 'categorias.id_estado',
                 'estados.estado'
-                )->orderBy('categoria', 'ASC')->get();
+                )
+                ->orderBy('categoria', 'ASC')
+                ->get();
 
             if (isset($categorias) && !is_null($categorias) && !empty($categorias)) {
                 return response()->json($categorias);
