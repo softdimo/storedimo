@@ -160,7 +160,7 @@
 
                         <div class="w-100-div w-48 mt-5 mt-md-0">
                             <div class="m-0 p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                                <h5 class="border rounded-top text-white p-2 m-0" style="background-color: #337AB7">Detalle Venta</h5>
+                                <h5 class="border rounded-top text-white p-2 m-0" style="background-color: #337AB7">Detalle Venta: <span id="clienteVenta"></span></h5>
                             
                                 <div class="">
                                     {{-- <strong class="p-3">Seleccione para agregar</strong> --}}
@@ -595,6 +595,8 @@
                     Swal.fire('Cuidado!', 'Todos los campos son obligatorios y la cantidad debe ser mayor a 0!', 'error');
                     return;
                 }
+
+                $('#clienteVenta').html(clienteVenta);
 
                 // Mostrar spinner y desactivar botón
                 spinner.show();
