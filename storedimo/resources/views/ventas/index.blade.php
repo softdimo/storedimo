@@ -273,8 +273,13 @@
                         </div>
                     </div>
 
+                    <!-- Contenedor para el GIF -->
+                    <div id="loadingIndicatorReciboVenta_{{$venta->id_venta}}" class="loadingIndicator" style="display: none;">
+                        <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                    </div>
+
                     <div class="d-flex justify-content-center mt-3">
-                        <button class="btn btn-success generar-pdf me-3" style="background-color: #337AB7"
+                        <button type="button" class="btn btn-success generar-pdf me-3" style="background-color: #337AB7" id="btnReciboVenta_{{$venta->id_venta}}"
                             data-id="{{ $venta->id_venta }}" data-fecha="{{ $venta->fecha_venta }}"
                             data-usuario="{{ $venta->nombres_usuario }}" data-cliente="{{ $venta->nombres_cliente }}"
                             data-subtotal="{{ $venta->subtotal_venta }}" data-descuento="{{ $venta->descuento }}"
@@ -283,7 +288,7 @@
                         </button>
 
                         <button type="button" title="Cancelar" class="btn btn-secondary" data-bs-dismiss="modal"
-                            id="btn_editar_cancelar">
+                            id="btnCancelarReciboVenta_{{$venta->id_venta}}">
                             <i class="fa fa-times" aria-hidden="true"> Cerrar</i>
                         </button>
                     </div>
@@ -408,7 +413,7 @@
             // =========================================================================
 
             document.querySelectorAll(".generar-pdf").forEach(button => {
-                button.addEventListener("click", function() {
+                button.addEventListener("click", function () {
                     let venta = {
                         id: this.dataset.id,
                         fecha: this.dataset.fecha,
@@ -420,21 +425,64 @@
                         detalles: JSON.parse(this.dataset.detalles)
                     };
 
+                    // Capturar spinner y BTNs
+                    const spinner = document.getElementById(`loadingIndicatorReciboVenta_${venta.id}`);
+                    const btnCancelarReciboVenta = document.getElementById(`btnCancelarReciboVenta_${venta.id}`);
+                    const btnReciboVenta = document.getElementById(`btnReciboVenta_${venta.id}`);
+
+                    // Guardar el contenido original del botón para restaurarlo después
+                    const originalBtnContent = btnReciboVenta.innerHTML;
+
+                    // Mostrar el spinner
+                    if (spinner) {
+                        spinner.style.display = 'block';
+                    }
+
+                    // Desactivar Btn Recibo Venta
+                    if (btnReciboVenta) {
+                        btnReciboVenta.disabled = true;
+                        btnReciboVenta.innerHTML = `Procesando... <i class="fa fa-spinner fa-spin"></i>`;
+                    }
+
+                    // Desactivar Btn Cancelar Recibo Venta
+                    if (btnCancelarReciboVenta) {
+                        btnCancelarReciboVenta.disabled = true;
+                    }
+
                     fetch("/recibo_caja_venta", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector(
-                                    'meta[name="csrf-token"]').getAttribute("content")
+                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
                             },
                             body: JSON.stringify(venta)
                         })
                         .then(response => response.blob())
                         .then(blob => {
+                            // Ocultar el spinner
+                            if (spinner) {
+                                spinner.style.display = 'none';
+                            }
+
+                            if (btnReciboVenta) {
+                                btnReciboVenta.disabled = false;
+                                btnReciboVenta.innerHTML = originalBtnContent;
+                            }
+
+                            if (btnCancelarReciboVenta) {
+                                btnCancelarReciboVenta.disabled = false;
+                            }
+
                             let url = window.URL.createObjectURL(blob);
                             window.open(url, "_blank");
                         })
-                        .catch(error => console.error("Error al generar PDF:", error));
+                        .catch(error => {
+                            // Ocultar el spinner en caso de error también
+                            if (spinner) {
+                                spinner.style.display = 'none';
+                            }
+                            console.error("Error al generar PDF:", error);
+                        });
                 });
             });
         }); // FIN document.ready
