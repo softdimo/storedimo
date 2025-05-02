@@ -96,8 +96,8 @@
                         {{-- ==================== --}}
 
                         <li class="nav-item dropdown" data-bs-toggle="modal" data-bs-target="#modal_usuario">
-                            <a  href="#" title="Usuario" class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-user fa-fw fa-1x"></i>
+                            <a  href="#" title="Usuario" class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="">
+                                <i class="fa fa-user fa-fw fa-1x" id="toggle_user"></i>
                             </a>
 
                             @if(session('sesion_iniciada'))
