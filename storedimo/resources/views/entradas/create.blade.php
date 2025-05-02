@@ -134,7 +134,7 @@
                         </div>
                         {{-- ============================================================== --}}
                         <div class="w-100-div w-48 mt-5 mt-md-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                            <h5 class="border rounded-top text-white p-2 m-0" style="background-color: #337AB7">Detalle Compras</h5>
+                            <h5 class="border rounded-top text-white p-2 m-0" style="background-color: #337AB7">Detalle Compras: <span id="proveedorCompra"></span></h5>
                             
                             <div class="">
                                 <div class="table-responsive p-3 d-flex flex-column justify-content-between h-100" style="">
@@ -659,6 +659,8 @@
                     );
                     return;
                 }
+
+                $('#proveedorCompra').html(tipoProveedor);
 
                 let valorSubTotal = pUnitario * cantidad;
                 totalVenta += valorSubTotal; // Acumular total
