@@ -26,18 +26,26 @@ class StockMinimoPdf implements Responsable
     public function toResponse($request)
     {
         $productos = $request->input('productos'); // Recibe la lista de productos
+        $fechaReporte = Carbon::now()->format('d/m/Y H:i:s');
 
         $pdf = new \FPDF();
         $pdf->AddPage();
         $pdf->SetFont('Arial', 'B', 12);
 
         // Encabezado
-        $pdf->Cell(190, 10, 'STOREDIMO', 0, 1, 'C');
-        $pdf->SetFont('Arial', '', 10);
-        $pdf->Cell(190, 6, 'Nit: 123456789-0', 0, 1, 'C');
-        $pdf->Cell(190, 6, utf8_decode('Centro Comercial Cisneros'), 0, 1, 'C');
-        $pdf->Cell(190, 6, utf8_decode('Teléfono: 513-10-12'), 0, 1, 'C');
-        $pdf->Cell(190, 6, utf8_decode('Cra. 51 N° 44 - 69, Local 144 B - Medellín'), 0, 1, 'C');
+        // $pdf->Cell(190, 10, 'STOREDIMO', 0, 1, 'C');
+        // $pdf->SetFont('Arial', '', 10);
+        // $pdf->Cell(190, 6, 'Nit: 123456789-0', 0, 1, 'C');
+        // $pdf->Cell(190, 6, utf8_decode('Centro Comercial Cisneros'), 0, 1, 'C');
+        // $pdf->Cell(190, 6, utf8_decode('Teléfono: 513-10-12'), 0, 1, 'C');
+        // $pdf->Cell(190, 6, utf8_decode('Cra. 51 N° 44 - 69, Local 144 B - Medellín'), 0, 1, 'C');
+        
+        // Título
+        $pdf->SetFont('Arial', 'B', 16);
+        $pdf->Cell(190, 10, utf8_decode("INFORME STOCK MÍNIMO"), 0, 1, 'C');
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(190, 10, "Fecha Reporte: $fechaReporte", 0, 1, 'C');
+        $pdf->Ln(5);
 
         // Títulos de tabla
         $pdf->Ln(5);

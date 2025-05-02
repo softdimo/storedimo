@@ -37,12 +37,12 @@ class ReporteProductosPdf implements Responsable
         $pdf->SetFont('Arial', 'B', 16);
 
          // Encabezado
-         $pdf->Cell(190, 10, 'STOREDIMO', 0, 1, 'C');
-         $pdf->SetFont('Arial', '', 10);
-         $pdf->Cell(190, 6, 'Nit: 123456789-0', 0, 1, 'C');
-         $pdf->Cell(190, 6, utf8_decode('Centro Comercial Cisneros'), 0, 1, 'C');
-         $pdf->Cell(190, 6, utf8_decode('Teléfono: 513-10-12'), 0, 1, 'C');
-         $pdf->Cell(190, 6, utf8_decode('Cra. 51 N° 44 - 69, Local 144 B - Medellín'), 0, 1, 'C');
+        //  $pdf->Cell(190, 10, 'STOREDIMO', 0, 1, 'C');
+        //  $pdf->SetFont('Arial', '', 10);
+        //  $pdf->Cell(190, 6, 'Nit: 123456789-0', 0, 1, 'C');
+        //  $pdf->Cell(190, 6, utf8_decode('Centro Comercial Cisneros'), 0, 1, 'C');
+        //  $pdf->Cell(190, 6, utf8_decode('Teléfono: 513-10-12'), 0, 1, 'C');
+        //  $pdf->Cell(190, 6, utf8_decode('Cra. 51 N° 44 - 69, Local 144 B - Medellín'), 0, 1, 'C');
 
         // Título
         $pdf->Cell(190, 10, "INFORME PRODUCTOS", 0, 1, 'C');
