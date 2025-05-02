@@ -141,8 +141,13 @@
                                 </div>
                             </div>
                             {{-- ============ --}}
+                            <!-- Contenedor para el GIF -->
+                            <div id="loadingIndicatorAgregarVenta" class="loadingIndicator" style="display: none;">
+                                <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                            </div>
+                            {{-- ============ --}}
                             <div class="p-3 d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary active pull-right" id="btn_agregar_venta" title="Agregar">
+                                <button type="button" class="btn btn-primary active pull-right" id="btnAgregarVenta" title="Agregar">
                                     <i class="fa fa-plus plus"></i>
                                     Agregar
                                 </button>
@@ -569,7 +574,10 @@
             // INICIO - Función agregar datos de las ventas
             let productosAgregados = [];
 
-            $("#btn_agregar_venta").click(function() {
+            $("#btnAgregarVenta").click(function() {
+                const btn = $(this);
+                let spinner = $("#loadingIndicatorAgregarVenta");
+
                 let idTipoClienteVenta = $('#cliente_venta').val();
                 let clienteVenta = $('#cliente_venta option:selected').text();
 
@@ -588,37 +596,49 @@
                     return;
                 }
 
-                let valorSubTotal = aplicarMayor ? cantidadVenta * pxMayorVenta : cantidadVenta * pDetalVenta;
+                // Mostrar spinner y desactivar botón
+                spinner.show();
+                btn.prop("disabled", true).html(`<i class="fa fa-spinner fa-spin"></i> Procesando...`);
 
-                if (aplicarMayor) {
-                    pDetalVenta = '';
-                } else {
-                    pxMayorVenta = '';
-                }
-                
-                let producto = {
-                    idProductoVenta: idProductoVenta,
-                    nombre: productoVenta,
-                    cantidad: cantidadVenta,
-                    pDetalVenta: pDetalVenta,
-                    pxMayorVenta: pxMayorVenta,
-                    subtotal: valorSubTotal,
-                };
-                productosAgregados.push(producto);
+                setTimeout(() => {
+                    let valorSubTotal = aplicarMayor ? cantidadVenta * pxMayorVenta : cantidadVenta * pDetalVenta;
 
-                actualizarDetalleVenta();
+                    if (aplicarMayor) {
+                        pDetalVenta = '';
+                    } else {
+                        pxMayorVenta = '';
+                    }
+                    
+                    let producto = {
+                        idProductoVenta: idProductoVenta,
+                        nombre: productoVenta,
+                        cantidad: cantidadVenta,
+                        pDetalVenta: pDetalVenta,
+                        pxMayorVenta: pxMayorVenta,
+                        subtotal: valorSubTotal,
+                    };
+                    productosAgregados.push(producto);
 
-                // Limpia los campos después de agregar un producto exitosamente
-                $('#cantidad_venta').attr('required');
+                    actualizarDetalleVenta();
+                    
 
-                $('#producto_venta').val('').trigger('change'); // Reiniciar selección de producto
+                    // Restaurar botón y ocultar spinner
+                    spinner.hide();
+                    btn.prop("disabled", false).html(`<i class="fa fa-plus plus"></i> Agregar`);
 
-                $('#p_detal_venta').html(0);  // Resetear precio detal
-                $('#p_x_mayor_venta').html(0);  // Resetear precio mayorista
-                $('#aplicar_x_mayor_venta').prop('checked', false); // Desmarcar checkbox
+                    // Limpia los campos después de agregar un producto exitosamente
+                    $('#cantidad_venta').attr('required');
 
-                $('#cantidad_venta').val('');  // Limpiar cantidad
-                $('#cantidad_producto').html(0);  // Limpiar cantidad disponible
+                    $('#producto_venta').val('').trigger('change'); // Reiniciar selección de producto
+
+                    $('#p_detal_venta').html(0);  // Resetear precio detal
+                    $('#p_x_mayor_venta').html(0);  // Resetear precio mayorista
+                    $('#aplicar_x_mayor_venta').prop('checked', false); // Desmarcar checkbox
+
+                    $('#cantidad_venta').val('');  // Limpiar cantidad
+                    $('#cantidad_producto').html(0);  // Limpiar cantidad disponible
+
+                }, 1000); // 100 ms suele ser suficiente para que el DOM pinte el spinner
             });
             // FIN - Función agregar datos de las ventas
 
