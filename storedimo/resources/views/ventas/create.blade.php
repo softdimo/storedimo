@@ -187,7 +187,7 @@
 
                                         <div class="d-flex mt-2 mb-2 rounded-end" style="border: 1px solid #ddd;">
                                             <p class="p-1 m-0 fw-bold w-25">Descuento: $</p>
-                                            {!! Form::text('descuento_total_venta', null, ['class' => 'form-control w-75 bg-success-subtle', 'id' => 'descuento_total_venta', 'required', 'readonly']) !!}
+                                            {!! Form::text('descuento_total_venta', null, ['class' => 'form-control w-75 bg-success-subtle', 'id' => 'descuento_total_venta', 'readonly']) !!}
                                         </div>
 
                                         <div class="d-flex rounded-end" style="border: 1px solid #ddd;">
