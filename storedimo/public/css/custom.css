@@ -336,12 +336,11 @@ body {
 	}
 
 	.logo-container a img{
-		width: 100% !important;
-		height: 70% !important;
+		width: 90% !important;
+		height: 60% !important;
 	}
 
     #toggle_user {
-        /* padding-left: 0!important; */
         width: 1em!important;
     }
     /* FIN Media Query TopMenu  */
