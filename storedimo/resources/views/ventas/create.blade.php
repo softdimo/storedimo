@@ -482,12 +482,16 @@
             if (idProducto == '' ) {
                 $('#p_detal_venta').html(0);
                 $('#p_x_mayor_venta').html(0);
+                $('#btnAgregarVenta').prop("disabled", true);
             }
 
             // INICIO - Consulta de los precios del productos
             $('#producto_venta').change(function () {
                 let idProducto = $('#producto_venta').val();
                 console.log(idProducto);
+
+                let btn = $('#btnAgregarVenta');
+                let spinner = $("#loadingIndicatorAgregarVenta");
 
                 $.ajax({
                     async: true,
@@ -498,19 +502,30 @@
                         '_token': "{{ csrf_token() }}",
                         'id_producto': idProducto
                     },
+                    beforeSend: function () {
+                        $('#p_detal_venta').html(0);
+                        $('#p_x_mayor_venta').html(0);
+                        $('#cantidad_producto').html(0);
+                        // Desactivar botón
+                        spinner.show();
+                        btn.prop("disabled", true).html(`<i class="fa fa-spinner fa-spin"></i> Procesando...`);
+                    },
                     success: function (respuesta) {
                         console.log(respuesta);
                         console.log(respuesta.precio_unitario);
 
-                        if (idProducto == '' ) {
-                            $('#p_detal_venta').html(0);
-                            $('#p_x_mayor_venta').html(0);
-                            $('#cantidad_producto').html(0);
-                        } else {
+                        setTimeout(() => {
                             $('#p_detal_venta').html(respuesta.precio_detal);
                             $('#p_x_mayor_venta').html(respuesta.precio_por_mayor);
                             $('#cantidad_producto').html(respuesta.cantidad);
-                        }
+
+                            spinner.hide();
+                            btn.prop("disabled", false).html(`<i class="fa fa-plus plus"></i> Agregar`);
+                        }, 1000);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error:", error);
+                        btn.prop("disabled", false).html(`<i class="fa fa-plus plus"></i> Agregar`);
                     }
                 });
             });
