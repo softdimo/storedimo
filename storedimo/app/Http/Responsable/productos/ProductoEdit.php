@@ -28,17 +28,22 @@ class ProductoEdit implements Responsable
             
             // Realiza la solicitud a la API
             $response = $clientApi->post($baseUri . 'producto_edit/'.$idProducto);
-            $producto = json_decode($response->getBody()->getContents(), true);
+            $productoEdit = json_decode($response->getBody()->getContents());
 
-            if(isset($producto) && !empty($producto)) {
-                return response()->json($producto);
-            } else {
-                alert()->error('Error', 'No existe el producto.');
-                return redirect()->to(route('productos.index'));
-            }
-        } // FIN Try
-        catch (Exception $e)
-        {
+            // Recibe el tipo de modal desde la request
+            $tipoModal = $request->get('tipo_modal', 'editar'); // valor por defecto
+
+            return match ($tipoModal) {
+                'qr'     => view('productos.modal_codigo_qr', compact('productoEdit')),
+                'estado' => view('productos.modal_estado_producto', compact('productoEdit')),
+                default  => view('productos.modal_editar_producto', compact('productoEdit')),
+            };
+
+            // if (isset($productoEdit)) {
+            //     return view('productos.modales_producto', compact('productoEdit'));
+            // }
+            
+        } catch (Exception $e) {
             alert()->error('Error', 'Error consulta producto, si el problema persiste, contacte a Soporte.');
             return back();
         }
