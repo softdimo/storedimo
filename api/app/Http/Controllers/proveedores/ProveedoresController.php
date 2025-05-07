@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Responsable\proveedores\ProveedorIndex;
 use App\Http\Responsable\proveedores\ProveedorStore;
 use App\Http\Responsable\proveedores\ProveedorUpdate;
+use App\Http\Responsable\proveedores\ProveedorEdit;
 use App\Models\Proveedor;
 
 
@@ -72,9 +73,9 @@ class ProveedoresController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($idProveedor)
     {
-        //
+        return new ProveedorEdit($idProveedor);
     }
 
     // ======================================================================

@@ -38,10 +38,6 @@ class ProductoEdit implements Responsable
                 'estado' => view('productos.modal_estado_producto', compact('productoEdit')),
                 default  => view('productos.modal_editar_producto', compact('productoEdit')),
             };
-
-            // if (isset($productoEdit)) {
-            //     return view('productos.modales_producto', compact('productoEdit'));
-            // }
             
         } catch (Exception $e) {
             alert()->error('Error', 'Error consulta producto, si el problema persiste, contacte a Soporte.');

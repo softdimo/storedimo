@@ -83,6 +83,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('query_nit_proveedor', 'proveedores\ProveedoresController@consultarNitProveedor');
     $router->post('proveedor_store', 'proveedores\ProveedoresController@store');
     $router->put('proveedor_update/{idProveedor}', 'proveedores\ProveedoresController@update');
+    $router->get('proveedor_edit/{idProveedor}', 'proveedores\ProveedoresController@edit');
 });
 
 // ========================================================================

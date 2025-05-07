@@ -83,6 +83,7 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
     // PROVEEDORES
     Route::group(['namespace' => 'App\Http\Controllers\proveedores'], function () {
         Route::resource('proveedores', 'ProveedoresController');
+        Route::get('proveedor_edit/{idProveedor}', 'ProveedoresController@edit')->name('proveedor_edit');
     });
 
     // ========================================================================
