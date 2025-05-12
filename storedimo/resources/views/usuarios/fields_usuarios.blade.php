@@ -58,6 +58,9 @@
                     'class' => 'form-control',
                     'id' => 'nombre_usuario',
                     'required' => 'required',
+                    'pattern' => '^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]{2,50}$',
+                    'title' => 'Solo letras y espacios. Mínimo 2 y máximo 50 caracteres.',
+                    'maxlength' => 50,
                 ]) !!}
             </div>
         </div>
@@ -71,6 +74,9 @@
                     'class' => 'form-control',
                     'id' => 'apellido_usuario',
                     'required' => 'required',
+                    'pattern' => '^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]{2,50}$',
+                    'title' => 'Solo letras y espacios. Mínimo 2 y máximo 50 caracteres.',
+                    'maxlength' => 50,
                 ]) !!}
             </div>
         </div>
@@ -83,6 +89,10 @@
                 {!! Form::number('numero_telefono', null, [
                     'class' => 'form-control',
                     'id' => 'numero_telefono',
+                    'pattern' => '^\d{7,10}$',
+                    'title' => 'Debe tener entre 7 y 10 dígitos.',
+                    'maxlength' => 10,
+                    'minlength' => 7,
                 ]) !!}
             </div>
         </div>
@@ -92,7 +102,15 @@
         <div class="col-12 col-md-3 mt-4">
             <div class="form-group d-flex flex-column">
                 <label for="celular" class="form-label">Número de Celular <span class="text-danger">*</span></label>
-                {!! Form::number('celular', null, ['class' => 'form-control', 'id' => 'celular', 'required' => 'required']) !!}
+                {!! Form::number('celular', null, [
+                    'class' => 'form-control',
+                    'id' => 'celular',
+                    'required' => 'required',
+                    'pattern' => '^\d{7,15}$',
+                    'title' => 'Debe ser un número de celular válido, sin indicativos, entre 7 y 15 dígitos.',
+                    'maxlength' => 15,
+                    'minlength' => 7,
+                ]) !!}
             </div>
         </div>
 
@@ -105,6 +123,8 @@
                     'class' => 'form-control',
                     'id' => 'email',
                     'required' => 'required',
+                    'pattern' => '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+                    'title' => 'Por favor, ingresa un correo electrónico válido',
                 ]) !!}
                 <small id="email-error" class="text-danger d-none">Este correo ya está registrado.</small>
             </div>
@@ -128,7 +148,14 @@
         <div class="col-12 col-md-3 mt-4">
             <div class="form-group d-flex flex-column">
                 <label for="direccion" class="form-label">Dirección</label>
-                {!! Form::text('direccion', null, ['class' => 'form-control', 'id' => 'direccion']) !!}
+                {!! Form::text('direccion', null, [
+                    'class' => 'form-control', 
+                    'id' => 'direccion',
+                    'pattern' => '^[a-zA-Z0-9\s\#\-\.\,\/]{5,100}$',
+                    'title' => 'Ingrese una dirección válida (solo letras, números y caracteres como # - . , /). Mínimo 5 y máximo 100 caracteres.',
+                    'maxlength' => 100,
+                    'minlength' => 5,
+                ]) !!}
             </div>
         </div>
 

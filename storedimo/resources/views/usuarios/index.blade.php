@@ -186,9 +186,8 @@
                                         {{-- ====================================================== --}}
 
                                         {{-- INICIO Modal CAMBIAR CONTRASEÑA --}}
-                                        <div class="modal fade"
-                                            id="modal_cambiar_clave_{{ $usuario->id_usuario }}" tabindex="-1"
-                                            data-bs-backdrop="static" data-bs-keyboard="false">
+                                        <div class="modal fade" id="modal_cambiar_clave_{{ $usuario->id_usuario }}"
+                                            tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
                                             <div class="modal-dialog">
                                                 <div class="modal-content p-3">
                                                     {!! Form::open([
@@ -273,9 +272,8 @@
                                         {{-- ====================================================== --}}
 
                                         {{-- INICIO Modal EDITAR USUARIO --}}
-                                        <div class="modal fade"
-                                            id="modalEditarUsuario_{{ $usuario->id_usuario }}" tabindex="-1"
-                                            data-bs-backdrop="static" data-bs-keyboard="false">
+                                        <div class="modal fade" id="modalEditarUsuario_{{ $usuario->id_usuario }}"
+                                            tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
                                             <div class="modal-dialog" style="min-width: 60%">
                                                 <div class="modal-content p-3">
                                                     {!! Form::model($usuario, [
@@ -331,7 +329,12 @@
                                                                     <label for="identificacion" class=""
                                                                         style="font-size: 15px">Número de documento
                                                                         <span class="text-danger">*</span></label>
-                                                                    {{ Form::text('identificacion', isset($usuario) ? $usuario->identificacion : null, ['class' => 'form-control', 'id' => 'identificacion', 'required' => 'required']) }}
+                                                                    {{ Form::text('identificacion', isset($usuario) ? $usuario->identificacion : null, [
+                                                                        'class' => 'form-control',
+                                                                        'id' => 'identificacion',
+                                                                        'required' => 'required',
+                                                                        'minlength' => 6,
+                                                                    ]) }}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -344,7 +347,14 @@
                                                                     <label for="nombre_usuario" class=""
                                                                         style="font-size: 15px">Nombre Usuario
                                                                         <span class="text-danger">*</span></label>
-                                                                    {{ Form::text('nombre_usuario', isset($usuario) ? $usuario->nombre_usuario : null, ['class' => 'form-control', 'id' => 'nombre_usuario', 'required' => 'required']) }}
+                                                                    {{ Form::text('nombre_usuario', isset($usuario) ? $usuario->nombre_usuario : null, [
+                                                                        'class' => 'form-control',
+                                                                        'id' => 'nombre_usuario',
+                                                                        'required' => 'required',
+                                                                        'pattern' => '^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]{2,50}$',
+                                                                        'title' => 'Solo letras y espacios. Mínimo 2 y máximo 50 caracteres.',
+                                                                        'maxlength' => 50,
+                                                                    ]) }}
                                                                 </div>
                                                             </div>
                                                             {{-- ======================= --}}
@@ -353,7 +363,14 @@
                                                                     <label for="apellido_usuario" class=""
                                                                         style="font-size: 15px">Apellido Usuario
                                                                         <span class="text-danger">*</span></label>
-                                                                    {{ Form::text('apellido_usuario', isset($usuario) ? $usuario->apellido_usuario : null, ['class' => 'form-control', 'id' => 'apellido_usuario', 'required' => 'required']) }}
+                                                                    {{ Form::text('apellido_usuario', isset($usuario) ? $usuario->apellido_usuario : null, [
+                                                                        'class' => 'form-control',
+                                                                        'id' => 'apellido_usuario',
+                                                                        'required' => 'required',
+                                                                        'pattern' => '^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]{2,50}$',
+                                                                        'title' => 'Solo letras y espacios. Mínimo 2 y máximo 50 caracteres.',
+                                                                        'maxlength' => 50,
+                                                                    ]) }}
                                                                 </div>
                                                             </div>
                                                             {{-- ======================= --}}
@@ -361,7 +378,14 @@
                                                                 <div class="form-group d-flex flex-column">
                                                                     <label for="numero_telefono" class=""
                                                                         style="font-size: 15px">Número Teléfono</label>
-                                                                    {{ Form::text('numero_telefono', isset($usuario) ? $usuario->numero_telefono : null, ['class' => 'form-control', 'id' => 'numero_telefono']) }}
+                                                                    {{ Form::text('numero_telefono', isset($usuario) ? $usuario->numero_telefono : null, [
+                                                                        'class' => 'form-control',
+                                                                        'id' => 'numero_telefono',
+                                                                        'pattern' => '^\d{7,10}$',
+                                                                        'title' => 'Debe tener entre 7 y 10 dígitos.',
+                                                                        'maxlength' => 10,
+                                                                        'minlength' => 7,
+                                                                    ]) }}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -379,6 +403,10 @@
                                                                         'class' => 'form-control',
                                                                         'id' => 'celular',
                                                                         'required' => 'required',
+                                                                        'pattern' => '^\d{7,15}$',
+                                                                        'title' => 'Debe ser un número de celular válido, sin indicativos, entre 7 y 15 dígitos.',
+                                                                        'maxlength' => 15,
+                                                                        'minlength' => 7,
                                                                     ]) }}
                                                                 </div>
                                                             </div>
@@ -388,8 +416,13 @@
                                                                     <label for="email" class=""
                                                                         style="font-size: 15px">Correo
                                                                         <span class="text-danger">*</span></label>
-                                                                    {{ Form::email('email', isset($usuario) ? $usuario->email : null, ['class' => 'form-control', 'id' => 'email', 'required' => 'required']) }}
-                                                                    {{-- <small id="email-error-{{ $usuario->id_usuario }}" class="text-danger d-none"></small> --}}
+                                                                    {{ Form::email('email', isset($usuario) ? $usuario->email : null, [
+                                                                        'class' => 'form-control',
+                                                                        'id' => 'email',
+                                                                        'required' => 'required',
+                                                                        'pattern' => '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+                                                                        'title' => 'Por favor, ingresa un correo electrónico válido',
+                                                                    ]) }}
                                                                 </div>
                                                             </div>
 
@@ -420,6 +453,11 @@
                                                                     {{ Form::text('direccion', isset($usuario) ? $usuario->direccion : null, [
                                                                         'class' => 'form-control',
                                                                         'id' => 'direccion',
+                                                                        'pattern' => '^[a-zA-Z0-9\s\#\-\.\,\/]{5,100}$',
+                                                                        'title' =>
+                                                                            'Ingrese una dirección válida (solo letras, números y caracteres como # - . , /). Mínimo 5 y máximo 100                                                  caracteres.',
+                                                                        'maxlength' => 100,
+                                                                        'minlength' => 5,
                                                                     ]) }}
                                                                 </div>
                                                             </div>
@@ -438,7 +476,7 @@
                                                                     ) !!}
                                                                 </div>
 
-                                                                
+
                                                             </div>
                                                             {{-- ======================= --}}
                                                             <div class="col-12 col-md-3">

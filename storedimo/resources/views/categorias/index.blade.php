@@ -38,8 +38,8 @@
                 </a>
             </div>
 
-            <div class="modal fade" id="modalAyudaCategorias" tabindex="-1" role="dialog"
-                aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+            <div class="modal fade" id="modalAyudaCategorias" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                data-keyboard ="false" data-backdrop = "static">
                 <div class="modal-dialog" style="min-width: 60%;">
                     <div class="modal-content p-3">
                         <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
@@ -117,7 +117,16 @@
                         <div class="p-3 d-flex flex-column" style="height: 50%;">
                             <div>
                                 <label for="categoria">Nombre Categoría<span class="text-danger"> *</span></label>
-                                {!! Form::text('categoria', null, ['class' => 'form-control', 'id' => 'categoria', 'required' => 'required']) !!}
+                                {!! Form::text('categoria', null, [
+                                    'class' => 'form-control',
+                                    'id' => 'categoria',
+                                    'required' => 'required',
+                                    'minlength' => '3',
+                                    'maxlength' => '100',
+                                    'pattern' => "^[A-Za-zÁÉÍÓÚáéíóúÑñ\s'-]{3,100}$",
+                                    'title' => 'Debe contener solo letras, espacios, guiones o apóstrofes (mínimo 3 caracteres)',
+                                    'placeholder' => 'Ingrese nombre de categoría',
+                                ]) !!}
                             </div>
 
                             {{-- ====================================================== --}}
@@ -247,6 +256,11 @@
                                                                             {{ Form::text('categoria', isset($categoria) ? $categoria->categoria : null, [
                                                                                 'class' => 'form-control',
                                                                                 'id' => 'categoria_' . $categoria->id_categoria,
+                                                                                'minlength' => '3',
+                                                                                'maxlength' => '100',
+                                                                                'pattern' => "^[A-Za-zÁÉÍÓÚáéíóúÑñ\s'-]{3,100}$",
+                                                                                'title' => 'Debe contener solo letras, espacios, guiones o apóstrofes (mínimo 3 caracteres)',
+                                                                                'placeholder' => 'Ingrese nombre de categoría',
                                                                             ]) }}
                                                                         </div>
                                                                     </div>

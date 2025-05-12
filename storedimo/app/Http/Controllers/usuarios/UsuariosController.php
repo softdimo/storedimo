@@ -274,7 +274,6 @@ class UsuariosController extends Controller
                 'identificacion' => [
                     'required',
                     'string',
-                    'regex:/^[0-9]+$/',
                     'min:6',
                     'max:15'
                 ]

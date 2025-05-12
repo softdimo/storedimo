@@ -142,9 +142,8 @@
                                         </td>
 
                                         {{-- INICIO Modal EDITAR PROVEEDOR --}}
-                                        <div class="modal fade"
-                                            id="modalEditarProveedor_{{ $proveedor->id_proveedor }}" tabindex="-1"
-                                            data-bs-backdrop="static" data-bs-keyboard="false">
+                                        <div class="modal fade" id="modalEditarProveedor_{{ $proveedor->id_proveedor }}"
+                                            tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
                                             <div class="modal-dialog" style="max-width: 55%;">
                                                 <div class="modal-content p-3">
                                                     {!! Form::model($proveedor, [
@@ -176,7 +175,11 @@
                                                                         'id_tipo_persona',
                                                                         collect(['' => 'Seleccionar...'])->union($tipos_proveedor),
                                                                         isset($proveedor) ? $proveedor->id_tipo_persona : null,
-                                                                        ['class' => 'form-select select2', 'id' => 'id_tipo_persona_' . $proveedor->id_tipo_persona, 'required' => 'required'],
+                                                                        [
+                                                                            'class' => 'form-select select2',
+                                                                            'id' => 'id_tipo_persona_' . $proveedor->id_tipo_persona,
+                                                                            'required' => 'required',
+                                                                        ],
                                                                     ) }}
                                                                 </div>
                                                             </div>
@@ -206,6 +209,8 @@
                                                                     {{ Form::text('identificacion', isset($proveedor) ? $proveedor->identificacion : null, [
                                                                         'class' => 'form-control',
                                                                         'id' => 'identificacion',
+                                                                        'minlength' => 6,
+                                                                        'required' => 'required',
                                                                     ]) }}
                                                                 </div>
                                                             </div>
@@ -218,6 +223,10 @@
                                                                     {{ Form::text('nombres_proveedor', isset($proveedor) ? $proveedor->nombres_proveedor : null, [
                                                                         'class' => 'form-control',
                                                                         'id' => 'nombres_persona',
+                                                                        'required' => 'required',
+                                                                        'pattern' => '^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]{2,50}$',
+                                                                        'title' => 'Solo letras y espacios. Mínimo 2 y máximo 50 caracteres.',
+                                                                        'maxlength' => 50,
                                                                     ]) }}
                                                                 </div>
                                                             </div>
@@ -231,6 +240,10 @@
                                                                     {{ Form::text('apellidos_proveedor', isset($proveedor) ? $proveedor->apellidos_proveedor : null, [
                                                                         'class' => 'form-control',
                                                                         'id' => 'apellidos_persona',
+                                                                        'required' => 'required',
+                                                                        'pattern' => '^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]{2,50}$',
+                                                                        'title' => 'Solo letras y espacios. Mínimo 2 y máximo 50 caracteres.',
+                                                                        'maxlength' => 50,
                                                                     ]) }}
                                                                 </div>
                                                             </div>
@@ -242,6 +255,10 @@
                                                                     {{ Form::text('telefono_proveedor', isset($proveedor) ? $proveedor->telefono_proveedor : null, [
                                                                         'class' => 'form-control',
                                                                         'id' => 'numero_telefono',
+                                                                        'pattern' => '^\d{7,10}$',
+                                                                        'title' => 'Debe tener entre 7 y 10 dígitos.',
+                                                                        'maxlength' => 10,
+                                                                        'minlength' => 7,
                                                                     ]) }}
                                                                 </div>
                                                             </div>
@@ -256,6 +273,10 @@
                                                                         'class' => 'form-control',
                                                                         'id' => 'celular',
                                                                         'required' => 'required',
+                                                                        'pattern' => '^\d{7,15}$',
+                                                                        'title' => 'Debe ser un número de celular válido, sin indicativos, entre 7 y 15 dígitos.',
+                                                                        'maxlength' => 15,
+                                                                        'minlength' => 7,
                                                                     ]) }}
                                                                 </div>
                                                             </div>
@@ -269,6 +290,9 @@
                                                                         'class' => 'form-control',
                                                                         'id' => 'email',
                                                                         'required' => 'required',
+                                                                        'required' => 'required',
+                                                                        'pattern' => '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+                                                                        'title' => 'Por favor, ingresa un correo electrónico válido',
                                                                     ]) }}
                                                                 </div>
                                                             </div>
@@ -294,6 +318,11 @@
                                                                     {{ Form::text('direccion_proveedor', isset($proveedor) ? $proveedor->direccion_proveedor : null, [
                                                                         'class' => 'form-control',
                                                                         'id' => 'direccion',
+                                                                        'pattern' => '^[a-zA-Z0-9\s\#\-\.\,\/]{5,100}$',
+                                                                        'title' =>
+                                                                            'Ingrese una dirección válida (solo letras, números y caracteres como # - . , /). Mínimo 5 y máximo 100                                                  caracteres.',
+                                                                        'maxlength' => 100,
+                                                                        'minlength' => 5,
                                                                     ]) }}
                                                                 </div>
                                                             </div>
@@ -340,6 +369,10 @@
                                                                     {!! Form::text('proveedor_juridico', isset($proveedor) ? $proveedor->proveedor_juridico : null, [
                                                                         'class' => 'form-control',
                                                                         'id' => 'nombre_empresa',
+                                                                        'required' => 'required',
+                                                                        'pattern' => '^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]{2,50}$',
+                                                                        'title' => 'Solo letras y espacios. Mínimo 2 y máximo 50 caracteres.',
+                                                                        'maxlength' => 50,
                                                                     ]) !!}
                                                                 </div>
                                                             </div>
@@ -354,6 +387,10 @@
                                                                     {!! Form::text('telefono_juridico', isset($proveedor) ? $proveedor->telefono_juridico : null, [
                                                                         'class' => 'form-control',
                                                                         'id' => 'telefono_empresa',
+                                                                        'pattern' => '^\d{7,10}$',
+                                                                        'title' => 'Debe tener entre 7 y 10 dígitos.',
+                                                                        'maxlength' => 10,
+                                                                        'minlength' => 7,
                                                                     ]) !!}
                                                                 </div>
                                                             </div>
@@ -488,7 +525,7 @@
                     width: '100%',
                     allowClear: false
                 });
-                
+
                 // Buscar el select dentro del modal
                 let modal = $(this); // Guardamos la referencia del modal
                 let selectTipoPersona = modal.find('[id^=id_tipo_persona_]');
@@ -584,7 +621,7 @@
 
                         let modal = $(this).closest(
                             '[id^="modalEditarProveedor_"]'
-                            ); // Asegurar que buscamos dentro del modal correcto
+                        ); // Asegurar que buscamos dentro del modal correcto
 
                         let divIdentificacion = modal.find('[id^=div_identificacion]');
                         let inputIdentificacion = modal.find('[id^=identificacion]');

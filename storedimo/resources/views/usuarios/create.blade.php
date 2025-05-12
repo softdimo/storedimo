@@ -217,64 +217,89 @@
 
             //========================== Fin validación correo=================================//
 
-            //======================== Validación de documento ==============================//
+            //==================== Validación de documento ====================//
 
 
+            const tipoDocumentoSelect = document.getElementById('id_tipo_documento');
             const documentoInput = document.getElementById('identificacion');
             const errorDocumentoMsg = document.getElementById('documento-error');
 
-            documentoInput.addEventListener('blur', async () => {
-                const documento = documentoInput.value.trim();
-                const regexDocumento = /^[0-9]+$/;
+            const obtenerRegexPorTipo = (tipo) => {
+                switch (tipo) {
+                    case '1': // Cédula
+                    case '3': // NIT
+                        return /^\d{6,10}$/;
+                    case '2': // Pasaporte
+                        return /^[a-zA-Z0-9]{5,15}$/;
+                    case '4': // PEP u otros
+                        return /^(PEP|PE)?\d{6,10}$/i;
+                    default: // Por defecto: alfanumérico simple
+                        return /^[a-zA-Z0-9]+$/;
+                }
+            };
+
+            const mostrarError = (mensaje) => {
+                errorDocumentoMsg.textContent = mensaje;
+                errorDocumentoMsg.classList.remove('d-none');
+                documentoInput.classList.add('is-invalid');
+            };
+
+            const limpiarError = () => {
                 errorDocumentoMsg.classList.add('d-none');
                 documentoInput.classList.remove('is-invalid');
+            };
+
+            documentoInput.addEventListener('blur', async () => {
+                const documento = documentoInput.value.trim();
+                const tipoSeleccionado = tipoDocumentoSelect.value;
+                const regex = obtenerRegexPorTipo(tipoSeleccionado);
+
+                limpiarError();
 
                 if (documento === '') {
-                    errorDocumentoMsg.textContent = 'Este campo es obligatorio.';
-                    errorDocumentoMsg.classList.remove('d-none');
-                    documentoInput.classList.add('is-invalid');
+                    mostrarError('Este campo es obligatorio.');
                     return;
                 }
 
-                if (!regexDocumento.test(documento)) {
-                    errorDocumentoMsg.textContent = 'Ingrese una identificación válida.';
-                    errorDocumentoMsg.classList.remove('d-none');
-                    documentoInput.classList.add('is-invalid');
+                if (!regex.test(documento)) {
+                    mostrarError(
+                        'Ingrese una identificación válida según el tipo de documento.');
+                    documentoInput.value = '';
                     return;
                 }
 
                 try {
-                    const response = await fetch("{{ route('identification_validator') }}", {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                                .content
-                        },
-                        body: JSON.stringify({
-                            identificacion: documento
-                        })
-                    });
+                    const response = await fetch(
+                        "{{ route('identification_validator') }}", {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector(
+                                    'meta[name="csrf-token"]').content
+                            },
+                            body: JSON.stringify({
+                                identificacion: documento
+                            })
+                        });
 
                     if (!response.ok) throw new Error('Error en la petición');
 
                     const data = await response.json();
 
                     if (!data.valido) {
-                        errorDocumentoMsg.textContent = 'Este documento ya está registrado.';
+                        mostrarError('Este documento ya está registrado.');
                         documentoInput.value = '';
-                        errorDocumentoMsg.classList.remove('d-none');
-                        documentoInput.classList.add('is-invalid');
                     }
+
                 } catch (error) {
                     console.error('Error al validar el documento:', error);
-                    errorDocumentoMsg.textContent = 'Ocurrió un error. Intente más tarde.';
-                    errorDocumentoMsg.classList.remove('d-none');
-                    documentoInput.classList.add('is-invalid');
+                    mostrarError('Ocurrió un error. Intente más tarde.');
                 }
             });
-            //=========================== Fin validación documento ==============================//
+
+            //================= Fin validación de documento =================//
+
 
             // ===================================================================================
 
