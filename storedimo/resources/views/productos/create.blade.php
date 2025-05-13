@@ -197,7 +197,7 @@
 
             referenceInput.addEventListener('blur', async () => {
                 const reference = referenceInput.value.trim();
-                const regexReferencia = /^[a-zA-Z0-9_-]+$/;
+                const regexReferencia = /^[a-zA-Z0-9\-_#]{2,50}$/;
                 errorReferenceMsg.classList.add('d-none');
                 referenceInput.classList.remove('is-invalid');
 
