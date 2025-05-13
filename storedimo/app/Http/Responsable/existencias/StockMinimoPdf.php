@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
 use setasign\Fpdf\FPDF;
+use Carbon\Carbon;
 
 class StockMinimoPdf implements Responsable
 {

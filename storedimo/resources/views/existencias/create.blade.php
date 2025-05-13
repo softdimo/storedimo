@@ -93,12 +93,30 @@
 
                                 <div class="mt-3">
                                     <label for="cantidad" class="form-label">Cantidad <span class="text-danger">*</span></label>
-                                    {!! Form::text('cantidad', null, ['class' => 'form-control', 'id' => 'cantidad']) !!}
+                                    {!! Form::text('cantidad', null, [
+                                        'class' => 'form-control',
+                                        'id' => 'cantidad',
+                                        'required' => 'required',
+                                        'pattern' => '^[0-9]+$',
+                                        'title' => 'La cantidad debe ser un número entero positivo',
+                                        'min' => '1',
+                                        'onkeypress' => 'return event.charCode >= 48 && event.charCode <= 57',
+                                        'placeholder' => 'Ej: 10'
+                                    ]) !!}
                                 </div>
 
                                 <div class="mt-3">
                                     <label for="observaciones" class="form-label">Observaciones <span class="text-danger">*</span></label>
-                                    {!! Form::text('observaciones', null, ['class' => 'form-control', 'id' => 'observaciones']) !!}
+                                    {!! Form::text('observaciones', null, [
+                                        'class' => 'form-control',
+                                        'id' => 'observaciones',
+                                        'required' => 'required',
+                                        'pattern' => '^[a-zA-Z0-9ÁÉÍÓÚáéíóúÑñ\s\-_.,;:()]{5,255}$',
+                                        'title' => 'Las observaciones deben contener entre 10 y 255 caracteres. Puede incluir letras, números y caracteres especiales como -_.,;:()',
+                                        'maxlength' => '255',
+                                        'minlength' => '5',
+                                        'placeholder' => 'Ej: Producto dañado'
+                                    ]) !!}
                                 </div>
 
                                 <div class="d-flex justify-content-end mt-3">
