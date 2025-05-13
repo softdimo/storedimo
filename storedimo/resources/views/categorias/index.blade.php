@@ -180,194 +180,23 @@
 
                                             @if ($categoria->id_estado == 1 || $categoria->id_estado == '1')
                                                 <td>
-                                                    <button type="button" class="btn btn-success rounded-circle btn-circle"
-                                                        id="btn_editar_{{ $categoria->id_categoria }}" title="Modificar"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#modal_editar_categoria_{{ $categoria->id_categoria }}">
-                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                    <button type="button" class="btn btn-success rounded-circle btn-circle btn-editar-categoria" title="Modificar" data-id="{{$categoria->id_categoria}}">
+                                                        <i class="fa fa-pencil-square-o"></i>
                                                     </button>
 
                                                     {{-- ============================== --}}
-                                                    <button class="btn btn-danger rounded-circle btn-circle"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#modalCambiarEstadoCategoria_{{ $categoria->id_categoria }}"
-                                                        title="Cambiar Estado">
-                                                        <i class="fa fa-solid fa-recycle" aria-hidden="true"></i>
+                                                    <button class="btn btn-danger rounded-circle btn-circle btn-cambiar-estado" title="Cambiar Estado" data-id="{{$categoria->id_categoria}}">
+                                                        <i class="fa fa-solid fa-recycle"></i>
                                                     </button>
                                                 </td>
                                             @else
                                                 <td>
                                                     {{-- ============================== --}}
-                                                    <button class="btn btn-danger rounded-circle btn-circle"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#modalCambiarEstadoCategoria_{{ $categoria->id_categoria }}"
-                                                        title="Cambiar Estado">
-                                                        <i class="fa fa-solid fa-recycle" aria-hidden="true"></i>
+                                                    <button class="btn btn-danger rounded-circle btn-circle btn-cambiar-estado" title="Cambiar Estado" data-id="{{$categoria->id_categoria}}">
+                                                        <i class="fa fa-solid fa-recycle"></i>
                                                     </button>
                                                 </td>
                                             @endif
-                                            {{-- =============================================================== --}}
-                                            {{-- =============================================================== --}}
-                                            {{-- =============================================================== --}}
-
-                                            {{-- INICIO Modal EDITAR CATEGORÍA --}}
-                                            <div class="modal fade"
-                                                id="modal_editar_categoria_{{ $categoria->id_categoria }}" tabindex="-1"
-                                                data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content p-3">
-                                                        {!! Form::open([
-                                                            'method' => 'POST',
-                                                            'route' => ['editar_categoria'],
-                                                            'class' => 'mt-2',
-                                                            'autocomplete' => 'off',
-                                                            'id' => 'formEditarCategoria_' . $categoria->id_categoria,
-                                                        ]) !!}
-                                                        @csrf
-                                                        <div class="rounded-top" style="border: solid 1px #337AB7;">
-                                                            <div class="rounded-top text-white text-center"
-                                                                style="background-color: #337AB7; border: solid 1px #337AB7;">
-                                                                <h5>Modificar Categoría</h5>
-                                                            </div>
-
-                                                            {{-- ====================================================== --}}
-                                                            {{-- ====================================================== --}}
-
-                                                            <div class="modal-body p-0 m-0">
-                                                                <div class="row m-0 pt-4 pb-4">
-                                                                    <div class="col-12 col-md-3">
-                                                                        <div class="form-group d-flex flex-column">
-                                                                            <label for="id_categoria" class=""
-                                                                                style="font-size: 15px">Código<span
-                                                                                    class="text-danger"></span></label>
-                                                                            {{ Form::text('id_categoria', isset($categoria) ? $categoria->id_categoria : null, [
-                                                                                'class' => 'form-control bg-secondary-subtle',
-                                                                                'id' => 'id_categoria_' . $categoria->id_categoria,
-                                                                                'readonly',
-                                                                            ]) }}
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-12 col-md-9">
-                                                                        <div class="form-group d-flex flex-column">
-                                                                            <label for="categoria" class=""
-                                                                                style="font-size: 15px">Nombre<span
-                                                                                    class="text-danger">*</span></label>
-                                                                            {{ Form::text('categoria', isset($categoria) ? $categoria->categoria : null, [
-                                                                                'class' => 'form-control',
-                                                                                'id' => 'categoria_' . $categoria->id_categoria,
-                                                                                'minlength' => '3',
-                                                                                'maxlength' => '100',
-                                                                                'pattern' => "^[A-Za-zÁÉÍÓÚáéíóúÑñ\s'-]{3,100}$",
-                                                                                'title' => 'Debe contener solo letras, espacios, guiones o apóstrofes (mínimo 3 caracteres)',
-                                                                                'placeholder' => 'Ingrese nombre de categoría',
-                                                                            ]) }}
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        {{-- ====================================================== --}}
-                                                        {{-- ====================================================== --}}
-
-                                                        <!-- Contenedor para el GIF -->
-                                                        <div id="loadingIndicatorEditCategoria_{{ $categoria->id_categoria }}"
-                                                            class="loadingIndicator">
-                                                            <img src="{{ asset('imagenes/loading.gif') }}"
-                                                                alt="Procesando...">
-                                                        </div>
-
-                                                        {{-- ====================================================== --}}
-                                                        {{-- ====================================================== --}}
-
-                                                        <div class="d-flex justify-content-center mt-3">
-                                                            <button type="submit" title="Guardar Configuración"
-                                                                class="btn btn-success me-3"
-                                                                id="btn_editar_categoria_{{ $categoria->id_categoria }}">
-                                                                <i class="fa fa-floppy-o" aria-hidden="true">
-                                                                    Modificar</i>
-                                                            </button>
-
-                                                            <button type="button" title="Cancelar"
-                                                                class="btn btn-secondary" data-bs-dismiss="modal"
-                                                                id="btn_editar_cancelar_{{ $categoria->id_categoria }}">
-                                                                <i class="fa fa-times" aria-hidden="true"> Cancelar</i>
-                                                            </button>
-                                                        </div>
-                                                        {!! Form::close() !!}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {{-- FINAL Modal EDITAR CATEGORÍA --}}
-
-                                            {{-- INICIO Modal ESTADO CATEGORIA --}}
-                                            <div class="modal fade"
-                                                id="modalCambiarEstadoCategoria_{{ $categoria->id_categoria }}"
-                                                tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content p-3">
-                                                        {!! Form::open([
-                                                            'method' => 'POST',
-                                                            'route' => ['cambiar_estado_categoria'],
-                                                            'class' => 'mt-2',
-                                                            'autocomplete' => 'off',
-                                                            'id' => 'formCambiarEstadoCategoria_' . $categoria->id_categoria,
-                                                        ]) !!}
-                                                        @csrf
-                                                        <div class="rounded-top" style="border: solid 1px #337AB7;">
-                                                            <div class="rounded-top text-white text-center"
-                                                                style="background-color: #337AB7; border: solid 1px #337AB7;">
-                                                                <h5>Cambiar estado de categoría: <br>
-                                                                    <span
-                                                                        class="text-warning">{{ $categoria->categoria }}</span>
-                                                                </h5>
-                                                            </div>
-
-                                                            <div class="mt-4 mb-4 text-center">
-                                                                <span class="text-danger fs-5">¿Realmente desea cambiar el
-                                                                    estado de la categoría?</span>
-                                                            </div>
-
-
-                                                            {{ Form::hidden('id_categoria', isset($categoria) ? $categoria->id_categoria : null, ['class' => '', 'id' => 'id_categoria']) }}
-                                                        </div>
-
-                                                        {{-- ====================================================== --}}
-                                                        {{-- ====================================================== --}}
-
-                                                        <!-- Contenedor para el GIF -->
-                                                        <div id="loadingIndicatorEstadoCategoria_{{ $categoria->id_categoria }}"
-                                                            class="loadingIndicator">
-                                                            <img src="{{ asset('imagenes/loading.gif') }}"
-                                                                alt="Procesando...">
-                                                        </div>
-
-                                                        {{-- ====================================================== --}}
-                                                        {{-- ====================================================== --}}
-
-                                                        <div class="d-flex justify-content-around mt-3">
-                                                            <button type="submit"
-                                                                id="btn_cambiar_estado_categoria_{{ $categoria->id_categoria }}"
-                                                                class="btn btn-success" title="Guardar Configuración">
-                                                                <i class="fa fa-floppy-o" aria-hidden="true">
-                                                                    Modificar</i>
-                                                            </button>
-
-
-                                                            <button type="button"
-                                                                id="btn_cancelar_estado_categoria_{{ $categoria->id_categoria }}"
-                                                                class="btn btn-secondary" title="Cancelar"
-                                                                data-bs-dismiss="modal">
-                                                                <i class="fa fa-times" aria-hidden="true"> Cancelar</i>
-                                                            </button>
-                                                        </div>
-                                                        {!! Form::close() !!}
-                                                    </div> {{-- FIN modal-content --}}
-                                                </div> {{-- FIN modal-dialog --}}
-                                            </div> {{-- FIN modal --}}
-                                            {{-- FINAL Modal ESTADO CATEGORÍA --}}
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -378,6 +207,33 @@
             </div> {{-- FIN div_ --}}
         </div>
     </div>
+
+    {{-- =============================================================== --}}
+    {{-- =============================================================== --}}
+    {{-- =============================================================== --}}
+
+    {{-- INICIO Modal EDITAR CATEGORÍA --}}
+    <div class="modal fade" id="modalEditarCategoria" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content p-3" id="modalEditarCategoriaContent">
+                {{-- El contenido AJAX se cargará aquí --}}
+            </div>
+        </div>
+    </div>
+    {{-- FINAL Modal EDITAR CATEGORÍA --}}
+
+    {{-- =============================================================== --}}
+    {{-- =============================================================== --}}
+
+    {{-- INICIO Modal ESTADO CATEGORIA --}}
+    <div class="modal fade" id="modalCambiarEstadoCategoria" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" >
+        <div class="modal-dialog">
+            <div class="modal-content p-3" id="modalCambiarEstadoCategoriaContent">
+                {{-- El contenido AJAX se cargará aquí --}}
+            </div> {{-- FIN modal-content --}}
+        </div> {{-- FIN modal-dialog --}}
+    </div> {{-- FIN modal --}}
+    {{-- FINAL Modal ESTADO CATEGORÍA --}}
 @stop
 
 {{-- =============================================================== --}}
@@ -453,6 +309,33 @@
             // ======================================================
             // ======================================================
 
+            $(document).on('click', '.btn-editar-categoria', function () {
+                const idCategoria = $(this).data('id');
+
+                $.ajax({
+                    url: `categoria_edit/${idCategoria}`,
+                    type: 'GET',
+                    data: {
+                        '_token': "{{ csrf_token() }}",
+                        tipo_modal: 'editar'
+                    },
+                    beforeSend: function () {
+                        $('#modalEditarCategoria').modal('show');
+                        $('#modalEditarCategoriaContent').html('<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>');
+                    },
+                    success: function (html) {
+                        $('#modalEditarCategoriaContent').html(html);
+
+                    },
+                    error: function () {
+                        $('#modalEditarCategoriaContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');
+                    }
+                });
+            });
+
+            // ======================================================
+            // ======================================================
+
             // formEditarCategoria para cargar gif en el submit
             $(document).on("submit", "form[id^='formEditarCategoria_']", function(e) {
                 const form = $(this);
@@ -473,6 +356,33 @@
                 // Readonly para el campo nueva clave
                 const idCategoria = $(`#id_categoria_${id}`).prop("readonly", true);
                 const categoria = $(`#categoria_${id}`).prop("readonly", true);
+            });
+
+            // ======================================================
+            // ======================================================
+
+            $(document).on('click', '.btn-cambiar-estado', function () {
+                const idCategoria = $(this).data('id');
+
+                $.ajax({
+                    url: `categoria_edit/${idCategoria}`,
+                    type: 'GET',
+                    data: {
+                        '_token': "{{ csrf_token() }}",
+                        tipo_modal: 'estado'
+                    },
+                    beforeSend: function () {
+                        $('#modalCambiarEstadoCategoria').modal('show');
+                        $('#modalCambiarEstadoCategoriaContent').html('<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>');
+                    },
+                    success: function (html) {
+                        $('#modalCambiarEstadoCategoriaContent').html(html);
+
+                    },
+                    error: function () {
+                        $('#modalCambiarEstadoCategoriaContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');
+                    }
+                });
             });
 
             // Botón de submit de cambiar estado de categoría

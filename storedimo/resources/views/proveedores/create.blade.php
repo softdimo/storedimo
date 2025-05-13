@@ -38,8 +38,8 @@
             {{-- =============================================================== --}}
             {{-- =============================================================== --}}
             
-            <div class="modal fade" id="modalAyudaCrearProveedor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static" style="max-width: 55%;">
-                <div class="modal-dialog">
+            <div class="modal fade" id="modalAyudaCrearProveedor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+                <div class="modal-dialog" style="min-width: 55%;">
                     <div class="modal-content p-3">
                         <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
                             <div class="row">

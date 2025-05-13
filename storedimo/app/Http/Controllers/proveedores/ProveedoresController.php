@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Responsable\proveedores\ProveedorIndex;
 use App\Http\Responsable\proveedores\ProveedorStore;
 use App\Http\Responsable\proveedores\ProveedorUpdate;
+use App\Http\Responsable\proveedores\ProveedorEdit;
 use Exception;
 use GuzzleHttp\Client;
 use App\Traits\MetodosTrait;
@@ -146,9 +147,27 @@ class ProveedoresController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($idProveedor)
     {
-        //
+        try {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else {
+                    return new ProveedorEdit($idProveedor);
+                }
+            }
+        } catch (Exception $e) {
+            alert()->error("Exception Store Proveedor!");
+            return redirect()->to(route('login'));
+        }
     }
     
     // ======================================================================

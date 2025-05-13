@@ -45,6 +45,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->put('categoria_update/{id}', 'categorias\CategoriasController@update');
     $router->post('consulta_categoria', 'categorias\CategoriasController@consultaCategoria');
     $router->post('cambiar_estado_categoria/{idCategoria}', 'categorias\CategoriasController@destroy');
+    $router->get('categoria_edit/{idCategoria}', 'categorias\CategoriasController@edit');
 });
 
 // ========================================================================
@@ -83,6 +84,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('query_nit_proveedor', 'proveedores\ProveedoresController@consultarNitProveedor');
     $router->post('proveedor_store', 'proveedores\ProveedoresController@store');
     $router->put('proveedor_update/{idProveedor}', 'proveedores\ProveedoresController@update');
+    $router->get('proveedor_edit/{idProveedor}', 'proveedores\ProveedoresController@edit');
 });
 
 // ========================================================================
@@ -96,7 +98,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('detalle_compra/{idCompra}', 'entradas\EntradasController@detalleCompra');
     $router->post('detalle_compra_pdf/{idCompra}', 'entradas\EntradasController@detalleCompraProductoPdf');
 });
-
+$router->post('producto_edit/{idProducto}', 'productos\ProductosController@edit');
 // ========================================================================
 
 // VENTAS

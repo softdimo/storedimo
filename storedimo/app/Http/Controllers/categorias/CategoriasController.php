@@ -8,6 +8,7 @@ use Exception;
 use App\Http\Responsable\categorias\CategoriaIndex;
 use App\Http\Responsable\categorias\CategoriaStore;
 use App\Http\Responsable\categorias\CategoriaUpdate;
+use App\Http\Responsable\categorias\CategoriaEdit;
 use App\Http\Responsable\categorias\CategoriaDestroy;
 use GuzzleHttp\Client;
 use App\Models\Categoria;
@@ -125,9 +126,31 @@ class CategoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($idCategoria)
     {
-        //
+        try
+        {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else
+            {
+                $sesion = $this->validarVariablesSesion();
+    
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else
+                {
+                    return new CategoriaEdit($idCategoria);
+                }
+            }
+        } catch (Exception $e)
+        {
+            alert()->error("Consultando la edición de la Categoria!");
+            return back();
+        }
     }
 
     // ======================================================================

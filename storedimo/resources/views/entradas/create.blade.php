@@ -126,6 +126,11 @@
                                 {!! Form::number('cantidad', null, ['class' => 'form-control', 'id' => 'cantidad', 'min' => '1', 'maxlength' => '4']) !!}
                             </div>
                             {{-- ============ --}}
+                            <!-- Contenedor para el GIF -->
+                            <div id="loadingIndicatorAgregarCompra" class="loadingIndicator" style="display: none;">
+                                <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                            </div>
+                            {{-- ============ --}}
                             <div class="p-3 d-flex justify-content-end">
                                 <button type="button" class="btn btn-primary" id="btn_add_entrada" title="Agregar Entrada">
                                     <i class="fa fa-plus plus"></i> Agregar
@@ -485,12 +490,16 @@
                 $('#p_unitario').html(0);
                 $('#p_detal').html(0);
                 $('#p_x_mayor').html(0);
+                $('#btn_add_entrada').prop("disabled", true);
             }
 
             // INICIO - Validación Formulario Creación de Bajas de productos
             $('#id_producto').change(function () {
                 let idProducto = $('#id_producto').val();
                 console.log(idProducto);
+
+                let btn = $('#btn_add_entrada');
+                let spinner = $("#loadingIndicatorAgregarCompra");
 
                 $.ajax({
                     async: true,
@@ -501,6 +510,14 @@
                         '_token': "{{ csrf_token() }}",
                         'id_producto': idProducto
                     },
+                    beforeSend: function () {
+                        $('#p_unitario').html(0);
+                        $('#p_detal').html(0);
+                        $('#p_x_mayor').html(0);
+                        // Desactivar botón
+                        spinner.show();
+                        btn.prop("disabled", true).html(`<i class="fa fa-spinner fa-spin"></i> Procesando...`);
+                    },
                     success: function (respuesta) {
                         console.log(respuesta);
                         console.log(respuesta.precio_unitario);
@@ -510,17 +527,26 @@
                             $('#p_detal').html(0);
                             $('#p_x_mayor').html(0);
                         } else {
-                            $('#p_unitario').html(respuesta.precio_unitario);
-                            $('#p_detal').html(respuesta.precio_detal);
-                            $('#p_x_mayor').html(respuesta.precio_por_mayor);
+                            setTimeout(() => {
+                                $('#p_unitario').html(respuesta.precio_unitario);
+                                $('#p_detal').html(respuesta.precio_detal);
+                                $('#p_x_mayor').html(respuesta.precio_por_mayor);
 
-                            $('#idProductoEdit').val(respuesta.id_producto);
-                            $('#precioUnitarioEdit').val(respuesta.precio_unitario);
-                            $('#precioDetalEdit').val(respuesta.precio_detal);
-                            $('#precioPorMayorEdit').val(respuesta.precio_por_mayor);
+                                $('#idProductoEdit').val(respuesta.id_producto);
+                                $('#precioUnitarioEdit').val(respuesta.precio_unitario);
+                                $('#precioDetalEdit').val(respuesta.precio_detal);
+                                $('#precioPorMayorEdit').val(respuesta.precio_por_mayor);
 
-                            $('#id_producto_compra').val(respuesta.id_producto);
+                                $('#id_producto_compra').val(respuesta.id_producto);
+
+                                spinner.hide();
+                                btn.prop("disabled", false).html(`<i class="fa fa-plus plus"></i> Agregar`);
+                            }, 1000);
                         }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error:", error);
+                        btn.prop("disabled", false).html(`<i class="fa fa-plus plus"></i> Agregar`);
                     }
                 });
             });

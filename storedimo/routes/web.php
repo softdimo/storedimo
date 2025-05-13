@@ -83,6 +83,7 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
     // PROVEEDORES
     Route::group(['namespace' => 'App\Http\Controllers\proveedores'], function () {
         Route::resource('proveedores', 'ProveedoresController');
+        Route::get('proveedor_edit/{idProveedor}', 'ProveedoresController@edit')->name('proveedor_edit');
     });
 
     // ========================================================================
@@ -91,6 +92,7 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
     // CATEGORIAS
     Route::group(['namespace' => 'App\Http\Controllers\categorias'], function () {
         Route::resource('categorias', 'CategoriasController');
+        Route::get('categoria_edit/{idCategoria}', 'CategoriasController@edit')->name('categoria_edit');
         Route::post('editar_categoria', 'CategoriasController@update')->name('editar_categoria');
         Route::post('cambiar_estado_categoria', 'CategoriasController@destroy')->name('cambiar_estado_categoria');
     });
