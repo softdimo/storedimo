@@ -215,4 +215,28 @@ class ExistenciasController extends Controller
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
+
+    public function baja($idBaja)
+    {
+        try {
+            $baja = Baja::leftjoin('usuarios','usuarios.id_usuario','=','bajas.id_responsable_baja')
+                ->leftjoin('estados','estados.id_estado','=','bajas.id_estado_baja')
+                ->select(
+                    'id_baja',
+                    'id_usuario',
+                    DB::raw("CONCAT(nombre_usuario, ' ', apellido_usuario, ' - ', identificacion) AS nombres_usuario"),
+                    'fecha_baja',
+                    'id_estado_baja',
+                    'estado'
+                )
+                ->where('id_baja', $idBaja)
+                ->orderByDesc('fecha_baja')
+                ->first();
+
+                return response()->json($baja);
+
+        } catch (Exception $e) {
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
+    }
 }

@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use App\Traits\MetodosTrait;
 use Exception;
 use App\Http\Responsable\existencias\BajaIndex;
+use App\Http\Responsable\existencias\BajaDetalle;
 use App\Http\Responsable\existencias\BajaStore;
 use App\Http\Responsable\existencias\ReporteBajasPdf;
 use App\Http\Responsable\existencias\StockMinimo;
@@ -102,15 +103,32 @@ class ExistenciasController extends Controller
 
     // ======================================================================
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function baja($idBaja)
     {
-        //
+        try
+        {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else
+            {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else
+                {
+                    $vista = new BajaDetalle($idBaja);
+                    return $this->validarAccesos($sesion[0], 14, $vista);
+                }
+            }
+        } catch (Exception $e)
+        {
+            alert()->error("Exception Index Bajas!");
+            return redirect()->to(route('login'));
+        }
     }
 
     // ======================================================================

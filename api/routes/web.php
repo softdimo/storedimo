@@ -145,6 +145,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 // EXISTENCIAS-BAJAS
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('baja_index', 'existencias\ExistenciasController@bajaIndex');
+    $router->get('baja/{idBaja}', 'existencias\ExistenciasController@baja');
     $router->post('baja_store', 'existencias\ExistenciasController@bajaStore');
     $router->post('baja_detalle/{idBaja}', 'existencias\ExistenciasController@bajaDetalle');
     $router->post('reporte_bajas_pdf', 'existencias\ExistenciasController@reporteBajasPdf');

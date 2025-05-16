@@ -126,9 +126,9 @@
                                         <td>{{ $baja->estado }}</td>
                                         <td>
                                             <a href="#" role="button"
-                                                class="btn rounded-circle btn-circle text-white" title="Ver Detalles"
-                                                style="background-color: #286090" data-bs-toggle="modal"
-                                                data-bs-target="#modalDetalleBaja_{{ $baja->id_baja }}">
+                                                class="btn rounded-circle btn-circle text-white btn-detalle-baja" title="Ver Detalles"
+                                                style="background-color: #286090" 
+                                                data-id="{{ $baja->id_baja }}">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                         </td>
@@ -239,59 +239,15 @@
     {{-- =============================================================== --}}
     {{-- =============================================================== --}}
 
-    @foreach ($bajasIndex as $baja)
-        <!-- INICIO Modal DETALLES BAJA -->
-        <div class="modal fade" id="modalDetalleBaja_{{ $baja->id_baja }}" tabindex="-1"
-            data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content p-3">
-                    <div class="rounded-top" style="border: solid 1px #337AB7;">
-                        <div class="rounded-top text-white text-center"
-                            style="background-color: #337AB7; border: solid 1px #337AB7;">
-                            <h5>Detalle Baja Código: {{ $baja->id_baja }}</h5>
-                        </div>
-
-                        <div class="modal-body p-0 m-0">
-                            <div class="row m-0">
-                                <div class="col-12 p-3 pt-1">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-bordered w-100 mb-0"
-                                            aria-describedby="venta">
-                                            <thead>
-                                                <tr class="header-table text-center">
-                                                    <th>Producto</th>
-                                                    <th>Cantidad</th>
-                                                    <th>Tipo Baja</th>
-                                                    <th>Observaciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($baja->detalles as $producto)
-                                                    <tr class="text-center">
-                                                        <td>{{ $producto->nombre_producto }}</td>
-                                                        <td>{{ $producto->cantidad }}</td>
-                                                        <td>{{ $producto->tipo_baja }}</td>
-                                                        <td>{{ $producto->observaciones }}</td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="d-flex justify-content-end mt-3">
-                        <button type="button" title="Cancelar" class="btn btn-secondary" data-bs-dismiss="modal">
-                            <i class="fa fa-times"> Cerrar</i>
-                        </button>
-                    </div>
-                </div>
+    {{-- INICIO Modal DETALLE BAJA--}}
+    <div class="modal fade" id="modalDetalleBaja" tabindex="-1" data-bs-keyboard="false" data-bs-backdrop="static">
+        <div class="modal-dialog" style="min-width: 50%">
+            <div class="modal-content p-3" id="modalDetalleBajaContent">
+                {{-- El contenido AJAX se cargará aquí --}}
             </div>
         </div>
-        <!-- FIN Modal DETALLES BAJA -->
-    @endforeach
+    </div>
+    {{-- FINAL Modal DETALLE BAJA --}}
 @stop
 
 {{-- =============================================================== --}}
@@ -384,6 +340,25 @@
             // ============================================================
             // ============================================================
             // ============================================================
+
+            $(document).on('click', '.btn-detalle-baja', function () {
+                const idBaja = $(this).data('id');
+
+                $.ajax({
+                    url: `baja/${idBaja}`,
+                    type: 'GET',
+                    beforeSend: function () {
+                        $('#modalDetalleBajaContent').html('<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>');
+                        $('#modalDetalleBaja').modal('show');
+                    },
+                    success: function (html) {
+                        $('#modalDetalleBajaContent').html(html);
+                    },
+                    error: function () {
+                        $('#modalDetalleBajaContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');
+                    }
+                });
+            });
 
 
         }); // FIN document.ready
