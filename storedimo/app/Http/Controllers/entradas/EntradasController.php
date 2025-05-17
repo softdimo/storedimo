@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use App\Traits\MetodosTrait;
 use Exception;
 use App\Http\Responsable\entradas\EntradaIndex;
+use App\Http\Responsable\entradas\DetalleEntrada;
 use App\Http\Responsable\entradas\EntradaStore;
 use App\Http\Responsable\entradas\EntradaUpdate;
 use App\Http\Responsable\entradas\ReporteComprasPdf;
@@ -267,6 +268,34 @@ class EntradasController extends Controller
         } catch (Exception $e)
         {
             alert()->error("Exception stockMinimo!");
+            return redirect()->to(route('login'));
+        }
+    }
+
+    public function entrada($idEntrada)
+    {
+        try
+        {
+            if (!$this->checkDatabaseConnection()) {
+                return view('db_conexion');
+            } else
+            {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else
+                {
+                    $vista = new DetalleEntrada($idEntrada);
+                    return $this->validarAccesos($sesion[0], 38, $vista);
+                }
+            }
+        } catch (Exception $e)
+        {
+            alert()->error("Exception Index Entradas!");
             return redirect()->to(route('login'));
         }
     }

@@ -82,25 +82,22 @@
                                         @if ($entrada->id_estado == 1)
                                             <td>
                                                 <button title="Ver Detalles"
-                                                    class="btn rounded-circle btn-circle text-white"
-                                                    style="background-color: #286090" data-bs-toggle="modal"
-                                                    data-bs-target="#modalDetalleEntrada_{{ $entrada->id_compra }}">
+                                                    class="btn rounded-circle btn-circle text-white btn-detalle-entrada"
+                                                    style="background-color: #286090" data-id="{{ $entrada->id_compra }}">
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                                 </button>
 
                                                 <button title="Anular"
-                                                    class="btn rounded-circle btn-circle text-white btn-danger"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#modalAnularCompra_{{ $entrada->id_compra }}">
+                                                    class="btn rounded-circle btn-circle text-white btn-danger btn-anular-entrada"
+                                                    data-id="{{ $entrada->id_compra }}">
                                                     <i class="fa fa-remove"></i>
                                                 </button>
                                             </td>
                                         @else
                                             <td>
                                                 <button title="Ver Detalles"
-                                                    class="btn rounded-circle btn-circle text-white"
-                                                    style="background-color: #286090" data-bs-toggle="modal"
-                                                    data-bs-target="#modalDetalleEntrada_{{ $entrada->id_compra }}">
+                                                    class="btn rounded-circle btn-circle text-white btn-detalle-entrada"
+                                                    style="background-color: #286090" data-id="{{ $entrada->id_compra }}">
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                                 </button>
                                             </td>
@@ -112,12 +109,13 @@
                         </table>
                     </div>
 
-                    {{-- <div class="mt-5 mb-2 d-flex justify-content-center">
-                        <button type="submit" class="btn rounded-2 me-3 text-white" style="background-color: #286090" data-bs-toggle="modal" data-bs-target="#modalReporteCompras">
+                    <div class="mt-5 mb-2 d-flex justify-content-center">
+                        <button type="submit" class="btn rounded-2 me-3 text-white" style="background-color: #286090"
+                            data-bs-toggle="modal" data-bs-target="#modalReporteCompras">
                             <i class="fa fa-file-pdf-o"></i>
                             Reporte Compras
                         </button>
-                    </div> --}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -127,8 +125,7 @@
     {{-- =============================================================== --}}
 
     {{-- INICIO Modal REPORTE COMPRAS --}}
-    <div class="modal fade" id="modalReporteCompras" tabindex="-1" data-bs-backdrop="static"
-        data-bs-keyboard="false">
+    <div class="modal fade" id="modalReporteCompras" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content p-3">
                 <div class="rounded-top" style="border: solid 1px #337AB7;">
@@ -206,172 +203,26 @@
     {{-- =============================================================== --}}
     {{-- =============================================================== --}}
 
-    @foreach ($entradas as $entrada)
-        <!-- Modal Detalles compra -->
-        <div class="modal fade" id="modalDetalleEntrada_{{$entrada->id_compra}}" tabindex="-1"
-            data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" style="max-height: 96vh">
-            <div class="modal-dialog">
-                <div class="modal-content p-3">
-                    <div class="rounded-top" style="border: solid 1px #337AB7;">
-                        <div class="rounded-top text-white text-center"
-                            style="background-color: #337AB7; border: solid 1px #337AB7;">
-                            <h5>Detalle de Compra Código: {{ $entrada->id_compra }}</h5>
-                        </div>
 
-                        <div class="mt-3 mb-0 ps-3">
-                            <h6>Compra realizada por: <span style="color: #337AB7">{{$entrada->nombres_usuario}}</span></h6>
-                        </div>
-
-                        <div class="modal-body p-0 m-0">
-                            <div class="row m-0">
-                                <div class="col-12 p-3 pt-1">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-bordered w-100 mb-0"
-                                            aria-describedby="entradas">
-                                            <thead>
-                                                <tr class="header-table text-center">
-                                                    <th>Fecha Compra</th>
-                                                    {{-- <th>Empresa</th> --}}
-                                                    <th>Id Proveedor</th>
-                                                    <th>Nombre Proveedor</th>
-                                                    <th>Valor Total</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="text-center">
-                                                    <td>{{ $entrada->fecha_compra }}</td>
-                                                    @if ($entrada->nit_proveedor)
-                                                        <td>{{ $entrada->nit_proveedor }}</td>
-                                                    @else
-                                                        <td>{{ $entrada->identificacion }}</td>
-                                                    @endif
-
-                                                    @if ($entrada->proveedor_juridico)
-                                                        <td>{{ $entrada->proveedor_juridico }}</td>
-                                                    @else
-                                                        <td>{{ $entrada->nombres_proveedor }}
-                                                            {{ $entrada->apellidos_proveedor }}</td>
-                                                    @endif
-
-                                                    <td class="text-end">{{ $entrada->valor_compra }}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="">
-                                <div class="mt-3 mb-0 ps-3">
-                                    <h4 class="mb-0" style="color: #337AB7">Productos</h4>
-                                </div>
-
-                                <div class="row m-0">
-                                    <div class="col-12 p-3 pt-1">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered w-100 mb-0"
-                                                aria-describedby="compra_detalle" id="tblDetalleCompraProductos_{{ $entrada->id_compra }}">
-                                                <thead>
-                                                    <tr class="header-table text-center">
-                                                        <th>Producto</th>
-                                                        <th>Cantidad</th>
-                                                        <th>Precio</th>
-                                                        <th>Total</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($entrada->detalles as $producto)
-                                                        <tr class="text-center">
-                                                            <td>{{ $producto->nombre_producto }}</td>
-                                                            <td>{{ $producto->cantidad }}</td>
-                                                            <td class="text-end">{{ $producto->precio_unitario_compra }}</td>
-                                                            <td class="text-end">{{ $producto->subtotal }}</td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="loadingIndicatorEditCategoria" class="loadingIndicator">
-                        <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
-                    </div>
-
-                    <div class="d-flex justify-content-center mt-3">
-                        <a href="{{ route('detalle_compras_pdf', $entrada->id_compra) }}" target="_blank"
-                            class="btn btn-success me-3" style="background-color: #337AB7">
-                            <i class="fa fa-file-pdf-o"></i> Pdf Detalle Compra
-                        </a>
-
-                        <button type="button" title="Cancelar" class="btn btn-secondary" data-bs-dismiss="modal"
-                            id="btn_cancelar_detalle_compra">
-                            <i class="fa fa-times" aria-hidden="true"> Cerrar</i>
-                        </button>
-                    </div>
-                </div>
+    {{-- INICIO Modal DETALLE ENTRADA --}}
+    <div class="modal fade" id="modalDetalleEntrada" tabindex="-1" data-bs-keyboard="false" data-bs-backdrop="static">
+        <div class="modal-dialog" style="min-width: 50%">
+            <div class="modal-content p-3" id="modalDetalleEntradaContent">
+                {{-- El contenido AJAX se cargará aquí --}}
             </div>
         </div>
+    </div>
+    {{-- FINAL Modal DETALLE ENTRADA --}}
 
-        {{-- ====================================================== --}}
-        {{-- ====================================================== --}}
-        {{-- ====================================================== --}}
-
-        <!-- Modal Anular compra -->
-        <div class="modal fade" id="modalAnularCompra_{{ $entrada->id_compra }}" tabindex="-1"
-            data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content p-3">
-                    {!! Form::open([
-                        'method' => 'POST',
-                        'route' => ['anular_compra'],
-                        'class' => 'mt-2',
-                        'autocomplete' => 'off',
-                        'id' => 'formAnularCompra_' . $entrada->id_compra,
-                    ]) !!}
-                    @csrf
-
-                    {{ Form::hidden('id_compra', isset($entrada) ? $entrada->id_compra : null, ['class' => '', 'id' => 'id_compra_' . $entrada->id_compra]) }}
-
-                    <div class="rounded-top" style="border: solid 1px #337AB7;">
-                        <div class="rounded-top text-white text-center"
-                            style="background-color: #337AB7; border: solid 1px #337AB7;">
-                            <h5>Anular Compra</h5>
-                        </div>
-
-                        <div class="modal-body p-0 m-0">
-                            <div class="mt-3 mb-3 mb-0 ps-3 text-center">
-                                <h5 class="text-danger">¿Realmente desea anular la compra del producto?</h5>
-
-                                <h4 class="mt-4" style="color: #337AB7"> {{ $entrada->id_compra }} -
-                                    {{ $entrada->nombre_producto }}</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="loadingIndicatorAnularCompra_{{ $entrada->id_compra }}" class="loadingIndicator">
-                        <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
-                    </div>
-
-                    <div class="d-flex justify-content-around mt-3">
-                        <button type="submit" class="btn btn-success" id="btn_anular_compra_{{ $entrada->id_compra }}"
-                            style="background-color: #337AB7">
-                            <i class="fa fa-file-pdf-o"> Anular</i>
-                        </button>
-
-                        <button type="button" class="btn btn-secondary"
-                            id="btn_cancelar_compra_{{ $entrada->id_compra }}" data-bs-dismiss="modal">
-                            <i class="fa fa-times" aria-hidden="true"> Cerrar</i>
-                        </button>
-                    </div>
-                    {!! Form::close() !!}
-                </div>
+    {{-- INICIO Modal ANULAR ENTRADA --}}
+    <div class="modal fade" id="modalAnularEntrada" tabindex="-1" data-bs-keyboard="false" data-bs-backdrop="static">
+        <div class="modal-dialog" style="min-width: 50%">
+            <div class="modal-content p-3" id="modalAnularEntradaContent">
+                {{-- El contenido AJAX se cargará aquí --}}
             </div>
         </div>
-    @endforeach
+    </div>
+    {{-- FINAL Modal ANULAR ENTRADA --}}
 @stop
 
 @section('scripts')
@@ -386,17 +237,20 @@
                 "infoEmpty": "No hay registros",
                 stripe: true,
                 bSort: true,
-                buttons: [
-                    {
+                buttons: [{
+                        extend: 'pdfHtml5',
                         text: 'PDF',
                         className: 'waves-effect waves-light btn-rounded btn-sm btn-danger',
-                        action: function() {
-                            let modal = new bootstrap.Modal(document.getElementById(
-                                'modalReporteCompras'));
-                            modal.show();
+                        orientation: 'landscape',
+                        pageSize: 'A4', // se ajustará dinámicamente abajo
+                        title: 'Listado de Empresas',
+                        exportOptions: {
+                            columns: ':visible:not(:last-child)'
                         },
-                        init: function(api, node, config) {
-                            $(node).removeClass('dt-button');
+                        customize: function(doc) {
+                            const columnCount = $('#tbl_categorias thead th').length;
+                            doc.pageSize = 'A5';
+                            doc.defaultStyle.fontSize = 15;
                         }
                     },
                     {
@@ -417,7 +271,7 @@
             // =========================================================================
             // =========================================================================
 
-            $('[id^=modalDetalleEntrada_]').on('shown.bs.modal', function () {
+            $('[id^=modalDetalleEntrada_]').on('shown.bs.modal', function() {
                 const modalId = $(this).attr('id');
                 const idCompra = modalId.replace('modalDetalleEntrada_', '');
                 const tableId = `#tblDetalleCompraProductos_${idCompra}`;
@@ -501,6 +355,60 @@
                 // Configura ambos campos de fecha dentro del modal
                 configurarCalendario("fecha_inicial", "calendar_addon_inicial");
                 configurarCalendario("fecha_final", "calendar_addon_final");
+            });
+
+            $(document).on('click', '.btn-detalle-entrada', function() {
+                const idEntrada = $(this).data('id');
+
+                $.ajax({
+                    url: `detalleEntrada/${idEntrada}`,
+                    type: 'GET',
+                    data: {
+                        '_token': "{{ csrf_token() }}",
+                        tipo_modal: 'detalle_compra'
+                    },
+                    beforeSend: function() {
+                        $('#modalDetalleEntradaContent').html(
+                            '<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>'
+                            );
+                        $('#modalDetalleEntrada').modal('show');
+                    },
+                    success: function(html) {
+                        $('#modalDetalleEntradaContent').html(html);
+                    },
+                    error: function() {
+                        $('#modalDetalleEntradaContent').html(
+                            '<div class="alert alert-danger">Error al cargar el formulario.</div>'
+                            );
+                    }
+                });
+            });
+
+            $(document).on('click', '.btn-anular-entrada', function() {
+                const idEntrada = $(this).data('id');
+
+                $.ajax({
+                    url: `detalleEntrada/${idEntrada}`,
+                    type: 'GET',
+                    data: {
+                        '_token': "{{ csrf_token() }}",
+                        tipo_modal: 'anular_compra'
+                    },
+                    beforeSend: function() {
+                        $('#modalAnularEntradaContent').html(
+                            '<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>'
+                            );
+                        $('#modalAnularEntrada').modal('show');
+                    },
+                    success: function(html) {
+                        $('#modalAnularEntradaContent').html(html);
+                    },
+                    error: function() {
+                        $('#modalAnularEntradaContent').html(
+                            '<div class="alert alert-danger">Error al cargar el formulario.</div>'
+                            );
+                    }
+                });
             });
         }); // FIN document.ready
     </script>

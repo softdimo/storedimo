@@ -96,6 +96,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('anular_compra/{idCompra}', 'entradas\EntradasController@anularCompra');
     $router->post('reporte_compras_pdf', 'entradas\EntradasController@reporteComprasPdf');
     $router->post('detalle_compra/{idCompra}', 'entradas\EntradasController@detalleCompra');
+    $router->get('entrada/{idEntrada}', 'entradas\EntradasController@entrada');
     $router->post('detalle_compra_pdf/{idCompra}', 'entradas\EntradasController@detalleCompraProductoPdf');
 });
 $router->post('producto_edit/{idProducto}', 'productos\ProductosController@edit');

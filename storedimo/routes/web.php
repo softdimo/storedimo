@@ -149,6 +149,7 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
     // ENTRADAS
     Route::group(['namespace' => 'App\Http\Controllers\entradas'], function () {
         Route::resource('entradas', 'EntradasController');
+        Route::get('detalleEntrada/{idEntrada}', 'EntradasController@entrada')->name('detalleEntrada');
         Route::post('anular_compra', 'EntradasController@anularCompra')->name('anular_compra');
         Route::post('reporte_compras_pdf', 'EntradasController@reporteComprasPdf')->name('reporte_compras_pdf');
         Route::get('detalle_compras_pdf/{idCompra}', 'EntradasController@detalleComprasPdf')->name('detalle_compras_pdf');

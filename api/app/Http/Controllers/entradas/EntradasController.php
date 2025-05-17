@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Responsable\entradas\EntradaIndex;
+use App\Http\Responsable\entradas\DetalleEntrada;
 use App\Http\Responsable\entradas\EntradaStore;
 use App\Http\Responsable\entradas\EntradaUpdate;
 use App\Models\Compra;
@@ -68,15 +69,10 @@ class EntradasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    
+    public function entrada($idEntrada)
     {
-        //
+        return new DetalleEntrada($idEntrada);
     }
 
     // ======================================================================
