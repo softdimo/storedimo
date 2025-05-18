@@ -116,7 +116,7 @@ class UsuariosController extends Controller
         //
     }
 
-    public function edit($idUsuario)
+    public function edit(Request $request, $idUsuario)
     {
         try {
             if (!$this->checkDatabaseConnection()) {
@@ -133,6 +133,16 @@ class UsuariosController extends Controller
                 } else
                 {
                     $usuario = $this->queryUsuarioUpdate($idUsuario);
+
+                    // Recibe el tipo de modal desde la request
+                    $tipoModal = $request->get('tipo_modal', 'editar_usuario'); // valor por defecto
+
+                    return match ($tipoModal) {
+                        'cambiar_clave' => view('usuarios.modal_cambiar_clave', compact('usuario')),
+                        default  => view('usuarios.modal_editar_usuario', compact('usuario')),
+                    };
+
+
                     return view('usuarios.edit', compact('usuario'));
                 }
             }

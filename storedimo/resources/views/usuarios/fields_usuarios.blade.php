@@ -3,7 +3,7 @@
         Usuarios (Obligatorios * )</h5>
 
     <div class="row m-0 p-3" id="div_campos_usuarios">
-        {!! Form::hidden('id_usuario', isset($usuario) ? $usuario->id_usuario : null, [
+        {!! Form::hidden('id_usuario', null, [
             'class' => '',
             'id' => 'id_usuario',
             'required' => 'required',
@@ -26,22 +26,19 @@
                         class="text-danger">*</span></label>
                 {!! Form::select(
                     'id_tipo_documento',
-                    collect(['' => 'Seleccionar...'])->union($tipos_documento),
-                    isset($usuario) ? $usuario->id_tipo_documento : null,
+                    collect(['' => 'Seleccionar...'])->union($tipos_documento), null,
                     ['class' => 'form-select select2', 'id' => 'id_tipo_documento', 'required' => 'required'],
                 ) !!}
             </div>
         </div>
 
-
         {{-- ======================= --}}
-
 
         <div class="col-12 col-md-3 mt-3">
             <div class="form-group d-flex flex-column">
                 <label for="identificacion" class="form-label">Número de documento <span
                         class="text-danger">*</span></label>
-                {!! Form::text('identificacion', isset($usuario) ? $usuario->identificacion : null, [
+                {!! Form::text('identificacion', null, [
                     'class' => 'form-control',
                     'id' => 'identificacion',
                     'minlength' => 6,
@@ -54,7 +51,7 @@
         <div class="col-12 col-md-3 mt-3">
             <div class="form-group d-flex flex-column">
                 <label for="nombre_usuario" class="form-label">Nombres <span class="text-danger">*</span></label>
-                {!! Form::text('nombre_usuario', isset($usuario) ? $usuario->nombre_usuario : null, [
+                {!! Form::text('nombre_usuario', null, [
                     'class' => 'form-control',
                     'id' => 'nombre_usuario',
                     'required' => 'required',
@@ -70,7 +67,7 @@
         <div class="col-12 col-md-3 mt-4">
             <div class="form-group d-flex flex-column">
                 <label for="apellido_usuario" class="form-label">Apellidos <span class="text-danger">*</span></label>
-                {!! Form::text('apellido_usuario', isset($usuario) ? $usuario->apellido_usuario : null, [
+                {!! Form::text('apellido_usuario', null, [
                     'class' => 'form-control',
                     'id' => 'apellido_usuario',
                     'required' => 'required',
@@ -119,7 +116,7 @@
         <div class="col-12 col-md-3 mt-4">
             <div class="form-group d-flex flex-column">
                 <label for="email" class="form-label">Correo Electrónico <span class="text-danger">*</span></label>
-                {!! Form::email('email', isset($usuario) ? $usuario->email : null, [
+                {!! Form::email('email', null, [
                     'class' => 'form-control',
                     'id' => 'email',
                     'required' => 'required',
@@ -166,8 +163,7 @@
                 <label for="id_rol" class="form-label">Rol<span class="text-danger">*</span></label>
                 {!! Form::select(
                     'id_rol',
-                    collect(['' => 'Seleccionar...'])->union($roles),
-                    isset($usuario) ? $usuario->id_rol : null,
+                    collect(['' => 'Seleccionar...'])->union($roles), null,
                     ['class' => 'form-select select2', 'id' => 'id_rol', 'required' => 'required'],
                 ) !!}
             </div>
@@ -180,8 +176,7 @@
                 <label for="id_estado" class="form-label">Estado<span class="text-danger">*</span></label>
                 {!! Form::select(
                     'id_estado',
-                    collect(['' => 'Seleccionar...'])->union($estados),
-                    isset($usuario) ? $usuario->id_estado : 1,
+                    collect(['' => 'Seleccionar...'])->union($estados), 1,
                     ['class' => 'form-select select2', 'id' => 'id_estado', 'required' => 'required'],
                 ) !!}
             </div>

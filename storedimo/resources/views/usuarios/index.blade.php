@@ -169,394 +169,14 @@
                                         <td>{{ $usuario->estado }}</td>
                                         <td>{{ $usuario->fecha_terminacion_contrato }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-success rounded-circle btn-circle"
-                                                title="Editar" data-bs-toggle="modal"
-                                                data-bs-target="#modalEditarUsuario_{{ $usuario->id_usuario }}">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            <button type="button" class="btn btn-success rounded-circle btn-circle btn-editar-usuario" title="Editar Usuario" data-id="{{$usuario->id_usuario}}">
+                                                <i class="fa fa-pencil-square-o"></i>
                                             </button>
 
-                                            <button type="button" class="btn btn-warning rounded-circle btn-circle"
-                                                title="Cambiar contraseña" data-bs-toggle="modal"
-                                                data-bs-target="#modal_cambiar_clave_{{ $usuario->id_usuario }}">
-                                                <i class="fa fa-key" aria-hidden="true"></i>
+                                            <button type="button" class="btn btn-warning rounded-circle btn-circle btn-cambiar-clave" title="Cambiar contraseña" data-id="{{$usuario->id_usuario}}">
+                                                <i class="fa fa-key"></i>
                                             </button>
                                         </td>
-
-                                        {{-- ====================================================== --}}
-                                        {{-- ====================================================== --}}
-
-                                        {{-- INICIO Modal CAMBIAR CONTRASEÑA --}}
-                                        <div class="modal fade" id="modal_cambiar_clave_{{ $usuario->id_usuario }}"
-                                            tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content p-3">
-                                                    {!! Form::open([
-                                                        'method' => 'POST',
-                                                        'route' => ['cambiar_clave'],
-                                                        'class' => 'mt-2',
-                                                        'autocomplete' => 'off',
-                                                        'id' => 'formCambiarClave_' . $usuario->id_usuario,
-                                                    ]) !!}
-                                                    @csrf
-                                                    <div class="" style="border: solid 1px #337AB7;">
-                                                        <div class="rounded-top text-white text-center"
-                                                            style="background-color: #337AB7; border: solid 1px #337AB7;">
-                                                            <h5>Cambiar Contraseña de:
-                                                                {{ $usuario->identificacion . ' - ' . $usuario->nombre_usuario . ' ' . $usuario->apellido_usuario }}
-                                                            </h5>
-                                                        </div>
-
-                                                        {{ Form::hidden('id_usuario', isset($usuario) ? $usuario->id_usuario : null, ['class' => '', 'id' => 'id_usuario', 'required' => 'required']) }}
-
-                                                        {{-- ====================================================== --}}
-                                                        {{-- ====================================================== --}}
-
-                                                        <div class="modal-body p-0 m-0">
-                                                            <div class="row m-0 pt-4 pb-4">
-                                                                <div class="col-12 col-md-6">
-                                                                    <div class="form-group d-flex flex-column">
-                                                                        <label for="nueva_clave" class=""
-                                                                            style="font-size: 15px">Nueva Contraseña<span
-                                                                                class="text-danger">*</span></label>
-                                                                        {{ Form::text('nueva_clave', null, ['class' => 'form-control', 'id' => 'nueva_clave_' . $usuario->id_usuario, 'placeholder' => 'Contraseña', 'required' => 'required']) }}
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-12 col-md-6">
-                                                                    <div class="form-group d-flex flex-column">
-                                                                        <label for="confirmar_clave" class=""
-                                                                            style="font-size: 15px">Confirmar
-                                                                            Contraseña<span
-                                                                                class="text-danger">*</span></label>
-                                                                        {{ Form::text('confirmar_clave', null, ['class' => 'form-control', 'id' => 'confirmar_clave_' . $usuario->id_usuario, 'placeholder' => 'Confirmar Contraseña', 'required' => 'required']) }}
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    {{-- ====================================================== --}}
-                                                    {{-- ====================================================== --}}
-
-                                                    <!-- Contenedor para el GIF -->
-                                                    <div id="loadingIndicatorEditClave_{{ $usuario->id_usuario }}"
-                                                        class="loadingIndicator">
-                                                        <img src="{{ asset('imagenes/loading.gif') }}"
-                                                            alt="Procesando...">
-                                                    </div>
-
-                                                    {{-- ====================================================== --}}
-                                                    {{-- ====================================================== --}}
-
-                                                    <div class="d-flex justify-content-center mt-2">
-                                                        <button type="submit" title="Guardar Configuración"
-                                                            class="btn btn-success me-3"
-                                                            id="btn_editar_clave_{{ $usuario->id_usuario }}">
-                                                            <i class="fa fa-floppy-o" aria-hidden="true"> Modificar</i>
-                                                        </button>
-
-
-                                                        <button type="button" title="Cancelar" class="btn btn-secondary"
-                                                            id="btn_cancelar_clave_{{ $usuario->id_usuario }}"
-                                                            data-bs-dismiss="modal">
-                                                            <i class="fa fa-times" aria-hidden="true"> Cancelar</i>
-                                                        </button>
-                                                    </div>
-                                                    {!! Form::close() !!}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {{-- FINAL Modal CAMBIAR CONTRASEÑA --}}
-
-                                        {{-- ====================================================== --}}
-                                        {{-- ====================================================== --}}
-
-                                        {{-- INICIO Modal EDITAR USUARIO --}}
-                                        <div class="modal fade" id="modalEditarUsuario_{{ $usuario->id_usuario }}"
-                                            tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
-                                            <div class="modal-dialog" style="min-width: 60%">
-                                                <div class="modal-content p-3">
-                                                    {!! Form::model($usuario, [
-                                                        'method' => 'PUT',
-                                                        'route' => ['usuarios.update', $usuario->id_usuario],
-                                                        'class' => 'mt-2',
-                                                        'autocomplete' => 'off',
-                                                        'id' => 'formEditarUsuario_' . $usuario->id_usuario,
-                                                    ]) !!}
-                                                    @csrf
-                                                    <div class="rounded-top text-white text-center"
-                                                        style="background-color: #337AB7; border: solid 1px #337AB7;">
-                                                        <h5 class="m-0 pt-1 pb-1">Editar Usuario</h5>
-                                                    </div>
-
-                                                    {{ Form::hidden('id_usuario', isset($usuario) ? $usuario->id_usuario : null, ['class' => '', 'id' => 'id_usuario']) }}
-
-                                                    {{-- ====================================================== --}}
-                                                    {{-- ====================================================== --}}
-
-                                                    <div class="modal-body p-0 m-0" style="border: solid 1px #337AB7;">
-                                                        <div class="row m-2">
-                                                            <div class="col-12 col-md-4">
-                                                                <div class="form-group d-flex flex-column">
-                                                                    <label for="id_tipo_persona" class=""
-                                                                        style="font-size: 15px">Tipo Usuario
-                                                                        <span class="text-danger">*</span></label>
-                                                                    {{ Form::select(
-                                                                        'id_tipo_persona',
-                                                                        collect(['' => 'Seleccionar...'])->union($tipos_empleado),
-                                                                        isset($usuario) ? $usuario->id_tipo_persona : null,
-                                                                        ['class' => 'form-select select2', 'id' => 'id_tipo_persona', 'required' => 'required'],
-                                                                    ) }}
-                                                                </div>
-                                                            </div>
-                                                            {{-- ======================= --}}
-                                                            <div class="col-12 col-md-4">
-                                                                <div class="form-group d-flex flex-column">
-                                                                    <label for="id_tipo_documento" class=""
-                                                                        style="font-size: 15px">Tipo de documento
-                                                                        <span class="text-danger">*</span></label>
-                                                                    {!! Form::select(
-                                                                        'id_tipo_documento',
-                                                                        collect(['' => 'Seleccionar...'])->union($tipos_documento),
-                                                                        isset($usuario) ? $usuario->id_tipo_documento : null,
-                                                                        ['class' => 'form-select select2', 'id' => 'id_tipo_documento'],
-                                                                    ) !!}
-                                                                </div>
-                                                            </div>
-                                                            {{-- ======================= --}}
-                                                            <div class="col-12 col-md-4">
-                                                                <div class="form-group d-flex flex-column">
-                                                                    <label for="identificacion" class=""
-                                                                        style="font-size: 15px">Número de documento
-                                                                        <span class="text-danger">*</span></label>
-                                                                    {{ Form::text('identificacion', isset($usuario) ? $usuario->identificacion : null, [
-                                                                        'class' => 'form-control',
-                                                                        'id' => 'identificacion',
-                                                                        'required' => 'required',
-                                                                        'minlength' => 6,
-                                                                    ]) }}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        {{-- ============================================== --}}
-
-                                                        <div class="row m-2">
-                                                            <div class="col-12 col-md-4">
-                                                                <div class="form-group d-flex flex-column">
-                                                                    <label for="nombre_usuario" class=""
-                                                                        style="font-size: 15px">Nombre Usuario
-                                                                        <span class="text-danger">*</span></label>
-                                                                    {{ Form::text('nombre_usuario', isset($usuario) ? $usuario->nombre_usuario : null, [
-                                                                        'class' => 'form-control',
-                                                                        'id' => 'nombre_usuario',
-                                                                        'required' => 'required',
-                                                                        'pattern' => '^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]{2,50}$',
-                                                                        'title' => 'Solo letras y espacios. Mínimo 2 y máximo 50 caracteres.',
-                                                                        'maxlength' => 50,
-                                                                    ]) }}
-                                                                </div>
-                                                            </div>
-                                                            {{-- ======================= --}}
-                                                            <div class="col-12 col-md-4">
-                                                                <div class="form-group d-flex flex-column">
-                                                                    <label for="apellido_usuario" class=""
-                                                                        style="font-size: 15px">Apellido Usuario
-                                                                        <span class="text-danger">*</span></label>
-                                                                    {{ Form::text('apellido_usuario', isset($usuario) ? $usuario->apellido_usuario : null, [
-                                                                        'class' => 'form-control',
-                                                                        'id' => 'apellido_usuario',
-                                                                        'required' => 'required',
-                                                                        'pattern' => '^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]{2,50}$',
-                                                                        'title' => 'Solo letras y espacios. Mínimo 2 y máximo 50 caracteres.',
-                                                                        'maxlength' => 50,
-                                                                    ]) }}
-                                                                </div>
-                                                            </div>
-                                                            {{-- ======================= --}}
-                                                            <div class="col-12 col-md-4">
-                                                                <div class="form-group d-flex flex-column">
-                                                                    <label for="numero_telefono" class=""
-                                                                        style="font-size: 15px">Número Teléfono</label>
-                                                                    {{ Form::text('numero_telefono', isset($usuario) ? $usuario->numero_telefono : null, [
-                                                                        'class' => 'form-control',
-                                                                        'id' => 'numero_telefono',
-                                                                        'pattern' => '^\d{7,10}$',
-                                                                        'title' => 'Debe tener entre 7 y 10 dígitos.',
-                                                                        'maxlength' => 10,
-                                                                        'minlength' => 7,
-                                                                    ]) }}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        {{-- ============================================== --}}
-
-                                                        <div class="row m-2">
-                                                            <div class="col-12 col-md-4">
-                                                                <div class="form-group d-flex flex-column">
-                                                                    <label for="celular" class=""
-                                                                        style="font-size: 15px">Celular
-                                                                        <span class="text-danger">*</span>
-                                                                    </label>
-                                                                    {{ Form::text('celular', isset($usuario) ? $usuario->celular : null, [
-                                                                        'class' => 'form-control',
-                                                                        'id' => 'celular',
-                                                                        'required' => 'required',
-                                                                        'pattern' => '^\d{7,15}$',
-                                                                        'title' => 'Debe ser un número de celular válido, sin indicativos, entre 7 y 15 dígitos.',
-                                                                        'maxlength' => 15,
-                                                                        'minlength' => 7,
-                                                                    ]) }}
-                                                                </div>
-                                                            </div>
-                                                            {{-- ======================= --}}
-                                                            <div class="col-12 col-md-4">
-                                                                <div class="form-group d-flex flex-column">
-                                                                    <label for="email" class=""
-                                                                        style="font-size: 15px">Correo
-                                                                        <span class="text-danger">*</span></label>
-                                                                    {{ Form::email('email', isset($usuario) ? $usuario->email : null, [
-                                                                        'class' => 'form-control',
-                                                                        'id' => 'email',
-                                                                        'required' => 'required',
-                                                                        'pattern' => '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-                                                                        'title' => 'Por favor, ingresa un correo electrónico válido',
-                                                                    ]) }}
-                                                                </div>
-                                                            </div>
-
-                                                            {{-- ======================= --}}
-                                                            <div class="col-12 col-md-4">
-                                                                <div class="form-group d-flex flex-column">
-                                                                    <label for="id_rol" class=""
-                                                                        style="font-size: 15px">Rol
-                                                                        <span class="text-danger">*</span>
-                                                                    </label>
-                                                                    {!! Form::select(
-                                                                        'id_rol',
-                                                                        collect(['' => 'Seleccionar...'])->union($roles),
-                                                                        isset($usuario) ? $usuario->id_rol : null,
-                                                                        ['class' => 'form-select select2', 'id' => 'id_rol'],
-                                                                    ) !!}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        {{-- ============================================== --}}
-
-                                                        <div class="row m-2">
-                                                            <div class="col-12 col-md-3">
-                                                                <div class="form-group d-flex flex-column">
-                                                                    <label for="direccion" class=""
-                                                                        style="font-size: 15px">Dirección</label>
-                                                                    {{ Form::text('direccion', isset($usuario) ? $usuario->direccion : null, [
-                                                                        'class' => 'form-control',
-                                                                        'id' => 'direccion',
-                                                                        'pattern' => '^[a-zA-Z0-9\s\#\-\.\,\/]{5,100}$',
-                                                                        'title' =>
-                                                                            'Ingrese una dirección válida (solo letras, números y caracteres como # - . , /). Mínimo 5 y máximo 100                                                  caracteres.',
-                                                                        'maxlength' => 100,
-                                                                        'minlength' => 5,
-                                                                    ]) }}
-                                                                </div>
-                                                            </div>
-                                                            {{-- ======================= --}}
-                                                            <div class="col-12 col-md-3">
-
-                                                                <div class="form-group d-flex flex-column">
-                                                                    <label for="id_genero" class=""
-                                                                        style="font-size: 15px">Género
-                                                                        <span class="text-danger">*</span></label>
-                                                                    {!! Form::select(
-                                                                        'id_genero',
-                                                                        collect(['' => 'Seleccionar...'])->union($generos),
-                                                                        isset($usuario) ? $usuario->id_genero : null,
-                                                                        ['class' => 'form-select select2', 'id' => 'id_genero'],
-                                                                    ) !!}
-                                                                </div>
-
-
-                                                            </div>
-                                                            {{-- ======================= --}}
-                                                            <div class="col-12 col-md-3">
-                                                                <div class="form-group d-flex flex-column">
-                                                                    <label for="id_estado" class=""
-                                                                        style="font-size: 15px">Estado
-                                                                        <span class="text-danger">*</span>
-                                                                    </label>
-                                                                    {!! Form::select(
-                                                                        'id_estado',
-                                                                        collect(['' => 'Seleccionar...'])->union($estados),
-                                                                        isset($usuario) ? $usuario->id_estado : null,
-                                                                        ['class' => 'form-select select2', 'id' => 'id_estado_' . $usuario->id_usuario],
-                                                                    ) !!}
-                                                                </div>
-                                                            </div>
-                                                            {{-- ======================= --}}
-                                                            <div class="col-12 col-md-3">
-                                                                <div class="form-group d-flex flex-column">
-                                                                    <label for="fecha_contrato" class="">Fecha
-                                                                        contrato
-                                                                        <span class="text-danger">*</span>
-                                                                    </label>
-                                                                    {!! Form::date('fecha_contrato', isset($usuario) ? $usuario->fecha_contrato : null, [
-                                                                        'class' => 'form-control',
-                                                                        'id' => 'fecha_contrato',
-                                                                        'required' => 'required',
-                                                                    ]) !!}
-                                                                </div>
-                                                            </div>
-                                                            {{-- ======================= --}}
-                                                            <div class="col-12 col-md-3"
-                                                                id="div_fecha_terminacion_contrato_{{ $usuario->id_usuario }}">
-                                                                <div class="form-group d-flex flex-column">
-                                                                    <label for="fecha_terminacion_contrato"
-                                                                        class="">Fecha terminación contrato
-                                                                        <span class="text-danger">*</span>
-                                                                    </label>
-                                                                    {!! Form::date('fecha_terminacion_contrato', isset($usuario) ? $usuario->fecha_terminacion_contrato : null, [
-                                                                        'class' => 'form-control',
-                                                                        'id' => 'fecha_terminacion_contrato_' . $usuario->id_usuario,
-                                                                    ]) !!}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> {{-- FIN modal-body --}}
-
-                                                    {{-- ====================================================== --}}
-                                                    {{-- ====================================================== --}}
-
-                                                    <div class="modal-footer d-block mt-0 border border-0">
-                                                        <!-- Contenedor para el GIF -->
-                                                        <div id="loadingIndicatorEditUser_{{ $usuario->id_usuario }}"
-                                                            class="loadingIndicator">
-                                                            <img src="{{ asset('imagenes/loading.gif') }}"
-                                                                alt="Procesando...">
-                                                        </div>
-
-                                                        {{-- ====================================================== --}}
-                                                        {{-- ====================================================== --}}
-
-                                                        <div class="d-flex justify-content-center mt-3">
-                                                            <button id="btn_editar_user_{{ $usuario->id_usuario }}"
-                                                                type="submit" class="btn btn-success me-3"
-                                                                title="Guardar Configuración">
-                                                                <i class="fa fa-floppy-o" aria-hidden="true">
-                                                                    Modificar</i>
-                                                            </button>
-
-                                                            <button id="btn_cancelar_user_{{ $usuario->id_usuario }}"
-                                                                type="button" class="btn btn-secondary" title="Cancelar"
-                                                                data-bs-dismiss="modal">
-                                                                <i class="fa fa-times" aria-hidden="true"> Cancelar</i>
-                                                            </button>
-                                                        </div>
-                                                    </div> {{-- modal-footer --}}
-                                                    {!! Form::close() !!}
-                                                </div> {{-- modal-content --}}
-                                            </div> {{-- modal-dialog --}}
-                                        </div> {{-- FINAL Modal EDITAR USUARIO --}}
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -578,6 +198,32 @@
             </div> {{-- FIN div_crear_usuario --}}
         </div>
     </div>
+
+    {{-- ====================================================== --}}
+    {{-- ====================================================== --}}
+
+    {{-- INICIO Modal CAMBIAR CONTRASEÑA --}}
+    <div class="modal fade" id="modalCambiarClave" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content p-3" id="modalCambiarClaveContent">
+                {{-- El contenido AJAX se cargará aquí --}}
+            </div>
+        </div>
+    </div>
+    {{-- FINAL Modal CAMBIAR CONTRASEÑA --}}
+
+    {{-- ====================================================== --}}
+    {{-- ====================================================== --}}
+
+    {{-- INICIO Modal EDITAR USUARIO --}}
+    <div class="modal fade" id="modalEditarUsuario" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog" style="min-width: 60%">
+            <div class="modal-content p-3" id="modalEditarUsuarioContent">
+                {{-- El contenido AJAX se cargará aquí --}}
+            </div> {{-- modal-content --}}
+        </div> {{-- modal-dialog --}}
+    </div>
+    {{-- FINAL Modal EDITAR USUARIO --}}
 @stop
 
 {{-- =============================================================== --}}
@@ -628,8 +274,6 @@
             });
 
             // CIERRE DataTable Lista Usuarios
-
-
 
             // ===========================================================================================
 
@@ -725,62 +369,105 @@
 
             // ===========================================================================================
 
-            $(document).on('shown.bs.modal', '.modal', function() {
+            $(document).on('click', '.btn-editar-usuario', function () {
+                const idUsuario = $(this).data('id');
 
-                // Reinicializa los select2 dentro del modal
-                $(this).find('.select2').select2({
-                    dropdownParent: $(this),
-                    placeholder: 'Seleccionar...',
-                    width: '100%',
-                    allowClear: false
-                });
-                // Buscar el select dentro del modal
-                let selectEstado = $(this).find('[id^=id_estado_]');
+                $.ajax({
+                    url: `/usuarios/${idUsuario}/edit`,
+                    type: 'GET',
+                    data: {
+                        tipo_modal: 'editar_usuario'
+                    },
+                    beforeSend: function () {
+                        $('#modalEditarUsuario').modal('show');
+                        $('#modalEditarUsuarioContent').html('<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>');
+                    },
+                    success: function (html) {
+                        $('#modalEditarUsuarioContent').html(html);
 
-                if (selectEstado.length > 0) {
-                    let idEstado = selectEstado.val(); // Obtener el valor actual del select
+                        // Reinicializar select2 si lo usas en el modal
+                        $('#modalEditarUsuario .select2').select2({
+                            dropdownParent: $('#modalEditarUsuario'),
+                            placeholder: 'Seleccionar...',
+                            width: '100%',
+                            allowClear: false
+                        });
 
-                    // Buscar los elementos dentro de este modal
-                    let divFechaTerminacion = $(this).find('[id^=div_fecha_terminacion_contrato]');
-                    let inputFechaTerminacion = $(this).find('[id^=fecha_terminacion_contrato]');
+                        // Buscar el select dentro del modal
+                        let modal = $('#modalEditarUsuario');
+                        let selectEstado = modal.find('[id^=id_estado_]');
 
-                    // Aplicar la lógica de ocultar o mostrar
-                    if (idEstado == 1 || idEstado == '') {
-                        divFechaTerminacion.hide();
-                        inputFechaTerminacion.removeAttr('required');
-                        inputFechaTerminacion.val('');
-                    } else {
-                        divFechaTerminacion.show();
-                        inputFechaTerminacion.attr('required', 'required');
+                        if (selectEstado.length > 0) {
+                            let idEstado = selectEstado.val(); // Obtener el valor actual del select
+
+                            // Buscar los elementos dentro de este modal
+                            let divFechaTerminacion = modal.find('[id^=div_fecha_terminacion_contrato]');
+                            let inputFechaTerminacion = modal.find('[id^=fecha_terminacion_contrato]');
+
+                            // Aplicar la lógica de ocultar o mostrar
+                            if (idEstado == 1 || idEstado == '') {
+                                divFechaTerminacion.hide();
+                                inputFechaTerminacion.removeAttr('required');
+                                inputFechaTerminacion.val('');
+                            } else {
+                                divFechaTerminacion.show();
+                                inputFechaTerminacion.attr('required', 'required');
+                            }
+
+                            // Al cambiar el tipo de persona
+                            selectEstado.change(function() {
+                                let idEstado = selectEstado.val(); // Obtener el valor actual del select al cambiar
+                                console.log(`cambio ${idEstado}`);
+
+                                let modal = $('#modalEditarUsuario'); // Asegurar que buscamos dentro del modal correcto
+
+                                // Buscar los elementos dentro de este modal
+                                let divFechaTerminacion = modal.find('[id^=div_fecha_terminacion_contrato]');
+                                let inputFechaTerminacion = modal.find('[id^=fecha_terminacion_contrato]');
+
+                                if (idEstado == 1) { // Activo
+                                    divFechaTerminacion.hide();
+                                    inputFechaTerminacion.removeAttr('required');
+                                    inputFechaTerminacion.val('');
+                                } else if (idEstado == 2) { // Inactivo
+                                    divFechaTerminacion.show('slow');
+                                    inputFechaTerminacion.attr('required', 'required');
+                                } else { // Seleccionar...
+                                    divFechaTerminacion.hide();
+                                    inputFechaTerminacion.removeAttr('required');
+                                }
+                            }); // FIN Cambio de Estado
+                        } // FIN selectEstado.length > 0
+                    }, // FIN success
+                    error: function () {
+                        $('#modalEditarUsuarioContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');
                     }
-                }
-            });
+                }); // FIN $.ajax
+            }); // FIN $(document).on('click', '.btn-editar-usuario
 
             // ===========================================================================================
 
-            $(document).on('change', '[id^=id_estado_]', function() {
-                let idEstado = $(this).val();
-                console.log("Estado cambiado a:", idEstado);
+            $(document).on('click', '.btn-cambiar-clave', function () {
+                const idUsuario = $(this).data('id');
 
-                // Buscar el modal más cercano donde está el select
-                let modal = $(this).closest('.modal');
-
-                // Buscar los elementos dentro de este modal
-                let divFechaTerminacion = modal.find('[id^=div_fecha_terminacion_contrato]');
-                let inputFechaTerminacion = modal.find('[id^=fecha_terminacion_contrato]');
-
-                if (idEstado == 1) { // Activo
-                    divFechaTerminacion.hide();
-                    inputFechaTerminacion.removeAttr('required');
-                    inputFechaTerminacion.val('');
-                } else if (idEstado == 2) { // Inactivo
-                    divFechaTerminacion.show('slow');
-                    inputFechaTerminacion.attr('required', 'required');
-                } else { // Seleccionar...
-                    divFechaTerminacion.hide();
-                    inputFechaTerminacion.removeAttr('required');
-                }
-            });
+                $.ajax({
+                    url: `/usuarios/${idUsuario}/edit`,
+                    type: 'GET',
+                    data: {
+                        tipo_modal: 'cambiar_clave'
+                    },
+                    beforeSend: function () {
+                        $('#modalCambiarClave').modal('show');
+                        $('#modalCambiarClaveContent').html('<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>');
+                    },
+                    success: function (html) {
+                        $('#modalCambiarClaveContent').html(html);
+                    }, // FIN success
+                    error: function () {
+                        $('#modalCambiarClaveContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');
+                    }
+                }); // FIN $.ajax
+            }); // FIN $(document).on('click', '.btn-editar-usuario
         }); // FIN document.ready
     </script>
 @stop
