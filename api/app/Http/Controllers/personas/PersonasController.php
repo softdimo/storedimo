@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Responsable\personas\PersonaIndex;
 use App\Http\Responsable\personas\PersonaStore;
 use App\Http\Responsable\personas\PersonaUpdate;
+use App\Http\Responsable\personas\PersonaEdit;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Persona;
 
@@ -73,9 +74,9 @@ class PersonasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($idPersona)
     {
-        //
+        return new PersonaEdit($idPersona);
     }
 
     // ======================================================================

@@ -73,6 +73,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('query_nit_empresa', 'personas\PersonasController@consultarNitEmpresa');
     $router->post('persona_store', 'personas\PersonasController@store');
     $router->put('persona_update/{idPersona}', 'personas\PersonasController@update');
+    $router->get('persona_edit/{idPersona}', 'personas\PersonasController@edit');
 });
 
 // ========================================================================

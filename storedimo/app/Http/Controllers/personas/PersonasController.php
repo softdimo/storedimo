@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Responsable\personas\PersonaIndex;
 use App\Http\Responsable\personas\PersonaStore;
 use App\Http\Responsable\personas\PersonaUpdate;
+use App\Http\Responsable\personas\PersonaEdit;
 use Exception;
 use GuzzleHttp\Client;
 use App\Traits\MetodosTrait;
-
 
 class PersonasController extends Controller
 {
@@ -148,9 +148,31 @@ class PersonasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($idCliente)
     {
-        //
+        try {
+            if (!$this->checkDatabaseConnection())
+            {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else
+                {
+                    $vista = new PersonaEdit($idCliente);
+                    return $this->validarAccesos($sesion[0], 24, $vista);
+                }
+            }
+        } catch (Exception $e)
+        {
+            alert()->error("Error editando el Cliente!");
+            return redirect()->to(route('login'));
+        }
     }
     
     // ======================================================================
