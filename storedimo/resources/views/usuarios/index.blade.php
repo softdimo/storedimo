@@ -467,7 +467,7 @@
                         $('#modalCambiarClaveContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');
                     }
                 }); // FIN $.ajax
-            }); // FIN $(document).on('click', '.btn-editar-usuario
+            }); // FIN $(document).on('click', '.btn-cambiar_clave
         }); // FIN document.ready
     </script>
 @stop

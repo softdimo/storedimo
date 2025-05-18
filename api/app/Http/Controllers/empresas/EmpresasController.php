@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\App;
 use App\Http\Responsable\empresas\EmpresaIndex;
 use App\Http\Responsable\empresas\EmpresaStore;
 use App\Http\Responsable\empresas\EmpresaUpdate;
+use App\Http\Responsable\empresas\EmpresaEdit;
 use App\Models\Empresa;
 
 class EmpresasController extends Controller
@@ -75,9 +76,9 @@ class EmpresasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($idEmpresa)
     {
-        //
+        return new EmpresaEdit($idEmpresa);
     }
 
     // ======================================================================
