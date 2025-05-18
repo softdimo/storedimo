@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use App\Traits\MetodosTrait;
 use Exception;
 use App\Http\Responsable\ventas\VentaIndex;
+use App\Http\Responsable\ventas\DetalleVenta;
 use App\Http\Responsable\ventas\VentaStore;
 use App\Http\Responsable\ventas\VentaUpdate;
 use App\Http\Responsable\ventas\ReporteVentasPdf;
@@ -272,6 +273,35 @@ class VentasController extends Controller
                 } else
                 {
                     $vista = new ReciboCajaVenta();
+                    return $this->validarAccesos($sesion[0], 48, $vista);
+                    
+                }
+            }
+        } catch (Exception $e)
+        {
+            alert()->error("Exception ReciboCajaVenta!");
+            return redirect()->to(route('login'));
+        }
+    }
+
+    public function detalleVentas($idVenta)
+    {
+        try
+        {
+            if (!$this->checkDatabaseConnection())
+            {
+                return view('db_conexion');
+            } else {
+                $sesion = $this->validarVariablesSesion();
+
+                if (empty($sesion[0]) || is_null($sesion[0]) &&
+                    empty($sesion[1]) || is_null($sesion[1]) &&
+                    empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
+                {
+                    return redirect()->to(route('login'));
+                } else
+                {
+                    $vista = new DetalleVenta($idVenta);
                     return $this->validarAccesos($sesion[0], 48, $vista);
                     
                 }

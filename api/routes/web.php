@@ -105,6 +105,7 @@ $router->post('producto_edit/{idProducto}', 'productos\ProductosController@edit'
 // VENTAS
 $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('venta_index', 'ventas\VentasController@index');
+    $router->get('venta/{idVenta}', 'ventas\VentasController@ventaDetalle');
     $router->post('venta_store', 'ventas\VentasController@store');
     $router->post('anular_venta/{idVenta}', 'ventas\VentasController@anularVenta');
 

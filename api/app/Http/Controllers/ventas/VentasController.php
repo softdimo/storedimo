@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Responsable\ventas\VentaIndex;
+use App\Http\Responsable\ventas\VentaDetalle;
 use App\Http\Responsable\ventas\VentaStore;
 use App\Http\Responsable\ventas\VentaUpdate;
 use App\Models\Venta;
@@ -68,15 +69,10 @@ class VentasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    
+    public function ventaDetalle($idVenta)
     {
-        //
+        return new VentaDetalle($idVenta);
     }
 
     // ======================================================================

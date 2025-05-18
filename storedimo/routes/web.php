@@ -163,6 +163,7 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
         Route::resource('ventas', 'VentasController');
         Route::post('reporte_ventas_pdf', 'VentasController@reporteVentasPdf')->name('reporte_ventas_pdf');
         Route::get('detalle_ventas_pdf/{idVenta}', 'VentasController@detalleVentasPdf')->name('detalle_ventas_pdf');
+        Route::get('detalle_venta/{idVenta}', 'VentasController@detalleVentas')->name('detalle_venta');
         Route::post('recibo_caja_venta', 'VentasController@reciboCajaVenta')->name('recibo_caja_venta');
 
         Route::get('credito_ventas', 'VentasController@listarCreditoVentas')->name('credito_ventas');

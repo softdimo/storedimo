@@ -1,6 +1,3 @@
-{{-- @php
-    dd($baja, $bajaDetalles);
-@endphp --}}
 <!-- INICIO Modal DETALLES BAJA -->
 <div class="rounded-top" style="border: solid 1px #337AB7;">
     <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">
