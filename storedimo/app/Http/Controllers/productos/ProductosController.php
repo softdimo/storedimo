@@ -412,7 +412,7 @@ class ProductosController extends Controller
                 }
             }
         } catch (Exception $e) {
-            alert()->error("Exception GenerarBarCode Productos!");
+            alert()->error("Error consultando los precios de los productos!");
             return back();
         }
     }

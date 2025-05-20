@@ -108,7 +108,7 @@
                                     collect($clientes_ventas)->mapWithKeys(fn($cliente, $id) => [$id => $cliente['nombre']]),
                                 ),
                                 null,
-                                ['class' => 'form-select select2 ms-auto me-auto', 'id' => 'cliente_venta', 'required', 'style' => 'width: 85%;'],
+                                ['class' => 'form-select select2 ms-auto me-auto', 'id' => 'cliente_venta', 'required', 'style' => 'width: 75%;'],
                             ) }}
 
                             {{ Form::hidden('id_tipo_persona', null, ['class' => '', 'id' => 'id_tipo_persona', 'required']) }}
@@ -593,7 +593,7 @@
     <script>
         $(document).ready(function() {
             $('.select2').select2({
-                placeholder: "Seleccionar...",
+                // placeholder: "Seleccionar...",
                 allowClear: false,
                 width: '100%'
             });
@@ -608,7 +608,6 @@
             });
 
             let idProducto = $('#producto_venta').val();
-            console.log(idProducto);
 
             if (idProducto == '') {
                 $('#p_detal_venta').html(0);
@@ -619,49 +618,48 @@
             // INICIO - Consulta de los precios del productos
             $('#producto_venta').change(function() {
                 let idProducto = $('#producto_venta').val();
-                console.log(idProducto);
+                console.log(`id producto ${idProducto}`);
 
                 let btn = $('#btnAgregarVenta');
                 let spinner = $("#loadingIndicatorAgregarVenta");
 
-                $.ajax({
-                    async: true,
-                    url: "{{ route('query_valores_producto') }}",
-                    type: "POST",
-                    dataType: "JSON",
-                    data: {
-                        '_token': "{{ csrf_token() }}",
-                        'id_producto': idProducto
-                    },
-                    beforeSend: function() {
-                        $('#p_detal_venta').html(0);
-                        $('#p_x_mayor_venta').html(0);
-                        $('#cantidad_producto').html(0);
-                        // Desactivar botón
-                        spinner.show();
-                        btn.prop("disabled", true).html(
-                            `<i class="fa fa-spinner fa-spin"></i> Procesando...`);
-                    },
-                    success: function(respuesta) {
-                        console.log(respuesta);
-                        console.log(respuesta.precio_unitario);
+                if (idProducto != '') {
+                    $.ajax({
+                        async: true,
+                        url: "{{ route('query_valores_producto') }}",
+                        type: "POST",
+                        dataType: "JSON",
+                        data: {
+                            '_token': "{{ csrf_token() }}",
+                            'id_producto': idProducto
+                        },
+                        beforeSend: function() {
+                            $('#p_detal_venta').html(0);
+                            $('#p_x_mayor_venta').html(0);
+                            $('#cantidad_producto').html(0);
+                            // Desactivar botón
+                            spinner.show();
+                            btn.prop("disabled", true).html(`<i class="fa fa-spinner fa-spin"></i> Procesando...`);
+                            $('#cantidad_venta').val('');
+                        },
+                        success: function(respuesta) {
+                            console.log(respuesta);
+                            setTimeout(() => {
+                                $('#p_detal_venta').html(respuesta.precio_detal);
+                                $('#p_x_mayor_venta').html(respuesta.precio_por_mayor);
+                                $('#cantidad_producto').html(respuesta.cantidad);
 
-                        setTimeout(() => {
-                            $('#p_detal_venta').html(respuesta.precio_detal);
-                            $('#p_x_mayor_venta').html(respuesta.precio_por_mayor);
-                            $('#cantidad_producto').html(respuesta.cantidad);
-
+                                spinner.hide();
+                                btn.prop("disabled", false).html(`<i class="fa fa-plus plus"></i> Agregar`);
+                            }, 1000);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error:", error);
                             spinner.hide();
-                            btn.prop("disabled", false).html(
-                                `<i class="fa fa-plus plus"></i> Agregar`);
-                        }, 1000);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Error:", error);
-                        btn.prop("disabled", false).html(
-                            `<i class="fa fa-plus plus"></i> Agregar`);
-                    }
-                });
+                            btn.prop("disabled", false).html(`<i class="fa fa-plus plus"></i> Agregar`);
+                        }
+                    });
+                }
             });
             // FIN - Consulta de los precios del productos
 
@@ -687,7 +685,6 @@
             // ===================================================================================
 
             let aplicarXMayorVenta = $('#aplicar_x_mayor_venta').is(':checked');
-            console.log(aplicarXMayorVenta);
 
             if (aplicarXMayorVenta == false) {
                 aplicarXMayorVenta = $('input[name="aplicar_x_mayor_venta"]').removeAttr('checked');
@@ -697,14 +694,11 @@
 
             $('#cliente_venta').change(function() {
                 let idCliVenta = $(this).val(); // Obtiene el ID de la persona seleccionada
-                console.log("ID Cliente Venta:", idCliVenta);
 
                 if (idCliVenta && clientesInfo[idCliVenta]) {
                     let tipoPersona = clientesInfo[idCliVenta].tipo; // Obtiene id_tipo_persona
-                    console.log("Tipo Persona:", tipoPersona);
 
                     $('#id_tipo_persona').val(tipoPersona);
-                    console.log($('#id_tipo_persona').val(tipoPersona));
 
                     if (tipoPersona == 5) {
                         $('input[name="aplicar_x_mayor_venta"]').prop('checked', true);
@@ -712,7 +706,6 @@
                         $('input[name="aplicar_x_mayor_venta"]').prop('checked', false);
                     }
                 } else {
-                    console.log("Cliente no encontrado en clientesInfo");
                     $('input[name="aplicar_x_mayor_venta"]').prop('checked', false);
                 }
             });
@@ -738,8 +731,6 @@
                 let cantidadVenta = parseInt($('#cantidad_venta').val());
                 let aplicarMayor = $('input[name="aplicar_x_mayor_venta"]').is(':checked')
 
-                // let idPersona = $('#id_tipo_persona').val(); // Captura el id_tipo_persona
-
                 if (!idTipoClienteVenta || !idProductoVenta || !cantidadVenta || cantidadVenta <= 0) {
                     Swal.fire('Cuidado!',
                         'Todos los campos son obligatorios y la cantidad debe ser mayor a 0!', 'error');
@@ -748,51 +739,38 @@
 
                 $('#clienteVenta').html(clienteVenta);
 
-                // Mostrar spinner y desactivar botón
-                spinner.show();
-                btn.prop("disabled", true).html(`<i class="fa fa-spinner fa-spin"></i> Procesando...`);
+                let valorSubTotal = aplicarMayor ? cantidadVenta * pxMayorVenta :
+                    cantidadVenta * pDetalVenta;
 
-                setTimeout(() => {
-                    let valorSubTotal = aplicarMayor ? cantidadVenta * pxMayorVenta :
-                        cantidadVenta * pDetalVenta;
+                if (aplicarMayor) {
+                    pDetalVenta = '';
+                } else {
+                    pxMayorVenta = '';
+                }
 
-                    if (aplicarMayor) {
-                        pDetalVenta = '';
-                    } else {
-                        pxMayorVenta = '';
-                    }
+                let producto = {
+                    idProductoVenta: idProductoVenta,
+                    nombre: productoVenta,
+                    cantidad: cantidadVenta,
+                    pDetalVenta: pDetalVenta,
+                    pxMayorVenta: pxMayorVenta,
+                    subtotal: valorSubTotal,
+                };
+                productosAgregados.push(producto);
 
-                    let producto = {
-                        idProductoVenta: idProductoVenta,
-                        nombre: productoVenta,
-                        cantidad: cantidadVenta,
-                        pDetalVenta: pDetalVenta,
-                        pxMayorVenta: pxMayorVenta,
-                        subtotal: valorSubTotal,
-                    };
-                    productosAgregados.push(producto);
+                actualizarDetalleVenta();
 
-                    actualizarDetalleVenta();
+                // Limpia los campos después de agregar un producto exitosamente
+                $('#cantidad_venta').attr('required');
 
+                $('#producto_venta').val('').trigger('change'); // Reiniciar selección de producto
 
-                    // Restaurar botón y ocultar spinner
-                    spinner.hide();
-                    btn.prop("disabled", false).html(`<i class="fa fa-plus plus"></i> Agregar`);
+                $('#p_detal_venta').html(0); // Resetear precio detal
+                $('#p_x_mayor_venta').html(0); // Resetear precio mayorista
+                $('input[name="aplicar_x_mayor_venta"]').prop('checked', false); // Desmarcar checkbox
 
-                    // Limpia los campos después de agregar un producto exitosamente
-                    $('#cantidad_venta').attr('required');
-
-                    $('#producto_venta').val('').trigger(
-                        'change'); // Reiniciar selección de producto
-
-                    $('#p_detal_venta').html(0); // Resetear precio detal
-                    $('#p_x_mayor_venta').html(0); // Resetear precio mayorista
-                    $('#aplicar_x_mayor_venta').prop('checked', false); // Desmarcar checkbox
-
-                    $('#cantidad_venta').val(''); // Limpiar cantidad
-                    $('#cantidad_producto').html(0); // Limpiar cantidad disponible
-
-                }, 1000); // 100 ms suele ser suficiente para que el DOM pinte el spinner
+                $('#cantidad_venta').val(''); // Limpiar cantidad
+                $('#cantidad_producto').html(0); // Limpiar cantidad disponible
             });
             // FIN - Función agregar datos de las ventas
 
@@ -845,7 +823,6 @@
             $('#tipo_pago').on('change', function() {
 
                 let tipoPago = $('#tipo_pago').val();
-                console.log(tipoPago);
 
                 if (tipoPago == 2) {
                     $('#div_plazo_credito').removeClass('d-none');
@@ -864,8 +841,7 @@
                 const form = $(this);
                 const submitButton = form.find('button[type="submit"]');
                 const cancelButton = form.find('button[type="button"]');
-                const loadingIndicator = form.find(
-                    "div[id^='loadingIndicatorCrearProductoVenta']"); // Busca el GIF del form actual
+                const loadingIndicator = form.find("div[id^='loadingIndicatorCrearProductoVenta']");
 
                 // Dessactivar Submit y Cancel
                 submitButton.prop("disabled", true).html(
@@ -887,11 +863,11 @@
                     "div[id^='loadingIndicatorRegistrarVenta']"); // Busca el GIF del form actual
 
                 // Retirar required en el submit
+                $('#cantidad_venta').removeAttr('required');
                 $('#btn_registar_venta').removeAttr('required');
 
                 // Dessactivar Submit y Cancel
-                submitButton.prop("disabled", true).html(
-                    "Procesando... <i class='fa fa-spinner fa-spin'></i>");
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
 
                 // Cargar Spinner
                 loadingIndicator.show();

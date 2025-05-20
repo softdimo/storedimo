@@ -779,6 +779,8 @@
 
             $("#btn_add_entrada").click(function() {
 
+                let spinner = $("#loadingIndicatorAgregarCompra");
+
                 let idTipoProveedor = $('#id_tipo_proveedor').val();
                 let tipoProveedor = $('#id_tipo_proveedor option:selected').text();
 
@@ -847,6 +849,8 @@
                 $('#p_detal').html(0); // Resetear precio detal
                 $('#p_x_mayor').html(0); // Resetear precio mayorista
                 $('#cantidad').val(''); // Limpiar cantidad
+                
+                spinner.hide();
 
                 indiceSiguienteFila++;
             });
