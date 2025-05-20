@@ -288,7 +288,7 @@ body {
 /* INICIO Media Query TopMenu */
 @media (max-width: 992px) {
     .menu-container {
-		order: 1 !important;
+		order: 2 !important;
 		display: flex;
 		flex-direction: column;
 		padding-left: 0;
@@ -312,7 +312,7 @@ body {
     #navbarNavDropdown {
         position: absolute;
         top: 100%;
-        left: 0;
+        right: 0;
         z-index: 1050;
         background-color: #337AB7 !important;
         width: 100vw !important;
@@ -321,7 +321,7 @@ body {
     }
 
 	.logo-container {
-		order: 2 !important;
+		order: 1 !important;
         width: 50% !important;
         padding-left: 0;
 		padding-right: 0;
