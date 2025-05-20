@@ -62,6 +62,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('query_producto/{idProducto}', 'productos\ProductosController@queryProducto');
     $router->get('reporte_productos_pdf', 'productos\ProductosController@reporteProductosPdf');
     $router->post('verificar_referencia', 'productos\ProductosController@referenceValidator');
+    $router->post('producto_edit/{idProducto}', 'productos\ProductosController@edit');
 });
 
 // ========================================================================
@@ -99,8 +100,9 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('detalle_compra/{idCompra}', 'entradas\EntradasController@detalleCompra');
     $router->get('entrada/{idEntrada}', 'entradas\EntradasController@entrada');
     $router->post('detalle_compra_pdf/{idCompra}', 'entradas\EntradasController@detalleCompraProductoPdf');
+    $router->get('entrada_dia_mes', 'entradas\EntradasController@entradaDiaMes');
 });
-$router->post('producto_edit/{idProducto}', 'productos\ProductosController@edit');
+
 // ========================================================================
 
 // VENTAS
@@ -112,6 +114,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->post('reporte_ventas_pdf', 'ventas\VentasController@reporteVentasPdf');
     $router->post('detalle_venta/{idVenta}', 'ventas\VentasController@detalleVenta');
+
+    $router->get('venta_dia_mes', 'ventas\VentasController@ventaDiaMes');
 });
 
 // ========================================================================

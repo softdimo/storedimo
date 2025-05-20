@@ -5,6 +5,7 @@ namespace App\Http\Controllers\home;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Exception;
+use Carbon\Carbon;
 use App\Http\Controllers\admin\AdministradorController;
 use App\Traits\MetodosTrait;
 use App\Models\Usuario;
@@ -34,15 +35,18 @@ class HomeController extends Controller
                 return view('db_conexion');
             } else {
                 $sesion = $this->validarVariablesSesion();
-
         
-            $sesionInvalida = collect($sesion)->slice(0, 3)->contains(fn($val) => empty($val)) || !$sesion[3]; 
+                $sesionInvalida = collect($sesion)->slice(0, 3)->contains(fn($val) => empty($val)) || !$sesion[3];
 
-            if ($sesionInvalida) {
-                return redirect()->route('login');
-            }
+                if ($sesionInvalida) {
+                    return redirect()->route('login');
+                }
 
-            return view('home.index');
+                $ventaDiaMes = $this->ventaDiaMes();
+
+                $entradaDiaMes = $this->entradaDiaMes();
+
+                return view('home.index', compact('ventaDiaMes','entradaDiaMes'));
    
             }
         } catch (Exception $e) {
@@ -134,5 +138,51 @@ class HomeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // ======================================================================
+    // ======================================================================
+
+    public function ventaDiaMes()
+    {
+        $hoy = Carbon::today()->toDateString();
+        $inicioMes = Carbon::now()->startOfMonth()->toDateString();
+
+        try {
+            $peticion = $this->clientApi->get($this->baseUri. 'venta_dia_mes', [
+                'query' => [
+                    'fecha_venta_dia' => $hoy,
+                    'fecha_venta_inicio_mes' => $inicioMes
+                ]
+            ]);
+            return json_decode($peticion->getBody()->getContents());
+            
+        } catch (Exception $e) {
+            alert()->error('Error consultando la venta diaria y mensual');
+            return back();
+        }
+    }
+    
+    // ======================================================================
+    // ======================================================================
+
+    public function entradaDiaMes()
+    {
+        $hoy = Carbon::today()->toDateString();
+        $inicioMes = Carbon::now()->startOfMonth()->toDateString();
+
+        try {
+            $peticion = $this->clientApi->get($this->baseUri. 'entrada_dia_mes', [
+                'query' => [
+                    'fecha_entrada_dia' => $hoy,
+                    'fecha_entrada_inicio_mes' => $inicioMes
+                ]
+            ]);
+            return json_decode($peticion->getBody()->getContents());
+            
+        } catch (Exception $e) {
+            alert()->error('Error consultando la entrada diaria y mensual');
+            return back();
+        }
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\entradas;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Responsable\entradas\EntradaIndex;
 use App\Http\Responsable\entradas\DetalleEntrada;
@@ -236,6 +237,28 @@ class EntradasController extends Controller
 
             return response()->json($detalleCompraProductoPdf);
 
+        } catch (Exception $e) {
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
+    }
+    
+    // ===================================================================
+    // ===================================================================
+
+    public function entradaDiaMes()
+    {
+        $hoy = request('fecha_entrada_dia');
+        $inicioMes = request('fecha_entrada_inicio_mes');
+
+        try {
+            $entradasDia = Compra::whereDate('fecha_compra', $hoy)->sum('valor_compra');
+            $entradasMes = Compra::whereBetween('fecha_compra', [$inicioMes, Carbon::now()])->sum('valor_compra');
+
+            return [
+                'entradasDia' => $entradasDia,
+                'entradasMes' => $entradasMes
+            ];
+            
         } catch (Exception $e) {
             return response()->json(['error_bd' => $e->getMessage()]);
         }

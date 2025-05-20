@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ventas;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Responsable\ventas\VentaIndex;
 use App\Http\Responsable\ventas\VentaDetalle;
@@ -226,4 +227,23 @@ class VentasController extends Controller
 
     // ===================================================================
     // ===================================================================
+
+    public function ventaDiaMes()
+    {
+        $hoy = request('fecha_venta_dia');
+        $inicioMes = request('fecha_venta_inicio_mes');
+
+        try {
+            $ventasDia = Venta::whereDate('fecha_venta', $hoy)->sum('total_venta');
+            $ventasMes = Venta::whereBetween('fecha_venta', [$inicioMes, Carbon::now()])->sum('total_venta');
+
+            return [
+                'ventasDia' => $ventasDia,
+                'ventasMes' => $ventasMes
+            ];
+            
+        } catch (Exception $e) {
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
+    }
 }
