@@ -316,8 +316,18 @@ body {
         z-index: 1050;
         background-color: #337AB7 !important;
         width: 100vw !important;
-        padding-left: 1rem !important;
+        padding-left: 0rem !important;
         margin-top: 0.5rem !important;
+    }
+
+    #navbarNavDropdown .navbar-nav {
+        flex-direction: row !important;
+        flex-wrap: wrap; /* Para que pasen a nueva línea si no caben */
+        justify-content: center; /* Centrado horizontal */
+    }
+
+    #navbarNavDropdown .nav-item {
+        padding: 0.5rem 1.0rem;
     }
 
 	.logo-container {
