@@ -592,7 +592,7 @@
     <script>
         $(document).ready(function() {
             $('.select2').select2({
-                placeholder: "Seleccionar...",
+                // placeholder: "Seleccionar...",
                 allowClear: false,
                 width: '100%'
             });
@@ -615,60 +615,65 @@
                 let btn = $('#btn_add_entrada');
                 let spinner = $("#loadingIndicatorAgregarCompra");
 
-                $.ajax({
-                    async: true,
-                    url: "{{ route('query_valores_producto') }}",
-                    type: "POST",
-                    dataType: "JSON",
-                    data: {
-                        '_token': "{{ csrf_token() }}",
-                        'id_producto': idProducto
-                    },
-                    beforeSend: function() {
-                        $('#p_unitario').html(0);
-                        $('#p_detal').html(0);
-                        $('#p_x_mayor').html(0);
-                        // Desactivar botón
-                        spinner.show();
-                        btn.prop("disabled", true).html(
-                            `<i class="fa fa-spinner fa-spin"></i> Procesando...`);
-                    },
-                    success: function(respuesta) {
-                        console.log(respuesta);
-                        console.log(respuesta.precio_unitario);
-
-                        if (idProducto == '') {
+                if (idProducto != '') {
+                    $.ajax({
+                        async: true,
+                        url: "{{ route('query_valores_producto') }}",
+                        type: "POST",
+                        dataType: "JSON",
+                        data: {
+                            '_token': "{{ csrf_token() }}",
+                            'id_producto': idProducto
+                        },
+                        beforeSend: function() {
                             $('#p_unitario').html(0);
                             $('#p_detal').html(0);
                             $('#p_x_mayor').html(0);
-                        } else {
-                            setTimeout(() => {
-                                $('#p_unitario').html(respuesta.precio_unitario);
-                                $('#p_detal').html(respuesta.precio_detal);
-                                $('#p_x_mayor').html(respuesta.precio_por_mayor);
+                            // Desactivar botón
+                            spinner.show();
+                            btn.prop("disabled", true).html(`<i class="fa fa-spinner fa-spin"></i> Procesando...`);
+                        },
+                        success: function(respuesta) {
+                            console.log(respuesta);
+                            console.log(respuesta.precio_unitario);
 
-                                $('#idProductoEdit').val(respuesta.id_producto);
-                                $('#precioUnitarioEdit').val(respuesta.precio_unitario);
-                                $('#precioDetalEdit').val(respuesta.precio_detal);
-                                $('#precioPorMayorEdit').val(respuesta
-                                    .precio_por_mayor);
+                            if (idProducto == '') {
+                                $('#p_unitario').html(0);
+                                $('#p_detal').html(0);
+                                $('#p_x_mayor').html(0);
+                            } else {
+                                setTimeout(() => {
+                                    $('#p_unitario').html(respuesta.precio_unitario);
+                                    $('#p_detal').html(respuesta.precio_detal);
+                                    $('#p_x_mayor').html(respuesta.precio_por_mayor);
 
-                                $('#id_producto_compra').val(respuesta.id_producto);
+                                    $('#idProductoEdit').val(respuesta.id_producto);
+                                    $('#precioUnitarioEdit').val(respuesta.precio_unitario);
+                                    $('#precioDetalEdit').val(respuesta.precio_detal);
+                                    $('#precioPorMayorEdit').val(respuesta
+                                        .precio_por_mayor);
 
-                                spinner.hide();
-                                btn.prop("disabled", false).html(
-                                    `<i class="fa fa-plus plus"></i> Agregar`);
-                            }, 1000);
+                                    $('#id_producto_compra').val(respuesta.id_producto);
+
+                                    spinner.hide();
+                                    btn.prop("disabled", false).html(
+                                        `<i class="fa fa-plus plus"></i> Agregar`);
+                                }, 1000);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error:", error);
+                            spinner.hide();
+                            btn.prop("disabled", false).html(`<i class="fa fa-plus plus"></i> Agregar`);
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Error:", error);
-                        btn.prop("disabled", false).html(
-                            `<i class="fa fa-plus plus"></i> Agregar`);
-                    }
-                });
-            });
-            // FIN - Validación Formulario Creación de Bajas de productos
+                    });
+                } else {
+                    $('#p_unitario').html(0);
+                    $('#p_detal').html(0);
+                    $('#p_x_mayor').html(0);
+                    $('#btn_add_entrada').prop("disabled", true);
+                } // FIN if (idProducto != '')
+            }); // FIN - Validación Formulario Creación de Bajas de productos $('#id_producto').change(function()
 
             // ================================================
 
