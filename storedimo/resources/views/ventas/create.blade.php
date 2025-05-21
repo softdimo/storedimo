@@ -163,7 +163,6 @@
                                         'id' => 'cantidad_venta',
                                         'min' => '1',
                                         'maxlength' => '4',
-                                        'required' => 'required',
                                         'pattern' => '^[0-9]+$',
                                         'inputmode' => 'numeric',
                                         'min' => '0',

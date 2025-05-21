@@ -47,19 +47,17 @@ class EntradaStore implements Responsable
 
                     $cantidadProducto = Producto::select('cantidad')
                         ->where('id_producto', $producto['id_producto'])
-                        ->where('id_proveedor', $idProveedor)
                         ->first();
 
-                    if ( !is_null($cantidadProducto)) {
-                        $cantidad = $cantidadProducto->cantidad + $producto['cantidad'];
-                    } else {
+                    if ( is_null($cantidadProducto) || empty($cantidadProducto) ) {
                         $cantidad = 0 + $producto['cantidad'];
+                    } else {
+                        $cantidad = $cantidadProducto->cantidad + $producto['cantidad'];
                     }
 
                     $producto = Producto::findOrFail($producto['id_producto']);
 
                     $producto->cantidad = $cantidad;
-                    $producto->id_proveedor = $idProveedor;
                     $producto->update();
                 }
 

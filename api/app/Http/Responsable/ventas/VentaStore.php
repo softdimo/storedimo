@@ -57,7 +57,6 @@ class VentaStore implements Responsable
 
                     $cantidadProducto = Producto::select('cantidad')
                         ->where('id_producto', $producto['id_producto'])
-                        // ->where('id_persona', $idProveedor)
                         ->first();
 
                     if ( !is_null($cantidadProducto) ) {
