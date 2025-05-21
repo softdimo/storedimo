@@ -47,7 +47,7 @@ class EntradaStore implements Responsable
 
                     $cantidadProducto = Producto::select('cantidad')
                         ->where('id_producto', $producto['id_producto'])
-                        ->where('id_persona', $idProveedor)
+                        ->where('id_proveedor', $idProveedor)
                         ->first();
 
                     if ( !is_null($cantidadProducto)) {
@@ -59,7 +59,7 @@ class EntradaStore implements Responsable
                     $producto = Producto::findOrFail($producto['id_producto']);
 
                     $producto->cantidad = $cantidad;
-                    $producto->id_persona = $idProveedor;
+                    $producto->id_proveedor = $idProveedor;
                     $producto->update();
                 }
 
