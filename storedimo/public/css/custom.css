@@ -20,6 +20,8 @@ body {
     width: 100%;
 } */
 
+/* =============================================== */
+
 .dt-buttons {
     margin-bottom: 1rem;
 }
@@ -50,51 +52,6 @@ body {
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
-
-/* Estilos generales del select2 */
-
-.select2-spaced + .select2-container {
-    width: 96% !important;
-    margin: 0.5rem 0 0.5rem 0.5rem;
-}
-
-.select2-container .select2-selection--single {
-    height: 38px !important;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid #dee2e6 !important;
-    border-radius: 4px;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-}
-
-/* Alinea verticalmente la flecha del select2 */
-.select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 38px;
-    top: 0;
-    right: 10px;
-    position: absolute;
-    display: flex;
-    align-items: center;
-}
-
-.select2-container--default .select2-selection--single .select2-selection__rendered {
-    line-height: 26px;
-}
-
-.select2-container {
-    z-index: 1050 !important;
-}
-
-.select2-dropdown {
-    z-index: 99999 !important;
-}
-
-/* Fin estilos generales del select2 */
 
 .dataTables_filter {
     width: 50%;
@@ -157,6 +114,55 @@ body {
     color: white;
     vertical-align: middle;
 }
+
+/* =============================================== */
+
+/* Estilos generales del select2 */
+
+.select2-spaced + .select2-container {
+    width: 96% !important;
+    margin: 0.5rem 0 0.5rem 0.5rem;
+}
+
+.select2-container .select2-selection--single {
+    height: 38px !important;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+/* Alinea verticalmente la flecha del select2 */
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 38px;
+    top: 0;
+    right: 10px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 26px;
+}
+
+.select2-container {
+    z-index: 1050 !important;
+}
+
+.select2-dropdown {
+    z-index: 99999 !important;
+}
+
+/* Fin estilos generales del select2 */
+
+/* =============================================== */
 
 .table-responsive {
     overflow-x: initial;
@@ -354,6 +360,48 @@ body {
         width: 1em!important;
     }
     /* FIN Media Query TopMenu  */
+
+    /* =============================================== */
+
+    .dataTables_length{
+        width: 100%;
+        font-size: 12px;
+    }
+
+    .dataTables_length label select {
+        height: 25px;
+        padding: 0px 8px;
+    }
+
+    .dataTables_filter {
+        margin-top: 2rem;
+        width: 100%;
+        display: block;
+        font-size: 12px;
+    }
+
+    .dataTables_filter label input {
+        margin-left: 0rem;
+        width: 100%;
+    }
+
+    .dataTables_info{
+        width: 100%;
+        margin-bottom: 1rem;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .dataTables_paginate {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .dataTables_paginate a {
+        font-size: 12px;
+    }
+
+    /* =============================================== */
 
 }
  /* FIN Media Query  */
