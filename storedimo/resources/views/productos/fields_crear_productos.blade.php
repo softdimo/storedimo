@@ -29,8 +29,8 @@
 
         {{-- ======================= --}}
 
-        <div class="col-12 col-md-3">
-            <div class="form-group d-flex flex-column">
+        <div class="col-12 col-md-3 d-flex align-items-end gap-2">
+            <div class="form-group flex-grow-1">
                 <label for="id_categoria" class="form-label">Categoría <span class="text-danger">*</span></label>
                 {!! Form::select('id_categoria', collect(['' => 'Seleccionar...'])->union($categorias), null, [
                     'class' => 'form-select select2',
@@ -38,6 +38,11 @@
                     'required' => 'required',
                 ]) !!}
             </div>
+            <button type="button" class="btn rounded-2 text-white h-90 px-2" style="background-color: #337AB7; margin-bottom: 1px"
+                title="Crear Categoría" data-bs-toggle="modal"
+                data-bs-target="#modal_crear_categoria">
+                <i class="fa fa-plus plus"></i>
+            </button>
         </div>
 
         {{-- ======================= --}}

@@ -31,6 +31,12 @@ class CategoriaStore implements Responsable
         
         if(isset($consultaCategoria) && !empty($consultaCategoria) && !is_null($consultaCategoria))
         {
+            if ($request->ajax()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Esta categoría ya existe.'
+                ]);
+            }
             alert()->info('Info', 'Esta categoría ya existe.');
             return back();
         } else
@@ -42,14 +48,27 @@ class CategoriaStore implements Responsable
                     'json' => ['categoria' => ucwords($categoria), 'id_estado' => 1, 'id_audit' => session('id_usuario')]
                 ]);
                 $respuestaCategoriaStore = json_decode($peticionCategoriaStore->getBody()->getContents());
-
+    
                 if(isset($respuestaCategoriaStore) && !empty($respuestaCategoriaStore))
                 {
+                    if ($request->ajax()) {
+                        return response()->json([
+                            'status' => 'success',
+                            'message' => 'Categoría creada satisfactoriamente',
+                            'categoria' => $respuestaCategoriaStore
+                        ]);
+                    }
                     alert()->success('Proceso Exitoso', 'Categoría creada satisfactoriamente');
                     return redirect()->to(route('categorias.index'));
                 }
             } catch (Exception $e)
             {
+                if ($request->ajax()) {
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => 'Error creando categoria: ' . $e->getMessage()
+                    ], 500);
+                }
                 alert()->error('Error', 'Error creando categoria, si el problema persiste, contacte a Soporte.' . $e->getMessage());
                 return back();
             }

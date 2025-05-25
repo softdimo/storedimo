@@ -88,14 +88,59 @@
                 'autocomplete' => 'off',
                 'id' => 'formCrearProducto',
                 'enctype' => 'multipart/form-data',
-                'file' => true
+                'file' => true,
             ]) !!}
-                @csrf
+            @csrf
 
-                @include('productos.fields_crear_productos')
+            @include('productos.fields_crear_productos')
             {!! Form::close() !!}
         </div>
     </div>
+
+    <!-- Modal Crear Categoría -->
+    <div class="modal fade" id="modal_crear_categoria" tabindex="-1" aria-labelledby="modalCrearCategoriaLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-white" style="background-color: #337AB7">
+                    <h5 class="modal-title" id="modalCrearCategoriaLabel">Crear Nueva Categoría</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formCrearCategoria" method="POST" action="{{ route('categorias.store') }}">
+                        @csrf
+                        <div class="p-3 d-flex flex-column">
+                            <div>
+                                <label for="categoria">Nombre Categoría<span class="text-danger"> *</span></label>
+                                <input type="text" name="categoria" id="categoria" class="form-control" required
+                                    minlength="3" maxlength="100" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s'-]{3,100}$"
+                                    title="Debe contener solo letras, espacios, guiones o apóstrofes (mínimo 3 caracteres)"
+                                    placeholder="Ingrese nombre de categoría">
+                            </div>
+
+                            <!-- Contenedor para el GIF -->
+                            <div id="loadingIndicatorCrearCategoria" class="loadingIndicator" style="display: none;">
+                                <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
+                            </div>
+
+                            <div class="d-flex justify-content-center mt-3">
+                                <button type="submit" class="btn btn-success rounded-2 me-3">
+                                    <i class="fa fa-floppy-o"></i>
+                                    Guardar
+                                </button>
+                                {{-- <button type="button" class="btn btn-danger rounded-2" data-bs-dismiss="modal">
+                                    <i class="fa fa-remove"></i>
+                                    Cancelar
+                                </button> --}}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Modal Crear Categoría -->
 @stop
 
 {{-- =============================================================== --}}
@@ -111,7 +156,7 @@
                 allowClear: false,
                 width: '100%'
             });
-            
+
             // Valido si el nombre del producto existe
             $('#id_categoria').blur(function() {
                 let nombreProducto = $('#nombre_producto').val();
@@ -150,6 +195,68 @@
             });
 
             // =============================================
+            // Función para abrir el modal de crear categoría
+            $('#formCrearCategoria').on('submit', function(e) {
+                e.preventDefault();
+
+                const form = $(this);
+                const submitButton = form.find('button[type="submit"]');
+                const loadingIndicator = $('#loadingIndicatorCrearCategoria');
+
+                // Deshabilitar botón y mostrar loading
+                submitButton.prop('disabled', true);
+                loadingIndicator.show();
+
+                $.ajax({
+                    url: form.attr('action'),
+                    method: 'POST',
+                    data: form.serialize(),
+                    dataType: 'json',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            // Cerrar modal y resetear formulario
+                            $('#modal_crear_categoria').modal('hide');
+                            form[0].reset();
+
+                            // Mostrar mensaje de éxito
+                            Swal.fire({
+                                icon: 'success',
+                                title: '¡Éxito!',
+                                text: response.message || 'Categoría creada correctamente',
+                                showConfirmButton: false,
+                                timer: 1500,
+                                timerProgressBar: true,
+                            });
+                            // Recargar la vista después de cerrar el mensaje
+                            location.reload();
+                        } else {
+                            throw new Error(response.message || 'Error al crear la categoría');
+                        }
+                    },
+                    error: function(xhr) {
+                        let errorMessage = 'Error al crear la categoría';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        }
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: errorMessage
+                        });
+                    },
+                    complete: function() {
+                        // Rehabilitar botón y ocultar loading
+                        submitButton.prop('disabled', false);
+                        loadingIndicator.hide();
+                    }
+                });
+            });
+            // Fin de función para abrir el modal de crear categoría
+
 
             // Valido que el precio unitario sea menor que el precio al detal
             $('#precio_detal').blur(function() {
@@ -256,7 +363,7 @@
                 const submitButton = form.find('button[type="submit"]');
                 const cancelButton = form.find('button[type="button"]');
                 const loadingIndicator = form.find(
-                "div[id^='loadingIndicatorCrearProducto']"); // Busca el GIF del form actual
+                    "div[id^='loadingIndicatorCrearProducto']"); // Busca el GIF del form actual
 
                 // Dessactivar Submit y Cancel
                 submitButton.prop("disabled", true).html(
