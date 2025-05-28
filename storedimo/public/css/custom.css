@@ -20,6 +20,21 @@ body {
     width: 100%;
 } */
 
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: -100%;
+        width: 50% !important;
+        transition: 0.3s;
+        z-index: 1000;
+        background: white;
+    }
+    
+    .sidebar.active {
+        left: 0;
+    }
+}
+
 /* =============================================== */
 
 .dt-buttons {
@@ -310,13 +325,13 @@ body {
 	}
 
     .navbar-toggler {
-		width: 100%;
+		/* width: 100%; */
 		margin-left: auto !important;
 		margin-right: auto !important;
 	}
 
     #navbarNavDropdown {
-        position: absolute;
+        /* position: absolute; */
         top: 100%;
         right: 0;
         z-index: 1050;

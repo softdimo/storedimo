@@ -1,17 +1,24 @@
 
 <header class="topbar m-0">
     <nav class="navbar navbar-expand-lg m-0 text-white" data-bs-theme="dark" style="background-color: #337AB7">
-        <div class="row p-0 w-100 align-items-lg-center justify-content-between">
-            <div class="logo-container col-4 col-md-2 text-center">
-                <a class="w-100" href="/home">
-                    <img src="{{asset('imagenes/logo_storedimo.png')}}" alt="Logo" width="140" height="50" class="text-center">
+        <div class="row p-0 w-100 align-items-lg-center">
+            <div class="col-4 d-flex justify-content-start align-items-center">
+                <button class="btn d-md-none text-white" id="sidebarToggle">
+                    <i class="fa fa-th-list fa-2x"></i>
+                </button>
+            </div>
+            <div class="col-4 d-flex justify-content-center align-items-center">
+                <a href="/home">
+                    <img src="{{asset('imagenes/logo_storedimo.png')}}" alt="Logo" width="140" height="50">
                 </a>
             </div>
-            {{-- ========================================== --}}
-            <div class="menu-container col-4 col-md-8">
-                <button class="navbar-toggler w-25" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <div class="col-4 d-flex justify-content-end align-items-center">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon text-white"></span>
                 </button>
+            </div>
+            {{-- ========================================== --}}
+            <div class="menu-container {{-- col-4 col-md-8 d-flex justify-content-md-end --}}">
 
                 <div class="collapse d-lg-flex justify-content-lg-end" id="navbarNavDropdown">
                     <ul class="navbar-nav justify-content-between">

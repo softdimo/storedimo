@@ -1,4 +1,4 @@
-<aside class="vh-100" style="border: 1px solid #e7e7e7">
+<aside class="vh-100 sidebar" id="sidebar" style="border: 1px solid #e7e7e7">
     <nav class="w-100 " role="">
         <ul class="nav navbar-nav d-flex flex-column justify-content-center flex-nowrap" id="sidebarnav">
             <li class="pt-1 pb-1 d-flex justify-content-between align-items-center" 
