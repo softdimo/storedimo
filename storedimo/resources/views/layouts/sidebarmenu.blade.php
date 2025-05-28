@@ -1,3 +1,24 @@
+@php
+    $user_id = session('id_usuario');
+    $user_type = 'App\\Models\\Usuario';
+
+    $menus = DB::table('menu')
+        ->join('permissions', 'menu.permission_id', '=', 'permissions.id')
+        ->join('model_has_permissions', function($join) use ($user_id, $user_type) {
+            $join->on('model_has_permissions.permission_id', '=', 'permissions.id')
+                 ->where('model_has_permissions.model_id', '=', $user_id)
+                 ->where('model_has_permissions.model_type', '=', $user_type);
+        })
+        ->where('menu.estado_id', 1)
+        ->select('menu.*')
+        ->distinct()
+        ->orderBy('menu.id_menu')
+        ->get();
+    
+    $menuGroups = $menus->where('ruta', '#')->values();
+    $menuItems = $menus->where('ruta', '!=', '#');
+@endphp
+
 <aside class="vh-100 sidebar" id="sidebar" style="border: 1px solid #e7e7e7">
     <nav class="w-100 " role="">
         <ul class="nav navbar-nav d-flex flex-column justify-content-center flex-nowrap" id="sidebarnav">
@@ -8,261 +29,39 @@
                 <span class="" style="width: 10%"></span>
             </li>
 
-            {{-- ==================================== --}}
+            @foreach($menuGroups as $menuGroup)
+                @php
+                    $hasChildren = $menuItems->where('menu_id', $menuGroup->id_menu)->count() > 0;
+                @endphp
+                @if($hasChildren)
+                    <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
+                        <div class="d-flex flex-row justify-content-between align-items-center colapsar" 
+                             id="menu_{{$menuGroup->id_menu}}" 
+                             role="button" 
+                             data-bs-toggle="collapse" 
+                             data-bs-target="#ul_menu_{{$menuGroup->id_menu}}" 
+                             aria-controls="ul_menu_{{$menuGroup->id_menu}}" 
+                             aria-expanded="false" 
+                             aria-label="Toggle navigation">
+                            <div class="col-11">
+                                <i class="fa {{$menuGroup->icono}} text-center" style="color: #000; width: 10%"></i>
+                                <a href="#" class="text-decoration-none" style="width: 80%" id="">{{$menuGroup->nombre}}</a>
+                            </div>
+                            <div class="col-1 text-center text-dark">
+                                <span class="fa collapse-icon" aria-hidden="false" style=""></span>
+                            </div>
+                        </div>
 
-            <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="usuarios" role="button" data-bs-toggle="collapse" data-bs-target="#ul_usuarios" aria-controls="ul_usuarios" aria-expanded="false" aria-label="Toggle navigation">
-                    <div class="col-11">
-                        <i class="fa fa-user text-center" style="color: #000; width: 10%"></i>
-                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Usuarios</a>
-                    </div>
-                    <div class="col-1 text-center text-dark">
-                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
-                    </div>
-                </div>
-
-                <ul class="nav collapse navbar-collapse ps-3" id="ul_usuarios">
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('usuarios.create')}}">Registrar Usuarios</a>
+                        <ul class="nav collapse navbar-collapse ps-3" id="ul_menu_{{$menuGroup->id_menu}}">
+                            @foreach($menuItems->where('menu_id', $menuGroup->id_menu) as $item)
+                                <li class="nav-item w-100">
+                                    <a class="link-underline-light" href="{{route($item->ruta)}}">{{$item->nombre}}</a>
+                                </li>
+                            @endforeach
+                        </ul>
                     </li>
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('usuarios.index')}}">Listar Usuarios</a>
-                    </li>
-                </ul>
-            </li>
-
-            {{-- ==================================== --}}
-            
-            <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="empresas" role="button" data-bs-toggle="collapse" data-bs-target="#ul_empresas" aria-controls="ul_empresas" aria-expanded="false" aria-label="Toggle navigation">
-                    <div class="col-11">
-                        <i class="fa fa-industry text-center" style="color: #000; width: 10%"></i>
-                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Empresas</a>
-                    </div>
-                    <div class="col-1 text-center text-dark">
-                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
-                    </div>
-                </div>
-
-                <ul class="nav collapse navbar-collapse ps-3" id="ul_empresas">
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('empresas.create')}}">Registrar Empresas</a>
-                    </li>
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('empresas.index')}}">Listar Empresas</a>
-                    </li>
-                </ul>
-            </li>
-
-            {{-- ==================================== --}}
-
-            <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="personas" role="button" data-bs-toggle="collapse" data-bs-target="#ul_personas" aria-controls="ul_personas" aria-expanded="false" aria-label="Toggle navigation">
-                    <div class="col-11">
-                        <i class="fa fa-users text-center" style="color: #000; width: 10%"></i>
-                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Clientes</a>
-                    </div>
-                    <div class="col-1 text-center text-dark">
-                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
-                    </div>
-                </div>
-
-                <ul class="nav collapse navbar-collapse ps-3" id="ul_personas">
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('listar_clientes')}}">Listar Clientes</a>
-                    </li>
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('personas.create')}}">Registrar Cliente</a>
-                    </li>
-                </ul>
-            </li>
-
-            {{-- ==================================== --}}
-                        
-            <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="proveedores" role="button" data-bs-toggle="collapse" data-bs-target="#ul_proveedores" aria-controls="ul_proveedores" aria-expanded="false" aria-label="Toggle navigation">
-                    <div class="col-11">
-                        <i class="fa fa-users text-center" style="color: #000; width: 10%"></i>
-                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Proveedores</a>
-                    </div>
-                    <div class="col-1 text-center text-dark">
-                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
-                    </div>
-                </div>
-
-                <ul class="nav collapse navbar-collapse ps-3" id="ul_proveedores">
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('proveedores.index')}}">Listar Proveedores</a>
-                    </li>
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('proveedores.create')}}">Registrar Proveedores</a>
-                    </li>
-                </ul>
-            </li>
-
-            {{-- ==================================== --}}
-
-            <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="personas"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_categorias" aria-controls="ul_categorias" aria-expanded="false" aria-label="Toggle navigation">
-                    <div class="col-11">
-                        <i class="fa fa-database text-center" style="color: #000; width: 10%"></i>
-                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Categorías</a>
-                    </div>
-                    <div class="col-1 text-center text-dark">
-                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
-                    </div>
-                </div>
-
-                <ul class="nav collapse navbar-collapse ps-3" id="ul_categorias">
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('categorias.index')}}">Gestionar Categorías</a>
-                    </li>
-                </ul>
-            </li>
-
-            {{-- ==================================== --}}
-
-            <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="personas"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_productos" aria-controls="ul_productos" aria-expanded="false" aria-label="Toggle navigation">
-                    <div class="col-11">
-                        <i class="fa fa-cubes text-center text-dark" style="width: 10%"></i>
-                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Productos</a>
-                    </div>
-                    <div class="col-1 text-center text-dark">
-                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
-                    </div>
-                </div>
-
-                <ul class="nav collapse navbar-collapse ps-3" id="ul_productos">
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('productos.create')}}">Registrar Productos</a>
-                    </li>
-                    <li class="nav-item  w-100">
-                        <a class="link-underline-light" href="{{route('productos.index')}}">Listar Productos</a>
-                    </li>
-                </ul>
-            </li>
-
-            {{-- ==================================== --}}
-
-            <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="personas"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_existencias" aria-controls="ul_existencias" aria-expanded="false" aria-label="Toggle navigation">
-                    <div class="col-11">
-                        <i class="fa fa-check-square-o text-center text-dark" style="width: 10%"></i>
-                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Gestionar Existencias</a>
-                    </div>
-                    <div class="col-1 text-center text-dark">
-                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
-                    </div>
-                </div>
-
-                <ul class="nav collapse navbar-collapse ps-3" id="ul_existencias">
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('existencias.create')}}">Registrar Bajas</a>
-                    </li>
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('bajas_index')}}">Listar Bajas</a>
-                    </li>
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('stock_minimo')}}">Productos en stock Mínimo</a>
-                    </li>
-                </ul>
-            </li>
-
-            {{-- ==================================== --}}
-
-            <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="personas"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_entradas" aria-controls="ul_entradas" aria-expanded="false" aria-label="Toggle navigation">
-                    <div class="col-11">
-                        <i class="fa fa-shopping-cart text-center text-dark" style="width: 10%"></i>
-                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Compras</a>
-                    </div>
-                    <div class="col-1 text-center text-dark">
-                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
-                    </div>
-                </div>
-
-                <ul class="nav collapse navbar-collapse ps-3" id="ul_entradas">
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('entradas.create')}}">Registrar Compras</a>
-                    </li>
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('entradas.index')}}">Listar Compras</a>
-                    </li>
-                </ul>
-            </li>
-
-            {{-- ==================================== --}}
-
-            <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="personas"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_ventas" aria-controls="ul_ventas" aria-expanded="false" aria-label="Toggle navigation">
-                    <div class="col-11">
-                        <i class="fa fa-usd text-center text-dark" style="width: 10%"></i>
-                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Ventas</a>
-                    </div>
-                    <div class="col-1 text-center text-dark">
-                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
-                    </div>
-                </div>
-
-                <ul class="nav collapse navbar-collapse ps-3" id="ul_ventas">
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('ventas.create')}}">Registrar Ventas</a>
-                    </li>
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('ventas.index')}}">Listar Ventas</a>
-                    </li>
-                    {{-- <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('credito_ventas')}}">Listar Créditos-Abonos</a>
-                    </li> --}}
-                </ul>
-            </li>
-            
-            {{-- ==================================== --}}
-
-            {{-- <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="pago_empleados"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_pago_empleados" aria-controls="ul_pago_empleados" aria-expanded="false" aria-label="Toggle navigation">
-                    <div class="col-11">
-                        <i class="fa fa-money text-center text-dark" style="width: 10%"></i>
-                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Pagos a Empleados</a>
-                    </div>
-                    <div class="col-1 text-center text-dark">
-                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
-                    </div>
-                </div>
-
-                <ul class="nav collapse navbar-collapse ps-3" id="ul_pago_empleados">
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('pago_empleados.create')}}">Registrar Pagos</a>
-                    </li>
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('pago_empleados.index')}}">Listar Pagos</a>
-                    </li>
-                </ul>
-            </li> --}}
-
-            {{-- ==================================== --}}
-
-            {{-- <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                <div class="d-flex flex-row justify-content-between align-items-center colapsar" id="pestamos_empleados"  role="button" data-bs-toggle="collapse" data-bs-target="#ul_pestamos_empleados" aria-controls="ul_pestamos_empleados" aria-expanded="false" aria-label="Toggle navigation">
-                    <div class="col-11">
-                        <i class="fa fa-credit-card text-center text-dark" style="width: 10%"></i>
-                        <a href="#" class="text-decoration-none" style="width: 80%" id="">Préstamos a Empleados</a>
-                    </div>
-                    <div class="col-1 text-center text-dark">
-                        <span class="fa collapse-icon" aria-hidden="false" style=""></span>
-                    </div>
-                </div>
-
-                <ul class="nav collapse navbar-collapse ps-3" id="ul_pestamos_empleados">
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('prestamos.create')}}">Registrar Préstamos</a>
-                    </li>
-                    <li class="nav-item w-100">
-                        <a class="link-underline-light" href="{{route('prestamos.index')}}">Listar Préstamos</a>
-                    </li>
-                </ul>
-            </li> --}}
+                @endif
+            @endforeach
         </ul>
     </nav>
 </aside>
