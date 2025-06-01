@@ -6,9 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Exception;
 use Carbon\Carbon;
-use App\Http\Controllers\admin\AdministradorController;
 use App\Traits\MetodosTrait;
-use App\Models\Usuario;
 use GuzzleHttp\Client;
 
 class HomeController extends Controller

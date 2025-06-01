@@ -24,6 +24,10 @@
             @csrf
             
             <h3 class="mb-4 fw-bold text-primary">Iniciar Sesión</h3>
+
+            <div class="mb-4">
+                {{ Form::select('id_empresa', collect(['' => 'Empresa...'])->union($empresas), null, ['class' => 'form-select select2', 'id' => 'id_empresa', 'required']) }}
+            </div>
             
             <div class="mb-4">
                 <input class="w-100 form-control p-3" type="text" name="usuario" id="usuario" placeholder="Usuario *" required>

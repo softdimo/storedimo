@@ -10,13 +10,16 @@ use App\Http\Responsable\inicio_sesion\LoginStore;
 use App\Http\Responsable\inicio_sesion\CambiarClave;
 use App\Http\Responsable\inicio_sesion\RecuperarClave;
 use App\Http\Responsable\inicio_sesion\RecuperarClaveUpdate;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use App\Traits\MetodosTrait;
 
 class LoginController extends Controller
 {
     use MetodosTrait;
+
+    public function __construct()
+    {
+        $this->shareData();
+    }
 
     /**
      * Display a listing of the resource.
@@ -219,7 +222,7 @@ class LoginController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function recuperarClaveUpdate(Request $request) 
+    public function recuperarClaveUpdate(Request $request)
     {
         if (!$this->checkDatabaseConnection())
         {
