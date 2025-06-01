@@ -26,15 +26,15 @@
             <h3 class="mb-4 fw-bold text-primary">Iniciar Sesión</h3>
 
             <div class="mb-4">
-                {{ Form::select('id_empresa', collect(['' => 'Empresa...'])->union($empresas), null, ['class' => 'form-select select2', 'id' => 'id_empresa', 'required']) }}
+                {{ Form::select('id_empresa', collect(['' => 'Seleccione Empresa...'])->union($empresas), null, ['class' => 'form-select select2', 'id' => 'id_empresa', 'required']) }}
             </div>
             
             <div class="mb-4">
-                <input class="w-100 form-control p-3" type="text" name="usuario" id="usuario" placeholder="Usuario *" required>
+                <input type="text" name="usuario" id="usuario" class="w-100 form-control p-3" placeholder="Usuario *" required>
             </div>
             
             <div class="mb-4 position-relative">
-                <input class="w-100 form-control p-3" type="password" name="clave" id="clave" placeholder="Contraseña *" required>
+                <input type="password" name="clave" id="clave" class="w-100 form-control p-3" placeholder="Contraseña *" required>
                 <span class="btn-show-pass position-absolute top-50 end-0 translate-middle-y me-3">
                     <i class="zmdi zmdi-eye fs-5"></i>
                 </span>
@@ -59,7 +59,29 @@
     <script>
         $( document ).ready(function() {
             // Limpieza inicial
-            $("#usuario").focus();
+            $("#id_empresa").focus();
+
+            $("#usuario").hide();
+            $("#clave").hide();
+
+            $("#id_empresa").change(function() {
+                var idEmpresa = $(this).val();
+                if (idEmpresa) {
+                    $("#usuario").show();
+                    $("#usuario").attr("required", "required");
+
+                    $("#clave").show();
+                    $("#clave").attr("required", "required");
+                } else {
+                    $("#usuario").hide();
+                    $("#usuario").val('');
+                    $("#usuario").removeAttr("required");
+
+                    $("#clave").hide();
+                    $("#clave").val('');
+                    $("#clave").removeAttr("required");
+                }
+            });
 
             
         }); // FIN document.ready
