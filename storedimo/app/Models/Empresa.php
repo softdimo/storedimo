@@ -21,6 +21,12 @@ class Empresa extends Model
         'celular_empresa',
         'email_empresa',
         'direccion_empresa',
-        'id_estado'
+        'app_key', // app key
+        'app_url', // app url
+        'id_tipo_bd', // db connection
+        'db_database', // db database
+        'db_username', // db username
+        'db_password', // db password
+        'id_estado' // estado
     ];
 }

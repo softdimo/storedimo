@@ -21,8 +21,9 @@
 
             <div class="col-12 col-md-3">
                 <div class="form-group d-flex flex-column">
-                    <label for="nombre_empresa" class="form-label">Nombre Empresa<span
-                            class="text-danger">*</span></label>
+                    <label for="nombre_empresa" class="form-label">Nombre Empresa
+                        <span class="text-danger">*</span>
+                    </label>
                     {!! Form::text('nombre_empresa', old('nombre_empresa'), [
                         'class' => 'form-control',
                         'id' => 'nombre_empresa',
@@ -38,8 +39,9 @@
 
             <div class="col-12 col-md-3">
                 <div class="form-group d-flex flex-column">
-                    <label for="telefono_empresa" class="form-label">Teléfono Empresa<span
-                            class="text-danger">*</span></label>
+                    <label for="telefono_empresa" class="form-label">Teléfono Empresa
+                        <span class="text-danger">*</span>
+                    </label>
                     {!! Form::text('telefono_empresa', old('telefono_empresa'), [
                         'class' => 'form-control',
                         'id' => 'telefono_empresa',
@@ -56,8 +58,9 @@
 
             <div class="col-12 col-md-3" id="div_celular">
                 <div class="form-group d-flex flex-column">
-                    <label for="celular_empresa" class="form-label">Número de Celular <span
-                            class="text-danger">*</span></label>
+                    <label for="celular_empresa" class="form-label">Número de Celular 
+                        <span class="text-danger">*</span>
+                    </label>
                     {!! Form::text('celular_empresa', old('celular_empresa'), [
                         'class' => 'form-control',
                         'id' => 'celular_empresa',
@@ -74,8 +77,9 @@
 
             <div class="col-12 col-md-3 mt-3" id="div_email">
                 <div class="form-group d-flex flex-column">
-                    <label for="email_empresa" class="form-label">Correo Electrónico <span
-                            class="text-danger">*</span></label>
+                    <label for="email_empresa" class="form-label">Correo Electrónico 
+                        <span class="text-danger">*</span>
+                    </label>
                     {!! Form::email('email_empresa', old('email_empresa'), [
                         'class' => 'form-control', 
                         'id' => 'email_empresa',
@@ -90,7 +94,9 @@
 
             <div class="col-12 col-md-3 mt-3" id="div_direccion">
                 <div class="form-group d-flex flex-column">
-                    <label for="direccion_empresa" class="form-label">Dirección</label>
+                    <label for="direccion_empresa" class="form-label">Dirección
+                        <span class="text-danger">*</span>
+                    </label>
                     {!! Form::text('direccion_empresa', old('direccion_empresa'), [
                         'class' => 'form-control',
                         'id' => 'direccion_empresa',
@@ -103,13 +109,106 @@
             </div>
 
             {{-- ======================= --}}
-
-            <div class="col-12 col-md-3 mt-3" id="div_direccion">
+            
+            <div class="col-12 col-md-3 mt-3" id="div_app_key">
                 <div class="form-group d-flex flex-column">
-                    <label for="id_estado" class="form-label">Estado</label>
+                    <label for="app_key" class="form-label">APP KEY
+                        <span class="text-danger">*</span>
+                    </label>
+                    {!! Form::text('app_key', old('app_key'), [
+                        'class' => 'form-control',
+                        'id' => 'app_key',
+                        'required' => 'required',
+                    ]) !!}
+                </div>
+            </div>
+
+            {{-- ======================= --}}
+            
+            <div class="col-12 col-md-3 mt-3" id="div_app_url">
+                <div class="form-group d-flex flex-column">
+                    <label for="app_url" class="form-label">APP URL
+                        <span class="text-danger">*</span>
+                    </label>
+                    {!! Form::text('app_url', old('app_url'), [
+                        'class' => 'form-control',
+                        'id' => 'app_url',
+                        'required' => 'required',
+                    ]) !!}
+                </div>
+            </div>
+
+            {{-- ======================= --}}
+            
+            <div class="col-12 col-md-3 mt-3" id="div_db_connection">
+                <div class="form-group d-flex flex-column">
+                    <label for="db_connection" class="form-label">DB CONNECTION
+                        <span class="text-danger">*</span>
+                    </label>
+                    {!! Form::select('db_connection', collect(['' => 'Seleccionar...'])->union($tipos_bd), null, [
+                        'class' => 'form-select select2',
+                        'id' => 'db_connection',
+                        'required' => 'required',
+                    ]) !!}
+                </div>
+            </div>
+
+            {{-- ======================= --}}
+            
+            <div class="col-12 col-md-3 mt-3" id="div_db_database">
+                <div class="form-group d-flex flex-column">
+                    <label for="db_database" class="form-label">DB DATABASE
+                        <span class="text-danger">*</span>
+                    </label>
+                    {!! Form::text('db_database', old('db_database'), [
+                        'class' => 'form-control',
+                        'id' => 'db_database',
+                        'required' => 'required',
+                    ]) !!}
+                </div>
+            </div>
+
+            {{-- ======================= --}}
+
+            <div class="col-12 col-md-3 mt-3" id="div_db_username">
+                <div class="form-group d-flex flex-column">
+                    <label for="db_username" class="form-label">DB USERNAME
+                        <span class="text-danger">*</span>
+                    </label>
+                    {!! Form::text('db_username', old('db_username'), [
+                        'class' => 'form-control',
+                        'id' => 'db_username',
+                        'required' => 'required',
+                    ]) !!}
+                </div>
+            </div>
+
+            {{-- ======================= --}}
+            
+            <div class="col-12 col-md-3 mt-3" id="div_db_password">
+                <div class="form-group d-flex flex-column">
+                    <label for="db_password" class="form-label">DB PASSWORD
+                        <span class="text-danger">*</span>
+                    </label>
+                    {!! Form::text('db_password', old('db_password'), [
+                        'class' => 'form-control',
+                        'id' => 'db_password',
+                        'required' => 'required',
+                    ]) !!}
+                </div>
+            </div>
+
+            {{-- ======================= --}}
+
+            <div class="col-12 col-md-3 mt-3" id="div_id_estado">
+                <div class="form-group d-flex flex-column">
+                    <label for="id_estado" class="form-label">Estado
+                        <span class="text-danger">*</span>
+                    </label>
                     {!! Form::select('id_estado', collect(['' => 'Seleccionar...'])->union($estados), 1, [
                         'class' => 'form-select select2',
                         'id' => 'id_estado',
+                        'required' => 'required',
                     ]) !!}
                 </div>
             </div>

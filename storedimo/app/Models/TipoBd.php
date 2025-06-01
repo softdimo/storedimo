@@ -10,7 +10,7 @@ class TipoBd extends Model
     use SoftDeletes;
 
     protected $connection = 'mysql';
-    protected $table = 'tipo_bd';
+    protected $table = 'tipos_bd';
     protected $primaryKey = 'id_tipo_bd';
     protected $dates = ['deleted_at'];
     public $timestamps = true;
