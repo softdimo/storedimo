@@ -129,11 +129,10 @@
                                         <td>{{ $empresa->db_password }}</td>
                                         <td>{{ $empresa->estado }}</td>
                                         <td>
-                                            <button title="Editar Empresa" class="btn btn-success rounded-circle btn-circle text-white btn-editar-empresa" data-id="{{$empresa->id_empresa}}">
+                                            <a href="{{ route('empresas.edit', $empresa->id_empresa) }}" class="btn btn-success rounded-circle btn-circle text-white btn-editar-empresa">
                                                 <i class="fa fa-pencil-square-o"></i>
-                                            </button>
+                                            </a>
                                         </td>
-
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -143,19 +142,6 @@
             </div> {{-- FIN div_crear_empresa --}}
         </div>
     </div>
-    
-    {{-- =============================================================== --}}
-    {{-- =============================================================== --}}
-
-    <!-- INICIO Modal EDITAR EMPRESA -->
-    <div class="modal fade" id="modalEditarEmpresa" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
-        <div class="modal-dialog">
-            <div class="modal-content p-3" id="modalEditarEmpresaContent">
-                {{-- El contenido AJAX se cargará aquí --}}
-            </div> <!-- FIN modal-content -->
-        </div> <!-- FIN modal-dialog -->
-    </div> <!-- FIN modal fade -->
-    <!-- FIN Modal EDITAR EMPRESA -->
 @stop
 
 {{-- =============================================================== --}}
@@ -207,50 +193,6 @@
             });
             // CIERRE DataTable Lista Personas
 
-            // ===========================================================================================
-            // ===========================================================================================
-
-            $(document).on('click', '.btn-editar-empresa', function () {
-                const idEmpresa = $(this).data('id');
-
-                $.ajax({
-                    url: `/empresas/${idEmpresa}/edit`,
-                    type: 'GET',
-                    beforeSend: function () {
-                        $('#modalEditarEmpresa').modal('show');
-                        $('#modalEditarEmpresaContent').html('<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>');
-                    },
-                    success: function (html) {
-                        $('#modalEditarEmpresaContent').html(html);
-                    }, // FIN success
-                    error: function () {
-                        $('#modalEditarEmpresaContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');
-                    }
-                }); // FIN $.ajax
-            }); // FIN $(document).on('click', '.btn-cambiar_clave
-
-            // ===========================================================================================
-            // ===========================================================================================
-
-            $(document).on("submit", "form[id^='formEditarEmpresa_']", function(e) {
-                const form = $(this);
-                const formId = form.attr('id'); // Obtenemos el ID del formulario
-                const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
-
-                // Capturar el indicador de carga dinámicamente
-                const submitButton = $(`#btn_editar_empresa_${id}`);
-                const cancelButton = $(`#btn_cancelar_empresa_${id}`);
-                const loadingIndicator = $(`#loadingIndicatorEditarEmpresa_${id}`);
-
-                // Lógica del botón
-                submitButton.prop("disabled", true).html(
-                    "Procesando... <i class='fa fa-spinner fa-spin'></i>"
-                );
-                cancelButton.prop("disabled", true);
-
-                // Cargar Spinner
-                loadingIndicator.show();
-            });
         }); // FIN document.ready
     </script>
 @stop

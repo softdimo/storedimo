@@ -27,7 +27,7 @@ class EmpresaEdit implements Responsable
             $peticion = $clientApi->get($baseUri . 'empresa_edit/'. $this->idEmpresa);
             $empresa = json_decode($peticion->getBody()->getContents());
 
-            return view('empresas.modal_editar_empresa', compact('empresa'));
+            return view('empresas.edit', compact('empresa'));
 
         } catch (Exception $e) {
             alert()->error('Editando la Empresa, contacte a Soporte.');
