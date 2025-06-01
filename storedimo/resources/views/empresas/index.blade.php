@@ -101,6 +101,12 @@
                                     <th>Celular</th>
                                     <th>Email</th>
                                     <th>Dirección</th>
+                                    <th>APP KEY</th>
+                                    <th>APP URL</th>
+                                    <th>DB CONNECTION</th>
+                                    <th>DB DATABASE</th>
+                                    <th>DB USERNAME</th>
+                                    <th>DB PASSWORD</th>
                                     <th>Estado</th>
                                     <th>Opciones</th>
                                 </tr>
@@ -115,6 +121,12 @@
                                         <td>{{ $empresa->celular_empresa }}</td>
                                         <td>{{ $empresa->email_empresa }}</td>
                                         <td>{{ $empresa->direccion_empresa }}</td>
+                                        <td>{{ $empresa->app_key }}</td>
+                                        <td>{{ $empresa->app_url }}</td>
+                                        <td>{{ $empresa->tipo_bd }}</td>
+                                        <td>{{ $empresa->db_database }}</td>
+                                        <td>{{ $empresa->db_username }}</td>
+                                        <td>{{ $empresa->db_password }}</td>
                                         <td>{{ $empresa->estado }}</td>
                                         <td>
                                             <button title="Editar Empresa" class="btn btn-success rounded-circle btn-circle text-white btn-editar-empresa" data-id="{{$empresa->id_empresa}}">

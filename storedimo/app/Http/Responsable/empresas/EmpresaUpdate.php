@@ -31,6 +31,12 @@ class EmpresaUpdate implements Responsable
         $celularEmpresa = request('celular_empresa');
         $emailEmpresa = request('email_empresa');
         $direccionEmpresa = request('direccion_empresa');
+        $appKey = request('app_key');
+        $appUrl = request('app_url');
+        $idTipoBd = request('id_tipo_bd');
+        $dbDatabase = request('db_database');
+        $dbUsername = request('db_username');
+        $dbPassword = request('db_password');
         $idEstado = request('id_estado');
 
         // ===================================================================
@@ -44,6 +50,12 @@ class EmpresaUpdate implements Responsable
                     'celular_empresa' => $celularEmpresa,
                     'email_empresa' => $emailEmpresa,
                     'direccion_empresa' => $direccionEmpresa,
+                    'app_key' => $appKey,
+                    'app_url' => $appUrl,
+                    'id_tipo_bd' => $idTipoBd,
+                    'db_database' => $dbDatabase,
+                    'db_username' => $dbUsername,
+                    'db_password' => $dbPassword,
                     'id_estado' => $idEstado,
                     'id_audit' => session('id_usuario')
                 ]
