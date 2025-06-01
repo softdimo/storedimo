@@ -3,7 +3,6 @@
 namespace App\Traits;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\View;
 use App\Models\Categoria;
 use App\Models\Rol;
 use App\Models\Estado;
@@ -21,7 +20,7 @@ use App\Models\Usuario;
 use App\Models\Permission;
 use App\Models\Proveedor;
 use App\Models\ModelHasPermissions;
-use App\Http\Responsable\usuarios\UsuarioIndex;
+use App\Models\TipoBd;
 
 trait MetodosTrait
 {
@@ -92,7 +91,8 @@ trait MetodosTrait
         view()->share('tipos_pago_nomina', TipoPago::whereIn('id_tipo_pago', [4,5])->orderBy('tipo_pago')->pluck('tipo_pago', 'id_tipo_pago'));
         view()->share('periodos_pago', PeriodoPago::orderBy('periodo_pago')->pluck('periodo_pago', 'id_periodo_pago'));
         view()->share('porcentajes_comision', PorcentajeComision::orderBy('porcentaje_comision')->pluck('porcentaje_comision', 'id_porcentaje_comision'));
-        view()->share('empresas', Empresa::orderBy('nombre_empresa')->pluck('nombre_empresa', 'id_empresa'));
+        view()->share('empresas', Empresa::orderBy('nombre_empresa')->where('id_estado', 1)->pluck('nombre_empresa', 'id_empresa'));
+        view()->share('tipos_bd', TipoBd::orderBy('tipo_bd')->pluck('tipo_bd', 'id_tipo_bd'));
         view()->share('usuarios', Usuario::orderBy('id_usuario')
                                     ->select(
                                         DB::raw("CONCAT(nombre_usuario, ' ', apellido_usuario, ' => ', usuario) AS user"),
