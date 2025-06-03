@@ -21,7 +21,6 @@ class EmpresaUpdate implements Responsable
     }
 
     // ===================================================================
-    // ===================================================================
 
     public function toResponse($request)
     {
@@ -41,22 +40,59 @@ class EmpresaUpdate implements Responsable
 
         // ===================================================================
 
+        $logoEmpresaBase64Edit = null;
+
+        if ($request->hasFile('logo_empresa')) {
+            $logoEmpresa = $request->file('logo_empresa');
+
+            if ($logoEmpresa->isValid()) {
+                // Validación de tipo MIME
+                $tiposPermitidos = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'];
+                $tipoMime = $logoEmpresa->getMimeType();
+
+                if (!in_array($tipoMime, $tiposPermitidos)) {
+                    alert()->error('Error', 'El tipo de imagen no es válido. Solo se permiten JPG, JPEG, PNG o WEBP.');
+                    return back();
+                }
+
+                // Validación de tamaño (2 MB = 2048 KB)
+                $tamanioMaximoKB = 2048;
+                $tamanioArchivoKB = $logoEmpresa->getSize() / 1024;
+
+                if ($tamanioArchivoKB > $tamanioMaximoKB) {
+                    alert()->error('Error', 'La imagen excede el tamaño máximo permitido de 2 MB.');
+                    return back();
+                }
+
+                // Codificación base64
+                $contenido = file_get_contents($logoEmpresa);
+                $logoEmpresaBase64Edit = 'data:' . $logoEmpresa->getMimeType() . ';base64,' . base64_encode($contenido);
+            }
+        }
+
+        // ===================================================================
+
+        // Obtener los datos actuales del producto antes de actualizar
+        $peticionEmpresa = $this->clientApi->get($this->baseUri.'empresa_edit/'.$this->idEmpresa);
+        $empresaActual = json_decode($peticionEmpresa->getBody()->getContents());
+
         try {
             $reqEmpresaUpdate = $this->clientApi->put($this->baseUri.'empresa_update/'.$this->idEmpresa, [
                 'json' => [
-                    'nit_empresa' => $nitEmpresa,
-                    'nombre_empresa' => $nombreEmpresa,
-                    'telefono_empresa' => $telefonoEmpresa,
-                    'celular_empresa' => $celularEmpresa,
-                    'email_empresa' => $emailEmpresa,
-                    'direccion_empresa' => $direccionEmpresa,
-                    'app_key' => $appKey,
-                    'app_url' => $appUrl,
-                    'id_tipo_bd' => $idTipoBd,
-                    'db_database' => $dbDatabase,
-                    'db_username' => $dbUsername,
-                    'db_password' => $dbPassword,
-                    'id_estado' => $idEstado,
+                    'nit_empresa' => $nitEmpresa ?? $empresaActual->nit_empresa,
+                    'nombre_empresa' => $nombreEmpresa ?? $empresaActual->nombre_empresa,
+                    'telefono_empresa' => $telefonoEmpresa ?? $empresaActual->telefono_empresa,
+                    'celular_empresa' => $celularEmpresa ?? $empresaActual->celular_empresa,
+                    'email_empresa' => $emailEmpresa ?? $empresaActual->email_empresa,
+                    'direccion_empresa' => $direccionEmpresa ?? $empresaActual->direccion_empresa,
+                    'app_key' => $appKey ?? $empresaActual->app_key,
+                    'app_url' => $appUrl ?? $empresaActual->app_url,
+                    'id_tipo_bd' => $idTipoBd ?? $empresaActual->id_tipo_bd,
+                    'db_database' => $dbDatabase ?? $empresaActual->db_database,
+                    'db_username' => $dbUsername ?? $empresaActual->db_username,
+                    'db_password' => $dbPassword ?? $empresaActual->db_password,
+                    'logo_empresa' => $logoEmpresaBase64Edit ?? $empresaActual->logo_empresa,
+                    'id_estado' => $idEstado ?? $empresaActual->id_estado,
                     'id_audit' => session('id_usuario')
                 ]
             ]);

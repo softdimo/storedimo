@@ -23,6 +23,7 @@ class EmpresaStore implements Responsable
         $dbDatabase = request('db_database');
         $dbUsername = request('db_username');
         $dbPassword = request('db_password');
+        $logoEmpresa = request('logo_empresa');
 
         try {
             $nuevaEmpresa = Empresa::create([
@@ -39,6 +40,7 @@ class EmpresaStore implements Responsable
                 'db_database' => $dbDatabase,
                 'db_username' => $dbUsername,
                 'db_password' => $dbPassword,
+                'logo_empresa' => $logoEmpresa
             ]);
 
             if (isset($nuevaEmpresa) && !is_null($nuevaEmpresa) && !empty($nuevaEmpresa)) {

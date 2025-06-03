@@ -199,6 +199,25 @@
 
         {{-- ======================= --}}
 
+        <div class="col-12 col-md-3 mt-3">
+            <div class="form-group d-flex flex-column file-container">
+                <label for="logo_empresa" class="form-label">Logo
+                    <span class="text-danger">(jpg, jpeg, png o webp)</span>
+                </label>
+                <div class="div-file">
+                    {!! Form::file('logo_empresa', [
+                        'class' => 'form-control file',
+                        'id' => 'logo_empresa',
+                        'onchange' => 'displaySelectedFile("logo_empresa","selected_logo_empresa")',
+                        'accept' => 'image/jpg,image/jpeg,image/png,image/webp',
+                    ]) !!}
+                </div>
+                <span id="selected_logo_empresa" class="text-danger hidden"></span>
+            </div>
+        </div>
+
+        {{-- ======================= --}}
+
         <div class="col-12 col-md-3 mt-3" id="div_id_estado">
             <div class="form-group d-flex flex-column">
                 <label for="id_estado" class="form-label">Estado

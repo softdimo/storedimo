@@ -27,6 +27,7 @@ class Empresa extends Model
         'db_database', // db database
         'db_username', // db username
         'db_password', // db password
+        'logo_empresa', // logo empresa
         'id_estado' // estado
     ];
 }

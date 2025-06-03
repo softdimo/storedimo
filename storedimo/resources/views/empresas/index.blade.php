@@ -106,6 +106,7 @@
                                     <th>DB DATABASE</th>
                                     <th>DB USERNAME</th>
                                     <th>DB PASSWORD</th>
+                                    <th>LOGO</th>
                                     <th>Estado</th>
                                     <th>Opciones</th>
                                 </tr>
@@ -126,6 +127,15 @@
                                         <td>{{ $empresa->db_database ? Crypt::decrypt($empresa->db_database) : '' }}</td>
                                         <td>{{ $empresa->db_username ? Crypt::decrypt($empresa->db_username) : '' }}</td>
                                         <td>{{ $empresa->db_password ? Crypt::decrypt($empresa->db_password) : '' }}</td>
+                                        
+                                        @if (is_null($empresa->logo_empresa))
+                                            <td class="align-middle"></td>
+                                        @else
+                                            <td class="align-middle">
+                                                <img src="{{ $empresa->logo_empresa }}" alt="Empresa" style="max-width: 50px;">
+                                            </td>
+                                        @endif
+
                                         <td>{{ $empresa->estado ? $empresa->estado : '' }}</td>
                                         <td>
                                             <a href="{{ route('empresas.edit', $empresa->id_empresa) }}" class="btn btn-success rounded-circle btn-circle text-white btn-editar-empresa">

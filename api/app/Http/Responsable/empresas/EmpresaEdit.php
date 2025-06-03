@@ -39,7 +39,8 @@ class EmpresaEdit implements Responsable
                     'app_url',
                     'db_database',
                     'db_username',
-                    'db_password'
+                    'db_password',
+                    'logo_empresa'
                 )
                 ->orderByDesc('nombre_empresa')
                 ->where('id_empresa', $this->idEmpresa)

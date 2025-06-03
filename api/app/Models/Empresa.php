@@ -32,6 +32,7 @@ class Empresa extends Model implements Auditable
         'db_database', // db database
         'db_username', // db username
         'db_password', // db password
-        'id_estado'
+        'logo_empresa',
+        'id_estado',
     ];
 }

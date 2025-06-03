@@ -31,7 +31,8 @@ class EmpresaIndex implements Responsable
                     'estados.id_estado',
                     'estado',
                     'tipos_bd.id_tipo_bd',
-                    'tipo_bd'
+                    'tipo_bd',
+                    'logo_empresa'
                 )
                 ->orderBy('nombre_empresa', 'asc')
                 ->get();

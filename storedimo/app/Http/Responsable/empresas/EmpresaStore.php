@@ -37,6 +37,40 @@ class EmpresaStore implements Responsable
         $dbPassword = Crypt::encrypt(request('db_password'));
         $idEstado = request('id_estado');
 
+        // ========================================================
+
+        $logoEmpresaBase64 = null;
+
+        if ($request->hasFile('logo_empresa')) {
+            $logoEmpresa = $request->file('logo_empresa');
+
+            if ($logoEmpresa->isValid()) {
+                // Validación de tipo MIME
+                $tiposPermitidos = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'];
+                $tipoMime = $logoEmpresa->getMimeType();
+
+                if (!in_array($tipoMime, $tiposPermitidos)) {
+                    alert()->error('Error', 'El tipo de imagen no es válido. Solo se permiten JPG, JPEG, PNG o WEBP.');
+                    return back();
+                }
+
+                // Validación de tamaño (2 MB = 2048 KB)
+                $tamanioMaximoKB = 2048;
+                $tamanioArchivoKB = $logoEmpresa->getSize() / 1024;
+
+                if ($tamanioArchivoKB > $tamanioMaximoKB) {
+                    alert()->error('Error', 'La imagen excede el tamaño máximo permitido de 2 MB.');
+                    return back();
+                }
+
+                // Codificación base64
+                $contenido = file_get_contents($logoEmpresa);
+                $logoEmpresaBase64 = 'data:' . $logoEmpresa->getMimeType() . ';base64,' . base64_encode($contenido);
+            }
+        }
+
+        // ========================================================
+
         $consultarEmpresa = $this->consultarEmpresa($nitEmpresa, $nombreEmpresa);
         
         try {
@@ -58,6 +92,7 @@ class EmpresaStore implements Responsable
                         'db_database' => $dbDatabase,
                         'db_username' => $dbUsername,
                         'db_password' => $dbPassword,
+                        'logo_empresa' => $logoEmpresaBase64,
                         'id_estado' => $idEstado,
                         'id_audit' => session('id_usuario')
                     ]
