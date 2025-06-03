@@ -173,13 +173,13 @@
                                         <tr class="header-table text-center">
                                             <th>Producto</th>
                                             <th>Cantidad</th>
-                                            <th>subtotal</th>
+                                            <th>Subtotal</th>
                                             <th>Opción</th>
                                         </tr>
                                     </thead>
                                     {{-- ============================== --}}
                                     <tbody>
-                                        <tr class="text-center"></tr>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -589,6 +589,9 @@
 {{-- =============================================================== --}}
 
 @section('scripts')
+    <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
+    <script src="{{ asset('DataTables/Buttons-2.3.4/js/buttons.html5.min.js') }}"></script>
+
     <script>
         $(document).ready(function() {
             $('.select2').select2({
@@ -778,6 +781,21 @@
             // ===================================================================================
             // ===================================================================================
 
+            // INICIO DataTable
+            let tablaCompras = $('#tbl_compras').DataTable({
+                dom: 'lrtip',
+                infoEmpty: 'No hay registros',
+                stripe: true,
+                bSort: false,
+                autoWidth: false,
+                scrollX: true,
+                pageLength: 10,
+                responsive: true,
+                language: {
+                    emptyTable: "No hay productos agregados"
+                }
+            }); // CIERRE DataTable
+
             // INICIO - Función para agregar fila x fila cada producto para comprar
             let totalVenta = 0;
             let indiceSiguienteFila = 0;
@@ -830,7 +848,7 @@
                     </tr>
                 `;
 
-                $('#tbl_compras tbody').append(fila);
+                tablaCompras.row.add($(fila)).draw();
 
                 // Agregar inputs hidden dentro del formulario
                 let hiddenInputs = `

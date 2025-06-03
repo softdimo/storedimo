@@ -95,11 +95,6 @@
                             <i class="fa fa-floppy-o"></i>
                             Guardar
                         </button>
-
-                        <button type="button" class="btn btn-danger rounded-2">
-                            <i class="fa fa-remove"></i>
-                            Cancelar
-                        </button>
                     </div>
                 {!! Form::close() !!}
             </div> {{-- FIN div_crear_empresa --}}
@@ -125,12 +120,10 @@
             $(document).on("submit", "form[id^='formCrearEmpresas']", function (e) {
                 const form = $(this);
                 const submitButton = form.find('button[type="submit"]');
-                const cancelButton = form.find('button[type="button"]');
                 const loadingIndicator = form.find("div[id^='loadingIndicatorEmpresaStore']"); // Busca el GIF del form actual
 
                 // Dessactivar Botones
                 submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
-                cancelButton.prop("disabled", true);
                 
                 // Mostrar Spinner
                 loadingIndicator.show();

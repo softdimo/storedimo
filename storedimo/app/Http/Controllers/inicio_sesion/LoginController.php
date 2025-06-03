@@ -11,15 +11,23 @@ use App\Http\Responsable\inicio_sesion\CambiarClave;
 use App\Http\Responsable\inicio_sesion\RecuperarClave;
 use App\Http\Responsable\inicio_sesion\RecuperarClaveUpdate;
 use App\Traits\MetodosTrait;
+use GuzzleHttp\Client;
 
 class LoginController extends Controller
 {
     use MetodosTrait;
+    protected $baseUri;
+    protected $clientApi;
 
     public function __construct()
     {
         $this->shareData();
+        $this->baseUri = env('BASE_URI');
+        $this->clientApi = new Client(['base_uri' => $this->baseUri]);
     }
+
+    // ======================================================================
+    // ======================================================================
 
     /**
      * Display a listing of the resource.

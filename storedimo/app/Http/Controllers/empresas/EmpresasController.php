@@ -11,6 +11,8 @@ use App\Http\Responsable\empresas\EmpresaIndex;
 use App\Http\Responsable\empresas\EmpresaStore;
 use App\Http\Responsable\empresas\EmpresaUpdate;
 use App\Http\Responsable\empresas\EmpresaEdit;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 
 class EmpresasController extends Controller
 {
@@ -192,7 +194,7 @@ class EmpresasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $idEmpresa)
     {
         try {
             if (!$this->checkDatabaseConnection())
@@ -209,7 +211,7 @@ class EmpresasController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
-                    $vista = new EmpresaUpdate();
+                    $vista = new EmpresaUpdate($idEmpresa);
                     return $this->validarAccesos($sesion[0], 12, $vista);
                 }
             }
@@ -232,5 +234,108 @@ class EmpresasController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+    // ======================================================================
+    // ======================================================================
+
+    public function empresaDatosConexion(Request $request)
+    {
+        try {
+            $idEmpresa = $request->input('id_empresa');
+
+            $reqEmpresaEnv = $this->clientApi->get($this->baseUri.'empresa_datos_conexion/'.$idEmpresa, [
+                'json' => []
+            ]);
+            $resEmpresaEnv = json_decode($reqEmpresaEnv->getBody()->getContents());
+            return response()->json($resEmpresaEnv);
+    
+        } catch (Exception $e) {
+            alert()->error("Error consultando los datos de conexión de la empresa!");
+            return redirect()->to(route('login'));
+        }
+    }
+
+    // ======================================================================
+    // ======================================================================
+
+    public function guardarDatosEnv(Request $request)
+    {
+
+        try {
+            $datos = $request->all();
+    
+            $envVars = [
+                'DB_CONNECTION' => $datos['db_connection'],
+                'DB_DATABASE'   => decrypt($datos['db_database']),
+                'DB_USERNAME'   => decrypt($datos['db_username']),
+                'DB_PASSWORD'   => decrypt($datos['db_password']),
+            ];
+
+            if (app()->environment('local')) {
+                // ✅ LOCAL
+                $pathApi = realpath(base_path('../api')) . DIRECTORY_SEPARATOR . '.env';
+                $pathWeb = base_path('.env');
+    
+                $this->actualizarArchivoEnv($pathApi, $envVars);
+                $this->actualizarArchivoEnv($pathWeb, $envVars);
+    
+            } else {
+                // 🌐 PRODUCCIÓN (API REMOTA)
+                $this->clientApi->post('update_env', [
+                    'headers' => [
+                        'X-API-KEY' => config('services.env_update_key'),
+                        'Accept' => 'application/json',
+                    ],
+                    'json' => $envVars,
+                ]);
+            }
+    
+            $this->actualizarArchivoEnv($pathApi, $envVars);
+            $this->actualizarArchivoEnv($pathWeb, $envVars);
+
+            Artisan::call('config:clear');
+            Artisan::call('cache:clear');
+    
+            return response()->json(['status' => 'ok', 'message' => 'Variables .env actualizadas correctamente']);
+    
+        } catch (Exception $e) {
+            alert()->error("Error guardando los datos de conexión de la empresa!");
+            return redirect()->to(route('login'));
+        }
+    }
+
+    // ======================================================================
+    // ======================================================================
+
+    protected function actualizarArchivoEnv($filePath, $envVars)
+    {
+        if (!file_exists($filePath)) {
+            throw new \Exception("Archivo .env no encontrado: $filePath");
+        }
+    
+        $envContent = file_get_contents($filePath);
+        $lines = explode("\n", $envContent);
+    
+        foreach ($envVars as $key => $value) {
+            $found = false;
+    
+            foreach ($lines as $i => $line) {
+                // Ignorar líneas vacías o comentarios
+                if (preg_match('/^\s*'.$key.'\s*=.*/', $line)) {
+                    $lines[$i] = "{$key}={$value}";
+                    $found = true;
+                    break;
+                }
+            }
+    
+            if (!$found) {
+                $lines[] = "{$key}={$value}";
+            }
+        }
+    
+        $newContent = implode("\n", $lines);
+    
+        file_put_contents($filePath, $newContent);
     }
 }

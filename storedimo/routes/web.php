@@ -47,7 +47,6 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
         Route::post('recuperar_clave_email', 'LoginController@recuperarClaveEmail')->name('recuperar_clave_email');
         Route::get('recuperar_clave_link/{usuIdRecuperarClave}', 'LoginController@recuperarClaveLink')->name('recuperar_clave_link');
         Route::post('recuperar_clave_update', 'LoginController@recuperarClaveUpdate')->name('recuperar_clave_update');
-        
     });
 
     // HOME
@@ -192,11 +191,14 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
     // EMPRESAS
     Route::group(['namespace' => 'App\Http\Controllers\empresas'], function () {
         Route::resource('empresas', 'EmpresasController');
+        Route::post('empresa_datos_conexion', 'EmpresasController@empresaDatosConexion')->name('empresa_datos_conexion');
+
+        // GUARDAR DATOS EN EL .ENV DE LA EMPRESA
+        Route::post('guardar_datos_env', 'EmpresasController@guardarDatosEnv')->name('guardar_datos_env');
     });
 
     // Rutas roles y permisos
-    Route::group(['namespace' => 'App\Http\Controllers\roles_permisos'], function ()
-    {
+    Route::group(['namespace' => 'App\Http\Controllers\roles_permisos'], function () {
         Route::post('crear_rol', 'RolesPermisosController@guardarRol')->name('crear_rol');
         Route::post('crear_permiso', 'RolesPermisosController@guardarPermiso')->name('crear_permiso');
         Route::post('traer_permisos_usuario', 'RolesPermisosController@consultarPermisosPorUsuario')->name('traer_permisos_usuario');

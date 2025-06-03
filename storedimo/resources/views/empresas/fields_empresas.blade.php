@@ -1,3 +1,6 @@
+@php
+    use Illuminate\Support\Facades\Crypt;
+@endphp
 <div class="m-0 p-3" id="div_campos_empresas">
     <div class="row">
         <div class="col-12 col-md-3">
@@ -97,7 +100,7 @@
                     'class' => 'form-control',
                     'id' => 'direccion_empresa',
                     'pattern' => '^[a-zA-Z0-9\s\#\-\.\,\/]{5,100}$',
-                    'title' => 'Ingrese una dirección válida (solo letras, números y caracteres como # - . , /). Mínimo 5 y máximo 100                                                  caracteres.',
+                    'title' => 'Ingrese una dirección válida (solo letras, números y caracteres como # - . , /). Mínimo 5 y máximo 100 caracteres.',
                     'maxlength' => 100,
                     'minlength' => 5,
                 ]) !!}
@@ -111,7 +114,7 @@
                 <label for="app_key" class="form-label">APP KEY
                     <span class="text-danger">*</span>
                 </label>
-                {!! Form::text('app_key', old('app_key', isset($empresa) ? $empresa->app_key : null), [
+                {!! Form::text('app_key', old('app_key', isset($empresa) ? Crypt::decrypt($empresa->app_key) : null), [
                     'class' => 'form-control',
                     'id' => 'app_key',
                     'required' => 'required',
@@ -138,12 +141,12 @@
         
         <div class="col-12 col-md-3 mt-3" id="div_db_connection">
             <div class="form-group d-flex flex-column">
-                <label for="db_connection" class="form-label">DB CONNECTION
+                <label for="id_tipo_bd" class="form-label">DB CONNECTION
                     <span class="text-danger">*</span>
                 </label>
-                {!! Form::select('db_connection', collect(['' => 'Seleccionar...'])->union($tipos_bd), null, [
-                    'class' => 'form-select select2',
-                    'id' => 'db_connection',
+                {!! Form::select('id_tipo_bd', collect(['' => 'Seleccionar...'])->union($tipos_bd), old('id_tipo_bd', isset($empresa) ? $empresa->id_tipo_bd : null), [
+                    'class' => 'form-select',
+                    'id' => 'id_tipo_bd',
                     'required' => 'required',
                 ]) !!}
             </div>
@@ -156,7 +159,7 @@
                 <label for="db_database" class="form-label">DB DATABASE
                     <span class="text-danger">*</span>
                 </label>
-                {!! Form::text('db_database', old('db_database', isset($empresa) ? $empresa->db_database : null), [
+                {!! Form::text('db_database', old('db_database', isset($empresa) ? Crypt::decrypt($empresa->db_database) : null), [
                     'class' => 'form-control',
                     'id' => 'db_database',
                     'required' => 'required',
@@ -171,7 +174,7 @@
                 <label for="db_username" class="form-label">DB USERNAME
                     <span class="text-danger">*</span>
                 </label>
-                {!! Form::text('db_username', old('db_username', isset($empresa) ? $empresa->db_username : null), [
+                {!! Form::text('db_username', old('db_username', isset($empresa) ? Crypt::decrypt($empresa->db_username) : null), [
                     'class' => 'form-control',
                     'id' => 'db_username',
                     'required' => 'required',
@@ -186,7 +189,7 @@
                 <label for="db_password" class="form-label">DB PASSWORD
                     <span class="text-danger">*</span>
                 </label>
-                {!! Form::text('db_password', old('db_password', isset($empresa) ? $empresa->db_password : null), [
+                {!! Form::text('db_password', old('db_password', isset($empresa) ? Crypt::decrypt($empresa->db_password) : null), [
                     'class' => 'form-control',
                     'id' => 'db_password',
                     'required' => 'required',
@@ -202,7 +205,7 @@
                     <span class="text-danger">*</span>
                 </label>
                 {!! Form::select('id_estado', collect(['' => 'Seleccionar...'])->union($estados), old('id_estado', isset($empresa) ? $empresa->id_estado : null), [
-                    'class' => 'form-select select2',
+                    'class' => 'form-select',
                     'id' => 'id_estado',
                     'required' => 'required',
                 ]) !!}
@@ -210,5 +213,4 @@
         </div>
     </div>
 </div> {{-- FIN div_campos_empresas --}}
-
     

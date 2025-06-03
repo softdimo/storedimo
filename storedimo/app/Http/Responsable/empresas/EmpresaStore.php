@@ -4,8 +4,7 @@ namespace App\Http\Responsable\empresas;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 use GuzzleHttp\Client;
 
 class EmpresaStore implements Responsable
@@ -30,12 +29,12 @@ class EmpresaStore implements Responsable
         $celularEmpresa = request('celular_empresa');
         $emailEmpresa = request('email_empresa');
         $direccionEmpresa = request('direccion_empresa');
-        $appKey = request('app_key');
+        $appKey = Crypt::encrypt(request('app_key'));
         $appUrl = request('app_url');
         $idTipoBd = request('id_tipo_bd');
-        $dbDatabase = request('db_database');
-        $dbUsername = request('db_username');
-        $dbPassword = request('db_password');
+        $dbDatabase = Crypt::encrypt(request('db_database'));
+        $dbUsername = Crypt::encrypt(request('db_username'));
+        $dbPassword = Crypt::encrypt(request('db_password'));
         $idEstado = request('id_estado');
 
         $consultarEmpresa = $this->consultarEmpresa($nitEmpresa, $nombreEmpresa);

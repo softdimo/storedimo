@@ -5,6 +5,7 @@ namespace App\Http\Controllers\entradas;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Facades\DB;
 use App\Http\Responsable\entradas\EntradaIndex;
 use App\Http\Responsable\entradas\DetalleEntrada;

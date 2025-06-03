@@ -174,5 +174,18 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
 // ========================================================================
 
+// EMPRESAS
+$router->group(['prefix' => 'api'], function () use ($router) {
+    $router->get('empresa_index', 'empresas\EmpresasController@index');
+    $router->post('empresa_store', 'empresas\EmpresasController@store');
+    $router->put('empresa_update/{idEmpresa}', 'empresas\EmpresasController@update');
+    $router->post('consultar_empresa', 'empresas\EmpresasController@consultarEmpresa');
+    $router->get('empresa_edit/{idEmpresa}', 'empresas\EmpresasController@edit');
+    $router->get('empresa_datos_conexion/{idEmpresa}', 'empresas\EmpresasController@empresaDatosConexion');
+    $router->post('update_env', 'empresas\EmpresasController@updateEnv');
+});
+
+// ========================================================================
+
 
 

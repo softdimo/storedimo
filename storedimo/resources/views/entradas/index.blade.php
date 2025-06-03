@@ -265,34 +265,8 @@
                 ],
                 "pageLength": 10,
                 "scrollX": true,
+                "ordering": false
             }); // CIERRE DataTable
-
-            // =========================================================================
-            // =========================================================================
-            // =========================================================================
-
-            $('[id^=modalDetalleEntrada_]').on('shown.bs.modal', function() {
-                const modalId = $(this).attr('id');
-                const idCompra = modalId.replace('modalDetalleEntrada_', '');
-                const tableId = `#tblDetalleCompraProductos_${idCompra}`;
-
-                // Evitar reinicialización
-                if (!$.fn.DataTable.isDataTable(tableId)) {
-                    $(tableId).DataTable({
-                        // dom: 'Blfrtip',
-                        dom: 'lrtip', // sin botones, solo length, table, info, pagination
-                        infoEmpty: 'No hay registros',
-                        stripe: true,
-                        bSort: false,
-                        autoWidth: false,
-                        scrollX: true,
-                        pageLength: 10
-                    });
-                } else {
-                    // Solo ajustar columnas si ya está inicializado
-                    $(tableId).DataTable().columns.adjust();
-                }
-            });
 
             // =========================================================================
             // =========================================================================
@@ -356,6 +330,10 @@
                 configurarCalendario("fecha_inicial", "calendar_addon_inicial");
                 configurarCalendario("fecha_final", "calendar_addon_final");
             });
+            
+            // =========================================================================
+            // =========================================================================
+            // =========================================================================
 
             $(document).on('click', '.btn-detalle-entrada', function() {
                 const idEntrada = $(this).data('id');
@@ -375,6 +353,30 @@
                     },
                     success: function(html) {
                         $('#modalDetalleEntradaContent').html(html);
+                        $('#modalDetalleEntrada').modal('show');
+
+                        // Inicializar DataTable después de un pequeño retraso para asegurar que esté en el DOM
+                        setTimeout(function() {
+                            const tableId = `#tblDetalleCompraProductos_${idEntrada}`;
+
+                            if ($.fn.DataTable.isDataTable(tableId)) {
+                                $(tableId).DataTable().clear().destroy(); // Previene doble inicialización
+                            }
+
+                            let tableDetalles = $(tableId).DataTable({
+                                dom: 'lrtip',
+                                infoEmpty: 'No hay registros',
+                                stripe: true,
+                                bSort: false,
+                                autoWidth: false,
+                                scrollX: true,
+                                pageLength: 10,
+                                responsive: true
+                            });
+
+                            tableDetalles.columns.adjust();
+
+                        }, 100);
                     },
                     error: function() {
                         $('#modalDetalleEntradaContent').html(
@@ -383,6 +385,10 @@
                     }
                 });
             });
+
+            // =========================================================================
+            // =========================================================================
+            // =========================================================================
 
             $(document).on('click', '.btn-anular-entrada', function() {
                 const idEntrada = $(this).data('id');

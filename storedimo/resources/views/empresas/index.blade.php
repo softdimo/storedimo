@@ -7,12 +7,7 @@
 
 @section('css')
     <style>
-        .btn-circle {
-            padding-left: 0.3rem !important;
-            padding-right: 0.3rem !important;
-            padding-top: 0.0rem !important;
-            padding-bottom: 0.0rem !important;
-        }
+        
     </style>
 @stop
 
@@ -21,6 +16,10 @@
 {{-- =============================================================== --}}
 
 @section('content')
+    @php
+        use Illuminate\Support\Facades\Crypt;
+    @endphp
+
     <div id="modal-overlay"></div>
     <div class="d-flex p-0">
         <div class="p-0" style="width: 20%">
@@ -121,13 +120,13 @@
                                         <td>{{ $empresa->celular_empresa }}</td>
                                         <td>{{ $empresa->email_empresa }}</td>
                                         <td>{{ $empresa->direccion_empresa }}</td>
-                                        <td>{{ $empresa->app_key }}</td>
-                                        <td>{{ $empresa->app_url }}</td>
-                                        <td>{{ $empresa->tipo_bd }}</td>
-                                        <td>{{ $empresa->db_database }}</td>
-                                        <td>{{ $empresa->db_username }}</td>
-                                        <td>{{ $empresa->db_password }}</td>
-                                        <td>{{ $empresa->estado }}</td>
+                                        <td>{{ $empresa->app_key ? Crypt::decrypt($empresa->app_key) : '' }}</td>
+                                        <td>{{ $empresa->app_url ? $empresa->app_url : '' }}</td>
+                                        <td>{{ $empresa->tipo_bd ? $empresa->tipo_bd : '' }}</td>
+                                        <td>{{ $empresa->db_database ? Crypt::decrypt($empresa->db_database) : '' }}</td>
+                                        <td>{{ $empresa->db_username ? Crypt::decrypt($empresa->db_username) : '' }}</td>
+                                        <td>{{ $empresa->db_password ? Crypt::decrypt($empresa->db_password) : '' }}</td>
+                                        <td>{{ $empresa->estado ? $empresa->estado : '' }}</td>
                                         <td>
                                             <a href="{{ route('empresas.edit', $empresa->id_empresa) }}" class="btn btn-success rounded-circle btn-circle text-white btn-editar-empresa">
                                                 <i class="fa fa-pencil-square-o"></i>
@@ -189,7 +188,8 @@
                         }
                     }
                 ],
-                "pageLength": 10
+                "pageLength": 10,
+                ordering: false
             });
             // CIERRE DataTable Lista Personas
 

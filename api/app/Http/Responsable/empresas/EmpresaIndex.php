@@ -33,7 +33,7 @@ class EmpresaIndex implements Responsable
                     'tipos_bd.id_tipo_bd',
                     'tipo_bd'
                 )
-                ->orderBy('nombre_empresa')
+                ->orderBy('nombre_empresa', 'asc')
                 ->get();
 
                 return response()->json($empresas);
