@@ -18,6 +18,7 @@ class UsuarioIndex implements Responsable
                 ->leftjoin('tipo_documento', 'tipo_documento.id_tipo_documento', '=', 'usuarios.id_tipo_documento')
                 ->leftjoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'usuarios.id_tipo_persona')
                 ->leftjoin('generos', 'generos.id_genero', '=', 'usuarios.id_genero')
+                ->leftjoin('empresas', 'empresas.id_empresa', '=', 'usuarios.id_empresa')
                 ->select(
                     'id_usuario',
                     'nombre_usuario',
@@ -40,6 +41,8 @@ class UsuarioIndex implements Responsable
                     'direccion',
                     'fecha_contrato',
                     'fecha_terminacion_contrato',
+                    'empresas.id_empresa',
+                    'nombre_empresa'
                 )
                 ->orderBy('nombre_usuario')
                 ->get();

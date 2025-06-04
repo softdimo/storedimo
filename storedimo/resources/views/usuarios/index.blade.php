@@ -138,6 +138,7 @@
                                     <th>Identificación</th>
                                     <th>Correo</th>
                                     <th>Rol</th>
+                                    <th>Empresa</th>
                                     <th>Tipo Persona</th>
                                     <th>Número Teléfono</th>
                                     <th>Celular</th>
@@ -160,6 +161,7 @@
                                         <td>{{ $usuario->identificacion }}</td>
                                         <td>{{ $usuario->email }}</td>
                                         <td>{{ $usuario->rol }}</td>
+                                        <td>{{ $usuario->nombre_empresa }}</td>
                                         <td>{{ $usuario->tipo_persona }}</td>
                                         <td>{{ $usuario->numero_telefono }}</td>
                                         <td>{{ $usuario->celular }}</td>

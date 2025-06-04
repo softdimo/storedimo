@@ -4,6 +4,7 @@ namespace App\Http\Controllers\usuarios;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Exception;
 use App\Http\Responsable\usuarios\UsuarioIndex;
 use App\Http\Responsable\usuarios\UsuarioStore;
 use App\Http\Responsable\usuarios\UsuarioUpdate;
@@ -217,5 +218,13 @@ class UsuariosController extends Controller
         return response()->json([
             'valido' => !$existe
         ]);
+    }
+
+    public function validarEmailLogin(Request $request)
+    {
+        $email = $request->input('email');
+        $emailLogin = Usuario::where('email', $email)->first();
+        
+        return response()->json($emailLogin);
     }
 }

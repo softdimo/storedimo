@@ -16,22 +16,21 @@ class LoginStore implements Responsable
 
     public function toResponse($request)
     {
-        $usuario = request('usuario', null);
+        $email = request('email', null);
         $clave = request('clave', null);
 
-        if(!isset($usuario) || empty($usuario) || is_null($usuario) || 
-            !isset($clave) || empty($clave) || is_null($clave))
+        if(!isset($email) || empty($email) || is_null($email) || !isset($clave) || empty($clave) || is_null($clave))
         {
-            alert()->error('Error','Usuario y Clave son requeridos!');
+            alert()->error('Error','Correo y Clave son requeridos!');
             return back();
         }
 
         // ======================================================
         // ======================================================
 
-        $user = $this->consultarUsuario($usuario);
+        $user = $this->consultarEmail($email);
       
-        if(isset($user) && !empty($user) && !is_null($user) && $user != 'no_user' && $user != 'error_bd') {
+        if(isset($user) && !empty($user) && !is_null($user) && $user != 'error_bd') {
 
             $contarClaveErronea = $user['clave_fallas'];
 
@@ -42,7 +41,7 @@ class LoginStore implements Responsable
 
             if($user['id_estado'] == 2)
             {
-                alert()->error('Error','Usuario ' . $usuario . ' inactivo, por favor contacte al administrador');
+                alert()->error('Error','Usuario ' . $email . ' inactivo, por favor contacte al administrador');
                 return back();
             }
 
@@ -61,8 +60,8 @@ class LoginStore implements Responsable
                 alert()->error('Error','Credenciales Inválidas');
                 return back();
             }
-        } elseif ($user == 'no_user') {
-            alert()->error('Error','Este usuario no existe: ' . $usuario);
+        } elseif (empty($user) && $user != 'error_bd') {
+            alert()->error('Error','Este usuario no existe: ' . $email);
             return back();
         } else {
             if(!$this->checkDatabaseConnection()) {
@@ -86,7 +85,7 @@ class LoginStore implements Responsable
 
     // ======================================================
 
-    private function consultarUsuario($usuario)
+    private function consultarEmail($email)
     {
         try {
             $baseUri = env('BASE_URI');
@@ -94,12 +93,11 @@ class LoginStore implements Responsable
             // Realiza la solicitud POST a la API
             $clientApi = new Client(['base_uri' => $baseUri]);
 
-            $response = $clientApi->post($baseUri.'query_usuario', ['json' => ['usuario' => $usuario]]);
-            $respuesta = json_decode($response->getBody()->getContents(), true);
-
-            if(isset($respuesta) && !empty($respuesta)) {
-                return $respuesta;
-            }
+            $response = $clientApi->post($baseUri.'validar_email_login', [
+                    'json' => ['email' => $email]
+                ]
+            );
+            return json_decode($response->getBody()->getContents(), true);
         }
         catch (Exception $e)
         {

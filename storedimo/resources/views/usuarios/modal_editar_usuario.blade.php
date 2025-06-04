@@ -116,7 +116,7 @@
         {{-- ============================================== --}}
 
         <div class="row m-2">
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-2">
                 <div class="form-group d-flex flex-column">
                     <label for="celular" class=""
                         style="font-size: 15px">Celular
@@ -148,9 +148,8 @@
                     ]) }}
                 </div>
             </div>
-
             {{-- ======================= --}}
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-3">
                 <div class="form-group d-flex flex-column">
                     <label for="id_rol" class=""
                         style="font-size: 15px">Rol
@@ -161,6 +160,21 @@
                         collect(['' => 'Seleccionar...'])->union($roles),
                         isset($usuario) ? $usuario->id_rol : null,
                         ['class' => 'form-select select2', 'id' => 'id_rol'],
+                    ) !!}
+                </div>
+            </div>
+            {{-- ======================= --}}
+            <div class="col-12 col-md-3">
+                <div class="form-group d-flex flex-column">
+                    <label for="id_empresa" class=""
+                        style="font-size: 15px">Empresa
+                        <span class="text-danger">*</span>
+                    </label>
+                    {!! Form::select(
+                        'id_empresa',
+                        collect(['' => 'Seleccionar...'])->union($empresas),
+                        isset($usuario) ? $usuario->id_empresa : null,
+                        ['class' => 'form-select select2', 'id' => 'id_empresa'],
                     ) !!}
                 </div>
             </div>

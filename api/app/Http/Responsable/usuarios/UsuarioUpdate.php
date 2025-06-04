@@ -40,7 +40,7 @@ class UsuarioUpdate implements Responsable
                 $usuario->id_estado = $request->input('id_estado');
                 $usuario->fecha_contrato = $request->input('fecha_contrato');
                 $usuario->fecha_terminacion_contrato = $request->input('fecha_terminacion_contrato');
-                
+                $usuario->id_empresa = $request->input('id_empresa');
                 $usuario->update();
 
                 return response()->json(['success' => true]);

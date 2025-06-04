@@ -145,67 +145,67 @@ class EmpresasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function updateEnv(Request $request)
-    {
-        // Paso 1: Validar API Key
-        $apiKeyHeader = $request->header('X-API-KEY');
-        $validKey = config('services.env_update_key'); // definida en .env o config/services.php
+    // public function updateEnv(Request $request)
+    // {
+    //     // Paso 1: Validar API Key
+    //     $apiKeyHeader = $request->header('X-API-KEY');
+    //     $validKey = config('services.env_update_key'); // definida en .env o config/services.php
 
-        if (!$apiKeyHeader || $apiKeyHeader !== $validKey) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
+    //     if (!$apiKeyHeader || $apiKeyHeader !== $validKey) {
+    //         return response()->json(['error' => 'Unauthorized'], 401);
+    //     }
 
-        try {
-            // Paso 2: Recibir datos del JSON
-            $envVars = $request->only([
-                'DB_CONNECTION',
-                'DB_DATABASE',
-                'DB_USERNAME',
-                'DB_PASSWORD',
-            ]);
+    //     try {
+    //         // Paso 2: Recibir datos del JSON
+    //         $envVars = $request->only([
+    //             'DB_CONNECTION',
+    //             'DB_DATABASE',
+    //             'DB_USERNAME',
+    //             'DB_PASSWORD',
+    //         ]);
 
-            // Paso 3: Ruta del .env de la API
-            $envPath = base_path('.env');
+    //         // Paso 3: Ruta del .env de la API
+    //         $envPath = base_path('.env');
 
-            if (!File::exists($envPath)) {
-                throw new Exception("Archivo .env no encontrado.");
-            }
+    //         if (!File::exists($envPath)) {
+    //             throw new Exception("Archivo .env no encontrado.");
+    //         }
 
-            // Paso 4: Leer y actualizar contenido
-            $envContent = File::get($envPath);
-            $lines = explode("\n", $envContent);
+    //         // Paso 4: Leer y actualizar contenido
+    //         $envContent = File::get($envPath);
+    //         $lines = explode("\n", $envContent);
 
-            foreach ($envVars as $key => $value) {
-                $found = false;
+    //         foreach ($envVars as $key => $value) {
+    //             $found = false;
 
-                foreach ($lines as $i => $line) {
-                    if (preg_match('/^' . preg_quote($key) . '=.*/', $line)) {
-                        $lines[$i] = "{$key}={$value}";
-                        $found = true;
-                        break;
-                    }
-                }
+    //             foreach ($lines as $i => $line) {
+    //                 if (preg_match('/^' . preg_quote($key) . '=.*/', $line)) {
+    //                     $lines[$i] = "{$key}={$value}";
+    //                     $found = true;
+    //                     break;
+    //                 }
+    //             }
 
-                if (!$found) {
-                    $lines[] = "{$key}={$value}";
-                }
-            }
+    //             if (!$found) {
+    //                 $lines[] = "{$key}={$value}";
+    //             }
+    //         }
 
-            // Paso 5: Guardar cambios en el .env
-            File::put($envPath, implode("\n", $lines));
+    //         // Paso 5: Guardar cambios en el .env
+    //         File::put($envPath, implode("\n", $lines));
 
-            // Paso 6: Limpiar caché
-            Artisan::call('config:clear');
-            Artisan::call('cache:clear');
+    //         // Paso 6: Limpiar caché
+    //         Artisan::call('config:clear');
+    //         Artisan::call('cache:clear');
 
-            return response()->json(['status' => 'ok', 'message' => 'Variables .env actualizadas.']);
+    //         return response()->json(['status' => 'ok', 'message' => 'Variables .env actualizadas.']);
 
-        } catch (Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Error actualizando el archivo .env',
-                'details' => $e->getMessage()
-            ], 500);
-        }
-    }
+    //     } catch (Exception $e) {
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'message' => 'Error actualizando el archivo .env',
+    //             'details' => $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
 }

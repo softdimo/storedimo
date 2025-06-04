@@ -239,103 +239,103 @@ class EmpresasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function empresaDatosConexion(Request $request)
-    {
-        try {
-            $idEmpresa = $request->input('id_empresa');
+    // public function empresaDatosConexion(Request $request)
+    // {
+    //     try {
+    //         $idEmpresa = $request->input('id_empresa');
 
-            $reqEmpresaEnv = $this->clientApi->get($this->baseUri.'empresa_datos_conexion/'.$idEmpresa, [
-                'json' => []
-            ]);
-            $resEmpresaEnv = json_decode($reqEmpresaEnv->getBody()->getContents());
-            return response()->json($resEmpresaEnv);
+    //         $reqEmpresaEnv = $this->clientApi->get($this->baseUri.'empresa_datos_conexion/'.$idEmpresa, [
+    //             'json' => []
+    //         ]);
+    //         $resEmpresaEnv = json_decode($reqEmpresaEnv->getBody()->getContents());
+    //         return response()->json($resEmpresaEnv);
     
-        } catch (Exception $e) {
-            alert()->error("Error consultando los datos de conexión de la empresa!");
-            return redirect()->to(route('login'));
-        }
-    }
-
-    // ======================================================================
-    // ======================================================================
-
-    public function guardarDatosEnv(Request $request)
-    {
-
-        try {
-            $datos = $request->all();
-    
-            $envVars = [
-                'DB_CONNECTION' => $datos['db_connection'],
-                'DB_DATABASE'   => decrypt($datos['db_database']),
-                'DB_USERNAME'   => decrypt($datos['db_username']),
-                'DB_PASSWORD'   => decrypt($datos['db_password']),
-            ];
-
-            if (app()->environment('local')) {
-                // ✅ LOCAL
-                $pathApi = realpath(base_path('../api')) . DIRECTORY_SEPARATOR . '.env';
-                $pathWeb = base_path('.env');
-    
-                $this->actualizarArchivoEnv($pathApi, $envVars);
-                $this->actualizarArchivoEnv($pathWeb, $envVars);
-    
-            } else {
-                // 🌐 PRODUCCIÓN (API REMOTA)
-                $this->clientApi->post('update_env', [
-                    'headers' => [
-                        'X-API-KEY' => config('services.env_update_key'),
-                        'Accept' => 'application/json',
-                    ],
-                    'json' => $envVars,
-                ]);
-            }
-    
-            $this->actualizarArchivoEnv($pathApi, $envVars);
-            $this->actualizarArchivoEnv($pathWeb, $envVars);
-
-            Artisan::call('config:clear');
-            Artisan::call('cache:clear');
-    
-            return response()->json(['status' => 'ok', 'message' => 'Variables .env actualizadas correctamente']);
-    
-        } catch (Exception $e) {
-            alert()->error("Error guardando los datos de conexión de la empresa!");
-            return redirect()->to(route('login'));
-        }
-    }
+    //     } catch (Exception $e) {
+    //         alert()->error("Error consultando los datos de conexión de la empresa!");
+    //         return redirect()->to(route('login'));
+    //     }
+    // }
 
     // ======================================================================
     // ======================================================================
 
-    protected function actualizarArchivoEnv($filePath, $envVars)
-    {
-        if (!file_exists($filePath)) {
-            throw new \Exception("Archivo .env no encontrado: $filePath");
-        }
+    // public function guardarDatosEnv(Request $request)
+    // {
+
+    //     try {
+    //         $datos = $request->all();
     
-        $envContent = file_get_contents($filePath);
-        $lines = explode("\n", $envContent);
+    //         $envVars = [
+    //             'DB_CONNECTION' => $datos['db_connection'],
+    //             'DB_DATABASE'   => decrypt($datos['db_database']),
+    //             'DB_USERNAME'   => decrypt($datos['db_username']),
+    //             'DB_PASSWORD'   => decrypt($datos['db_password']),
+    //         ];
+
+    //         if (app()->environment('local')) {
+    //             // ✅ LOCAL
+    //             $pathApi = realpath(base_path('../api')) . DIRECTORY_SEPARATOR . '.env';
+    //             $pathWeb = base_path('.env');
     
-        foreach ($envVars as $key => $value) {
-            $found = false;
+    //             $this->actualizarArchivoEnv($pathApi, $envVars);
+    //             $this->actualizarArchivoEnv($pathWeb, $envVars);
     
-            foreach ($lines as $i => $line) {
-                // Ignorar líneas vacías o comentarios
-                if (preg_match('/^\s*'.$key.'\s*=.*/', $line)) {
-                    $lines[$i] = "{$key}={$value}";
-                    $found = true;
-                    break;
-                }
-            }
+    //         } else {
+    //             // 🌐 PRODUCCIÓN (API REMOTA)
+    //             $this->clientApi->post('update_env', [
+    //                 'headers' => [
+    //                     'X-API-KEY' => config('services.env_update_key'),
+    //                     'Accept' => 'application/json',
+    //                 ],
+    //                 'json' => $envVars,
+    //             ]);
+    //         }
     
-            if (!$found) {
-                $lines[] = "{$key}={$value}";
-            }
-        }
+    //         $this->actualizarArchivoEnv($pathApi, $envVars);
+    //         $this->actualizarArchivoEnv($pathWeb, $envVars);
+
+    //         Artisan::call('config:clear');
+    //         Artisan::call('cache:clear');
     
-        $newContent = implode("\n", $lines);
+    //         return response()->json(['status' => 'ok', 'message' => 'Variables .env actualizadas correctamente']);
     
-        file_put_contents($filePath, $newContent);
-    }
+    //     } catch (Exception $e) {
+    //         alert()->error("Error guardando los datos de conexión de la empresa!");
+    //         return redirect()->to(route('login'));
+    //     }
+    // }
+
+    // ======================================================================
+    // ======================================================================
+
+    // protected function actualizarArchivoEnv($filePath, $envVars)
+    // {
+    //     if (!file_exists($filePath)) {
+    //         throw new \Exception("Archivo .env no encontrado: $filePath");
+    //     }
+    
+    //     $envContent = file_get_contents($filePath);
+    //     $lines = explode("\n", $envContent);
+    
+    //     foreach ($envVars as $key => $value) {
+    //         $found = false;
+    
+    //         foreach ($lines as $i => $line) {
+    //             // Ignorar líneas vacías o comentarios
+    //             if (preg_match('/^\s*'.$key.'\s*=.*/', $line)) {
+    //                 $lines[$i] = "{$key}={$value}";
+    //                 $found = true;
+    //                 break;
+    //             }
+    //         }
+    
+    //         if (!$found) {
+    //             $lines[] = "{$key}={$value}";
+    //         }
+    //     }
+    
+    //     $newContent = implode("\n", $lines);
+    
+    //     file_put_contents($filePath, $newContent);
+    // }
 }

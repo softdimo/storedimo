@@ -34,6 +34,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('actualizar_clave_fallas/{idUsuario}', 'usuarios\UsuariosController@actualizarClaveFallas');
     $router->post('validar_email', 'usuarios\UsuariosController@validarEmail');
     $router->post('validar_identificacion', 'usuarios\UsuariosController@validarIdentificacion');
+    $router->post('validar_email_login', 'usuarios\UsuariosController@validarEmailLogin');
 });
 
 // =====================================================================
@@ -181,8 +182,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->put('empresa_update/{idEmpresa}', 'empresas\EmpresasController@update');
     $router->post('consultar_empresa', 'empresas\EmpresasController@consultarEmpresa');
     $router->get('empresa_edit/{idEmpresa}', 'empresas\EmpresasController@edit');
-    $router->get('empresa_datos_conexion/{idEmpresa}', 'empresas\EmpresasController@empresaDatosConexion');
-    $router->post('update_env', 'empresas\EmpresasController@updateEnv');
+    // $router->get('empresa_datos_conexion/{idEmpresa}', 'empresas\EmpresasController@empresaDatosConexion');
+    // $router->post('update_env', 'empresas\EmpresasController@updateEnv');
 });
 
 // ========================================================================

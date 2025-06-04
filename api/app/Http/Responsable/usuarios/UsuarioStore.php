@@ -29,6 +29,7 @@ class UsuarioStore implements Responsable
         $idEstado = request('id_estado', null);
         $clave = request('clave', null);
         $claveFallas = request('clave_fallas', null);
+        $idEmpresa = request('id_empresa', null);
 
         $nuevoUsuario = Usuario::create([
             'nombre_usuario' => ucwords($nombreUsuario),
@@ -48,6 +49,7 @@ class UsuarioStore implements Responsable
             'direccion' => $direccion,
             'fecha_contrato' => $fechaContrato,
             'fecha_terminacion_contrato' => $fechaTerminacionContrato,
+            'id_empresa' => $idEmpresa,
         ]);
 
         if (isset($nuevoUsuario) && !is_null($nuevoUsuario) && !empty($nuevoUsuario))

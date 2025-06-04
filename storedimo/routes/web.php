@@ -194,7 +194,7 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
         Route::post('empresa_datos_conexion', 'EmpresasController@empresaDatosConexion')->name('empresa_datos_conexion');
 
         // GUARDAR DATOS EN EL .ENV DE LA EMPRESA
-        Route::post('guardar_datos_env', 'EmpresasController@guardarDatosEnv')->name('guardar_datos_env');
+        // Route::post('guardar_datos_env', 'EmpresasController@guardarDatosEnv')->name('guardar_datos_env');
     });
 
     // Rutas roles y permisos

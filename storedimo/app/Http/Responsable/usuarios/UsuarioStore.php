@@ -36,6 +36,7 @@ class UsuarioStore implements Responsable
         $direccion = request('direccion', null);
         $fechaContrato = request('fecha_contrato', null);
         $fechaTerminacionContrato = request('fecha_terminacion_contrato', null);
+        $idEmpresa = request('id_empresa', null);
 
         if(strlen($identificacion) < 6)
         {
@@ -85,7 +86,8 @@ class UsuarioStore implements Responsable
                         'fecha_terminacion_contrato' => $fechaTerminacionContrato,
                         'clave' => Hash::make($identificacion),
                         'clave_fallas' => 0,
-                        'id_audit' => session('id_usuario')
+                        'id_audit' => session('id_usuario'),
+                        'id_empresa' => $idEmpresa
                     ]
                 ]);
 
@@ -95,7 +97,7 @@ class UsuarioStore implements Responsable
                 {
                     return $this->respuestaExito(
                         "Usuario creado satisfactoriamente.<br>
-                        El usuario es: <strong>" .  $resUsuarioStore->usuario->usuario . "</strong><br>
+                        El usuario es: <strong>" .  $resUsuarioStore->usuario->email . "</strong><br>
                         Y la clave es: <strong>" . $resUsuarioStore->usuario->identificacion . "</strong>",
                         'usuarios.index'
                     );

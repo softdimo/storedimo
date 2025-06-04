@@ -6,7 +6,6 @@
 {{-- =============================================================== --}}
 
 @section('css')
-    {{-- <link rel="stylesheet" href="{{ asset('css/custom.css') }}"> --}}
 @stop
 
 {{-- =============================================================== --}}
@@ -26,11 +25,7 @@
                 <h3 class="mb-4 fw-bold text-primary">Iniciar Sesión</h3>
 
                 <div class="mb-4">
-                    {{ Form::select('id_empresa', collect(['' => 'Seleccione Empresa...'])->union($empresas), null, ['class' => 'form-select select2', 'id' => 'id_empresa', 'required']) }}
-                </div>
-                
-                <div class="mb-4">
-                    <input type="text" name="usuario" id="usuario" class="w-100 form-control p-3" placeholder="Usuario *" required>
+                    <input type="email" name="email" id="email" class="w-100 form-control p-3" placeholder="Correo *" required>
                 </div>
                 
                 <div class="mb-4 position-relative">
@@ -57,70 +52,7 @@
 @section('scripts')
     <script>
         $( document ).ready(function() {
-            // Limpieza inicial
-            $("#id_empresa").focus();
-
-            $("#usuario").hide();
-            $("#clave").hide();
-
-            $("#id_empresa").change(function() {
-                var idEmpresa = $(this).val();
-                console.log("idEmpresa:", idEmpresa);
-
-                if (idEmpresa != '') {
-                    $.ajax({
-                        url: "{{route('empresa_datos_conexion')}}",
-                        method: "POST",
-                        data: {
-                            id_empresa: idEmpresa,
-                            _token: $('meta[name="csrf-token"]').attr('content')
-                        },
-                        beforeSend: function() {
-                            $("#usuario").hide().val('').removeAttr("required");
-                            $("#clave").hide().val('').removeAttr("required");
-                        },
-                        success: function(response) {
-                            if (response) {
-                                $("#usuario").show().attr("required", "required");
-                                $("#clave").show().attr("required", "required");
-
-                                console.log("Datos recibidos:", response);
-
-                                // 🔁 Segundo AJAX para guardar datos en el .env
-                                $.ajax({
-                                    url: "{{route('guardar_datos_env')}}",
-                                    method: "POST",
-                                    data: {
-                                        _token: $('meta[name="csrf-token"]').attr('content'),
-                                        app_key: response.app_key,
-                                        app_url: response.app_url,
-                                        db_connection: response.tipo_bd,
-                                        db_database: response.db_database,
-                                        db_username: response.db_username,
-                                        db_password: response.db_password
-                                    },
-                                    success: function(resp) {
-                                        console.log("Datos guardados correctamente en el .env");
-                                        
-                                    },
-                                    error: function(err) {
-                                        console.log("Error guardando datos en el .env");
-                                    }
-                                });
-                            } else {
-                                console.log("No se pudieron obtener los datos de conexión.");
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("Error AJAX, consultando la empresa:", error);
-                        }
-                    });
-
-                } else {
-                    $("#usuario").hide().val('').removeAttr("required");
-                    $("#clave").hide().val('').removeAttr("required");
-                }
-            });
+            $("#email").focus();
         }); // FIN document.ready
     </script>
 @stop

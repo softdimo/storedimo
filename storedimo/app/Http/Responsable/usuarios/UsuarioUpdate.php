@@ -36,6 +36,8 @@ class UsuarioUpdate implements Responsable
         $idEstado = request('id_estado', null);
         $fechaContrato = request('fecha_contrato', null);
         $fechaTerminacionContrato = request('fecha_terminacion_contrato', null);
+        $idEmpresa = request('id_empresa', null);
+
 
        /*  // Consultamos si ya existe un usuario con la cedula ingresada
         $consultarIdentificacion = $this->consultarId($identificacion);
@@ -62,6 +64,7 @@ class UsuarioUpdate implements Responsable
                         'id_estado' => $idEstado,
                         'fecha_contrato' => $fechaContrato,
                         'fecha_terminacion_contrato' => $fechaTerminacionContrato,
+                        'id_empresa' => $idEmpresa,
                         'id_audit' => session('id_usuario')
                     ],
                 ]);
@@ -73,7 +76,6 @@ class UsuarioUpdate implements Responsable
                     );
                 }
             } catch (Exception $e) {
-                dd($e);
                 return $this->respuestaException('Exception, contacte a Soporte.');
             }
         // }
