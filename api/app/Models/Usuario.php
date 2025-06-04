@@ -46,4 +46,9 @@ class Usuario extends Model implements Auditable
     {
         return $this->id_usuario;
     }
+
+    public function empresa()
+    {
+        return $this->belongsTo(Empresa::class, 'id_empresa', 'id_empresa');
+    }
 }

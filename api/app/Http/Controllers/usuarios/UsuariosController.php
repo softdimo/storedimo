@@ -223,8 +223,8 @@ class UsuariosController extends Controller
     public function validarEmailLogin(Request $request)
     {
         $email = $request->input('email');
-        $emailLogin = Usuario::where('email', $email)->first();
-        
-        return response()->json($emailLogin);
+
+        $user = Usuario::with('empresa')->where('email', $email)->first();
+        return response()->json($user);
     }
 }
