@@ -36,4 +36,9 @@ class Usuario extends Model
         'id_estado',
         'id_rol'
     ];
+
+    public function empresa()
+    {
+        return $this->belongsTo(Empresa::class, 'id_empresa', 'id_empresa');
+    }
 }

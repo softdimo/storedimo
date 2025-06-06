@@ -31,7 +31,7 @@ class PermisosStore implements Responsable
 
             if(isset($arrayPermisos) && !is_null($arrayPermisos) && !empty($arrayPermisos))
             {
-                $peticionPermisoStore = $this->clientApi->post($this->baseUri . 'crear_permiso_usuario',
+                $peticionPermisoStore = $this->clientApi->post($this->baseUri . 'administracion/crear_permiso_usuario',
                 [
                     'json' => [
                         'permissions' => $arrayPermisos,
@@ -42,7 +42,7 @@ class PermisosStore implements Responsable
     
                 $permission = json_decode($peticionPermisoStore->getBody()->getContents());
 
-                if(isset($permission->success) && isset($permission->success))
+                if(isset($permission->success) && $permission->success)
                 {
                     alert()->success($permission->message);
                     return back();

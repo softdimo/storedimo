@@ -4,9 +4,7 @@ namespace App\Http\Responsable\usuarios;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Usuario;
 use GuzzleHttp\Client;
 
 class UsuarioStore implements Responsable
@@ -67,7 +65,7 @@ class UsuarioStore implements Responsable
 
             try
             {
-                $peticionUsuarioStore = $this->clientApi->post($this->baseUri.'usuario_store', [
+                $peticionUsuarioStore = $this->clientApi->post($this->baseUri.'administracion/usuario_store', [
                     'json' => [
                         'nombre_usuario' => $nombreUsuario,
                         'apellido_usuario' => $apellidoUsuario,
@@ -111,7 +109,7 @@ class UsuarioStore implements Responsable
 
     private function consultarId($identificacion)
     {
-        $queryIdentificacion = $this->clientApi->post($this->baseUri.'query_identificacion', [
+        $queryIdentificacion = $this->clientApi->post($this->baseUri.'administracion/query_identificacion', [
             'json' => ['identificacion' => $identificacion]
         ]);
         return json_decode($queryIdentificacion->getBody()->getContents());
@@ -123,7 +121,7 @@ class UsuarioStore implements Responsable
     private function consultaUsuario($usuario)
     {
         try {
-            $queryUsuario = $this->clientApi->post($this->baseUri.'query_usuario', [
+            $queryUsuario = $this->clientApi->post($this->baseUri.'administracion/query_usuario', [
                 'json' => ['usuario' => $usuario]
             ]);
             return json_decode($queryUsuario->getBody()->getContents());

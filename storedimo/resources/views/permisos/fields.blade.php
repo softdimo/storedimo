@@ -46,11 +46,11 @@
                 <div class="permiso-grid" id="permisos-grid">
                     @foreach ($permisos as $permiso)
                         <div class="permiso-item">
-                            <input 
-                                type="checkbox" 
+                            <input
+                                type="checkbox"
                                 class="permiso-checkbox"
-                                name="permisos[]" 
-                                value="{{ $permiso->id }}" 
+                                name="permisos[]"
+                                value="{{ $permiso->id }}"
                                 id="permiso_{{ $permiso->id }}"
                                 {{ in_array($permiso->id, $permisosAsignados ?? []) ? 'checked' : '' }}
                             >

@@ -4,9 +4,8 @@ namespace App\Http\Responsable\usuarios;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Log;
 
 class UsuarioIndex implements Responsable
 {
@@ -22,7 +21,7 @@ class UsuarioIndex implements Responsable
             
             try {
                 // Realiza la solicitud a la API
-                $response = $clientApi->get($baseUri . 'usuarios_index');
+                $response = $clientApi->get($baseUri . 'administracion/usuarios_index');
                 $result = json_decode($response->getBody()->getContents());
                 
                 // Si hay datos válidos, actualizar usuarioIndex
@@ -31,7 +30,7 @@ class UsuarioIndex implements Responsable
                 }
             } catch (Exception $apiError) {
                 // Log del error específico de la API si es necesario
-                \Log::error('Error al obtener usuarios de la API: ' . $apiError->getMessage());
+                Log::error('Error al obtener usuarios de la API: ' . $apiError->getMessage());
             }
 
             // Siempre retornar la vista con usuarioIndex (sea array vacío o con datos)
@@ -39,7 +38,7 @@ class UsuarioIndex implements Responsable
             
         } catch (Exception $e)
         {
-            \Log::error('Error general en UsuarioIndex: ' . $e->getMessage());
+            Log::error('Error general en UsuarioIndex: ' . $e->getMessage());
             alert()->error('Error', 'Error Exception, contacte a Soporte.');
             return back()->with('usuarioIndex', []);
         }

@@ -5,14 +5,12 @@ namespace App\Http\Controllers\usuarios;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Exception;
-use App\Http\Controllers\admin\AdministradorController;
 use App\Http\Responsable\usuarios\UsuarioIndex;
 use App\Http\Responsable\usuarios\UsuarioStore;
 use App\Http\Responsable\usuarios\UsuarioUpdate;
 use GuzzleHttp\Client;
 use App\Traits\MetodosTrait;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Auth;
 
 class UsuariosController extends Controller
 {
@@ -146,7 +144,7 @@ class UsuariosController extends Controller
                     return view('usuarios.edit', compact('usuario'));
                 }
             }
-        } catch (Exception $e) 
+        } catch (Exception $e)
         {
             alert()->error("Exception Edit Usuario!");
             return redirect()->to(route('login'));
@@ -222,7 +220,7 @@ class UsuariosController extends Controller
     {
         try
         {
-            $response = $this->clientApi->post($this->baseUri . 'query_usuario_update/' . $idUsuario, ['json' => []]);
+            $response = $this->clientApi->post($this->baseUri . 'administracion/query_usuario_update/' . $idUsuario, ['json' => []]);
             return json_decode($response->getBody()->getContents());
         } catch (Exception $e)
         {
@@ -256,7 +254,7 @@ class UsuariosController extends Controller
             ], 422);
         }
         try {
-            $response = $this->clientApi->post($this->baseUri . 'validar_email', [
+            $response = $this->clientApi->post($this->baseUri . 'administracion/validar_email', [
                 'json' => [
                     'email' => $request->input('email')
                 ]
@@ -296,7 +294,7 @@ class UsuariosController extends Controller
         }
 
         try {
-            $response = $this->clientApi->post($this->baseUri . 'validar_identificacion', [
+            $response = $this->clientApi->post($this->baseUri . 'administracion/validar_identificacion', [
                 'json' => [
                     'identificacion' => $request->input('identificacion')
                 ]

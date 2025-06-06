@@ -19,7 +19,7 @@ class EmpresaIndex implements Responsable
             // ==============================================================
             
             // Realiza la solicitud a la API
-            $peticion = $clientApi->get($baseUri . 'empresa_index');
+            $peticion = $clientApi->get($baseUri . 'administracion/empresa_index');
             $empresas = json_decode($peticion->getBody()->getContents());
 
             return view('empresas.index', compact('empresas'));

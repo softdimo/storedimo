@@ -73,11 +73,11 @@ class EmpresaUpdate implements Responsable
         // ===================================================================
 
         // Obtener los datos actuales del producto antes de actualizar
-        $peticionEmpresa = $this->clientApi->get($this->baseUri.'empresa_edit/'.$this->idEmpresa);
+        $peticionEmpresa = $this->clientApi->get($this->baseUri.'administracion/empresa_edit/'.$this->idEmpresa);
         $empresaActual = json_decode($peticionEmpresa->getBody()->getContents());
 
         try {
-            $reqEmpresaUpdate = $this->clientApi->put($this->baseUri.'empresa_update/'.$this->idEmpresa, [
+            $reqEmpresaUpdate = $this->clientApi->put($this->baseUri.'administracion/empresa_update/'.$this->idEmpresa, [
                 'json' => [
                     'nit_empresa' => $nitEmpresa ?? $empresaActual->nit_empresa,
                     'nombre_empresa' => $nombreEmpresa ?? $empresaActual->nombre_empresa,

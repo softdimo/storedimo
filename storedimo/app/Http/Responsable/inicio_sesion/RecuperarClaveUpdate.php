@@ -50,7 +50,7 @@ class RecuperarClaveUpdate implements Responsable
                     return back();
                 }
 
-                $peticion = $this->clientApi->post($this->baseUri.'cambiar_clave/'.$usuIdRecuperarClave, ['json' => [
+                $peticion = $this->clientApi->post($this->baseUri.'administracion/cambiar_clave/'.$usuIdRecuperarClave, ['json' => [
                     'clave' => $usuClaveNueva,
                     'id_audit' => session('id_usuario')
                 ]]);

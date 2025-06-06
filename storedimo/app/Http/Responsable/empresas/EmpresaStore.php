@@ -78,7 +78,7 @@ class EmpresaStore implements Responsable
                 alert()->warning('Cuidado', 'Empresa existente');
                 return redirect()->route('empresas.create')->withInput();
             } else {
-                $reqEmpresaStore = $this->clientApi->post($this->baseUri.'empresa_store', [
+                $reqEmpresaStore = $this->clientApi->post($this->baseUri.'administracion/empresa_store', [
                     'json' => [
                         'nit_empresa' => $nitEmpresa,
                         'nombre_empresa' => $nombreEmpresa,
@@ -115,7 +115,7 @@ class EmpresaStore implements Responsable
 
     public function consultarEmpresa($nitEmpresa, $nombreEmpresa)
     {
-        $consultarEmpresa = $this->clientApi->post($this->baseUri.'consultar_empresa', [
+        $consultarEmpresa = $this->clientApi->post($this->baseUri.'administracion/consultar_empresa', [
             'json' => [
                 'nit_empresa' => $nitEmpresa,
                 'nombre_empresa' => $nombreEmpresa

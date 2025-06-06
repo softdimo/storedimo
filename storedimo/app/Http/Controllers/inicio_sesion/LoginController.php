@@ -152,6 +152,14 @@ class LoginController extends Controller
             // 2. Restaurar conexión principal
             DatabaseConnectionHelper::restaurarConexionPrincipal();
 
+            // Olvidar variables de sesión específicas (existente)
+            Session::forget([
+                'id_usuario',
+                'usuario',
+                'id_rol',
+                'sesion_iniciada'
+            ]);
+
             // 3. Limpiar toda la sesión
             Session::flush();
             $request->session()->invalidate();
@@ -166,78 +174,10 @@ class LoginController extends Controller
             // Asegurar conexión principal incluso si falla el logout
             DatabaseConnectionHelper::restaurarConexionPrincipal();
             
-            return redirect()->back()->withErrors([
-                'error' => 'Error al cerrar sesión: ' . $e->getMessage()
-            ]);
+            alert()->error('Ha ocurrido un error al cerrar sesión');
+            return back();
         }
     }
-
-    // public function logout(Request $request)
-    // {
-    //     try {
-    //         // 1. Cerrar sesión del sistema de autenticación de Laravel
-    //         Auth::logout();
-
-    //         // 2. Limpiar conexión tenant (nuevo)
-    //         Config::set('database.connections.tenant', null);
-    //         DB::purge('tenant');
-            
-    //         // 3. Restablecer conexión principal (nuevo)
-    //         Config::set('database.default', 'mysql');
-    //         DB::reconnect('mysql');
-
-    //         // 4. Olvidar variables de sesión específicas (existente)
-    //         Session::forget([
-    //             'id_usuario',
-    //             'usuario',
-    //             'id_rol',
-    //             'sesion_iniciada',
-    //             'empresa_actual',
-    //             'tenant_connection_establecida'
-    //         ]);
-
-    //         // 5. Destruir completamente la sesión (existente)
-    //         $request->session()->flush();
-    //         $request->session()->invalidate();
-    //         $request->session()->regenerateToken();
-
-    //         // 6. Redirigir al login con mensaje opcional (existente)
-    //         return redirect()->route('login')->with([
-    //             'status' => 'Has cerrado sesión correctamente'
-    //         ]);
-
-    //     } catch (Exception $e) {
-    //         // Manejo de errores mejorado (existente + nuevo)
-    //         DB::reconnect('mysql'); // Asegurar conexión principal si falla
-            
-    //         return redirect()->back()->withErrors([
-    //             'error' => 'Ocurrió un error al cerrar sesión: ' . $e->getMessage()
-    //         ]);
-    //     }
-    // }
-
-    // public function logout(Request $request)
-    // {
-    //     try {
-    //         // Cierra la sesión del usuario autenticado
-    //         auth()->logout();
-
-    //         // Olvida las variables de sesión manualmente
-    //         Session::forget(['id_usuario', 'usuario', 'id_rol', 'sesion_iniciada']);
-
-    //         // Destruye toda la sesión y previene su reutilización
-    //         $request->session()->flush();
-    //         $request->session()->invalidate();
-    //         $request->session()->regenerateToken();
-
-    //         // Redirige al login
-    //         return redirect()->route('login');
-
-    //     } catch (Exception $e) {
-    //         alert()->error('Ha ocurrido un error');
-    //         return back();
-    //     }
-    // }
 
     // ======================================================================
     // ======================================================================

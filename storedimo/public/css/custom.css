@@ -246,6 +246,12 @@ body {
     }
 }
 
+@media (min-width: 992px) {
+    .permiso-grid {
+        grid-template-columns: 1fr 1fr 1fr 1fr; /* 4 columnas a partir de 992px (md) */
+    }
+}
+
 .permiso-item {
     display: flex;
     align-items: center;

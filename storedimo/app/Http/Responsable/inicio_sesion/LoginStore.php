@@ -9,9 +9,13 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\DatabaseConnectionHelper;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
+use App\Traits\MetodosTrait;
 
 class LoginStore implements Responsable
 {
+    use MetodosTrait;
+
     public function toResponse($request)
     {
         // Validación de campos requeridos
@@ -23,12 +27,21 @@ class LoginStore implements Responsable
             return back();
         }
 
+        if(!$this->checkDatabaseConnection()) {
+            return view('db_conexion');
+        }
+
         try {
             // 1. Buscar usuario en BD principal
             $user = $this->consultarEmail($email);
 
+            if (empty($user) && $user != 'error_bd') {
+                alert()->error('Error','Este usuario no existe: ' . $email);
+                return back();
+            }
+
             if (!$user || $user === 'error_bd') {
-                alert()->error('Error', 'Usuario no encontrado o error de conexión');
+                alert()->error('Error', 'Error consultando el usurio a la BD principal');
                 return back();
             }
 
@@ -78,28 +91,52 @@ class LoginStore implements Responsable
     {
         Session::flush();
         
+        $permisos = $this->obtenerPermisos($user['id_usuario']);
+
         Session::put([
             'id_usuario' => $user['id_usuario'],
             'usuario' => $user['usuario'],
+            'id_empresa' => $user['id_empresa'], // Nuevo
             'id_rol' => $user['id_rol'],
-            'sesion_iniciada' => true,
             'empresa_actual' => $user['empresa'],
-            'tenant_connection' => true
+            'permisos' => $permisos, // Nuevo
+            'sesion_iniciada' => true,
+            'tenant_connection' => true // Mantener si lo usas
         ]);
+    }
+
+    private function obtenerPermisos($idUsuario)
+    {
+        try {
+            $client = new Client();
+            $response = $client->post(env('BASE_URI').'consultar_permisos', [
+                'json' => ['usuarioId' => $idUsuario],
+                'timeout' => 3 // Timeout de 3 segundos
+            ]);
+            
+            return json_decode($response->getBody(), true) ?? [];
+            
+        } catch (Exception $e) {
+            // Logear error pero no bloquear login
+            Log::error("Error obteniendo permisos: ".$e->getMessage());
+            return [];
+        }
     }
 
     private function consultarEmail($email)
     {
         try {
+            // Realiza la solicitud POST a la API
             $client = new Client(['base_uri' => env('BASE_URI')]);
-            $response = $client->post('validar_email_login', [
-                'json' => ['email' => $email]
-            ]);
-            
+
+            $response = $client->post('administracion/validar_email_login', [
+                    'json' => ['email' => $email]
+                ]
+            );
             return json_decode($response->getBody()->getContents(), true);
-            
         } catch (Exception $e) {
-            return 'error_bd';
+            alert()->error('Error consultando email');
+            return redirect()->route('login');
         }
     }
 
@@ -107,7 +144,7 @@ class LoginStore implements Responsable
     {
         try {
             $client = new Client(['base_uri' => env('BASE_URI')]);
-            $client->post('inactivar_usuario/'.$idUsuario, [
+            $client->post('administracion/inactivar_usuario/'.$idUsuario, [
                 'json' => ['id_audit' => $idUsuario]
             ]);
         } catch (Exception $e) {
@@ -119,7 +156,7 @@ class LoginStore implements Responsable
     {
         try {
             $client = new Client(['base_uri' => env('BASE_URI')]);
-            $client->post('actualizar_clave_fallas/'.$idUsuario, [
+            $client->post('administracion/actualizar_clave_fallas/'.$idUsuario, [
                 'json' => [
                     'clave_fallas' => $contador,
                     'id_audit' => $idUsuario

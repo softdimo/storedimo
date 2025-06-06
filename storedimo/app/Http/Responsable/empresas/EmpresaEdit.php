@@ -24,7 +24,7 @@ class EmpresaEdit implements Responsable
             $baseUri = env('BASE_URI');
             $clientApi = new Client(['base_uri' => $baseUri]);
 
-            $peticion = $clientApi->get($baseUri . 'empresa_edit/'. $this->idEmpresa);
+            $peticion = $clientApi->get($baseUri . 'administracion/empresa_edit/'. $this->idEmpresa);
             $empresa = json_decode($peticion->getBody()->getContents());
 
             return view('empresas.edit', compact('empresa'));

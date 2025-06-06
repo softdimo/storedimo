@@ -31,7 +31,7 @@ class PermisosDestroy implements Responsable
 
             if(isset($arrayPermisos) && !is_null($arrayPermisos) && !empty($arrayPermisos))
             {
-                $peticionPermisoStore = $this->clientApi->post($this->baseUri . 'eliminar_permiso_usuario',
+                $peticionPermisoStore = $this->clientApi->post($this->baseUri . 'administracion/eliminar_permiso_usuario',
                 [
                     'json' => [
                         'permissions' => $arrayPermisos,
@@ -42,7 +42,7 @@ class PermisosDestroy implements Responsable
     
                 $permissions = json_decode($peticionPermisoStore->getBody()->getContents());
 
-                if(isset($permissions->success) && isset($permissions->success))
+                if(isset($permissions->success) && $permissions->success)
                 {
                     alert()->success($permissions->message);
                     return back();

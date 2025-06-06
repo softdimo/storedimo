@@ -57,7 +57,7 @@ class DatabaseConnectionHelper
             // Restaurar conexión principal en caso de error
             Config::set('database.default', 'mysql');
             DB::reconnect('mysql');
-            throw new Exception('Error configurando conexión tenant: ' . $e->getMessage());
+            throw new Exception('Error configurando conexión tenant');
         }
     }
 
