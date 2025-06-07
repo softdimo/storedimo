@@ -33,7 +33,7 @@ class RecuperarClave implements Responsable
             $email = request("email", null);
             $identificacion = request("identificacion", null);
 
-            $peticion = $this->clientApi->post($this->baseUri.'consulta_recuperar_clave', ['json' => [
+            $peticion = $this->clientApi->post($this->baseUri.'administracion/consulta_recuperar_clave', ['json' => [
                 'email' => $email,
                 'identificacion' => $identificacion,
             ]]);

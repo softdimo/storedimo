@@ -6,17 +6,32 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
+use App\Helpers\DatabaseConnectionHelper;
 use App\Http\Responsable\inicio_sesion\LoginStore;
 use App\Http\Responsable\inicio_sesion\CambiarClave;
 use App\Http\Responsable\inicio_sesion\RecuperarClave;
 use App\Http\Responsable\inicio_sesion\RecuperarClaveUpdate;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use App\Traits\MetodosTrait;
+use GuzzleHttp\Client;
 
 class LoginController extends Controller
 {
     use MetodosTrait;
+    protected $baseUri;
+    protected $clientApi;
+
+    public function __construct()
+    {
+        $this->shareData();
+        $this->baseUri = env('BASE_URI');
+        $this->clientApi = new Client(['base_uri' => $this->baseUri]);
+    }
+
+    // ======================================================================
+    // ======================================================================
 
     /**
      * Display a listing of the resource.
@@ -131,22 +146,35 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         try {
-            // Cierra la sesión del usuario autenticado
-            auth()->logout();
+            // 1. Cerrar sesión de autenticación
+            Auth::logout();
 
-            // Olvida las variables de sesión manualmente
-            Session::forget(['id_usuario', 'usuario', 'id_rol', 'sesion_iniciada']);
+            // 2. Restaurar conexión principal
+            DatabaseConnectionHelper::restaurarConexionPrincipal();
 
-            // Destruye toda la sesión y previene su reutilización
-            $request->session()->flush();
+            // Olvidar variables de sesión específicas (existente)
+            Session::forget([
+                'id_usuario',
+                'usuario',
+                'id_rol',
+                'sesion_iniciada'
+            ]);
+
+            // 3. Limpiar toda la sesión
+            Session::flush();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
-            // Redirige al login
-            return redirect()->route('login');
+            // 4. Redirigir al login
+            return redirect()->route('login')->with([
+                'status' => 'Sesión cerrada correctamente'
+            ]);
 
         } catch (Exception $e) {
-            alert()->error('Ha ocurrido un error');
+            // Asegurar conexión principal incluso si falla el logout
+            DatabaseConnectionHelper::restaurarConexionPrincipal();
+            
+            alert()->error('Ha ocurrido un error al cerrar sesión');
             return back();
         }
     }
@@ -219,7 +247,7 @@ class LoginController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function recuperarClaveUpdate(Request $request) 
+    public function recuperarClaveUpdate(Request $request)
     {
         if (!$this->checkDatabaseConnection())
         {

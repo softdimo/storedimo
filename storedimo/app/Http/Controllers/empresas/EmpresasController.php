@@ -11,6 +11,8 @@ use App\Http\Responsable\empresas\EmpresaIndex;
 use App\Http\Responsable\empresas\EmpresaStore;
 use App\Http\Responsable\empresas\EmpresaUpdate;
 use App\Http\Responsable\empresas\EmpresaEdit;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 
 class EmpresasController extends Controller
 {
@@ -192,7 +194,7 @@ class EmpresasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $idEmpresa)
     {
         try {
             if (!$this->checkDatabaseConnection())
@@ -209,7 +211,7 @@ class EmpresasController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
-                    $vista = new EmpresaUpdate();
+                    $vista = new EmpresaUpdate($idEmpresa);
                     return $this->validarAccesos($sesion[0], 12, $vista);
                 }
             }

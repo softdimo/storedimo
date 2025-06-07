@@ -244,6 +244,7 @@
                 ],
                 "pageLength": 10,
                 "scrollX": true,
+                "ordering": false
             });
             // CIERRE DataTable Lista Usuarios
 
@@ -391,6 +392,10 @@
                 });
             });
 
+            // =========================================================================
+            // =========================================================================
+            // =========================================================================
+
             $(document).on('click', '.btn-detalle-venta', function () {
                 const idVenta = $(this).data('id');
 
@@ -403,6 +408,30 @@
                     },
                     success: function (html) {
                         $('#modalDetalleVentaContent').html(html);
+                        $('#modalDetalleVenta').modal('show');
+
+                        // Inicializar DataTable después de un pequeño retraso para asegurar que esté en el DOM
+                        setTimeout(function() {
+                            const tableId = `#tblDetalleVentaProductos_${idVenta}`;
+
+                            if ($.fn.DataTable.isDataTable(tableId)) {
+                                $(tableId).DataTable().clear().destroy(); // Previene doble inicialización
+                            }
+
+                            let tableDetalles = $(tableId).DataTable({
+                                dom: 'lrtip',
+                                infoEmpty: 'No hay registros',
+                                stripe: true,
+                                bSort: false,
+                                autoWidth: false,
+                                scrollX: true,
+                                pageLength: 10,
+                                responsive: true
+                            });
+
+                            tableDetalles.columns.adjust();
+
+                        }, 100);
                     },
                     error: function () {
                         $('#modalDetalleVentaContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');

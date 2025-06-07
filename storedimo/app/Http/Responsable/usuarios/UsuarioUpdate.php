@@ -4,9 +4,6 @@ namespace App\Http\Responsable\usuarios;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Usuario;
 use GuzzleHttp\Client;
 
 class UsuarioUpdate implements Responsable
@@ -36,6 +33,8 @@ class UsuarioUpdate implements Responsable
         $idEstado = request('id_estado', null);
         $fechaContrato = request('fecha_contrato', null);
         $fechaTerminacionContrato = request('fecha_terminacion_contrato', null);
+        $idEmpresa = request('id_empresa', null);
+
 
        /*  // Consultamos si ya existe un usuario con la cedula ingresada
         $consultarIdentificacion = $this->consultarId($identificacion);
@@ -46,7 +45,7 @@ class UsuarioUpdate implements Responsable
         } else { */
 
             try {
-                $peticionUsuarioUpdate = $this->clientApi->put($this->baseUri.'usuario_update/'. $idUsuario, [
+                $peticionUsuarioUpdate = $this->clientApi->put($this->baseUri.'administracion/usuario_update/'. $idUsuario, [
                     'json' => [
                         'id_tipo_persona' => $idTipoPersona,
                         'nombre_usuario' => $nombreUsuario,
@@ -62,6 +61,7 @@ class UsuarioUpdate implements Responsable
                         'id_estado' => $idEstado,
                         'fecha_contrato' => $fechaContrato,
                         'fecha_terminacion_contrato' => $fechaTerminacionContrato,
+                        'id_empresa' => $idEmpresa,
                         'id_audit' => session('id_usuario')
                     ],
                 ]);
@@ -73,7 +73,6 @@ class UsuarioUpdate implements Responsable
                     );
                 }
             } catch (Exception $e) {
-                dd($e);
                 return $this->respuestaException('Exception, contacte a Soporte.');
             }
         // }
@@ -84,7 +83,7 @@ class UsuarioUpdate implements Responsable
 
     private function consultarId($identificacion)
     {
-        $queryIdentificacion = $this->clientApi->post($this->baseUri.'query_identificacion', [
+        $queryIdentificacion = $this->clientApi->post($this->baseUri.'administracion/query_identificacion', [
             'json' => ['identificacion' => $identificacion]
         ]);
         return json_decode($queryIdentificacion->getBody()->getContents());

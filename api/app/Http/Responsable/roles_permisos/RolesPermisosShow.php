@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\ModelHasPermissions;
 
 class RolesPermisosShow implements Responsable
-{   
+{
     public function toResponse($request)
     {
         try
@@ -26,5 +26,4 @@ class RolesPermisosShow implements Responsable
             return response()->json("error_exception");
         }
     }
-
 }

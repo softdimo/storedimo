@@ -2,7 +2,8 @@
     $user_id = session('id_usuario');
     $user_type = 'App\\Models\\Usuario';
 
-    $menus = DB::table('menu')
+    // Aseguramos usar la conexión principal para consultar menús y permisos
+    $menus = DB::connection('mysql')->table('menu')
         ->join('permissions', 'menu.permission_id', '=', 'permissions.id')
         ->join('model_has_permissions', function($join) use ($user_id, $user_type)
         {
@@ -20,10 +21,15 @@
     $menuItems = $menus->where('ruta', '!=', '#');
 @endphp
 
+<<<<<<< HEAD
 <aside class="vh-100" style="border: 1px solid #e7e7e7">
     <nav class="w-100">
+=======
+<aside class="vh-100 sidebar" id="sidebar" style="border: 1px solid #e7e7e7">
+    <nav class="w-100 ">
+>>>>>>> 59d774b9dcef3e5c34631b425dd92010aabba01c
         <ul class="nav navbar-nav d-flex flex-column justify-content-center flex-nowrap" id="sidebarnav">
-            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center" 
+            <li class="pt-1 pb-1 d-flex justify-content-between align-items-center"
                 style="background-color: #EEEEEE; border-bottom: 1px solid #e7e7e7">
                 <i class="fa fa-th-list text-center" style="color: #000; width: 10%"></i>
                 <a href="/home" class="nav-link active text-decoration-none text-start" style="width: 80%">Menú Principal</a>
@@ -36,13 +42,13 @@
                 @endphp
                 @if($hasChildren)
                     <li class="nav-item pt-1 pb-1 d-flex flex-column" style="border-bottom: 1px solid #e7e7e7">
-                        <div class="d-flex flex-row justify-content-between align-items-center colapsar" 
-                             id="menu_{{$menuGroup->id_menu}}" 
-                             role="button" 
-                             data-bs-toggle="collapse" 
-                             data-bs-target="#ul_menu_{{$menuGroup->id_menu}}" 
-                             aria-controls="ul_menu_{{$menuGroup->id_menu}}" 
-                             aria-expanded="false" 
+                        <div class="d-flex flex-row justify-content-between align-items-center colapsar"
+                             id="menu_{{$menuGroup->id_menu}}"
+                             role="button"
+                             data-bs-toggle="collapse"
+                             data-bs-target="#ul_menu_{{$menuGroup->id_menu}}"
+                             aria-controls="ul_menu_{{$menuGroup->id_menu}}"
+                             aria-expanded="false"
                              aria-label="Toggle navigation">
                             <div class="col-11">
                                 <i class="fa {{$menuGroup->icono}} text-center" style="color: #000; width: 10%"></i>
@@ -83,4 +89,8 @@
             });
         });
     });
+<<<<<<< HEAD
 </script>
+=======
+</script>
+>>>>>>> 59d774b9dcef3e5c34631b425dd92010aabba01c

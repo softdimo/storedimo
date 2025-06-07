@@ -3,7 +3,6 @@
 namespace App\Traits;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\View;
 use App\Models\Categoria;
 use App\Models\Rol;
 use App\Models\Estado;
@@ -21,59 +20,95 @@ use App\Models\Usuario;
 use App\Models\Permission;
 use App\Models\Proveedor;
 use App\Models\ModelHasPermissions;
-use App\Http\Responsable\usuarios\UsuarioIndex;
+use App\Models\TipoBd;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use Exception;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 
 trait MetodosTrait
 {
+    protected $baseUri;
+    protected $clientApi;
+    protected $apiTimeout = 5.0; // Timeout en segundos
+
+    protected function initHttpClient()
+    {
+        if (!$this->clientApi) {
+            $this->baseUri = env('BASE_URI');
+            $this->clientApi = new Client([
+                'base_uri' => $this->baseUri,
+                'timeout' => $this->apiTimeout,
+                'headers' => [
+                    'Accept' => 'application/json'
+                ]
+            ]);
+        }
+    }
+
     public function checkDatabaseConnection()
     {
         try {
             DB::connection()->getPdo();
-            return true; // Conexión exitosa
+            return true;
         } catch (\Exception $e) {
-            return false; // Conexión fallida
+            Log::error("Error de conexión a la base de datos: " . $e->getMessage());
+            return false;
         }
     }
 
-    // ======================================
-
     public function validarVariablesSesion()
     {
-        $variablesSesion =[];
-
-        $idUsuario = session('id_usuario');
-        array_push($variablesSesion, $idUsuario);
-
-        $usuario = session('usuario');
-        array_push($variablesSesion, $usuario);
-
-        $rolUsuario = session('id_rol');
-        array_push($variablesSesion, $rolUsuario);
-
-        $sesionIniciada = session('sesion_iniciada');
-        array_push($variablesSesion, $sesionIniciada);
-
-        return $variablesSesion;
+        return [
+            session('id_usuario'),
+            session('usuario'),
+            session('id_rol'),
+            session('sesion_iniciada')
+        ];
     }
-
-    // ======================================
 
     public function quitarCaracteresEspeciales($cadena)
     {
-        $no_permitidas = array("á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "ñ",
-        "À", "Ã", "Ì", "Ò", "Ù", "Ã™", "Ã ","Ã¨", "Ã¬", "Ã²", "Ã¹", "ç", "Ç", "Ã¢",
-        "ê", "Ã®", "Ã´", "Ã»", "Ã‚", "ÃŠ", "ÃŽ", "Ã”","Ã›", "ü", "Ã¶", "Ã–", "Ã¯",
-        "Ã¤", "«", "Ò", "Ã", "Ã„", "Ã‹", "ñ", "Ñ", "*");
+        $no_permitidas = [
+            'á', 'é', 'í', 'ó', 'ú',
+            'Á', 'É', 'Í', 'Ó', 'Ú',
+            'ñ', 'À', 'Ã', 'Ì', 'Ò',
+            'Ù', 'Ã™', 'Ã', 'Ã¨', 'Ã¬',
+            'Ã²', 'Ã¹', 'ç', 'Ç', 'Ã¢',
+            'ê', 'Ã®', 'Ã´', 'Ã»', 'Ã‚',
+            'ÃŠ', 'ÃŽ', 'Ã"', 'Ã›', 'ü',
+            'Ã¶', 'Ã–', 'Ã¯', 'Ã¤', '«',
+            'Ò', 'Ã', 'Ã„', 'Ã‹', 'ñ',
+            'Ñ', '*'
+        ];
 
-        $permitidas = array("a", "e", "i", "o", "u", "A", "E", "I", "O", "U", "n", "N", "A", "E", "I", "O", "U",
-                            "a", "e", "i", "o", "u", "c", "C", "a", "e", "i", "o", "u", "A", "E", "I", "O", "U",
-                            "u", "o", "O", "i", "a", "e", "U", "I", "A", "E", "n", "N", "");
+        $permitidas = [
+            'a', 'e', 'i', 'o', 'u',
+            'A', 'E', 'I', 'O', 'U',
+            'n', 'N', 'A', 'E', 'I',
+            'O', 'U', 'a', 'e', 'i',
+            'o', 'u', 'c', 'C', 'a',
+            'e', 'i', 'o', 'u', 'A',
+            'E', 'I', 'O', 'U', 'u',
+            'o', 'O', 'i', 'a', 'e',
+            'U', 'I', 'A', 'E', 'n',
+            'N', ''
+        ];
+
         return str_replace($no_permitidas, $permitidas, $cadena);
     }
 
-    // ======================================
-
     public function shareData()
+    {
+        // Compartir datos básicos que no requieren la API
+        $this->shareBasicData();
+        
+        // Compartir permisos desde la API
+        $this->sharePermissionsData();
+    }
+
+    protected function shareBasicData()
     {
         view()->share('categorias', Categoria::where('id_estado', 1)->orderBy('categoria')->pluck('categoria', 'id_categoria'));
         view()->share('roles', Rol::orderBy('name')->pluck('name', 'id'));
@@ -92,7 +127,8 @@ trait MetodosTrait
         view()->share('tipos_pago_nomina', TipoPago::whereIn('id_tipo_pago', [4,5])->orderBy('tipo_pago')->pluck('tipo_pago', 'id_tipo_pago'));
         view()->share('periodos_pago', PeriodoPago::orderBy('periodo_pago')->pluck('periodo_pago', 'id_periodo_pago'));
         view()->share('porcentajes_comision', PorcentajeComision::orderBy('porcentaje_comision')->pluck('porcentaje_comision', 'id_porcentaje_comision'));
-        view()->share('empresas', Empresa::orderBy('nombre_empresa')->pluck('nombre_empresa', 'id_empresa'));
+        view()->share('empresas', Empresa::orderBy('nombre_empresa')->where('id_estado', 1)->pluck('nombre_empresa', 'id_empresa'));
+        view()->share('tipos_bd', TipoBd::orderBy('tipo_bd')->pluck('tipo_bd', 'id_tipo_bd'));
         view()->share('usuarios', Usuario::orderBy('id_usuario')
                                     ->select(
                                         DB::raw("CONCAT(nombre_usuario, ' ', apellido_usuario, ' => ', usuario) AS user"),
@@ -100,8 +136,7 @@ trait MetodosTrait
                                     )
                                     ->where('id_estado', 1)
                                     ->pluck('user', 'id_usuario'));
-        view()->share('permisos', Permission::orderBy('id')->get());
-        view()->share('permisosAsignados', []);
+        
 
         // (ventas.create, línea 276), (entradas.create, línea 220), (productos.fields_crear_productos , línea 8)
         view()->share('proveedores', Proveedor::whereIn('id_tipo_persona', [3, 4])
@@ -159,37 +194,90 @@ trait MetodosTrait
         ]);
     }
 
-    public function permisosPorUsuario($idUsuario)
+    protected function sharePermissionsData()
     {
-        return ModelHasPermissions::where('model_id', $idUsuario)
-                                    ->orderBy('permission_id')
-                                    ->pluck('permission_id')
-                                    ->toArray();
+        try {
+            $this->initHttpClient();
+            
+            $permisos = $this->getPermisosFromApi();
+            
+            view()->share('permisos', $permisos);
+            view()->share('permisosAsignados', []);
+
+        } catch (RequestException $e) {
+            Log::error("Error API permisos View Share: " . $e->getMessage());
+            view()->share('permisos', []);
+            return back()->with('error', 'Error obteniendo permisos del sistema');
+        }
+    }
+
+    protected function getPermisosFromApi()
+    {
+        $cacheKey = 'permisos_view_share_' . session('id_usuario');
+        
+        return Cache::remember($cacheKey, now()->addMinutes(30), function () {
+            $response = $this->clientApi->get('administracion/permisos_view_share_trait');
+            return json_decode($response->getBody()->getContents());
+        });
     }
 
     public function permisos()
     {
-        return Permission::orderBy('id')
-                                    ->pluck('id')
-                                    ->toArray();
+        try {
+            $this->initHttpClient();
+            $cacheKey = 'permisos_list_' . session('id_usuario');
+
+            return Cache::remember($cacheKey, now()->addMinutes(30), function () {
+                $response = $this->clientApi->get('administracion/permisos_trait');
+                return json_decode($response->getBody()->getContents());
+            });
+
+        } catch (RequestException $e) {
+            Log::error("Error API permisos trait: " . $e->getMessage());
+            return [];
+        }
+    }
+
+    public function permisosPorUsuario($idUsuario)
+    {
+        try {
+            $this->initHttpClient();
+            $cacheKey = 'permisos_usuario_' . $idUsuario;
+
+            return Cache::remember($cacheKey, now()->addMinutes(30), function () use ($idUsuario) {
+                $response = $this->clientApi->get("administracion/permisos_por_usuario_trait/{$idUsuario}", [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . session('api_token')
+                    ]
+                ]);
+                return json_decode($response->getBody()->getContents());
+            });
+
+        } catch (RequestException $e) {
+            Log::error("Error API permisos por usuario: " . $e->getMessage());
+            return [];
+        }
     }
 
     public function validarAccesos($usuarioId, $permissionId, $vista)
     {
-        $permisosUsuario = $this->permisosPorUsuario($usuarioId);
+        try {
+            $permisosUsuario = $this->permisosPorUsuario($usuarioId);
 
-        if(in_array($permissionId, $permisosUsuario))
-        {
-            if(isset($vista) && !is_null($vista) && is_string($vista))
-            {
-                return view($vista);
-            } else 
-            {
-                return $vista;
+            if (!$permisosUsuario) {
+                Log::warning("No se encontraron permisos para el usuario: {$usuarioId}");
+                return view('errors.403')->with('error', 'No se encontraron permisos');
             }
-        } else
-        {
+
+            if (in_array($permissionId, $permisosUsuario)) {
+                return is_string($vista) ? view($vista) : $vista;
+            }
+
             return view('errors.403');
+
+        } catch (Exception $e) {
+            Log::error("Error validando accesos: " . $e->getMessage());
+            return view('errors.403')->with('error', 'Error validando permisos');
         }
     }
 }

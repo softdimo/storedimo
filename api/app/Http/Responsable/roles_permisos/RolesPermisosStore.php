@@ -4,11 +4,9 @@ namespace App\Http\Responsable\roles_permisos;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Http\Request;
 use App\Models\Roles;
 use App\Models\Permission;
 use App\Models\ModelHasPermissions;
-use App\Http\Responsable\roles_permisos\RolesPermisosShow;
 
 class RolesPermisosStore implements Responsable
 {   

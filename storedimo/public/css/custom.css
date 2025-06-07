@@ -20,6 +20,28 @@ body {
     width: 100%;
 } */
 
+.btn-circle {
+    padding-left: 0.3rem !important;
+    padding-right: 0.3rem !important;
+    padding-top: 0.0rem !important;
+    padding-bottom: 0.0rem !important;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: -100%;
+        width: 50% !important;
+        transition: 0.3s;
+        z-index: 1000;
+        background: white;
+    }
+    
+    .sidebar.active {
+        left: 0;
+    }
+}
+
 /* =============================================== */
 
 .dt-buttons {
@@ -224,6 +246,12 @@ body {
     }
 }
 
+@media (min-width: 992px) {
+    .permiso-grid {
+        grid-template-columns: 1fr 1fr 1fr 1fr; /* 4 columnas a partir de 992px (md) */
+    }
+}
+
 .permiso-item {
     display: flex;
     align-items: center;
@@ -310,13 +338,13 @@ body {
 	}
 
     .navbar-toggler {
-		width: 100%;
+		/* width: 100%; */
 		margin-left: auto !important;
 		margin-right: auto !important;
 	}
 
     #navbarNavDropdown {
-        position: absolute;
+        /* position: absolute; */
         top: 100%;
         right: 0;
         z-index: 1050;

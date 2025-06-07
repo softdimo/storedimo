@@ -52,7 +52,7 @@ class CambiarClave implements Responsable
                         return back();
                     }
 
-                    $response = $this->clientApi->post($this->baseUri.'cambiar_clave/'.$idUsuario, ['json' => [
+                    $response = $this->clientApi->post($this->baseUri.'administracion/cambiar_clave/'.$idUsuario, ['json' => [
                         'clave' => $nuevaClave,
                         'id_audit' => session('id_usuario')
                     ]]);

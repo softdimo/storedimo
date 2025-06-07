@@ -4,8 +4,7 @@ namespace App\Http\Responsable\empresas;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 use GuzzleHttp\Client;
 
 class EmpresaStore implements Responsable
@@ -30,7 +29,47 @@ class EmpresaStore implements Responsable
         $celularEmpresa = request('celular_empresa');
         $emailEmpresa = request('email_empresa');
         $direccionEmpresa = request('direccion_empresa');
+        $appKey = Crypt::encrypt(request('app_key'));
+        $appUrl = request('app_url');
+        $idTipoBd = request('id_tipo_bd');
+        $dbDatabase = Crypt::encrypt(request('db_database'));
+        $dbUsername = Crypt::encrypt(request('db_username'));
+        $dbPassword = Crypt::encrypt(request('db_password'));
         $idEstado = request('id_estado');
+
+        // ========================================================
+
+        $logoEmpresaBase64 = null;
+
+        if ($request->hasFile('logo_empresa')) {
+            $logoEmpresa = $request->file('logo_empresa');
+
+            if ($logoEmpresa->isValid()) {
+                // Validación de tipo MIME
+                $tiposPermitidos = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'];
+                $tipoMime = $logoEmpresa->getMimeType();
+
+                if (!in_array($tipoMime, $tiposPermitidos)) {
+                    alert()->error('Error', 'El tipo de imagen no es válido. Solo se permiten JPG, JPEG, PNG o WEBP.');
+                    return back();
+                }
+
+                // Validación de tamaño (2 MB = 2048 KB)
+                $tamanioMaximoKB = 2048;
+                $tamanioArchivoKB = $logoEmpresa->getSize() / 1024;
+
+                if ($tamanioArchivoKB > $tamanioMaximoKB) {
+                    alert()->error('Error', 'La imagen excede el tamaño máximo permitido de 2 MB.');
+                    return back();
+                }
+
+                // Codificación base64
+                $contenido = file_get_contents($logoEmpresa);
+                $logoEmpresaBase64 = 'data:' . $logoEmpresa->getMimeType() . ';base64,' . base64_encode($contenido);
+            }
+        }
+
+        // ========================================================
 
         $consultarEmpresa = $this->consultarEmpresa($nitEmpresa, $nombreEmpresa);
         
@@ -39,7 +78,7 @@ class EmpresaStore implements Responsable
                 alert()->warning('Cuidado', 'Empresa existente');
                 return redirect()->route('empresas.create')->withInput();
             } else {
-                $reqEmpresaStore = $this->clientApi->post($this->baseUri.'empresa_store', [
+                $reqEmpresaStore = $this->clientApi->post($this->baseUri.'administracion/empresa_store', [
                     'json' => [
                         'nit_empresa' => $nitEmpresa,
                         'nombre_empresa' => $nombreEmpresa,
@@ -47,6 +86,13 @@ class EmpresaStore implements Responsable
                         'celular_empresa' => $celularEmpresa,
                         'email_empresa' => $emailEmpresa,
                         'direccion_empresa' => $direccionEmpresa,
+                        'app_key' => $appKey,
+                        'app_url' => $appUrl,
+                        'id_tipo_bd' => $idTipoBd,
+                        'db_database' => $dbDatabase,
+                        'db_username' => $dbUsername,
+                        'db_password' => $dbPassword,
+                        'logo_empresa' => $logoEmpresaBase64,
                         'id_estado' => $idEstado,
                         'id_audit' => session('id_usuario')
                     ]
@@ -69,7 +115,7 @@ class EmpresaStore implements Responsable
 
     public function consultarEmpresa($nitEmpresa, $nombreEmpresa)
     {
-        $consultarEmpresa = $this->clientApi->post($this->baseUri.'consultar_empresa', [
+        $consultarEmpresa = $this->clientApi->post($this->baseUri.'administracion/consultar_empresa', [
             'json' => [
                 'nit_empresa' => $nitEmpresa,
                 'nombre_empresa' => $nombreEmpresa

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Crear Empresas')
+@section('title', 'Editar Empresa')
 
 {{-- =============================================================== --}}
 {{-- =============================================================== --}}
@@ -71,10 +71,10 @@
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px 5px 0 0;">
                 <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">
-                    Crear Empresa (Obligatorios * )
+                    Editar Empresa {{$empresa->nombre_empresa}}
                 </h5>
-                
-                {!! Form::open(['method' => 'POST', 'route' => ['empresas.store'], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'formCrearEmpresas', 'enctype' => 'multipart/form-data', 'file' => true]) !!}
+
+                {!! Form::open(['method' => 'PUT', 'route' => ['empresas.update', $empresa->id_empresa], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'formEditarEmpresa_'.$empresa->id_empresa, 'enctype' => 'multipart/form-data', 'file' => true]) !!}
                     @csrf
                 
                     @include('empresas.fields_empresas')
@@ -83,21 +83,20 @@
                     {{-- ========================================================= --}}
                     
                     <!-- Contenedor para el GIF -->
-                    <div id="loadingIndicatorEmpresaStore" class="loadingIndicator">
-                        <img src="{{asset('imagenes/loading.gif')}}" alt="Procesando...">
+                    <div id="loadingIndicatorEditarEmpresa_{{$empresa->id_empresa}}" class="loadingIndicator">
+                        <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
                     </div>
 
                     {{-- ========================================================= --}}
                     {{-- ========================================================= --}}
 
                     <div class="mt-5 mb-2 d-flex justify-content-center">
-                        <button type="submit" class="btn btn-success rounded-2 me-3">
-                            <i class="fa fa-floppy-o"></i>
-                            Guardar
+                        <button type="submit" class="btn btn-success me-3" id="btn_editar_empresa_{{$empresa->id_empresa}}">
+                            <i class="fa fa-floppy-o"> Editar</i>
                         </button>
                     </div>
                 {!! Form::close() !!}
-            </div> {{-- FIN div_crear_empresa --}}
+            </div> {{-- FIN div_editar_empresa --}}
         </div>
     </div>
 @stop
@@ -116,16 +115,24 @@
                 width: '100%'
             });
 
-            // formCrearEmpresas para cargar gif en el submit
-            $(document).on("submit", "form[id^='formCrearEmpresas']", function (e) {
-                const form = $(this);
-                const submitButton = form.find('button[type="submit"]');
-                const loadingIndicator = form.find("div[id^='loadingIndicatorEmpresaStore']"); // Busca el GIF del form actual
+            // ===========================================================================================
+            // ===========================================================================================
 
-                // Dessactivar Botones
-                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
-                
-                // Mostrar Spinner
+            $(document).on("submit", "form[id^='formEditarEmpresa_']", function(e) {
+                const form = $(this);
+                const formId = form.attr('id'); // Obtenemos el ID del formulario
+                const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
+
+                // Capturar el indicador de carga dinámicamente
+                const submitButton = $(`#btn_editar_empresa_${id}`);
+                const loadingIndicator = $(`#loadingIndicatorEditarEmpresa_${id}`);
+
+                // Lógica del botón
+                submitButton.prop("disabled", true).html(
+                    "Procesando... <i class='fa fa-spinner fa-spin'></i>"
+                );
+
+                // Cargar Spinner
                 loadingIndicator.show();
             });
         }); // FIN document.ready

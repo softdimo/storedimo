@@ -7,12 +7,7 @@
 
 @section('css')
     <style>
-        .btn-circle {
-            padding-left: 0.3rem !important;
-            padding-right: 0.3rem !important;
-            padding-top: 0.0rem !important;
-            padding-bottom: 0.0rem !important;
-        }
+        
     </style>
 @stop
 
@@ -21,6 +16,10 @@
 {{-- =============================================================== --}}
 
 @section('content')
+    @php
+        use Illuminate\Support\Facades\Crypt;
+    @endphp
+
     <div id="modal-overlay"></div>
     <div class="d-flex p-0">
         <div class="p-0" style="width: 20%">
@@ -101,6 +100,13 @@
                                     <th>Celular</th>
                                     <th>Email</th>
                                     <th>Dirección</th>
+                                    <th>APP KEY</th>
+                                    <th>APP URL</th>
+                                    <th>DB CONNECTION</th>
+                                    <th>DB DATABASE</th>
+                                    <th>DB USERNAME</th>
+                                    <th>DB PASSWORD</th>
+                                    <th>LOGO</th>
                                     <th>Estado</th>
                                     <th>Opciones</th>
                                 </tr>
@@ -115,13 +121,27 @@
                                         <td>{{ $empresa->celular_empresa }}</td>
                                         <td>{{ $empresa->email_empresa }}</td>
                                         <td>{{ $empresa->direccion_empresa }}</td>
-                                        <td>{{ $empresa->estado }}</td>
-                                        <td>
-                                            <button title="Editar Empresa" class="btn btn-success rounded-circle btn-circle text-white btn-editar-empresa" data-id="{{$empresa->id_empresa}}">
-                                                <i class="fa fa-pencil-square-o"></i>
-                                            </button>
-                                        </td>
+                                        <td>{{ $empresa->app_key ? Crypt::decrypt($empresa->app_key) : '' }}</td>
+                                        <td>{{ $empresa->app_url ? $empresa->app_url : '' }}</td>
+                                        <td>{{ $empresa->tipo_bd ? $empresa->tipo_bd : '' }}</td>
+                                        <td>{{ $empresa->db_database ? Crypt::decrypt($empresa->db_database) : '' }}</td>
+                                        <td>{{ $empresa->db_username ? Crypt::decrypt($empresa->db_username) : '' }}</td>
+                                        <td>{{ $empresa->db_password ? Crypt::decrypt($empresa->db_password) : '' }}</td>
+                                        
+                                        @if (is_null($empresa->logo_empresa))
+                                            <td class="align-middle"></td>
+                                        @else
+                                            <td class="align-middle">
+                                                <img src="{{ $empresa->logo_empresa }}" alt="Empresa" style="max-width: 50px;">
+                                            </td>
+                                        @endif
 
+                                        <td>{{ $empresa->estado ? $empresa->estado : '' }}</td>
+                                        <td>
+                                            <a href="{{ route('empresas.edit', $empresa->id_empresa) }}" class="btn btn-success rounded-circle btn-circle text-white btn-editar-empresa">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -131,19 +151,6 @@
             </div> {{-- FIN div_crear_empresa --}}
         </div>
     </div>
-    
-    {{-- =============================================================== --}}
-    {{-- =============================================================== --}}
-
-    <!-- INICIO Modal EDITAR EMPRESA -->
-    <div class="modal fade" id="modalEditarEmpresa" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
-        <div class="modal-dialog">
-            <div class="modal-content p-3" id="modalEditarEmpresaContent">
-                {{-- El contenido AJAX se cargará aquí --}}
-            </div> <!-- FIN modal-content -->
-        </div> <!-- FIN modal-dialog -->
-    </div> <!-- FIN modal fade -->
-    <!-- FIN Modal EDITAR EMPRESA -->
 @stop
 
 {{-- =============================================================== --}}
@@ -191,54 +198,11 @@
                         }
                     }
                 ],
-                "pageLength": 10
+                "pageLength": 10,
+                ordering: false
             });
             // CIERRE DataTable Lista Personas
 
-            // ===========================================================================================
-            // ===========================================================================================
-
-            $(document).on('click', '.btn-editar-empresa', function () {
-                const idEmpresa = $(this).data('id');
-
-                $.ajax({
-                    url: `/empresas/${idEmpresa}/edit`,
-                    type: 'GET',
-                    beforeSend: function () {
-                        $('#modalEditarEmpresa').modal('show');
-                        $('#modalEditarEmpresaContent').html('<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>');
-                    },
-                    success: function (html) {
-                        $('#modalEditarEmpresaContent').html(html);
-                    }, // FIN success
-                    error: function () {
-                        $('#modalEditarEmpresaContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');
-                    }
-                }); // FIN $.ajax
-            }); // FIN $(document).on('click', '.btn-cambiar_clave
-
-            // ===========================================================================================
-            // ===========================================================================================
-
-            $(document).on("submit", "form[id^='formEditarEmpresa_']", function(e) {
-                const form = $(this);
-                const formId = form.attr('id'); // Obtenemos el ID del formulario
-                const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
-
-                // Capturar el indicador de carga dinámicamente
-                const submitButton = $(`#btn_editar_empresa_${id}`);
-                const cancelButton = $(`#btn_cancelar_empresa_${id}`);
-                const loadingIndicator = $(`#loadingIndicatorEditarEmpresa_${id}`);
-
-                // Lógica del botón
-                submitButton.prop("disabled", true).html(
-                    "Procesando... <i class='fa fa-spinner fa-spin'></i>"
-                );
-                cancelButton.prop("disabled", true);
-
-                // Cargar Spinner
-                loadingIndicator.show();
-            });
         }); // FIN document.ready
     </script>
 @stop

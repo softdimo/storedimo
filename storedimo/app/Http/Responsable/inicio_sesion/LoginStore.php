@@ -5,9 +5,11 @@ namespace App\Http\Responsable\inicio_sesion;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Usuario;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
+use App\Helpers\DatabaseConnectionHelper;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 use App\Traits\MetodosTrait;
 
 class LoginStore implements Responsable
@@ -16,148 +18,152 @@ class LoginStore implements Responsable
 
     public function toResponse($request)
     {
-        $usuario = request('usuario', null);
-        $clave = request('clave', null);
+        // Validación de campos requeridos
+        $email = $request->input('email');
+        $clave = $request->input('clave');
 
-        if(!isset($usuario) || empty($usuario) || is_null($usuario) || 
-            !isset($clave) || empty($clave) || is_null($clave))
-        {
-            alert()->error('Error','Usuario y Clave son requeridos!');
+        if (empty($email) || empty($clave)) {
+            alert()->error('Error', 'Correo y clave son requeridos');
             return back();
         }
 
-        // ======================================================
-        // ======================================================
+        if(!$this->checkDatabaseConnection()) {
+            return view('db_conexion');
+        }
 
-        $user = $this->consultarUsuario($usuario);
-      
-        if(isset($user) && !empty($user) && !is_null($user) && $user != 'no_user' && $user != 'error_bd') {
+        try {
+            // 1. Buscar usuario en BD principal
+            $user = $this->consultarEmail($email);
 
-            $contarClaveErronea = $user['clave_fallas'];
+            if (empty($user) && $user != 'error_bd') {
+                alert()->error('Error','Este usuario no existe: ' . $email);
+                return back();
+            }
 
-            if($contarClaveErronea >= 4)
-            {
+            if (!$user || $user === 'error_bd') {
+                alert()->error('Error', 'Error consultando el usurio a la BD principal');
+                return back();
+            }
+
+            // 2. Verificar estado del usuario
+            if ($user['id_estado'] == 2) {
+                alert()->error('Error', 'Usuario inactivo, contacte al administrador');
+                return back();
+            }
+
+            // 3. Verificar intentos fallidos
+            if ($user['clave_fallas'] >= 4) {
                 $this->inactivarUsuario($user['id_usuario']);
-            }
-
-            if($user['id_estado'] == 2)
-            {
-                alert()->error('Error','Usuario ' . $usuario . ' inactivo, por favor contacte al administrador');
+                alert()->error('Error', 'Cuenta bloqueada por muchos intentos fallidos');
                 return back();
             }
 
-            // ==================================
-
-            if(Hash::check($clave, $user['clave']))
-            {
-                $this->crearVariablesSesion($user);
-                $this->actualizarClaveFallas($user['id_usuario'], 0);
-                
-                return redirect()->route('home.index');
-                
-            } else {
-                $contarClaveErronea += 1;
-                $this->actualizarClaveFallas($user['id_usuario'], $contarClaveErronea);
-                alert()->error('Error','Credenciales Inválidas');
+            // 4. Validar credenciales contra BD principal
+            if (!Hash::check($clave, $user['clave'])) {
+                $this->actualizarClaveFallas($user['id_usuario'], $user['clave_fallas'] + 1);
+                alert()->error('Error', 'Credenciales inválidas');
                 return back();
             }
-        } elseif ($user == 'no_user') {
-            alert()->error('Error','Este usuario no existe: ' . $usuario);
+
+            // 5. Verificar empresa asociada
+            if (!isset($user['empresa'])) {
+                alert()->error('Error', 'Usuario no asociado a ninguna empresa');
+                return back();
+            }
+
+            // 6. Configurar conexión tenant
+            DatabaseConnectionHelper::configurarConexionTenant($user['empresa']);
+
+            // 7. Crear sesión
+            $this->crearVariablesSesion($user);
+            $this->actualizarClaveFallas($user['id_usuario'], 0);
+
+            return redirect()->route('home.index');
+
+        } catch (Exception $e) {
+            DatabaseConnectionHelper::restaurarConexionPrincipal();
+            alert()->error('Error', 'Ocurrió un problema durante el login: ' . $e->getMessage());
             return back();
-        } else {
-            if(!$this->checkDatabaseConnection()) {
-                return view('db_conexion');
-            } else {
-                return view('usuarios.index');
-            }
         }
     }
 
-    // ==================================================
-    
-    private function crearVariablesSesion($user)
+    private function crearVariablesSesion(array $user)
     {
-        // Creamos las variables de sesion
-        session()->put('id_usuario', $user['id_usuario']);
-        session()->put('usuario', $user['usuario']);
-        session()->put('id_rol', $user['id_rol']);
-        session()->put('sesion_iniciada', true);
+        Session::flush();
+        
+        $permisos = $this->obtenerPermisos($user['id_usuario']);
+
+        Session::put([
+            'id_usuario' => $user['id_usuario'],
+            'usuario' => $user['usuario'],
+            'id_empresa' => $user['id_empresa'], // Nuevo
+            'id_rol' => $user['id_rol'],
+            'empresa_actual' => $user['empresa'],
+            'permisos' => $permisos, // Nuevo
+            'sesion_iniciada' => true,
+            'tenant_connection' => true // Mantener si lo usas
+        ]);
     }
 
-    // ======================================================
-
-    private function consultarUsuario($usuario)
-    {
-        try {
-            $baseUri = env('BASE_URI');
-
-            // Realiza la solicitud POST a la API
-            $clientApi = new Client(['base_uri' => $baseUri]);
-
-            $response = $clientApi->post($baseUri.'query_usuario', ['json' => ['usuario' => $usuario]]);
-            $respuesta = json_decode($response->getBody()->getContents(), true);
-
-            if(isset($respuesta) && !empty($respuesta)) {
-                return $respuesta;
-            }
-        }
-        catch (Exception $e)
-        {
-            DB::connection('mysql')->rollback();
-            alert()->error('Error', 'Error Exception');
-            return redirect()->to(route('usuarios.index'));
-        }
-    }
-
-    // ======================================================
-
-    private function inactivarUsuario($idUser)
+    private function obtenerPermisos($idUsuario)
     {
         try {
+            $client = new Client();
+            $response = $client->post(env('BASE_URI').'consultar_permisos', [
+                'json' => ['usuarioId' => $idUsuario],
+                'timeout' => 3 // Timeout de 3 segundos
+            ]);
+            
+            return json_decode($response->getBody(), true) ?? [];
+            
+        } catch (Exception $e) {
+            // Logear error pero no bloquear login
+            Log::error("Error obteniendo permisos: ".$e->getMessage());
+            return [];
+        }
+    }
 
-            $baseUri = env('BASE_URI');
-
+    private function consultarEmail($email)
+    {
+        try {
             // Realiza la solicitud POST a la API
-            $clientApi = new Client(['base_uri' => $baseUri]);
+            $client = new Client(['base_uri' => env('BASE_URI')]);
 
-            $response = $clientApi->post($baseUri.'inactivar_usuario/'.$idUser,
-                [
-                    'json' => ['id_audit' => $idUser]
+            $response = $client->post('administracion/validar_email_login', [
+                    'json' => ['email' => $email]
                 ]
             );
-            json_decode($response->getBody()->getContents());
-
-        } catch (Exception $e)
-        {
-            alert()->error('Error', 'Error Exception, si el problema persiste, contacte a Soporte.');
-            return back();
+            return json_decode($response->getBody()->getContents(), true);
+        } catch (Exception $e) {
+            alert()->error('Error consultando email');
+            return redirect()->route('login');
         }
     }
 
-    // ======================================================
+    private function inactivarUsuario($idUsuario)
+    {
+        try {
+            $client = new Client(['base_uri' => env('BASE_URI')]);
+            $client->post('administracion/inactivar_usuario/'.$idUsuario, [
+                'json' => ['id_audit' => $idUsuario]
+            ]);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 
     private function actualizarClaveFallas($idUsuario, $contador)
     {
         try {
-
-            $baseUri = env('BASE_URI');
-
-            // Realiza la solicitud POST a la API
-            $clientApi = new Client(['base_uri' => $baseUri]);
-
-            $response = $clientApi->post($baseUri.'actualizar_clave_fallas/'.$idUsuario,
-                [
-                    'json' => [
-                        'clave_fallas' => $contador,
-                        'id_audit' => $idUsuario
-                    ]
+            $client = new Client(['base_uri' => env('BASE_URI')]);
+            $client->post('administracion/actualizar_clave_fallas/'.$idUsuario, [
+                'json' => [
+                    'clave_fallas' => $contador,
+                    'id_audit' => $idUsuario
                 ]
-            );
-            json_decode($response->getBody()->getContents());
-
+            ]);
         } catch (Exception $e) {
-            alert()->error('Error', 'Error Exception, si el problema persiste, contacte a Soporte.');
-            return back();
+            throw $e;
         }
     }
 }

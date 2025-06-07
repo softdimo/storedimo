@@ -157,7 +157,9 @@
 
         <div class="col-12 col-md-3 mt-3">
             <div class="form-group d-flex flex-column file-container">
-                <label for="imagen_producto" class="form-label">Imagen</label>
+                <label for="imagen_producto" class="form-label">Imagen
+                    <span class="text-danger">(jpg, jpeg, png o webp.)</span>
+                </label>
                 <div class="div-file">
                     {!! Form::file('imagen_producto', [
                         'class' => 'form-control file',

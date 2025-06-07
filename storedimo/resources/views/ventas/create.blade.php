@@ -148,7 +148,7 @@
                                         <tr class="text-center align-middle">
                                             <td>$ <span id="p_detal_venta"></span></td>
                                             <td>$ <span id="p_x_mayor_venta"></span></td>
-                                            <td id="">
+                                            <td id="td_aplicar_x_mayor_venta">
                                                 {{ Form::checkbox('aplicar_x_mayor_venta', null, ['class' => 'form-control', 'id' => 'aplicar_x_mayor_venta']) }}
                                             </td>
                                         </tr>
@@ -205,10 +205,6 @@
                                     Venta: <span id="clienteVenta"></span></h5>
 
                                 <div class="">
-                                    {{-- <strong class="p-3">Seleccione para agregar</strong> --}}
-
-                                    {{-- <div class="row p-3 d-none" id="div_ventas_datos_producto"></div> --}}
-
                                     <div class="table-responsive p-3 d-flex flex-column justify-content-between h-100"
                                         style="">
                                         <table class="table table-striped table-bordered w-100 mb-0" id="tabla_detalle_venta"
@@ -223,7 +219,7 @@
                                             </thead>
                                             {{-- ============================== --}}
                                             <tbody>
-                                                {{-- <tr class="text-center"></tr> --}}
+                                                
                                             </tbody>
                                         </table>
                                     </div>
@@ -239,14 +235,14 @@
                                             ]) !!}
                                         </div>
 
-                                        <div class="d-flex mt-2 mb-2 rounded-end" style="border: 1px solid #ddd;">
+                                        {{-- <div class="d-flex mt-2 mb-2 rounded-end" style="border: 1px solid #ddd;">
                                             <p class="p-1 m-0 fw-bold w-25">Descuento: $</p>
                                             {!! Form::text('descuento_total_venta', null, [
                                                 'class' => 'form-control w-75 bg-success-subtle',
                                                 'id' => 'descuento_total_venta',
                                                 'readonly',
                                             ]) !!}
-                                        </div>
+                                        </div> --}}
 
                                         <div class="d-flex rounded-end" style="border: 1px solid #ddd;">
                                             <p class="p-1 m-0 fw-bold w-25">Total: $</p>
@@ -282,7 +278,7 @@
                                     {!! Form::number('plazo_credito', null, ['class' => 'form-control', 'id' => 'plazo_credito', 'required']) !!}
                                 </div>
 
-                                <div class="col-12 col-md-6 d-flex flex-column">
+                                {{-- <div class="col-12 col-md-6 d-flex flex-column">
                                     <label for="descuento" class="fw-bold">Descuento en Pesos <span
                                             class="text-danger">*</span></label>
                                     {!! Form::text('descuento', null, [
@@ -295,7 +291,7 @@
                                         'title' => 'Ingrese un valor numérico entero mayor o igual a 0',
                                         'oninput' => "this.value = this.value.replace(/[^0-9]/g, '')",
                                     ]) !!}
-                                </div>
+                                </div> --}}
                             </div>
 
                             {{-- ====================================================== --}}
@@ -591,6 +587,9 @@
 {{-- =============================================================== --}}
 
 @section('scripts')
+    <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
+    <script src="{{ asset('DataTables/Buttons-2.3.4/js/buttons.html5.min.js') }}"></script>
+
     <script>
         $(document).ready(function() {
             $('.select2').select2({
@@ -685,6 +684,11 @@
             // ===================================================================================
             // ===================================================================================
 
+            $('#td_aplicar_x_mayor_venta').hide();
+            $('input[name="aplicar_x_mayor_venta"]').removeAttr('required');
+            $('input[name="aplicar_x_mayor_venta"]').prop('checked', false);
+            $('input[name="aplicar_x_mayor_venta"]').removeAttr('disabled');
+
             let aplicarXMayorVenta = $('#aplicar_x_mayor_venta').is(':checked');
 
             if (aplicarXMayorVenta == false) {
@@ -702,17 +706,40 @@
                     $('#id_tipo_persona').val(tipoPersona);
 
                     if (tipoPersona == 5) {
+                        $('#td_aplicar_x_mayor_venta').show();
+                        $('input[name="aplicar_x_mayor_venta"]').attr('required');
                         $('input[name="aplicar_x_mayor_venta"]').prop('checked', true);
+                        $('input[name="aplicar_x_mayor_venta"]').attr('disabled', true);
                     } else {
+                        $('#td_aplicar_x_mayor_venta').hide();
+                        $('input[name="aplicar_x_mayor_venta"]').removeAttr('required');
                         $('input[name="aplicar_x_mayor_venta"]').prop('checked', false);
+                        $('input[name="aplicar_x_mayor_venta"]').removeAttr('disabled');
                     }
                 } else {
+                    $('#td_aplicar_x_mayor_venta').hide();
+                    $('input[name="aplicar_x_mayor_venta"]').removeAttr('required');
                     $('input[name="aplicar_x_mayor_venta"]').prop('checked', false);
                 }
             });
 
             // ===================================================================================
             // ===================================================================================
+
+            // INICIO DataTable
+            let tablaDetalleVenta = $('#tabla_detalle_venta').DataTable({
+                dom: 'lrtip',
+                infoEmpty: 'No hay registros',
+                stripe: true,
+                bSort: false,
+                autoWidth: false,
+                scrollX: true,
+                pageLength: 10,
+                responsive: true,
+                language: {
+                    emptyTable: "No hay productos agregados"
+                }
+            }); // CIERRE DataTable
 
             // INICIO - Función agregar datos de las ventas
             let productosAgregados = [];
@@ -768,7 +795,6 @@
 
                 $('#p_detal_venta').html(0); // Resetear precio detal
                 $('#p_x_mayor_venta').html(0); // Resetear precio mayorista
-                $('input[name="aplicar_x_mayor_venta"]').prop('checked', false); // Desmarcar checkbox
 
                 $('#cantidad_venta').val(''); // Limpiar cantidad
                 $('#cantidad_producto').html(0); // Limpiar cantidad disponible
@@ -779,16 +805,18 @@
             // ===================================================================================
 
             function actualizarDetalleVenta() {
+                tablaDetalleVenta.clear().draw();
+
                 let detalleHTML = "";
                 let totalVenta = 0;
 
                 productosAgregados.forEach((producto, index) => {
                     detalleHTML += `
                         <tr id="row_${index}">
-                            <td class="text-center">${producto.nombre}</td>
-                            <td class="text-center">${producto.cantidad}</td>
-                            <td class="text-center">$${producto.subtotal}</td>
-                            <td class="text-center">
+                            <td class="text-center align-middle">${producto.nombre}</td>
+                            <td class="text-center align-middle">${producto.cantidad}</td>
+                            <td class="text-center align-middle">$${producto.subtotal}</td>
+                            <td class="text-center align-middle">
                                 <button type="button" onclick="eliminarProducto(${index})" class="btn btn-danger btn-sm">
                                     <i class="fa fa-trash text-white"></i>
                                 </button>
@@ -805,7 +833,7 @@
                     totalVenta += producto.subtotal;
                 });
 
-                $('#tabla_detalle_venta tbody').html(detalleHTML); // Asegúrate que tengas <tbody> en tu tabla
+                $('#tabla_detalle_venta tbody').html(detalleHTML);
                 $('#sub_total_venta').val(totalVenta);
                 $('#total_venta').val(totalVenta);
             }

@@ -4,9 +4,7 @@ namespace App\Http\Responsable\usuarios;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Usuario;
 use GuzzleHttp\Client;
 
 class UsuarioStore implements Responsable
@@ -36,6 +34,7 @@ class UsuarioStore implements Responsable
         $direccion = request('direccion', null);
         $fechaContrato = request('fecha_contrato', null);
         $fechaTerminacionContrato = request('fecha_terminacion_contrato', null);
+        $idEmpresa = request('id_empresa', null);
 
         if(strlen($identificacion) < 6)
         {
@@ -66,7 +65,7 @@ class UsuarioStore implements Responsable
 
             try
             {
-                $peticionUsuarioStore = $this->clientApi->post($this->baseUri.'usuario_store', [
+                $peticionUsuarioStore = $this->clientApi->post($this->baseUri.'administracion/usuario_store', [
                     'json' => [
                         'nombre_usuario' => $nombreUsuario,
                         'apellido_usuario' => $apellidoUsuario,
@@ -85,7 +84,8 @@ class UsuarioStore implements Responsable
                         'fecha_terminacion_contrato' => $fechaTerminacionContrato,
                         'clave' => Hash::make($identificacion),
                         'clave_fallas' => 0,
-                        'id_audit' => session('id_usuario')
+                        'id_audit' => session('id_usuario'),
+                        'id_empresa' => $idEmpresa
                     ]
                 ]);
 
@@ -95,7 +95,7 @@ class UsuarioStore implements Responsable
                 {
                     return $this->respuestaExito(
                         "Usuario creado satisfactoriamente.<br>
-                        El usuario es: <strong>" .  $resUsuarioStore->usuario->usuario . "</strong><br>
+                        El usuario es: <strong>" .  $resUsuarioStore->usuario->email . "</strong><br>
                         Y la clave es: <strong>" . $resUsuarioStore->usuario->identificacion . "</strong>",
                         'usuarios.index'
                     );
@@ -109,7 +109,7 @@ class UsuarioStore implements Responsable
 
     private function consultarId($identificacion)
     {
-        $queryIdentificacion = $this->clientApi->post($this->baseUri.'query_identificacion', [
+        $queryIdentificacion = $this->clientApi->post($this->baseUri.'administracion/query_identificacion', [
             'json' => ['identificacion' => $identificacion]
         ]);
         return json_decode($queryIdentificacion->getBody()->getContents());
@@ -121,7 +121,7 @@ class UsuarioStore implements Responsable
     private function consultaUsuario($usuario)
     {
         try {
-            $queryUsuario = $this->clientApi->post($this->baseUri.'query_usuario', [
+            $queryUsuario = $this->clientApi->post($this->baseUri.'administracion/query_usuario', [
                 'json' => ['usuario' => $usuario]
             ]);
             return json_decode($queryUsuario->getBody()->getContents());

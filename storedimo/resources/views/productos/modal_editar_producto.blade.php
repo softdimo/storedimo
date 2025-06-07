@@ -63,7 +63,9 @@
 
                 <div class="col-12 col-md-6 mt-md-3">
                     <div class="form-group d-flex flex-column file-container">
-                        <label for="imagen_producto" class="">Imagen</label>
+                        <label for="imagen_producto" class="">Imagen
+                            <span class="text-danger">(jpg, jpeg, png o webp.)</span>
+                        </label>
                         <div class="div-file">
                             {!! Form::file('imagenProductoEdit', ['class' => 'form-control file', 'id' => 'imagenProductoEdit_' . $productoEdit->id_producto, 'onchange' => 'displaySelectedFile("imagenProductoEdit_' . $productoEdit->id_producto . '","selected_imagen_producto_' . $productoEdit->id_producto . '")',
                             'accept' => 'image/jpg,image/jpeg,image/png,image/webp']) !!}
