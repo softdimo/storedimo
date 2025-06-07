@@ -203,4 +203,13 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
     });
     
     // ========================================================================
+
+    Route::group(['namespace' => 'App\Http\Controllers\home'], function ()
+    {
+        // Rutas para manejo de permisos
+        Route::get('/permisos', 'PermisosController@index')->name('permisos.index');
+        Route::get('/obtener-permisos-usuario/{id}', 'PermisosController@obtenerPermisosUsuario');
+        Route::post('/guardar-permisos-usuario', 'PermisosController@guardarPermisosUsuario');
+    });
 }); // FIN Route::middleware(['web'])
+

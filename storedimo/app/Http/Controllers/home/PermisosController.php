@@ -44,7 +44,7 @@ class PermisosController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
-                    return view('home.permisos');;
+                    return view('home.permisos');
                 }
             }
         } catch (Exception $e)

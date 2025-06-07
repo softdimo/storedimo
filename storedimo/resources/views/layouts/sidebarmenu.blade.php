@@ -4,7 +4,8 @@
 
     $menus = DB::table('menu')
         ->join('permissions', 'menu.permission_id', '=', 'permissions.id')
-        ->join('model_has_permissions', function($join) use ($user_id, $user_type) {
+        ->join('model_has_permissions', function($join) use ($user_id, $user_type)
+        {
             $join->on('model_has_permissions.permission_id', '=', 'permissions.id')
                  ->where('model_has_permissions.model_id', '=', $user_id)
                  ->where('model_has_permissions.model_type', '=', $user_type);
@@ -20,7 +21,7 @@
 @endphp
 
 <aside class="vh-100" style="border: 1px solid #e7e7e7">
-    <nav class="w-100 " role="">
+    <nav class="w-100">
         <ul class="nav navbar-nav d-flex flex-column justify-content-center flex-nowrap" id="sidebarnav">
             <li class="pt-1 pb-1 d-flex justify-content-between align-items-center" 
                 style="background-color: #EEEEEE; border-bottom: 1px solid #e7e7e7">
@@ -83,4 +84,3 @@
         });
     });
 </script>
- 
