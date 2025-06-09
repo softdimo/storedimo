@@ -148,7 +148,8 @@ class LoginStore implements Responsable
                 'json' => ['id_audit' => $idUsuario]
             ]);
         } catch (Exception $e) {
-            throw $e;
+            alert()->error('Error inactivar usuario');
+            return redirect()->route('login');
         }
     }
 
@@ -163,7 +164,8 @@ class LoginStore implements Responsable
                 ]
             ]);
         } catch (Exception $e) {
-            throw $e;
+            alert()->error('Error actualizar clave fallas');
+            return redirect()->route('login');
         }
     }
 }
