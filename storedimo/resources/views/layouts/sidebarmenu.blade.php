@@ -21,13 +21,8 @@
     $menuItems = $menus->where('ruta', '!=', '#');
 @endphp
 
-<<<<<<< HEAD
 <aside class="vh-100" style="border: 1px solid #e7e7e7">
     <nav class="w-100">
-=======
-<aside class="vh-100 sidebar" id="sidebar" style="border: 1px solid #e7e7e7">
-    <nav class="w-100 ">
->>>>>>> 59d774b9dcef3e5c34631b425dd92010aabba01c
         <ul class="nav navbar-nav d-flex flex-column justify-content-center flex-nowrap" id="sidebarnav">
             <li class="pt-1 pb-1 d-flex justify-content-between align-items-center"
                 style="background-color: #EEEEEE; border-bottom: 1px solid #e7e7e7">

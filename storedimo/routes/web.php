@@ -206,7 +206,6 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
             Route::post('traer_permisos_usuario', 'RolesPermisosController@consultarPermisosPorUsuario')->name('traer_permisos_usuario');
         });
         
-<<<<<<< HEAD
         // Abre automáticamente el archivo con los códigos QR del producto recién solicitado
         Route::get('/ver-pdf/{archivo}', function ($archivo) {
             $rutaPdf = storage_path("app/public/upfiles/productos/barcodes/{$archivo}");
@@ -302,8 +301,5 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
         Route::get('/obtener-permisos-usuario/{id}', 'PermisosController@obtenerPermisosUsuario');
         Route::post('/guardar-permisos-usuario', 'PermisosController@guardarPermisosUsuario');
     });
-=======
-    }); // FIN Route::middleware(['verificar.sesion'])
->>>>>>> 59d774b9dcef3e5c34631b425dd92010aabba01c
 }); // FIN Route::middleware(['web'])
 
