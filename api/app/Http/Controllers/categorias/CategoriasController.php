@@ -10,7 +10,8 @@ use App\Http\Responsable\categorias\CategoriaUpdate;
 use App\Http\Responsable\categorias\CategoriaDestroy;
 use App\Http\Responsable\categorias\CategoriaEdit;
 use App\Models\Categoria;
-
+use Exception;
+use App\Helpers\DatabaseConnectionHelper;
 
 class CategoriasController extends Controller
 {
@@ -111,18 +112,34 @@ class CategoriasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function consultaCategoria()
+    public function consultaCategoria(Request $request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
         $categoria = request('categoria', null);
 
-        try
-        {
-            return Categoria::where('categoria', $categoria)->first();
-        }
-        catch (Exception $e)
-        {
-            alert()->error('Error', 'Error Exception, inténtelo de nuevo, si el problema persiste, contacte a Soporte.');
-            return back();
+        try {
+            $categoria = Categoria::where('categoria', $categoria)->first();
+
+            // Restaurar conexión principal si se usó tenant
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+
+            return response()->json($categoria);
+        } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
+            return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
 }

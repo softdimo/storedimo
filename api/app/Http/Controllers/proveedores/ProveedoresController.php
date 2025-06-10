@@ -9,7 +9,7 @@ use App\Http\Responsable\proveedores\ProveedorStore;
 use App\Http\Responsable\proveedores\ProveedorUpdate;
 use App\Http\Responsable\proveedores\ProveedorEdit;
 use App\Models\Proveedor;
-
+use App\Helpers\DatabaseConnectionHelper;
 
 class ProveedoresController extends Controller
 {
@@ -110,22 +110,52 @@ class ProveedoresController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function consultarIdentificacionProveedor()
+    public function consultarIdentificacionProveedor(Request $request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         $identificacion = request('identificacion', null);
         
         // Consultamos si ya existe un proveedor con la identificación ingresada
-        return Proveedor::where('identificacion', $identificacion)->first();
+        $proveedor = Proveedor::where('identificacion', $identificacion)->first();
+
+        // Restaurar conexión principal si se usó tenant
+        if ($empresaActual) {
+            DatabaseConnectionHelper::restaurarConexionPrincipal();
+        }
+
+        return response()->json($proveedor);
     }
 
     // ======================================================================
     // ======================================================================
 
-    public function consultarNitProveedor()
+    public function consultarNitProveedor(Request $request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         $nitProveedor = request('nit_proveedor', null);
         
         // Consultamos si ya existe un proveedor con el nit ingresado
-        return Proveedor::where('nit_proveedor', $nitProveedor)->first();
+        $proveedor = Proveedor::where('nit_proveedor', $nitProveedor)->first();
+
+        // Restaurar conexión principal si se usó tenant
+        if ($empresaActual) {
+            DatabaseConnectionHelper::restaurarConexionPrincipal();
+        }
+
+        return response()->json($proveedor);
     }
 }

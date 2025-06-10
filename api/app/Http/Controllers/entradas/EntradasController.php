@@ -13,6 +13,7 @@ use App\Http\Responsable\entradas\EntradaStore;
 use App\Http\Responsable\entradas\EntradaUpdate;
 use App\Models\Compra;
 use App\Models\CompraProducto;
+use App\Helpers\DatabaseConnectionHelper;
 
 
 class EntradasController extends Controller
@@ -122,8 +123,16 @@ class EntradasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function anularCompra($idCompra)
+    public function anularCompra(Request $request, $idCompra)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         $compra = Compra::find($idCompra);
 
         if (isset($compra) && !is_null($compra) && !empty($compra)) {
@@ -132,9 +141,19 @@ class EntradasController extends Controller
                 $compra->id_estado = 2;
                 $compra->update();
 
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
                 return response()->json(['success' => true]);
     
             } catch (Exception $e) {
+                // Asegurar restauración de conexión principal en caso de error
+                if (isset($empresaActual)) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+                
                 return response()->json(['error_bd' => $e->getMessage()]);
             }
         }
@@ -145,6 +164,14 @@ class EntradasController extends Controller
 
     public function reporteComprasPdf(Request $request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         $fechaInicial = request('fecha_inicial', null);
         $fechaFinal = request('fecha_final', null);
 
@@ -157,7 +184,7 @@ class EntradasController extends Controller
                     'compras.fecha_compra',
                     'compras.valor_compra',
                     'proveedores.id_proveedor',
-                    \DB::raw("
+                    DB::raw("
                         CASE
                             WHEN proveedores.proveedor_juridico IS NOT NULL THEN proveedores.proveedor_juridico
                             ELSE CONCAT(proveedores.nombres_proveedor, ' ', proveedores.apellidos_proveedor)
@@ -169,6 +196,11 @@ class EntradasController extends Controller
 
             $total = $compras->sum('valor_compra');
 
+            // Restaurar conexión principal si se usó tenant
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+
             return response()->json([
                 'compras' => $compras,
                 'total' => $total,
@@ -176,6 +208,11 @@ class EntradasController extends Controller
 
 
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
@@ -183,8 +220,16 @@ class EntradasController extends Controller
     // ===================================================================
     // ===================================================================
 
-    public function detalleCompra($idCompra)
+    public function detalleCompra(Request $request, $idCompra)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         try {
             $detalleCompra = CompraProducto::leftJoin('compras', 'compras.id_compra', '=', 'compra_productos.id_compra')
                 ->leftJoin('productos', 'productos.id_producto', '=', 'compra_productos.id_producto')
@@ -200,11 +245,19 @@ class EntradasController extends Controller
                 ->orderBy('nombre_producto')
                 ->get();
 
-                
+            // Restaurar conexión principal si se usó tenant
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
 
             return response()->json($detalleCompra);
 
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
@@ -212,8 +265,16 @@ class EntradasController extends Controller
     // ===================================================================
     // ===================================================================
 
-    public function detalleCompraProductoPdf($idCompra)
+    public function detalleCompraProductoPdf(Request $request, $idCompra)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         try {
             $detalleCompraProductoPdf = Compra::leftJoin('compra_productos', 'compra_productos.id_compra', '=', 'compras.id_compra')
                 ->leftJoin('productos', 'productos.id_producto', '=', 'compra_productos.id_producto')
@@ -236,9 +297,19 @@ class EntradasController extends Controller
                 ->orderBy('nombre_producto')
                 ->get();
 
+            // Restaurar conexión principal si se usó tenant
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+
             return response()->json($detalleCompraProductoPdf);
 
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
@@ -246,8 +317,16 @@ class EntradasController extends Controller
     // ===================================================================
     // ===================================================================
 
-    public function entradaDiaMes()
+    public function entradaDiaMes(Request $request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         $hoy = request('fecha_entrada_dia');
         $inicioMes = request('fecha_entrada_inicio_mes');
 
@@ -255,12 +334,22 @@ class EntradasController extends Controller
             $entradasDia = Compra::whereDate('fecha_compra', $hoy)->sum('valor_compra');
             $entradasMes = Compra::whereBetween('fecha_compra', [$inicioMes, Carbon::now()])->sum('valor_compra');
 
+            // Restaurar conexión principal si se usó tenant
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+
             return [
                 'entradasDia' => $entradasDia,
                 'entradasMes' => $entradasMes
             ];
             
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }

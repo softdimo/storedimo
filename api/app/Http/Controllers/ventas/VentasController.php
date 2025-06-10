@@ -12,6 +12,8 @@ use App\Http\Responsable\ventas\VentaStore;
 use App\Http\Responsable\ventas\VentaUpdate;
 use App\Models\Venta;
 use App\Models\VentaProducto;
+use App\Helpers\DatabaseConnectionHelper;
+use Exception;
 
 
 class VentasController extends Controller
@@ -108,12 +110,32 @@ class VentasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function consultaVenta($idVenta)
-    {
+    public function consultaVenta(Request $request, $idVenta)
+    {   
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         try {
-            return Venta::where('id_venta', $idVenta)->first();
+            $venta = Venta::where('id_venta', $idVenta)->first();
+
+            // Restaurar conexión principal si se usó tenant
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+
+            return response()->json($venta);
 
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
@@ -121,8 +143,16 @@ class VentasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function anularVenta($idVenta)
+    public function anularVenta(Request $request, $idVenta)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         $venta = Venta::find($idVenta);
 
         if (isset($venta) && !is_null($venta) && !empty($venta)) {
@@ -131,9 +161,19 @@ class VentasController extends Controller
                 $venta->id_venta = 2;
                 $venta->update();
 
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
                 return response()->json(['success' => true]);
     
             } catch (Exception $e) {
+                // Asegurar restauración de conexión principal en caso de error
+                if (isset($empresaActual)) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+                
                 return response()->json(['error_bd' => $e->getMessage()]);
             }
         }
@@ -144,6 +184,14 @@ class VentasController extends Controller
 
     public function reporteVentasPdf(Request $request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         $fechaInicial = request('fecha_inicial', null);
         $fechaFinal = request('fecha_final', null);
 
@@ -173,6 +221,11 @@ class VentasController extends Controller
 
             $total = $ventas->sum('total_venta');
 
+            // Restaurar conexión principal si se usó tenant
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+
             return response()->json([
                 'ventas' => $ventas,
                 'total' => $total,
@@ -180,6 +233,11 @@ class VentasController extends Controller
 
 
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
@@ -187,8 +245,16 @@ class VentasController extends Controller
     // ======================================================================
     // ======================================================================
     
-    public function detalleVenta($idVenta)
+    public function detalleVenta(Request $request, $idVenta)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         try {
             $detalleVenta = VentaProducto::leftJoin('ventas', 'ventas.id_venta', '=', 'venta_productos.id_venta')
                 ->leftJoin('productos', 'productos.id_producto', '=', 'venta_productos.id_producto')
@@ -218,9 +284,19 @@ class VentasController extends Controller
                 ->orderBy('nombre_producto')
                 ->get();
 
+            // Restaurar conexión principal si se usó tenant
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+
             return response()->json($detalleVenta);
 
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
@@ -228,8 +304,16 @@ class VentasController extends Controller
     // ===================================================================
     // ===================================================================
 
-    public function ventaDiaMes()
+    public function ventaDiaMes(Request $request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         $hoy = request('fecha_venta_dia');
         $inicioMes = request('fecha_venta_inicio_mes');
 
@@ -237,12 +321,22 @@ class VentasController extends Controller
             $ventasDia = Venta::whereDate('fecha_venta', $hoy)->sum('total_venta');
             $ventasMes = Venta::whereBetween('fecha_venta', [$inicioMes, Carbon::now()])->sum('total_venta');
 
+            // Restaurar conexión principal si se usó tenant
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+
             return [
                 'ventasDia' => $ventasDia,
                 'ventasMes' => $ventasMes
             ];
             
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }

@@ -15,6 +15,7 @@ use App\Http\Responsable\pago_empleados\PagoEmpleadoShow;
 use App\Http\Responsable\pago_empleados\PagoEmpleadoEdit;
 use App\Http\Responsable\pago_empleados\PagoEmpleadoDestroy;
 use App\Models\PagoEmpleado;
+use App\Helpers\DatabaseConnectionHelper;
 
 class PagoEmpleadosController extends Controller
 {
@@ -67,7 +68,7 @@ class PagoEmpleadosController extends Controller
 
     public function show($idProducto)
     {
-        return new PagoEmpleadoShow($idProducto);
+        // return new PagoEmpleadoShow($idProducto);
     }
 
     // ======================================================================
@@ -81,7 +82,7 @@ class PagoEmpleadosController extends Controller
      */
     public function edit($idProducto)
     {
-        return new PagoEmpleadoEdit($idProducto);
+        // return new PagoEmpleadoEdit($idProducto);
     }
 
     // ======================================================================
@@ -96,7 +97,7 @@ class PagoEmpleadosController extends Controller
      */
     public function update(Request $request, $idProducto)
     {
-        return new PagoEmpleadoUpdate($request, $idProducto);
+        // return new PagoEmpleadoUpdate($request, $idProducto);
     }
 
     // ======================================================================
@@ -110,14 +111,22 @@ class PagoEmpleadosController extends Controller
      */
     public function destroy($idProducto)
     {
-        return new PagoEmpleadoDestroy($idProducto);
+        // return new PagoEmpleadoDestroy($idProducto);
     }
 
     // ======================================================================
     // ======================================================================
 
-    public function verificarPagoEmpleado()
+    public function verificarPagoEmpleado(Request $request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         $nombrePagoEmpleado = request('nombre_producto', null);
         $idCategoria = request('id_categoria', null);
 
@@ -127,9 +136,19 @@ class PagoEmpleadosController extends Controller
                     ->first();
 
             if (isset($validarNombrePagoEmpleado) && !is_null($validarNombrePagoEmpleado) && !empty($validarNombrePagoEmpleado)) {
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
                 return response()->json($validarNombrePagoEmpleado);
             }
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
@@ -137,12 +156,25 @@ class PagoEmpleadosController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function queryPagoEmpleado($idPagoEmpleado)
+    public function queryPagoEmpleado(Request $request, $idPagoEmpleado)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         try {
             return PagoEmpleado::where('id_producto', $idPagoEmpleado)->first();
 
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }

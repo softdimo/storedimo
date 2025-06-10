@@ -15,6 +15,7 @@ use App\Http\Responsable\productos\ProductoUpdate;
 use App\Http\Responsable\productos\ProductoDestroy;
 use App\Http\Responsable\productos\ReporteProductosPdf;
 use App\Models\Producto;
+use App\Helpers\DatabaseConnectionHelper;
 
 class ProductosController extends Controller
 {
@@ -56,7 +57,7 @@ class ProductosController extends Controller
     }
 
     // ======================================================================
-    // ======================================================================    
+    // ======================================================================
 
     /**
      * Display the specified resource.
@@ -116,8 +117,16 @@ class ProductosController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function verificarProducto()
+    public function verificarProducto(Request $request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         $nombreProducto = request('nombre_producto', null);
         $idCategoria = request('id_categoria', null);
 
@@ -127,9 +136,19 @@ class ProductosController extends Controller
                     ->first();
 
             if (isset($validarNombreProducto) && !is_null($validarNombreProducto) && !empty($validarNombreProducto)) {
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
                 return response()->json($validarNombreProducto);
             }
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
@@ -137,10 +156,18 @@ class ProductosController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function queryProducto($idProducto)
+    public function queryProducto(Request $request, $idProducto)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         try {
-            return Producto::leftjoin('categorias','categorias.id_categoria','=','productos.id_categoria')
+            $validarNombreProducto = Producto::leftjoin('categorias','categorias.id_categoria','=','productos.id_categoria')
                 ->select(
                     'id_producto',
                     'id_empresa',
@@ -162,7 +189,19 @@ class ProductosController extends Controller
                 ->where('id_producto', $idProducto)
                 ->first();
 
+            // Restaurar conexión principal si se usó tenant
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+
+            return response()->json($validarNombreProducto);
+
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
@@ -177,15 +216,28 @@ class ProductosController extends Controller
 
     /**
      * Valida que la referencia del producto no exista a la hora de crear un nuevo producto
-     * 
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function referenceValidator(Request $request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         $referencia = $request->input('referencia');
         $existe = Producto::where('referencia', $referencia)->exists();
-        
+
+        // Restaurar conexión principal si se usó tenant
+        if ($empresaActual) {
+            DatabaseConnectionHelper::restaurarConexionPrincipal();
+        }
+
         return response()->json([
             'valido' => !$existe
         ]);

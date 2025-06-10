@@ -11,6 +11,8 @@ use App\Http\Responsable\existencias\StockMinimoIndex;
 use App\Models\Baja;
 use App\Models\BajaDetalle;
 use App\Models\Producto;
+use App\Helpers\DatabaseConnectionHelper;
+use Exception;
 
 class ExistenciasController extends Controller
 {
@@ -127,8 +129,16 @@ class ExistenciasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function bajaDetalle($idBaja)
+    public function bajaDetalle(Request $request, $idBaja)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         try {
             $bajaDetalle = BajaDetalle::leftJoin('bajas', 'bajas.id_baja', '=', 'bajas_detalle.id_baja')
                 ->leftJoin('tipo_baja', 'tipo_baja.id_tipo_baja', '=', 'bajas_detalle.id_tipo_baja')
@@ -149,11 +159,19 @@ class ExistenciasController extends Controller
                 ->orderBy('nombre_producto')
                 ->get();
 
-                
+            // Restaurar conexión principal si se usó tenant
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
 
             return response()->json($bajaDetalle);
 
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
@@ -163,6 +181,14 @@ class ExistenciasController extends Controller
 
     public function reporteBajasPdf(Request $request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         $fechaInicial = request('fecha_inicial', null);
         $fechaFinal = request('fecha_final', null);
 
@@ -185,9 +211,19 @@ class ExistenciasController extends Controller
                 ->orderByDesc('fecha_baja')
                 ->get();
 
+            // Restaurar conexión principal si se usó tenant
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+
             return response()->json($bajas);
 
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
@@ -203,21 +239,47 @@ class ExistenciasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function alertaStockMinimo()
+    public function alertaStockMinimo(Request $request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         try {
             $productosStockMinimo = Producto::whereColumn('cantidad', '<', 'stock_minimo')->count();
+
+            // Restaurar conexión principal si se usó tenant
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
 
             // Devolver un JSON estructurado correctamente
             return response()->json(['productos_bajo_stock' => $productosStockMinimo]);
 
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
 
-    public function baja($idBaja)
+    public function baja(Request $request, $idBaja)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         try {
             $baja = Baja::leftjoin('usuarios','usuarios.id_usuario','=','bajas.id_responsable_baja')
                 ->leftjoin('estados','estados.id_estado','=','bajas.id_estado_baja')
@@ -233,9 +295,19 @@ class ExistenciasController extends Controller
                 ->orderByDesc('fecha_baja')
                 ->first();
 
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
                 return response()->json($baja);
 
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }

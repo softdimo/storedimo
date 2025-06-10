@@ -10,6 +10,7 @@ use App\Http\Responsable\personas\PersonaUpdate;
 use App\Http\Responsable\personas\PersonaEdit;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Persona;
+use App\Helpers\DatabaseConnectionHelper;
 
 
 class PersonasController extends Controller
@@ -108,20 +109,50 @@ class PersonasController extends Controller
         //
     }
 
-    public function consultarIdPersona()
+    public function consultarIdPersona(Request $request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         $identificacion = request('identificacion', null);
         
         // Consultamos si ya existe un usuario con la cedula ingresada
-        return Persona::where('identificacion', $identificacion)->first();
+        $persona = Persona::where('identificacion', $identificacion)->first();
+
+        // Restaurar conexión principal si se usó tenant
+        if ($empresaActual) {
+            DatabaseConnectionHelper::restaurarConexionPrincipal();
+        }
+
+        return response()->json($persona);
     }
 
-    public function consultarNitEmpresa()
+    public function consultarNitEmpresa(Request $request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         $nitEmpresa = request('nit_empresa', null);
         
         // Consultamos si ya existe un usuario con la cedula ingresada
-        return Persona::where('nit_empresa', $nitEmpresa)->first();
+        $persona = Persona::where('nit_empresa', $nitEmpresa)->first();
+
+        // Restaurar conexión principal si se usó tenant
+        if ($empresaActual) {
+            DatabaseConnectionHelper::restaurarConexionPrincipal();
+        }
+
+        return response()->json($persona);
     }
 
     

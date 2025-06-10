@@ -16,6 +16,7 @@ use App\Http\Responsable\prestamos\PrestamoShow;
 use App\Http\Responsable\prestamos\PrestamoEdit;
 use App\Http\Responsable\prestamos\PrestamoDestroy;
 use App\Models\Prestamo;
+use App\Helpers\DatabaseConnectionHelper;
 
 class PrestamosController extends Controller
 {
@@ -68,7 +69,7 @@ class PrestamosController extends Controller
 
     public function show($idProducto)
     {
-        return new PrestamoShow($idProducto);
+        // return new PrestamoShow($idProducto);
     }
 
     // ======================================================================
@@ -82,7 +83,7 @@ class PrestamosController extends Controller
      */
     public function edit($idProducto)
     {
-        return new PrestamoEdit($idProducto);
+        // return new PrestamoEdit($idProducto);
     }
 
     // ======================================================================
@@ -111,14 +112,22 @@ class PrestamosController extends Controller
      */
     public function destroy($idProducto)
     {
-        return new PrestamoDestroy($idProducto);
+        // return new PrestamoDestroy($idProducto);
     }
 
     // ======================================================================
     // ======================================================================
 
-    public function verificarPrestamo()
+    public function verificarPrestamo(Request $request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         $nombrePrestamo = request('nombre_producto', null);
         $idCategoria = request('id_categoria', null);
 
@@ -128,9 +137,19 @@ class PrestamosController extends Controller
                     ->first();
 
             if (isset($validarNombrePrestamo) && !is_null($validarNombrePrestamo) && !empty($validarNombrePrestamo)) {
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
                 return response()->json($validarNombrePrestamo);
             }
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
@@ -138,12 +157,25 @@ class PrestamosController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function queryPrestamo($idPrestamo)
+    public function queryPrestamo(Request $request, $idPrestamo)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         try {
             return Prestamo::where('id_producto', $idPrestamo)->first();
 
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
