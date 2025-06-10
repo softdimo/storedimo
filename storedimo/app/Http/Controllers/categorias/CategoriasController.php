@@ -10,9 +10,6 @@ use App\Http\Responsable\categorias\CategoriaStore;
 use App\Http\Responsable\categorias\CategoriaUpdate;
 use App\Http\Responsable\categorias\CategoriaEdit;
 use App\Http\Responsable\categorias\CategoriaDestroy;
-use GuzzleHttp\Client;
-use App\Models\Categoria;
-use Illuminate\Support\Facades\DB;
 use App\Traits\MetodosTrait;
 
 class CategoriasController extends Controller

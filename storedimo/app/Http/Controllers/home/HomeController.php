@@ -150,7 +150,8 @@ class HomeController extends Controller
             $peticion = $this->clientApi->get($this->baseUri. 'venta_dia_mes', [
                 'query' => [
                     'fecha_venta_dia' => $hoy,
-                    'fecha_venta_inicio_mes' => $inicioMes
+                    'fecha_venta_inicio_mes' => $inicioMes,
+                    'empresa_actual' => session('empresa_actual')
                 ]
             ]);
             return json_decode($peticion->getBody()->getContents());
@@ -173,7 +174,8 @@ class HomeController extends Controller
             $peticion = $this->clientApi->get($this->baseUri. 'entrada_dia_mes', [
                 'query' => [
                     'fecha_entrada_dia' => $hoy,
-                    'fecha_entrada_inicio_mes' => $inicioMes
+                    'fecha_entrada_inicio_mes' => $inicioMes,
+                    'empresa_actual' => session('empresa_actual')
                 ]
             ]);
             return json_decode($peticion->getBody()->getContents());

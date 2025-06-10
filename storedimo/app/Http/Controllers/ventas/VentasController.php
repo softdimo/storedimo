@@ -10,7 +10,6 @@ use Exception;
 use App\Http\Responsable\ventas\VentaIndex;
 use App\Http\Responsable\ventas\DetalleVenta;
 use App\Http\Responsable\ventas\VentaStore;
-use App\Http\Responsable\ventas\VentaUpdate;
 use App\Http\Responsable\ventas\ReporteVentasPdf;
 use App\Http\Responsable\ventas\ReciboCajaVenta;
 

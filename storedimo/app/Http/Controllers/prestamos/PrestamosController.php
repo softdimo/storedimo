@@ -9,8 +9,8 @@ use App\Traits\MetodosTrait;
 use App\Http\Responsable\prestamos\PrestamoIndex;
 use App\Http\Responsable\prestamos\PrestamoCreate;
 use App\Http\Responsable\prestamos\PrestamoStore;
-use App\Http\Responsable\prestamos\PrestamoUpdate;
 use App\Http\Responsable\prestamos\PrestamoVencer;
+use Exception;
 
 class PrestamosController extends Controller
 {
@@ -193,7 +193,6 @@ class PrestamosController extends Controller
                     return redirect()->to(route('login'));
                 } else {
                     return new PrestamoVencer();
-
                 }
             }
         } catch (Exception $e) {

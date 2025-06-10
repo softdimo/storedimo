@@ -307,6 +307,7 @@ class ProductosController extends Controller
                             'query' => [
                                 'nombre_producto' => $nombreProducto,
                                 'id_categoria' => $idCategoria,
+                                'empresa_actual' => session('empresa_actual')
                             ]
                         ]);
                         $resVerificarProducto = json_decode($verificarProducto->getBody()->getContents());
@@ -407,7 +408,11 @@ class ProductosController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
-                    $queryValoresProducto = $this->clientApi->post($this->baseUri.'query_producto/'.$idProducto, ['query' => []]);
+                    $queryValoresProducto = $this->clientApi->post($this->baseUri.'query_producto/'.$idProducto, [
+                        'json' => [
+                            'empresa_actual' => session('empresa_actual')
+                        ]
+                    ]);
                     return json_decode($queryValoresProducto->getBody()->getContents());
                 }
             }
@@ -476,7 +481,8 @@ class ProductosController extends Controller
         {
             $response = $this->clientApi->post($this->baseUri . 'verificar_referencia', [
                 'json' => [
-                    'referencia' => $request->input('referencia')
+                    'referencia' => $request->input('referencia'),
+                    'empresa_actual' => session('empresa_actual')
                 ]
             ]);
             return response()->json(json_decode($response->getBody()->getContents(), true));

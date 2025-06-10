@@ -10,7 +10,6 @@ use Exception;
 use App\Http\Responsable\entradas\EntradaIndex;
 use App\Http\Responsable\entradas\DetalleEntrada;
 use App\Http\Responsable\entradas\EntradaStore;
-use App\Http\Responsable\entradas\EntradaUpdate;
 use App\Http\Responsable\entradas\ReporteComprasPdf;
 use App\Http\Responsable\entradas\DetalleComprasPdf;
 
@@ -195,7 +194,11 @@ class EntradasController extends Controller
 
         try
         {
-            $reqAnularCompra = $this->clientApi->post($this->baseUri.'anular_compra/'.$idCompra, ['json' => ['id_audit' => session('id_usuario')]]);
+            $reqAnularCompra = $this->clientApi->post($this->baseUri.'anular_compra/'.$idCompra, [
+                'json' => [
+                    'id_audit' => session('id_usuario'),
+                    'empresa_actual' => session('empresa_actual')]
+            ]);
             $resAnularCompra = json_decode($reqAnularCompra->getBody()->getContents());
 
             if(isset($resAnularCompra) && !empty($resAnularCompra) && !is_null($resAnularCompra))
