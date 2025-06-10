@@ -5,13 +5,21 @@ namespace App\Http\Responsable\prestamos;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use App\Models\Prestamo;
+use App\Helpers\DatabaseConnectionHelper;
 
 class PrestamoCreate implements Responsable
 {
     public function toResponse($request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
         try {
             $prestamos = Prestamo::leftjoin('estados','estados.id_estado','=','prestamos.id_estado_prestamo')
                 ->leftjoin('usuarios','usuarios.id_usuario','=','prestamos.id_usuario')
@@ -35,9 +43,19 @@ class PrestamoCreate implements Responsable
                 ->orderByDesc('fecha_prestamo')
                 ->get();
 
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
                 return response()->json($prestamos);
 
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }

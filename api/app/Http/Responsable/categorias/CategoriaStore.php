@@ -4,14 +4,21 @@ namespace App\Http\Responsable\categorias;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use App\Models\Categoria;
+use App\Helpers\DatabaseConnectionHelper;
 
 class CategoriaStore implements Responsable
 {
     public function toResponse($request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
         $categoria = request('categoria', null);
         $idEstado = request('id_estado', null);
 
@@ -25,6 +32,11 @@ class CategoriaStore implements Responsable
         // ================================================
 
         if (isset($nuevaCategoria) && !is_null($nuevaCategoria) && !empty($nuevaCategoria)) {
+            // Restaurar conexión principal si se usó tenant
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json([
                 'success' => true,
                 'message' => 'Categoría creada correctamente'

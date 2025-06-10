@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
+use App\Helpers\DatabaseConnectionHelper;
 
 class CategoriaUpdate implements Responsable
 {
@@ -18,12 +19,25 @@ class CategoriaUpdate implements Responsable
 
     public function toResponse($request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
         $id = $request->route('id');
         $categoria = Categoria::find($id);
 
         if (isset($categoria) && !is_null($categoria) && !empty($categoria)) {
             $categoria->categoria = $this->request->input('categoria');
             $categoria->update();
+
+            // Restaurar conexión principal si se usó tenant
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
 
             return response()->json([
                 'success' => true,

@@ -4,16 +4,23 @@ namespace App\Http\Responsable\entradas;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use App\Models\Compra;
 use App\Models\CompraProducto;
 use App\Models\Producto;
+use App\Helpers\DatabaseConnectionHelper;
 
 class EntradaStore implements Responsable
 {
     public function toResponse($request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
         $idEmpresa = request('id_empresa', null);
         $fechaCompra = request('fecha_compra', null);
         $valorCompra = request('valor_compra', null);
@@ -61,10 +68,20 @@ class EntradaStore implements Responsable
                     $producto->update();
                 }
 
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
                 return response()->json(['success' => true]);
             }
 
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }

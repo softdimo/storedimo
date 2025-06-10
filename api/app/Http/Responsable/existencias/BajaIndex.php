@@ -5,13 +5,21 @@ namespace App\Http\Responsable\existencias;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use App\Models\Baja;
+use App\Helpers\DatabaseConnectionHelper;
 
 class BajaIndex implements Responsable
 {
     public function toResponse($request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
         try {
             $bajas = Baja::leftjoin('usuarios','usuarios.id_usuario','=','bajas.id_responsable_baja')
                 ->leftjoin('estados','estados.id_estado','=','bajas.id_estado_baja')
@@ -26,9 +34,19 @@ class BajaIndex implements Responsable
                 ->orderByDesc('fecha_baja')
                 ->get();
 
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
                 return response()->json($bajas);
 
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }

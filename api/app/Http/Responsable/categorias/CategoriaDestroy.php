@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Categoria;
+use App\Helpers\DatabaseConnectionHelper;
 
 class CategoriaDestroy implements Responsable
 {
@@ -23,6 +24,14 @@ class CategoriaDestroy implements Responsable
 
     public function toResponse($request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+
         $idCategoria = $this->idCategoria;
 
         $categoria = Categoria::where('id_categoria', $idCategoria)->first();
@@ -39,11 +48,20 @@ class CategoriaDestroy implements Responsable
 
             $categoria->save();
 
+            // Restaurar conexión principal si se usó tenant
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
             
             return response()->json(['success' => true]);
             
 
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }

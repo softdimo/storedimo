@@ -8,6 +8,7 @@ use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Producto;
+use App\Helpers\DatabaseConnectionHelper;
 
 
 class ProductoUpdate implements Responsable
@@ -24,6 +25,14 @@ class ProductoUpdate implements Responsable
 
     public function toResponse($request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
         $idProducto = $request->route('idProducto');
         $producto = Producto::find($idProducto);
 
@@ -41,12 +50,22 @@ class ProductoUpdate implements Responsable
             $producto->fecha_vencimiento = $this->request->input('fecha_vencimiento');
             $producto->update();
 
+            // Restaurar conexión principal si se usó tenant
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+
             return response()->json([
                 'success' => true,
                 'message' => 'Producto actualizado correctamente'
             ]);
             
         } else {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return abort(404, $message = 'No existe esta categoria');
         }
     }

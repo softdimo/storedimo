@@ -5,11 +5,20 @@ namespace App\Http\Responsable\proveedores;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use App\Models\Proveedor;
+use App\Helpers\DatabaseConnectionHelper;
 
 class ProveedorIndex implements Responsable
 {
     public function toResponse($request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
         try {
             $proveedores = Proveedor::leftjoin('empresas', 'empresas.id_empresa', '=', 'proveedores.id_empresa')
                 ->leftjoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'proveedores.id_tipo_persona')
@@ -47,9 +56,19 @@ class ProveedorIndex implements Responsable
                 ")
                 ->get();
 
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
             return response()->json($proveedores);
             
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }

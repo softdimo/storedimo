@@ -5,11 +5,20 @@ namespace App\Http\Responsable\existencias;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use App\Models\Producto;
+use App\Helpers\DatabaseConnectionHelper;
 
 class StockMinimoIndex implements Responsable
 {
     public function toResponse($request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
         try {
             $productosStockMinimo = Producto::leftJoin('categorias', 'categorias.id_categoria', '=', 'productos.id_categoria')
                 ->leftJoin('estados', 'estados.id_estado', '=', 'productos.id_estado')
@@ -36,9 +45,19 @@ class StockMinimoIndex implements Responsable
                 ->get();
 
             if (isset($productosStockMinimo) && !is_null($productosStockMinimo) && !empty($productosStockMinimo)) {
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
                 return response()->json($productosStockMinimo);
             }
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }

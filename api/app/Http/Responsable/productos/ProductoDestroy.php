@@ -5,8 +5,8 @@ namespace App\Http\Responsable\productos;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\Producto;
+use App\Helpers\DatabaseConnectionHelper;
 
 class ProductoDestroy implements Responsable
 {
@@ -23,6 +23,14 @@ class ProductoDestroy implements Responsable
 
     public function toResponse($request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
         $idProducto = $this->idProducto;
 
         $producto = Producto::where('id_producto', $idProducto)->first();
@@ -38,9 +46,18 @@ class ProductoDestroy implements Responsable
 
             $producto->save();
 
-            
+            // Restaurar conexión principal si se usó tenant
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+
             return response()->json(['success' => true]);
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }

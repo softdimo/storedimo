@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
 use App\Models\Proveedor;
+use App\Helpers\DatabaseConnectionHelper;
 
 class ProveedorUpdate implements Responsable
 {
@@ -20,6 +21,14 @@ class ProveedorUpdate implements Responsable
 
     public function toResponse($request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
         $proveedor = Proveedor::findOrFail($this->idProveedor);
 
         try {
@@ -41,10 +50,20 @@ class ProveedorUpdate implements Responsable
                 $proveedor->telefono_juridico = $request->input('telefono_juridico');
                 $proveedor->save();
     
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
                 return response()->json(true);
             }
             
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
         

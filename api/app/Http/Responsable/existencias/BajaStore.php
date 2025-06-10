@@ -8,11 +8,20 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Baja;
 use App\Models\BajaDetalle;
 use App\Models\Producto;
+use App\Helpers\DatabaseConnectionHelper;
 
 class BajaStore implements Responsable
 {
     public function toResponse($request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
         $responsableBaja = request('id_responsable_baja', null);
         $fechaBaja = request('fecha_baja', null);
         $idEstado = request('id_estado_baja', null);
@@ -53,10 +62,20 @@ class BajaStore implements Responsable
                     $producto->update();
                 }
 
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
                 return response()->json(true);
             }
 
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }

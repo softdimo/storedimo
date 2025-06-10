@@ -8,11 +8,20 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Venta;
 use App\Models\Producto;
 use App\Models\VentaProducto;
+use App\Helpers\DatabaseConnectionHelper;
 
 class VentaStore implements Responsable
 {
     public function toResponse($request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
         $idEmpresa = request('id_empresa', null);
         $idTipoCliente = request('id_tipo_cliente', null);
         $fechaVenta = request('fecha_venta', null);
@@ -69,10 +78,20 @@ class VentaStore implements Responsable
                     $producto->update();
                 }
 
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
                 return response()->json(['success' => true]);
             }
 
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }

@@ -5,11 +5,20 @@ namespace App\Http\Responsable\productos;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use App\Models\Producto;
+use App\Helpers\DatabaseConnectionHelper;
 
 class ProductoStore implements Responsable
 {
     public function toResponse($request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
         $idTipoPersona = request('id_tipo_persona', null);
         $imagenProducto = request('imagen_producto', null);
         $nombreProducto = request('nombre_producto', null);
@@ -42,9 +51,19 @@ class ProductoStore implements Responsable
             ]);
     
             if (isset($nuevoProducto) && !is_null($nuevoProducto) && !empty($nuevoProducto)) {
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
                 return response()->json(['success' => true]);
             }
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }

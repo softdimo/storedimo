@@ -5,13 +5,21 @@ namespace App\Http\Responsable\pago_empleados;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use App\Models\PagoEmpleado;
+use App\Helpers\DatabaseConnectionHelper;
 
 class PagoEmpleadoIndex implements Responsable
 {
     public function toResponse($request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
         try {
             $pagoEmpleados = PagoEmpleado::leftjoin('estados','estados.id_estado','=','pago_empleados.id_estado')
                 ->leftjoin('usuarios','usuarios.id_usuario','=','pago_empleados.id_usuario')
@@ -50,9 +58,19 @@ class PagoEmpleadoIndex implements Responsable
                 ->orderByDesc('fecha_pago')
                 ->get();
 
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
                 return response()->json($pagoEmpleados);
 
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }

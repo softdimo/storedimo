@@ -5,11 +5,20 @@ namespace App\Http\Responsable\productos;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use App\Models\Producto;
+use App\Helpers\DatabaseConnectionHelper;
 
 class ProductoIndex implements Responsable
 {
     public function toResponse($request)
     {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
         try {
             $productos = Producto::leftJoin('categorias', 'categorias.id_categoria', '=', 'productos.id_categoria')
                 ->leftJoin('estados', 'estados.id_estado', '=', 'productos.id_estado')
@@ -37,6 +46,11 @@ class ProductoIndex implements Responsable
                 ->get();
 
             if (isset($productos) && !is_null($productos) && !empty($productos)) {
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
                 return response()->json($productos);
             } else {
                 return response()->json([
@@ -44,6 +58,11 @@ class ProductoIndex implements Responsable
                 ], 404);
             }
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json([
                 'message' => 'Error en la consulta de la base de datos',
                 'error' => $e->getMessage(),
