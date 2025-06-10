@@ -9,7 +9,6 @@ class Persona extends Model
 {
     use SoftDeletes;
 
-    protected $connection = 'mysql';
     protected $table = 'personas';
     protected $primaryKey = 'id_persona';
     protected $dates = ['deleted_at'];
@@ -31,4 +30,14 @@ class Persona extends Model
         'nombre_empresa',
         'telefono_empresa'
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        
+        // Si estamos en una conexión tenant, usar esa conexión
+        if (config('database.default') === 'tenant') {
+            $this->connection = 'tenant';
+        }
+    }
 }

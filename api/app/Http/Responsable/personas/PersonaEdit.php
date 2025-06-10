@@ -4,9 +4,8 @@ namespace App\Http\Responsable\personas;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use App\Models\Persona;
+use App\Helpers\DatabaseConnectionHelper;
 
 class PersonaEdit implements Responsable
 {
@@ -23,6 +22,14 @@ class PersonaEdit implements Responsable
     public function toResponse($request)
     {
         try {
+            // Obtener empresa_actual del request
+            $empresaActual = $request->input('empresa_actual');
+
+            // Configurar conexión tenant si hay empresa
+            if ($empresaActual) {
+                DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+            }
+
             $persona = Persona::leftjoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'personas.id_tipo_persona')
                 ->leftjoin('estados', 'estados.id_estado', '=', 'personas.id_estado')
                 ->leftjoin('tipo_documento', 'tipo_documento.id_tipo_documento', '=', 'personas.id_tipo_documento')
@@ -53,10 +60,20 @@ class PersonaEdit implements Responsable
                 ->first();
 
             if (isset($persona) && !is_null($persona) && !empty($persona)) {
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
                 return response()->json($persona);
             }
 
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json(['error_bd' => $e->getMessage()], 500);
         }
     }
