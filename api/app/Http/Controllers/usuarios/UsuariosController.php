@@ -227,4 +227,18 @@ class UsuariosController extends Controller
         $user = Usuario::with('empresa')->where('email', $email)->first();
         return response()->json($user);
     }
+
+    public function consultaUsuarioLogueado($idUsuario)
+    {
+        $user = Usuario::leftJoin('roles', 'roles.id', '=', 'usuarios.id_rol')
+            ->where('id_usuario', $idUsuario)
+            ->select(
+                'nombre_usuario',
+                'apellido_usuario',
+                'name AS rol'
+            )
+            ->first();
+
+        return response()->json($user);
+    }
 }
