@@ -5,6 +5,7 @@ namespace App\Http\Responsable\personas;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
+use App\Helpers\DatabaseConnectionHelper;
 use App\Models\Persona;
 
 class PersonaUpdate implements Responsable
@@ -20,8 +21,17 @@ class PersonaUpdate implements Responsable
 
     public function toResponse($request)
     {
-        $persona = Persona::find($this->idPersona);
         try {
+            // Obtener empresa_actual del request
+            $empresaActual = $request->input('empresa_actual');
+
+            // Configurar conexión tenant si hay empresa
+            if ($empresaActual) {
+                DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+            }
+
+            $persona = Persona::find($this->idPersona);
+
             if (isset($persona) && !is_null($persona) && !empty($persona)) {
             
                 $persona->id_tipo_persona = $request->input('id_tipo_persona');
@@ -39,11 +49,21 @@ class PersonaUpdate implements Responsable
                 $persona->nombre_empresa = $request->input('nombre_empresa');
                 $persona->telefono_empresa = $request->input('telefono_empresa');
                 $persona->update();
+
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
     
                 return response()->json(['success' => true]);
             }
             
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+
             return response()->json(['error_bd' => $e->getMessage()]);
         }
         

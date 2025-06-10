@@ -4,8 +4,6 @@ namespace App\Http\Responsable\personas;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
 class PersonaStore implements Responsable
@@ -74,17 +72,14 @@ class PersonaStore implements Responsable
                         'nit_empresa' => $nitEmpresa,
                         'nombre_empresa' => $nombreEmpresa,
                         'telefono_empresa' => $telefonoEmpresa,
-                        'id_audit' => session('id_usuario')
+                        'id_audit' => session('id_usuario'),
+                        'empresa_actual' => session('empresa_actual')
                     ]
                 ]);
                 $resPersonaStore = json_decode($peticionPersonaStore->getBody()->getContents());
 
-                if(isset($resPersonaStore) && !empty($resPersonaStore)) {
-                    if ($idTipoPersona == 3 || $idTipoPersona == 4) {
-                        return $this->respuestaExito('Persona creada satisfactoriamente.', 'listar_proveedores');
-                    } else {
-                        return $this->respuestaExito('Persona creada satisfactoriamente.', 'listar_clientes');
-                    }
+                if(isset($resPersonaStore->success) && $resPersonaStore->success) {
+                    return $this->respuestaExito('Cliente creado satisfactoriamente.', 'listar_clientes');
                 }
             }
             catch (Exception $e)

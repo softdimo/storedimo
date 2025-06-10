@@ -4,9 +4,9 @@ namespace App\Http\Responsable\personas;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use App\Models\Persona;
+use App\Helpers\DatabaseConnectionHelper;
+use Illuminate\Support\Facades\Log;
 
 class PersonaStore implements Responsable
 {
@@ -26,9 +26,14 @@ class PersonaStore implements Responsable
         $nitEmpresa = request('nit_empresa', null);
         $nombreEmpresa = request('nombre_empresa', null);
         $telefonoEmpresa = request('telefono_empresa', null);
+        $empresaActual = request('empresa_actual', null);
 
         // ================================================
         try {
+            if ($empresaActual) {
+                DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+            }
+
             Persona::create([
                 'id_tipo_persona' => $idTipoPersona,
                 'id_tipo_documento' => $idTipoDocumento,
@@ -45,12 +50,23 @@ class PersonaStore implements Responsable
                 'nombre_empresa' => $nombreEmpresa,
                 'telefono_empresa' => $telefonoEmpresa,
             ]);
-    
+
             // ================================================
+
+            // Restaurar conexión principal
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+                Log::info('Conexión principal restaurada');
+            }
     
             return response()->json(['success' => true]);
             
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }

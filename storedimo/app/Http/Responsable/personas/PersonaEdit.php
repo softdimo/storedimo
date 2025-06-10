@@ -24,13 +24,16 @@ class PersonaEdit implements Responsable
             $baseUri = env('BASE_URI');
             $clientApi = new Client(['base_uri' => $baseUri]);
 
-            $peticion = $clientApi->get($baseUri . 'persona_edit/'. $this->idCliente);
+            $peticion = $clientApi->get($baseUri . 'persona_edit/'. $this->idCliente, [
+                'json' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
             $persona = json_decode($peticion->getBody()->getContents());
 
             return view('personas.modal_editar_cliente', compact('persona'));
 
         } catch (Exception $e) {
-            dd($e);
             alert()->error('Error Editando el Cliente, contacte a Soporte.');
             return back();
         }
