@@ -9,7 +9,6 @@ class EstadoPrestamo extends Model
 {
     use SoftDeletes;
 
-    protected $connection = 'mysql';
     protected $table = 'estados_prestamo';
     protected $primaryKey = 'id_estado_prestamo';
     protected $dates = ['deleted_at'];
@@ -17,4 +16,14 @@ class EstadoPrestamo extends Model
     protected $fillable = [
         'estado_prestamo'
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        
+        // Si estamos en una conexión tenant, usar esa conexión
+        if (config('database.default') === 'tenant') {
+            $this->connection = 'tenant';
+        }
+    }
 }

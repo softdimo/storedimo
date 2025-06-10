@@ -9,7 +9,6 @@ class Producto extends Model
 {
     use SoftDeletes;
 
-    protected $connection = 'mysql';
     protected $table = 'productos';
     protected $primaryKey = 'id_producto';
     protected $dates = ['deleted_at'];
@@ -33,4 +32,14 @@ class Producto extends Model
         'referencia',
         'fecha_vencimiento'
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        
+        // Si estamos en una conexión tenant, usar esa conexión
+        if (config('database.default') === 'tenant') {
+            $this->connection = 'tenant';
+        }
+    }
 }

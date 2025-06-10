@@ -9,7 +9,6 @@ class TipoBaja extends Model
 {
     use SoftDeletes;
 
-    protected $connection = 'mysql';
     protected $table = 'tipo_baja';
     protected $primaryKey = 'id_tipo_baja';
     protected $dates = ['deleted_at'];
@@ -17,4 +16,14 @@ class TipoBaja extends Model
     protected $fillable = [
         'tipo_baja',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        
+        // Si estamos en una conexión tenant, usar esa conexión
+        if (config('database.default') === 'tenant') {
+            $this->connection = 'tenant';
+        }
+    }
 }
