@@ -14,7 +14,6 @@ class TipoPersona extends Model implements Auditable
     use SoftDeletes;
     use AuditableTrait;
 
-    protected $connection = 'mysql';
     protected $table = 'tipo_persona';
     protected $primaryKey = 'id_tipo_persona';
     protected $dates = ['deleted_at'];
@@ -22,4 +21,14 @@ class TipoPersona extends Model implements Auditable
     protected $fillable = [
         'tipo_persona',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        
+        // Si estamos en una conexión tenant, usar esa conexión
+        if (config('database.default') === 'tenant') {
+            $this->connection = 'tenant';
+        }
+    }
 }

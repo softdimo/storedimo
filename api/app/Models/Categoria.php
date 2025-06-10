@@ -14,7 +14,6 @@ class Categoria extends Model implements Auditable
     use SoftDeletes;
     use AuditableTrait;
 
-    protected $connection = 'mysql';
     protected $table = 'categorias';
     protected $primaryKey = 'id_categoria';
     protected $dates = ['deleted_at'];
@@ -23,4 +22,14 @@ class Categoria extends Model implements Auditable
         'categoria',
         'id_estado',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        
+        // Si estamos en una conexión tenant, usar esa conexión
+        if (config('database.default') === 'tenant') {
+            $this->connection = 'tenant';
+        }
+    }
 }

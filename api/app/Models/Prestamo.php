@@ -14,7 +14,6 @@ class Prestamo extends Model implements Auditable
     use SoftDeletes;
     use AuditableTrait;
 
-    protected $connection = 'mysql';
     protected $table = 'prestamos';
     protected $primaryKey = 'id_prestamo';
     protected $dates = ['deleted_at'];

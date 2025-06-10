@@ -14,7 +14,6 @@ class CompraProducto extends Model implements Auditable
     use SoftDeletes;
     use AuditableTrait;
 
-    protected $connection = 'mysql';
     protected $table = 'compra_productos';
     protected $primaryKey = 'id_compra_producto';
     protected $dates = ['deleted_at'];
@@ -26,4 +25,14 @@ class CompraProducto extends Model implements Auditable
         'precio_unitario_compra',
         'subtotal'
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        
+        // Si estamos en una conexión tenant, usar esa conexión
+        if (config('database.default') === 'tenant') {
+            $this->connection = 'tenant';
+        }
+    }
 }

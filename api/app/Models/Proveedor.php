@@ -14,7 +14,6 @@ class Proveedor extends Model implements Auditable
     use SoftDeletes;
     use AuditableTrait;
 
-    protected $connection = 'mysql';
     protected $table = 'proveedores';
     protected $primaryKey = 'id_proveedor';
     protected $dates = ['deleted_at'];
@@ -36,4 +35,14 @@ class Proveedor extends Model implements Auditable
         'proveedor_juridico',
         'telefono_juridico'
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        
+        // Si estamos en una conexión tenant, usar esa conexión
+        if (config('database.default') === 'tenant') {
+            $this->connection = 'tenant';
+        }
+    }
 }
