@@ -4,7 +4,6 @@ namespace App\Http\Responsable\categorias;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Client;
 
 class CategoriaDestroy implements Responsable
@@ -21,7 +20,10 @@ class CategoriaDestroy implements Responsable
             $response = $clientApi->post(
                 $baseUri . 'cambiar_estado_categoria/' . $idCategoria,
                 [
-                    'json' => ['id_audit' => session('id_usuario')]
+                    'json' => [
+                        'id_audit' => session('id_usuario'),
+                        'empresa_actual' => session('empresa_actual')
+                    ]
                 ]
             );
 

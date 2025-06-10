@@ -4,9 +4,6 @@ namespace App\Http\Responsable\categorias;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Categoria;
 use GuzzleHttp\Client;
 
 class CategoriaStore implements Responsable
@@ -45,7 +42,12 @@ class CategoriaStore implements Responsable
             {
                 // Pasamos el id_estado de las nuevas categorías por default en 1 "activo"
                 $peticionCategoriaStore = $this->clientApi->post($this->baseUri.'categoria_store', [
-                    'json' => ['categoria' => ucwords($categoria), 'id_estado' => 1, 'id_audit' => session('id_usuario')]
+                    'json' => [
+                        'categoria' => ucwords($categoria),
+                        'id_estado' => 1,
+                        'id_audit' => session('id_usuario'),
+                        'empresa_actual' => session('empresa_actual')
+                    ]
                 ]);
                 $respuestaCategoriaStore = json_decode($peticionCategoriaStore->getBody()->getContents());
     

@@ -4,8 +4,6 @@ namespace App\Http\Responsable\prestamos;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
 class PrestamoUpdate implements Responsable
@@ -65,7 +63,8 @@ class PrestamoUpdate implements Responsable
                     'nit_empresa' => $nitEmpresa,
                     'nombre_empresa' => $nombreEmpresa,
                     'telefono_empresa' => $telefonoEmpresa,
-                    'id_audit' => session('id_usuario')
+                    'id_audit' => session('id_usuario'),
+                    'empresa_actual' => session('empresa_actual')
                 ]
             ]);
             $resPersonaUpdate = json_decode($peticionPersonaUpdate->getBody()->getContents());

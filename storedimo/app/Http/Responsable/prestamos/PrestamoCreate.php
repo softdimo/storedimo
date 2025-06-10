@@ -4,8 +4,6 @@ namespace App\Http\Responsable\prestamos;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
 class PrestamoCreate implements Responsable
@@ -19,7 +17,11 @@ class PrestamoCreate implements Responsable
             // ==============================================================
             
             // Realiza la solicitud a la API
-            $peticion = $clientApi->get($baseUri . 'prestamo_create');
+            $peticion = $clientApi->get($baseUri . 'prestamo_create', [
+                'json' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
             $usuariosPrestamosCreate = json_decode($peticion->getBody()->getContents());
 
             return view('prestamos.create', compact('usuariosPrestamosCreate'));

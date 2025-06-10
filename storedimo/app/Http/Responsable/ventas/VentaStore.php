@@ -4,7 +4,6 @@ namespace App\Http\Responsable\ventas;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Client;
 
 class VentaStore implements Responsable
@@ -64,7 +63,8 @@ class VentaStore implements Responsable
                     'id_estado' => $idEstado,
                     'id_estado_credito' => $idEstadoCredito,
                     'fecha_limite_credito' => $fechaLimiteCredito,
-                    'id_audit' => session('id_usuario')
+                    'id_audit' => session('id_usuario'),
+                    'empresa_actual' => session('empresa_actual')
                 ]
             ]);
             $resVentaStore = json_decode($reqVentaStore->getBody()->getContents());

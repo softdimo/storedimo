@@ -4,10 +4,7 @@ namespace App\Http\Responsable\ventas;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Http\Request;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Storage;
-use setasign\Fpdf\FPDF;
 
 class ReporteVentasPdf implements Responsable
 {
@@ -91,6 +88,7 @@ class ReporteVentasPdf implements Responsable
                 'json' => [
                     'fecha_inicial' => $fechaInicial,
                     'fecha_final' => $fechaFinal,
+                    'empresa_actual' => session('empresa_actual')
                 ]
             ]);
             return json_decode($peticionReporteVentasPdf->getBody()->getContents());

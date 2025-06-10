@@ -4,7 +4,6 @@ namespace App\Http\Responsable\productos;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Client;
 
 class ProductoDestroy implements Responsable
@@ -21,7 +20,8 @@ class ProductoDestroy implements Responsable
             // Realiza la solicitud a la API
             $response = $clientApi->post($baseUri . 'cambiar_estado_producto/'.$idProducto, [
                 'json' => [
-                    'id_audit' => session('id_usuario')
+                    'id_audit' => session('id_usuario'),
+                    'empresa_actual' => session('empresa_actual')
                 ]
             ]);
             $respuesta = json_decode($response->getBody()->getContents());

@@ -25,11 +25,19 @@ class DetalleEntrada implements Responsable
             // ==============================================================
             
             // Realiza la solicitud a la API
-            $peticion = $clientApi->get($baseUri . 'entrada/'. $this->idEntrada);
+            $peticion = $clientApi->get($baseUri . 'entrada/'. $this->idEntrada, [
+                'json' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
             $entrada = json_decode($peticion->getBody()->getContents());
 
             // Obtener detalles de cada compra
-            $detallePeticion = $clientApi->post($baseUri . 'detalle_compra/' . $this->idEntrada);
+            $detallePeticion = $clientApi->post($baseUri . 'detalle_compra/' . $this->idEntrada, [
+                'json' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
             $entradaDetalles = json_decode($detallePeticion->getBody()->getContents());
 
             // Recibe el tipo de modal desde la request

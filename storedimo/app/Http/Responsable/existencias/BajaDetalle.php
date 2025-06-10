@@ -4,8 +4,6 @@ namespace App\Http\Responsable\existencias;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
 class BajaDetalle implements Responsable
@@ -26,11 +24,19 @@ class BajaDetalle implements Responsable
             // ==============================================================
             
             // Realiza la solicitud a la API
-            $peticion = $clientApi->get($baseUri . 'baja/'. $this->idBaja);
+            $peticion = $clientApi->get($baseUri . 'baja/'. $this->idBaja, [
+                'json' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
             $baja = json_decode($peticion->getBody()->getContents());
 
             // Obtener detalles de cada baja
-            $detallePeticion = $clientApi->post($baseUri . 'baja_detalle/'. $this->idBaja);
+            $detallePeticion = $clientApi->post($baseUri . 'baja_detalle/'. $this->idBaja, [
+                'json' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
             $bajaDetalles = json_decode($detallePeticion->getBody()->getContents());
 
             

@@ -120,7 +120,7 @@ class DetalleComprasPdf implements Responsable
     {
         try {
             $peticionDetalleCompraProductoPdf = $this->clientApi->post($this->baseUri.'detalle_compra_pdf/'.$idCompra, [
-                'json' => []
+                'json' => ['empresa_actual' => session('empresa_actual')]
             ]);
             return json_decode($peticionDetalleCompraProductoPdf->getBody()->getContents());
 

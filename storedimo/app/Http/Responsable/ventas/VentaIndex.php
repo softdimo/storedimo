@@ -4,8 +4,6 @@ namespace App\Http\Responsable\ventas;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
 class VentaIndex implements Responsable
@@ -19,12 +17,20 @@ class VentaIndex implements Responsable
             // ==============================================================
             
             // Realiza la solicitud a la API
-            $peticion = $clientApi->get($baseUri . 'venta_index');
+            $peticion = $clientApi->get($baseUri . 'venta_index', [
+                'json' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
             $ventas = json_decode($peticion->getBody()->getContents());
 
             // Obtener detalles de cada compra
             foreach ($ventas as $venta) {
-                $detallePeticion = $clientApi->post($baseUri . 'detalle_venta/' . $venta->id_venta);
+                $detallePeticion = $clientApi->post($baseUri . 'detalle_venta/' . $venta->id_venta, [
+                    'json' => [
+                        'empresa_actual' => session('empresa_actual')
+                    ]
+                ]);
                 $venta->detalles = json_decode($detallePeticion->getBody()->getContents());
             }
 

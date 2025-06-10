@@ -4,9 +4,6 @@ namespace App\Http\Responsable\categorias;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Categoria;
 use GuzzleHttp\Client;
 
 class CategoriaEdit implements Responsable
@@ -28,7 +25,11 @@ class CategoriaEdit implements Responsable
             $clientApi = new Client(['base_uri' => $baseUri]);
             
             // Realiza la solicitud a la API
-            $peticion = $clientApi->get($baseUri . 'categoria_edit/'.$this->idCategoria);
+            $peticion = $clientApi->get($baseUri . 'categoria_edit/'.$this->idCategoria, [
+                'json' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
             $categoriaEdit = json_decode($peticion->getBody()->getContents());
 
             // Recibe el tipo de modal desde la request

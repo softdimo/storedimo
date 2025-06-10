@@ -4,8 +4,6 @@ namespace App\Http\Responsable\existencias;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
 class StockMinimo implements Responsable
@@ -19,7 +17,11 @@ class StockMinimo implements Responsable
             // ==============================================================
             
             // Realiza la solicitud a la API
-            $peticion = $clientApi->get($baseUri . 'stock_minimo_index');
+            $peticion = $clientApi->get($baseUri . 'stock_minimo_index', [
+                'json' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
             $stockMinimoIndex = json_decode($peticion->getBody()->getContents());
 
             return view('existencias.stock_minimo', compact('stockMinimoIndex'));

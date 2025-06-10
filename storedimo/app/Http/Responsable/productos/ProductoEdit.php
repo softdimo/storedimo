@@ -3,11 +3,8 @@
 namespace App\Http\Responsable\productos;
 
 use Exception;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Contracts\Support\Responsable;
 use GuzzleHttp\Client;
-use App\Models\Producto;
 
 class ProductoEdit implements Responsable
 {
@@ -27,7 +24,11 @@ class ProductoEdit implements Responsable
             $clientApi = new Client(['base_uri' => $baseUri]);
             
             // Realiza la solicitud a la API
-            $response = $clientApi->post($baseUri . 'producto_edit/'.$idProducto);
+            $response = $clientApi->post($baseUri . 'producto_edit/'.$idProducto, [
+                'json' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
             $productoEdit = json_decode($response->getBody()->getContents());
 
             // Recibe el tipo de modal desde la request

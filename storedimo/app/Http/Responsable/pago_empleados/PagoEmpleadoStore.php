@@ -4,8 +4,6 @@ namespace App\Http\Responsable\pago_empleados;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
 class PagoEmpleadoStore implements Responsable
@@ -65,7 +63,8 @@ class PagoEmpleadoStore implements Responsable
                     'comisiones' => $comisiones,
                     'cesantias' => $cesantias,
                     'total' => $total,
-                    'id_audit' => session('id_usuario')
+                    'id_audit' => session('id_usuario'),
+                    'empresa_actual' => session('empresa_actual')
                 ]
             ]);
             $resPagoStore = json_decode($peticionPagoStore->getBody()->getContents());

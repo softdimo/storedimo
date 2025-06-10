@@ -4,8 +4,6 @@ namespace App\Http\Responsable\pago_empleados;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
 class PagoEmpleadoIndex implements Responsable
@@ -19,7 +17,11 @@ class PagoEmpleadoIndex implements Responsable
             // ==============================================================
             
             // Realiza la solicitud a la API
-            $peticion = $clientApi->get($baseUri . 'pago_empleado_index');
+            $peticion = $clientApi->get($baseUri . 'pago_empleado_index', [
+                'json' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
             $pagoEmpleadosIndex = json_decode($peticion->getBody()->getContents());
 
             return view('pago_empleados.index', compact('pagoEmpleadosIndex'));

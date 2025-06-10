@@ -92,7 +92,11 @@ class ProductoGenerarBarCode implements Responsable
             $baseUri = env('BASE_URI');
             $clientApi = new Client(['base_uri' => $baseUri]);
 
-            $peticion = $clientApi->post($baseUri . 'query_producto/' . $idProducto);
+            $peticion = $clientApi->post($baseUri . 'query_producto/' . $idProducto, [
+                'json' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
             return json_decode($peticion->getBody()->getContents());
 
         } catch (Exception $e) {

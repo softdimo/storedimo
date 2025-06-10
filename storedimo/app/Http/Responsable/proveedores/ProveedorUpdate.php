@@ -4,8 +4,6 @@ namespace App\Http\Responsable\proveedores;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
 class ProveedorUpdate implements Responsable
@@ -65,7 +63,8 @@ class ProveedorUpdate implements Responsable
                     'nit_proveedor' => $nitProveedor,
                     'proveedor_juridico' => $proveedorJuridico,
                     'telefono_juridico' => $telefonoJuridico,
-                    'id_audit' => session('id_usuario')
+                    'id_audit' => session('id_usuario'),
+                    'empresa_actual' => session('empresa_actual')
                 ]
             ]);
             $resProveedorUpdate = json_decode($peticionProveedorUpdate->getBody()->getContents());

@@ -4,7 +4,6 @@ namespace App\Http\Responsable\proveedores;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Client;
 
 class ProveedorStore implements Responsable
@@ -75,7 +74,8 @@ class ProveedorStore implements Responsable
                         'nit_proveedor' => $nitProveedor,
                         'proveedor_juridico' => $proveedorJuridico,
                         'telefono_juridico' => $telefonoJuridico,
-                        'id_audit' => session('id_usuario')
+                        'id_audit' => session('id_usuario'),
+                        'empresa_actual' => session('empresa_actual')
                     ]
                 ]);
                 $resProveedorStore = json_decode($peticionProveedorStore->getBody()->getContents());
@@ -95,7 +95,10 @@ class ProveedorStore implements Responsable
     private function consultarIdentificacionProveedor($identificacion)
     {
         $queryIdentificacion = $this->clientApi->post($this->baseUri.'query_identificacion_proveedor', [
-            'json' => ['identificacion' => $identificacion]
+            'json' => [
+                'identificacion' => $identificacion,
+                'empresa_actual' => session('empresa_actual')
+            ]
         ]);
         return json_decode($queryIdentificacion->getBody()->getContents());
     }
@@ -106,7 +109,10 @@ class ProveedorStore implements Responsable
     private function consultarNitProveedor($nitProveedor)
     {
         $queryNitProveedor = $this->clientApi->post($this->baseUri.'query_nit_proveedor', [
-            'query' => ['nit_proveedor' => $nitProveedor]
+            'json' => [
+                'nit_proveedor' => $nitProveedor,
+                'empresa_actual' => session('empresa_actual')
+            ]
         ]);
         return json_decode($queryNitProveedor->getBody()->getContents());
     }
@@ -138,5 +144,4 @@ class ProveedorStore implements Responsable
         alert()->error('Error', $mensaje);
         return back();
     }
-
 }

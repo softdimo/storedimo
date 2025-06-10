@@ -4,8 +4,6 @@ namespace App\Http\Responsable\existencias;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
 class AlertaStockMinimo implements Responsable
@@ -19,7 +17,11 @@ class AlertaStockMinimo implements Responsable
             // ==============================================================
             
             // Realiza la solicitud a la API
-            $peticion = $clientApi->get($baseUri . 'alerta_stock_minimo');
+            $peticion = $clientApi->get($baseUri . 'alerta_stock_minimo', [
+                'json' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
             $alertaStockMinimo = json_decode($peticion->getBody()->getContents(), true);
 
             // 🔹 Si la petición es AJAX, devolvemos JSON

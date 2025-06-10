@@ -4,8 +4,6 @@ namespace App\Http\Responsable\productos;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use App\Models\Producto;
 use GuzzleHttp\Client;
 
 class ProductoStore implements Responsable
@@ -87,7 +85,8 @@ class ProductoStore implements Responsable
                     'id_estado' => $idEstado,
                     'referencia' => $referencia,
                     'fecha_vencimiento' => $fechaVencimiento,
-                    'id_audit' => session('id_usuario')
+                    'id_audit' => session('id_usuario'),
+                    'empresa_actual' => session('empresa_actual')
                 ]
             ]);
             

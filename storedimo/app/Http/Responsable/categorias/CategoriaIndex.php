@@ -4,8 +4,6 @@ namespace App\Http\Responsable\categorias;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
 class CategoriaIndex implements Responsable
@@ -19,9 +17,12 @@ class CategoriaIndex implements Responsable
             // ==============================================================
             
             // Realiza la solicitud a la API
-            $response = $clientApi->get($baseUri . 'categoria_index');
+            $response = $clientApi->get($baseUri . 'categoria_index', [
+                'json' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
             $categorias = json_decode($response->getBody()->getContents());
-            // dd($categorias);
 
             return view('categorias.index', compact('categorias'));
         } catch (Exception $e) {

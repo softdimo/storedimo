@@ -25,7 +25,11 @@ class ProductoShow implements Responsable
             $clientApi = new Client(['base_uri' => $baseUri]);
             
             // Realiza la solicitud a la API
-            $response = $clientApi->post($baseUri . 'producto_show/'.$idProducto);
+            $response = $clientApi->post($baseUri . 'producto_show/'.$idProducto, [
+                'json' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
             $producto = json_decode($response->getBody()->getContents(), true);
 
             if(isset($producto) && !empty($producto)) {

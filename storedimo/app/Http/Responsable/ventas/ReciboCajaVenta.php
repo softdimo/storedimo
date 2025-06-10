@@ -4,10 +4,7 @@ namespace App\Http\Responsable\ventas;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Http\Request;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Storage;
-use setasign\Fpdf\FPDF;
 
 class ReciboCajaVenta implements Responsable
 {

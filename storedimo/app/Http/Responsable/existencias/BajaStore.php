@@ -4,8 +4,6 @@ namespace App\Http\Responsable\existencias;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
 class BajaStore implements Responsable
@@ -47,7 +45,8 @@ class BajaStore implements Responsable
                             'observaciones' => $observaciones
                         ];
                     }, $idProductos, $cantidades, $idTiposBaja, $observaciones), // Construcción del array
-                    'id_audit' => session('id_usuario')
+                    'id_audit' => session('id_usuario'),
+                    'empresa_actual' => session('empresa_actual')
                 ]
             ]);
             $resBajaStore = json_decode($reqBajaStore->getBody()->getContents());

@@ -4,9 +4,6 @@ namespace App\Http\Responsable\entradas;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Categoria;
 use GuzzleHttp\Client;
 
 class EntradaUpdate implements Responsable
@@ -39,7 +36,9 @@ class EntradaUpdate implements Responsable
 
         try {
             $peticionCategoriaUpdate = $this->clientApi->put($this->baseUri.'categoria_update/'.$idCategoria, [
-                'json' => ['categoria' => $categoria]
+                'json' => ['categoria' => $categoria,
+                    'empresa_actual' => session('empresa_actual')
+                ]
             ]);
             $respuestaCategoriaUpdate = json_decode($peticionCategoriaUpdate->getBody()->getContents());
 
@@ -74,7 +73,10 @@ class EntradaUpdate implements Responsable
         try
         {
             $peticionConsultaCategoria = $this->clientApi->post($this->baseUri.'consulta_categoria', [
-                'json' => ['categoria' => $categoria]
+                'json' => [
+                    'categoria' => $categoria,
+                    'empresa_actual' => session('empresa_actual')
+                ]
             ]);
             return json_decode($peticionConsultaCategoria->getBody()->getContents());
         }

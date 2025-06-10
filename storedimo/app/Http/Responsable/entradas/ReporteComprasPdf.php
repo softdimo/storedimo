@@ -83,6 +83,7 @@ class ReporteComprasPdf implements Responsable
                 'json' => [
                     'fecha_inicial' => $fechaInicial,
                     'fecha_final' => $fechaFinal,
+                    'empresa_actual' => session('empresa_actual')
                 ]
             ]);
             return json_decode($peticionReporteComprasPdf->getBody()->getContents());

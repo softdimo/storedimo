@@ -4,8 +4,6 @@ namespace App\Http\Responsable\prestamos;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
 class PrestamoIndex implements Responsable
@@ -19,7 +17,11 @@ class PrestamoIndex implements Responsable
             // ==============================================================
             
             // Realiza la solicitud a la API
-            $peticion = $clientApi->get($baseUri . 'prestamo_index');
+            $peticion = $clientApi->get($baseUri . 'prestamo_index', [
+                'json' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
             $prestamosIndex = json_decode($peticion->getBody()->getContents());
 
             return view('prestamos.index', compact('prestamosIndex'));

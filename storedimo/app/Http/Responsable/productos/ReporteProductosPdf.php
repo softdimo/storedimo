@@ -101,7 +101,11 @@ class ReporteProductosPdf implements Responsable
     public function reporteProductosPdf()
     {
         try {
-            $peticionReporteProductosPdf = $this->clientApi->get($this->baseUri.'reporte_productos_pdf', ['json' => []]);
+            $peticionReporteProductosPdf = $this->clientApi->get($this->baseUri.'reporte_productos_pdf', [
+                'json' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
 
             return json_decode($peticionReporteProductosPdf->getBody()->getContents());
 

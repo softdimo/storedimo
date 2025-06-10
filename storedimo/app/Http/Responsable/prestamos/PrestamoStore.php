@@ -4,8 +4,6 @@ namespace App\Http\Responsable\prestamos;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
 class PrestamoStore implements Responsable
@@ -39,7 +37,8 @@ class PrestamoStore implements Responsable
                     'fecha_limite' => $fechaLimite,
                     'valor_prestamo' => $valorPrestamo,
                     'descripcion' => $descripcion,
-                    'id_audit' => session('id_usuario')
+                    'id_audit' => session('id_usuario'),
+                    'empresa_actual' => session('empresa_actual')
                 ]
             ]);
             $resPrestamoStore = json_decode($peticionPrestamoStore->getBody()->getContents());

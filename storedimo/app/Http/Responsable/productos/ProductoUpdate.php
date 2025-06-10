@@ -4,7 +4,6 @@ namespace App\Http\Responsable\productos;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Client;
 
 class ProductoUpdate implements Responsable
@@ -79,7 +78,8 @@ class ProductoUpdate implements Responsable
                     'stock_minimo' => $stockMinimoEdit ?? $productoActual->stock_minimo,
                     'referencia' => $referencia,
                     'fecha_vencimiento' => $fechaVencimiento,
-                    'id_audit' => session('id_usuario')
+                    'id_audit' => session('id_usuario'),
+                    'empresa_actual' => session('empresa_actual')
                 ]
             ]);
             $respuestaProductoUpdate = json_decode($peticionProductoUpdate->getBody()->getContents());

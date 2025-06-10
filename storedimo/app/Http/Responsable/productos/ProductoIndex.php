@@ -4,8 +4,6 @@ namespace App\Http\Responsable\productos;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
 class ProductoIndex implements Responsable
@@ -19,7 +17,11 @@ class ProductoIndex implements Responsable
             // ==============================================================
             
             // Realiza la solicitud a la API
-            $response = $clientApi->get($baseUri . 'producto_index');
+            $response = $clientApi->get($baseUri . 'producto_index', [
+                'json' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
             $productos = json_decode($response->getBody()->getContents());
 
             return view('productos.index', compact('productos'));
