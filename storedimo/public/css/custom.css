@@ -45,6 +45,16 @@ body {
         position: relative;
         padding-left: 18% !important;
     }
+
+    .navbar-toggler-container-logo{
+        position: relative;
+        padding-left: 18% !important;
+    }
+}
+
+.navbar-toggler-container-logo{
+    position: relative;
+    padding-left: 20% !important;
 }
 
 /* =============================================== */
