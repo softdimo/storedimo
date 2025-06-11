@@ -34,7 +34,7 @@ class UsuarioStore implements Responsable
         $direccion = request('direccion', null);
         $fechaContrato = request('fecha_contrato', null);
         $fechaTerminacionContrato = request('fecha_terminacion_contrato', null);
-        $idEmpresa = request('id_empresa', null);
+        $idEmpresa = session('id_empresa');
 
         if(strlen($identificacion) < 6)
         {
@@ -173,5 +173,4 @@ class UsuarioStore implements Responsable
         alert()->error('Error', $mensaje);
         return back();
     }
-
 }
