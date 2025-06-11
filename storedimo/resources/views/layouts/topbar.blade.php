@@ -7,7 +7,7 @@
                     <i class="fa fa-th-list fa-2x"></i>
                 </button>
             </div>
-            <div class="avbar-toggler-container-logo" ">
+            <div class="navbar-toggler-container-logo" ">
                 <a href="/home">
                     <img src="{{ $logoEmpresa }}" alt="Logo Empresa" width="90" height="50">
                 </a>
