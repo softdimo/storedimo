@@ -109,7 +109,7 @@
 
         {{-- ======================= --}}
         
-        <div class="col-12 col-md-3 mt-3" id="div_app_key">
+        {{-- <div class="col-12 col-md-3 mt-3" id="div_app_key">
             <div class="form-group d-flex flex-column">
                 <label for="app_key" class="form-label">APP KEY
                     <span class="text-danger">*</span>
@@ -120,11 +120,11 @@
                     'required' => 'required',
                 ]) !!}
             </div>
-        </div>
+        </div> --}}
 
         {{-- ======================= --}}
         
-        <div class="col-12 col-md-3 mt-3" id="div_app_url">
+        {{-- <div class="col-12 col-md-3 mt-3" id="div_app_url">
             <div class="form-group d-flex flex-column">
                 <label for="app_url" class="form-label">APP URL
                     <span class="text-danger">*</span>
@@ -135,7 +135,7 @@
                     'required' => 'required',
                 ]) !!}
             </div>
-        </div>
+        </div> --}}
 
         {{-- ======================= --}}
         
@@ -147,6 +147,21 @@
                 {!! Form::select('id_tipo_bd', collect(['' => 'Seleccionar...'])->union($tipos_bd), old('id_tipo_bd', isset($empresa) ? $empresa->id_tipo_bd : null), [
                     'class' => 'form-select',
                     'id' => 'id_tipo_bd',
+                    'required' => 'required',
+                ]) !!}
+            </div>
+        </div>
+
+        {{-- ======================= --}}
+        
+        <div class="col-12 col-md-3 mt-3" id="div_app_url">
+            <div class="form-group d-flex flex-column">
+                <label for="db_host" class="form-label">DB HOST
+                    <span class="text-danger">*</span>
+                </label>
+                {!! Form::text('db_host', old('db_host', isset($empresa) ? Crypt::decrypt($empresa->db_host) : null), [
+                    'class' => 'form-control',
+                    'id' => 'db_host',
                     'required' => 'required',
                 ]) !!}
             </div>

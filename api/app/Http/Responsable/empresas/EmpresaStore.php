@@ -20,6 +20,7 @@ class EmpresaStore implements Responsable
         $appKey = request('app_key');
         $appUrl = request('app_url');
         $idTipoBd = request('id_tipo_bd');
+        $dbHost = request('db_host');
         $dbDatabase = request('db_database');
         $dbUsername = request('db_username');
         $dbPassword = request('db_password');
@@ -37,6 +38,7 @@ class EmpresaStore implements Responsable
                 'app_key' => $appKey,
                 'app_url' => $appUrl,
                 'id_tipo_bd' => $idTipoBd,
+                'db_host' => $dbHost,
                 'db_database' => $dbDatabase,
                 'db_username' => $dbUsername,
                 'db_password' => $dbPassword,

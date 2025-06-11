@@ -17,14 +17,16 @@ class DatabaseConnectionHelper
             DB::purge('tenant');
 
             // 2. Validar datos de conexión
-            if (!isset($empresa['db_database']) || !isset($empresa['db_username']) || !isset($empresa['db_password'])) {
-                throw new Exception('Datos de conexión incompletos para la empresa');
+            if (!isset($empresa['db_database']) || !isset($empresa['db_username']) ||
+                !isset($empresa['db_password']) || !isset($empresa['db_host'])
+            ) {
+                throw new Exception('Datos de conexión incompletos para la empresa API_DB');
             }
 
             // 3. Crear configuración tenant
             $config = [
                 'driver'    => 'mysql',
-                'host'      => env('DB_HOST', 'softdimo.com'),
+                'host'      => isset($empresa['db_host']) ? Crypt::decrypt($empresa['db_host']) : env('DB_HOST', 'softdimo.com'),
                 'port'      => env('DB_PORT', '3306'),
                 'database'  => Crypt::decrypt($empresa['db_database']),
                 'username'  => Crypt::decrypt($empresa['db_username']),
@@ -57,7 +59,7 @@ class DatabaseConnectionHelper
             // Restaurar conexión principal en caso de error
             Config::set('database.default', 'mysql');
             DB::reconnect('mysql');
-            throw new Exception('Error configurando conexión tenant: ' . $e->getMessage());
+            throw new Exception('Error Exception configurando conexión tenant API_DB: ' . $e->getMessage());
         }
     }
 
