@@ -2,14 +2,14 @@
 <header class="topbar m-0">
     <nav class="navbar navbar-expand-lg m-0 text-white" data-bs-theme="dark" style="background-color: #337AB7">
         <div class="d-flex flex-nowrap w-100 align-items-center px-2">
-            <div class="d-flex justify-content-start align-items-center" style="flex: 1;">
+            <div class="d-flex justify-content-start align-items-center d-md-none" style="flex: 1;">
                 <button class="btn d-md-none text-white" id="sidebarToggle">
                     <i class="fa fa-th-list fa-2x"></i>
                 </button>
             </div>
-            <div class="d-flex justify-content-center align-items-center navbar-toggler-container" style="flex: 1;">
+            <div class="d-flex justify-content-between align-items-center navbar-toggler-container" style="flex: 1;">
                 <a href="/home">
-                    <img src="{{ $logoEmpresa }}" alt="Logo Empresa" width="80" height="50">
+                    <img src="{{ $logoEmpresa }}" alt="Logo Empresa" width="90" height="50">
                 </a>
             </div>
             <div class="d-flex justify-content-end align-items-center navbar-toggler-container" style="flex: 1;">
