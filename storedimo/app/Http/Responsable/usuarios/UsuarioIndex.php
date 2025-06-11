@@ -15,24 +15,20 @@ class UsuarioIndex implements Responsable
             $baseUri = env('BASE_URI');
             $clientApi = new Client(['base_uri' => $baseUri]);
             
-            // Inicializar la variable con un array vacío por defecto
-            $usuarioIndex = [];
-            
             // Realiza la solicitud a la API
-            $response = $clientApi->get($baseUri . 'administracion/usuarios_index');
-            $result = json_decode($response->getBody()->getContents());
+            $response = $clientApi->get($baseUri . 'administracion/usuarios_index', [
+                'json' => [
+                    'empresa_actual' => session('empresa_actual'),
+                    'id_empresa_usuario' => session('id_empresa')
+                ]
+            ]);
+            $usuarioIndex = json_decode($response->getBody()->getContents());
             
-            // Si hay datos válidos, actualizar usuarioIndex
-            if (!empty($result) && is_array($result)) {
-                $usuarioIndex = $result;
-            }
-
-            // Siempre retornar la vista con usuarioIndex (sea array vacío o con datos)
             return view('usuarios.index', compact('usuarioIndex'));
             
         } catch (Exception $e) {
-            alert()->error('Error', 'Error Exception, contacte a Soporte.');
-            return back()->with('usuarioIndex', []);
+            alert()->error('Error cargando los usuarios.');
+            return back();
         }
     }
 }

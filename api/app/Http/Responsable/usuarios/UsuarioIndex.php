@@ -4,8 +4,6 @@ namespace App\Http\Responsable\usuarios;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use App\Models\Usuario;
 
 class UsuarioIndex implements Responsable
@@ -13,7 +11,10 @@ class UsuarioIndex implements Responsable
     public function toResponse($request)
     {
         try {
-            $usuarios = Usuario::leftjoin('roles', 'roles.id', '=', 'usuarios.id_rol')
+            // Obtener id_empresa_usuario del request
+            $idEmpresaUsuario = $request->input('id_empresa_usuario');
+
+            $query = Usuario::leftjoin('roles', 'roles.id', '=', 'usuarios.id_rol')
                 ->leftjoin('estados', 'estados.id_estado', '=', 'usuarios.id_estado')
                 ->leftjoin('tipo_documento', 'tipo_documento.id_tipo_documento', '=', 'usuarios.id_tipo_documento')
                 ->leftjoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'usuarios.id_tipo_persona')
@@ -43,14 +44,18 @@ class UsuarioIndex implements Responsable
                     'fecha_terminacion_contrato',
                     'empresas.id_empresa',
                     'nombre_empresa'
-                )
-                ->orderBy('nombre_usuario')
-                ->get();
+                );
+
+            // Si el usuario no es de Softdimo (id_empresa != 5), filtrar por su empresa
+            if ($idEmpresaUsuario != 5) {
+                $query->where('usuarios.id_empresa', $idEmpresaUsuario);
+            }
+
+            $usuarios = $query->orderBy('nombre_usuario')->get();
 
             return response()->json($usuarios);
             
-        } catch (Exception $e)
-        {
+        } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error en la consulta de la base de datos',
                 'error' => $e->getMessage(),
