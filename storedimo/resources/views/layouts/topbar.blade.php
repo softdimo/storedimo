@@ -9,7 +9,7 @@
             </div>
             <div class="d-flex justify-content-center align-items-center navbar-toggler-container" style="flex: 1;">
                 <a href="/home">
-                    <img src="{{asset('imagenes/logo_storedimo.png')}}" alt="Logo" width="140" height="50">
+                    <img src="{{ $logoEmpresa }}" alt="Logo Empresa" width="80" height="50">
                 </a>
             </div>
             <div class="d-flex justify-content-end align-items-center navbar-toggler-container" style="flex: 1;">

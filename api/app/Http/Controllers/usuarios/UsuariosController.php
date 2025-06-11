@@ -231,11 +231,13 @@ class UsuariosController extends Controller
     public function consultaUsuarioLogueado($idUsuario)
     {
         $user = Usuario::leftJoin('roles', 'roles.id', '=', 'usuarios.id_rol')
+            ->leftJoin('empresas', 'empresas.id_empresa', '=', 'usuarios.id_empresa')
             ->where('id_usuario', $idUsuario)
             ->select(
                 'nombre_usuario',
                 'apellido_usuario',
-                'name AS rol'
+                'name AS rol',
+                'logo_empresa'
             )
             ->first();
 

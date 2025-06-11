@@ -42,7 +42,11 @@ class AppServiceProvider extends ServiceProvider
                 ]);
                 $usuario = json_decode($peticionUsuarioLogueado->getBody()->getContents());
 
-                $view->with('usuarioLogueado', $usuario);
+                // Pasamos tanto el usuario como el logo a la vista
+                $view->with([
+                    'usuarioLogueado' => $usuario,
+                    'logoEmpresa' => $usuario->logo_empresa ?? asset('imagenes/logo_storedimo.png')
+                ]);
                
             } catch (Exception $e) {
                 alert()->error('Error, consultando el usuario logueado, contacte a Soporte.');
