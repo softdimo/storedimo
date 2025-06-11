@@ -199,7 +199,7 @@
                         'class' => 'form-control',
                         'id' => 'email',
                         'required' => 'required',
-                        'pattern' => '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+                        'pattern' => '^[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}$',
                         'title' => 'Por favor, ingresa un correo electrónico válido',
                     ]) }}
                 </div>
