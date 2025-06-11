@@ -12,7 +12,7 @@
     @yield('css')
 
     {{-- Favicon --}}
-    <link rel="shortcut icon" href="{{ asset('imagenes/favicon.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('imagenes/logo_storedimo_fondo.png') }}" type="image/x-icon" width="100" height="60">
 
     {{-- ========================================= --}}
 
