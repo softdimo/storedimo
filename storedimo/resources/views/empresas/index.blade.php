@@ -100,9 +100,8 @@
                                     <th>Celular</th>
                                     <th>Email</th>
                                     <th>Dirección</th>
-                                    <th>APP KEY</th>
-                                    <th>APP URL</th>
                                     <th>DB CONNECTION</th>
+                                    <th>DB HOST</th>
                                     <th>DB DATABASE</th>
                                     <th>DB USERNAME</th>
                                     <th>DB PASSWORD</th>
@@ -121,9 +120,8 @@
                                         <td>{{ $empresa->celular_empresa }}</td>
                                         <td>{{ $empresa->email_empresa }}</td>
                                         <td>{{ $empresa->direccion_empresa }}</td>
-                                        <td>{{ $empresa->app_key ? Crypt::decrypt($empresa->app_key) : '' }}</td>
-                                        <td>{{ $empresa->app_url ? $empresa->app_url : '' }}</td>
                                         <td>{{ $empresa->tipo_bd ? $empresa->tipo_bd : '' }}</td>
+                                        <td>{{ $empresa->db_host ? Crypt::decrypt($empresa->db_host) : '' }}</td>
                                         <td>{{ $empresa->db_database ? Crypt::decrypt($empresa->db_database) : '' }}</td>
                                         <td>{{ $empresa->db_username ? Crypt::decrypt($empresa->db_username) : '' }}</td>
                                         <td>{{ $empresa->db_password ? Crypt::decrypt($empresa->db_password) : '' }}</td>

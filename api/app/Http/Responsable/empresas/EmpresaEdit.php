@@ -37,6 +37,7 @@ class EmpresaEdit implements Responsable
                     'tipo_bd',
                     'app_key',
                     'app_url',
+                    'db_host',
                     'db_database',
                     'db_username',
                     'db_password',

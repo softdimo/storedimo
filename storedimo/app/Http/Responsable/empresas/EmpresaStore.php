@@ -29,9 +29,8 @@ class EmpresaStore implements Responsable
         $celularEmpresa = request('celular_empresa');
         $emailEmpresa = request('email_empresa');
         $direccionEmpresa = request('direccion_empresa');
-        $appKey = Crypt::encrypt(request('app_key'));
-        $appUrl = request('app_url');
         $idTipoBd = request('id_tipo_bd');
+        $dbHost = Crypt::encrypt(request('db_host'));
         $dbDatabase = Crypt::encrypt(request('db_database'));
         $dbUsername = Crypt::encrypt(request('db_username'));
         $dbPassword = Crypt::encrypt(request('db_password'));
@@ -86,9 +85,8 @@ class EmpresaStore implements Responsable
                         'celular_empresa' => $celularEmpresa,
                         'email_empresa' => $emailEmpresa,
                         'direccion_empresa' => $direccionEmpresa,
-                        'app_key' => $appKey,
-                        'app_url' => $appUrl,
                         'id_tipo_bd' => $idTipoBd,
+                        'db_host' => $dbHost,
                         'db_database' => $dbDatabase,
                         'db_username' => $dbUsername,
                         'db_password' => $dbPassword,

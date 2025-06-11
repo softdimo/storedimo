@@ -30,9 +30,8 @@ class EmpresaUpdate implements Responsable
         $celularEmpresa = request('celular_empresa');
         $emailEmpresa = request('email_empresa');
         $direccionEmpresa = request('direccion_empresa');
-        $appKey = Crypt::encrypt(request('app_key'));
-        $appUrl = request('app_url');
         $idTipoBd = request('id_tipo_bd');
+        $dbHost = Crypt::encrypt(request('db_host'));
         $dbDatabase = Crypt::encrypt(request('db_database'));
         $dbUsername = Crypt::encrypt(request('db_username'));
         $dbPassword = Crypt::encrypt(request('db_password'));
@@ -85,9 +84,8 @@ class EmpresaUpdate implements Responsable
                     'celular_empresa' => $celularEmpresa ?? $empresaActual->celular_empresa,
                     'email_empresa' => $emailEmpresa ?? $empresaActual->email_empresa,
                     'direccion_empresa' => $direccionEmpresa ?? $empresaActual->direccion_empresa,
-                    'app_key' => $appKey ?? $empresaActual->app_key,
-                    'app_url' => $appUrl ?? $empresaActual->app_url,
                     'id_tipo_bd' => $idTipoBd ?? $empresaActual->id_tipo_bd,
+                    'db_host' => $dbHost ?? $empresaActual->db_host,
                     'db_database' => $dbDatabase ?? $empresaActual->db_database,
                     'db_username' => $dbUsername ?? $empresaActual->db_username,
                     'db_password' => $dbPassword ?? $empresaActual->db_password,

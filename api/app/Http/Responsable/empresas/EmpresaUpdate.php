@@ -34,6 +34,7 @@ class EmpresaUpdate implements Responsable
             $empresa->app_key = $this->request->input('app_key');
             $empresa->app_url = $this->request->input('app_url');
             $empresa->id_tipo_bd = $this->request->input('id_tipo_bd');
+            $empresa->db_host = $this->request->input('db_host');
             $empresa->db_database = $this->request->input('db_database');
             $empresa->db_username = $this->request->input('db_username');
             $empresa->db_password = $this->request->input('db_password');
