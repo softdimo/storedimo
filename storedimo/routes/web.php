@@ -56,6 +56,11 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
             Route::resource('home', 'HomeController');
             Route::resource('permisos', 'PermisosController');
             Route::post('eliminar', 'PermisosController@eliminar')->name('eliminar');
+
+            // Rutas para manejo de permisos
+            Route::get('/permisos', 'PermisosController@index')->name('permisos.index');
+            Route::get('/obtener-permisos-usuario/{id}', 'PermisosController@obtenerPermisosUsuario');
+            Route::post('/guardar-permisos-usuario', 'PermisosController@guardarPermisosUsuario');
         });
 
         // ========================================================================
@@ -216,90 +221,6 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
         
             return response()->file($rutaPdf);
         })->name('ver.pdf');
-    });
-
-    // ========================================================================
-    // ========================================================================
-
-    // EXISTENCIAS
-    Route::group(['namespace' => 'App\Http\Controllers\existencias'], function () {
-        Route::resource('existencias', 'ExistenciasController');
-        Route::get('bajas_index', 'ExistenciasController@bajasIndex')->name('bajas_index');
-        Route::get('baja/{idBaja}', 'ExistenciasController@baja')->name('baja');
-        Route::post('baja_store', 'ExistenciasController@bajaStore')->name('baja_store');
-        Route::post('reporte_bajas_pdf', 'ExistenciasController@reporteBajasPdf')->name('reporte_bajas_pdf');
-        Route::get('stock_minimo', 'ExistenciasController@stockMinimo')->name('stock_minimo');
-        Route::post('stock_minimo_pdf', 'ExistenciasController@stockMinimoPdf')->name('stock_minimo_pdf');
-        Route::get('alerta_stock_minimo_app', 'ExistenciasController@alertaStockMinimo')->name('alerta_stock_minimo_app');
-    });
-
-    // ========================================================================
-    // ========================================================================
-
-    // ENTRADAS
-    Route::group(['namespace' => 'App\Http\Controllers\entradas'], function () {
-        Route::resource('entradas', 'EntradasController');
-        Route::get('detalleEntrada/{idEntrada}', 'EntradasController@entrada')->name('detalleEntrada');
-        Route::post('anular_compra', 'EntradasController@anularCompra')->name('anular_compra');
-        Route::post('reporte_compras_pdf', 'EntradasController@reporteComprasPdf')->name('reporte_compras_pdf');
-        Route::get('detalle_compras_pdf/{idCompra}', 'EntradasController@detalleComprasPdf')->name('detalle_compras_pdf');
-    });
-
-    // ========================================================================
-    // ========================================================================
-
-    // VENTAS
-    Route::group(['namespace' => 'App\Http\Controllers\ventas'], function () {
-        Route::resource('ventas', 'VentasController');
-        Route::post('reporte_ventas_pdf', 'VentasController@reporteVentasPdf')->name('reporte_ventas_pdf');
-        Route::get('detalle_ventas_pdf/{idVenta}', 'VentasController@detalleVentasPdf')->name('detalle_ventas_pdf');
-        Route::get('detalle_venta/{idVenta}', 'VentasController@detalleVentas')->name('detalle_venta');
-        Route::post('recibo_caja_venta', 'VentasController@reciboCajaVenta')->name('recibo_caja_venta');
-
-        Route::get('credito_ventas', 'VentasController@listarCreditoVentas')->name('credito_ventas');
-    });
-
-    // ========================================================================
-    // ========================================================================
-
-    // PRÉSTAMOS A EMPLEADOS
-    Route::group(['namespace' => 'App\Http\Controllers\prestamos'], function () {
-        Route::resource('prestamos', 'PrestamosController');
-        Route::get('prestamos_vencer', 'PrestamosController@prestamosVencer')->name('prestamos_vencer');
-    });
-
-    // ========================================================================
-    // ========================================================================
-
-    // PAGO A EMPLEADOS
-    Route::group(['namespace' => 'App\Http\Controllers\pago_empleados'], function () {
-        Route::resource('pago_empleados', 'PagoEmpleadosController');
-    });
-
-    // ========================================================================
-    // ========================================================================
-
-    // EMPRESAS
-    Route::group(['namespace' => 'App\Http\Controllers\empresas'], function () {
-        Route::resource('empresas', 'EmpresasController');
-    });
-
-    // Rutas roles y permisos
-    Route::group(['namespace' => 'App\Http\Controllers\roles_permisos'], function ()
-    {
-        Route::post('crear_rol', 'RolesPermisosController@guardarRol')->name('crear_rol');
-        Route::post('crear_permiso', 'RolesPermisosController@guardarPermiso')->name('crear_permiso');
-        Route::post('traer_permisos_usuario', 'RolesPermisosController@consultarPermisosPorUsuario')->name('traer_permisos_usuario');
-    });
-    
-    // ========================================================================
-
-    Route::group(['namespace' => 'App\Http\Controllers\home'], function ()
-    {
-        // Rutas para manejo de permisos
-        Route::get('/permisos', 'PermisosController@index')->name('permisos.index');
-        Route::get('/obtener-permisos-usuario/{id}', 'PermisosController@obtenerPermisosUsuario');
-        Route::post('/guardar-permisos-usuario', 'PermisosController@guardarPermisosUsuario');
-    });
+    }); // FIN Route::middleware(['verificar.sesion']) RUTAS PROTEGIDAS
 }); // FIN Route::middleware(['web'])
 
