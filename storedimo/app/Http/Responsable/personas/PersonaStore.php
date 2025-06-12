@@ -49,43 +49,45 @@ class PersonaStore implements Responsable
 
             $consultarNit = $this->consultarNitEmpresa($nitEmpresa);
         }
-        
-        if( isset($consultarIdentificacion) && !empty($consultarIdentificacion) && !is_null($consultarIdentificacion)
-            || isset($consultarNit) && !empty($consultarNit) && !is_null($consultarNit) ) {
+
+        if( $consultarIdentificacion ) {
             alert()->info('Info', 'Este número identificación ya existe.');
             return back();
-        } else {
-            try {
-                $peticionPersonaStore = $this->clientApi->post($this->baseUri.'persona_store', [
-                    'json' => [
-                        'id_tipo_persona' => $idTipoPersona,
-                        'id_tipo_documento' => $idTipoDocumento,
-                        'identificacion' => $identificacion,
-                        'nombres_persona' => $nombrePersona,
-                        'apellidos_persona' => $apellidoPersona,
-                        'numero_telefono' => $numeroTelefono,
-                        'celular' => $celular,
-                        'email' => $email,
-                        'id_genero' => $idGenero,
-                        'direccion' => $direccion,
-                        'id_estado' => $idEstado,
-                        'nit_empresa' => $nitEmpresa,
-                        'nombre_empresa' => $nombreEmpresa,
-                        'telefono_empresa' => $telefonoEmpresa,
-                        'id_audit' => session('id_usuario'),
-                        'empresa_actual' => session('empresa_actual')
-                    ]
-                ]);
-                $resPersonaStore = json_decode($peticionPersonaStore->getBody()->getContents());
+        }
 
-                if(isset($resPersonaStore->success) && $resPersonaStore->success) {
-                    return $this->respuestaExito('Cliente creado satisfactoriamente.', 'listar_clientes');
-                }
+        if( isset($consultarNit) && !empty($consultarNit) && !is_null($consultarNit) ) {
+            alert()->info('Info', 'Este número de Nit ya existe.');
+            return back();
+        }
+        
+        try {
+            $peticionPersonaStore = $this->clientApi->post($this->baseUri.'persona_store', [
+                'json' => [
+                    'id_tipo_persona' => $idTipoPersona,
+                    'id_tipo_documento' => $idTipoDocumento,
+                    'identificacion' => $identificacion,
+                    'nombres_persona' => $nombrePersona,
+                    'apellidos_persona' => $apellidoPersona,
+                    'numero_telefono' => $numeroTelefono,
+                    'celular' => $celular,
+                    'email' => $email,
+                    'id_genero' => $idGenero,
+                    'direccion' => $direccion,
+                    'id_estado' => $idEstado,
+                    'nit_empresa' => $nitEmpresa,
+                    'nombre_empresa' => $nombreEmpresa,
+                    'telefono_empresa' => $telefonoEmpresa,
+                    'id_audit' => session('id_usuario'),
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
+            $resPersonaStore = json_decode($peticionPersonaStore->getBody()->getContents());
+
+            if(isset($resPersonaStore->success) && $resPersonaStore->success) {
+                return $this->respuestaExito('Cliente creado satisfactoriamente.', 'listar_clientes');
             }
-            catch (Exception $e)
-            {
-                return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
-            }
+        } catch (Exception $e) {
+            return $this->respuestaException('Creando el cliente, contacte a Soporte.');
         }
     }
 
@@ -95,7 +97,10 @@ class PersonaStore implements Responsable
     private function consultarIdPersona($identificacion)
     {
         $queryIdentificacion = $this->clientApi->post($this->baseUri.'query_id_persona', [
-            'json' => ['identificacion' => $identificacion]
+            'json' => [
+                'identificacion' => $identificacion,
+                'empresa_actual' => session('empresa_actual')
+            ]
         ]);
         return json_decode($queryIdentificacion->getBody()->getContents());
     }
@@ -106,7 +111,10 @@ class PersonaStore implements Responsable
     private function consultarNitEmpresa($nitEmpresa)
     {
         $queryNitEmpresa = $this->clientApi->post($this->baseUri.'query_nit_empresa', [
-            'query' => ['nit_empresa' => $nitEmpresa]
+            'json' => [
+                'nit_empresa' => $nitEmpresa,
+                'empresa_actual' => session('empresa_actual')
+            ]
         ]);
         return json_decode($queryNitEmpresa->getBody()->getContents());
     }
@@ -138,5 +146,4 @@ class PersonaStore implements Responsable
         alert()->error('Error', $mensaje);
         return back();
     }
-
 }

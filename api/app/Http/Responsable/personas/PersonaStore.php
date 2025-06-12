@@ -26,10 +26,12 @@ class PersonaStore implements Responsable
         $nitEmpresa = request('nit_empresa', null);
         $nombreEmpresa = request('nombre_empresa', null);
         $telefonoEmpresa = request('telefono_empresa', null);
-        $empresaActual = request('empresa_actual', null);
 
         // ================================================
+        
         try {
+            $empresaActual = request('empresa_actual', null);
+
             if ($empresaActual) {
                 DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
             }
@@ -56,7 +58,6 @@ class PersonaStore implements Responsable
             // Restaurar conexión principal
             if ($empresaActual) {
                 DatabaseConnectionHelper::restaurarConexionPrincipal();
-                Log::info('Conexión principal restaurada');
             }
     
             return response()->json(['success' => true]);

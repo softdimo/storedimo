@@ -129,7 +129,11 @@ class PersonasController extends Controller
             DatabaseConnectionHelper::restaurarConexionPrincipal();
         }
 
-        return response()->json($persona);
+        if ($persona) {
+            return response()->json($persona);
+        } else {
+            return response(null, 200);
+        }
     }
 
     public function consultarNitEmpresa(Request $request)
@@ -152,8 +156,10 @@ class PersonasController extends Controller
             DatabaseConnectionHelper::restaurarConexionPrincipal();
         }
 
-        return response()->json($persona);
+        if ($persona) {
+            return response()->json($persona);
+        } else {
+            return response(null, 200);
+        }
     }
-
-    
 }

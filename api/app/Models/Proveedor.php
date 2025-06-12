@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use OwenIt\Auditing\Contracts\Auditable; // Interfaz
-use OwenIt\Auditing\Auditable as AuditableTrait; // Trait
+// use OwenIt\Auditing\Auditable as AuditableTrait; // Trait
+
+use App\Traits\AuditableTrait;
 
 // class Persona extends Model
 class Proveedor extends Model implements Auditable

@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use OwenIt\Auditing\Contracts\Auditable; // Interfaz
-use OwenIt\Auditing\Auditable as AuditableTrait; // Trait
+// use OwenIt\Auditing\Auditable as AuditableTrait; // Trait
+
+use App\Traits\AuditableTrait;
 
 // class TipoBaja extends Model
 class TipoBaja extends Model implements Auditable

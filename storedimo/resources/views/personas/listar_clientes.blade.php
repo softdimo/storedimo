@@ -103,6 +103,7 @@
                                     <th>Tipo Cliente</th>
                                     <th>Nombres</th>
                                     <th>Apellidos</th>
+                                    <th>Identificación</th>
                                     <th>Celular</th>
                                     <th>Estado</th>
                                     <th>Opciones</th>
@@ -116,6 +117,7 @@
                                             <td>{{ $persona->tipo_persona }}</td>
                                             <td>{{ $persona->nombres_persona }}</td>
                                             <td>{{ $persona->apellidos_persona }}</td>
+                                            <td>{{ $persona->identificacion }}</td>
                                             <td>{{ $persona->celular }}</td>
                                             <td>{{ $persona->estado }}</td>
                                             <td>

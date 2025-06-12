@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-use OwenIt\Auditing\Contracts\Auditable; // Interfaz
-use OwenIt\Auditing\Auditable as AuditableTrait; // Trait
+use OwenIt\Auditing\Contracts\Auditable;
+// use OwenIt\Auditing\Auditable as AuditableTrait;
+
+use App\Traits\AuditableTrait;
 
 // class Persona extends Model
 class Persona extends Model implements Auditable

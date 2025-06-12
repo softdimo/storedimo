@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Config;
 
 class Audit extends Model
 {
@@ -27,4 +28,11 @@ class Audit extends Model
         'user_agent',
         'tags'
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        Config::set('database.default', 'mysql');
+        $this->setConnection('mysql');
+    }
 }
