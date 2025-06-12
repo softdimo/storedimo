@@ -170,18 +170,20 @@
         </div>
 
         {{-- ======================= --}}
-        
-        <div class="col-12 col-md-3 mt-4">
-            <div class="form-group d-flex flex-column">
-                <label for="id_empresa" class="form-label">Empresa<span class="text-danger">*</span></label>
-                {!! Form::select(
-                    'id_empresa',
-                    collect(['' => 'Seleccionar...'])->union($empresas), null,
-                    ['class' => 'form-select select2', 'id' => 'id_empresa', 'required' => 'required'],
-                ) !!}
-            </div>
-        </div>
 
+        @if(@session('id_empresa') == 5)
+            <div class="col-12 col-md-3 mt-4">
+                <div class="form-group d-flex flex-column">
+                    <label for="id_empresa" class="form-label">Empresa<span class="text-danger">*</span></label>
+                    {!! Form::select(
+                        'id_empresa',
+                        collect(['' => 'Seleccionar...'])->union($empresas), null,
+                        ['class' => 'form-select select2', 'id' => 'id_empresa', 'required' => 'required'],
+                    ) !!}
+                </div>
+            </div>
+        @endif
+        
         {{-- ======================= --}}
 
         <div class="col-12 col-md-3 mt-4">

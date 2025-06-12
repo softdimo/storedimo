@@ -139,9 +139,6 @@ class UsuariosController extends Controller
                         'cambiar_clave' => view('usuarios.modal_cambiar_clave', compact('usuario')),
                         default  => view('usuarios.modal_editar_usuario', compact('usuario')),
                     };
-
-
-                    return view('usuarios.edit', compact('usuario'));
                 }
             }
         } catch (Exception $e)
