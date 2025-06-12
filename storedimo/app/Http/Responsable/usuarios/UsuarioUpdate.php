@@ -33,7 +33,7 @@ class UsuarioUpdate implements Responsable
         $idEstado = request('id_estado', null);
         $fechaContrato = request('fecha_contrato', null);
         $fechaTerminacionContrato = request('fecha_terminacion_contrato', null);
-        $idEmpresa = request('id_empresa', null);
+        $idEmpresa = request('id_empresa') ? request('id_empresa') : session('id_empresa');
 
 
        /*  // Consultamos si ya existe un usuario con la cedula ingresada

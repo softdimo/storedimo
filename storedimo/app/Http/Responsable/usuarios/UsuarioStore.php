@@ -34,7 +34,7 @@ class UsuarioStore implements Responsable
         $direccion = request('direccion', null);
         $fechaContrato = request('fecha_contrato', null);
         $fechaTerminacionContrato = request('fecha_terminacion_contrato', null);
-        $idEmpresa = request('id_empresa', null);
+        $idEmpresa = request('id_empresa') ? request('id_empresa') : session('id_empresa');
 
         if(strlen($identificacion) < 6)
         {
@@ -100,8 +100,7 @@ class UsuarioStore implements Responsable
                         'usuarios.index'
                     );
                 }
-            } catch (Exception $e)
-            {
+            } catch (Exception $e) {
                 return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
             }
         }
@@ -146,17 +145,14 @@ class UsuarioStore implements Responsable
         return str_replace($no_permitidas, $permitidas, $cadena);
     }
 
-    // ===================================================================
-    // ===================================================================
-
-    // Método auxiliar para mensajes de exito
     private function respuestaExito($mensaje, $ruta)
     {
         alert()->success('Éxito', $mensaje)->toHtml();
         return redirect()->to(route($ruta));
     }
 
-    // ========================================================
+    // ===================================================================
+    // ===================================================================
 
     // Método auxiliar para manejar errores
     private function respuestaError($mensaje, $ruta)
@@ -165,7 +161,8 @@ class UsuarioStore implements Responsable
         return redirect()->to(route($ruta));
     }
 
-    // ========================================================
+    // ===================================================================
+    // ===================================================================
 
     // Método auxiliar para manejar excepciones
     private function respuestaException($mensaje)
@@ -173,5 +170,4 @@ class UsuarioStore implements Responsable
         alert()->error('Error', $mensaje);
         return back();
     }
-
 }
