@@ -228,11 +228,6 @@
         {{-- ========================================================= --}}
 
         <div class="mt-5 mb-2 d-flex justify-content-center">
-            <button type="button" class="btn btn-danger rounded-2">
-                <i class="fa fa-remove"></i>
-                Cancelar
-            </button>
-
             <button type="submit" class="btn btn-success rounded-2 ms-3">
                 <i class="fa fa-floppy-o"></i>
                 Guardar

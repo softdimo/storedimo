@@ -231,11 +231,6 @@
                 <i class="fa fa-floppy-o"></i>
                 Guardar
             </button>
-
-            <button type="button" class="btn btn-danger rounded-2">
-                <i class="fa fa-remove"></i>
-                Cancelar
-            </button>
         </div>
     </div> {{-- FIN div_campos_usuarios --}}
 </div> {{-- FIN div_crear_usuario --}}

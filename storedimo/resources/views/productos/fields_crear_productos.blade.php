@@ -189,12 +189,7 @@
             <button type="submit" class="btn btn-success rounded-2 me-3">
                 <i class="fa fa-floppy-o"></i>
                 Guardar
-            </button>
-
-            <button type="button" class="btn btn-danger rounded-2">
-                <i class="fa fa-remove"></i>
-                Cancelar
-            </button>
+            </button> 
         </div>
     </div> {{-- FIN div_campos_productos --}}
 </div> {{-- FIN div_crear_productos --}}

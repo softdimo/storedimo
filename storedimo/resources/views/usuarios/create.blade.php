@@ -113,11 +113,6 @@
                     <i class="fa fa-floppy-o"></i>
                     Guardar
                 </button>
-
-                <button type="button" class="btn btn-danger rounded-2">
-                    <i class="fa fa-remove"></i>
-                    Cancelar
-                </button>
             </div>
             {!! Form::close() !!}
         </div>

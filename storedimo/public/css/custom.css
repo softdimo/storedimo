@@ -47,6 +47,13 @@ body {
         position: relative;
         padding-left: 70% !important;
     }
+
+    .navbar-toggler-container-logo {
+        position: absolute;
+        left: 50% !important;
+        transform: translateX(-50%);
+        z-index: 0;
+    }
 }
 
 .d-flex.flex-nowrap.w-100 {
@@ -55,7 +62,7 @@ body {
 
 .navbar-toggler-container-logo {
     position: absolute;
-    left: 50%;
+    left: 10%;
     transform: translateX(-50%);
     z-index: 0;
 }
