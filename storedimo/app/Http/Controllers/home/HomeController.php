@@ -151,14 +151,14 @@ class HomeController extends Controller
                 'query' => [
                     'fecha_venta_dia' => $hoy,
                     'fecha_venta_inicio_mes' => $inicioMes,
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
-            return json_decode($peticion->getBody()->getContents());
+            $resultado = json_decode($peticion->getBody()->getContents());
+            return $resultado ?? ['ventasDia' => 0, 'ventasMes' => 0];
             
         } catch (Exception $e) {
-            alert()->error('Error consultando la venta diaria y mensual');
-            return back();
+            return ['ventasDia' => 0, 'ventasMes' => 0];
         }
     }
     
@@ -175,14 +175,15 @@ class HomeController extends Controller
                 'query' => [
                     'fecha_entrada_dia' => $hoy,
                     'fecha_entrada_inicio_mes' => $inicioMes,
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
-            return json_decode($peticion->getBody()->getContents());
+            
+            $resultado = json_decode($peticion->getBody()->getContents());
+            return $resultado ?? ['entradasDia' => 0, 'entradasMes' => 0];
             
         } catch (Exception $e) {
-            alert()->error('Error consultando la entrada diaria y mensual');
-            return back();
+            return ['entradasDia' => 0, 'entradasMes' => 0];
         }
     }
 }
