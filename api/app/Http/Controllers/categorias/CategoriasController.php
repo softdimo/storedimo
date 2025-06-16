@@ -132,7 +132,13 @@ class CategoriasController extends Controller
                 DatabaseConnectionHelper::restaurarConexionPrincipal();
             }
 
-            return response()->json($categoria);
+            // Retornamos la categoría si existe, de lo contrario retornamos null
+            if ($categoria) {
+                return response()->json($categoria);
+            } else {
+                return response(null, 200);
+            }
+
         } catch (Exception $e) {
             // Asegurar restauración de conexión principal en caso de error
             if (isset($empresaActual)) {
