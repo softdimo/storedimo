@@ -10,6 +10,7 @@ use App\Http\Responsable\ventas\VentaIndex;
 use App\Http\Responsable\ventas\VentaDetalle;
 use App\Http\Responsable\ventas\VentaStore;
 use App\Http\Responsable\ventas\VentaUpdate;
+use App\Models\Empresa;
 use App\Models\Venta;
 use App\Models\VentaProducto;
 use App\Helpers\DatabaseConnectionHelper;
@@ -306,12 +307,15 @@ class VentasController extends Controller
 
     public function ventaDiaMes(Request $request)
     {
-        // Obtener empresa_actual del request
-        $empresaActual = $request->input('empresa_actual');
+        // 1. Obtener ID de empresa del request (antes era empresa_actual completo)
+        $empresaId = $request->input('empresa_actual');
 
-        // Configurar conexión tenant si hay empresa
+        // 2. Buscar empresa completa usando el ID
+        $empresaActual = Empresa::find($empresaId);
+
+        // 3. Configurar conexión tenant si hay empresa
         if ($empresaActual) {
-            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
         }
 
         $hoy = request('fecha_venta_dia');

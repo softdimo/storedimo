@@ -11,6 +11,7 @@ use App\Http\Responsable\entradas\EntradaIndex;
 use App\Http\Responsable\entradas\DetalleEntrada;
 use App\Http\Responsable\entradas\EntradaStore;
 use App\Http\Responsable\entradas\EntradaUpdate;
+use App\Models\Empresa;
 use App\Models\Compra;
 use App\Models\CompraProducto;
 use App\Helpers\DatabaseConnectionHelper;
@@ -319,12 +320,15 @@ class EntradasController extends Controller
 
     public function entradaDiaMes(Request $request)
     {
-        // Obtener empresa_actual del request
-        $empresaActual = $request->input('empresa_actual');
+        // 1. Obtener ID de empresa del request (antes era empresa_actual completo)
+        $empresaId = $request->input('empresa_actual');
 
-        // Configurar conexión tenant si hay empresa
+        // 2. Buscar empresa completa usando el ID
+        $empresaActual = Empresa::find($empresaId);
+
+        // 3. Configurar conexión tenant si hay empresa
         if ($empresaActual) {
-            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
         }
 
         $hoy = request('fecha_entrada_dia');
