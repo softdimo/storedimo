@@ -20,59 +20,85 @@
         </div>
 
         {{-- ======================================================================= --}}
+
         {{-- ======================================================================= --}}
 
         <div class="p-3" style="width: 80%">
-            <div class="text-end">
-                <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal" data-bs-target="#modalAyudaCrearPersonas">
-                    <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
-                </a>
+            <div class="d-flex justify-content-between pe-3 mt-3">
+
+
+                <div class="">
+                    <a href="{{ route('listar_clientes') }}" class="btn text-white"
+                        style="background-color:#337AB7">Clientes</a>
+                </div>
+
+                <div class="{{-- text-end --}}">
+                    <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal"
+                        data-bs-target="#modalAyudaCrearPersonas">
+                        <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda"
+                            style="color: #337AB7"></i>
+                    </a>
+                </div>
             </div>
 
             {{-- =============================================================== --}}
             {{-- =============================================================== --}}
-            
-            <div class="modal fade" id="modalAyudaCrearPersonas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+
+            <div class="modal fade" id="modalAyudaCrearPersonas" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
                 <div class="modal-dialog" style="min-width: 75%;">
                     <div class="modal-content p-3">
                         <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="rounded-top text-white text-center p-2" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                    <div class="rounded-top text-white text-center p-2"
+                                        style="background-color: #337AB7; border: solid 1px #337AB7;">
                                         <span class="modal-title fs-5"><strong>Ayuda Registrar Clientes</strong></span>
                                     </div>
                                     {{-- =========================== --}}
                                     <div class="p-3">
-                                        <p class="text-justify">Señor usuario a la hora de realizar un registro tener en cuenta las siguientes recomendaciones:</p>
+                                        <p class="text-justify">Señor usuario a la hora de realizar un registro tener en
+                                            cuenta las siguientes recomendaciones:</p>
 
                                         <ol>
-                                            <li class="text-justify">Todos los campos que poseen el asterisco (*) son obligatorios, por lo tanto sino se diligencian, el sistema no le dejará seguir.</li>
-                                            <li class="text-justify">El campo número de documento, su logitud debe ser mayor a los 7 caracteres.</li>
-                                            <li class="text-justify">En el momento del registro no se debe ingresar un número de documento ya existente en la base de datos.</li>
+                                            <li class="text-justify">Todos los campos que poseen el asterisco (*) son
+                                                obligatorios, por lo tanto sino se diligencian, el sistema no le dejará
+                                                seguir.</li>
+                                            <li class="text-justify">El campo número de documento, su logitud debe ser mayor
+                                                a los 7 caracteres.</li>
+                                            <li class="text-justify">En el momento del registro no se debe ingresar un
+                                                número de documento ya existente en la base de datos.</li>
                                         </ol>
-                                    </div> {{--FINpanel-body --}}
-                                </div> {{--FIN col-12 --}}
-                            </div> {{--FIN modal-body .row --}}
-                        </div> {{--FIN modal-body --}}
+                                    </div> {{-- FINpanel-body --}}
+                                </div> {{-- FIN col-12 --}}
+                            </div> {{-- FIN modal-body .row --}}
+                        </div> {{-- FIN modal-body --}}
                         {{-- =========================== --}}
                         <div class="row mt-3">
                             <div class="col-12">
-                                <button type="button" class="btn btn-primary btn-md active pull-right" data-bs-dismiss="modal" style="background-color: #337AB7;">
+                                <button type="button" class="btn btn-primary btn-md active pull-right"
+                                    data-bs-dismiss="modal" style="background-color: #337AB7;">
                                     <i class="fa fa-check-circle" aria-hidden="true">&nbsp;Aceptar</i>
                                 </button>
                             </div>
                         </div>
-                    </div> {{--FIN modal-content --}}
-                </div> {{--FIN modal-dialog --}}
-            </div> {{--FIN modalAyudaModificacionProductos --}}
+                    </div> {{-- FIN modal-content --}}
+                </div> {{-- FIN modal-dialog --}}
+            </div> {{-- FIN modalAyudaModificacionProductos --}}
 
             {{-- =============================================================== --}}
             {{-- =============================================================== --}}
 
-            {!! Form::open(['method' => 'POST', 'route' => ['personas.store'], 'class' => 'mt-2', 'autocomplete' => 'off', 'id' => 'formCrearPersonas']) !!}
-                @csrf
-            
-                @include('personas.fields_crear_personas')
+            {!! Form::open([
+                'method' => 'POST',
+                'route' => ['personas.store'],
+                'class' => 'mt-2',
+                'autocomplete' => 'off',
+                'id' => 'formCrearPersonas',
+            ]) !!}
+            @csrf
+
+            @include('personas.fields_crear_personas')
             {!! Form::close() !!}
         </div>
     </div>
@@ -84,16 +110,16 @@
 
 @section('scripts')
     <script>
-        $( document ).ready(function() {
+        $(document).ready(function() {
             $('.select2').select2({
                 placeholder: "Seleccionar...",
                 allowClear: false,
                 width: '100%'
             });
-            
+
             $('#div_proveedor_juridico').hide();
 
-            $('#id_tipo_persona').change(function () {
+            $('#id_tipo_persona').change(function() {
                 let idTipoPersona = $('#id_tipo_persona').val();
 
                 if (idTipoPersona == 4) { // Proveedor-juridico
@@ -165,21 +191,21 @@
             // ===================================================================================
 
             // formCrearPersonas para cargar gif en el submit
-            $(document).on("submit", "form[id^='formCrearPersonas']", function (e) {
+            $(document).on("submit", "form[id^='formCrearPersonas']", function(e) {
                 const form = $(this);
                 const submitButton = form.find('button[type="submit"]');
                 const cancelButton = form.find('button[type="button"]');
-                const loadingIndicator = form.find("div[id^='loadingIndicatorPersonaStore']"); // Busca el GIF del form actual
+                const loadingIndicator = form.find(
+                "div[id^='loadingIndicatorPersonaStore']"); // Busca el GIF del form actual
 
                 // Dessactivar Botones
-                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+                submitButton.prop("disabled", true).html(
+                    "Procesando... <i class='fa fa-spinner fa-spin'></i>");
                 cancelButton.prop("disabled", true);
-                
+
                 // Mostrar Spinner
                 loadingIndicator.show();
             });
         }); // FIN document.ready
     </script>
 @stop
-
-

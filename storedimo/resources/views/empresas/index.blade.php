@@ -88,6 +88,13 @@
                     style="background-color: #337AB7">Listar Empresas
                 </h5>
 
+                <div class="row pe-3 mt-3">
+                    <div class="col-12 d-flex justify-content-end">
+                        <a href="{{ route('empresas.create') }}" class="btn text-white"
+                            style="background-color:#337AB7">Crear Empresa</a>
+                    </div>
+                </div>
+
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered w-100 mb-0" id="tbl_empresas"
