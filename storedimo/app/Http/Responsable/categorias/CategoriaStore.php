@@ -84,7 +84,10 @@ class CategoriaStore implements Responsable
     {
         try {
             $peticionConsultaCategoria = $this->clientApi->post($this->baseUri.'consulta_categoria', [
-                'json' => ['categoria' => $categoria]
+                'json' => [
+                    'categoria' => $categoria,
+                    'empresa_actual' => session('empresa_actual')
+                ]
             ]);
             return json_decode($peticionConsultaCategoria->getBody()->getContents());
         } catch (Exception $e) {
