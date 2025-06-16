@@ -130,7 +130,11 @@ class ProveedoresController extends Controller
             DatabaseConnectionHelper::restaurarConexionPrincipal();
         }
 
-        return response()->json($proveedor);
+        if ($proveedor) {
+            return response()->json($proveedor);
+        } else {
+            return response(null, 200);
+        }
     }
 
     // ======================================================================
@@ -156,6 +160,10 @@ class ProveedoresController extends Controller
             DatabaseConnectionHelper::restaurarConexionPrincipal();
         }
 
-        return response()->json($proveedor);
+        if ($proveedor) {
+            return response()->json($proveedor);
+        } else {
+            return response(null, 200);
+        }
     }
 }
