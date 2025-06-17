@@ -171,9 +171,8 @@
                         'nombre_producto': nombreProducto,
                         'id_categoria': idCategoria,
                     },
-                    success: function(respuesta) {
-                        console.log(respuesta);
-
+                    success: function(respuesta) 
+                    {
                         if (respuesta == "existe_producto") {
                             Swal.fire(
                                 'Cuidado!',

@@ -349,24 +349,6 @@
                             </div>
                         </div>
 
-                        @if(!is_null(session('sesion_iniciada')))
-                            <div class="col-12 col-md-6">
-                                <div class="form-group d-flex flex-column">
-                                    <label for="periodo_pago" class="" style="font-size: 15px">Período de Pago<span class="text-danger">*</span></label>
-                                    {{Form::select('periodo_pago', collect(['' => 'Seleccionar...'])->union($periodos_pago), null, ['class' => 'form-select', 'id' => 'periodo_pago'])}}
-                                </div>
-                            </div>
-
-                            <div class="col-12 col-md-6 mt-md-3">
-                                <div class="form-group d-flex flex-column">
-                                    <label for="porcentaje_comision" class="" style="font-size: 15px">Porcentaje Comisión<span class="text-danger">*</span></label>
-                                    {{Form::select('porcentaje_comision', collect(['' => 'Seleccionar...'])->union($porcentajes_comision), null, ['class' => 'form-select', 'id' => 'porcentaje_comision'])}}
-                                </div>
-                            </div>
-                        @else
-                        <p>&nbsp;</p>
-                        @endif
-
                         <div class="col-12 col-md-6 mt-md-3">
                             <div class="form-group d-flex flex-column">
                                 <label for="v_dia_empleado_fijo" class="" style="font-size: 15px">Valor día empleado fijo<span class="text-danger">*</span></label>
