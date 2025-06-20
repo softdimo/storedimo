@@ -31,7 +31,6 @@ class LoginController extends Controller
     }
 
     // ======================================================================
-    // ======================================================================
 
     /**
      * Display a listing of the resource.
@@ -40,7 +39,8 @@ class LoginController extends Controller
      */
     public function index()
     {
-        if (!$this->checkDatabaseConnection()) {
+        if (!$this->checkDatabaseConnection())
+        {
             return view('db_conexion');
         }
 
