@@ -213,7 +213,7 @@ trait MetodosTrait
     {
         $cacheKey = 'permisos_view_share_' . session('id_usuario');
         
-        return Cache::remember($cacheKey, now()->addMinutes(30), function () {
+        return Cache::remember($cacheKey, now()->addMinutes(1), function () {
             $response = $this->clientApi->get('administracion/permisos_view_share_trait');
             return json_decode($response->getBody()->getContents());
         });
@@ -225,7 +225,7 @@ trait MetodosTrait
             $this->initHttpClient();
             $cacheKey = 'permisos_list_' . session('id_usuario');
 
-            return Cache::remember($cacheKey, now()->addMinutes(30), function () {
+            return Cache::remember($cacheKey, now()->addMinutes(1), function () {
                 $response = $this->clientApi->get('administracion/permisos_trait');
                 return json_decode($response->getBody()->getContents());
             });
@@ -242,7 +242,7 @@ trait MetodosTrait
             $this->initHttpClient();
             $cacheKey = 'permisos_usuario_' . $idUsuario;
 
-            return Cache::remember($cacheKey, now()->addMinutes(30), function () use ($idUsuario) {
+            return Cache::remember($cacheKey, now()->addMinutes(1), function () use ($idUsuario) {
                 $response = $this->clientApi->get("administracion/permisos_por_usuario_trait/{$idUsuario}", [
                     'headers' => [
                         'Authorization' => 'Bearer ' . session('api_token')
