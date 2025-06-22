@@ -58,7 +58,7 @@
             <div class="col-12 mt-2">
                 <div class="card ocultar" id="card">
                     <div class="card-body">
-                        <div class="table-responsive" id="resultado">
+                        <div id="resultado" class="table-responsive">
 
                         </div>
                     </div>

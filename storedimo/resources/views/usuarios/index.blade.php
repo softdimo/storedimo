@@ -22,18 +22,11 @@
     </style>
 @stop
 
-{{-- =============================================================== --}}
-{{-- =============================================================== --}}
-{{-- =============================================================== --}}
-
 @section('content')
     <div class="d-flex p-0">
         <div class="p-0" style="width: 20%">
             @include('layouts.sidebarmenu')
         </div>
-
-        {{-- ======================================================================= --}}
-        {{-- ======================================================================= --}}
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
             <div class="text-end">
@@ -42,9 +35,6 @@
                     <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
                 </a>
             </div>
-
-            {{-- ======================================================================= --}}
-            {{-- ======================================================================= --}}
 
             <div class="modal fade" id="modalAyudaListarUsuarios" tabindex="-1" role="dialog"
                 aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
@@ -57,7 +47,6 @@
                                         style="background-color: #337AB7; border: solid 1px #337AB7;">
                                         <span class="modal-title fs-5"><strong>Ayuda de Listar Empleados</strong></span>
                                     </div>
-                                    {{-- =========================== --}}
                                     <div class="p-3">
                                         <p class="text-justify">Señor usuario en esta vista usted se va a encontrar con
                                             diferentes opciones ubicadas al lado izquierdo de la tabla, cada una con una
@@ -181,11 +170,6 @@
                         </table>
                     </div>
 
-                    {{-- ========================================================= --}}
-                    {{-- ========================================================= --}}
-                    {{-- ========================================================= --}}
-                    {{-- ========================================================= --}}
-
                     {{-- <div class="mt-5 mb-2 d-flex justify-content-center">
                         <button class="btn rounded-2 me-3 text-white" type="submit" style="background-color: #286090">
                             <i class="fa fa-file-pdf-o"></i>
@@ -197,9 +181,6 @@
         </div>
     </div>
 
-    {{-- ====================================================== --}}
-    {{-- ====================================================== --}}
-
     {{-- INICIO Modal CAMBIAR CONTRASEÑA --}}
     <div class="modal fade" id="modalCambiarClave" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
@@ -209,9 +190,6 @@
         </div>
     </div>
     {{-- FINAL Modal CAMBIAR CONTRASEÑA --}}
-
-    {{-- ====================================================== --}}
-    {{-- ====================================================== --}}
 
     {{-- INICIO Modal EDITAR USUARIO --}}
     <div class="modal fade" id="modalEditarUsuario" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
@@ -223,10 +201,6 @@
     </div>
     {{-- FINAL Modal EDITAR USUARIO --}}
 @stop
-
-{{-- =============================================================== --}}
-{{-- =============================================================== --}}
-{{-- =============================================================== --}}
 
 @section('scripts')
     <script src="{{ asset('DataTables/datatables.min.js') }}"></script>

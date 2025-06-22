@@ -23,6 +23,8 @@ use GuzzleHttp\Exception\RequestException;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
+use App\Models\InformeCampo;
+use App\Models\Informe;
 
 trait MetodosTrait
 {
@@ -250,24 +252,43 @@ trait MetodosTrait
         }
     }
 
-    public function validarAccesos($usuarioId, $permissionId, $vista)
+    public function validarAccesos($usuarioId, $permissionId, $vista, $infCodigo = null)
     {
-        try {
+        try
+        {
             $permisosUsuario = $this->permisosPorUsuario($usuarioId);
 
-            if (!$permisosUsuario) {
+            if (empty($permisosUsuario)) {
                 Log::warning("No se encontraron permisos para el usuario: {$usuarioId}");
                 return view('errors.403')->with('error', 'No se encontraron permisos');
             }
 
-            if (in_array($permissionId, $permisosUsuario)) {
-                return is_string($vista) ? view($vista) : $vista;
+            if (!in_array($permissionId, $permisosUsuario)) {
+                return view('errors.403');
             }
 
-            return view('errors.403');
+            // Si es una vista simple
+            if (is_string($vista) && is_null($infCodigo))
+            {
+                return view($vista);
+            }
+
+            // Si es una vista de informe
+            if ($vista === 'informe_gerencial' && $infCodigo)
+            {
+                $campos = InformeCampo::formulario($infCodigo);
+                $informe = Informe::where('informe_codigo', $infCodigo)->first();
+
+                return view('informes.informe', compact('campos', 'informe'));
+            }
+
+            // Si la vista es una respuesta diferente (por ejemplo, un redirect)
+            return $vista;
 
         } catch (Exception $e) {
+            Log::error("Error validando accesos: " . $e->getMessage());
             return view('errors.403')->with('error', 'Error validando permisos');
         }
     }
+
 }

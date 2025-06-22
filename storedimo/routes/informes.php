@@ -3,8 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\inicio_sesion\LoginController;
 
-// ========================================================================
-
 // Route::middleware(['web'])->group(function () {
 Route::middleware(['web', 'prevent-back-history'])->group(function () {
     Route::get('/', function () {

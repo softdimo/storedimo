@@ -211,9 +211,9 @@ body {
 
 /* =============================================== */
 
-.table-responsive {
+/* .table-responsive {
     overflow-x: initial;
-}
+} */
 
 .hover-li:hover {
     background-color: #337AB7;
