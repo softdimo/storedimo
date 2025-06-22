@@ -78,6 +78,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('consulta_categoria', 'categorias\CategoriasController@consultaCategoria');
     $router->post('cambiar_estado_categoria/{idCategoria}', 'categorias\CategoriasController@destroy');
     $router->get('categoria_edit/{idCategoria}', 'categorias\CategoriasController@edit');
+    $router->get('categorias_trait', 'categorias\CategoriasController@categoriasTrait');
 
     // ========================================================================
 

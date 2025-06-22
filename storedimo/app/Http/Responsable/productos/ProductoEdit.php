@@ -9,16 +9,19 @@ use GuzzleHttp\Client;
 class ProductoEdit implements Responsable
 {
     protected $idProducto;
+    protected $categorias;
 
-    public function __construct($idProducto)
+    public function __construct($idProducto, $categorias)
     {
         $this->idProducto = $idProducto;
+        $this->categorias = $categorias;
     }
 
     public function toResponse($request)
     {
         $idProducto = $this->idProducto;
-
+        $categorias = $this->categorias;
+        view()->share('categorias', $categorias);
         try {
             $baseUri = env('BASE_URI');
             $clientApi = new Client(['base_uri' => $baseUri]);

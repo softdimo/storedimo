@@ -87,6 +87,8 @@ class ProductosController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
+                    $categorias = $this->categorias();
+                    view()->share('categorias', $categorias);
                     $vista = 'productos.create';
                     return $this->validarAccesos($sesion[0], 20, $vista);
                 }
@@ -197,7 +199,8 @@ class ProductosController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
-                    return new ProductoEdit($idProducto);
+                    $categorias = $this->categorias();
+                    return new ProductoEdit($idProducto, $categorias);
                 }
             }
         } catch (Exception $e)
@@ -492,6 +495,24 @@ class ProductosController extends Controller
                 'error' => 'No ha sido posible validar la referencia',
                 'valido' => false
             ], 500);
+        }
+    }
+    
+    // ======================================================================
+    // ======================================================================
+
+    public function categorias()
+    {
+        try {
+            $response = $this->clientApi->get('categorias_trait', [
+                'query' => ['empresa_actual' => session('empresa_actual')]
+            ]);
+
+            return json_decode($response->getBody()->getContents());
+
+        } catch (Exception $e) {
+            alert()->error('Error', 'Error obteniendo categorías');
+            return back();
         }
     }
 }

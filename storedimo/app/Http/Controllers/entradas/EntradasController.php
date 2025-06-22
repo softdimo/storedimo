@@ -86,6 +86,8 @@ class EntradasController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
+                    $categorias = $this->categorias();
+                    view()->share('categorias', $categorias);
                     $vista = 'entradas.create';
                     return $this->validarAccesos($sesion[0], 36, $vista);
                 }
@@ -300,6 +302,24 @@ class EntradasController extends Controller
         {
             alert()->error("Exception Index Entradas!");
             return redirect()->to(route('login'));
+        }
+    }
+        
+    // ======================================================================
+    // ======================================================================
+
+    public function categorias()
+    {
+        try {
+            $response = $this->clientApi->get('categorias_trait', [
+                'query' => ['empresa_actual' => session('empresa_actual')]
+            ]);
+
+            return json_decode($response->getBody()->getContents());
+
+        } catch (Exception $e) {
+            alert()->error('Error', 'Error obteniendo categorías');
+            return back();
         }
     }
 }

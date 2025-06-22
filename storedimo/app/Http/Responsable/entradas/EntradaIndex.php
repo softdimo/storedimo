@@ -19,7 +19,11 @@ class EntradaIndex implements Responsable
             // ==============================================================
             
             // Realiza la solicitud a la API
-            $peticion = $clientApi->get($baseUri . 'entrada_index');
+            $peticion = $clientApi->get($baseUri . 'entrada_index', [
+                'query' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
             $entradas = json_decode($peticion->getBody()->getContents());
 
             // Obtener detalles de cada compra

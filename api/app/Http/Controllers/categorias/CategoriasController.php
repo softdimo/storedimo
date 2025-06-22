@@ -12,6 +12,7 @@ use App\Http\Responsable\categorias\CategoriaEdit;
 use App\Models\Categoria;
 use Exception;
 use App\Helpers\DatabaseConnectionHelper;
+use Illuminate\Support\Facades\Log;
 
 class CategoriasController extends Controller
 {
@@ -135,6 +136,50 @@ class CategoriasController extends Controller
             // Retornamos la categoría si existe, de lo contrario retornamos null
             if ($categoria) {
                 return response()->json($categoria);
+            } else {
+                return response(null, 200);
+            }
+
+        } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
+    }
+    
+    // ======================================================================
+    // ======================================================================
+
+    public function categoriasTrait(Request $request)
+    {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+        
+        Log::info('empresa_actual recibida:', ['empresa_actual' => $request->input('empresa_actual')]);
+        Log::info('API - empresa_actual recibida: ' . json_encode($empresaActual));
+        Log::info('API - request completo: ' . json_encode($request->all()));
+        
+
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
+        try {
+            $categorias = Categoria::where('id_estado', 1)->orderBy('categoria')->pluck('categoria', 'id_categoria');
+
+            // Retornamos la categoría si existe, de lo contrario retornamos null
+            if (isset($categorias) && !is_null($categorias) && !empty($categorias)) {
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
+                return response()->json($categorias);
+                
             } else {
                 return response(null, 200);
             }

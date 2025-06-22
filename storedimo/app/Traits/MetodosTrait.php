@@ -3,7 +3,6 @@
 namespace App\Traits;
 
 use Illuminate\Support\Facades\DB;
-use App\Models\Categoria;
 use App\Models\Rol;
 use App\Models\Estado;
 use App\Models\TipoDocumento;
@@ -17,9 +16,7 @@ use App\Models\PeriodoPago;
 use App\Models\PorcentajeComision;
 use App\Models\Empresa;
 use App\Models\Usuario;
-use App\Models\Permission;
 use App\Models\Proveedor;
-use App\Models\ModelHasPermissions;
 use App\Models\TipoBd;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -53,7 +50,6 @@ trait MetodosTrait
             DB::connection()->getPdo();
             return true;
         } catch (\Exception $e) {
-            Log::error("Error de conexión a la base de datos: " . $e->getMessage());
             return false;
         }
     }
@@ -110,17 +106,14 @@ trait MetodosTrait
 
     protected function shareBasicData()
     {
-        view()->share('categorias', Categoria::where('id_estado', 1)->orderBy('categoria')->pluck('categoria', 'id_categoria'));
         view()->share('roles', Rol::orderBy('name')->pluck('name', 'id'));
         view()->share('estados', Estado::whereIn('id_estado', [1,2])->orderBy('estado')->pluck('estado', 'id_estado'));
         view()->share('tipos_documento', TipoDocumento::orderBy('tipo_documento')->pluck('tipo_documento', 'id_tipo_documento'));
-        view()->share('tipos_empleado', TipoPersona::whereIn('id_tipo_persona', [1,2])->orderBy('tipo_persona')->pluck('tipo_persona', 'id_tipo_persona'));
         view()->share('tipos_persona', TipoPersona::whereNotIn('id_tipo_persona', [1,2])->orderBy('tipo_persona')->pluck('tipo_persona', 'id_tipo_persona'));
+        view()->share('tipos_empleado', TipoPersona::whereIn('id_tipo_persona', [1,2])->orderBy('tipo_persona')->pluck('tipo_persona', 'id_tipo_persona'));
         view()->share('tipos_proveedor', TipoPersona::whereIn('id_tipo_persona', [3,4])->orderBy('tipo_persona')->pluck('tipo_persona', 'id_tipo_persona'));
-        view()->share('clientes', TipoPersona::whereIn('id_tipo_persona', [5,6])->orderBy('tipo_persona')->pluck('tipo_persona', 'id_tipo_persona'));
         view()->share('generos', Genero::orderBy('genero')->pluck('genero', 'id_genero'));
         view()->share('tipos_baja', TipoBaja::orderBy('tipo_baja','asc')->pluck('tipo_baja', 'id_tipo_baja'));
-        view()->share('productos', Producto::where('cantidad', '>', 0)->orderBy('nombre_producto')->pluck('nombre_producto', 'id_producto'));
         view()->share('tipos_pago_ventas', TipoPago::whereNotIn('id_tipo_pago', [4,5])->where('id_estado',1)->orderBy('tipo_pago')->pluck('tipo_pago', 'id_tipo_pago'));
         view()->share('tipos_pago_nomina', TipoPago::whereIn('id_tipo_pago', [4,5])->orderBy('tipo_pago')->pluck('tipo_pago', 'id_tipo_pago'));
         view()->share('periodos_pago', PeriodoPago::orderBy('periodo_pago')->pluck('periodo_pago', 'id_periodo_pago'));
@@ -134,8 +127,11 @@ trait MetodosTrait
                                     )
                                     ->where('id_estado', 1)
                                     ->pluck('user', 'id_usuario'));
-        
 
+
+        view()->share('clientes', TipoPersona::whereIn('id_tipo_persona', [5,6])->orderBy('tipo_persona')->pluck('tipo_persona', 'id_tipo_persona'));
+        view()->share('productos', Producto::where('cantidad', '>', 0)->orderBy('nombre_producto')->pluck('nombre_producto', 'id_producto'));
+        
         // (ventas.create, línea 276), (entradas.create, línea 220), (productos.fields_crear_productos , línea 8)
         view()->share('proveedores', Proveedor::whereIn('id_tipo_persona', [3, 4])
             ->selectRaw("id_proveedor,
@@ -190,7 +186,7 @@ trait MetodosTrait
                     return [$item->id_proveedor => $item->nombre_proveedor]; // Usamos id_persona como clave única
                 })
         ]);
-    }
+    } // FIN shareBasicData()
 
     protected function sharePermissionsData()
     {
@@ -203,7 +199,6 @@ trait MetodosTrait
             view()->share('permisosAsignados', []);
 
         } catch (RequestException $e) {
-            Log::error("Error API permisos View Share: " . $e->getMessage());
             view()->share('permisos', []);
             return back()->with('error', 'Error obteniendo permisos del sistema');
         }
@@ -231,7 +226,6 @@ trait MetodosTrait
             });
 
         } catch (RequestException $e) {
-            Log::error("Error API permisos trait: " . $e->getMessage());
             return [];
         }
     }
@@ -252,7 +246,6 @@ trait MetodosTrait
             });
 
         } catch (RequestException $e) {
-            Log::error("Error API permisos por usuario: " . $e->getMessage());
             return [];
         }
     }
@@ -274,7 +267,6 @@ trait MetodosTrait
             return view('errors.403');
 
         } catch (Exception $e) {
-            Log::error("Error validando accesos: " . $e->getMessage());
             return view('errors.403')->with('error', 'Error validando permisos');
         }
     }

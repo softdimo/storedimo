@@ -194,7 +194,12 @@ class ProductosController extends Controller
                 DatabaseConnectionHelper::restaurarConexionPrincipal();
             }
 
-            return response()->json($validarNombreProducto);
+            if ($validarNombreProducto) {
+            // if (isset($validarNombreProducto) && !is_null($validarNombreProducto) && !empty($validarNombreProducto)) {
+                return response()->json($validarNombreProducto);
+            } else {
+                return response(null, 200);
+            }
 
         } catch (Exception $e) {
             // Asegurar restauración de conexión principal en caso de error
