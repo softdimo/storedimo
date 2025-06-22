@@ -5,6 +5,7 @@ namespace App\Http\Controllers\informe;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Traits\MetodosTrait;
+use App\Http\Responsable\Informes\RespuestaInforme;
 
 class InformeController extends Controller
 {
@@ -19,9 +20,11 @@ class InformeController extends Controller
     {
         try
         {
-            if (!$this->checkDatabaseConnection()) {
+            if (!$this->checkDatabaseConnection())
+            {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
     
                 if (empty($sesion[0]) || is_null($sesion[0]) &&
@@ -33,7 +36,6 @@ class InformeController extends Controller
                 {
                     $vista = "informe_gerencial";
                    return $this->validarAccesos($sesion[0], 58, $vista, 1);
-
                 }
             }
         } catch (Exception $e)
