@@ -13,6 +13,7 @@ use App\Http\Responsable\ventas\VentaUpdate;
 use App\Models\Empresa;
 use App\Models\Venta;
 use App\Models\VentaProducto;
+use App\Models\Persona;
 use App\Helpers\DatabaseConnectionHelper;
 use Exception;
 

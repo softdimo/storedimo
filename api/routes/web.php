@@ -103,6 +103,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('persona_store', 'personas\PersonasController@store');
     $router->put('persona_update/{idPersona}', 'personas\PersonasController@update');
     $router->get('persona_edit/{idPersona}', 'personas\PersonasController@edit');
+    $router->get('clientes_trait', 'personas\PersonasController@personaTrait');
 
     // ========================================================================
 

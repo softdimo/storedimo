@@ -11,6 +11,8 @@ use App\Http\Responsable\personas\PersonaEdit;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Persona;
 use App\Helpers\DatabaseConnectionHelper;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 
 class PersonasController extends Controller
@@ -160,6 +162,57 @@ class PersonasController extends Controller
             return response()->json($persona);
         } else {
             return response(null, 200);
+        }
+    }
+
+    public function personaTrait(Request $request)
+    {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+        
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
+        try {
+            $clientes = Persona::leftJoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'personas.id_tipo_persona')
+                ->select(
+                    'personas.id_persona', // Ahora usamos id_persona como clave
+                    'personas.identificacion',
+                    'personas.id_tipo_persona',
+                    DB::raw("CONCAT(nombres_persona, ' ', apellidos_persona, ' (', tipo_persona, ')',' - ', identificacion) AS nombres_cliente")
+                )
+                ->whereIn('personas.id_tipo_persona', [5,6])
+                ->orderBy('nombres_cliente')
+                ->get() // Usamos get() en lugar de pluck()
+                ->mapWithKeys(function($cliente) {
+                    return [$cliente->id_persona => [
+                        'nombre' => $cliente->nombres_cliente, // Lo que se mostrará en el select
+                        'tipo' => $cliente->id_tipo_persona // id_tipo_persona Necesario para activar el checkbox
+                    ]];
+                });
+
+            // Retornamos la categoría si existe, de lo contrario retornamos null
+            if (isset($clientes) && !is_null($clientes) && !empty($clientes)) {
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
+                return response()->json($clientes);
+                
+            } else {
+                return response(null, 200);
+            }
+
+        } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
+            return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
 }

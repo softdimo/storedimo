@@ -88,6 +88,8 @@ class VentasController extends Controller
                 {
                     $categorias = $this->categorias();
                     view()->share('categorias', $categorias);
+                    $clientes = $this->clientesTrait();
+                    view()->share('clientes_ventas', $clientes);
                     $vista = 'ventas.create';
                     return $this->validarAccesos($sesion[0], 44, $vista);
                 }
@@ -329,6 +331,24 @@ class VentasController extends Controller
         } catch (Exception $e) {
             alert()->error('Error', 'Error obteniendo categorías');
             return back();
+        }
+    }
+
+    public function clientesTrait()
+    {
+        try {
+            $response = $this->clientApi->get('clientes_trait', [
+                'query' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
+
+            return json_decode($response->getBody()->getContents(), true);
+
+        } catch (Exception $e) {
+            dd($e);
+            alert()->error('Error', 'Error obteniendo clientes');
+            return [];
         }
     }
 }

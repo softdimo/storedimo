@@ -158,11 +158,6 @@ class CategoriasController extends Controller
         // Obtener empresa_actual del request
         $empresaActual = $request->input('empresa_actual');
         
-        Log::info('empresa_actual recibida:', ['empresa_actual' => $request->input('empresa_actual')]);
-        Log::info('API - empresa_actual recibida: ' . json_encode($empresaActual));
-        Log::info('API - request completo: ' . json_encode($request->all()));
-        
-
         // Configurar conexión tenant si hay empresa
         if ($empresaActual) {
             DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
