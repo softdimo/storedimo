@@ -4,7 +4,7 @@
         <h5>Detalle de Venta Código: {{ $venta->id_venta }}</h5>
     </div>
     <div class="mt-3 mb-0 ps-3">
-        <h6>Entrada realizada por: <span style="color: #337AB7">{{ $venta->nombres_usuario }}</span></h6>
+        <h6>Venta realizada por: <span style="color: #337AB7">{{ $venta->nombres_usuario }}</span></h6>
     </div>
     <div class="modal-body p-0 m-0">
         <div class="row m-0">
