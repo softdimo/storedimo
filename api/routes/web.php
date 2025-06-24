@@ -93,6 +93,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('query_producto/{idProducto}', 'productos\ProductosController@queryProducto');
     $router->get('reporte_productos_pdf', 'productos\ProductosController@reporteProductosPdf');
     $router->post('verificar_referencia', 'productos\ProductosController@referenceValidator');
+    $router->get('productos_trait', 'productos\ProductosController@productosTrait');
 
     // ========================================================================
 

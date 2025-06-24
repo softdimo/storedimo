@@ -86,10 +86,15 @@ class VentasController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
-                    $categorias = $this->categorias();
+                    $categorias = $this->categoriasTrait();
                     view()->share('categorias', $categorias);
+
                     $clientes = $this->clientesTrait();
                     view()->share('clientes_ventas', $clientes);
+
+                    $productos = $this->productosTrait();
+                    view()->share('productos', $productos);
+
                     $vista = 'ventas.create';
                     return $this->validarAccesos($sesion[0], 44, $vista);
                 }
@@ -319,7 +324,7 @@ class VentasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function categorias()
+    public function categoriasTrait()
     {
         try {
             $response = $this->clientApi->get('categorias_trait', [
@@ -334,6 +339,9 @@ class VentasController extends Controller
         }
     }
 
+    // ======================================================================
+    // ======================================================================
+
     public function clientesTrait()
     {
         try {
@@ -346,8 +354,28 @@ class VentasController extends Controller
             return json_decode($response->getBody()->getContents(), true);
 
         } catch (Exception $e) {
-            dd($e);
             alert()->error('Error', 'Error obteniendo clientes');
+            return [];
+        }
+    }
+
+    // ======================================================================
+    // ======================================================================
+
+    public function productosTrait()
+    {
+        try {
+            $response = $this->clientApi->get('productos_trait', [
+                'query' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
+
+            return json_decode($response->getBody()->getContents(), true);
+
+        } catch (Exception $e) {
+            dd($e);
+            alert()->error('Error', 'Error obteniendo productos en ventas');
             return [];
         }
     }

@@ -26,7 +26,7 @@
                         <span class="text-danger">*</span></label>
                     {{ Form::select(
                         'id_tipo_persona',
-                        collect(['' => 'Seleccionar...'])->union($clientes),
+                        collect(['' => 'Seleccionar...'])->union($tipos_cliente),
                         isset($persona) ? $persona->id_tipo_persona : null,
                         [
                             'class' => 'form-select select2',

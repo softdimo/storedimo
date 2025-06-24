@@ -219,6 +219,9 @@ class ProductosController extends Controller
         return new ReporteProductosPdf();
     }
 
+    // ======================================================================
+    // ======================================================================
+
     /**
      * Valida que la referencia del producto no exista a la hora de crear un nuevo producto
      *
@@ -246,5 +249,44 @@ class ProductosController extends Controller
         return response()->json([
             'valido' => !$existe
         ]);
+    }
+
+    // ======================================================================
+    // ======================================================================
+
+    public function productosTrait(Request $request)
+    {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+        
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
+        try {
+            $productos = Producto::where('cantidad', '>', 0)->orderBy('nombre_producto')->pluck('nombre_producto', 'id_producto');
+
+            // Retornamos la categoría si existe, de lo contrario retornamos null
+            if (isset($productos) && !is_null($productos) && !empty($productos)) {
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
+                return response()->json($productos);
+                
+            } else {
+                return response(null, 200);
+            }
+
+        } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
     }
 }

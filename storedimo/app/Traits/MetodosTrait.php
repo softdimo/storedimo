@@ -131,10 +131,9 @@ trait MetodosTrait
                                     ->pluck('user', 'id_usuario'));
 
 
-        view()->share('clientes', TipoPersona::whereIn('id_tipo_persona', [5,6])->orderBy('tipo_persona')->pluck('tipo_persona', 'id_tipo_persona'));
-        view()->share('productos', Producto::where('cantidad', '>', 0)->orderBy('nombre_producto')->pluck('nombre_producto', 'id_producto'));
+        view()->share('tipos_cliente', TipoPersona::whereIn('id_tipo_persona', [5,6])->orderBy('tipo_persona')->pluck('tipo_persona', 'id_tipo_persona'));
         
-        // (ventas.create, línea 276), (entradas.create, línea 220), (productos.fields_crear_productos , línea 8)
+        // (ventas.create, línea 368), (entradas.create, línea 220), (productos.fields_crear_productos , línea 8)
         view()->share('proveedores', Proveedor::whereIn('id_tipo_persona', [3, 4])
             ->selectRaw("id_proveedor,
                 CASE
