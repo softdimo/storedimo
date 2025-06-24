@@ -21,7 +21,7 @@ class EntradaIndex implements Responsable
             // Realiza la solicitud a la API
             $peticion = $clientApi->get($baseUri . 'entrada_index', [
                 'query' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $entradas = json_decode($peticion->getBody()->getContents());
@@ -30,7 +30,7 @@ class EntradaIndex implements Responsable
             foreach ($entradas as $entrada) {
                 $detallePeticion = $clientApi->post($baseUri . 'detalle_compra/' . $entrada->id_compra, [
                     'json' => [
-                        'empresa_actual' => session('empresa_actual')
+                        'empresa_actual' => session('empresa_actual.id_empresa')
                     ]
                 ]);
                 $entrada->detalles = json_decode($detallePeticion->getBody()->getContents());
@@ -38,6 +38,7 @@ class EntradaIndex implements Responsable
 
             return view('entradas.index', compact('entradas'));
         } catch (Exception $e) {
+            dd($e);
             alert()->error('Error', 'Exception Index Entradas, contacte a Soporte.');
             return back();
         }

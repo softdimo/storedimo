@@ -27,7 +27,7 @@ class DetalleEntrada implements Responsable
             // Realiza la solicitud a la API
             $peticion = $clientApi->get($baseUri . 'entrada/'. $this->idEntrada, [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $entrada = json_decode($peticion->getBody()->getContents());
@@ -35,7 +35,7 @@ class DetalleEntrada implements Responsable
             // Obtener detalles de cada compra
             $detallePeticion = $clientApi->post($baseUri . 'detalle_compra/' . $this->idEntrada, [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $entradaDetalles = json_decode($detallePeticion->getBody()->getContents());
