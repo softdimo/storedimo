@@ -19,7 +19,7 @@ class VentaIndex implements Responsable
             // Realiza la solicitud a la API
             $peticion = $clientApi->get($baseUri . 'venta_index', [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $ventas = json_decode($peticion->getBody()->getContents());
@@ -28,7 +28,7 @@ class VentaIndex implements Responsable
             foreach ($ventas as $venta) {
                 $detallePeticion = $clientApi->post($baseUri . 'detalle_venta/' . $venta->id_venta, [
                     'json' => [
-                        'empresa_actual' => session('empresa_actual')
+                        'empresa_actual' => session('empresa_actual.id_empresa')
                     ]
                 ]);
                 $venta->detalles = json_decode($detallePeticion->getBody()->getContents());

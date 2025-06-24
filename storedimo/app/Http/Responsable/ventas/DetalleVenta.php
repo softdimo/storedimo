@@ -26,7 +26,7 @@ class DetalleVenta implements Responsable
             // Realiza la solicitud a la API
             $peticion = $clientApi->get($baseUri . 'venta/'. $this->idVenta, [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $venta = json_decode($peticion->getBody()->getContents());
@@ -34,7 +34,7 @@ class DetalleVenta implements Responsable
             // Obtener detalles de cada compra
             $detallePeticion = $clientApi->post($baseUri . 'detalle_venta/' . $venta->id_venta, [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $ventaDetalles = json_decode($detallePeticion->getBody()->getContents());
