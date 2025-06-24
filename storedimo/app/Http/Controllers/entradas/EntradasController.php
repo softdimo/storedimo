@@ -86,7 +86,7 @@ class EntradasController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
-                    $categorias = $this->categorias();
+                    $categorias = $this->categoriasTrait();
                     view()->share('categorias', $categorias);
 
                     $productos_compras = $this->productosTraitCompras();
@@ -315,11 +315,11 @@ class EntradasController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function categorias()
+    public function categoriasTrait()
     {
         try {
             $response = $this->clientApi->get('categorias_trait', [
-                'query' => ['empresa_actual' => session('empresa_actual')]
+                'query' => ['empresa_actual' => session('empresa_actual.id_empresa')]
             ]);
 
             return json_decode($response->getBody()->getContents());
