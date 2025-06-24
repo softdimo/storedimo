@@ -100,7 +100,7 @@
                         {{-- ============================================================== --}}
                         <div class="pt-3 pe-2 pb-3 ps-3 d-flex justify-content-between" id="" style="">
                             <div class="d-flex justify-content-center w-75">
-                                {{ Form::select('id_producto', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-select select2', 'id' => 'id_producto']) }}
+                                {{ Form::select('id_producto', collect(['' => 'Seleccionar...'])->union($productos_compras), null, ['class' => 'form-select select2', 'id' => 'id_producto']) }}
                             </div>
 
                             <div class="d-flex justify-content-center w-25">
@@ -257,11 +257,6 @@
                     <div class="p-3" style="border: solid 1px #337AB7;" id="campos_producto">
                         <div class="row">
                             {!! Form::hidden('form_entradas', 'crearProductoEntrada') !!}
-
-                            {{-- <div class="col-12 col-md-4">
-                                    <label for="id_tipo_persona" class="fw-bold" style="font-size: 12px">Proveedor <span class="text-danger">*</span></label>
-                                    {!! Form::select('id_tipo_persona', collect(['' => 'Seleccionar...'])->union($proveedores), null, ['class' => 'form-select', 'id' => 'id_tipo_persona']) !!}
-                                </div> --}}
 
                             <div class="col-12 col-md-4">
                                 <label for="nombre_producto" class="fw-bold" style="font-size: 12px">Nombre Producto

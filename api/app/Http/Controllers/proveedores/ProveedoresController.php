@@ -10,6 +10,8 @@ use App\Http\Responsable\proveedores\ProveedorUpdate;
 use App\Http\Responsable\proveedores\ProveedorEdit;
 use App\Models\Proveedor;
 use App\Helpers\DatabaseConnectionHelper;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 class ProveedoresController extends Controller
 {
@@ -166,4 +168,61 @@ class ProveedoresController extends Controller
             return response(null, 200);
         }
     }
-}
+    
+    // ======================================================================
+    // ======================================================================
+
+    public function proveedoresTrait(Request $request)
+    {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+        
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
+        try {
+            $proveedoresCompra = Proveedor::leftJoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'proveedores.id_tipo_persona')
+                ->select(
+                    'proveedores.id_proveedor',
+                    'proveedores.identificacion',
+                    'proveedores.nit_proveedor',
+                    'proveedores.id_tipo_persona',
+                    DB::raw("
+                        CASE
+                            WHEN proveedores.id_tipo_persona = 4 THEN CONCAT(nit_proveedor, ' - ', proveedor_juridico, ' (', tipo_persona.tipo_persona, ')')
+                            ELSE CONCAT(identificacion, ' - ', nombres_proveedor, ' ', apellidos_proveedor, ' (', tipo_persona.tipo_persona, ')')
+                        END AS nombre_proveedor
+                    ")
+                )
+                ->whereIn('proveedores.id_tipo_persona', [3,4])
+                ->orderBy('tipo_persona.tipo_persona')
+                ->get() // Usamos get() en lugar de pluck()
+                ->mapWithKeys(function($item) {
+                    return [$item->id_proveedor => $item->nombre_proveedor]; // Usamos id_persona como clave única
+                });
+
+            // Retornamos la categoría si existe, de lo contrario retornamos null
+            if (isset($proveedoresCompra) && !is_null($proveedoresCompra) && !empty($proveedoresCompra)) {
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
+                return response()->json($proveedoresCompra);
+                
+            } else {
+                return response(null, 200);
+            }
+
+        } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
+    }
+} // FIN clase ProveedoresController

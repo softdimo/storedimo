@@ -365,18 +365,17 @@ class VentasController extends Controller
     public function productosTrait()
     {
         try {
-            $response = $this->clientApi->get('productos_trait', [
+            $response = $this->clientApi->get('productos_trait_ventas', [
                 'query' => [
                     'empresa_actual' => session('empresa_actual')
                 ]
             ]);
 
-            return json_decode($response->getBody()->getContents(), true);
+            return json_decode($response->getBody()->getContents());
 
         } catch (Exception $e) {
-            dd($e);
             alert()->error('Error', 'Error obteniendo productos en ventas');
-            return [];
+            return back();
         }
     }
 }

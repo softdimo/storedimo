@@ -88,6 +88,13 @@ class EntradasController extends Controller
                 {
                     $categorias = $this->categorias();
                     view()->share('categorias', $categorias);
+
+                    $productos_compras = $this->productosTraitCompras();
+                    view()->share('productos_compras', $productos_compras);
+
+                    $proveedores = $this->proveedoresTrait();
+                    view()->share('proveedores_compras', $proveedores);
+
                     $vista = 'entradas.create';
                     return $this->validarAccesos($sesion[0], 36, $vista);
                 }
@@ -320,6 +327,46 @@ class EntradasController extends Controller
         } catch (Exception $e) {
             alert()->error('Error', 'Error obteniendo categorías');
             return back();
+        }
+    }
+
+    // ======================================================================
+    // ======================================================================
+
+    public function productosTraitCompras()
+    {
+        try {
+            $response = $this->clientApi->get('productos_trait_compras', [
+                'query' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
+
+            return json_decode($response->getBody()->getContents());
+
+        } catch (Exception $e) {
+            alert()->error('Error', 'Error obteniendo productos en compras');
+            return back();
+        }
+    }
+    
+    // ======================================================================
+    // ======================================================================
+
+    public function proveedoresTrait()
+    {
+        try {
+            $response = $this->clientApi->get('proveedores_trait', [
+                'query' => [
+                    'empresa_actual' => session('empresa_actual')
+                ]
+            ]);
+
+            return json_decode($response->getBody()->getContents(), true);
+
+        } catch (Exception $e) {
+            alert()->error('Error', 'Error obteniendo proveedores');
+            return [];
         }
     }
 }

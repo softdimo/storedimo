@@ -93,7 +93,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('query_producto/{idProducto}', 'productos\ProductosController@queryProducto');
     $router->get('reporte_productos_pdf', 'productos\ProductosController@reporteProductosPdf');
     $router->post('verificar_referencia', 'productos\ProductosController@referenceValidator');
-    $router->get('productos_trait', 'productos\ProductosController@productosTrait');
+    $router->get('productos_trait_ventas', 'productos\ProductosController@productosTraitVentas');
+    $router->get('productos_trait_compras', 'productos\ProductosController@productosTraitCompras');
 
     // ========================================================================
 
@@ -115,6 +116,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('proveedor_store', 'proveedores\ProveedoresController@store');
     $router->put('proveedor_update/{idProveedor}', 'proveedores\ProveedoresController@update');
     $router->get('proveedor_edit/{idProveedor}', 'proveedores\ProveedoresController@edit');
+    $router->get('proveedores_trait', 'proveedores\ProveedoresController@proveedoresTrait');
 
     // ========================================================================
 

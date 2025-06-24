@@ -254,7 +254,7 @@ class ProductosController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function productosTrait(Request $request)
+    public function productosTraitVentas(Request $request)
     {
         // Obtener empresa_actual del request
         $empresaActual = $request->input('empresa_actual');
@@ -265,7 +265,13 @@ class ProductosController extends Controller
         }
         
         try {
-            $productos = Producto::where('cantidad', '>', 0)->orderBy('nombre_producto')->pluck('nombre_producto', 'id_producto');
+            $productos = Producto::where('cantidad', '>', 0)
+                ->select(
+                    DB::raw("CONCAT(referencia, ' - ', nombre_producto) AS nombre_producto"),
+                    'id_producto'
+                )
+                ->orderBy('nombre_producto')
+                ->pluck('nombre_producto', 'id_producto');
 
             // Retornamos la categoría si existe, de lo contrario retornamos null
             if (isset($productos) && !is_null($productos) && !empty($productos)) {
@@ -275,6 +281,51 @@ class ProductosController extends Controller
                 }
 
                 return response()->json($productos);
+                
+            } else {
+                return response(null, 200);
+            }
+
+        } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
+    }
+    
+    // ======================================================================
+    // ======================================================================
+
+    public function productosTraitCompras(Request $request)
+    {
+        // Obtener empresa_actual del request
+        $empresaActual = $request->input('empresa_actual');
+        
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+        }
+        
+        try {
+            $productosCompra = Producto::orderBy('nombre_producto')
+                ->select(
+                    DB::raw("CONCAT(referencia, ' - ', nombre_producto) AS nombre_producto"),
+                    'id_producto'
+                )
+                ->orderBy('nombre_producto')
+                ->pluck('nombre_producto', 'id_producto');
+
+            // Retornamos la categoría si existe, de lo contrario retornamos null
+            if (isset($productosCompra) && !is_null($productosCompra) && !empty($productosCompra)) {
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
+                return response()->json($productosCompra);
                 
             } else {
                 return response(null, 200);
