@@ -87,7 +87,7 @@ class ProductosController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
-                    $categorias = $this->categorias();
+                    $categorias = $this->categoriasTrait();
                     view()->share('categorias', $categorias);
                     $vista = 'productos.create';
                     return $this->validarAccesos($sesion[0], 20, $vista);
@@ -413,7 +413,7 @@ class ProductosController extends Controller
                 {
                     $queryValoresProducto = $this->clientApi->post($this->baseUri.'query_producto/'.$idProducto, [
                         'json' => [
-                            'empresa_actual' => session('empresa_actual')
+                            'empresa_actual' => session('empresa_actual.id_empresa')
                         ]
                     ]);
                     return json_decode($queryValoresProducto->getBody()->getContents());
@@ -501,7 +501,7 @@ class ProductosController extends Controller
     // ======================================================================
     // ======================================================================
 
-    public function categorias()
+    public function categoriasTrait()
     {
         try {
             $response = $this->clientApi->get('categorias_trait', [
