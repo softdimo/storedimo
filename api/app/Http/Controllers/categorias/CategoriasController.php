@@ -13,6 +13,7 @@ use App\Models\Categoria;
 use Exception;
 use App\Helpers\DatabaseConnectionHelper;
 use Illuminate\Support\Facades\Log;
+use App\Models\Empresa;
 
 class CategoriasController extends Controller
 {
@@ -155,12 +156,15 @@ class CategoriasController extends Controller
 
     public function categoriasTrait(Request $request)
     {
-        // Obtener empresa_actual del request
-        $empresaActual = $request->input('empresa_actual');
+        // 1. Obtener ID de empresa del request (antes era empresa_actual completo)
+        $empresaId = $request->input('empresa_actual');
+
+        // 2. Buscar empresa completa usando el ID
+        $empresaActual = Empresa::find($empresaId);
         
         // Configurar conexión tenant si hay empresa
         if ($empresaActual) {
-            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
         }
         
         try {

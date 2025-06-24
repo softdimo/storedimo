@@ -13,14 +13,6 @@ class EntradaStore implements Responsable
 {
     public function toResponse($request)
     {
-        // Obtener empresa_actual del request
-        $empresaActual = $request->input('empresa_actual');
-
-        // Configurar conexión tenant si hay empresa
-        if ($empresaActual) {
-            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
-        }
-        
         $idEmpresa = request('id_empresa', null);
         $fechaCompra = request('fecha_compra', null);
         $valorCompra = request('valor_compra', null);
@@ -30,12 +22,20 @@ class EntradaStore implements Responsable
         $productos = request('productos', []);
 
         try {
+             // Obtener empresa_actual del request
+            $empresaActual = $request->input('empresa_actual');
+
+            // Configurar conexión tenant si hay empresa
+            if ($empresaActual) {
+                DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+            }
+
             $crearCompra = Compra::create([
                 'id_empresa' => $idEmpresa,
                 'fecha_compra' => $fechaCompra,
                 'valor_compra' => $valorCompra,
                 'id_proveedor' => $idProveedor,
-                'id_usuario' => $usuLogueado,
+                // 'id_usuario' => $usuLogueado,
                 'id_estado' => $idEstado
             ]);
             

@@ -8,7 +8,6 @@ use App\Http\Responsable\personas\PersonaIndex;
 use App\Http\Responsable\personas\PersonaStore;
 use App\Http\Responsable\personas\PersonaUpdate;
 use App\Http\Responsable\personas\PersonaEdit;
-use Illuminate\Support\Facades\Hash;
 use App\Models\Persona;
 use App\Helpers\DatabaseConnectionHelper;
 use Illuminate\Support\Facades\DB;

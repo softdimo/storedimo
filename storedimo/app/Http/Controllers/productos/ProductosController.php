@@ -505,7 +505,7 @@ class ProductosController extends Controller
     {
         try {
             $response = $this->clientApi->get('categorias_trait', [
-                'query' => ['empresa_actual' => session('empresa_actual')]
+                'query' => ['empresa_actual' => session('empresa_actual.id_empresa')]
             ]);
 
             return json_decode($response->getBody()->getContents());

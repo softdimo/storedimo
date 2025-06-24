@@ -44,7 +44,7 @@ class VentaStore implements Responsable
                 'total_venta' => $totalVenta,
                 'id_tipo_pago' => $idTipoPago,
                 'id_cliente' => $idCliente,
-                'id_usuario' => $usuLogueado,
+                // 'id_usuario' => $usuLogueado,
                 'id_estado' => $idEstado,
                 'id_estado_credito' => $idEstadoCredito,
                 'fecha_limite_credito' => $fechaLimiteCredito
