@@ -64,7 +64,7 @@ class ProductoUpdate implements Responsable
             // Obtener los datos actuales del producto antes de actualizar
             $peticionProducto = $clientApi->post($baseUri.'query_producto/'.$idProducto, [
                 'query' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $productoActual = json_decode($peticionProducto->getBody()->getContents());
