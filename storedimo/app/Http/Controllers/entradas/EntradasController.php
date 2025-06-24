@@ -338,7 +338,7 @@ class EntradasController extends Controller
         try {
             $response = $this->clientApi->get('productos_trait_compras', [
                 'query' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
 
@@ -358,7 +358,7 @@ class EntradasController extends Controller
         try {
             $response = $this->clientApi->get('proveedores_trait', [
                 'query' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
 

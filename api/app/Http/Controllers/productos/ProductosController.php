@@ -260,12 +260,15 @@ class ProductosController extends Controller
 
     public function productosTraitVentas(Request $request)
     {
-        // Obtener empresa_actual del request
-        $empresaActual = $request->input('empresa_actual');
+        // 1. Obtener ID de empresa del request (antes era empresa_actual completo)
+        $empresaId = $request->input('empresa_actual');
+
+        // 2. Buscar empresa completa usando el ID
+        $empresaActual = Empresa::find($empresaId);
         
         // Configurar conexión tenant si hay empresa
         if ($empresaActual) {
-            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
         }
         
         try {
@@ -305,12 +308,15 @@ class ProductosController extends Controller
 
     public function productosTraitCompras(Request $request)
     {
-        // Obtener empresa_actual del request
-        $empresaActual = $request->input('empresa_actual');
+        // 1. Obtener ID de empresa del request (antes era empresa_actual completo)
+        $empresaId = $request->input('empresa_actual');
+
+        // 2. Buscar empresa completa usando el ID
+        $empresaActual = Empresa::find($empresaId);
         
         // Configurar conexión tenant si hay empresa
         if ($empresaActual) {
-            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
         }
         
         try {

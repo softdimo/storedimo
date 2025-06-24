@@ -347,7 +347,7 @@ class VentasController extends Controller
         try {
             $response = $this->clientApi->get('clientes_trait', [
                 'query' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
 
@@ -367,7 +367,7 @@ class VentasController extends Controller
         try {
             $response = $this->clientApi->get('productos_trait_ventas', [
                 'query' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
 

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use setasign\Fpdf\FPDF;
 use Carbon\Carbon;
 
+
 class ReporteProductosPdf implements Responsable
 {
     protected $baseUri;
