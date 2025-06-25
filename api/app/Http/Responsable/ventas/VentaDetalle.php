@@ -36,7 +36,6 @@ class VentaDetalle implements Responsable
             $ventas = Venta::leftjoin('tipos_pago','tipos_pago.id_tipo_pago','=','ventas.id_tipo_pago')
                 ->leftjoin('productos','productos.id_producto','=','ventas.id_producto')
                 ->leftjoin('personas','personas.id_persona','=','ventas.id_cliente')
-                ->leftjoin('usuarios','usuarios.id_usuario','=','ventas.id_usuario')
                 ->leftjoin('estados','estados.id_estado','=','ventas.id_estado_credito')
                 ->leftjoin('tipo_persona','tipo_persona.id_tipo_persona','=','ventas.id_tipo_cliente')
                 ->leftjoin('empresas','empresas.id_empresa','=','ventas.id_empresa')
@@ -57,7 +56,6 @@ class VentaDetalle implements Responsable
                     'personas.identificacion',
                     DB::raw("CONCAT(nombres_persona, ' ', apellidos_persona) AS nombres_cliente"),
                     'ventas.id_usuario',
-                    DB::raw("CONCAT(nombre_usuario, ' ', apellido_usuario) AS nombres_usuario"),
                     'ventas.id_estado_credito',
                     'estado',
                     'id_tipo_cliente',
@@ -71,6 +69,17 @@ class VentaDetalle implements Responsable
                 // Restaurar conexión principal si se usó tenant
                 if ($empresaActual) {
                     DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
+                // 3. Agregar nombre completo del usuario desde la base principal
+                if ($ventas) {
+                    $usuario = DB::connection('mysql')
+                        ->table('usuarios')
+                        ->where('id_usuario', $ventas->id_usuario)
+                        ->select(DB::raw("CONCAT(nombre_usuario, ' ', apellido_usuario) as nombres_usuario"))
+                        ->first();
+                
+                    $ventas->nombres_usuario = $usuario->nombres_usuario ?? 'Sin usuario';
                 }
 
                 return response()->json($ventas);
