@@ -19,7 +19,7 @@ class BajaIndex implements Responsable
             // Realiza la solicitud a la API
             $peticion = $clientApi->get($baseUri . 'baja_index', [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $bajasIndex = json_decode($peticion->getBody()->getContents());
@@ -28,13 +28,14 @@ class BajaIndex implements Responsable
             foreach ($bajasIndex as $baja) {
                 $detallePeticion = $clientApi->post($baseUri . 'baja_detalle/' . $baja->id_baja, [
                     'json' => [
-                        'empresa_actual' => session('empresa_actual')
+                        'empresa_actual' => session('empresa_actual.id_empresa')
                     ]
                 ]);
                 $baja->detalles = json_decode($detallePeticion->getBody()->getContents());
             }
 
             return view('existencias.bajas_index', compact('bajasIndex'));
+            
         } catch (Exception $e) {
             alert()->error('Error', 'Exception Index Bajas, contacte a Soporte.');
             return back();

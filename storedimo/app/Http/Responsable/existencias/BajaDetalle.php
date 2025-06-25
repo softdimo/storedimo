@@ -26,7 +26,7 @@ class BajaDetalle implements Responsable
             // Realiza la solicitud a la API
             $peticion = $clientApi->get($baseUri . 'baja/'. $this->idBaja, [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $baja = json_decode($peticion->getBody()->getContents());
@@ -34,7 +34,7 @@ class BajaDetalle implements Responsable
             // Obtener detalles de cada baja
             $detallePeticion = $clientApi->post($baseUri . 'baja_detalle/'. $this->idBaja, [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $bajaDetalles = json_decode($detallePeticion->getBody()->getContents());

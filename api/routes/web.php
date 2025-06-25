@@ -95,6 +95,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->post('verificar_referencia', 'productos\ProductosController@referenceValidator');
     $router->get('productos_trait_ventas', 'productos\ProductosController@productosTraitVentas');
     $router->get('productos_trait_compras', 'productos\ProductosController@productosTraitCompras');
+    $router->get('productos_trait_existencias', 'productos\ProductosController@productosTraitExistencias');
 
     // ========================================================================
 

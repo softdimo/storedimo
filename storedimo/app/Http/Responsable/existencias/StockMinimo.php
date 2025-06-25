@@ -19,7 +19,7 @@ class StockMinimo implements Responsable
             // Realiza la solicitud a la API
             $peticion = $clientApi->get($baseUri . 'stock_minimo_index', [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $stockMinimoIndex = json_decode($peticion->getBody()->getContents());

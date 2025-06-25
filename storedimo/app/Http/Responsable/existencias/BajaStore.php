@@ -46,7 +46,7 @@ class BajaStore implements Responsable
                         ];
                     }, $idProductos, $cantidades, $idTiposBaja, $observaciones), // Construcción del array
                     'id_audit' => session('id_usuario'),
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $resBajaStore = json_decode($reqBajaStore->getBody()->getContents());

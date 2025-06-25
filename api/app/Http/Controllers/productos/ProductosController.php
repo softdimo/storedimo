@@ -350,4 +350,52 @@ class ProductosController extends Controller
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
+    
+    // ======================================================================
+    // ======================================================================
+
+    public function productosTraitExistencias(Request $request)
+    {
+        // 1. Obtener ID de empresa del request (antes era empresa_actual completo)
+        $empresaId = $request->input('empresa_actual');
+
+        // 2. Buscar empresa completa usando el ID
+        $empresaActual = Empresa::find($empresaId);
+        
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
+        }
+        
+        try {
+            $productosExistencias = Producto::orderBy('nombre_producto')
+                ->select(
+                    DB::raw("CONCAT(referencia, ' - ', nombre_producto) AS nombre_producto"),
+                    'id_producto'
+                )
+                ->orderBy('nombre_producto')
+                ->pluck('nombre_producto', 'id_producto');
+
+            // Retornamos la categoría si existe, de lo contrario retornamos null
+            if (isset($productosExistencias) && !is_null($productosExistencias) && !empty($productosExistencias)) {
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
+                return response()->json($productosExistencias);
+                
+            } else {
+                return response(null, 200);
+            }
+
+        } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
+    }
 }

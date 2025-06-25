@@ -64,6 +64,9 @@ class ExistenciasController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
+                    $productos = $this->productosTrait();
+                    view()->share('productos', $productos);
+
                     $vista = 'existencias.create';
                     return $this->validarAccesos($sesion[0], 13, $vista);
                 }
@@ -333,6 +336,25 @@ class ExistenciasController extends Controller
         {
             alert()->error("Exception stockMinimo!");
             return redirect()->to(route('login'));
+        }
+    }
+
+    // ======================================================================
+
+    public function productosTrait()
+    {
+        try {
+            $response = $this->clientApi->get('productos_trait_existencias', [
+                'query' => [
+                    'empresa_actual' => session('empresa_actual.id_empresa')
+                ]
+            ]);
+
+            return json_decode($response->getBody()->getContents());
+
+        } catch (Exception $e) {
+            alert()->error('Error', 'Error obteniendo productos en existencias');
+            return back();
         }
     }
 }

@@ -78,7 +78,7 @@ class ReporteBajasPdf implements Responsable
                 'json' => [
                     'fecha_inicial' => $fechaInicial,
                     'fecha_final' => $fechaFinal,
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             return json_decode($peticionReporteBajasPdf->getBody()->getContents());
