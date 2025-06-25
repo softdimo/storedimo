@@ -22,8 +22,6 @@ class EntradaStore implements Responsable
 
     public function toResponse($request)
     {
-        // dd($request->all());
-
         $idEmpresa = request('id_empresa', null);
         $fechaCompra = now()->format('Y-m-d H:i:s'); // Formato compatible con DATETIME en MySQL
         $valorCompra = request('valor_compra', null);
@@ -58,14 +56,12 @@ class EntradaStore implements Responsable
                 ]
             ]);
             $resEntradaStore = json_decode($reqEntradaStore->getBody()->getContents());
-            // dd($resEntradaStore);
 
             if(isset($resEntradaStore->success) && $resEntradaStore->success) {
                 alert()->success('Proceso Exitoso', 'Compra creada satisfactoriamente');
                 return redirect()->to(route('entradas.index'));
             }
         } catch (Exception $e) {
-            dd($e);
             alert()->error('Error', 'Creando la compra, contacte a Soporte.');
             return back();
         }

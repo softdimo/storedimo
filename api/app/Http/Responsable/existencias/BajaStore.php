@@ -34,7 +34,7 @@ class BajaStore implements Responsable
 
         try {
             $crearBaja = Baja::create([
-                // 'id_responsable_baja' => $responsableBaja,
+                'id_responsable_baja' => $responsableBaja,
                 'fecha_baja' => $fechaBaja,
                 'id_estado_baja' => $idEstado
             ]);

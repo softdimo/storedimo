@@ -25,12 +25,12 @@ class BajaIndex implements Responsable
         }
         
         try {
-            $bajas = Baja::leftjoin('usuarios','usuarios.id_usuario','=','bajas.id_responsable_baja')
-                ->leftjoin('estados','estados.id_estado','=','bajas.id_estado_baja')
+            $bajas = Baja::leftjoin('estados','estados.id_estado','=','bajas.id_estado_baja')
+                // ->leftjoin('usuarios','usuarios.id_usuario','=','bajas.id_responsable_baja')
                 ->select(
                     'id_baja',
-                    'id_usuario',
-                    DB::raw("CONCAT(nombre_usuario, ' ', apellido_usuario, ' - ', identificacion) AS nombres_usuario"),
+                    'id_responsable_baja',
+                    // DB::raw("CONCAT(nombre_usuario, ' ', apellido_usuario, ' - ', identificacion) AS nombres_usuario"),
                     'fecha_baja',
                     'id_estado_baja',
                     'estado'
@@ -41,6 +41,17 @@ class BajaIndex implements Responsable
                 // Restaurar conexión principal si se usó tenant
                 if ($empresaActual) {
                     DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
+                 // 3. Agregar nombre completo del usuario desde la base principal
+                 foreach ($bajas as $baja) {
+                    $usuario = DB::connection('mysql') // o la conexión principal que uses
+                        ->table('usuarios')
+                        ->where('id_usuario', $baja->id_responsable_baja)
+                        ->select(DB::raw("CONCAT(nombre_usuario, ' ', apellido_usuario) as nombres_usuario"))
+                        ->first();
+
+                    $baja->nombres_usuario = $usuario->nombres_usuario ?? 'Sin usuario';
                 }
 
                 return response()->json($bajas);
