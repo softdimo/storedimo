@@ -4,8 +4,6 @@ namespace App\Http\Responsable\entradas;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
 class DetalleEntrada implements Responsable

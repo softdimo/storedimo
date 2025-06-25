@@ -35,7 +35,7 @@ class EntradaStore implements Responsable
                 'fecha_compra' => $fechaCompra,
                 'valor_compra' => $valorCompra,
                 'id_proveedor' => $idProveedor,
-                // 'id_usuario' => $usuLogueado,
+                'id_usuario' => $usuLogueado,
                 'id_estado' => $idEstado
             ]);
             
