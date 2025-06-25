@@ -4,7 +4,6 @@ namespace App\Http\Responsable\ventas;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
 use App\Models\Venta;
 use App\Models\Producto;
 use App\Models\VentaProducto;
@@ -44,7 +43,7 @@ class VentaStore implements Responsable
                 'total_venta' => $totalVenta,
                 'id_tipo_pago' => $idTipoPago,
                 'id_cliente' => $idCliente,
-                // 'id_usuario' => $usuLogueado,
+                'id_usuario' => $usuLogueado,
                 'id_estado' => $idEstado,
                 'id_estado_credito' => $idEstadoCredito,
                 'fecha_limite_credito' => $fechaLimiteCredito

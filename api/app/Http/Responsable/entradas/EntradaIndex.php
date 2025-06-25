@@ -26,7 +26,6 @@ class EntradaIndex implements Responsable
         
         try {
             $entradas = Compra::leftjoin('proveedores','proveedores.id_proveedor','=','compras.id_proveedor')
-                ->leftjoin('usuarios','usuarios.id_usuario','=','compras.id_usuario')
                 ->leftjoin('productos','productos.id_producto','=','compras.id_producto')
                 ->leftjoin('estados','estados.id_estado','=','compras.id_estado')
                 ->leftjoin('empresas','empresas.id_empresa','=','compras.id_empresa')
@@ -43,7 +42,6 @@ class EntradaIndex implements Responsable
                     'compras.id_usuario',
                     'empresas.id_empresa',
                     'empresas.nombre_empresa as empresa',
-                    DB::raw("CONCAT(nombre_usuario, ' ', apellido_usuario) AS nombres_usuario"),
                     'compras.id_estado',
                     'estado',
                     'compras.id_producto',
@@ -57,6 +55,17 @@ class EntradaIndex implements Responsable
                 // Restaurar conexión principal si se usó tenant
                 if ($empresaActual) {
                     DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
+                // 3. Agregar nombre completo del usuario desde la base principal
+                foreach ($entradas as $entrada) {
+                    $usuario = DB::connection('mysql') // o la conexión principal que uses
+                        ->table('usuarios')
+                        ->where('id_usuario', $entrada->id_usuario)
+                        ->select(DB::raw("CONCAT(nombre_usuario, ' ', apellido_usuario) as nombres_usuario"))
+                        ->first();
+
+                    $entrada->nombres_usuario = $usuario->nombres_usuario ?? 'Sin usuario';
                 }
 
                 return response()->json($entradas);
