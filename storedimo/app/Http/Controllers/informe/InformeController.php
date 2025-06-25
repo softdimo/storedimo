@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Traits\MetodosTrait;
 use App\Http\Responsable\Informes\RespuestaInforme;
+use App\Models\InformeCampo;
+use App\Models\Informe;
 
 class InformeController extends Controller
 {
@@ -34,8 +36,12 @@ class InformeController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
-                    $vista = "informe_gerencial";
-                   return $this->validarAccesos($sesion[0], 58, $vista, 1);
+                    $campos = InformeCampo::formulario(1);
+                    $informe = Informe::where('informe_codigo', 1)->first();
+
+                    return view('informes.informe', compact('campos', 'informe'));
+                //     $vista = "informe_gerencial";
+                //    return $this->validarAccesos($sesion[0], 58, $vista, 1);
                 }
             }
         } catch (Exception $e)

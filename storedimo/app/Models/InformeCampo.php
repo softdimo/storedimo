@@ -47,26 +47,24 @@ class InformeCampo extends Model
                 $nombreDB = InformeCampo::obtenerNombreCampo($infoCampo);
                 switch ($infoCampo->filtro_tipo) {
                     case 1:
-                    
-                    $resultado = InformeCampo::select($infoCampo, $resultado, $nombreDB);
-              
+                        $resultado = InformeCampo::select($infoCampo, $resultado, $nombreDB);
                     case 2:
                         # code...
                     break;
                     case 3:
-                    $resultado = InformeCampo::rangoNumeros($infoCampo, $resultado, $nombreDB);
+                        $resultado = InformeCampo::rangoNumeros($infoCampo, $resultado, $nombreDB);
                     break;
                     case 4:
                     case 8:
-                    $resultado = InformeCampo::text($infoCampo, $resultado, $nombreDB);
+                        $resultado = InformeCampo::text($infoCampo, $resultado, $nombreDB);
                     break;
                     case 5:
                     case 6:
                     case 9:
-                    $resultado = InformeCampo::rangoFechas($infoCampo, $resultado, $nombreDB);
+                        $resultado = InformeCampo::rangoFechas($infoCampo, $resultado, $nombreDB);
                     break;
                     case 7:
-                    $resultado = InformeCampo::selectMultiple($infoCampo, $resultado, $nombreDB);
+                        $resultado = InformeCampo::selectMultiple($infoCampo, $resultado, $nombreDB);
                     break;
                 }
             }
@@ -120,13 +118,14 @@ class InformeCampo extends Model
      */
     public static function select($infoCampo, $resultado, $nombreDB)
     {
-        if (is_null($infoCampo->filtro_value)) {
+        if (is_null($infoCampo->filtro_value))
+        {
 
             $result = DB::select($infoCampo->filtro_sql);
-
             $opciones = InformeCampo::arrayObjectToCollection($result, $infoCampo);
            
-        }else{
+        }else
+        {
             $opciones = collect([ 'opcion' => $infoCampo->filtro_value]);
         }
         

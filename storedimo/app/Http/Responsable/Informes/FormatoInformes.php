@@ -146,7 +146,7 @@ class FormatoInformes
                             $reglas = $this->inputSelect($reqFiltro, $filtro, $reglas, $informe);
                             break;
                         case 2:
-                            //$reglas = $this->inputFecha($reqFiltro, $filtro, $reglas);
+                            $reglas = $this->inputFecha($reqFiltro, $filtro, $reglas);
                             break;
                         case 3:
                             $reglas = $this->inputRangoNumeros($reqFiltro, $filtro, $reglas);
@@ -160,7 +160,7 @@ class FormatoInformes
                         case 6:
                             $reglas = $this->inputFechaDate($reqFiltro, $filtro, $reglas);
                             break;
-                        case 7:
+                        case 8:
                             $reglas = $this->inputTextExacto($reqFiltro, $filtro, $reglas);
                             break;
                         case 9:

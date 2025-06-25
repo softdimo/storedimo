@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('css')
+<link rel="stylesheet" type="text/css" href="{{asset('css/daterangepicker.css')}}" />
 @endsection
 @section('title', $informe ? $informe->informe_descripcion : 'Informe')
 @section('content')
@@ -29,7 +30,7 @@
                                     {!! $campo !!}
                                 @endforeach
                             </div>
-
+                            <hr>
                             <div class="row m-l-20 m-r-20">
                                 @foreach($campos['checks'] as $campo)
                                     {!! $campo !!}
@@ -74,6 +75,9 @@
 @endsection
 
 @section('scripts')
+<script type="text/javascript" src="{{ asset('js/moment.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/daterangepicker.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/daterangepicker.js') }}"></script>
 <script>
 
     url = '{{route('respuesta')}}';
@@ -179,6 +183,8 @@
                 }
             }
         });
+
+        $('.select2').select2();
     });
 
     function limpiar()

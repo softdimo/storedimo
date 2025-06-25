@@ -56,22 +56,22 @@ trait CamposInforme
 
         if ($reglas['primerWhere'])
         {
-            if ($reqFiltro[$filtro->infxcam_codigo] == -999)
+            if ($reqFiltro[$filtro->id] == -999)
             {
-                $reglas['where'] = " WHERE {$filtro->cam_filtro_where} IS NULL";
+                $reglas['where'] = " WHERE {$filtro->campo_filtro_where} IS NULL";
             } else
             {
-                $reglas['where'] = " WHERE {$filtro->cam_filtro_where} = '{$reqFiltro[$filtro->infxcam_codigo]}'";
+                $reglas['where'] = " WHERE {$filtro->campo_filtro_where} = '{$reqFiltro[$filtro->id]}'";
             }
             $reglas['primerWhere'] = false;
         } else
         {
-            if ($reqFiltro[$filtro->infxcam_codigo] == -999)
+            if ($reqFiltro[$filtro->id] == -999)
             {
-                $reglas['where'] .= " AND {$filtro->cam_filtro_where} IS NULL";
+                $reglas['where'] .= " AND {$filtro->campo_filtro_where} IS NULL";
             } else
             {
-                $reglas['where'] .= " AND {$filtro->cam_filtro_where} = '{$reqFiltro[$filtro->infxcam_codigo]}'";
+                $reglas['where'] .= " AND {$filtro->campo_filtro_where} = '{$reqFiltro[$filtro->id]}'";
             }
         }
 
@@ -87,7 +87,7 @@ trait CamposInforme
      */
     public function inputFechaTimestamp($reqFiltro, $filtro, $reglas)
     {
-        list($fecha_inicio, $fecha_fin) = explode(' - ' , $reqFiltro[$filtro->infxcam_codigo]);
+        list($fecha_inicio, $fecha_fin) = explode(' - ' , $reqFiltro[$filtro->id]);
 
         $fecha_inicio = str_replace('/', '-', $fecha_inicio);
         $fecha_fin = str_replace('/', '-', $fecha_fin);
@@ -100,10 +100,10 @@ trait CamposInforme
         // $final = new Date($fechas[1]." 23:59:59");
 
         if ($reglas['primerWhere']) {
-            $reglas['where'] = " WHERE {$filtro->cam_filtro_where} BETWEEN '{$inicial->timestamp}' AND '{$final->timestamp}'";
+            $reglas['where'] = " WHERE {$filtro->campo_filtro_where} BETWEEN '{$inicial->timestamp}' AND '{$final->timestamp}'";
             $reglas['primerWhere'] = false;
         } else {
-            $reglas['where'] .= " AND {$filtro->cam_filtro_where} BETWEEN '{$inicial->timestamp}' AND '{$final->timestamp}'";
+            $reglas['where'] .= " AND {$filtro->campo_filtro_where} BETWEEN '{$inicial->timestamp}' AND '{$final->timestamp}'";
         }
         return $reglas;
     }
@@ -117,16 +117,16 @@ trait CamposInforme
      */
     public function inputFechaDate($reqFiltro, $filtro, $reglas)
     {
-        $fechas = explode(' - ', $reqFiltro[$filtro->infxcam_codigo]);
+        $fechas = explode(' - ', $reqFiltro[$filtro->id]);
        
         $inicial = Carbon::parse(str_replace('/', '-', $fechas[0]))->startOfDay();
         $final = Carbon::parse(str_replace('/', '-', $fechas[1]))->endOfDay();
 
         if ($reglas['primerWhere']) {
-            $reglas['where'] = " WHERE {$filtro->cam_filtro_where} BETWEEN '{$inicial}'::date AND '{$final}'::date";
+            $reglas['where'] = " WHERE {$filtro->campo_filtro_where} BETWEEN '{$inicial}'::date AND '{$final}'::date";
             $reglas['primerWhere'] = false;
         } else {
-            $reglas['where'] .= " AND {$filtro->cam_filtro_where} BETWEEN '{$inicial}'::date AND '{$final}'::date";
+            $reglas['where'] .= " AND {$filtro->campo_filtro_where} BETWEEN '{$inicial}'::date AND '{$final}'::date";
         }
 
         return $reglas;
@@ -141,7 +141,7 @@ trait CamposInforme
      */
     public function inputFechaDateCompareToDate($reqFiltro, $filtro, $reglas)
     {
-        list($fecha_inicio, $fecha_fin) = explode(' - ' , $reqFiltro[$filtro->infxcam_codigo]);
+        list($fecha_inicio, $fecha_fin) = explode(' - ' , $reqFiltro[$filtro->id]);
 
         $fecha_inicio = str_replace('/', '-', $fecha_inicio);
         $fecha_fin = str_replace('/', '-', $fecha_fin);
@@ -151,10 +151,10 @@ trait CamposInforme
 
 
         if ($reglas['primerWhere']) {
-            $reglas['where'] = " WHERE {$filtro->cam_filtro_where} BETWEEN '{$inicial}' AND '{$final}'";
+            $reglas['where'] = " WHERE {$filtro->campo_filtro_where} BETWEEN '{$inicial}' AND '{$final}'";
             $reglas['primerWhere'] = false;
         } else {
-            $reglas['where'] .= " AND {$filtro->cam_filtro_where} BETWEEN '{$inicial}' AND '{$final}'";
+            $reglas['where'] .= " AND {$filtro->campo_filtro_where} BETWEEN '{$inicial}' AND '{$final}'";
         }
         return $reglas;
     }
@@ -168,14 +168,14 @@ trait CamposInforme
      */
     public function inputRangoNumeros($reqFiltro, $filtro, $reglas)
     {
-        $inicial = $reqFiltro[$filtro->infxcam_codigo]['inicial'];
-        $final = $reqFiltro[$filtro->infxcam_codigo]['final'];
+        $inicial = $reqFiltro[$filtro->id]['inicial'];
+        $final = $reqFiltro[$filtro->id]['final'];
         if(!empty($inicial) && !empty($final)){
             if ($reglas['primerWhere']) {
-                $reglas['where'] = " WHERE {$filtro->cam_filtro_where} BETWEEN '{$inicial}' AND '{$final}'";
+                $reglas['where'] = " WHERE {$filtro->campo_filtro_where} BETWEEN '{$inicial}' AND '{$final}'";
                 $reglas['primerWhere'] = false;
             } else {
-                $reglas['where'] .= " AND {$filtro->cam_filtro_where} BETWEEN '{$inicial}' AND '{$final}'";
+                $reglas['where'] .= " AND {$filtro->campo_filtro_where} BETWEEN '{$inicial}' AND '{$final}'";
             }
         }
         return $reglas;
@@ -190,11 +190,13 @@ trait CamposInforme
      */
     public function inputText($reqFiltro, $filtro, $reglas)
     {
-        if ($reglas['primerWhere']) {
-            $reglas['where'] = " WHERE {$filtro->cam_filtro_where} ILIKE '%{$reqFiltro[$filtro->infxcam_codigo]}%'";
+        if ($reglas['primerWhere'])
+        {
+            $reglas['where'] = " WHERE {$filtro->campo_filtro_where} LIKE '%{$reqFiltro[$filtro->id]}%'";
             $reglas['primerWhere'] = false;
-        } else {
-            $reglas['where'] .= " AND {$filtro->cam_filtro_where} ILIKE '%{$reqFiltro[$filtro->infxcam_codigo]}%'";
+        } else
+        {
+            $reglas['where'] .= " AND {$filtro->campo_filtro_where} LIKE '%{$reqFiltro[$filtro->id]}%'";
         }
         return $reglas;
     }
@@ -209,10 +211,10 @@ trait CamposInforme
     public function inputTextExacto($reqFiltro, $filtro, $reglas)
     {
         if ($reglas['primerWhere']) {
-            $reglas['where'] = " WHERE UPPER({$filtro->cam_filtro_where}) ILIKE '{$reqFiltro[$filtro->infxcam_codigo]}'";
+            $reglas['where'] = " WHERE UPPER({$filtro->campo_filtro_where}) LIKE '{$reqFiltro[$filtro->id]}'";
             $reglas['primerWhere'] = false;
         } else {
-            $reglas['where'] .= " AND UPPER({$filtro->cam_filtro_where}) ILIKE '{$reqFiltro[$filtro->infxcam_codigo]}'";
+            $reglas['where'] .= " AND UPPER({$filtro->campo_filtro_where}) LIKE '{$reqFiltro[$filtro->id]}'";
         }
         return $reglas;
     }
