@@ -104,7 +104,7 @@ class ReporteProductosPdf implements Responsable
         try {
             $peticionReporteProductosPdf = $this->clientApi->get($this->baseUri.'reporte_productos_pdf', [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
 

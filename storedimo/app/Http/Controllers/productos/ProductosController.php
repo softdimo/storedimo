@@ -199,7 +199,7 @@ class ProductosController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
-                    $categorias = $this->categorias();
+                    $categorias = $this->categoriasTrait();
                     return new ProductoEdit($idProducto, $categorias);
                 }
             }
@@ -485,7 +485,7 @@ class ProductosController extends Controller
             $response = $this->clientApi->post($this->baseUri . 'verificar_referencia', [
                 'json' => [
                     'referencia' => $request->input('referencia'),
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             return response()->json(json_decode($response->getBody()->getContents(), true));

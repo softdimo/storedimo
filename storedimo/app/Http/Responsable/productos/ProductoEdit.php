@@ -29,7 +29,7 @@ class ProductoEdit implements Responsable
             // Realiza la solicitud a la API
             $response = $clientApi->post($baseUri . 'producto_edit/'.$idProducto, [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $productoEdit = json_decode($response->getBody()->getContents());
@@ -44,6 +44,7 @@ class ProductoEdit implements Responsable
             };
             
         } catch (Exception $e) {
+            dd($e);
             alert()->error('Error', 'Error consulta producto, si el problema persiste, contacte a Soporte.');
             return back();
         }
