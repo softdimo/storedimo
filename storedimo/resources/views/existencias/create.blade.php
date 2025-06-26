@@ -227,7 +227,7 @@
 
                         if (respuesta.cantidad == null || respuesta.cantidad < cantidad) {
                             Swal.fire('Cuidado!',
-                                'Este producto no tiene existencia disponible para dar de baja!',
+                                'Este producto no tiene existencia disponible para dar de baja. Cantidad disponible en inventario: ' + (respuesta.cantidad ?? 0),
                                 'warning')
                             $('#cantidad').val('');
                         }
