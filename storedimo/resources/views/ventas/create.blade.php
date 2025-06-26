@@ -104,7 +104,7 @@
                                     class="text-danger">*</span></h5>
                             {{-- ============================================================== --}}
                             <div class="p-2 d-flex justify-content-between">
-                                <div class="col-md-10 me-1">
+                                <div class="col-12">
                                     {{ Form::select(
                                         'cliente_venta',
                                         collect(['' => 'Seleccionar...'])->union(
@@ -114,22 +114,22 @@
                                         ['class' => 'form-select select2', 'id' => 'cliente_venta', 'required'],
                                     ) }}
                                 </div>
-
-                                <div class="col-md-1">
-                                    <button type="button" class="btn rounded-2 text-white" style="background-color: #337AB7"
-                                        title="Registrar Cliente" data-bs-toggle="modal"
-                                        data-bs-target="#modal_registroCliente">
-                                        <i class="fa fa-plus plus"></i>
-                                    </button>
-                                </div>
                             </div>
                             {{-- ============================================================== --}}
                             <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Producto <span
                                     class="text-danger">*</span></h5>
                             {{-- ============================================================== --}}
                             <div class="p-3 d-flex justify-content-between" id="" style="">
-                                <div class="d-flex justify-content-center w-100">
+                                <div class="col-md-10 me-1">
                                     {{ Form::select('producto_venta', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-select select2', 'id' => 'producto_venta']) }}
+                                </div>
+
+                                <div class="col-md-1">
+                                    <button type="button" class="btn rounded-2 text-white" style="background-color: #337AB7"
+                                        title="Registrar Producto" data-bs-toggle="modal"
+                                        data-bs-target="#modal_registroProducto">
+                                        <i class="fa fa-plus plus"></i>
+                                    </button>
                                 </div>
                             </div>
                             {{-- ============================================================== --}}
@@ -325,7 +325,7 @@
     {{-- ==================================================================================== --}}
 
     {{-- INICIO MODAL REGISTRAR PRODUCTO --}}
-    <div class="modal fade" id="modal_registroCliente" data-bs-backdrop="static" data-bs-keyboard="false"
+    <div class="modal fade" id="modal_registroProducto" data-bs-backdrop="static" data-bs-keyboard="false"
         tabindex="-1" aria-labelledby="staticBackdropLabel">
         <div class="modal-dialog">
             <div class="modal-content p-3">
