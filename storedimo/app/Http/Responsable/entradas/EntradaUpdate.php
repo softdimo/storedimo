@@ -39,7 +39,7 @@ class EntradaUpdate implements Responsable
                 'json' => [
                     'categoria' => $categoria,
                     'id_audit' => session('id_usuario'),
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $respuestaCategoriaUpdate = json_decode($peticionCategoriaUpdate->getBody()->getContents());
@@ -77,7 +77,7 @@ class EntradaUpdate implements Responsable
             $peticionConsultaCategoria = $this->clientApi->post($this->baseUri.'consulta_categoria', [
                 'json' => [
                     'categoria' => $categoria,
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             return json_decode($peticionConsultaCategoria->getBody()->getContents());

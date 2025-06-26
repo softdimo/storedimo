@@ -5,6 +5,7 @@ namespace App\Http\Responsable\personas;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use App\Models\Persona;
+use App\Models\Empresa;
 use App\Helpers\DatabaseConnectionHelper;
 use Illuminate\Support\Facades\Log;
 
@@ -30,10 +31,15 @@ class PersonaStore implements Responsable
         // ================================================
         
         try {
-            $empresaActual = request('empresa_actual', null);
+            // 1. Obtener ID de empresa del request (antes era empresa_actual completo)
+            $empresaId = $request->input('empresa_actual');
 
+            // 2. Buscar empresa completa usando el ID
+            $empresaActual = Empresa::find($empresaId);
+            
+            // Configurar conexión tenant si hay empresa
             if ($empresaActual) {
-                DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+                DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
             }
 
             Persona::create([

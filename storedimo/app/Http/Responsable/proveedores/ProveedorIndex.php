@@ -16,7 +16,7 @@ class ProveedorIndex implements Responsable
 
             $peticion = $clientApi->get($baseUri . 'proveedores_index', [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $resProveedoresIndex = json_decode($peticion->getBody()->getContents());

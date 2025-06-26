@@ -5,6 +5,7 @@ namespace App\Http\Responsable\personas;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use App\Models\Persona;
+use App\Models\Empresa;
 use App\Helpers\DatabaseConnectionHelper;
 
 class PersonaIndex implements Responsable
@@ -12,12 +13,15 @@ class PersonaIndex implements Responsable
     public function toResponse($request)
     {
         try {
-            // Obtener empresa_actual del request
-            $empresaActual = $request->input('empresa_actual');
+            // 1. Obtener ID de empresa del request (antes era empresa_actual completo)
+            $empresaId = $request->input('empresa_actual');
 
+            // 2. Buscar empresa completa usando el ID
+            $empresaActual = Empresa::find($empresaId);
+            
             // Configurar conexión tenant si hay empresa
             if ($empresaActual) {
-                DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+                DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
             }
 
             $personas = Persona::leftjoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'personas.id_tipo_persona')

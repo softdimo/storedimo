@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
 use App\Helpers\DatabaseConnectionHelper;
 use App\Models\Persona;
+use App\Models\Empresa;
 
 class PersonaUpdate implements Responsable
 {
@@ -22,12 +23,15 @@ class PersonaUpdate implements Responsable
     public function toResponse($request)
     {
         try {
-            // Obtener empresa_actual del request
-            $empresaActual = $request->input('empresa_actual');
+            // 1. Obtener ID de empresa del request (antes era empresa_actual completo)
+            $empresaId = $request->input('empresa_actual');
 
+            // 2. Buscar empresa completa usando el ID
+            $empresaActual = Empresa::find($empresaId);
+            
             // Configurar conexión tenant si hay empresa
             if ($empresaActual) {
-                DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+                DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
             }
 
             $persona = Persona::find($this->idPersona);

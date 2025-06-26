@@ -75,7 +75,7 @@ class ProveedorStore implements Responsable
                         'proveedor_juridico' => $proveedorJuridico,
                         'telefono_juridico' => $telefonoJuridico,
                         'id_audit' => session('id_usuario'),
-                        'empresa_actual' => session('empresa_actual')
+                        'empresa_actual' => session('empresa_actual.id_empresa')
                     ]
                 ]);
                 $resProveedorStore = json_decode($peticionProveedorStore->getBody()->getContents());
@@ -97,7 +97,7 @@ class ProveedorStore implements Responsable
         $queryIdentificacion = $this->clientApi->post($this->baseUri.'query_identificacion_proveedor', [
             'json' => [
                 'identificacion' => $identificacion,
-                'empresa_actual' => session('empresa_actual')
+                'empresa_actual' => session('empresa_actual.id_empresa')
             ]
         ]);
         return json_decode($queryIdentificacion->getBody()->getContents());
@@ -111,7 +111,7 @@ class ProveedorStore implements Responsable
         $queryNitProveedor = $this->clientApi->post($this->baseUri.'query_nit_proveedor', [
             'json' => [
                 'nit_proveedor' => $nitProveedor,
-                'empresa_actual' => session('empresa_actual')
+                'empresa_actual' => session('empresa_actual.id_empresa')
             ]
         ]);
         return json_decode($queryNitProveedor->getBody()->getContents());

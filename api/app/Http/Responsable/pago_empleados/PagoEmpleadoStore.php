@@ -5,18 +5,22 @@ namespace App\Http\Responsable\pago_empleados;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use App\Models\PagoEmpleado;
+use App\Models\Empresa;
 use App\Helpers\DatabaseConnectionHelper;
 
 class PagoEmpleadoStore implements Responsable
 {
     public function toResponse($request)
     {
-        // Obtener empresa_actual del request
-        $empresaActual = $request->input('empresa_actual');
+        // 1. Obtener ID de empresa del request (antes era empresa_actual completo)
+        $empresaId = $request->input('empresa_actual');
 
+        // 2. Buscar empresa completa usando el ID
+        $empresaActual = Empresa::find($empresaId);
+        
         // Configurar conexión tenant si hay empresa
         if ($empresaActual) {
-            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
         }
         
         $idUsuario = request('id_usuario', null);

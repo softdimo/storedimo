@@ -26,7 +26,7 @@ class ProveedorEdit implements Responsable
 
             $peticion = $clientApi->get($baseUri . 'proveedor_edit/'. $this->idProveedor, [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $proveedorEdit = json_decode($peticion->getBody()->getContents());

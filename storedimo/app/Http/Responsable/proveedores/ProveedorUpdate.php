@@ -64,7 +64,7 @@ class ProveedorUpdate implements Responsable
                     'proveedor_juridico' => $proveedorJuridico,
                     'telefono_juridico' => $telefonoJuridico,
                     'id_audit' => session('id_usuario'),
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $resProveedorUpdate = json_decode($peticionProveedorUpdate->getBody()->getContents());

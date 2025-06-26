@@ -19,7 +19,7 @@ class CategoriaIndex implements Responsable
             // Realiza la solicitud a la API
             $response = $clientApi->get($baseUri . 'categoria_index', [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $categorias = json_decode($response->getBody()->getContents());

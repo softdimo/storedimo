@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
 use App\Models\Compra;
+use App\Models\Empresa;
 use App\Helpers\DatabaseConnectionHelper;
 
 class EntradaUpdate implements Responsable
@@ -19,9 +20,12 @@ class EntradaUpdate implements Responsable
 
     public function toResponse($request)
     {
-        // Obtener empresa_actual del request
-        $empresaActual = $request->input('empresa_actual');
+        // 1. Obtener ID de empresa del request (antes era empresa_actual completo)
+        $empresaId = $request->input('empresa_actual');
 
+        // 2. Buscar empresa completa usando el ID
+        $empresaActual = Empresa::find($empresaId);
+        
         // Configurar conexión tenant si hay empresa
         if ($empresaActual) {
             DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());

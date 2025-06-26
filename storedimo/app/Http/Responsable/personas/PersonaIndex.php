@@ -17,7 +17,7 @@ class PersonaIndex implements Responsable
 
             $response = $clientApi->get($baseUri . 'personas_index', [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             return json_decode($response->getBody()->getContents());

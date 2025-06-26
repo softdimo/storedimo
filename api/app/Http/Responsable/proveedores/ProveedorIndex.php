@@ -5,18 +5,22 @@ namespace App\Http\Responsable\proveedores;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use App\Models\Proveedor;
+use App\Models\Empresa;
 use App\Helpers\DatabaseConnectionHelper;
 
 class ProveedorIndex implements Responsable
 {
     public function toResponse($request)
     {
-        // Obtener empresa_actual del request
-        $empresaActual = $request->input('empresa_actual');
+        // 1. Obtener ID de empresa del request (antes era empresa_actual completo)
+        $empresaId = $request->input('empresa_actual');
 
+        // 2. Buscar empresa completa usando el ID
+        $empresaActual = Empresa::find($empresaId);
+        
         // Configurar conexión tenant si hay empresa
         if ($empresaActual) {
-            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
         }
         
         try {

@@ -206,7 +206,7 @@ class EntradasController extends Controller
             $reqAnularCompra = $this->clientApi->post($this->baseUri.'anular_compra/'.$idCompra, [
                 'json' => [
                     'id_audit' => session('id_usuario'),
-                    'empresa_actual' => session('empresa_actual')]
+                    'empresa_actual' => session('empresa_actual.id_empresa')]
             ]);
             $resAnularCompra = json_decode($reqAnularCompra->getBody()->getContents());
 

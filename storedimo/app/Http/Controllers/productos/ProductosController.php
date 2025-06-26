@@ -310,7 +310,7 @@ class ProductosController extends Controller
                             'query' => [
                                 'nombre_producto' => $nombreProducto,
                                 'id_categoria' => $idCategoria,
-                                'empresa_actual' => session('empresa_actual')
+                                'empresa_actual' => session('empresa_actual.id_empresa')
                             ]
                         ]);
                         $resVerificarProducto = json_decode($verificarProducto->getBody()->getContents());
