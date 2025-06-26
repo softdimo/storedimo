@@ -78,7 +78,7 @@ class PersonaStore implements Responsable
                     'nombre_empresa' => $nombreEmpresa,
                     'telefono_empresa' => $telefonoEmpresa,
                     'id_audit' => session('id_usuario'),
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $resPersonaStore = json_decode($peticionPersonaStore->getBody()->getContents());
@@ -99,7 +99,7 @@ class PersonaStore implements Responsable
         $queryIdentificacion = $this->clientApi->post($this->baseUri.'query_id_persona', [
             'json' => [
                 'identificacion' => $identificacion,
-                'empresa_actual' => session('empresa_actual')
+                'empresa_actual' => session('empresa_actual.id_empresa')
             ]
         ]);
         return json_decode($queryIdentificacion->getBody()->getContents());
@@ -113,7 +113,7 @@ class PersonaStore implements Responsable
         $queryNitEmpresa = $this->clientApi->post($this->baseUri.'query_nit_empresa', [
             'json' => [
                 'nit_empresa' => $nitEmpresa,
-                'empresa_actual' => session('empresa_actual')
+                'empresa_actual' => session('empresa_actual.id_empresa')
             ]
         ]);
         return json_decode($queryNitEmpresa->getBody()->getContents());
