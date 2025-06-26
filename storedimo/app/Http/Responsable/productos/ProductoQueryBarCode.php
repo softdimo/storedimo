@@ -28,7 +28,7 @@ class ProductoQueryBarCode implements Responsable
 
             $response = $clientApi->post($baseUri . 'producto_query_barcode/'.$idProducto, [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $producto = json_decode($response->getBody()->getContents(), true);

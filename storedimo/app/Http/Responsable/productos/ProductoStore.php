@@ -86,7 +86,7 @@ class ProductoStore implements Responsable
                     'referencia' => $referencia,
                     'fecha_vencimiento' => $fechaVencimiento,
                     'id_audit' => session('id_usuario'),
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             

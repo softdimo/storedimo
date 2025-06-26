@@ -94,7 +94,7 @@ class ProductoGenerarBarCode implements Responsable
 
             $peticion = $clientApi->post($baseUri . 'query_producto/' . $idProducto, [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             return json_decode($peticion->getBody()->getContents());
