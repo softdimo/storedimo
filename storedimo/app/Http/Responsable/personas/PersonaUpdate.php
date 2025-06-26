@@ -64,7 +64,7 @@ class PersonaUpdate implements Responsable
                     'nombre_empresa' => $nombreEmpresa,
                     'telefono_empresa' => $telefonoEmpresa,
                     'id_audit' => session('id_usuario'),
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $resPersonaUpdate = json_decode($peticionPersonaUpdate->getBody()->getContents());

@@ -27,7 +27,7 @@ class CategoriaEdit implements Responsable
             // Realiza la solicitud a la API
             $peticion = $clientApi->get($baseUri . 'categoria_edit/'.$this->idCategoria, [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $categoriaEdit = json_decode($peticion->getBody()->getContents());

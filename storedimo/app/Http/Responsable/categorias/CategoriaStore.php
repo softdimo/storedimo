@@ -46,7 +46,7 @@ class CategoriaStore implements Responsable
                         'categoria' => ucwords($categoria),
                         'id_estado' => 1,
                         'id_audit' => session('id_usuario'),
-                        'empresa_actual' => session('empresa_actual')
+                        'empresa_actual' => session('empresa_actual.id_empresa')
                     ]
                 ]);
                 $respuestaCategoriaStore = json_decode($peticionCategoriaStore->getBody()->getContents());
@@ -86,7 +86,7 @@ class CategoriaStore implements Responsable
             $peticionConsultaCategoria = $this->clientApi->post($this->baseUri.'consulta_categoria', [
                 'json' => [
                     'categoria' => $categoria,
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             return json_decode($peticionConsultaCategoria->getBody()->getContents());

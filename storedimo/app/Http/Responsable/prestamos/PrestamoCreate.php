@@ -19,7 +19,7 @@ class PrestamoCreate implements Responsable
             // Realiza la solicitud a la API
             $peticion = $clientApi->get($baseUri . 'prestamo_create', [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $usuariosPrestamosCreate = json_decode($peticion->getBody()->getContents());

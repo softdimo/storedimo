@@ -26,7 +26,7 @@ class PersonaEdit implements Responsable
 
             $peticion = $clientApi->get($baseUri . 'persona_edit/'. $this->idCliente, [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $persona = json_decode($peticion->getBody()->getContents());

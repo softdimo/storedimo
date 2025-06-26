@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Responsable;
 use App\Models\Compra;
 use App\Models\CompraProducto;
 use App\Models\Producto;
+use App\Models\Empresa;
 use App\Helpers\DatabaseConnectionHelper;
 
 class EntradaStore implements Responsable
@@ -22,12 +23,15 @@ class EntradaStore implements Responsable
         $productos = request('productos', []);
 
         try {
-             // Obtener empresa_actual del request
-            $empresaActual = $request->input('empresa_actual');
+            // 1. Obtener ID de empresa del request (antes era empresa_actual completo)
+            $empresaId = $request->input('empresa_actual');
 
+            // 2. Buscar empresa completa usando el ID
+            $empresaActual = Empresa::find($empresaId);
+            
             // Configurar conexión tenant si hay empresa
             if ($empresaActual) {
-                DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+                DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
             }
 
             $crearCompra = Compra::create([

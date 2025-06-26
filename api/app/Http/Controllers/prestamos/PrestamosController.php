@@ -16,6 +16,7 @@ use App\Http\Responsable\prestamos\PrestamoShow;
 use App\Http\Responsable\prestamos\PrestamoEdit;
 use App\Http\Responsable\prestamos\PrestamoDestroy;
 use App\Models\Prestamo;
+use App\Models\Empresa;
 use App\Helpers\DatabaseConnectionHelper;
 
 class PrestamosController extends Controller
@@ -120,12 +121,15 @@ class PrestamosController extends Controller
 
     public function verificarPrestamo(Request $request)
     {
-        // Obtener empresa_actual del request
-        $empresaActual = $request->input('empresa_actual');
+        // 1. Obtener ID de empresa del request (antes era empresa_actual completo)
+        $empresaId = $request->input('empresa_actual');
 
+        // 2. Buscar empresa completa usando el ID
+        $empresaActual = Empresa::find($empresaId);
+        
         // Configurar conexión tenant si hay empresa
         if ($empresaActual) {
-            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
         }
 
         $nombrePrestamo = request('nombre_producto', null);
@@ -159,12 +163,15 @@ class PrestamosController extends Controller
 
     public function queryPrestamo(Request $request, $idPrestamo)
     {
-        // Obtener empresa_actual del request
-        $empresaActual = $request->input('empresa_actual');
+        // 1. Obtener ID de empresa del request (antes era empresa_actual completo)
+        $empresaId = $request->input('empresa_actual');
 
+        // 2. Buscar empresa completa usando el ID
+        $empresaActual = Empresa::find($empresaId);
+        
         // Configurar conexión tenant si hay empresa
         if ($empresaActual) {
-            DatabaseConnectionHelper::configurarConexionTenant($empresaActual);
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
         }
 
         try {

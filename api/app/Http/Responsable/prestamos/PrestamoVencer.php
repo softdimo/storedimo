@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
 use App\Models\Prestamo;
+use App\Models\Empresa;
 use App\Helpers\DatabaseConnectionHelper;
 
 class PrestamoVencer implements Responsable

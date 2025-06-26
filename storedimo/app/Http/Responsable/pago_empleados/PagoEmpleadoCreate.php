@@ -19,7 +19,7 @@ class PagoEmpleadoCreate implements Responsable
             // Realiza la solicitud a la API
             $peticion = $clientApi->get($baseUri . 'pago_empleado_create', [
                 'json' => [
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $pagoEmpleadosCreate = json_decode($peticion->getBody()->getContents());

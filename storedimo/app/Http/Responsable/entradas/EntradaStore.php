@@ -52,7 +52,7 @@ class EntradaStore implements Responsable
                     'id_usuario' => $usuLogueado,
                     'id_estado' => $idEstado,
                     'id_audit' => session('id_usuario'),
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $resEntradaStore = json_decode($reqEntradaStore->getBody()->getContents());

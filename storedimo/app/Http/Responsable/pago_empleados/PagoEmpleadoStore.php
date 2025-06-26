@@ -64,7 +64,7 @@ class PagoEmpleadoStore implements Responsable
                     'cesantias' => $cesantias,
                     'total' => $total,
                     'id_audit' => session('id_usuario'),
-                    'empresa_actual' => session('empresa_actual')
+                    'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $resPagoStore = json_decode($peticionPagoStore->getBody()->getContents());
