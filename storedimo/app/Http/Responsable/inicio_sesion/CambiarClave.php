@@ -59,8 +59,17 @@ class CambiarClave implements Responsable
                     $claveCambiada = json_decode($response->getBody()->getContents());
     
                     if($claveCambiada) {
-                        alert()->success('Bien', 'Clave cambiada satisfactoriamente');
-                        return redirect()->route('logout');
+                        // alert()->success('Bien', 'Clave cambiada satisfactoriamente');
+                        // return redirect()->route('logout');
+
+                        // Comparar si el usuario que cambia la clave es el mismo logueado
+                        if ($idUsuario == session('id_usuario')) {
+                            alert()->success('Bien', 'Clave cambiada. Por seguridad, debe volver a iniciar sesión.');
+                            return redirect()->route('logout');
+                        } else {
+                            alert()->success('Bien', 'Clave del usuario actualizada correctamente.');
+                            return back();
+                        }
     
                     } else {
                         alert()->error('Error', 'Error al cambiar la clave, por favor contacte a Soporte.');
