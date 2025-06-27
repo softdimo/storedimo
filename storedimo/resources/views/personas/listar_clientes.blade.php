@@ -31,11 +31,20 @@
         {{-- ======================================================================= --}}
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
-            <div class="text-end">
-                <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal"
-                    data-bs-target="#modalAyudaListarClientes">
-                    <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
-                </a>
+
+            <div class="d-flex justify-content-between pe-3 mt-3 mb-2">
+                <div class="">
+                    <a href="{{ route('personas.create') }}" class="btn text-white" style="background-color:#337AB7">Crear
+                        Clientes</a>
+                </div>
+
+                <div class="text-end">
+                    <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal"
+                        data-bs-target="#modalAyudaListarClientes">
+                        <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda"
+                            style="color: #337AB7"></i>
+                    </a>
+                </div>
             </div>
 
             {{-- =============================================================== --}}
@@ -94,13 +103,6 @@
                 <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar
                     Clientes
                 </h5>
-                
-                <div class="row pe-3 mt-3">
-                    <div class="col-12 d-flex justify-content-end">
-                        <a href="{{ route('personas.create') }}" class="btn text-white"
-                            style="background-color:#337AB7">Crear Clientes</a>
-                    </div>
-                </div>
 
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
@@ -129,8 +131,9 @@
                                             <td>{{ $persona->celular }}</td>
                                             <td>{{ $persona->estado }}</td>
                                             <td>
-                                                <button type="button" class="btn btn-success rounded-circle btn-circle btn-editar-cliente"
-                                                    title="Editar Cliente" data-id="{{$persona->id_persona}}">
+                                                <button type="button"
+                                                    class="btn btn-success rounded-circle btn-circle btn-editar-cliente"
+                                                    title="Editar Cliente" data-id="{{ $persona->id_persona }}">
                                                     <i class="fa fa-pencil-square-o"></i>
                                                 </button>
                                             </td>
@@ -208,21 +211,25 @@
 
             // ===========================================================================================
 
-            $(document).on('click', '.btn-editar-cliente', function () {
+            $(document).on('click', '.btn-editar-cliente', function() {
                 const idCliente = $(this).data('id');
 
                 $.ajax({
                     url: `/personas/${idCliente}/edit`,
                     type: 'GET',
-                    beforeSend: function () {
+                    beforeSend: function() {
                         $('#modalEditarCliente').modal('show');
-                        $('#modalEditarClienteContent').html('<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>');
+                        $('#modalEditarClienteContent').html(
+                            '<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>'
+                        );
                     },
-                    success: function (html) {
+                    success: function(html) {
                         $('#modalEditarClienteContent').html(html);
                     }, // FIN success
-                    error: function () {
-                        $('#modalEditarClienteContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');
+                    error: function() {
+                        $('#modalEditarClienteContent').html(
+                            '<div class="alert alert-danger">Error al cargar el formulario.</div>'
+                        );
                     }
                 }); // FIN $.ajax
             }); // FIN $(document).on('click', '.btn-editar-cliente

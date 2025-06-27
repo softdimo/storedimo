@@ -31,11 +31,19 @@
         {{-- ======================================================================= --}}
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
-            <div class="text-end">
-                <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal"
-                    data-bs-target="#modalAyudaListarProveedores">
-                    <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
-                </a>
+            <div class="d-flex justify-content-between pe-3 mt-3 mb-2">
+                <div class="">
+                    <a href="{{ route('proveedores.create') }}" class="btn text-white" style="background-color:#337AB7">Crear
+                        Proveedor</a>
+                </div>
+                
+                <div class="text-end">
+                    <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal"
+                        data-bs-target="#modalAyudaListarProveedores">
+                        <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda"
+                            style="color: #337AB7"></i>
+                    </a>
+                </div>
             </div>
 
             {{-- =============================================================== --}}
@@ -97,13 +105,6 @@
                 <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar
                     Proveedores</h5>
 
-                <div class="row pe-3 mt-3">
-                    <div class="col-12 d-flex justify-content-end">
-                        <a href="{{ route('proveedores.create') }}" class="btn text-white"
-                            style="background-color:#337AB7">Crear Proveedor</a>
-                    </div>
-                </div>
-
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered w-100 mb-0" id="tbl_proveedores"
@@ -134,7 +135,9 @@
                                         <td>{{ $proveedor->celular_proveedor }}</td>
                                         <td>{{ $proveedor->estado }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-success rounded-circle btn-circle btn-editar-proveedor" title="Editar Proveedor" data-id="{{ $proveedor->id_proveedor }}">
+                                            <button type="button"
+                                                class="btn btn-success rounded-circle btn-circle btn-editar-proveedor"
+                                                title="Editar Proveedor" data-id="{{ $proveedor->id_proveedor }}">
                                                 <i class="fa fa-pencil-square-o"></i>
                                             </button>
                                         </td>
@@ -161,7 +164,7 @@
             </div> {{-- modal-content --}}
         </div> {{-- modal-dialog --}}
     </div>
-{{-- FINAL Modal EDITAR PROVEEDOR  --}}
+    {{-- FINAL Modal EDITAR PROVEEDOR  --}}
 @stop
 
 {{-- =============================================================== --}}
@@ -238,17 +241,19 @@
             // ===========================================================================================
             // ===========================================================================================
 
-            $(document).on('click', '.btn-editar-proveedor', function () {
+            $(document).on('click', '.btn-editar-proveedor', function() {
                 const idProveedor = $(this).data('id');
 
                 $.ajax({
                     url: `proveedor_edit/${idProveedor}`,
                     type: 'GET',
-                    beforeSend: function () {
+                    beforeSend: function() {
                         $('#modalEditarProveedor').modal('show');
-                        $('#modalEditarProveedorContent').html('<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>');
+                        $('#modalEditarProveedorContent').html(
+                            '<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>'
+                        );
                     },
-                    success: function (html) {
+                    success: function(html) {
                         $('#modalEditarProveedorContent').html(html);
 
                         // Reinicializar select2 si lo usas en el modal
@@ -264,7 +269,8 @@
                         let selectTipoPersona = modal.find('[id^=id_tipo_persona_]');
 
                         if (selectTipoPersona.length > 0) { // Al cargar el modal
-                            let idTipoPersona = selectTipoPersona.val(); // Obtener el valor actual del select
+                            let idTipoPersona = selectTipoPersona
+                                .val(); // Obtener el valor actual del select
                             console.log(`Id Tipo Persona al abrir el modal: ${idTipoPersona}`);
 
                             // Buscar los elementos dentro de este modal
@@ -292,7 +298,8 @@
                             let divIdGenero = modal.find('[id^=div_id_genero]');
                             let inputIdGenero = modal.find('[id^=id_genero]');
 
-                            let divProveedorJuridico = modal.find('[id^=div_proveedor_juridico]');
+                            let divProveedorJuridico = modal.find(
+                                '[id^=div_proveedor_juridico]');
                             let inputNitEmpresa = modal.find('[id^=nit_empresa]');
                             let inputNombreEmpresa = modal.find('[id^=nombre_empresa]');
                             let inputTelefonoEmpresa = modal.find('[id^=telefono_empresa]');
@@ -348,23 +355,34 @@
 
                             // Al cambiar el tipo de persona
                             selectTipoPersona.change(function() {
-                                let idTipoPersona = selectTipoPersona.val(); // Obtener el valor actual del select al cambiar
+                                let idTipoPersona = selectTipoPersona
+                                    .val(); // Obtener el valor actual del select al cambiar
                                 console.log(`cambio ${idTipoPersona}`);
 
-                                let modal = $('#modalEditarProveedor'); // Asegurar que buscamos dentro del modal correcto
+                                let modal = $(
+                                    '#modalEditarProveedor'
+                                    ); // Asegurar que buscamos dentro del modal correcto
                                 // let modal = $(this).closest('[id^="modalEditarProveedor_"]'); // Asegurar que buscamos dentro del modal correcto
 
-                                let divIdentificacion = modal.find('[id^=div_identificacion]');
-                                let inputIdentificacion = modal.find('[id^=identificacion]');
+                                let divIdentificacion = modal.find(
+                                    '[id^=div_identificacion]');
+                                let inputIdentificacion = modal.find(
+                                    '[id^=identificacion]');
 
-                                let divNombresPersona = modal.find('[id^=div_nombres_persona]');
-                                let inputNombresPersona = modal.find('[id^=nombres_persona]');
+                                let divNombresPersona = modal.find(
+                                    '[id^=div_nombres_persona]');
+                                let inputNombresPersona = modal.find(
+                                    '[id^=nombres_persona]');
 
-                                let divApellidosPersona = modal.find('[id^=div_apellidos_persona]');
-                                let inputApellidosPersona = modal.find('[id^=apellidos_persona]');
+                                let divApellidosPersona = modal.find(
+                                    '[id^=div_apellidos_persona]');
+                                let inputApellidosPersona = modal.find(
+                                    '[id^=apellidos_persona]');
 
-                                let divNumeroTelefono = modal.find('[id^=div_numero_telefono]');
-                                let inputNumeroTelefono = modal.find('[id^=numero_telefono]');
+                                let divNumeroTelefono = modal.find(
+                                    '[id^=div_numero_telefono]');
+                                let inputNumeroTelefono = modal.find(
+                                    '[id^=numero_telefono]');
 
                                 let divCelular = modal.find('[id^=div_celular]');
                                 let inputCelular = modal.find('[id^=celular]');
@@ -378,10 +396,13 @@
                                 let divIdGenero = modal.find('[id^=div_id_genero]');
                                 let inputIdGenero = modal.find('[id^=id_genero]');
 
-                                let divProveedorJuridico = modal.find('[id^=div_proveedor_juridico]');
+                                let divProveedorJuridico = modal.find(
+                                    '[id^=div_proveedor_juridico]');
                                 let inputNitEmpresa = modal.find('[id^=nit_empresa]');
-                                let inputNombreEmpresa = modal.find('[id^=nombre_empresa]');
-                                let inputTelefonoEmpresa = modal.find('[id^=telefono_empresa]');
+                                let inputNombreEmpresa = modal.find(
+                                    '[id^=nombre_empresa]');
+                                let inputTelefonoEmpresa = modal.find(
+                                    '[id^=telefono_empresa]');
 
                                 if (idTipoPersona == 4) { // Proveedor-juridico
                                     console.log(`juridico ${idTipoPersona}`);
@@ -449,8 +470,10 @@
                             }); // FIN Tipo Persona Jurídica
                         } // FIN selectTipoPersona.length > 0
                     }, // FIN success
-                    error: function () {
-                        $('#modalEditarProveedorContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');
+                    error: function() {
+                        $('#modalEditarProveedorContent').html(
+                            '<div class="alert alert-danger">Error al cargar el formulario.</div>'
+                        );
                     }
                 }); // FIN $.ajax
             }); // FIN $(document).on('click', '.btn-editar-proveedor

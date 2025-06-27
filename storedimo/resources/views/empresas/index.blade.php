@@ -7,7 +7,7 @@
 
 @section('css')
     <style>
-        
+
     </style>
 @stop
 
@@ -30,70 +30,79 @@
         {{-- ======================================================================= --}}
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
-            <div class="text-end">
-                <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal" data-bs-target="#modalAyudaListarEmpresas">
-                    <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
-                </a>
+            <div class="d-flex justify-content-between pe-3 mt-3 mb-2">
+                <div class="">
+                    <a href="{{ route('empresas.create') }}" class="btn text-white" style="background-color:#337AB7">Crear
+                        Empresa</a>
+                </div>
+                <div class="text-end">
+                    <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal"
+                        data-bs-target="#modalAyudaListarEmpresas">
+                        <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda"
+                            style="color: #337AB7"></i>
+                    </a>
+                </div>
             </div>
 
             {{-- ======================================================================= --}}
             {{-- ======================================================================= --}}
 
-            <div class="modal fade" id="modalAyudaListarEmpresas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+            <div class="modal fade" id="modalAyudaListarEmpresas" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
                 <div class="modal-dialog" style="min-width: 75%;">
                     <div class="modal-content p-3">
                         <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="rounded-top text-white text-center p-2" style="background-color: #337AB7; border: solid 1px #337AB7;">
+                                    <div class="rounded-top text-white text-center p-2"
+                                        style="background-color: #337AB7; border: solid 1px #337AB7;">
                                         <span class="modal-title fs-5"><strong>Ayuda de Listar Empresas</strong></span>
                                     </div>
                                     {{-- =========================== --}}
                                     <div class="p-3">
-                                        <p class="text-justify">Señor usuario en esta vista usted se va a encontrar con diferentes opciones ubicadas al lado izquierdo de la tabla, cada una con una acción diferente, esas opciones son:
+                                        <p class="text-justify">Señor usuario en esta vista usted se va a encontrar con
+                                            diferentes opciones ubicadas al lado izquierdo de la tabla, cada una con una
+                                            acción diferente, esas opciones son:
                                         </p>
 
                                         <ul>
                                             <li><strong>Opcion de Modificación:</strong>
                                                 <ol>Tener en cuenta a la hora de modificar una empresa lo siguiente:
-                                                    <li class="text-justify">Todos los campos que poseen el asterisco (*) son obligatorios, por lo tanto sino se diligencian,
-                                                    el sistema no le dejará seguir.</li>
-                                                    <li class="text-justify">Los campos nombre de empresa e email no pueden ser idénticos a datos ya registrados.</li>
+                                                    <li class="text-justify">Todos los campos que poseen el asterisco (*)
+                                                        son obligatorios, por lo tanto sino se diligencian,
+                                                        el sistema no le dejará seguir.</li>
+                                                    <li class="text-justify">Los campos nombre de empresa e email no pueden
+                                                        ser idénticos a datos ya registrados.</li>
                                                 </ol>
                                                 <br>
                                             </li>
                                         </ul>
-                                        <p class="text-justify">Por seguridad el empleado rol administrador no se le permitirá el cambio de estado</p>
-                                    </div> {{--FINpanel-body --}}
-                                </div> {{--FIN col-12 --}}
-                            </div> {{--FIN modal-body .row --}}
-                        </div> {{--FIN modal-body --}}
+                                        <p class="text-justify">Por seguridad el empleado rol administrador no se le
+                                            permitirá el cambio de estado</p>
+                                    </div> {{-- FINpanel-body --}}
+                                </div> {{-- FIN col-12 --}}
+                            </div> {{-- FIN modal-body .row --}}
+                        </div> {{-- FIN modal-body --}}
                         {{-- =========================== --}}
                         <div class="row mt-3">
                             <div class="col-12">
-                                <button type="button" class="btn btn-primary btn-md active pull-right" data-bs-dismiss="modal" style="background-color: #337AB7;">
+                                <button type="button" class="btn btn-primary btn-md active pull-right"
+                                    data-bs-dismiss="modal" style="background-color: #337AB7;">
                                     <i class="fa fa-check-circle" aria-hidden="true">&nbsp;Aceptar</i>
                                 </button>
                             </div>
                         </div>
-                    </div> {{--FIN modal-content --}}
-                </div> {{--FIN modal-dialog --}}
-            </div> {{--FIN modalAyudaModificacionProductos --}}
+                    </div> {{-- FIN modal-content --}}
+                </div> {{-- FIN modal-dialog --}}
+            </div> {{-- FIN modalAyudaModificacionProductos --}}
 
             {{-- ======================================================================= --}}
             {{-- ======================================================================= --}}
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
-                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0"
-                    style="background-color: #337AB7">Listar Empresas
+                <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar
+                    Empresas
                 </h5>
-
-                <div class="row pe-3 mt-3">
-                    <div class="col-12 d-flex justify-content-end">
-                        <a href="{{ route('empresas.create') }}" class="btn text-white"
-                            style="background-color:#337AB7">Crear Empresa</a>
-                    </div>
-                </div>
 
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
@@ -132,18 +141,20 @@
                                         <td>{{ $empresa->db_database ? Crypt::decrypt($empresa->db_database) : '' }}</td>
                                         <td>{{ $empresa->db_username ? Crypt::decrypt($empresa->db_username) : '' }}</td>
                                         <td>{{ $empresa->db_password ? Crypt::decrypt($empresa->db_password) : '' }}</td>
-                                        
+
                                         @if (is_null($empresa->logo_empresa))
                                             <td class="align-middle"></td>
                                         @else
                                             <td class="align-middle">
-                                                <img src="{{ $empresa->logo_empresa }}" alt="Empresa" style="max-width: 50px;">
+                                                <img src="{{ $empresa->logo_empresa }}" alt="Empresa"
+                                                    style="max-width: 50px;">
                                             </td>
                                         @endif
 
                                         <td>{{ $empresa->estado ? $empresa->estado : '' }}</td>
                                         <td>
-                                            <a href="{{ route('empresas.edit', $empresa->id_empresa) }}" class="btn btn-success rounded-circle btn-circle text-white btn-editar-empresa">
+                                            <a href="{{ route('empresas.edit', $empresa->id_empresa) }}"
+                                                class="btn btn-success rounded-circle btn-circle text-white btn-editar-empresa">
                                                 <i class="fa fa-pencil-square-o"></i>
                                             </a>
                                         </td>
@@ -176,8 +187,7 @@
                 bSort: true,
                 autoWidth: false,
                 scrollX: true,
-                buttons: [
-                    {
+                buttons: [{
                         extend: 'pdfHtml5',
                         text: 'PDF',
                         className: 'waves-effect waves-light btn-rounded btn-sm btn-danger',
@@ -197,9 +207,9 @@
                         extend: 'excelHtml5',
                         text: 'Excel',
                         className: 'waves-effect waves-light btn-rounded btn-sm btn-primary mr-3',
-                        customize: function( xlsx ) {
+                        customize: function(xlsx) {
                             var sheet = xlsx.xl.worksheets['sheet1.xml'];
-                            $('row:first c', sheet).attr( 's', '42' );
+                            $('row:first c', sheet).attr('s', '42');
                         }
                     }
                 ],
