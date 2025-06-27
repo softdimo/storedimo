@@ -23,11 +23,19 @@
         {{-- ======================================================================= --}}
 
         <div class="p-3" style="width: 80%">
-            <div class="text-end">
-                <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal"
-                    data-bs-target="#modalAyudaRegistrarEntradas">
-                    <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
-                </a>
+
+            <div class="d-flex justify-content-between pe-3 mt-3 mb-2">
+                <div class="">
+                    <a href="{{ route('entradas.index') }}" class="btn text-white" style="background-color:#337AB7">Compras</a>
+                </div>
+
+                <div class="text-end">
+                    <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal"
+                        data-bs-target="#modalAyudaRegistrarEntradas">
+                        <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda"
+                            style="color: #337AB7"></i>
+                    </a>
+                </div>
             </div>
 
             <div class="modal fade" id="modalAyudaRegistrarEntradas" tabindex="-1" role="dialog"
@@ -179,7 +187,7 @@
                                     </thead>
                                     {{-- ============================== --}}
                                     <tbody>
-                                        
+
                                     </tbody>
                                 </table>
                             </div>
@@ -629,7 +637,8 @@
                             $('#p_x_mayor').html(0);
                             // Desactivar botón
                             spinner.show();
-                            btn.prop("disabled", true).html(`<i class="fa fa-spinner fa-spin"></i> Procesando...`);
+                            btn.prop("disabled", true).html(
+                                `<i class="fa fa-spinner fa-spin"></i> Procesando...`);
                         },
                         success: function(respuesta) {
                             console.log(respuesta);
@@ -646,7 +655,8 @@
                                     $('#p_x_mayor').html(respuesta.precio_por_mayor);
 
                                     $('#idProductoEdit').val(respuesta.id_producto);
-                                    $('#precioUnitarioEdit').val(respuesta.precio_unitario);
+                                    $('#precioUnitarioEdit').val(respuesta
+                                        .precio_unitario);
                                     $('#precioDetalEdit').val(respuesta.precio_detal);
                                     $('#precioPorMayorEdit').val(respuesta
                                         .precio_por_mayor);
@@ -662,7 +672,8 @@
                         error: function(xhr, status, error) {
                             console.error("Error:", error);
                             spinner.hide();
-                            btn.prop("disabled", false).html(`<i class="fa fa-plus plus"></i> Agregar`);
+                            btn.prop("disabled", false).html(
+                                `<i class="fa fa-plus plus"></i> Agregar`);
                         }
                     });
                 } else {
@@ -867,7 +878,7 @@
                 $('#p_detal').html(0); // Resetear precio detal
                 $('#p_x_mayor').html(0); // Resetear precio mayorista
                 $('#cantidad').val(''); // Limpiar cantidad
-                
+
                 spinner.hide();
 
                 indiceSiguienteFila++;

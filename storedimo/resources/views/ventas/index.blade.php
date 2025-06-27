@@ -48,6 +48,12 @@
         {{-- ======================================================================= --}}
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
+            <div class="d-flex justify-content-between pe-3 mt-2 mb-2">
+                <div class="">
+                    <a href="{{ route('ventas.create') }}" class="btn text-white"
+                        style="background-color:#337AB7">Registrar Ventas</a>
+                </div>
+            </div>
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
                 <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar
                     Ventas</h5>

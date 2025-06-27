@@ -23,7 +23,7 @@
         {{-- ======================================================================= --}}
 
         <div class="p-3" style="width: 80%">
-            <div class="d-flex justify-content-between pe-3 mt-2 mb-3">
+            <div class="d-flex justify-content-between pe-3 mt-2 mb-2">
                 <div class="">
                     <a href="{{ route('productos.index') }}" class="btn text-white"
                         style="background-color:#337AB7">Productos</a>

@@ -29,11 +29,19 @@
         </div>
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
-            <div class="text-end">
-                <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal"
-                    data-bs-target="#modalAyudaListarUsuarios">
-                    <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
-                </a>
+            <div class="d-flex justify-content-between pe-3 mt-3 mb-2">
+                <div class="">
+                    <a href="{{ route('usuarios.create') }}" class="btn text-white" style="background-color:#337AB7">Crear
+                        Usuario</a>
+                </div>
+
+                <div class="text-end">
+                    <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal"
+                        data-bs-target="#modalAyudaListarUsuarios">
+                        <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda"
+                            style="color: #337AB7"></i>
+                    </a>
+                </div>
             </div>
 
             <div class="modal fade" id="modalAyudaListarUsuarios" tabindex="-1" role="dialog"
@@ -103,12 +111,12 @@
                     Usuarios
                 </h5>
 
-                <div class="row pe-3 mt-3">
+                {{-- <div class="row pe-3 mt-3">
                     <div class="col-12 d-flex justify-content-end">
                         <a href="{{ route('usuarios.create') }}" class="btn text-white"
                             style="background-color:#337AB7">Crear Usuario</a>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
@@ -156,11 +164,15 @@
                                         <td>{{ $usuario->estado }}</td>
                                         <td>{{ $usuario->fecha_terminacion_contrato }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-success rounded-circle btn-circle btn-editar-usuario" title="Editar Usuario" data-id="{{$usuario->id_usuario}}">
+                                            <button type="button"
+                                                class="btn btn-success rounded-circle btn-circle btn-editar-usuario"
+                                                title="Editar Usuario" data-id="{{ $usuario->id_usuario }}">
                                                 <i class="fa fa-pencil-square-o"></i>
                                             </button>
 
-                                            <button type="button" class="btn btn-warning rounded-circle btn-circle btn-cambiar-clave" title="Cambiar contraseña" data-id="{{$usuario->id_usuario}}">
+                                            <button type="button"
+                                                class="btn btn-warning rounded-circle btn-circle btn-cambiar-clave"
+                                                title="Cambiar contraseña" data-id="{{ $usuario->id_usuario }}">
                                                 <i class="fa fa-key"></i>
                                             </button>
                                         </td>
@@ -341,7 +353,7 @@
 
             // ===========================================================================================
 
-            $(document).on('click', '.btn-editar-usuario', function () {
+            $(document).on('click', '.btn-editar-usuario', function() {
                 const idUsuario = $(this).data('id');
 
                 $.ajax({
@@ -350,11 +362,13 @@
                     data: {
                         tipo_modal: 'editar_usuario'
                     },
-                    beforeSend: function () {
+                    beforeSend: function() {
                         $('#modalEditarUsuario').modal('show');
-                        $('#modalEditarUsuarioContent').html('<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>');
+                        $('#modalEditarUsuarioContent').html(
+                            '<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>'
+                        );
                     },
-                    success: function (html) {
+                    success: function(html) {
                         $('#modalEditarUsuarioContent').html(html);
 
                         // Reinicializar select2 si lo usas en el modal
@@ -370,11 +384,14 @@
                         let selectEstado = modal.find('[id^=id_estado_]');
 
                         if (selectEstado.length > 0) {
-                            let idEstado = selectEstado.val(); // Obtener el valor actual del select
+                            let idEstado = selectEstado
+                                .val(); // Obtener el valor actual del select
 
                             // Buscar los elementos dentro de este modal
-                            let divFechaTerminacion = modal.find('[id^=div_fecha_terminacion_contrato]');
-                            let inputFechaTerminacion = modal.find('[id^=fecha_terminacion_contrato]');
+                            let divFechaTerminacion = modal.find(
+                                '[id^=div_fecha_terminacion_contrato]');
+                            let inputFechaTerminacion = modal.find(
+                                '[id^=fecha_terminacion_contrato]');
 
                             // Aplicar la lógica de ocultar o mostrar
                             if (idEstado == 1 || idEstado == '') {
@@ -388,14 +405,19 @@
 
                             // Al cambiar el tipo de persona
                             selectEstado.change(function() {
-                                let idEstado = selectEstado.val(); // Obtener el valor actual del select al cambiar
+                                let idEstado = selectEstado
+                                    .val(); // Obtener el valor actual del select al cambiar
                                 console.log(`cambio ${idEstado}`);
 
-                                let modal = $('#modalEditarUsuario'); // Asegurar que buscamos dentro del modal correcto
+                                let modal = $(
+                                    '#modalEditarUsuario'
+                                ); // Asegurar que buscamos dentro del modal correcto
 
                                 // Buscar los elementos dentro de este modal
-                                let divFechaTerminacion = modal.find('[id^=div_fecha_terminacion_contrato]');
-                                let inputFechaTerminacion = modal.find('[id^=fecha_terminacion_contrato]');
+                                let divFechaTerminacion = modal.find(
+                                    '[id^=div_fecha_terminacion_contrato]');
+                                let inputFechaTerminacion = modal.find(
+                                    '[id^=fecha_terminacion_contrato]');
 
                                 if (idEstado == 1) { // Activo
                                     divFechaTerminacion.hide();
@@ -411,15 +433,17 @@
                             }); // FIN Cambio de Estado
                         } // FIN selectEstado.length > 0
                     }, // FIN success
-                    error: function () {
-                        $('#modalEditarUsuarioContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');
+                    error: function() {
+                        $('#modalEditarUsuarioContent').html(
+                            '<div class="alert alert-danger">Error al cargar el formulario.</div>'
+                        );
                     }
                 }); // FIN $.ajax
             }); // FIN $(document).on('click', '.btn-editar-usuario
 
             // ===========================================================================================
 
-            $(document).on('click', '.btn-cambiar-clave', function () {
+            $(document).on('click', '.btn-cambiar-clave', function() {
                 const idUsuario = $(this).data('id');
 
                 $.ajax({
@@ -428,15 +452,19 @@
                     data: {
                         tipo_modal: 'cambiar_clave'
                     },
-                    beforeSend: function () {
+                    beforeSend: function() {
                         $('#modalCambiarClave').modal('show');
-                        $('#modalCambiarClaveContent').html('<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>');
+                        $('#modalCambiarClaveContent').html(
+                            '<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>'
+                        );
                     },
-                    success: function (html) {
+                    success: function(html) {
                         $('#modalCambiarClaveContent').html(html);
                     }, // FIN success
-                    error: function () {
-                        $('#modalCambiarClaveContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');
+                    error: function() {
+                        $('#modalCambiarClaveContent').html(
+                            '<div class="alert alert-danger">Error al cargar el formulario.</div>'
+                        );
                     }
                 }); // FIN $.ajax
             }); // FIN $(document).on('click', '.btn-cambiar_clave

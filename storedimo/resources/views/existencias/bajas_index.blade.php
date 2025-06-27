@@ -49,11 +49,18 @@
         {{-- ======================================================================= --}}
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
-            <div class="text-end">
-                <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal"
-                    data-bs-target="#modalAyudaListarBajas">
-                    <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda" style="color: #337AB7"></i>
-                </a>
+            <div class="d-flex justify-content-between pe-3 mt-2 mb-2">
+                <div class="">
+                    <a href="{{ route('existencias.create') }}" class="btn text-white"
+                        style="background-color:#337AB7">Registrar Bajas</a>
+                </div>
+                <div class="text-end">
+                    <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal"
+                        data-bs-target="#modalAyudaListarBajas">
+                        <i class="fa fa-question-circle fa-2x" aria-hidden="false" title="Ayuda"
+                            style="color: #337AB7"></i>
+                    </a>
+                </div>
             </div>
 
             <div class="modal fade" id="modalAyudaListarBajas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -102,13 +109,6 @@
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
                 <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar
                     Bajas</h5>
-
-                <div class="row pe-3 mt-3">
-                    <div class="col-12 d-flex justify-content-end">
-                        <a href="{{ route('existencias.create') }}" class="btn text-white"
-                            style="background-color:#337AB7">Registrar Bajas</a>
-                    </div>
-                </div>
 
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
@@ -355,7 +355,7 @@
                     beforeSend: function() {
                         $('#modalDetalleBajaContent').html(
                             '<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>'
-                            );
+                        );
                         $('#modalDetalleBaja').modal('show');
                     },
                     success: function(html) {
@@ -364,7 +364,7 @@
                     error: function() {
                         $('#modalDetalleBajaContent').html(
                             '<div class="alert alert-danger">Error al cargar el formulario.</div>'
-                            );
+                        );
                     }
                 });
             });
