@@ -56,8 +56,8 @@
                 </a>
             </div>
 
-            <div class="modal fade" id="modalAyudaListarBajas" tabindex="-1" role="dialog"
-                aria-labelledby="myModalLabel" data-keyboard ="false" data-backdrop = "static">
+            <div class="modal fade" id="modalAyudaListarBajas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                data-keyboard ="false" data-backdrop = "static">
                 <div class="modal-dialog" style="min-width: 60%;">
                     <div class="modal-content p-3">
                         <div class="modal-body p-0 rounded-top" style="border: solid 1px #337AB7; mw-50">
@@ -103,6 +103,13 @@
                 <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar
                     Bajas</h5>
 
+                <div class="row pe-3 mt-3">
+                    <div class="col-12 d-flex justify-content-end">
+                        <a href="{{ route('existencias.create') }}" class="btn text-white"
+                            style="background-color:#337AB7">Registrar Bajas</a>
+                    </div>
+                </div>
+
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered w-100 mb-0" id="tbl_bajas"
@@ -126,8 +133,8 @@
                                         <td>{{ $baja->estado }}</td>
                                         <td>
                                             <a href="#" role="button"
-                                                class="btn rounded-circle btn-circle text-white btn-detalle-baja" title="Ver Detalles"
-                                                style="background-color: #286090" 
+                                                class="btn rounded-circle btn-circle text-white btn-detalle-baja"
+                                                title="Ver Detalles" style="background-color: #286090"
                                                 data-id="{{ $baja->id_baja }}">
                                                 <i class="fa fa-eye"></i>
                                             </a>
@@ -149,10 +156,10 @@
                             <i class="fa fa-file-pdf-o"></i>
                             Reporte Bajas
                         </button>
-                </div>
-            </div> {{-- FIN div_campos_usuarios --}}
-        </div> {{-- FIN div_crear_usuario --}}
-    </div>
+                    </div>
+                </div> {{-- FIN div_campos_usuarios --}}
+            </div> {{-- FIN div_crear_usuario --}}
+        </div>
     </div> {{-- FIN contenedor principal --}}
 
     {{-- =============================================================== --}}
@@ -160,8 +167,7 @@
     {{-- =============================================================== --}}
 
     {{-- INICIO Modal REPORTE VENTAS --}}
-    <div class="modal fade" id="modalReporteBajas" tabindex="-1" data-bs-backdrop="static"
-        data-bs-keyboard="false">
+    <div class="modal fade" id="modalReporteBajas" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content p-3">
                 <div class="rounded-top" style="border: solid 1px #337AB7;">
@@ -239,7 +245,7 @@
     {{-- =============================================================== --}}
     {{-- =============================================================== --}}
 
-    {{-- INICIO Modal DETALLE BAJA--}}
+    {{-- INICIO Modal DETALLE BAJA --}}
     <div class="modal fade" id="modalDetalleBaja" tabindex="-1" data-bs-keyboard="false" data-bs-backdrop="static">
         <div class="modal-dialog" style="min-width: 50%">
             <div class="modal-content p-3" id="modalDetalleBajaContent">
@@ -266,8 +272,7 @@
                 "infoEmpty": "No hay registros",
                 stripe: true,
                 bSort: true,
-                buttons: [
-                    {
+                buttons: [{
                         extend: 'pdfHtml5',
                         text: 'PDF',
                         className: 'waves-effect waves-light btn-rounded btn-sm btn-danger',
@@ -341,21 +346,25 @@
             // ============================================================
             // ============================================================
 
-            $(document).on('click', '.btn-detalle-baja', function () {
+            $(document).on('click', '.btn-detalle-baja', function() {
                 const idBaja = $(this).data('id');
 
                 $.ajax({
                     url: `baja/${idBaja}`,
                     type: 'GET',
-                    beforeSend: function () {
-                        $('#modalDetalleBajaContent').html('<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>');
+                    beforeSend: function() {
+                        $('#modalDetalleBajaContent').html(
+                            '<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>'
+                            );
                         $('#modalDetalleBaja').modal('show');
                     },
-                    success: function (html) {
+                    success: function(html) {
                         $('#modalDetalleBajaContent').html(html);
                     },
-                    error: function () {
-                        $('#modalDetalleBajaContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');
+                    error: function() {
+                        $('#modalDetalleBajaContent').html(
+                            '<div class="alert alert-danger">Error al cargar el formulario.</div>'
+                            );
                     }
                 });
             });
