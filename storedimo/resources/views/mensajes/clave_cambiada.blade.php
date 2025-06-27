@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
+@section('scripts')
     <script>
         Swal.fire({
             icon: 'success',
