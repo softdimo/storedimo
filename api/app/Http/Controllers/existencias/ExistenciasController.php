@@ -208,6 +208,7 @@ class ExistenciasController extends Controller
                 ->whereBetween('fecha_baja', [$fechaInicial, $fechaFinal])
                 ->select([
                     'productos.id_producto',
+                    'productos.referencia',
                     'nombre_producto',
                     'categoria',
                     'fecha_baja',
