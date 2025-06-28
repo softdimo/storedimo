@@ -36,12 +36,8 @@ class InformeController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
-                    $campos = InformeCampo::formulario(1);
-                    $informe = Informe::where('informe_codigo', 1)->first();
-
-                    return view('informes.informe', compact('campos', 'informe'));
-                //     $vista = "informe_gerencial";
-                //    return $this->validarAccesos($sesion[0], 58, $vista, 1);
+                    $vista = "informe_gerencial";
+                   return $this->validarAccesos($sesion[0], 58, $vista, 1);
                 }
             }
         } catch (Exception $e)

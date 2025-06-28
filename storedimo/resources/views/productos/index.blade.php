@@ -1,10 +1,5 @@
 @extends('layouts.app')
 @section('title', 'Productos')
-
-{{-- =============================================================== --}}
-{{-- =============================================================== --}}
-{{-- =============================================================== --}}
-
 @section('css')
     {{-- <link rel="stylesheet" href="{{ asset('css/custom.css') }}"> --}}
     <style>
@@ -17,18 +12,11 @@
     </style>
 @stop
 
-{{-- =============================================================== --}}
-{{-- =============================================================== --}}
-{{-- =============================================================== --}}
-
 @section('content')
     <div class="d-flex p-0">
         <div class="p-0" style="width: 20%">
             @include('layouts.sidebarmenu')
         </div>
-
-        {{-- ======================================================================= --}}
-        {{-- ======================================================================= --}}
 
         <div class="p-3 d-flex flex-column" style="width: 80%">
             <div class="d-flex justify-content-between pe-3 mt-2 mb-2">
@@ -105,9 +93,6 @@
                     </div> {{-- FIN modal-content --}}
                 </div> {{-- FIN modal-dialog --}}
             </div> {{-- FIN modalAyudaModificacionProductos --}}
-
-            {{-- =============================================================== --}}
-            {{-- =============================================================== --}}
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
                 <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Listar
@@ -199,11 +184,6 @@
                         </table>
                     </div>
 
-                    {{-- ========================================================= --}}
-                    {{-- ========================================================= --}}
-                    {{-- ========================================================= --}}
-                    {{-- ========================================================= --}}
-
                     {{-- <div class="mt-5 mb-2 d-flex justify-content-center">
                         <a href="{{ route('reporte_productos_pdf') }}" target="_blank"
                             class="btn rounded-2 me-3 text-white" style="background-color: #286090">
@@ -216,10 +196,6 @@
         </div>
     </div>
 
-    {{-- =========================================================================== --}}
-    {{-- =========================================================================== --}}
-    {{-- =========================================================================== --}}
-
     {{-- INICIO Modal MODIFICAR PRODUCTO --}}
     <div class="modal fade" id="modalEditarProducto" tabindex="-1" data-bs-keyboard="false" data-bs-backdrop="static">
         <div class="modal-dialog" style="min-width: 50%">
@@ -229,10 +205,6 @@
         </div>
     </div>
     {{-- FINAL Modal MODIFICAR PRODUCTO --}}
-
-    {{-- =========================================================================== --}}
-    {{-- =========================================================================== --}}
-    {{-- =========================================================================== --}}
 
     {{-- INICIO Modal CÓDIGO DE BARRAS PRODUCTO --}}
     <div class="modal fade" id="modalBarCodeProducto" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
@@ -244,10 +216,6 @@
     </div>
     {{-- FINAL Modal CÓDIGO DE BARRAS PRODUCTO --}}
 
-    {{-- =========================================================================== --}}
-    {{-- =========================================================================== --}}
-    {{-- =========================================================================== --}}
-
     {{-- INICIO Modal ESTADO PRODUCTO --}}
     <div class="modal fade" id="modalCambiarEstadoProducto" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
@@ -258,10 +226,6 @@
     </div> {{-- FIN modal --}}
     {{-- FINAL Modal ESTADO PRODUCTO --}}
 @stop
-
-{{-- =============================================================== --}}
-{{-- =============================================================== --}}
-{{-- =============================================================== --}}
 
 @section('scripts')
     <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
@@ -278,7 +242,7 @@
                 bSort: true,
                 buttons: [{
                         text: 'PDF',
-                        className: 'waves-effect waves-light btn-rounded btn-sm btn-danger',
+                        className: 'btn btn-sm btn-danger',
                         action: function() {
                             window.open("{{ route('reporte_productos_pdf') }}", "_blank");
                         }
@@ -286,7 +250,7 @@
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',
-                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary mr-3',
+                        className: 'btn btn-sm btn-success mr-3',
                         customize: function(xlsx) {
                             var sheet = xlsx.xl.worksheets['sheet1.xml'];
                             $('row:first c', sheet).attr('s', '42');

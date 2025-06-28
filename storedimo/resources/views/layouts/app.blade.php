@@ -29,10 +29,18 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/sweetalert2.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/sweetalert2.min.css') }}">
 
+    <!-- Datatable -->
+    <!-- <link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.min.css') }}"> -->
+
     <!--  Js -->
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('js/jquery-1.19.1.validate.min.js') }}"></script>
+
+    <!-- Select2 -->
     <script src="{{ asset('js/select2.min.js') }}"></script>
+
+    <!-- Datatable -->
+    <!-- <script src="{{ asset('js/datatables.min.js') }}"></script> -->
 </head>
 
 <body>

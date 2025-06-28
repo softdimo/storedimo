@@ -204,15 +204,8 @@
     </div>
     {{-- FINAL Modal DETALLE BAJA --}}
 
-    {{-- =============================================================== --}}
-    {{-- =============================================================== --}}
-
     
 @stop
-
-{{-- =============================================================== --}}
-{{-- =============================================================== --}}
-{{-- =============================================================== --}}
 
 @section('scripts')
     <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
@@ -228,7 +221,7 @@
                 bSort: true,
                 buttons: [{
                         text: 'PDF',
-                        className: 'waves-effect waves-light btn-rounded btn-sm btn-danger',
+                        className: 'btn btn-sm btn-danger',
                         action: function() {
                             let modal = new bootstrap.Modal(document.getElementById(
                                 'modalReporteVentas'));
@@ -241,7 +234,7 @@
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',
-                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary mr-3',
+                        className: 'btn btn-sm btn-success mr-3',
                         customize: function(xlsx) {
                             var sheet = xlsx.xl.worksheets['sheet1.xml'];
                             $('row:first c', sheet).attr('s', '42');
@@ -253,10 +246,6 @@
                 "ordering": false
             });
             // CIERRE DataTable Lista Usuarios
-
-            // =========================================================================
-            // =========================================================================
-            // =========================================================================
             
             $('[id^=modalDetalleVenta_]').on('shown.bs.modal', function () {
                 const modalId = $(this).attr('id');

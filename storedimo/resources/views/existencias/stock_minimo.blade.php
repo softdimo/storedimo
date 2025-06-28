@@ -99,7 +99,7 @@
                 buttons: [{
                         extend: 'pdfHtml5',
                         text: 'PDF',
-                        className: 'waves-effect waves-light btn-rounded btn-sm btn-danger',
+                        className: 'btn btn-sm btn-danger',
                         orientation: 'landscape',
                         pageSize: 'A4',
                         title: 'Productos en Stock Mínimo',
@@ -115,7 +115,7 @@
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',
-                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary mr-3',
+                        className: 'btn btn-sm btn-success mr-3',
                         customize: function(xlsx) {
                             var sheet = xlsx.xl.worksheets['sheet1.xml'];
                             $('row:first c', sheet).attr('s', '42');

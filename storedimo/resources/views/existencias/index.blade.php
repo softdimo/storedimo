@@ -189,7 +189,7 @@
                     {
                         extend: 'copyHtml5',
                         text: 'Copiar',
-                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary',
+                        className: 'btn btn-sm btn-primary',
                         init: function(api, node, config) {
                             $(node).removeClass('dt-button')
                         }
@@ -197,7 +197,7 @@
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',
-                        className: 'waves-effect waves-light btn-rounded btn-sm btn-primary mr-3',
+                        className: 'btn btn-sm btn-success mr-3',
                         customize: function( xlsx ) {
                             var sheet = xlsx.xl.worksheets['sheet1.xml'];
                             $('row:first c', sheet).attr( 's', '42' );

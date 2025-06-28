@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('css')
 <link rel="stylesheet" type="text/css" href="{{asset('css/daterangepicker.css')}}" />
+<link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 @endsection
 @section('title', $informe ? $informe->informe_descripcion : 'Informe')
 @section('content')
@@ -78,6 +79,8 @@
 <script type="text/javascript" src="{{ asset('js/moment.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/daterangepicker.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/daterangepicker.js') }}"></script>
+<script src="{{ asset('DataTables/datatables.min.js') }}"></script>
+<script src="{{ asset('DataTables/Buttons-2.3.4/js/buttons.html5.min.js') }}"></script>
 <script>
 
     url = '{{route('respuesta')}}';
@@ -117,7 +120,6 @@
 
                             $('#card').removeClass('ocultar');
                             $('#resultado').empty().append(data.data);
-                            // $("#tabla").destroy();
 
                             $('#tabla').DataTable({
                                 dom: 'Blfrtip',
@@ -125,17 +127,9 @@
                                 "infoEmpty": "No hay registros",
                                 "buttons": [
                                 {
-                                    extend: 'print',
-                                    text: 'Imprimir',
-                                    className: 'waves-effect waves-light btn-rounded btn-sm btn-primary',
-                                    init: function(api, node, config) {
-                                        $(node).removeClass('dt-button')
-                                    }
-                                },
-                                {
                                     extend: 'copyHtml5',
                                     text: 'Copiar',
-                                    className: 'waves-effect waves-light btn-rounded btn-sm btn-primary',
+                                    className: 'btn btn-sm btn-warning',
                                     init: function(api, node, config) {
                                         $(node).removeClass('dt-button')
                                     }
@@ -143,7 +137,7 @@
                                 {
                                     extend: 'excelHtml5',
                                     text: 'Excel',
-                                    className: 'waves-effect waves-light btn-rounded btn-sm btn-primary',
+                                    className: 'btn btn-sm btn-success',
                                     init: function(api, node, config) {
                                         $(node).removeClass('dt-button')
                                     }
@@ -151,7 +145,7 @@
                                 {
                                     extend: 'pdfHtml5',
                                     text: 'PDF',
-                                    className: 'waves-effect waves-light btn-rounded btn-sm btn-primary',
+                                    className: 'btn btn-sm btn-danger',
                                     init: function(api, node, config) {
                                         $(node).removeClass('dt-button')
                                     }
@@ -192,8 +186,8 @@
         $('#informe').trigger("reset");
         $('#card').addClass('ocultar');
         $('#resultado').empty();
-        // $("#tabla").destroy();
     }
+
     function mensaje(tipo, mensaje)
     {
         swal({
