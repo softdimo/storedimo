@@ -29,7 +29,7 @@ class ReporteBajasPdf implements Responsable
         $fechaFinal = request('fecha_final', null);
 
         // Consulta a la BD
-        $bajas = $this->reporteBajasPdf($fechaInicial,$fechaFinal);
+        $bajas = $this->reporteBajasPdf($fechaInicial, $fechaFinal);
 
         $pdf = new \FPDF();
         $pdf->AddPage();
@@ -40,12 +40,13 @@ class ReporteBajasPdf implements Responsable
         $pdf->SetFont('Arial', '', 12);
         $pdf->Cell(190, 10, "Desde: $fechaInicial hasta $fechaFinal", 0, 1, 'C');
         $pdf->Ln(5);
-  
+
         // Encabezado de tabla
         $pdf->SetFont('Arial', 'B', 10);
-        $pdf->Cell(20, 10, utf8_decode("Código"), 1);
-        $pdf->Cell(60, 10, "Producto", 1);
-        $pdf->Cell(30, 10, utf8_decode("Categoría"), 1);
+        $pdf->Cell(15, 10, utf8_decode("Código"), 1);
+        $pdf->Cell(45, 10, "Producto", 1);
+        $pdf->Cell(25, 10, utf8_decode("Categoría"), 1);
+        $pdf->Cell(25, 10, "Referencia", 1);
         $pdf->Cell(40, 10, "Fecha Baja", 1);
         $pdf->Cell(20, 10, "Cantidad", 1);
         $pdf->Cell(20, 10, "Tipo Baja", 1);
@@ -54,12 +55,13 @@ class ReporteBajasPdf implements Responsable
         // Datos de compras
         $pdf->SetFont('Arial', '', 10);
         foreach ($bajas as $baja) {
-            $pdf->Cell(20, 10, $baja->id_producto, 1);
-            $pdf->Cell(60, 10, utf8_decode($baja->nombre_producto), 1);
-            $pdf->Cell(30, 10, utf8_decode($baja->categoria), 1);
+            $pdf->Cell(15, 10, $baja->id_producto, 1);
+            $pdf->Cell(45, 10, utf8_decode(substr($baja->nombre_producto, 0, 30)), 1);
+            $pdf->Cell(25, 10, utf8_decode(substr($baja->categoria, 0, 20)), 1);
+            $pdf->Cell(25, 10, substr($baja->referencia, 0, 15), 1);
             $pdf->Cell(40, 10, $baja->fecha_baja, 1);
             $pdf->Cell(20, 10, $baja->cantidad, 1);
-            $pdf->Cell(20, 10, utf8_decode($baja->tipo_baja), 1);
+            $pdf->Cell(20, 10, utf8_decode(substr($baja->tipo_baja, 0, 20)), 1);
             $pdf->Ln();
         }
 
@@ -71,10 +73,10 @@ class ReporteBajasPdf implements Responsable
     // ===================================================================
     // ===================================================================
 
-    public function reporteBajasPdf($fechaInicial,$fechaFinal)
+    public function reporteBajasPdf($fechaInicial, $fechaFinal)
     {
         try {
-            $peticionReporteBajasPdf = $this->clientApi->post($this->baseUri.'reporte_bajas_pdf', [
+            $peticionReporteBajasPdf = $this->clientApi->post($this->baseUri . 'reporte_bajas_pdf', [
                 'json' => [
                     'fecha_inicial' => $fechaInicial,
                     'fecha_final' => $fechaFinal,
