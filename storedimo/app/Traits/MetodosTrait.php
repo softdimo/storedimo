@@ -159,7 +159,8 @@ trait MetodosTrait
 
     public function permisos()
     {
-        try {
+        try
+        {
             $this->initHttpClient();
             $cacheKey = 'permisos_list_' . session('id_usuario');
 
@@ -175,7 +176,8 @@ trait MetodosTrait
 
     public function permisosPorUsuario($idUsuario)
     {
-        try {
+        try
+        {
             $this->initHttpClient();
             $cacheKey = 'permisos_usuario_' . $idUsuario;
 
@@ -227,6 +229,136 @@ trait MetodosTrait
 
         } catch (Exception $e) {
             return view('errors.403')->with('error', 'Error validando permisos');
+        }
+    }
+
+    public function permisosSuperAdmin()
+    {
+        try
+        {
+            $arrayPermisosSuperAdmin = [
+                1, 2, 3, 5, 7, 8, 9, 10,
+                11, 13, 14, 15, 16, 17, 18, 19, 20,
+                21, 23, 24, 25, 26, 27, 28, 29, 30,
+                31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+                41, 42, 43, 44, 45, 46, 47, 48, 49,
+                51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
+                61, 62, 63, 64, 65
+            ];
+
+            return $arrayPermisosSuperAdmin;
+            
+        } catch (Exception $e)
+        {
+            logger("Error con los permisos del rol Superadmin");
+        }
+    }
+
+    public function permisosAdmin()
+    {
+        try
+        {
+            $arrayPermisosAdmin = [
+                1, 3, 5, 7, 8, 13, 14, 15, 
+                16, 17, 18, 19, 20,
+                21, 23, 24, 25, 26, 27, 28, 29, 30,
+                31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+                41, 42, 43, 44, 45, 46, 47, 48, 49,
+                51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
+                61, 62, 63, 64, 65
+            ];
+
+            return $arrayPermisosAdmin;
+            
+        } catch (Exception $e)
+        {
+            logger("Error con los permisos del rol Admin");
+        }
+    }
+
+    public function permisosSoftdimo()
+    {
+        try
+        {
+            $arrayPermisosSoftdimo = [
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 
+                11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+                21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+                31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+                41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+                51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
+                61, 62, 63, 64, 65
+            ];
+
+            return $arrayPermisosSoftdimo;
+            
+        } catch (Exception $e)
+        {
+            logger("Error con los permisos del rol Softdimo");
+        }
+    }
+
+    public function permisosPruebas()
+    {
+        try
+        {
+            $arrayPermisosSoftdimo = [
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 
+                11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+                21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+                31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+                41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+                51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
+                61, 62, 63, 64, 65
+            ];
+
+            return $arrayPermisosSoftdimo;
+            
+        } catch (Exception $e)
+        {
+            logger("Error con los permisos del rol pruebas");
+        }
+    }
+
+    public function permisosVendedorEmpleado()
+    {
+        try
+        {
+            $arrayPermisosVendedor = [
+                1, 5, 7, 8, 13, 14, 15, 16, 17, 18, 19, 20,
+                21, 23, 24, 25, 26, 27, 28, 29, 30,
+                31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+                41, 43, 44, 45, 46, 47, 48, 49,
+                51, 52, 53, 54, 55, 56, 57, 59, 60,
+                61, 62, 63, 64, 65
+            ];
+
+            return  $arrayPermisosVendedor;
+            
+        } catch (Exception $e)
+        {
+            logger("Error con los permisos del rol vendedor o empleado");
+        }
+    }
+
+    public function permisosConsulta()
+    {
+        try
+        {
+            $arrayPermisosConsulta = [
+                1, 3, 7, 14, 19,
+                34, 38, 43, 46, 47,
+                48, 49, 51, 52, 53, 
+                54, 55, 56, 57, 58, 
+                59, 60, 61, 62, 63,
+                64, 65
+            ];
+
+            return $arrayPermisosConsulta;
+            
+        } catch (Exception $e)
+        {
+            logger("Error con los permisos del rol consulta");
         }
     }
 }

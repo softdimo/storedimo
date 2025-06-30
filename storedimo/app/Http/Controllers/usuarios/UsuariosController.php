@@ -27,10 +27,13 @@ class UsuariosController extends Controller
     
     public function index()
     {
-        try {
-            if (!$this->checkDatabaseConnection()) {
+        try
+        {
+            if (!$this->checkDatabaseConnection()) 
+            {
                 return view('db_conexion');
-            } else {
+            } else
+            {
                 $sesion = $this->validarVariablesSesion();
 
                 if (
