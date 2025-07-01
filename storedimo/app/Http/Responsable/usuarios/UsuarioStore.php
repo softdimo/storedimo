@@ -6,13 +6,9 @@ use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
-use App\Traits\MetodosTrait;
 use App\Models\Usuario;
-use App\Models\ModelHasPermissions;
-
 class UsuarioStore implements Responsable
 {
-    use MetodosTrait;
     protected $baseUri;
     protected $clientApi;
 
@@ -97,8 +93,6 @@ class UsuarioStore implements Responsable
                 
                 if(isset($resUsuarioStore) && !empty($resUsuarioStore) && $resUsuarioStore->success)
                 {
-                    $this->asignarPermisosPorRol($idRol, $resUsuarioStore);
-
                     return $this->respuestaExito(
                         "Usuario creado satisfactoriamente.<br>
                          El usuario es: <strong>" .  $resUsuarioStore->usuario->email . "</strong><br>
@@ -166,60 +160,5 @@ class UsuarioStore implements Responsable
     {
         alert()->error('Error', $mensaje);
         return back();
-    }
-
-    private function asignarPermisosPorRol($idRol, $resUsuarioStore)
-    {
-        switch ($idRol)
-        {
-            case 1:
-                $permisos = $this->permisosAdmin();
-            break;
-
-            case 2:
-            case 4:
-                $permisos = $this->permisosVendedorEmpleado();
-            break;
-
-            case 3:
-                $permisos = $this->permisosSoftdimo();
-            break;
-
-            case 5:
-                $permisos = $this->permisosSuperAdmin();
-            break;
-
-            case 6:
-                $permisos = $this->permisosConsulta();
-            break;
-
-            case 7:
-                $permisos = $this->permisosPruebas();
-            break;
-            
-            default:
-                $permisos = $this->permisosConsulta();
-            break;
-        }
-
-        $ultimoUsuario = Usuario::where('identificacion', $resUsuarioStore->usuario->identificacion)
-                        ->first();
-
-        $permissions = ModelHasPermissions::where('model_id', $ultimoUsuario->id_usuario)
-                                            ->count();
-        
-        if($permissions > 0)
-        {
-            $permissions->delete();
-        }
-
-        foreach ($permisos as $value)
-        {
-            ModelHasPermissions::create([
-                'permission_id' => $value,
-                'model_type' => 'App\Models\Usuario' ,
-                'model_id' => $ultimoUsuario->id_usuario
-            ]);
-        }
     }
 }

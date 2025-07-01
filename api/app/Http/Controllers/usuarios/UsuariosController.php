@@ -51,9 +51,6 @@ class UsuariosController extends Controller
         return new UsuarioStore($request);
     }
 
-    // ======================================================================
-    // ======================================================================
-
     /**
      * Display the specified resource.
      *
