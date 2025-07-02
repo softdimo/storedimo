@@ -2,12 +2,9 @@
 
 namespace App\Http\Responsable\inicio_sesion;
 
-use App\Models\Usuario;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
 
 class CambiarClave implements Responsable
 {

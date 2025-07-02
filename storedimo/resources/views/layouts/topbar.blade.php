@@ -1,5 +1,4 @@
-
-<header class="topbar m-0">
+<header id="header" class="topbar m-0">
     <nav class="navbar navbar-expand-lg m-0 text-white" data-bs-theme="dark" style="background-color: #337AB7">
         <div class="d-flex flex-nowrap w-100 align-items-center px-2">
             <div class="d-flex justify-content-start align-items-center d-md-none" style="flex: 1;">
