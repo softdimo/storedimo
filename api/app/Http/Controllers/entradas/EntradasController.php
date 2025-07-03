@@ -14,6 +14,7 @@ use App\Http\Responsable\entradas\EntradaUpdate;
 use App\Models\Empresa;
 use App\Models\Compra;
 use App\Models\CompraProducto;
+use App\Models\Producto;
 use App\Helpers\DatabaseConnectionHelper;
 
 
@@ -144,6 +145,19 @@ class EntradasController extends Controller
             try {
                 $compra->id_estado = 2;
                 $compra->update();
+
+                $productosCompra = CompraProducto::where('id_compra', $idCompra)->get();
+
+                foreach ($productosCompra as $item) {
+                
+                    $producto = Producto::find($item->id_producto);
+                
+                    if ($producto) {
+                        $nuevaCantidad = $producto->cantidad - $item->cantidad;
+                        $producto->cantidad = max($nuevaCantidad, 0); // evita cantidades negativas
+                        $producto->save();
+                    }
+                }
 
                 // Restaurar conexión principal si se usó tenant
                 if ($empresaActual) {
