@@ -119,7 +119,7 @@
                 </div> --}}
 
                 <div class="col-12 p-3" id="">
-                    <div class="table-responsive">
+                    <div class="{{-- table-responsive --}}">
                         <table class="table table-striped table-bordered w-100 mb-0" id="tbl_usuarios"
                             aria-describedby="users-usuarios">
                             <thead>

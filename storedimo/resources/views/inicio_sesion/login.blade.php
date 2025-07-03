@@ -14,7 +14,7 @@
 
 @section('content')
     <div class="d-flex justify-content-center align-items-center bg-light py-4 vh-100">
-        <div class="border border-dark-subtle p-4 shadow-lg rounded-4 bg-white text-center w-25" style="overflow-y: auto;">
+        <div class="border border-dark-subtle p-4 shadow-lg rounded-4 bg-white text-center" style="overflow-y: auto;">
             <div class="d-flex justify-content-center p-3">
                 <img src="{{asset('imagenes/logo_storedimo_fondo.png')}}" alt="logo" class="text-center" width="200" height="100">
             </div>

@@ -34,6 +34,6 @@
 
         setTimeout(function () {
             window.location.href = "{{ route('logout') }}";
-        }, 1000);
+        }, 4000);
     </script>
 @endsection

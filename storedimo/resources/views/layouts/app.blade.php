@@ -18,7 +18,8 @@
     <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.5.3.2.min.css') }}">
 
     <!-- SELECT2 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet"> --}}
+    <link href="{{asset('select2_4.0.13/select2.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/select2.min.css')}}" rel="stylesheet">
 
     <!-- Styles -->
@@ -71,7 +72,8 @@
     {{-- ========================================================================= --}}
 
     <!-- SELECT2 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script> --}}
+    <script src="{{asset('select2_4.0.13/select2.min.js')}}"></script>
     {{-- <script src="{{asset('vendor/select2-4.1.0/dist/js/select2.min.js')}}"></script> --}}
 
     {{-- ========================================================================= --}}
