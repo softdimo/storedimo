@@ -14,11 +14,11 @@
 
 @section('content')
     <div class="d-flex p-0">
-        <div class="p-0" style="width: 20%">
+        <div class="p-0 sidebar-container">
             @include('layouts.sidebarmenu')
         </div>
 
-        <div class="p-3 d-flex flex-column" style="width: 80%">
+        <div class="p-3 d-flex flex-column content-container">
             <div class="d-flex justify-content-between pe-3 mt-2 mb-2">
                 <div class="">
                     <a href="{{ route('productos.create') }}" class="btn text-white" style="background-color:#337AB7">Crear
@@ -75,7 +75,8 @@
                                             </li>
                                         </ul>
                                         <p class="text-justify mb-0">El icono de color azul es de solo información.</p>
-                                        <p class="text-justify mt-0 mb-0">El icono rojo pertenece al cambio de estado, el cual pedirá
+                                        <p class="text-justify mt-0 mb-0">El icono rojo pertenece al cambio de estado, el
+                                            cual pedirá
                                             confirmación en el momento de pulsar sobre el.</p>
                                     </div> {{-- FINpanel-body --}}
                                 </div> {{-- FIN col-12 --}}
@@ -126,9 +127,10 @@
 
                                         @if (is_null($producto->imagen_producto))
                                             <td class="align-middle"></td>
-                                       @else
+                                        @else
                                             <td class="align-middle">
-                                                <img src="{{ $producto->imagen_producto }}" alt="Producto" style="max-width: 50px;">
+                                                <img src="{{ $producto->imagen_producto }}" alt="Producto"
+                                                    style="max-width: 50px;">
                                             </td>
                                         @endif
 
@@ -151,29 +153,28 @@
 
                                         @if ($producto->id_estado == 1 || $producto->id_estado == '1')
                                             <td class="align-middle">
-                                                <button class="btn btn-success rounded-circle btn-circle btn-editar-producto"
-                                                    data-id="{{ $producto->id_producto }}"
-                                                    title="Modificar">
+                                                <button
+                                                    class="btn btn-success rounded-circle btn-circle btn-editar-producto"
+                                                    data-id="{{ $producto->id_producto }}" title="Modificar">
                                                     <i class="fa fa-pencil-square-o"></i>
                                                 </button>
                                                 {{-- ============================== --}}
-                                                <button class="btn btn-warning rounded-circle btn-circle barcode btn-codigo-barras"
+                                                <button
+                                                    class="btn btn-warning rounded-circle btn-circle barcode btn-codigo-barras"
                                                     data-id="{{ $producto->id_producto }}"
                                                     title="Generar Código de Barras">
                                                     <i class="fa fa-barcode"></i>
                                                 </button>
                                                 {{-- ============================== --}}
                                                 <button class="btn btn-danger rounded-circle btn-circle btn-cambiar-estado"
-                                                    data-id="{{ $producto->id_producto }}"
-                                                    title="Cambiar Estado">
+                                                    data-id="{{ $producto->id_producto }}" title="Cambiar Estado">
                                                     <i class="fa fa-solid fa-recycle"></i>
                                                 </button>
                                             </td>
                                         @else
                                             <td class="align-middle">
                                                 <button class="btn btn-danger rounded-circle btn-circle btn-cambiar-estado"
-                                                    data-id="{{ $producto->id_producto }}"
-                                                    title="Cambiar Estado">
+                                                    data-id="{{ $producto->id_producto }}" title="Cambiar Estado">
                                                     <i class="fa fa-solid fa-recycle"></i>
                                                 </button>
                                             </td>
@@ -207,7 +208,8 @@
     {{-- FINAL Modal MODIFICAR PRODUCTO --}}
 
     {{-- INICIO Modal CÓDIGO DE BARRAS PRODUCTO --}}
-    <div class="modal fade" id="modalBarCodeProducto" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal fade" id="modalBarCodeProducto" tabindex="-1" data-bs-backdrop="static"
+        data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content p-3" id="modalBarCodeProductoContent">
                 {{-- El contenido AJAX se cargará aquí --}}
@@ -217,7 +219,8 @@
     {{-- FINAL Modal CÓDIGO DE BARRAS PRODUCTO --}}
 
     {{-- INICIO Modal ESTADO PRODUCTO --}}
-    <div class="modal fade" id="modalCambiarEstadoProducto" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal fade" id="modalCambiarEstadoProducto" tabindex="-1" data-bs-backdrop="static"
+        data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content p-3" id="modalCambiarEstadoProductoContent">
                 {{-- El contenido AJAX se cargará aquí --}}
@@ -266,7 +269,7 @@
             // ===========================================================
             // ===========================================================
 
-            $(document).on('click', '.btn-editar-producto', function () {
+            $(document).on('click', '.btn-editar-producto', function() {
                 const idProducto = $(this).data('id');
 
                 $.ajax({
@@ -276,11 +279,13 @@
                         '_token': "{{ csrf_token() }}",
                         tipo_modal: 'editar'
                     },
-                    beforeSend: function () {
+                    beforeSend: function() {
                         $('#modalEditarProducto').modal('show');
-                        $('#modalEditarProductoContent').html('<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>');
+                        $('#modalEditarProductoContent').html(
+                            '<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>'
+                            );
                     },
-                    success: function (html) {
+                    success: function(html) {
                         $('#modalEditarProductoContent').html(html);
 
                         // Reinicializar select2 si lo usas en el modal
@@ -300,8 +305,10 @@
                         if (inputPrecioUnitario.length > 0) { // Al cargar el modal
                             // Valido que el precio unitario sea menor que el precio al detal
                             inputPrecioDetal.on("blur", function() {
-                                let precioUnitario = parseFloat(inputPrecioUnitario.val()) || 0;
-                                let precioDetal = parseFloat(inputPrecioDetal.val()) || 0;
+                                let precioUnitario = parseFloat(inputPrecioUnitario
+                                .val()) || 0;
+                                let precioDetal = parseFloat(inputPrecioDetal.val()) ||
+                                    0;
 
                                 if (precioUnitario >= precioDetal) {
                                     Swal.fire(
@@ -317,11 +324,15 @@
 
                             // Valido que el precio por mayor sea mayor que el unitario y menor que el precio al detal
                             inputPrecioPorMayor.blur(function() {
-                                let precioUnitario = parseFloat(inputPrecioUnitario.val()) || 0;
-                                let precioDetal = parseFloat(inputPrecioDetal.val()) || 0;
-                                let precioPorMayor = parseFloat(inputPrecioPorMayor.val()) || 0;
+                                let precioUnitario = parseFloat(inputPrecioUnitario
+                                .val()) || 0;
+                                let precioDetal = parseFloat(inputPrecioDetal.val()) ||
+                                    0;
+                                let precioPorMayor = parseFloat(inputPrecioPorMayor
+                                .val()) || 0;
 
-                                if (precioPorMayor <= precioUnitario || precioPorMayor >= precioDetal) {
+                                if (precioPorMayor <= precioUnitario ||
+                                    precioPorMayor >= precioDetal) {
                                     Swal.fire(
                                         'Cuidado!',
                                         'El precio al por mayor debe ser superior al precio unitario y menor que el precio al detal!',
@@ -332,8 +343,10 @@
                             });
                         } // FIN inputPrecioUnitario.length > 0
                     },
-                    error: function () {
-                        $('#modalEditarProductoContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');
+                    error: function() {
+                        $('#modalEditarProductoContent').html(
+                            '<div class="alert alert-danger">Error al cargar el formulario.</div>'
+                            );
                     }
                 });
             });
@@ -362,7 +375,7 @@
             // ===========================================================
             // ===========================================================
 
-            $(document).on('click', '.btn-cambiar-estado', function () {
+            $(document).on('click', '.btn-cambiar-estado', function() {
                 const idProducto = $(this).data('id');
 
                 $.ajax({
@@ -372,15 +385,19 @@
                         '_token': "{{ csrf_token() }}",
                         tipo_modal: 'estado'
                     },
-                    beforeSend: function () {
+                    beforeSend: function() {
                         $('#modalCambiarEstadoProducto').modal('show');
-                        $('#modalCambiarEstadoProductoContent').html('<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>');
+                        $('#modalCambiarEstadoProductoContent').html(
+                            '<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>'
+                            );
                     },
-                    success: function (html) {
+                    success: function(html) {
                         $('#modalCambiarEstadoProductoContent').html(html);
                     },
-                    error: function () {
-                        $('#modalCambiarEstadoProductoContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');
+                    error: function() {
+                        $('#modalCambiarEstadoProductoContent').html(
+                            '<div class="alert alert-danger">Error al cargar el formulario.</div>'
+                            );
                     }
                 });
             });
@@ -411,7 +428,7 @@
             // ===========================================================
             // ===========================================================
 
-            $(document).on('click', '.btn-codigo-barras', function () {
+            $(document).on('click', '.btn-codigo-barras', function() {
                 const idProducto = $(this).data('id');
 
                 $.ajax({
@@ -421,15 +438,19 @@
                         '_token': "{{ csrf_token() }}",
                         tipo_modal: 'qr'
                     },
-                    beforeSend: function () {
+                    beforeSend: function() {
                         $('#modalBarCodeProducto').modal('show');
-                        $('#modalBarCodeProductoContent').html('<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>');
+                        $('#modalBarCodeProductoContent').html(
+                            '<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>'
+                            );
                     },
-                    success: function (html) {
+                    success: function(html) {
                         $('#modalBarCodeProductoContent').html(html);
                     },
-                    error: function () {
-                        $('#modalBarCodeProductoContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');
+                    error: function() {
+                        $('#modalBarCodeProductoContent').html(
+                            '<div class="alert alert-danger">Error al cargar el formulario.</div>'
+                            );
                     }
                 });
             });

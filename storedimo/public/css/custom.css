@@ -29,7 +29,25 @@ body {
     padding-bottom: 0.0rem !important;
 }
 
+@media (min-width: 769px) {
+    .sidebar-container {
+        width: 15%;
+    }
+
+    .content-container {
+        width: 85%;
+    }
+}
+
 @media (max-width: 768px) {
+    .sidebar-container {
+        width: 0 !important;
+    }
+
+    .content-container {
+        width: 100% !important;
+    }
+
     .sidebar {
         position: fixed;
         left: -100%;

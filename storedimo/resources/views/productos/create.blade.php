@@ -15,14 +15,14 @@
 
 @section('content')
     <div class="d-flex p-0">
-        <div class="p-0" style="width: 20%">
+        <div class="p-0 sidebar-container">
             @include('layouts.sidebarmenu')
         </div>
 
         {{-- ======================================================================= --}}
         {{-- ======================================================================= --}}
 
-        <div class="p-3" style="width: 80%">
+        <div class="p-3 content-container">
             <div class="d-flex justify-content-between pe-3 mt-2 mb-2">
                 <div class="">
                     <a href="{{ route('productos.index') }}" class="btn text-white"
@@ -171,8 +171,7 @@
                         'nombre_producto': nombreProducto,
                         'id_categoria': idCategoria,
                     },
-                    success: function(respuesta) 
-                    {
+                    success: function(respuesta) {
                         if (respuesta == "existe_producto") {
                             Swal.fire(
                                 'Cuidado!',
@@ -224,7 +223,8 @@
                             Swal.fire({
                                 icon: 'success',
                                 title: '¡Éxito!',
-                                text: response.message || 'Categoría creada correctamente',
+                                text: response.message ||
+                                    'Categoría creada correctamente',
                                 showConfirmButton: false,
                                 timer: 1500,
                                 timerProgressBar: true,

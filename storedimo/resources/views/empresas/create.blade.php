@@ -15,14 +15,14 @@
 
 @section('content')
     <div class="d-flex p-0">
-        <div class="p-0" style="width: 20%">
+        <div class="p-0 ">
             @include('layouts.sidebarmenu')
         </div>
 
         {{-- ======================================================================= --}}
         {{-- ======================================================================= --}}
 
-        <div class="p-3" style="width: 80%">
+        <div class="p-3 content-container">
             <div class="d-flex justify-content-between pe-3 mt-3 mb-2">
                 <div class="">
                     <a href="{{ route('empresas.index') }}" class="btn text-white"

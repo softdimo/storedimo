@@ -23,14 +23,14 @@
 
 @section('content')
     <div class="d-flex p-0">
-        <div class="p-0" style="width: 20%">
+        <div class="p-0 sidebar-container">
             @include('layouts.sidebarmenu')
         </div>
 
         {{-- ======================================================================= --}}
         {{-- ======================================================================= --}}
 
-        <div class="p-3 d-flex flex-column" style="width: 80%">
+        <div class="p-3 d-flex flex-column content-container">
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
                 <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">
                     Productos en Stock Mínimo</h5>

@@ -15,7 +15,7 @@
 
 @section('content')
     <div class="d-flex p-0">
-        <div class="p-0" style="width: 20%">
+        <div class="p-0 sidebar-container">
             @include('layouts.sidebarmenu')
         </div>
 
@@ -23,7 +23,7 @@
 
         {{-- ======================================================================= --}}
 
-        <div class="p-3" style="width: 80%">
+        <div class="p-3 content-container">
             <div class="d-flex justify-content-between pe-3 mt-3">
 
 
