@@ -50,8 +50,8 @@
         <div class="p-3 d-flex flex-column content-container">
             <div class="d-flex justify-content-between pe-3 mt-2 mb-2">
                 <div class="">
-                    <a href="{{ route('ventas.create') }}" class="btn text-white"
-                        style="background-color:#337AB7">Registrar Ventas</a>
+                    <a href="{{ route('ventas.create') }}" class="btn text-white" style="background-color:#337AB7">Registrar
+                        Ventas</a>
                 </div>
             </div>
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
@@ -86,7 +86,8 @@
                                         <td>{{ $venta->tipo_pago }}</td>
                                         <td>{{ $venta->nombres_usuario }}</td>
                                         <td>
-                                            <button title="Ver Detalles" class="btn rounded-circle btn-circle text-white btn-detalle-venta"
+                                            <button title="Ver Detalles"
+                                                class="btn rounded-circle btn-circle text-white btn-detalle-venta"
                                                 title="Detalles Ventas" style="background-color: #286090"
                                                 data-id="{{ $venta->id_venta }}">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
@@ -119,8 +120,7 @@
     {{-- =============================================================== --}}
 
     {{-- INICIO Modal REPORTE VENTAS --}}
-    <div class="modal fade" id="modalReporteVentas" tabindex="-1" data-bs-backdrop="static"
-        data-bs-keyboard="false">
+    <div class="modal fade" id="modalReporteVentas" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content p-3">
                 <div class="rounded-top" style="border: solid 1px #337AB7;">
@@ -194,7 +194,7 @@
     </div> {{-- FIN modal --}}
     {{-- FINAL Modal REPORTE VENTAS --}}
 
-    {{-- INICIO Modal DETALLE BAJA--}}
+    {{-- INICIO Modal DETALLE BAJA --}}
     <div class="modal fade" id="modalDetalleVenta" tabindex="-1" data-bs-keyboard="false" data-bs-backdrop="static">
         <div class="modal-dialog" style="min-width: 50%">
             <div class="modal-content p-3" id="modalDetalleVentaContent">
@@ -204,7 +204,7 @@
     </div>
     {{-- FINAL Modal DETALLE BAJA --}}
 
-    
+
 @stop
 
 @section('scripts')
@@ -246,8 +246,8 @@
                 "ordering": false
             });
             // CIERRE DataTable Lista Usuarios
-            
-            $('[id^=modalDetalleVenta_]').on('shown.bs.modal', function () {
+
+            $('[id^=modalDetalleVenta_]').on('shown.bs.modal', function() {
                 const modalId = $(this).attr('id');
                 const idVenta = modalId.replace('modalDetalleVenta_', '');
                 const tableId = `#tblDetalleVentaProductos_${idVenta}`;
@@ -308,111 +308,31 @@
                 configurarCalendario("fecha_inicial", "calendar_addon_inicial");
                 configurarCalendario("fecha_final", "calendar_addon_final");
             });
-
             // =========================================================================
             // =========================================================================
             // =========================================================================
 
-            document.querySelectorAll(".generar-pdf").forEach(button => {
-                button.addEventListener("click", function () {
-                    let venta = {
-                        id: this.dataset.id,
-                        fecha: this.dataset.fecha,
-                        usuario: this.dataset.usuario,
-                        cliente: this.dataset.cliente,
-                        subtotal: this.dataset.subtotal,
-                        descuento: this.dataset.descuento,
-                        total: this.dataset.total,
-                        detalles: JSON.parse(this.dataset.detalles)
-                    };
-
-                    // Capturar spinner y BTNs
-                    const spinner = document.getElementById(`loadingIndicatorReciboVenta_${venta.id}`);
-                    const btnCancelarReciboVenta = document.getElementById(`btnCancelarReciboVenta_${venta.id}`);
-                    const btnReciboVenta = document.getElementById(`btnReciboVenta_${venta.id}`);
-
-                    // Guardar el contenido original del botón para restaurarlo después
-                    const originalBtnContent = btnReciboVenta.innerHTML;
-
-                    // Mostrar el spinner
-                    if (spinner) {
-                        spinner.style.display = 'block';
-                    }
-
-                    // Desactivar Btn Recibo Venta
-                    if (btnReciboVenta) {
-                        btnReciboVenta.disabled = true;
-                        btnReciboVenta.innerHTML = `Procesando... <i class="fa fa-spinner fa-spin"></i>`;
-                    }
-
-                    // Desactivar Btn Cancelar Recibo Venta
-                    if (btnCancelarReciboVenta) {
-                        btnCancelarReciboVenta.disabled = true;
-                    }
-
-                    fetch("/recibo_caja_venta", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-                            },
-                            body: JSON.stringify(venta)
-                        })
-                        .then(response => response.blob())
-                        .then(blob => {
-                            // Ocultar el spinner
-                            if (spinner) {
-                                spinner.style.display = 'none';
-                            }
-
-                            if (btnReciboVenta) {
-                                btnReciboVenta.disabled = false;
-                                btnReciboVenta.innerHTML = originalBtnContent;
-                            }
-
-                            if (btnCancelarReciboVenta) {
-                                btnCancelarReciboVenta.disabled = false;
-                            }
-
-                            let url = window.URL.createObjectURL(blob);
-                            window.open(url, "_blank");
-                        })
-                        .catch(error => {
-                            // Ocultar el spinner en caso de error también
-                            if (spinner) {
-                                spinner.style.display = 'none';
-                            }
-                            console.error("Error al generar PDF:", error);
-                        });
-                });
-            });
-
-            // =========================================================================
-            // =========================================================================
-            // =========================================================================
-
-            $(document).on('click', '.btn-detalle-venta', function () {
+            $(document).on('click', '.btn-detalle-venta', function() {
                 const idVenta = $(this).data('id');
 
                 $.ajax({
                     url: `detalle_venta/${idVenta}`,
                     type: 'GET',
-                    beforeSend: function () {
-                        $('#modalDetalleVentaContent').html('<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>');
+                    beforeSend: function() {
+                        $('#modalDetalleVentaContent').html(
+                            '<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>'
+                            );
                         $('#modalDetalleVenta').modal('show');
                     },
-                    success: function (html) {
+                    success: function(html) {
                         $('#modalDetalleVentaContent').html(html);
                         $('#modalDetalleVenta').modal('show');
 
-                        // Inicializar DataTable después de un pequeño retraso para asegurar que esté en el DOM
                         setTimeout(function() {
                             const tableId = `#tblDetalleVentaProductos_${idVenta}`;
-
                             if ($.fn.DataTable.isDataTable(tableId)) {
-                                $(tableId).DataTable().clear().destroy(); // Previene doble inicialización
+                                $(tableId).DataTable().clear().destroy();
                             }
-
                             let tableDetalles = $(tableId).DataTable({
                                 dom: 'lrtip',
                                 infoEmpty: 'No hay registros',
@@ -423,13 +343,75 @@
                                 pageLength: 10,
                                 responsive: true
                             });
-
                             tableDetalles.columns.adjust();
-
                         }, 100);
+
+                        // Asignar evento al botón que se acaba de insertar en el DOM
+                        const btn = document.getElementById(`btnReciboVenta_${idVenta}`);
+                        if (btn) {
+                            btn.addEventListener("click", function() {
+                                let venta = {
+                                    id: this.dataset.id,
+                                    fecha: this.dataset.fecha,
+                                    usuario: this.dataset.usuario,
+                                    cliente: this.dataset.cliente,
+                                    subtotal: this.dataset.subtotal,
+                                    descuento: this.dataset.descuento,
+                                    total: this.dataset.total,
+                                    detalles: JSON.parse(this.dataset.detalles)
+                                };
+
+                                const spinner = document.getElementById(
+                                    `loadingIndicatorReciboVenta_${venta.id}`);
+                                const btnCancelar = document.getElementById(
+                                    `btnCancelarReciboVenta_${venta.id}`);
+                                const btnGenerar = this;
+                                const originalContent = btnGenerar.innerHTML;
+
+                                if (spinner) spinner.style.display = 'block';
+                                btnGenerar.disabled = true;
+                                btnGenerar.innerHTML =
+                                    `Procesando... <i class="fa fa-spinner fa-spin"></i>`;
+                                if (btnCancelar) btnCancelar.disabled = true;
+
+                                fetch("/recibo_caja_venta", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                            "X-CSRF-TOKEN": document.querySelector(
+                                                    'meta[name="csrf-token"]')
+                                                .getAttribute("content")
+                                        },
+                                        body: JSON.stringify(venta)
+                                    })
+                                    .then(response => response.blob())
+                                    .then(blob => {
+                                        if (spinner) spinner.style.display = 'none';
+                                        btnGenerar.disabled = false;
+                                        btnGenerar.innerHTML = originalContent;
+                                        if (btnCancelar) btnCancelar.disabled =
+                                            false;
+
+                                        let url = window.URL.createObjectURL(blob);
+                                        window.open(url, "_blank");
+                                    })
+                                    .catch(error => {
+                                        if (spinner) spinner.style.display = 'none';
+                                        btnGenerar.disabled = false;
+                                        btnGenerar.innerHTML = originalContent;
+                                        if (btnCancelar) btnCancelar.disabled =
+                                            false;
+                                        console.error("Error al generar PDF:",
+                                            error);
+                                    });
+                            });
+                        }
                     },
-                    error: function () {
-                        $('#modalDetalleVentaContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');
+
+                    error: function() {
+                        $('#modalDetalleVentaContent').html(
+                            '<div class="alert alert-danger">Error al cargar el formulario.</div>'
+                            );
                     }
                 });
             });

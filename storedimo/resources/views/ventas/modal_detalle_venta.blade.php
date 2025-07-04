@@ -71,13 +71,14 @@
 <div id="loadingIndicatorReciboVenta_{{ $venta->id_venta }}" class="loadingIndicator" style="display: none;">
     <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
 </div>
+
 <div class="d-flex justify-content-center mt-3">
     <button type="button" class="btn btn-success generar-pdf me-3" style="background-color: #337AB7"
         id="btnReciboVenta_{{ $venta->id_venta }}" data-id="{{ $venta->id_venta }}"
         data-fecha="{{ $venta->fecha_venta }}" data-usuario="{{ $venta->nombres_usuario }}"
         data-cliente="{{ $venta->nombres_cliente }}" data-subtotal="{{ $venta->subtotal_venta }}"
         data-descuento="{{ $venta->descuento }}" data-total="{{ $venta->total_venta }}"
-        data-detalles="{{ e(json_encode($ventaDetalles)) }}">
+        data-detalles='@json($ventaDetalles)'>
         <i class="fa fa-file-pdf-o"></i> Recibo Caja
     </button>
     <button type="button" title="Cancelar" class="btn btn-secondary" data-bs-dismiss="modal"
