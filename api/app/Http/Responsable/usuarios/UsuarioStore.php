@@ -116,7 +116,7 @@ class UsuarioStore implements Responsable
 
     private function permisosAdmin()
     {
-        return array_diff($this->permisosSoftdimo(), [2, 4, 6, 9, 10, 12, 22, 50]);
+        return array_diff($this->permisosSoftdimo(), [2, 4, 6, 9, 10, 11, 12, 22, 50]);
     }
 
     private function permisosPruebas()

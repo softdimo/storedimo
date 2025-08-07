@@ -1,6 +1,6 @@
 <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px 5px 0 0;">
     <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0"
-        style="background-color: #337AB7">Asignación de Permisos (Obligatorios * )</h5>
+        style="background-color: #337AB7">Actualización de Permisos (Obligatorios * )</h5>
 
     <div class="row m-0 p-3" id="div_campos_usuarios">
     
@@ -8,7 +8,7 @@
             <div class="form-group d-flex flex-column">
                 <label for="usuario_id" class="form-label">Usuario <span class="text-danger">*</span></label>
                 {!! Form::select('id_usuario', collect(['' => 'Seleccionar...'])->union($usuarios), null,
-                    ['class' => 'form-select', 'id' => 'id_usuario', 'required']) !!}
+                    ['class' => 'form-select select2', 'id' => 'id_usuario', 'required']) !!}
             </div>
         </div>
 
@@ -67,17 +67,10 @@
             <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
         </div>
 
-        {{-- ====================================================== --}}
-
         <div class="mt-5 mb-2 d-flex justify-content-center">
             <button type="submit" class="btn btn-success rounded-2 me-3" id="bt-guardar-permisos">
                 <i class="fa fa-floppy-o"></i>
                 Guardar
-            </button>
-
-            <button type="button" class="btn btn-secondary rounded-2" id="bt-cancel-permisos">
-                <i class="fa fa-remove"></i>
-                Cancelar
             </button>
         </div>
     </div>

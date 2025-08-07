@@ -51,7 +51,7 @@ $router->group(['prefix' => 'api/administracion'], function () use ($router) {
     $router->post('guardar_permiso', 'roles_permisos\RolesPermisosController@crearPermiso');
     $router->post('crear_permiso_usuario', 'roles_permisos\RolesPermisosController@crearPermisosUsuario');
     $router->post('consultar_permisos', 'roles_permisos\RolesPermisosController@consultarPermisosPorUsuario');
-    $router->post('eliminar_permiso_usuario', 'roles_permisos\RolesPermisosController@eliminarPermisosPorUsuario');
+    // $router->post('eliminar_permiso_usuario', 'roles_permisos\RolesPermisosController@eliminarPermisosPorUsuario');
     $router->get('permisos_por_usuario_trait/{idUsuario}', 'roles_permisos\RolesPermisosController@permisosPorUsuarioTrait');
     $router->get('permisos_trait', 'roles_permisos\RolesPermisosController@permisosTrait');
     $router->get('permisos_view_share_trait', 'roles_permisos\RolesPermisosController@permisosViewShareTrait');

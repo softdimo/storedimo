@@ -50,12 +50,12 @@
                                 <i class="fa fa-cog fa-1x"></i>
                             </a>
                             <ul class="dropdown-menu bg-white" style="right:0;left:auto">
-                                <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_configurar_ventas">
+                                <!-- <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_configurar_ventas">
                                     <a href="#" class="dropdown-item text-dark hover-li">Configurar Ventas</a>
                                 </li>
                                 <li class="nav-item" data-bs-toggle="modal" data-bs-target="#modal_configurar_pago">
                                     <a href="#" class="dropdown-item text-dark hover-li">Configuración de Pago</a>
-                                </li>
+                                </li> -->
 
                                 @if(!is_null(session('sesion_iniciada')) && session('id_rol') == 3)
                                 
@@ -67,10 +67,7 @@
                                                 <a href="#" class="dropdown-item text-dark hover-li">Creación de Permisos</a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item text-dark hover-li" href="{{ route('permisos.index') }}">Asignar Permisos</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item text-dark hover-li" href="{{ route('permisos.create') }}">Quitar Permisos</a>
+                                                <a class="dropdown-item text-dark hover-li" href="{{ route('permisos.index') }}">Actualizar Permisos</a>
                                             </li>
                                             <li data-bs-toggle="modal" data-bs-target="#modal_crear_roles">
                                                 <a href="#" class="dropdown-item text-dark hover-li">Creación de Roles</a>

@@ -41,13 +41,6 @@ class RolesPermisosController extends Controller
 
     function permisosPorUsuarioTrait($idUsuario)
     {
-        // $permisosPorUsuarioTrait = ModelHasPermissions::where('model_id', $idUsuario)
-        //                         ->orderBy('permission_id')
-        //                         ->pluck('permission_id')
-        //                         ->toArray();
-
-        // return response()->json($permisosPorUsuarioTrait);
-
         return ModelHasPermissions::where('model_id', $idUsuario)
                                 ->orderBy('permission_id')
                                 ->pluck('permission_id')

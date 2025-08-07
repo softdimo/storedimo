@@ -9,146 +9,126 @@ use App\Models\Permission;
 use App\Models\ModelHasPermissions;
 
 class RolesPermisosStore implements Responsable
-{   
+{
     public function toResponse($request)
     {
         try
         {
-            $nameRol = request('name', null);
-            $validarRole = $this->validarNombreRol(ucwords($nameRol));
+            $nameRol = ucwords($request->input('name'));
 
-            if($validarRole == 0)
+            if (!$this->existeNombreRol($nameRol))
             {
-                $createRol = Roles::create([
-                    'name' => ucwords($nameRol),
+                Roles::create([
+                    'name' => $nameRol,
                     'guard_name' => 'API'
                 ]);
-    
-                if($createRol)
-                {
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'Rol creado correctamente'
-                    ]);
-                }
 
                 return response()->json([
-                    'error' => true,
-                    'message' => 'Ha ocurrido un error creando el rol'
+                    'success' => true,
+                    'message' => 'Rol creado correctamente'
                 ]);
-
-            } else {
-
-                return response()->json([
-                    'error' => true,
-                    'message' => 'El nombre de rol ya existe en la base de datos'
-                ]);
-
             }
-            
+
+            return response()->json([
+                'error' => true,
+                'message' => 'El nombre de rol ya existe en la base de datos'
+            ]);
         } catch (Exception $e)
         {
             return response()->json([
                 'error' => true,
                 'message' => 'Ha ocurrido un error de base de datos creando el rol'
             ]);
-            
         }
-    }
-
-    public function validarNombreRol($name)
-    {
-        return Roles::select('name', 'guard_name')
-                ->where('name', $name)
-                ->count();
     }
 
     public function crearPermiso($request)
     {
         try
         {
-            $namePermission = request('permission', null);
-            $validarPermision = $this->validarNombrePermiso(ucwords($namePermission));
+            $namePermission = ucwords($request->input('permission'));
 
-            if($validarPermision == 0)
+            if (!$this->existeNombrePermiso($namePermission))
             {
-                $createPermission = Permission::create([
-                    'name' => ucwords($namePermission),
+                Permission::create([
+                    'name' => $namePermission,
                     'guard_name' => 'API'
                 ]);
-    
-                if($createPermission)
-                {
-                    return response()->json([
-                        'success' => true,
-                        'message' => 'Permiso creado correctamente'
-                    ]);
-                }
 
                 return response()->json([
-                    'error' => true,
-                    'message' => 'Ha ocurrido un error creando el permiso'
+                    'success' => true,
+                    'message' => 'Permiso creado correctamente'
                 ]);
-
-            } else
-            {
-                return response()->json([
-                    'error' => true,
-                    'message' => 'El nombre de permiso ya existe en la base de datos'
-                ]);
-
             }
-            
+
+            return response()->json([
+                'error' => true,
+                'message' => 'El nombre de permiso ya existe en la base de datos'
+            ]);
         } catch (Exception $e)
         {
             return response()->json([
                 'error' => true,
                 'message' => 'Ha ocurrido un error de base de datos creando el permiso'
             ]);
-            
         }
-    }
-
-    public function validarNombrePermiso($name)
-    {
-        return Permission::select('name', 'guard_name')
-                ->where('name', $name)
-                ->count();
     }
 
     public function crearPermisosPorUsuario($request)
     {
-        try 
+        try
         {
-            foreach($request->permissions as $permissions)
+            $usuarioId = $request->usuario_id;
+            $nuevosPermisos = $request->permissions ?? [];
+
+            // Eliminar permisos actuales
+            $permisosActuales = $this->consultarPermisosPorUsuario($usuarioId);
+            if ($permisosActuales->isNotEmpty())
             {
-                $modelHasPermissions = ModelHasPermissions::updateOrCreate([
-                    'permission_id' => $permissions,
-                    'model_type' => 'App\Models\Usuario',
-                    'model_id' => $request->usuario_id
-                ]);
+                $permissionIds = $permisosActuales->pluck('permission_id');
+                ModelHasPermissions::where('model_id', $usuarioId)
+                                   ->whereIn('permission_id', $permissionIds)
+                                   ->delete();
             }
 
-            if($modelHasPermissions)
+            // Asignar nuevos permisos
+            foreach ($nuevosPermisos as $permissionId)
             {
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Permisos asignados correctamente'
+                ModelHasPermissions::updateOrCreate([
+                    'permission_id' => $permissionId,
+                    'model_type' => 'App\Models\Usuario',
+                    'model_id' => $usuarioId
                 ]);
             }
 
             return response()->json([
-                'error' => true,
-                'message' => 'Ha ocurrido un error asignando los permisos'
+                'success' => true,
+                'message' => 'Permisos actualizados correctamente'
             ]);
             
-        } catch (Exception $e) 
+        } catch (Exception $e)
         {
-            return response()->json($e);
             return response()->json([
                 'error' => true,
-                'message' => 'Ha ocurrido un error de base de datos asignando los permisos'
+                'message' => 'Ha ocurrido un error de base de datos actualizando los permisos'
             ]);
         }
+    }
+
+    public function consultarPermisosPorUsuario($usuarioId)
+    {
+        return ModelHasPermissions::select('permission_id')
+                                  ->where('model_id', $usuarioId)
+                                  ->get();
+    }
+
+    protected function existeNombreRol($name)
+    {
+        return Roles::where('name', $name)->exists();
+    }
+
+    protected function existeNombrePermiso($name)
+    {
+        return Permission::where('name', $name)->exists();
     }
 }
