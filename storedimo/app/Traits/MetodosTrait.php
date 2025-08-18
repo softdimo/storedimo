@@ -218,10 +218,35 @@ trait MetodosTrait
             // Si es una vista de informe
             if ($vista === 'informe_gerencial' && $infCodigo)
             {
-                $campos = InformeCampo::formulario($infCodigo);
-                $informe = Informe::where('informe_codigo', $infCodigo)->first();
+                try
+                {
+                    // Realiza la solicitud POST a la API
+                    $client = new Client(['base_uri' => env('BASE_URI')]);
+        
+                    $response = $client->post('administracion/informe_gerencial', [
+                            'json' => [
+                                'infCodigo' => $infCodigo,
+                                'id_audit' => session('id_usuario')
+                            ]
+                        ]
+                    );
 
-                return view('informes.informe', compact('campos', 'informe'));
+                    $respuesta = json_decode($response->getBody()->getContents(), true);
+                    
+                    $campos = json_decode(json_encode($respuesta['campos']));
+                    $informe = json_decode(json_encode($respuesta['informe']));
+
+                    return view('informes.informe', compact('campos', 'informe'));
+
+                } catch (Exception $e)
+                {
+                    dd($e);
+                    alert()->error('Error en el informe gerencial');
+                    return redirect()->route('home');
+                }
+
+                // $campos = InformeCampo::formulario($infCodigo);
+                // $informe = Informe::where('informe_codigo', $infCodigo)->first();
             }
 
             // Si la vista es una respuesta diferente (por ejemplo, un redirect)

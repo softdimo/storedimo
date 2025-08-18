@@ -233,7 +233,7 @@ body {
 /* =============================================== */
 
 .table-responsive {
-    overflow-x: initial;
+    overflow-x: auto;
 }
 
 .hover-li:hover {

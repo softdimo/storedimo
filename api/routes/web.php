@@ -64,6 +64,9 @@ $router->group(['prefix' => 'api/administracion'], function () use ($router) {
     $router->put('empresa_update/{idEmpresa}', 'empresas\EmpresasController@update');
     $router->post('consultar_empresa', 'empresas\EmpresasController@consultarEmpresa');
     $router->get('empresa_edit/{idEmpresa}', 'empresas\EmpresasController@edit');
+
+    // Informes Gerenciales
+    $router->post('informe_gerencial', 'informes\InformeController@index');
 }); // FIN api/administracion
 
 // ========================================================================

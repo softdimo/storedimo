@@ -27,13 +27,15 @@
                         <form action="#" class="floating-labels m-t-20" method="POST" id="informe" >
                             @csrf
                             <div class="row m-l-20 m-r-20">
-                                @foreach($campos['inputs'] as $campo)
+                                {{-- @foreach($campos['inputs'] as $campo) --}}
+                                @foreach($campos->inputs as $campo)
                                     {!! $campo !!}
                                 @endforeach
                             </div>
                             <hr>
                             <div class="row m-l-20 m-r-20">
-                                @foreach($campos['checks'] as $campo)
+                                {{-- @foreach($campos['checks'] as $campo) --}}
+                                @foreach($campos->checks as $campo)
                                     {!! $campo !!}
                                 @endforeach
                             </div>
@@ -48,9 +50,9 @@
                                 <!-- <input type="hidden" name="empresa_id" id="empresa_id"> -->
                                 <button type="submit" name="buscar" class="btn btn-submit btn-success" type="button" id="buscar">Buscar</button>
                                 <button name="reset" class="btn btn-submit btn-danger" type="reset" id="reset" onclick="limpiar();">Limpiar</button>
-                                <p class="float-right">
+                                <p class="float-right mt-2">
                                     Seleccione todos los campos que requiere su informe,
-                                    mientras más campos ignore o seleccione como "Todos" tardará más tiempo obtener los resultados.
+                                    mientras más campos ignore o seleccione como "Todos" tardará más tiempo en obtener los resultados.
                                 </p>
                             </div>
                         </form>
@@ -65,7 +67,6 @@
                         </div>
                     </div>
                 </div>
-
                 <input type="hidden" name="id_usuario" id="id_usuario" class="form-control" value="{{session('id_usuario')}}">
                 <input type="hidden" name="usuario" id="usuario" class="form-control" value="{{session('usuario')}}">
                 <input type="hidden" name="id_rol" id="id_rol" class="form-control" value="{{session('id_rol')}}">
@@ -151,7 +152,7 @@
                                     }
                                 }
                                 ],
-                                "lengthMenu": [[25,50,100, -1], [25,50,100, 'TODOS']],
+                                "lengthMenu": [[10,25,50,100, -1], [10,25,50,100, 'TODOS']],
                             });
                         }
                         else
@@ -197,6 +198,5 @@
             showConfirmButton: false
         });
     }
-   
 </script>
 @endsection
