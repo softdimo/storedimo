@@ -107,42 +107,42 @@
                                 class="text-danger">*</span></h5>
                         {{-- ============================================================== --}}
                         <div class="pt-3 pe-2 pb-3 ps-3 d-flex justify-content-between" id="" style="">
-                            <div class="d-flex justify-content-center w-75">
+                            <div class="d-flex justify-content-center w-100">
                                 {{ Form::select('id_producto', collect(['' => 'Seleccionar...'])->union($productos_compras), null, ['class' => 'form-select select2', 'id' => 'id_producto']) }}
                             </div>
 
-                            <div class="d-flex justify-content-center w-25">
+                            {{-- <div class="d-flex justify-content-center w-25">
                                 <button type="button" class="btn rounded-2 text-white" style="background-color: #337AB7"
                                     title="Registrar producto" data-bs-toggle="modal"
                                     data-bs-target="#modal_registroProducto">
                                     <i class="fa fa-plus plus"></i>
                                 </button>
-                            </div>
+                            </div> --}}
                         </div>
                         {{-- ============================================================== --}}
                         <div class="row p-3">
-                            <div class="col-md-3 text-center">
+                            <div class="col-md-4 text-center">
                                 <strong for="form-control fw-bold">Precio Unitario</strong>
                                 <p id="precio">$ <span class="" id="p_unitario"></span></p>
                             </div>
                             {{-- ============ --}}
-                            <div class="col-md-3 text-center">
+                            <div class="col-md-4 text-center">
                                 <strong for="form-control fw-bold">Precio al Detal</strong>
                                 <p id="precio2">$ <span class="" id="p_detal"></span></p>
                             </div>
                             {{-- ============ --}}
-                            <div class="col-md-3 text-center">
+                            <div class="col-md-4 text-center">
                                 <strong for="form-control fw-bold">Precio por Mayor</strong>
                                 <p id="precio3">$ <span class="" id="p_x_mayor"></span></p>
                             </div>
                             {{-- ============ --}}
-                            <div class="col-md-3 text-center">
+                            {{-- <div class="col-md-3 text-center">
                                 <button type="button" title="Modificar Precios Producto" data-bs-toggle="modal"
                                     data-bs-target="#modalModificarPrecios" class="btn btn-success btn-circle">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"
                                         title="Modificar Precios Producto"></i>
                                 </button>
-                            </div>
+                            </div> --}}
                         </div>
                         {{-- ============ --}}
                         <div class="form-group p-3" id="cant">
