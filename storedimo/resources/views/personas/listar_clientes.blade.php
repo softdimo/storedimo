@@ -115,7 +115,7 @@
                                     <th>Apellidos</th>
                                     <th>Identificación</th>
                                     <th>Celular</th>
-                                    <th>Estado</th>
+                                    {{-- <th>Estado</th> --}}
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
@@ -129,7 +129,7 @@
                                             <td>{{ $persona->apellidos_persona }}</td>
                                             <td>{{ $persona->identificacion }}</td>
                                             <td>{{ $persona->celular }}</td>
-                                            <td>{{ $persona->estado }}</td>
+                                            {{-- <td>{{ $persona->estado }}</td> --}}
                                             <td>
                                                 <button type="button"
                                                     class="btn btn-success rounded-circle btn-circle btn-editar-cliente"
