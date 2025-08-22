@@ -283,6 +283,7 @@ class ProductosController extends Controller
                     DB::raw("CONCAT(referencia, ' - ', nombre_producto) AS nombre_producto"),
                     'id_producto'
                 )
+                ->where('id_producto', 1)
                 ->orderBy('nombre_producto')
                 ->pluck('nombre_producto', 'id_producto');
 
@@ -331,6 +332,7 @@ class ProductosController extends Controller
                     DB::raw("CONCAT(referencia, ' - ', nombre_producto) AS nombre_producto"),
                     'id_producto'
                 )
+                ->where('id_producto', 1)
                 ->orderBy('nombre_producto')
                 ->pluck('nombre_producto', 'id_producto');
 
@@ -380,6 +382,7 @@ class ProductosController extends Controller
                     'id_producto'
                 )
                 ->where('cantidad', '>', 0)
+                ->where('id_producto', 1)
                 ->orderBy('nombre_producto')
                 ->pluck('nombre_producto', 'id_producto');
 
