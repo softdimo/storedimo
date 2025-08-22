@@ -196,7 +196,7 @@
 
                             <div class="mt-3 p-3 d-flex" style="background-color: #F5F5F5">
                                 <h3 class="col-3 text-center align-content-center">Total: $</h3>
-                                {!! Form::text('valor_compra', null, ['class' => 'form-control w-100 fs-4', 'id' => 'valor_compra', 'required']) !!}
+                                {!! Form::text('valor_compra', null, ['class' => 'form-control w-100 fs-4', 'id' => 'valor_compra', 'required', 'readonly']) !!}
                             </div>
 
                             {{-- ============ --}}
