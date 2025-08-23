@@ -29,7 +29,7 @@ class PersonaUpdate implements Responsable
         $email = request('email', null);
         $idGenero = request('id_genero', null);
         $direccion = request('direccion', null);
-        $idEstado = request('id_estado', null);
+        $idEstado = 1;
         $nitEmpresa = request('nit_empresa', null);
         $nombreEmpresa = request('nombre_empresa', null);
         $telefonoEmpresa = request('telefono_empresa', null);

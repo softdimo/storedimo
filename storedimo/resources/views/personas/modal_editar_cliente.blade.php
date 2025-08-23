@@ -138,7 +138,7 @@
             </div>
             {{-- ======================= --}}
 
-            <div class="col-12 col-md-4 mt-4" id="div_id_estado">
+            {{-- <div class="col-12 col-md-4 mt-4" id="div_id_estado">
                 <div class="form-group d-flex flex-column">
                     <label for="id_estado" class=""
                         style="font-size: 15px">Estado
@@ -155,7 +155,7 @@
                         ],
                     ) !!}
                 </div>
-            </div>
+            </div> --}}
 
             {{-- ======================= --}}
             <div class="col-12 col-md-4 mt-4" id="div_id_genero">
@@ -179,7 +179,7 @@
                     {{ Form::text('direccion', isset($persona) ? $persona->direccion : null, [
                         'class' => 'form-control',
                         'id' => 'direccion',
-                        'required' => 'required',
+                        // 'required' => 'required',
                         'pattern' => '^[a-zA-Z0-9\s\#\-\.\,\/]{5,100}$',
                         'title' =>
                             'Ingrese una dirección válida (solo letras, números y caracteres como # - . , /). Mínimo 5 y máximo 100 caracteres.',

@@ -207,6 +207,7 @@ class ProveedoresController extends Controller
                     ")
                 )
                 ->whereIn('proveedores.id_tipo_persona', [3,4])
+                ->where('proveedores.id_estado', 1)
                 ->orderBy('tipo_persona.tipo_persona')
                 ->get() // Usamos get() en lugar de pluck()
                 ->mapWithKeys(function($item) {
