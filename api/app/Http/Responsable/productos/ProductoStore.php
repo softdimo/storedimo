@@ -35,6 +35,7 @@ class ProductoStore implements Responsable
         $idEstado = request('id_estado', null);
         $referencia = request('referencia', null);
         $fechaVencimiento = request('fecha_vencimiento', null);
+        $idUnidadMedida = request('id_umd', null);
 
         // ================================================
 
@@ -51,7 +52,8 @@ class ProductoStore implements Responsable
                 'stock_minimo' => $stockMinimo,
                 'id_estado' => $idEstado,
                 'referencia' => $referencia,
-                'fecha_vencimiento' => $fechaVencimiento
+                'fecha_vencimiento' => $fechaVencimiento,
+                'id_umd' => $idUnidadMedida
             ]);
     
             if (isset($nuevoProducto) && !is_null($nuevoProducto) && !empty($nuevoProducto)) {

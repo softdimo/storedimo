@@ -52,6 +52,7 @@ class ProductoUpdate implements Responsable
             $producto->precio_por_mayor = $this->request->input('precio_por_mayor');
             $producto->referencia = $this->request->input('referencia');
             $producto->fecha_vencimiento = $this->request->input('fecha_vencimiento');
+            $producto->id_umd = $this->request->input('id_umd');
             $producto->update();
 
             // Restaurar conexión principal si se usó tenant

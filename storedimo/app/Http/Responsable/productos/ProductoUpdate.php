@@ -22,12 +22,14 @@ class ProductoUpdate implements Responsable
         $stockMinimoEdit = request('stockMinimoEdit', null);
         $referenciaEdit = request('referenciaEdit', null);
         $fechaVencimientoEdit = request('fechaVencimientoEdit', null);
+        $unidadMedida = request('id_umdEdit', null);
 
         // ===================================================================
 
         $imagenProductoBase64Edit = null;
 
-        if ($request->hasFile('imagenProductoEdit')) {
+        if ($request->hasFile('imagenProductoEdit'))
+        {
             $imagenProducto = $request->file('imagenProductoEdit');
 
             if ($imagenProducto->isValid()) {
@@ -82,6 +84,7 @@ class ProductoUpdate implements Responsable
                     'stock_minimo' => $stockMinimoEdit ?? $productoActual->stock_minimo,
                     'referencia' => $referenciaEdit ?? $productoActual->referencia,
                     'fecha_vencimiento' => $fechaVencimientoEdit ?? $productoActual->fecha_vencimiento,
+                    'id_umd' => $unidadMedida ?? $productoActual->id_umd,
                     'id_audit' => session('id_usuario'),
                     'empresa_actual' => session('empresa_actual.id_empresa')
                 ]

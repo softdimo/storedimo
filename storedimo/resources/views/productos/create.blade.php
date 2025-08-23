@@ -97,6 +97,8 @@
         </div>
     </div>
 
+    @include('productos.modal_crear_umd')
+
     <!-- Modal Crear Categoría -->
     <div class="modal fade" id="modal_crear_categoria" tabindex="-1" aria-labelledby="modalCrearCategoriaLabel"
         aria-hidden="true">

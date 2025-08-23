@@ -15,6 +15,7 @@ use App\Http\Responsable\productos\ProductoUpdate;
 use App\Http\Responsable\productos\ProductoDestroy;
 use App\Http\Responsable\productos\ReporteProductosPdf;
 use App\Models\Producto;
+use App\Models\UnidadMedida;
 use App\Helpers\DatabaseConnectionHelper;
 use App\Models\Empresa;
 
@@ -191,7 +192,8 @@ class ProductosController extends Controller
                     'tamano',
                     'cantidad',
                     'referencia',
-                    'fecha_vencimiento'
+                    'fecha_vencimiento',
+                    'id_umd'
                 )
                 ->where('id_producto', $idProducto)
                 ->first();
@@ -399,6 +401,54 @@ class ProductosController extends Controller
         } catch (Exception $e) {
             // Asegurar restauración de conexión principal en caso de error
             if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
+    }
+
+    public function consultarUmd(Request $request)
+    {
+        // 1. Obtener ID de empresa del request (antes era empresa_actual completo)
+        $empresaId = $request->input('empresa_actual');
+
+        // 2. Buscar empresa completa usando el ID
+        $empresaActual = Empresa::find($empresaId);
+        
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual)
+        {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
+        }
+        
+        try
+        {
+            $umd = UnidadMedida::select(DB::raw("CONCAT(descripcion, ' (', abreviatura, ')') AS umd"), 'id')
+                                ->where('estado_id', 1)
+                                ->orderBy('id')
+                                ->pluck('umd', 'id');
+
+            // Retornamos la categoría si existe, de lo contrario retornamos null
+            if (isset($umd) && !is_null($umd) && !empty($umd))
+            {
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
+                return response()->json($umd);
+                
+            } else
+            {
+                return response(null, 200);
+            }
+
+        } catch (Exception $e)
+        {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual))
+            {
                 DatabaseConnectionHelper::restaurarConexionPrincipal();
             }
             

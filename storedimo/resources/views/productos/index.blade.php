@@ -267,7 +267,6 @@
             // CIERRE DataTable Lista Productos
 
             // ===========================================================
-            // ===========================================================
 
             $(document).on('click', '.btn-editar-producto', function() {
                 const idProducto = $(this).data('id');
