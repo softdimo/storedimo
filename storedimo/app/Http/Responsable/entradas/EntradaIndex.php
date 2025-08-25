@@ -25,14 +25,14 @@ class EntradaIndex implements Responsable
             $entradas = json_decode($peticion->getBody()->getContents());
 
             // Obtener detalles de cada compra
-            foreach ($entradas as $entrada) {
-                $detallePeticion = $clientApi->post($baseUri . 'detalle_compra/' . $entrada->id_compra, [
-                    'json' => [
-                        'empresa_actual' => session('empresa_actual.id_empresa')
-                    ]
-                ]);
-                $entrada->detalles = json_decode($detallePeticion->getBody()->getContents());
-            }
+            // foreach ($entradas as $entrada) {
+            //     $detallePeticion = $clientApi->post($baseUri . 'detalle_compra/' . $entrada->id_compra, [
+            //         'json' => [
+            //             'empresa_actual' => session('empresa_actual.id_empresa')
+            //         ]
+            //     ]);
+            //     $entrada->detalles = json_decode($detallePeticion->getBody()->getContents());
+            // }
 
             return view('entradas.index', compact('entradas'));
         } catch (Exception $e) {
