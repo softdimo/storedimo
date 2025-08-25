@@ -87,7 +87,7 @@
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
                 <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">
-                    Registar Bajas</h5>
+                    Registrar Bajas</h5>
 
                 {!! Form::open([
                     'method' => 'POST',

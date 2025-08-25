@@ -149,12 +149,12 @@
 
                                                                     <div class="col-12 col-md-6 mt-3">
                                                                         <label for="fecha_prestamo" class="fw-bold" style="font-size: 12px">Fecha Préstamo <span class="text-danger">*</span></label>
-                                                                        {!! Form::date('fecha_prestamo', null, ['class' => 'form-control', 'id' => 'fecha_prestamo', 'required']) !!}
+                                                                        {!! Form::date('fecha_prestamo', null, ['class' => 'form-control', 'id' => 'fecha_prestamo', 'required', 'onkeydown' => 'return false',]) !!}
                                                                     </div>
 
                                                                     <div class="col-12 col-md-6 mt-3">
                                                                         <label for="fecha_limite" class="fw-bold" style="font-size: 12px">Fecha Límite <span class="text-danger">*</span></label>
-                                                                        {!! Form::date('fecha_limite', null, ['class' => 'form-control', 'id' => 'fecha_limite', 'required']) !!}
+                                                                        {!! Form::date('fecha_limite', null, ['class' => 'form-control', 'id' => 'fecha_limite', 'required', 'onkeydown' => 'return false',]) !!}
                                                                     </div>
 
                                                                     <div class="col-12 col-md-6 mt-3">

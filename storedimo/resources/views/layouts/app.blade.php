@@ -12,19 +12,24 @@
     @yield('css')
 
     {{-- Favicon --}}
-    <link rel="shortcut icon" href="{{ asset('imagenes/logo_storedimo_fondo.png') }}" type="image/x-icon" width="100" height="60">
+    <link rel="shortcut icon" href="{{ asset('imagenes/logo_storedimo_fondo.png') }}" type="image/x-icon" width="100"
+        height="60">
 
     <!-- Bootstrap CSS 5.3.2 -->
     <link rel="stylesheet" href="{{ asset('bootstrap/bootstrap.5.3.2.min.css') }}">
 
     <!-- SELECT2 CSS -->
     {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet"> --}}
-    <link href="{{asset('select2_4.0.13/select2.min.css')}}" rel="stylesheet">
-    <link href="{{asset('css/select2.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('select2_4.0.13/select2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('font-awesome-4.5.0/css/font-awesome.min.css') }}"> {{-- Necesario para el ícono del logout --}}
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+
+    <!-- intl-tel-input CSS -->
+    <link rel="stylesheet" href="{{ asset('css/intlTelInput.min.css') }}">
+
 
     {{-- Sweetalert2 (No necesita jquery para funcionar) --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/sweetalert2.css') }}">
@@ -40,8 +45,15 @@
     <!-- Select2 -->
     <script src="{{ asset('js/select2.min.js') }}"></script>
 
+    <script src="{{ asset('js/intlTelInput.min.js') }}"></script>
+    <script src="{{ asset('js/utils.js') }}"></script>
+
+
     <!-- Datatable -->
     <!-- <script src="{{ asset('js/datatables.min.js') }}"></script> -->
+
+    <!-- tu inicialización -->
+    <script src="{{ asset('js/custom.js') }}"></script>
 </head>
 
 <body>
@@ -60,4 +72,3 @@
 
         @include('layouts.footer')
     </div>
-
