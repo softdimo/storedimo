@@ -25,14 +25,14 @@ class BajaIndex implements Responsable
             $bajasIndex = json_decode($peticion->getBody()->getContents());
 
             // Obtener detalles de cada compra
-            foreach ($bajasIndex as $baja) {
-                $detallePeticion = $clientApi->post($baseUri . 'baja_detalle/' . $baja->id_baja, [
-                    'json' => [
-                        'empresa_actual' => session('empresa_actual.id_empresa')
-                    ]
-                ]);
-                $baja->detalles = json_decode($detallePeticion->getBody()->getContents());
-            }
+            // foreach ($bajasIndex as $baja) {
+            //     $detallePeticion = $clientApi->post($baseUri . 'baja_detalle/' . $baja->id_baja, [
+            //         'json' => [
+            //             'empresa_actual' => session('empresa_actual.id_empresa')
+            //         ]
+            //     ]);
+            //     $baja->detalles = json_decode($detallePeticion->getBody()->getContents());
+            // }
 
             return view('existencias.bajas_index', compact('bajasIndex'));
             
