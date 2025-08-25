@@ -4,8 +4,6 @@ namespace App\Http\Responsable\entradas;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
 class EntradaIndex implements Responsable
@@ -38,7 +36,6 @@ class EntradaIndex implements Responsable
 
             return view('entradas.index', compact('entradas'));
         } catch (Exception $e) {
-            dd($e);
             alert()->error('Error', 'Exception Index Entradas, contacte a Soporte.');
             return back();
         }

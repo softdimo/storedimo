@@ -68,6 +68,24 @@ class EntradaIndex implements Responsable
                     $entrada->nombres_usuario = $usuario->nombres_usuario ?? 'Sin usuario';
                 }
 
+                // if ($entradas->isNotEmpty()) {
+
+                //     $idsUsuarios = $entradas->pluck('id_usuario')->unique();
+                    
+                //     $usuarios = DB::connection('mysql')
+                //         ->table('usuarios')
+                //         ->whereIn('id_usuario', $idsUsuarios)
+                //         ->select(
+                //             'id_usuario',
+                //             DB::raw("CONCAT(nombre_usuario, ' ', apellido_usuario) as nombres_usuario")
+                //         )
+                //         ->pluck('nombres_usuario', 'id_usuario');
+                
+                //     foreach ($entradas as $entrada) {
+                //         $entrada->nombres_usuario = $usuarios[$entrada->id_usuario] ?? 'Sin usuario';
+                //     }
+                // }
+
                 return response()->json($entradas);
 
         } catch (Exception $e) {
