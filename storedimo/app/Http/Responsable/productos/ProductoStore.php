@@ -24,12 +24,14 @@ class ProductoStore implements Responsable
         $idEstado = 1;
         $referencia = request('referencia', null);
         $fechaVencimiento = request('fecha_vencimiento', null);
+        $idUnidadMedida = request('id_umd', null);
 
         // ========================================================
 
         $imagenProductoBase64 = null;
 
-        if ($request->hasFile('imagen_producto')) {
+        if ($request->hasFile('imagen_producto'))
+        {
             $imagenProducto = $request->file('imagen_producto');
 
             if ($imagenProducto->isValid()) {
@@ -85,6 +87,7 @@ class ProductoStore implements Responsable
                     'id_estado' => $idEstado,
                     'referencia' => $referencia,
                     'fecha_vencimiento' => $fechaVencimiento,
+                    'id_umd' => $idUnidadMedida,
                     'id_audit' => session('id_usuario'),
                     'empresa_actual' => session('empresa_actual.id_empresa')
                 ]

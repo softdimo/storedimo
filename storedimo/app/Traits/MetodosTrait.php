@@ -240,7 +240,6 @@ trait MetodosTrait
 
                 } catch (Exception $e)
                 {
-                    dd($e);
                     alert()->error('Error en el informe gerencial');
                     return redirect()->route('home');
                 }

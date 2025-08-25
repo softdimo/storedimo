@@ -51,7 +51,8 @@ class ProductoEdit implements Responsable
                     'precio_detal',
                     'precio_por_mayor',
                     'referencia',
-                    'fecha_vencimiento'
+                    'fecha_vencimiento',
+                    'id_umd'
                 )
                 ->where('id_producto', $idProducto)
                 ->first();
@@ -68,7 +69,9 @@ class ProductoEdit implements Responsable
                     'message' => 'No existe producto'
                 ], 404);
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
+            return response()->json($e);
             // Asegurar restauración de conexión principal en caso de error
             if (isset($empresaActual)) {
                 DatabaseConnectionHelper::restaurarConexionPrincipal();

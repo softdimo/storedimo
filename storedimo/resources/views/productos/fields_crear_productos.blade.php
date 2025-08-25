@@ -2,7 +2,25 @@
     <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">Registrar
         Productos (Obligatorios * )</h5>
 
+        
     <div class="row m-0 p-3" id="div_campos_usuarios">
+
+        <div class="col-12 col-md-3">
+            <div class="form-group d-flex flex-column">
+                <label for="referencia" class="form-label">Referencia <span class="text-danger">*</span></label>
+                {!! Form::text('referencia', null, [
+                    'class' => 'form-control',
+                    'id' => 'referencia',
+                    'required' => 'required',
+                    'pattern' => '^[a-zA-Z0-9\-_#]{2,50}$',
+                    'title' => 'La referencia debe tener entre 2 y 50 caracteres. Puede incluir letras, números y los caracteres especiales - _ #',
+                    'maxlength' => '50',
+                    'minlength' => '2'
+                ]) !!}
+                <small id="reference-error" class="text-danger d-none">Esta referencia ya existe.</small>
+            </div>
+        </div>
+
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
                 <label for="nombre_producto" class="form-label">Nombre Producto <span class="text-danger">*</span></label>
@@ -54,7 +72,7 @@
 
         {{-- ======================= --}}
 
-        <div class="col-12 col-md-3">
+        <div class="col-12 col-md-3 mt-3">
             <div class="form-group d-flex flex-column">
                 <label for="precio_detal" class="form-label">Precio al Detal <span class="text-danger">*</span></label>
                 {!! Form::number('precio_detal', null, [
@@ -108,7 +126,7 @@
                     'id' => 'stock_minimo',
                     'required' => 'required',
                     'min' => 1,
-                    'max' => 50,
+                    'max' => 999999,
                     'oninput' => 'validity.valid||(value=\'\');',
                     'step' => '1',
                     'title' => 'El stock mínimo debe ser un número entero mayor o igual a 1',
@@ -117,22 +135,21 @@
             </div>
         </div>
 
-        {{-- ======================= --}}
-
-        <div class="col-12 col-md-3 mt-3" id="">
-            <div class="form-group d-flex flex-column">
-                <label for="referencia" class="form-label">Referencia <span class="text-danger">*</span></label>
-                {!! Form::text('referencia', null, [
-                    'class' => 'form-control',
-                    'id' => 'referencia',
+        <div class="col-12 col-md-3 d-flex align-items-end gap-2">
+            <div class="form-group flex-grow-1">
+                <label for="id_umd" class="form-label">Unidad de Medida <span class="text-danger">*</span></label>
+                {!! Form::select('id_umd', collect(['' => 'Seleccionar...'])->union($umd), null, [
+                    'class' => 'form-select select2',
+                    'id' => 'id_umd',
                     'required' => 'required',
-                    'pattern' => '^[a-zA-Z0-9\-_#]{2,50}$',
-                    'title' => 'La referencia debe tener entre 2 y 50 caracteres. Puede incluir letras, números y los caracteres especiales - _ #',
-                    'maxlength' => '50',
-                    'minlength' => '2'
                 ]) !!}
-                <small id="reference-error" class="text-danger d-none">Esta referencia ya existe.</small>
             </div>
+
+            <button type="button" class="btn rounded-2 text-white h-90 px-2" style="background-color: #337AB7; margin-bottom: 1px"
+                title="Crear UMD" data-bs-toggle="modal"
+                data-bs-target="#modal_crear_umd">
+                <i class="fa fa-plus plus"></i>
+            </button>
         </div>
 
         {{-- ======================= --}}

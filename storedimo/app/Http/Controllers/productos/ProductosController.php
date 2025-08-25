@@ -88,7 +88,9 @@ class ProductosController extends Controller
                 } else
                 {
                     $categorias = $this->categoriasTrait();
+                    $umd = $this->UmdTrait();
                     view()->share('categorias', $categorias);
+                    view()->share('umd', $umd);
                     $vista = 'productos.create';
                     return $this->validarAccesos($sesion[0], 20, $vista);
                 }
@@ -200,7 +202,8 @@ class ProductosController extends Controller
                 } else
                 {
                     $categorias = $this->categoriasTrait();
-                    return new ProductoEdit($idProducto, $categorias);
+                    $umd = $this->UmdTrait();
+                    return new ProductoEdit($idProducto, $categorias, $umd);
                 }
             }
         } catch (Exception $e)
@@ -281,7 +284,6 @@ class ProductosController extends Controller
     }
 
     // ======================================================================
-    // ======================================================================
 
     public function verificarProducto(Request $request)
     {
@@ -331,7 +333,6 @@ class ProductosController extends Controller
     }
 
     // ======================================================================
-    // ======================================================================
     
     public function queryBarCodeProducto($idProducto)
     {
@@ -361,7 +362,6 @@ class ProductosController extends Controller
         }
     }
 
-    // ======================================================================
     // ======================================================================
         
     public function productoGenerarBarCode()
@@ -499,7 +499,6 @@ class ProductosController extends Controller
     }
     
     // ======================================================================
-    // ======================================================================
 
     public function categoriasTrait()
     {
@@ -512,6 +511,24 @@ class ProductosController extends Controller
 
         } catch (Exception $e) {
             alert()->error('Error', 'Error obteniendo categorías');
+            return back();
+        }
+    }
+
+    
+    public function UmdTrait()
+    {
+        try
+        {
+            $response = $this->clientApi->get('umd_trait', [
+                'query' => ['empresa_actual' => session('empresa_actual.id_empresa')]
+            ]);
+
+            return json_decode($response->getBody()->getContents());
+
+        } catch (Exception $e)
+        {
+            alert()->error('Error', 'Error obteniendo unidades de medida');
             return back();
         }
     }

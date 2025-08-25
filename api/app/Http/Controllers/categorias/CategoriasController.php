@@ -155,7 +155,6 @@ class CategoriasController extends Controller
     }
     
     // ======================================================================
-    // ======================================================================
 
     public function categoriasTrait(Request $request)
     {
@@ -186,7 +185,8 @@ class CategoriasController extends Controller
                 return response(null, 200);
             }
 
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             // Asegurar restauración de conexión principal en caso de error
             if (isset($empresaActual)) {
                 DatabaseConnectionHelper::restaurarConexionPrincipal();
