@@ -183,6 +183,10 @@ body {
     vertical-align: middle;
 }
 
+.iti__country-list {
+  z-index: 2000 !important;
+}
+
 /* =============================================== */
 
 /* Estilos generales del select2 */
