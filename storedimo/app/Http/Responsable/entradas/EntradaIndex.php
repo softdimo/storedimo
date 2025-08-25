@@ -31,7 +31,7 @@ class EntradaIndex implements Responsable
             //             'empresa_actual' => session('empresa_actual.id_empresa')
             //         ]
             //     ]);
-            //     la = json_decode($detallePeticion->getBody()->getContents());
+            //     $entrada->detalles = json_decode($detallePeticion->getBody()->getContents());
             // }
 
             return view('entradas.index', compact('entradas'));
