@@ -25,14 +25,14 @@ class VentaIndex implements Responsable
             $ventas = json_decode($peticion->getBody()->getContents());
 
             // Obtener detalles de cada compra
-            foreach ($ventas as $venta) {
-                $detallePeticion = $clientApi->post($baseUri . 'detalle_venta/' . $venta->id_venta, [
-                    'json' => [
-                        'empresa_actual' => session('empresa_actual.id_empresa')
-                    ]
-                ]);
-                $venta->detalles = json_decode($detallePeticion->getBody()->getContents());
-            }
+            // foreach ($ventas as $venta) {
+            //     $detallePeticion = $clientApi->post($baseUri . 'detalle_venta/' . $venta->id_venta, [
+            //         'json' => [
+            //             'empresa_actual' => session('empresa_actual.id_empresa')
+            //         ]
+            //     ]);
+            //     $venta->detalles = json_decode($detallePeticion->getBody()->getContents());
+            // }
 
             return view('ventas.index', compact('ventas'));
 
