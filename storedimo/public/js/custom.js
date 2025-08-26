@@ -36,7 +36,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Antes de enviar el formulario, guardamos en formato completo
         input.form.addEventListener("submit", function() {
-            input.value = iti.getNumber();
+            // input.value = iti.getNumber();
+
+            const n = iti.getNumber(intlTelInputUtils.numberFormat.NATIONAL);
+            input.value = n.replace(/\D/g, '');
         });
     }
 });

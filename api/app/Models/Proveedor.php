@@ -30,7 +30,7 @@ class Proveedor extends Model implements Auditable
         'telefono_proveedor',
         'celular_proveedor',
         'email_proveedor',
-        'id_estado',
+        'id_genero',
         'direccion_proveedor',
         'id_estado',
         'nit_proveedor',

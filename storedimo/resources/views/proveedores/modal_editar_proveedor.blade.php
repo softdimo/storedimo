@@ -58,10 +58,10 @@
                         'class' => 'form-control',
                         'id' => 'identificacion',
                         'required' => 'required',
-                        'pattern' => '^[0-9]{6,12}$',
-                        'title' => 'El número de documento debe contener entre 6 y 12 dígitos numéricos',
-                        'maxlength' => '12',
+                        'pattern' => '^[0-9]{6,10}$',
+                        'title' => 'El número de documento debe contener entre 6 y 10 dígitos numéricos',
                         'minlength' => '6',
+                        'maxlength' => '10',
                         'onkeypress' => 'return event.charCode >= 48 && event.charCode <= 57'
                     ]) }}
                 </div>
@@ -203,10 +203,10 @@
                         'class' => 'form-control',
                         'id' => 'nit_empresa',
                         'required' => 'required',
-                        'pattern' => '^[0-9]{7,15}$',
-                        'title' => 'El NIT debe tener entre 7 y 15 dígitos numéricos',
-                        'maxlength' => '15',
+                        'pattern' => '^[0-9]{7,10}$',
+                        'title' => 'El NIT debe tener entre 7 y 10 dígitos numéricos incluyendo el dígito de verificación',
                         'minlength' => '7',
+                        'maxlength' => '10',
                         'placeholder' => 'Ejemplo: 123456789',
                         'onkeypress' => 'return event.charCode >= 48 && event.charCode <= 57'
                     ]) !!}

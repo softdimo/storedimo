@@ -106,12 +106,15 @@
                 if (idTipoPersona == 4) { // Proveedor-juridico
                     $('#div_identificacion').hide('slow');
                     $('#identificacion').removeAttr('required');
+                    $('#identificacion').val('');
 
                     $('#div_nombres_persona').hide('slow');
                     $('#nombres_persona').removeAttr('required');
+                    $('#nombres_persona').val('');
 
                     $('#div_apellidos_persona').hide('slow');
                     $('#apellidos_persona').removeAttr('required');
+                    $('#apellidos_persona').val('');
 
                     $('#div_numero_telefono').hide('slow');
                     $('#numero_telefono').removeAttr('required');
@@ -129,6 +132,7 @@
 
                     $('#div_id_genero').hide('slow');
                     $('#id_genero').removeAttr('required');
+                    $('#id_genero').val('').trigger('change');
 
                     $('#div_proveedor_juridico').show();
                     $('#nit_empresa').attr('required');
@@ -163,8 +167,11 @@
 
                     $('#div_proveedor_juridico').hide();
                     $('#nit_empresa').removeAttr('required');
+                    $('#nit_empresa').val('');
                     $('#nombre_empresa').removeAttr('required');
+                    $('#nombre_empresa').val('');
                     $('#telefono_empresa').removeAttr('required');
+                    $('#telefono_empresa').val('');
                 }
             }); // FIN Tipo Persona Jurídica
 

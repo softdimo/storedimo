@@ -23,7 +23,7 @@ class Proveedor extends Model
         'telefono_proveedor',
         'celular_proveedor',
         'email_proveedor',
-        'id_estado',
+        'id_genero',
         'direccion_proveedor',
         'id_estado',
         'nit_proveedor',
