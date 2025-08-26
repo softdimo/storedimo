@@ -40,6 +40,7 @@
                         'class' => 'form-control',
                         'id' => 'identificacion',
                         'minlength' => 6,
+                        'maxlength' => 10,
                         'required' => 'required',
                     ]) !!}
                 </div>
