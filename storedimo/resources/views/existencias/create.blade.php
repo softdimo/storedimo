@@ -285,8 +285,9 @@
 
                     $("#formRegistrarBajas").append(hiddenInputs);
 
-                    $('#tipo_baja').val('');
-                    $('#producto').val('');
+                    $('#tipo_baja').val('').trigger('change');
+                    $('#producto').val('').trigger('change');
+                    
                     $('#cantidad').val('');
                     $('#observaciones').val('');
                 }
