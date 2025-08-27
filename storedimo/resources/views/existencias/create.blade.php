@@ -248,7 +248,7 @@
                 let cantidad = $('#cantidad').val();
                 let observaciones = $('#observaciones').val();
 
-                if (tipoBaja == '' || producto == '' || cantidad == '') {
+                if (tipoBaja == '' || producto == '' || cantidad == '' || observaciones == '') {
                     Swal.fire(
                         'Cuidado!',
                         'Todos los campos son obligatorios!',
