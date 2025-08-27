@@ -116,7 +116,7 @@
                             <div>
                                 <label for="categoria">Nombre Categoría<span class="text-danger"> *</span></label>
                                 <input type="text" name="categoria" id="categoria" class="form-control" required
-                                    minlength="3" maxlength="100" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s'-]{3,100}$"
+                                    minlength="3" maxlength="100" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s'\-]{3,100}$"
                                     title="Debe contener solo letras, espacios, guiones o apóstrofes (mínimo 3 caracteres)"
                                     placeholder="Ingrese nombre de categoría">
                             </div>
@@ -223,18 +223,27 @@
 
                             // Mostrar mensaje de éxito
                             Swal.fire({
-                                icon: 'success',
+                                type: 'success',
                                 title: '¡Éxito!',
                                 text: response.message ||
                                     'Categoría creada correctamente',
                                 showConfirmButton: false,
                                 timer: 1500,
-                                timerProgressBar: true,
+                                // timerProgressBar: true,
                             });
                             // Recargar la vista después de cerrar el mensaje
                             location.reload();
                         } else {
-                            throw new Error(response.message || 'Error al crear la categoría');
+                            // throw new Error(response.message || 'Error al crear la categoría');
+
+                            Swal.fire({
+                                type: 'warning',
+                                title: '¡Precaución!',
+                                text: response.message || 'Existe',
+                                showConfirmButton: false,
+                                timer: 1500,
+                                // timerProgressBar: true,
+                            });
                         }
                     },
                     error: function(xhr) {
@@ -244,7 +253,7 @@
                         }
 
                         Swal.fire({
-                            icon: 'error',
+                            type: 'error',
                             title: 'Error',
                             text: errorMessage
                         });
