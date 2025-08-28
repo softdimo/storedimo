@@ -205,7 +205,7 @@
                                     Fecha Final <span class="text-danger">*</span>
                                 </label>
                                 <div class="input-group" id="calendar_addon_final" style="cursor: pointer;">
-                                    {!! Form::date('fecha_final', null, ['class' => 'form-control', 'id' => 'fecha_final', 'required']) !!}
+                                    {!! Form::date('fecha_final', null, ['class' => 'form-control', 'id' => 'fecha_final', 'required', 'max' => \Carbon\Carbon::today()->format('Y-m-d')]) !!}
                                     <span class="input-group-text">
                                         <i class="fa fa-calendar"></i>
                                     </span>
@@ -272,22 +272,23 @@
                 "infoEmpty": "No hay registros",
                 stripe: true,
                 bSort: true,
-                buttons: [{
-                        extend: 'pdfHtml5',
-                        text: 'PDF',
-                        className: 'btn btn-sm btn-danger',
-                        orientation: 'landscape',
-                        pageSize: 'A4',
-                        title: 'Listado de Bajas',
-                        exportOptions: {
-                            columns: ':visible:not(:last-child)'
-                        },
-                        customize: function(doc) {
-                            const columnCount = $('#tbl_bajas thead th').length;
-                            doc.pageSize = 'A5';
-                            doc.defaultStyle.fontSize = 12;
-                        }
-                    },
+                buttons: [
+                    // {
+                    //     extend: 'pdfHtml5',
+                    //     text: 'PDF',
+                    //     className: 'btn btn-sm btn-danger',
+                    //     orientation: 'landscape',
+                    //     pageSize: 'A4',
+                    //     title: 'Listado de Bajas',
+                    //     exportOptions: {
+                    //         columns: ':visible:not(:last-child)'
+                    //     },
+                    //     customize: function(doc) {
+                    //         const columnCount = $('#tbl_bajas thead th').length;
+                    //         doc.pageSize = 'A5';
+                    //         doc.defaultStyle.fontSize = 12;
+                    //     }
+                    // },
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',

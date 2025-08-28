@@ -196,15 +196,17 @@ class ExistenciasController extends Controller
             DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
         }
 
-        $fechaInicial = request('fecha_inicial', null);
-        $fechaFinal = request('fecha_final', null);
+        // $fechaInicial = request('fecha_inicial', null);
+        // $fechaFinal = request('fecha_final', null);
+
+        $fechaInicial = \Carbon\Carbon::parse($request->input('fecha_inicial'))->startOfDay();
+        $fechaFinal   = \Carbon\Carbon::parse($request->input('fecha_final'))->endOfDay();
 
         try {
             $bajas = BajaDetalle::leftJoin('bajas', 'bajas.id_baja', '=', 'bajas_detalle.id_baja')
                 ->leftJoin('productos', 'productos.id_producto', '=', 'bajas_detalle.id_producto')
                 ->leftJoin('tipo_baja', 'tipo_baja.id_tipo_baja', '=', 'bajas_detalle.id_tipo_baja')
                 ->leftJoin('categorias', 'categorias.id_categoria', '=', 'productos.id_categoria')
-
                 ->whereBetween('fecha_baja', [$fechaInicial, $fechaFinal])
                 ->select([
                     'productos.id_producto',
