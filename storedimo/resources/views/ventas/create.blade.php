@@ -272,7 +272,7 @@
                                         <span class="text-danger">*</span>
                                     </label>
 
-                                    {!! Form::select('tipo_pago', collect(['' => 'Seleccionar...'])->union($tipos_pago_ventas), null, [
+                                    {!! Form::select('tipo_pago', collect(['' => 'Seleccionar...'])->union($tipos_pago_ventas), 1, [
                                         'class' => 'form-select select2',
                                         'id' => 'tipo_pago',
                                         'required',
@@ -280,11 +280,11 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-6 d-flex flex-column d-none" id="div_plazo_credito">
+                            {{-- <div class="col-12 col-md-6 d-flex flex-column d-none" id="div_plazo_credito">
                                 <label for="plazo_credito" class="fw-bold">Días Plazo Crédito<span
                                         class="text-danger">*</span></label>
                                 {!! Form::number('plazo_credito', null, ['class' => 'form-control', 'id' => 'plazo_credito', 'required']) !!}
-                            </div>
+                            </div> --}}
 
                             {{-- <div class="col-12 col-md-6 d-flex flex-column">
                                     <label for="descuento" class="fw-bold">Descuento en Pesos <span
@@ -893,16 +893,21 @@
             $(document).on("submit", "form[id^='formRegistrarVenta']", function(e) {
                 const form = $(this);
                 const submitButton = form.find('button[type="submit"]');
-                const loadingIndicator = form.find(
-                    "div[id^='loadingIndicatorRegistrarVenta']"); // Busca el GIF del form actual
+                const loadingIndicator = form.find("div[id^='loadingIndicatorRegistrarVenta']");
 
-                // Retirar required en el submit
+                // Evitar múltiples envíos
+                if (form.data("submitted") === true) {
+                    e.preventDefault();
+                    return false; // No deja enviar otra vez
+                }
+
+                form.data("submitted", true); // Marca como ya enviado
+
+                // Retirar required de Aregar Venta
                 $('#cantidad_venta').removeAttr('required');
-                $('#btn_registar_venta').removeAttr('required');
 
-                // Dessactivar Submit y Cancel
-                submitButton.prop("disabled", true).html(
-                    "Procesando... <i class='fa fa-spinner fa-spin'></i>");
+                // Desactivar botón y mostrar su spinner
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
 
                 // Cargar Spinner
                 loadingIndicator.show();
@@ -910,6 +915,6 @@
 
             // ===================================================================================
             // ===================================================================================
-        }); // FIN Document Ready
+        }); // FIN document.ready
     </script>
 @stop

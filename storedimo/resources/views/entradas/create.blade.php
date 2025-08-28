@@ -209,7 +209,7 @@
                             {{-- ============ --}}
 
                             <div class="d-flex justify-content-end mb-5 p-3" style="">
-                                <button type="submit" class="btn btn-success rounded-2 me-3">
+                                <button type="submit" class="btn btn-success rounded-2 me-3" id="btn_registar_compra>
                                     <i class="fa fa-floppy-o"></i>
                                     Guardar
                                 </button>
@@ -958,16 +958,21 @@
             $(document).on("submit", "form[id^='formRegistrarCompra']", function(e) {
                 const form = $(this);
                 const submitButton = form.find('button[type="submit"]');
-                // const cancelButton = form.find('button[type="button"]');
-                const loadingIndicator = form.find(
-                    "div[id^='loadingIndicatorCrearEntrada']"); // Busca el GIF del form actual
+                const loadingIndicator = form.find("div[id^='loadingIndicatorCrearEntrada']");
 
+                // Evitar múltiples envíos
+                if (form.data("submitted") === true) {
+                    e.preventDefault();
+                    return false; // No deja enviar otra vez
+                }
+
+                form.data("submitted", true); // Marca como ya enviado
+                
+                // Retirar required de Aregar Compra
                 $('#cantidad').removeAttr('required');
 
-                // Dessactivar Submit y Cancel
-                submitButton.prop("disabled", true).html(
-                    "Procesando... <i class='fa fa-spinner fa-spin'></i>");
-                // cancelButton.prop("disabled", true);
+                // Desactivar botón y mostrar su spinner
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
 
                 // Mostrar Spinner
                 loadingIndicator.show();

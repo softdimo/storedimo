@@ -219,18 +219,19 @@
                 "infoEmpty": "No hay registros",
                 stripe: true,
                 bSort: true,
-                buttons: [{
-                        text: 'PDF',
-                        className: 'btn btn-sm btn-danger',
-                        action: function() {
-                            let modal = new bootstrap.Modal(document.getElementById(
-                                'modalReporteVentas'));
-                            modal.show();
-                        },
-                        init: function(api, node, config) {
-                            $(node).removeClass('dt-button');
-                        }
-                    },
+                buttons: [
+                    // {
+                    //     text: 'PDF',
+                    //     className: 'btn btn-sm btn-danger',
+                    //     action: function() {
+                    //         let modal = new bootstrap.Modal(document.getElementById(
+                    //             'modalReporteVentas'));
+                    //         modal.show();
+                    //     },
+                    //     init: function(api, node, config) {
+                    //         $(node).removeClass('dt-button');
+                    //     }
+                    // },
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',
