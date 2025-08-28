@@ -128,17 +128,17 @@
                                 class="text-danger">*</span></h5>
                         {{-- ============================================================== --}}
                         <div class="p-3 d-flex justify-content-between" id="" style="">
-                            <div class="col-md-10 me-1">
+                            <div class="col-md-12">
                                 {{ Form::select('producto_venta', collect(['' => 'Seleccionar...'])->union($productos), null, ['class' => 'form-select select2', 'id' => 'producto_venta']) }}
                             </div>
 
-                            <div class="col-md-1">
+                            {{-- <div class="col-md-1">
                                 <button type="button" class="btn rounded-2 text-white" style="background-color: #337AB7"
                                     title="Registrar Producto" data-bs-toggle="modal"
                                     data-bs-target="#modal_registroProducto">
                                     <i class="fa fa-plus plus"></i>
                                 </button>
-                            </div>
+                            </div> --}}
                         </div>
                         {{-- ============================================================== --}}
                         <div class="d-flex justify-content-center p-3">
