@@ -2,61 +2,60 @@
 @section('title', 'Link Recuperación Clave')
 
 @section('content')
-    <div class="container-fluid mt-auto mb-auto d-flex flex-column align-items-center">
-        <div class="row mb-5">
-            <div class="col-12">
-                <h2 class="text-center text-uppercase">Bienvenid@</h2>
+    <div class="d-flex justify-content-center align-items-center bg-light py-4 vh-100">
+        <div class="border border-dark-subtle p-4 shadow-lg rounded-4 bg-white text-center" style="overflow-y: auto;">
+            <div class="row mb-3">
+                <div class="col-12">
+                    <h3 class="text-center text-uppercase">Recuperar Clave</h3>
+                </div>
             </div>
-        </div>
 
-        {{-- =========================================================== --}}
+            {{-- =========================================================== --}}
 
-        <div class="d-flex justify-content-center align-items-center">
-            <form class="border border-dark-subtle p-3 rounded-4" method="post" action="{{route('recuperar_clave_update')}}" autocomplete="off" id="formCambiarClaveLink">
-                @csrf
-                <span class="">Recuperar Clave</span>
+            <div class="d-flex justify-content-center align-items-center">
+                <form class="border border-dark-subtle p-3 rounded-4" method="post" action="{{route('recuperar_clave_update')}}" autocomplete="off" id="formCambiarClaveLink">
+                    @csrf
 
-                <input type="hidden" name="id_usuario" id="id_usuario" value="{{$usuIdRecuperarClave}}">
-                
-                {{-- ============================================ --}}
+                    <input type="hidden" name="id_usuario" id="id_usuario" value="{{$usuIdRecuperarClave}}">
+                    
+                    {{-- ============================================ --}}
 
-                <div class="mb-3">
-                    <span class="btn-show-pass">
-                        <i class="zmdi zmdi-eye"></i>
-                    </span>
-                    <input class="w-100 form-control" type="password" name="clave_nueva" id="clave_nueva" placeholder="Nueva clave" required>
-                </div>
+                    <div class="mb-4">
+                        <span class="btn-show-pass">
+                            <i class="zmdi zmdi-eye"></i>
+                        </span>
+                        <input class="w-100 form-control" type="password" name="clave_nueva" id="clave_nueva" placeholder="Nueva clave" required>
+                    </div>
 
-                <div class="">
-                    <span class="btn-show-pass">
-                        <i class="zmdi zmdi-eye"></i>
-                    </span>
-                    <input class="w-100 form-control" type="password" name="clave_nueva_confirmar" id="clave_nueva_confirmar" placeholder="Confirma clave" required>
-                </div>
+                    <div class="mb-5">
+                        <span class="btn-show-pass">
+                            <i class="zmdi zmdi-eye"></i>
+                        </span>
+                        <input class="w-100 form-control" type="password" name="clave_nueva_confirmar" id="clave_nueva_confirmar" placeholder="Confirma clave" required>
+                    </div>
 
-                {{-- ============================================ --}}
+                    {{-- ============================================ --}}
 
-                <!-- Contenedor para el GIF -->
-                <div id="loadingIndicatorStore" class="loadingIndicator">
-                    <img src="{{asset('imagenes/loading.gif')}}" alt="Procesando...">
-                </div>
+                    <!-- Contenedor para el GIF -->
+                    <div id="loadingIndicatorStore" class="loadingIndicator">
+                        <img src="{{asset('imagenes/loading.gif')}}" alt="Procesando...">
+                    </div>
 
-                {{-- ============================================ --}}
+                    {{-- ============================================ --}}
 
-                <div class="mt-4 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary">Cambiar clave</button>
-                </div>
+                    <div class="mt-4 d-flex justify-content-end">
+                        <button type="submit" class="btn btn-warning text-white">Cambiar clave</button>
+                    </div>
 
-                {{-- ============================================ --}}
+                    {{-- ============================================ --}}
 
-                <div class="text-left p-t-50 mt-3">
-                    <span class="txt1">
-                        <a class="txt2 text-white btn btn-primary" href="{{route('login')}}">
+                    <div class="mt-4 d-flex justify-content-start">
+                        <a class="btn btn-primary text-white" href="{{route('login')}}">
                             <i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;Login
                         </a>
-                    </span>
-                </div>
-            </form>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 @stop

@@ -7,7 +7,7 @@
         <style>
             .btn_disponibilidad
             {
-                width: 120px !important;
+                /* width: 120px !important; */
                 background-color: #21277B !important;
                 color: #FFFFFF !important;
                 font-size: 20px !important;
