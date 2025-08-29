@@ -182,9 +182,9 @@
                                 </div>
 
                                 <div class="col-4 m-0 p-0">
-                                    <span class="form-control rounded-start-0 text-center"
-                                        style="background-color: #EEEEEE">Unidades (<span id="cantidad_producto"
-                                            class="text-success fw-bold"></span>)</span>
+                                    <span class="form-control rounded-start-0 text-center" style="background-color: #EEEEEE">
+                                        Unidades (<span id="cantidad_producto" class="text-success fw-bold"></span>)
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -620,7 +620,7 @@
             // INICIO - Consulta de los precios del productos
             $('#producto_venta').change(function() {
                 let idProducto = $('#producto_venta').val();
-                console.log(`id producto ${idProducto}`);
+                console.log(`Línea 623, id producto seleccionado ${idProducto}`);
 
                 let btn = $('#btnAgregarVenta');
                 let spinner = $("#loadingIndicatorAgregarVenta");
@@ -646,15 +646,36 @@
                             $('#cantidad_venta').val('');
                         },
                         success: function(respuesta) {
-                            console.log(respuesta);
+                            console.log("Línea 649: consulta precios producto a vender", respuesta);
                             setTimeout(() => {
                                 $('#p_detal_venta').html(respuesta.precio_detal);
                                 $('#p_x_mayor_venta').html(respuesta.precio_por_mayor);
                                 $('#cantidad_producto').html(respuesta.cantidad);
 
+                                let idProducto = respuesta.id_producto;
+                                console.log(`Línea 656: respuesta Id Producto al consultar el seleccionado del select: ${idProducto}`);
+
+                                // ====================================================================
+                                // ====================================================================
+
+                                // NUEVO: restar del stock disponible lo ya agregado del mismo producto
+                                let cantidadAgregada = 0;
+                                if (Array.isArray(productosAgregados) && productosAgregados.length) {
+                                    productosAgregados.forEach(p => {
+                                        if (String(p.idProductoVenta) === String(idProducto)) {
+                                            cantidadAgregada += (parseInt(p.cantidad) || 0);
+                                        }
+                                    });
+                                }
+                                let disponible = (parseInt(respuesta.cantidad) || 0) - cantidadAgregada;
+                                if (disponible < 0) disponible = 0;
+                                $('#cantidad_producto').html(disponible);
+
+                                // ====================================================================
+                                // ====================================================================
+
                                 spinner.hide();
-                                btn.prop("disabled", false).html(
-                                    `<i class="fa fa-plus plus"></i> Agregar`);
+                                btn.prop("disabled", false).html(`<i class="fa fa-plus plus"></i> Agregar`);
                             }, 1000);
                         },
                         error: function(xhr, status, error) {
@@ -673,8 +694,6 @@
 
             // INICIO - Validar la cantidad ingresada vs la cantidad disponible para vender el producto
             $('#cantidad_venta').blur(function() {
-                let idProducto = $('#cantidad_producto').val();
-
                 let cantidadVenta = parseInt($('#cantidad_venta').val().trim()) || 0;
                 let cantidadProducto = parseInt($('#cantidad_producto').text().trim()) || 0;
 
@@ -746,6 +765,9 @@
                 }
             }); // CIERRE DataTable
 
+            // ===================================================================================
+            // ===================================================================================
+
             // INICIO - Función agregar datos de las ventas
             let productosAgregados = [];
 
@@ -790,6 +812,7 @@
                     subtotal: valorSubTotal,
                 };
                 productosAgregados.push(producto);
+                // console.log(productosAgregados);
 
                 actualizarDetalleVenta();
 
@@ -849,6 +872,11 @@
             window.eliminarProducto = function(index) {
                 productosAgregados.splice(index, 1);
                 actualizarDetalleVenta();
+                $('#producto_venta').val('').trigger('change'); // Reiniciar selección de producto
+                $('#p_detal_venta').html(0); // Resetear precio detal
+                $('#p_x_mayor_venta').html(0); // Resetear precio mayorista
+                $('#cantidad_venta').val(''); // Limpiar cantidad
+                $('#cantidad_producto').html(0); // Limpiar cantidad disponible
             };
 
             // ===================================================================================
