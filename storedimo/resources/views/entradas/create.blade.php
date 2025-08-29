@@ -103,8 +103,9 @@
 
                         {{-- ============================================================== --}}
 
-                        <h5 class="border rounded-top text-white p-2" style="background-color: #337AB7">Producto <span
-                                class="text-danger">*</span></h5>
+                        <h5 class="border rounded-top text-white p-2 mt-3" style="background-color: #337AB7">Producto 
+                            <span class="text-danger">*</span>
+                        </h5>
                         {{-- ============================================================== --}}
                         <div class="pt-3 pe-2 pb-3 ps-3 d-flex justify-content-between" id="" style="">
                             <div class="d-flex justify-content-center w-100">
@@ -181,7 +182,7 @@
                                         <tr class="header-table text-center">
                                             <th>Producto</th>
                                             <th>Cantidad</th>
-                                            <th>Subtotal</th>
+                                            <th>Subtotal <br> <small style="font-size:10px" class="mt-0">P Unitario x Cantidad</small></th>
                                             <th>Opción</th>
                                         </tr>
                                     </thead>

@@ -243,13 +243,14 @@
                 "infoEmpty": "No hay registros",
                 stripe: true,
                 bSort: true,
-                buttons: [{
-                        text: 'PDF',
-                        className: 'btn btn-sm btn-danger',
-                        action: function() {
-                            window.open("{{ route('reporte_productos_pdf') }}", "_blank");
-                        }
-                    },
+                buttons: [
+                    // {
+                    //     text: 'PDF',
+                    //     className: 'btn btn-sm btn-danger',
+                    //     action: function() {
+                    //         window.open("{{ route('reporte_productos_pdf') }}", "_blank");
+                    //     }
+                    // },
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',
@@ -343,9 +344,7 @@
                         } // FIN inputPrecioUnitario.length > 0
                     },
                     error: function() {
-                        $('#modalEditarProductoContent').html(
-                            '<div class="alert alert-danger">Error al cargar el formulario.</div>'
-                            );
+                        $('#modalEditarProductoContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');
                     }
                 });
             });
@@ -365,8 +364,7 @@
                 const cancelButton = $(`#btn_cancelar_producto_${id}`);
 
                 // Desactivar btns
-                submitButton.prop("disabled", true).html(
-                    "Procesando... <i class='fa fa-spinner fa-spin'></i>");
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
                 cancelButton.prop("disabled", true);
                 loadingIndicator.show();
             });
