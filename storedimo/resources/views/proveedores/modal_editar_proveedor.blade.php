@@ -121,7 +121,6 @@
                         'class' => 'form-control',
                         'id' => 'celular',
                         'required' => 'required',
-                        'pattern' => '^[0-9]{10}$',
                         'title' => 'El número de celular debe contener exactamente 10 dígitos numéricos',
                         'maxlength' => '10',
                         'minlength' => '10',

@@ -141,12 +141,15 @@
                 width: '100%'
             });
 
+            // Inicializar intlTelInput para el campo celular en el modal
+            initIntlPhone("#celular_empresa");
+
             // formCrearEmpresas para cargar gif en el submit
             $(document).on("submit", "form[id^='formCrearEmpresas']", function(e) {
                 const form = $(this);
                 const submitButton = form.find('button[type="submit"]');
                 const loadingIndicator = form.find(
-                "div[id^='loadingIndicatorEmpresaStore']"); // Busca el GIF del form actual
+                    "div[id^='loadingIndicatorEmpresaStore']"); // Busca el GIF del form actual
 
                 // Dessactivar Botones
                 submitButton.prop("disabled", true).html(
@@ -156,6 +159,8 @@
                 loadingIndicator.show();
             });
         }); // FIN document.ready
+
+
 
         // =============================================
 

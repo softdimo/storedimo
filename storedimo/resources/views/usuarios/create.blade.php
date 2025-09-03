@@ -131,6 +131,9 @@
                 allowClear: false,
                 width: '100%'
             });
+            // Inicializamos el plugin para el campo celular de usuarios
+            initIntlPhone("#celular");
+            
 
             // =========================== Validación número de telefono =========================
             $(document).on("blur", "#numero_telefono", function() {
@@ -154,7 +157,7 @@
                     setTimeout(() => {
                         errorMsg.addClass("d-none");
                         $("#numero_telefono").val(
-                        ""); //Se limpia el campo del teléfono cuando hay error
+                            ""); //Se limpia el campo del teléfono cuando hay error
                     }, 4000);
                 }
             });

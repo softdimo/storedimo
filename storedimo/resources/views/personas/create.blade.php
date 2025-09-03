@@ -117,6 +117,9 @@
                 width: '100%'
             });
 
+            // Inicializar intlTelInput para el campo celular en el modal
+            initIntlPhone("#celular");
+
             $('#div_proveedor_juridico').hide();
 
             $('#id_tipo_persona').change(function() {

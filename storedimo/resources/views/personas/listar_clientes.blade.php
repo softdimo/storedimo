@@ -225,6 +225,9 @@
                     },
                     success: function(html) {
                         $('#modalEditarClienteContent').html(html);
+
+                        // Inicializar intlTelInput para el campo celular en el modal
+                        initIntlPhone("#celular");
                     }, // FIN success
                     error: function() {
                         $('#modalEditarClienteContent').html(

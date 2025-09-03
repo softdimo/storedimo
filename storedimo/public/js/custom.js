@@ -1,45 +1,53 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const input = document.querySelector("#celular");
+document.addEventListener("DOMContentLoaded", function () {
+    /**
+     * Inicializa el plugin intlTelInput en un input específico
+     * @param {string} selector - Selector CSS del input (ej: "#celular")
+     */
+    window.initIntlPhone = function (selector) {
+        const input = document.querySelector(selector);
 
-    if (input) {
+        if (!input) return;
+
         const iti = window.intlTelInput(input, {
             initialCountry: "co",
             preferredCountries: ["co", "us", "mx", "es"],
             separateDialCode: true,
-            utilsScript: "/js/utils.js",
+            utilsScript: "/js/utils.js", // ojo: asegúrate que existe en public/js
         });
 
-        // Definimos las longitudes por país (ISO2 -> [min, max])
+        // Longitudes por país (ISO2 -> [min, max])
         const phoneLengths = {
             co: [10, 10], // Colombia
-            us: [10, 10], // Estados Unidos
+            us: [10, 10], // USA
             mx: [10, 10], // México
             es: [9, 9],   // España
         };
 
-        // Función para aplicar restricciones según país
         function setInputLength(countryCode) {
             const lengths = phoneLengths[countryCode] || [7, 15]; // default
             input.setAttribute("minlength", lengths[0]);
             input.setAttribute("maxlength", lengths[1]);
         }
 
-        // Inicializar con el país por defecto
+        // Inicializar con el país actual
         setInputLength(iti.getSelectedCountryData().iso2);
 
-        // Escuchar cuando cambie el país
-        input.addEventListener("countrychange", function() {
+        // Cuando cambie el país
+        input.addEventListener("countrychange", function () {
             const countryCode = iti.getSelectedCountryData().iso2;
             setInputLength(countryCode);
-            input.value = ""; // opcional: limpiar cuando cambia de país
+            input.value = ""; // opcional: limpiar
         });
 
-        // Antes de enviar el formulario, guardamos en formato completo
-        input.form.addEventListener("submit", function() {
-            // input.value = iti.getNumber();
+        // Antes de enviar el formulario -> guardamos en formato internacional
+        if (input.form) {
+            input.form.addEventListener("submit", function () {
+                input.value = iti.getNumber();
 
-            const n = iti.getNumber(intlTelInputUtils.numberFormat.NATIONAL);
-            input.value = n.replace(/\D/g, '');
-        });
-    }
+                /* const n = iti.getNumber(intlTelInputUtils.numberFormat.NATIONAL);
+            input.value = n.replace(/\D/g, ''); */
+            });
+        }
+    };
 });
+

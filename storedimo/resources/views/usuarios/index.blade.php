@@ -379,6 +379,10 @@
                             allowClear: false
                         });
 
+                        // Inicializar intlTelInput para el campo celular en el modal
+                        initIntlPhone("#celular");
+
+
                         // Buscar el select dentro del modal
                         let modal = $('#modalEditarUsuario');
                         let selectEstado = modal.find('[id^=id_estado_]');

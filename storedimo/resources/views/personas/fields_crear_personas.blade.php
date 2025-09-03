@@ -105,7 +105,6 @@
                     {!! Form::text('celular', null, [
                         'class' => 'form-control',
                         'id' => 'celular',
-                        'pattern' => '^\d{7,15}$',
                         'title' => 'Debe ser un número de celular válido, sin indicativos, entre 7 y 15 dígitos.',
                         'maxlength' => 15,
                         'minlength' => 7,
