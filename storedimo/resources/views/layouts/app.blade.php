@@ -53,6 +53,7 @@
     <!-- <script src="{{ asset('js/datatables.min.js') }}"></script> -->
 
     <!-- tu inicialización -->
+    <script src="{{ asset('js/validadorNumeroTelefono.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
 </head>
 

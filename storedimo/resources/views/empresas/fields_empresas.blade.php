@@ -45,11 +45,11 @@
                     'class' => 'form-control',
                     'id' => 'telefono_empresa',
                     'required' => 'required',
-                    'pattern' => '^\d{7,10}$',
                     'title' => 'Debe tener entre 7 y 10 dígitos.',
                     'maxlength' => 10,
                     'minlength' => 7,
                 ]) !!}
+                <span id="telefono-error" class="text-danger d-none mt-1"></span>
             </div>
         </div>
 

@@ -89,12 +89,12 @@
                     {!! Form::text('telefono_proveedor', old('telefono_proveedor'), [
                         'class' => 'form-control',
                         'id' => 'numero_telefono',
-                        'pattern' => '^\d{7,10}$',
                         'title' => 'Debe tener entre 7 y 10 dígitos.',
                         'minlength' => 7,
                         'maxlength' => 10,
                         'onkeypress' => 'return event.charCode >= 48 && event.charCode <= 57'
                     ]) !!}
+                <span id="telefono-error" class="text-danger d-none mt-1"></span>
                 </div>
             </div>
 

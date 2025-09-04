@@ -120,6 +120,9 @@
             // Inicializar intlTelInput para el campo celular en el modal
             initIntlPhone("#celular");
 
+            // Inicializar función de validación de número de teléfono
+            initPhoneValidation("#numero_telefono", "#telefono-error");
+
             $('#div_proveedor_juridico').hide();
 
             $('#id_tipo_persona').change(function() {

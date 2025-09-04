@@ -36,7 +36,7 @@
                     <a href="{{ route('proveedores.create') }}" class="btn text-white" style="background-color:#337AB7">Crear
                         Proveedor</a>
                 </div>
-                
+
                 <div class="text-end">
                     <a href="#" role="button" title="Ayuda" class="text-blue" data-bs-toggle="modal"
                         data-bs-target="#modalAyudaListarProveedores">
@@ -267,6 +267,12 @@
                         // Inicializar intlTelInput para el campo celular en el modal
                         initIntlPhone("#celular");
 
+                        // Inicializar función de validación de número de teléfono
+                        initPhoneValidation("#numero_telefono", "#telefono-error");
+                        initPhoneValidation("#telefono_empresa", "#telefono-error-juridico");
+
+                        
+
                         // Buscar el select dentro del modal
                         let modal = $('#modalEditarProveedor');
                         let selectTipoPersona = modal.find('[id^=id_tipo_persona_]');
@@ -364,7 +370,7 @@
 
                                 let modal = $(
                                     '#modalEditarProveedor'
-                                    ); // Asegurar que buscamos dentro del modal correcto
+                                ); // Asegurar que buscamos dentro del modal correcto
                                 // let modal = $(this).closest('[id^="modalEditarProveedor_"]'); // Asegurar que buscamos dentro del modal correcto
 
                                 let divIdentificacion = modal.find(

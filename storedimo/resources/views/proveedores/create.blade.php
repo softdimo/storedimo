@@ -118,6 +118,9 @@
             // Inicializar intlTelInput para el campo celular en el modal
             initIntlPhone("#celular_proveedor");
 
+            // Inicializar función de validación de número de teléfono
+            initPhoneValidation("#numero_telefono", "#telefono-error");
+
             $('#div_proveedor_juridico').hide();
 
             $('#id_tipo_persona').change(function() {
@@ -204,7 +207,7 @@
                 const submitButton = form.find('button[type="submit"]');
                 const cancelButton = form.find('button[type="button"]');
                 const loadingIndicator = form.find(
-                "div[id^='loadingIndicatorPersonaStore']"); // Busca el GIF del form actual
+                    "div[id^='loadingIndicatorPersonaStore']"); // Busca el GIF del form actual
 
                 // Dessactivar Botones
                 submitButton.prop("disabled", true).html(

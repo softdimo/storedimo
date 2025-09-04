@@ -144,6 +144,10 @@
             // Inicializar intlTelInput para el campo celular en el modal
             initIntlPhone("#celular_empresa");
 
+            // Inicializar función de validación de número de teléfono
+            initPhoneValidation("#telefono_empresa", "#telefono-error");
+
+
             // formCrearEmpresas para cargar gif en el submit
             $(document).on("submit", "form[id^='formCrearEmpresas']", function(e) {
                 const form = $(this);

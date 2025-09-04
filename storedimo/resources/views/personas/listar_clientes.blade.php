@@ -228,6 +228,10 @@
 
                         // Inicializar intlTelInput para el campo celular en el modal
                         initIntlPhone("#celular");
+
+                        // Inicializar función de validación de número de teléfono
+                        initPhoneValidation("#numero_telefono", "#telefono-error");
+
                     }, // FIN success
                     error: function() {
                         $('#modalEditarClienteContent').html(

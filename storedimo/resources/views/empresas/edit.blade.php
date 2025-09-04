@@ -118,6 +118,10 @@
             // Inicializar intlTelInput para el campo celular en el modal
             initIntlPhone("#celular_empresa");
 
+            // Inicializar función de validación de número de teléfono
+            initPhoneValidation("#telefono_empresa", "#telefono-error");
+
+
             // ===========================================================================================
             // ===========================================================================================
 

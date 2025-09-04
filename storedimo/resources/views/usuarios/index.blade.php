@@ -382,6 +382,10 @@
                         // Inicializar intlTelInput para el campo celular en el modal
                         initIntlPhone("#celular");
 
+                        // Inicializar función de validación de número de teléfono
+                        initPhoneValidation("#numero_telefono", "#telefono-error");
+
+
 
                         // Buscar el select dentro del modal
                         let modal = $('#modalEditarUsuario');
