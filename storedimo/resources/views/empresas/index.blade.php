@@ -154,10 +154,12 @@
                                         <td>{{ $empresa->estado ? $empresa->estado : '' }}</td>
                                         <td>
                                             <a href="{{ route('empresas.edit', $empresa->id_empresa) }}"
-                                                class="btn btn-success rounded-circle btn-circle text-white btn-editar-empresa">
+                                                class="btn btn-success rounded-circle btn-circle text-white btn-editar-empresa"
+                                                title="Editar Empresa">
                                                 <i class="fa fa-pencil-square-o"></i>
                                             </a>
                                         </td>
+
                                     </tr>
                                 @endforeach
                             </tbody>
