@@ -49,7 +49,7 @@
 
         <div class="">
             <div class="mt-3 mb-0 ps-3">
-                <h4 class="mb-0" style="color: #337AB7">Productos</h4>
+                <h5 class="mb-0" style="color: #337AB7">Productos</h5>
             </div>
 
             <div class="row m-0">
