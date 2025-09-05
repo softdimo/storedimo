@@ -231,8 +231,8 @@
                 <div class="row mt-3">
                     <div class="col-12">
                         <button type="button" class="btn btn-primary btn-md active pull-right"
-                            style="background-color: #337AB7;" data-bs-dismiss="modal">
-                            <i class="fa fa-check-circle"> Aceptar</i>
+                            style="background-color: #6c757d;" data-bs-dismiss="modal">
+                            <i class="fa fa-times"> Cerrar</i>
                         </button>
                     </div>
                 </div>
