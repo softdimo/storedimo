@@ -145,10 +145,6 @@
     <!-- Fin Modal Crear Categoría -->
 @stop
 
-{{-- =============================================================== --}}
-{{-- =============================================================== --}}
-{{-- =============================================================== --}}
-
 @section('scripts')
     <script>
         $(document).ready(function() {
@@ -364,8 +360,6 @@
                 }
             });
             //=========================== Fin validación de referencia ==============================//
-
-            // =============================================
 
             // formCrearCategoria para cargar gif en el submit
             $(document).on("submit", "form[id^='formCrearProducto']", function(e) {

@@ -54,8 +54,7 @@
                 <div class="col-12 col-md-6 mt-md-3">
                     <div class="form-group d-flex flex-column">
                         <label for="descripcionEdit" class=""
-                            style="font-size: 15px">Descripción<span
-                                class="text-danger">*</span></label>
+                            style="font-size: 15px">Descripción</label>
                         {{ Form::textarea('descripcionEdit', isset($productoEdit) ? $productoEdit->descripcion : null, ['class' => 'form-control', 'id' => 'descripcionEdit', 'rows' => 2, 'style' => 'resize: none;']) }}
                     </div>
                 </div>

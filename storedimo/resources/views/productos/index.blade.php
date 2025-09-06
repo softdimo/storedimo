@@ -114,6 +114,7 @@
                                     <th class="align-middle">Cantidad</th>
                                     <th class="align-middle">Stock Mínimo</th>
                                     <th class="align-middle">Fecha Vencimiento</th>
+                                    <th class="align-middle">Unidad de Medida</th>
                                     <th class="align-middle">Estado</th>
                                     <th class="align-middle">Opciones</th>
                                 </tr>
@@ -149,6 +150,7 @@
                                         <td class="align-middle">{{ $producto->stock_minimo }}</td>
 
                                         <td class="align-middle">{{ $producto->fecha_vencimiento }}</td>
+                                        <td class="align-middle">{{ $producto->umd }}</td>
                                         <td class="align-middle">{{ $producto->estado }}</td>
 
                                         @if ($producto->id_estado == 1 || $producto->id_estado == '1')

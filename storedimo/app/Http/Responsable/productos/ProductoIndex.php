@@ -22,10 +22,12 @@ class ProductoIndex implements Responsable
                     'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
+
             $productos = json_decode($response->getBody()->getContents());
 
             return view('productos.index', compact('productos'));
         } catch (Exception $e) {
+            dd($e);
             alert()->error('Error', 'Exception, contacte a Soporte.');
             return back();
         }

@@ -23,20 +23,23 @@ class ProductoIndex implements Responsable
             DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
         }
         
-        try {
+        try
+        {
             $productos = Producto::leftJoin('categorias', 'categorias.id_categoria', '=', 'productos.id_categoria')
                 ->leftJoin('estados', 'estados.id_estado', '=', 'productos.id_estado')
                 ->leftJoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'productos.id_tipo_persona')
+                ->join('unidades_medida', 'unidades_medida.id', '=', 'productos.id_umd')
                 ->select(
                     'id_producto',
                     'imagen_producto',
                     'nombre_producto',
                     'productos.id_categoria',
+                    'id_umd',
                     'categorias.categoria',
                     'precio_unitario',
                     'precio_detal',
                     'precio_por_mayor',
-                    'descripcion',
+                    'productos.descripcion',
                     'stock_minimo',
                     'productos.id_estado',
                     'estados.estado',
@@ -44,26 +47,31 @@ class ProductoIndex implements Responsable
                     'tipo_persona.id_tipo_persona',
                     'tipo_persona',
                     'referencia',
-                    'fecha_vencimiento'
+                    'fecha_vencimiento',
+                    'unidades_medida.descripcion AS umd'
                 )
                 ->orderBy('nombre_producto', 'asc')
                 ->get();
 
-            if (isset($productos) && !is_null($productos) && !empty($productos)) {
+            if (isset($productos) && !is_null($productos) && !empty($productos))
+            {
                 // Restaurar conexión principal si se usó tenant
-                if ($empresaActual) {
+                if ($empresaActual)
+                {
                     DatabaseConnectionHelper::restaurarConexionPrincipal();
                 }
 
                 return response()->json($productos);
-            } else {
+            } else
+            {
                 return response()->json([
                     'message' => 'no hay productos'
                 ], 404);
             }
         } catch (Exception $e) {
             // Asegurar restauración de conexión principal en caso de error
-            if (isset($empresaActual)) {
+            if (isset($empresaActual))
+            {
                 DatabaseConnectionHelper::restaurarConexionPrincipal();
             }
             

@@ -93,8 +93,8 @@ class ProductoUpdate implements Responsable
 
             // ===================================================================
 
-            if(isset($respuestaProductoUpdate) && !empty($respuestaProductoUpdate)) {
-
+            if(isset($respuestaProductoUpdate) && !empty($respuestaProductoUpdate))
+            {
                 if ($formEditarPreciosEntradas == 'formEditarPreciosEntradas') {
                     alert()->success('Proceso Exitoso', 'Producto creado satisfactoriamente');
                     return redirect()->to(route('entradas.create'));

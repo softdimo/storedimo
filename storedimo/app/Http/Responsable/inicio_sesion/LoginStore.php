@@ -36,7 +36,7 @@ class LoginStore implements Responsable
             $user = $this->consultarEmail($email);
 
             if (empty($user) && $user != 'error_bd') {
-                alert()->error('Error','Este usuario no existe: ' . $email);
+                alert()->error('Error','NO se encontró ningún registro con el correo: ' . $email);
                 return back();
             }
 
