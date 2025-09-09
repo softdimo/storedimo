@@ -13,13 +13,23 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('informexfiltro', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('filtro_descripcion');
-            $table->text('filtro_html');
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        // Schema::create('informexfiltro', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('filtro_descripcion');
+        //     $table->text('filtro_html');
+        //     $table->timestamps();
+        //     $table->softDeletes();
+        // });
+
+        if (!Schema::hasTable('informexfiltro')) {
+            Schema::create('informexfiltro', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('filtro_descripcion');
+                $table->text('filtro_html');
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**
@@ -29,6 +39,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('informexfiltro');
+        // Schema::dropIfExists('informexfiltro');
+
+        if (Schema::hasTable('informexfiltro')) {
+            Schema::dropIfExists('informexfiltro');
+        }
     }
 };

@@ -13,14 +13,25 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('informe', function (Blueprint $table) {
-            $table->increments('informe_codigo');
-            $table->string('informe_descripcion');
-            $table->string('tabla_principal')->nullable();
-            $table->text('where_principal')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        // Schema::create('informe', function (Blueprint $table) {
+        //     $table->increments('informe_codigo');
+        //     $table->string('informe_descripcion');
+        //     $table->string('tabla_principal')->nullable();
+        //     $table->text('where_principal')->nullable();
+        //     $table->timestamps();
+        //     $table->softDeletes();
+        // });
+
+        if (!Schema::hasTable('informe')) {
+            Schema::create('informe', function (Blueprint $table) {
+                $table->increments('informe_codigo');
+                $table->string('informe_descripcion');
+                $table->string('tabla_principal')->nullable();
+                $table->text('where_principal')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**
@@ -30,6 +41,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('informe');
+        // Schema::dropIfExists('informe');
+
+        if (Schema::hasTable('informe')) {
+            Schema::dropIfExists('informe');
+        }
     }
 };

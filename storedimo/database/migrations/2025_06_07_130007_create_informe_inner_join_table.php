@@ -13,14 +13,25 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('informe_inner_join', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('informe_codigo');
-            $table->text('infxcampos');
-            $table->text('inner_join');
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        // Schema::create('informe_inner_join', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->integer('informe_codigo');
+        //     $table->text('infxcampos');
+        //     $table->text('inner_join');
+        //     $table->timestamps();
+        //     $table->softDeletes();
+        // });
+
+        if (!Schema::hasTable('informe_inner_join')) {
+            Schema::create('informe_inner_join', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('informe_codigo');
+                $table->text('infxcampos');
+                $table->text('inner_join');
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**
@@ -30,6 +41,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('informe_inner_join');
+        // Schema::dropIfExists('informe_inner_join');
+
+        if (Schema::hasTable('informe_inner_join')) {
+            Schema::dropIfExists('informe_inner_join');
+        }
     }
 };

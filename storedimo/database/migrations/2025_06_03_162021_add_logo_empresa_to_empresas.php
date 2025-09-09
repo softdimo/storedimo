@@ -13,9 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('empresas', function (Blueprint $table) {
-            $table->longText('logo_empresa')->nullable()->after('db_password');
-        });
+        // Schema::table('empresas', function (Blueprint $table) {
+        //     $table->longText('logo_empresa')->nullable()->after('db_password');
+        // });
+
+        if (Schema::hasTable('empresas') && !Schema::hasColumn('empresas', 'logo_empresa')) {
+            Schema::table('empresas', function (Blueprint $table) {
+                $table->longText('logo_empresa')->nullable()->after('db_password');
+            });
+        }
     }
 
     /**
@@ -25,8 +31,14 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('empresas', function (Blueprint $table) {
-            $table->dropColumn('logo_empresa');
-        });
+        // Schema::table('empresas', function (Blueprint $table) {
+        //     $table->dropColumn('logo_empresa');
+        // });
+
+        if (Schema::hasTable('empresas') && Schema::hasColumn('empresas', 'logo_empresa')) {
+            Schema::table('empresas', function (Blueprint $table) {
+                $table->dropColumn('logo_empresa');
+            });
+        }
     }
 };

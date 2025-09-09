@@ -24,6 +24,7 @@ class Empresa extends Model
         'app_key', // app key
         'app_url', // app url
         'id_tipo_bd', // db connection
+        'db_host', // db host
         'db_database', // db database
         'db_username', // db username
         'db_password', // db password

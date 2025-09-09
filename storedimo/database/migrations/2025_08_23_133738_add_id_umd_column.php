@@ -11,13 +11,24 @@ return new class extends Migration
      *
      * @return void
      */
+    // public function up()
+    // {
+    //     Schema::table('productos', function (Blueprint $table) {
+    //         $table->unsignedInteger('id_umd')->nullable()->after('id_categoria');
+
+    //         $table->foreign('id_umd')->references('id')->on('unidades_medida');
+    //     });
+    // }
+
     public function up()
     {
-        Schema::table('productos', function (Blueprint $table) {
-            $table->unsignedInteger('id_umd')->nullable()->after('id_categoria');
+        if (Schema::hasTable('productos') && !Schema::hasColumn('productos', 'id_umd')) {
+            Schema::table('productos', function (Blueprint $table) {
+                $table->unsignedInteger('id_umd')->nullable()->after('id_categoria');
 
-            $table->foreign('id_umd')->references('id')->on('unidades_medida');
-        });
+                $table->foreign('id_umd')->references('id')->on('unidades_medida');
+            });
+        }
     }
 
     /**
@@ -25,10 +36,19 @@ return new class extends Migration
      *
      * @return void
      */
+    // public function down()
+    // {
+    //     Schema::table('productos', function (Blueprint $table) {
+    //         $table->dropColumn('id_umd');
+    //     });
+    // }
+
     public function down()
     {
-        Schema::table('productos', function (Blueprint $table) {
-            $table->dropColumn('id_umd');
-        });
+        if (Schema::hasTable('productos') && Schema::hasColumn('productos', 'id_umd')) {
+            Schema::table('productos', function (Blueprint $table) {
+                $table->dropColumn('id_umd');
+            });
+        }
     }
 };
