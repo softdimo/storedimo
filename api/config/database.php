@@ -34,4 +34,5 @@ return [
             'engine' => null,
         ],
     ],
+    'migrations' => 'migrations',
 ];
