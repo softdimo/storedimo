@@ -10,9 +10,10 @@
                     'class' => 'form-control',
                     'id' => 'nit_empresa',
                     'required' => 'required',
-                    'pattern' => '^\d{5,10}$',
-                    'title' => 'Ingrese un NIT válido de 5 a 10 dígitos, sin guion ni dígito verificador',
+                    'maxlength' => '9',
+                    'title' => 'Ingrese un NIT válido de 9 dígitos, sin guion ni dígito verificador',
                 ]) !!}
+                <span id="nit-error" class="text-danger d-none mt-1"></span>
             </div>
         </div>
 
@@ -82,9 +83,9 @@
                     'class' => 'form-control',
                     'id' => 'email_empresa',
                     'required' => 'required',
-                    'pattern' => '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-                    'title' => 'Por favor, ingresa un correo electrónico válido',
+                    'oninput' => 'validarEmail(this)',
                 ]) !!}
+                <span id="error_email" class="text-danger"></span>
             </div>
         </div>
 

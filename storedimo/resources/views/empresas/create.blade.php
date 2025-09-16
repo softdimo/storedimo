@@ -147,6 +147,9 @@
             // Inicializar función de validación de número de teléfono
             initPhoneValidation("#telefono_empresa", "#telefono-error");
 
+            // Inicializar función de validación de NIT
+            initNitValidation("#nit_empresa", "#nit-error");
+
 
             // formCrearEmpresas para cargar gif en el submit
             $(document).on("submit", "form[id^='formCrearEmpresas']", function(e) {
