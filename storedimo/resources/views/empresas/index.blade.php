@@ -105,7 +105,7 @@
                 </h5>
 
                 <div class="col-12 p-3" id="">
-                    <div class="table-responsive">
+                    <div class="{{-- table-responsive --}}">
                         <table class="table table-striped table-bordered w-100 mb-0" id="tbl_empresas"
                             aria-describedby="empresas">
                             <thead>
@@ -186,15 +186,12 @@
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
                 stripe: true,
-                bSort: true,
-                autoWidth: false,
-                scrollX: true,
                 buttons: [{
                         extend: 'pdfHtml5',
                         text: 'PDF',
                         className: 'btn btn-sm btn-danger',
                         orientation: 'landscape',
-                        pageSize: 'A4',
+                        pageSize: 'A3',
                         title: 'Listado de Empresas',
                         exportOptions: {
                             columns: ':visible:not(:last-child)'
@@ -215,7 +212,8 @@
                         }
                     }
                 ],
-                "pageLength": 10,
+                pageLength: 10,
+                scrollX: true,
                 ordering: false
             });
             // CIERRE DataTable Lista Personas
