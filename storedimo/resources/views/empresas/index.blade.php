@@ -185,6 +185,9 @@
             $("#tbl_empresas").DataTable({
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                },
                 stripe: true,
                 buttons: [{
                         extend: 'pdfHtml5',
