@@ -201,6 +201,7 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
         Route::group(['namespace' => 'App\Http\Controllers\empresas'], function () {
             Route::resource('empresas', 'EmpresasController');
             Route::post('empresa_datos_conexion', 'EmpresasController@empresaDatosConexion')->name('empresa_datos_conexion');
+            Route::post('nit_validator', 'EmpresasController@nit_validator')->name('nit_validator');
 
             // GUARDAR DATOS EN EL .ENV DE LA EMPRESA
             // Route::post('guardar_datos_env', 'EmpresasController@guardarDatosEnv')->name('guardar_datos_env');

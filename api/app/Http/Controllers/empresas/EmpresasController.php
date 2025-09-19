@@ -137,4 +137,32 @@ class EmpresasController extends Controller
     {
         return new EmpresaDatosConexion($idEmpresa);
     }
+
+    
+    public function validar_nit(Request $request)
+    {
+        $nitEmpresa = $request->input('nit_empresa', null);
+        try {
+            $nitExist = Empresa::where('nit_empresa', $nitEmpresa)->first();
+
+            if ($nitExist) {
+                return response()->json([
+                    'valido' => false,
+                    'mensaje' => 'El NIT ya está registrado.',
+                    'empresa' => $nitExist
+                ]);
+            }
+
+            return response()->json([
+                'valido' => true,
+                'mensaje' => 'El NIT está disponible.'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error_bd' => $e->getMessage(),
+                'valido' => false
+            ], 500);
+        }
+    }
+
 }

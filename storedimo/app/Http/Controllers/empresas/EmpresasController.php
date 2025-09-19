@@ -235,4 +235,42 @@ class EmpresasController extends Controller
     {
         //
     }
+
+    public function nit_validator(Request $request)
+    {
+        try {
+            $request->validate([
+                'nit_empresa' => [
+                    'required',
+                    'regex:/^[0-9]{9}$/',
+                ]
+            ], [
+                'nit_empresa.required' => 'El NIT es obligatorio.',
+                'nit_empresa.regex'    => 'El NIT debe contener exactamente 9 dígitos numéricos.',
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'valido' => false,
+                'error' => $e->validator->errors()->first('nit_empresa') // mensaje específico
+            ], 422);
+        }
+    
+        try {
+            $response = $this->clientApi->post($this->baseUri . 'administracion/validar_nit', [
+                'json' => [
+                    'nit_empresa' => $request->input('nit_empresa')
+                ]
+            ]);
+        
+            return response()->json(
+                json_decode($response->getBody()->getContents(), true)
+            );
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'No se pudo validar el NIT en el servicio externo.',
+                'valido' => false
+            ], 500);
+        }
+    }
+
 }
