@@ -106,7 +106,9 @@ trait MetodosTrait
     {
         view()->share('roles', Rol::orderBy('name')->pluck('name', 'id'));
         view()->share('estados', Estado::whereIn('id_estado', [1,2])->orderBy('estado')->pluck('estado', 'id_estado'));
-        view()->share('tipos_documento', TipoDocumento::orderBy('tipo_documento')->pluck('tipo_documento', 'id_tipo_documento'));
+        view()->share('tipos_documento', TipoDocumento::whereIn('id_tipo_documento', [1,2,4,5])
+                                                        ->orderBy('tipo_documento')
+                                                        ->pluck('tipo_documento', 'id_tipo_documento'));
         view()->share('tipos_persona', TipoPersona::whereNotIn('id_tipo_persona', [1,2])->orderBy('tipo_persona')->pluck('tipo_persona', 'id_tipo_persona'));
         view()->share('tipos_empleado', TipoPersona::whereIn('id_tipo_persona', [1,2])->orderBy('tipo_persona')->pluck('tipo_persona', 'id_tipo_persona'));
         view()->share('tipos_proveedor', TipoPersona::whereIn('id_tipo_persona', [3,4])->orderBy('tipo_persona')->pluck('tipo_persona', 'id_tipo_persona'));
@@ -201,7 +203,8 @@ trait MetodosTrait
         {
             $permisosUsuario = $this->permisosPorUsuario($usuarioId);
 
-            if (empty($permisosUsuario)) {
+            if (empty($permisosUsuario))
+            {
                 return view('errors.403')->with('error', 'No se encontraron permisos');
             }
 
@@ -243,9 +246,6 @@ trait MetodosTrait
                     alert()->error('Error en el informe gerencial');
                     return redirect()->route('home');
                 }
-
-                // $campos = InformeCampo::formulario($infCodigo);
-                // $informe = Informe::where('informe_codigo', $infCodigo)->first();
             }
 
             // Si la vista es una respuesta diferente (por ejemplo, un redirect)

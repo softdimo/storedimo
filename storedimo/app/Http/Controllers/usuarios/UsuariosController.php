@@ -133,12 +133,15 @@ class UsuariosController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
+
                     $usuario = $this->queryUsuarioUpdate($idUsuario);
+                    return $this->validarAccesos($sesion[0], 10, $usuario);
 
                     // Recibe el tipo de modal desde la request
                     $tipoModal = $request->get('tipo_modal', 'editar_usuario'); // valor por defecto
 
-                    return match ($tipoModal) {
+                    return match ($tipoModal)
+                    {
                         'cambiar_clave' => view('usuarios.modal_cambiar_clave', compact('usuario')),
                         default  => view('usuarios.modal_editar_usuario', compact('usuario')),
                     };
@@ -253,7 +256,8 @@ class UsuariosController extends Controller
                 'error' => 'El correo no tiene un formato válido.'
             ], 422);
         }
-        try {
+        try
+        {
             $response = $this->clientApi->post($this->baseUri . 'administracion/validar_email', [
                 'json' => [
                     'email' => $request->input('email')
