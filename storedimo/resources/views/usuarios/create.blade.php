@@ -133,7 +133,7 @@
             });
             // Inicializamos el plugin para el campo celular de usuarios
             initIntlPhone("#celular");
-            
+
 
             // =========================== Validación número de telefono =========================
             // Para un campo
@@ -261,6 +261,13 @@
 
                 limpiarError();
 
+                if (!tipoSeleccionado) {
+                    mostrarError(
+                    'Seleccione un tipo de documento antes de ingresar la identificación.');
+                    documentoInput.value = '';
+                    return;
+                }
+
                 if (documento === '') {
                     mostrarError('Este campo es obligatorio.');
                     return;
@@ -274,19 +281,18 @@
                 }
 
                 try {
-                    const response = await fetch(
-                        "{{ route('identification_validator') }}", {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Accept': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector(
-                                    'meta[name="csrf-token"]').content
-                            },
-                            body: JSON.stringify({
-                                identificacion: documento
-                            })
-                        });
+                    const response = await fetch("{{ route('identification_validator') }}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector(
+                                'meta[name="csrf-token"]').content
+                        },
+                        body: JSON.stringify({
+                            identificacion: documento
+                        })
+                    });
 
                     if (!response.ok) throw new Error('Error en la petición');
 
