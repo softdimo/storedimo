@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Responsable\productos;
+namespace App\Http\Responsable\unidades_medida;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
-use App\Models\Producto;
+use App\Models\UnidadMedida;
 use App\Models\Empresa;
 use App\Helpers\DatabaseConnectionHelper;
 
-class ProductoStore implements Responsable
+class UnidadMedidaStore implements Responsable
 {
     public function toResponse($request)
     {
@@ -23,40 +23,20 @@ class ProductoStore implements Responsable
             DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
         }
         
-        $idTipoPersona = request('id_tipo_persona', null);
-        $imagenProducto = request('imagen_producto', null);
-        $nombreProducto = request('nombre_producto', null);
-        $idCategoria = request('id_categoria', null);
-        $precioUnitario = request('precio_unitario', null);
-        $precioDetal = request('precio_detal', null);
-        $precioPorMayor = request('precio_por_mayor', null);
         $descripcion = request('descripcion', null);
-        $stockMinimo = request('stock_minimo', null);
-        $idEstado = request('id_estado', null);
-        $referencia = request('referencia', null);
-        $fechaVencimiento = request('fecha_vencimiento', null);
-        $idUnidadMedida = request('id_umd', null);
+        $abreviatura = request('abreviatura', null);
+        $estado_id = request('estado_id', null);
 
         // ================================================
 
         try {
-            $nuevoProducto = Producto::create([
-                'id_tipo_persona' => $idTipoPersona,
-                'imagen_producto' => $imagenProducto,
-                'nombre_producto' => $nombreProducto,
-                'id_categoria' => $idCategoria,
-                'precio_unitario' => $precioUnitario,
-                'precio_detal' => $precioDetal,
-                'precio_por_mayor' => $precioPorMayor,
+            $nuevaUmd = UnidadMedida::create([
                 'descripcion' => $descripcion,
-                'stock_minimo' => $stockMinimo,
-                'id_estado' => $idEstado,
-                'referencia' => $referencia,
-                'fecha_vencimiento' => $fechaVencimiento,
-                'id_umd' => $idUnidadMedida
+                'abreviatura' => $abreviatura,
+                'estado_id' => $estado_id,
             ]);
     
-            if (isset($nuevoProducto) && !is_null($nuevoProducto) && !empty($nuevoProducto)) {
+            if (isset($nuevaUmd) && !is_null($nuevaUmd) && !empty($nuevaUmd)) {
                 // Restaurar conexión principal si se usó tenant
                 if ($empresaActual) {
                     DatabaseConnectionHelper::restaurarConexionPrincipal();

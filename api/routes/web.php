@@ -176,11 +176,11 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     // ========================================================================
 
     // UNIDADES DE MEDIDA
-    $router->get('unidades_medida_index', 'unidades_medida\UnidadesMedidaController@index');
-    $router->post('unidades_medida_store', 'unidades_medida\UnidadesMedidaController@store');
-    $router->get('unidades_medida_edit/{idUmd}', 'unidades_medida\UnidadesMedidaController@edit');
-    $router->put('unidades_medida_update/{idUmd}', 'unidades_medida\UnidadesMedidaController@update');
-    $router->post('unidades_medida_destroy/{idUmd}', 'unidades_medida\UnidadesMedidaController@destroy');
+    $router->get('unidad_medida_index', 'unidades_medida\UnidadesMedidaController@index');
+    $router->post('unidad_medida_store', 'unidades_medida\UnidadesMedidaController@store');
+    $router->get('unidad_medida_edit/{idUmd}', 'unidades_medida\UnidadesMedidaController@edit');
+    $router->put('unidad_medida_update/{idUmd}', 'unidades_medida\UnidadesMedidaController@update');
+    $router->post('unidad_medida_destroy/{idUmd}', 'unidades_medida\UnidadesMedidaController@destroy');
 
     // ========================================================================
 }); // api

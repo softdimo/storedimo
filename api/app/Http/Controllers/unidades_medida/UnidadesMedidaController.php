@@ -51,7 +51,7 @@ class UnidadesMedidaController extends Controller
      */
     public function store(Request $request)
     {
-        // return new UnidadMedidaStore();
+        return new UnidadMedidaStore();
     }
 
     // ======================================================================

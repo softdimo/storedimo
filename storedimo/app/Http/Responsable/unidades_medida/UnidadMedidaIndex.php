@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use GuzzleHttp\Client;
 
-class UnidadesMedidaIndex implements Responsable
+class UnidadMedidaIndex implements Responsable
 {
     public function toResponse($request)
     {
@@ -17,12 +17,11 @@ class UnidadesMedidaIndex implements Responsable
             // ==============================================================
             
             // Realiza la solicitud a la API
-            $peticion = $clientApi->get($baseUri . 'unidades_medida_index', [
+            $peticion = $clientApi->get($baseUri . 'unidad_medida_index', [
                 'json' => [
                     'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
-
             $unidadesMedida = json_decode($peticion->getBody()->getContents());
 
             return view('unidades_medida.index', compact('unidadesMedida'));

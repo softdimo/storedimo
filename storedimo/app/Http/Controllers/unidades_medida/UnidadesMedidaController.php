@@ -5,10 +5,10 @@ namespace App\Http\Controllers\unidades_medida;
 use Exception;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Responsable\unidades_medida\UnidadesMedidaIndex;
-use App\Http\Responsable\unidades_medida\UnidadesMedidaStore;
-use App\Http\Responsable\unidades_medida\UnidadesMedidaEdit;
-use App\Http\Responsable\unidades_medida\UnidadesMedidaUpdate;
+use App\Http\Responsable\unidades_medida\UnidadMedidaIndex;
+use App\Http\Responsable\unidades_medida\UnidadMedidaStore;
+use App\Http\Responsable\unidades_medida\UnidadMedidaEdit;
+use App\Http\Responsable\unidades_medida\UnidadMedidaUpdate;
 use GuzzleHttp\Client;
 use App\Traits\MetodosTrait;
 
@@ -46,7 +46,7 @@ class UnidadesMedidaController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
-                    $vista = new UnidadesMedidaIndex();
+                    $vista = new UnidadMedidaIndex();
                     return $this->validarAccesos($sesion[0], 66, $vista);
                 }
             }
@@ -79,8 +79,8 @@ class UnidadesMedidaController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
-        
+        // dd($request->all());
+
         try
         {
             if (!$this->checkDatabaseConnection())
@@ -97,8 +97,8 @@ class UnidadesMedidaController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
-                    $vista = new UnidadesMedidaStore();
-                    return $this->validarAccesos($sesion[0], 27, $vista);
+                    $vista = new UnidadMedidaStore();
+                    return $this->validarAccesos($sesion[0], 66, $vista);
                 }
             }
         } catch (Exception $e)
@@ -148,7 +148,7 @@ class UnidadesMedidaController extends Controller
                 {
                     $categorias = $this->categoriasTrait();
                     $umd = $this->UmdTrait();
-                    return new UnidadesMedidaEdit($idProducto, $categorias, $umd);
+                    return new UnidadMedidaEdit($idProducto, $categorias, $umd);
                 }
             }
         } catch (Exception $e)
@@ -183,7 +183,7 @@ class UnidadesMedidaController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
-                    $vista = new UnidadesMedidaUpdate();
+                    $vista = new UnidadMedidaUpdate();
                     return $this->validarAccesos($sesion[0], 28, $vista);
                 }
             }
