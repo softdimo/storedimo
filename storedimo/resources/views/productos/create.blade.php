@@ -97,7 +97,7 @@
         </div>
     </div>
 
-    @include('productos.modal_crear_umd')
+    @include('unidades_medida.modal_crear_umd')
 
     <!-- Modal Crear Categoría -->
     <div class="modal fade" id="modal_crear_categoria" tabindex="-1" aria-labelledby="modalCrearCategoriaLabel"
@@ -377,6 +377,25 @@
                 // Mostrar Spinner
                 loadingIndicator.show();
             });
+
+            // =============================================
+
+            // formCrearUmd para cargar gif en el submit
+            $(document).on("submit", "form[id^='formCrearUmd']", function(e) {
+                const form = $(this);
+                const submitButton = form.find('button[type="submit"]');
+                const cancelButton = form.find('button[type="button"]');
+                const loadingIndicator = form.find("div[id^='loadingIndicatorUmdStore']");
+
+                // Mostrar Spinner
+                loadingIndicator.show();
+
+                // Dessactivar Botones
+                cancelButton.prop("disabled", true);
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+            });
+
+            // ===========================================================
         }); // FIN document.ready
 
         // =============================================
