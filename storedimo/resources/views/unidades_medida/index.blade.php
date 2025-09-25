@@ -149,6 +149,23 @@
 
             // ===========================================================
 
+            // formCrearUmd para cargar gif en el submit
+            $(document).on("submit", "form[id^='formCrearUmd']", function(e) {
+                const form = $(this);
+                const submitButton = form.find('button[type="submit"]');
+                const cancelButton = form.find('button[type="button"]');
+                const loadingIndicator = form.find("div[id^='loadingIndicatorUmdStore']");
+
+                // Mostrar Spinner
+                loadingIndicator.show();
+
+                // Dessactivar Botones
+                cancelButton.prop("disabled", true);
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+            });
+
+            // ===========================================================
+
             $(document).on('click', '.btn-editar-umd', function() {
                 const idProducto = $(this).data('id');
 

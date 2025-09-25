@@ -31,8 +31,8 @@
                             <div class="mt-3">
                                 <label for="abreviatura_umd">Abreviatura Unidad de Medida<span class="text-danger"> *</span></label>
                                 <input type="text" name="abreviatura_umd" id="abreviatura_umd" class="form-control" required
-                                    minlength="3" maxlength="100" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s'-]{3,100}$"
-                                    title="Debe contener solo letras, espacios, guiones o apóstrofes (mínimo 3 caracteres)"
+                                    minlength="2" maxlength="100" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s'-]{3,100}$"
+                                    title="Debe contener solo letras, espacios, guiones o apóstrofes (mínimo 2 caracteres)"
                                     placeholder="Ingrese Abreviatura Unidad de Medida">
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                 {{-- ====================================================== --}}
 
                 <!-- Contenedor para el GIF -->
-                <div id="loadingIndicatorUmdStore }}" class="loadingIndicator">
+                <div id="loadingIndicatorUmdStore" class="loadingIndicator">
                     <img src="{{ asset('imagenes/loading.gif') }}" alt="Procesando...">
                 </div>
 
@@ -51,11 +51,11 @@
                 {{-- ====================================================== --}}
 
                 <div class="d-flex justify-content-center mt-3">
-                    <button type="submit" title="Crear Umd" class="btn btn-success me-3" id="btn_crear_umd">
+                    <button type="submit" class="btn btn-success me-3">
                         <i class="fa fa-floppy-o"></i> Crear Umd
                     </button>
 
-                    <button type="button" title="Cancelar" class="btn btn-secondary" data-bs-dismiss="modal" id="btn_cancelar_umd">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         <i class="fa fa-times"></i> Cancelar
                     </button>
                 </div>
