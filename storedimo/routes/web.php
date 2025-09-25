@@ -224,6 +224,11 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
         
             return response()->file($rutaPdf);
         })->name('ver.pdf');
+
+        // Unidades de Medida
+        Route::group(['namespace' => 'App\Http\Controllers\unidades_medida'], function () {
+            Route::resource('unidades_medida', 'UnidadesMedidaController');
+        });
     }); // FIN Route::middleware(['verificar.sesion']) RUTAS PROTEGIDAS
 }); // FIN Route::middleware(['web'])
 

@@ -174,4 +174,13 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('prestamo_vencer', 'prestamos\PrestamosController@prestamoVencer');
 
     // ========================================================================
+
+    // UNIDADES DE MEDIDA
+    $router->get('unidades_medida_index', 'unidades_medida\UnidadesMedidaController@index');
+    $router->post('unidades_medida_store', 'unidades_medida\UnidadesMedidaController@store');
+    $router->get('unidades_medida_edit/{idUmd}', 'unidades_medida\UnidadesMedidaController@edit');
+    $router->put('unidades_medida_update/{idUmd}', 'unidades_medida\UnidadesMedidaController@update');
+    $router->post('unidades_medida_destroy/{idUmd}', 'unidades_medida\UnidadesMedidaController@destroy');
+
+    // ========================================================================
 }); // api
