@@ -28,7 +28,6 @@ class UnidadesMedidaIndex implements Responsable
             return view('unidades_medida.index', compact('unidadesMedida'));
 
         } catch (Exception $e) {
-            dd($e);
             alert()->error('Error', 'Exception consultando unidades de medida, contacte a Soporte.');
             return back();
         }

@@ -120,7 +120,7 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
             Route::post('verificar_referencia', 'ProductosController@referenceValidator')->name('verificar_referencia');
 
             //UMD
-            Route::post('umd', 'ProductosController@crearUmd')->name('umd');
+            // Route::post('umd', 'ProductosController@crearUmd')->name('umd');
 
             // ========================================================================
             

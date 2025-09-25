@@ -20,11 +20,13 @@
         <div class="p-3 d-flex flex-column content-container">
             <div class="d-flex justify-content-between pe-3 mt-2 mb-2">
                 <div class="">
-                    <a href="#" class="btn text-white" style="background-color:#337AB7">
+                    <button class="btn text-white" style="background-color:#337AB7" data-bs-toggle="modal" data-bs-target="#modalCrearUmd">
                         Crear Unidad de Medida
-                    </a>
+                    </button>
                 </div>
             </div>
+
+            @include('unidades_medida.modal_crear_umd')
 
             <div class="p-0" style="border: solid 1px #337AB7; border-radius: 5px;">
                 <h5 class="border rounded-top text-white text-center pt-2 pb-2 m-0" style="background-color: #337AB7">
