@@ -13,9 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('productos', function (Blueprint $table) {
-            $table->string('referencia')->nullable()->after('cantidad');
-        });
+        // Schema::table('productos', function (Blueprint $table) {
+        //     $table->string('referencia')->nullable()->after('cantidad');
+        // });
+
+        if (Schema::hasTable('productos') && !Schema::hasColumn('productos', 'referencia')) {
+            Schema::table('productos', function (Blueprint $table) {
+                $table->string('referencia')->nullable()->after('cantidad');
+            });
+        }
     }
 
     /**
@@ -25,8 +31,14 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('productos', function (Blueprint $table) {
-            $table->dropColumn('referencia');
-        });
+        // Schema::table('productos', function (Blueprint $table) {
+        //     $table->dropColumn('referencia');
+        // });
+
+        if (Schema::hasTable('productos') && Schema::hasColumn('productos', 'referencia')) {
+            Schema::table('productos', function (Blueprint $table) {
+                $table->dropColumn('referencia');
+            });
+        }
     }
 };

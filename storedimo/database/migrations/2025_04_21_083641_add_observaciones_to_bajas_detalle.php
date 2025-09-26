@@ -13,9 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('bajas_detalle', function (Blueprint $table) {
-            $table->string('observaciones')->nullable()->after('cantidad');
-        });
+        // Schema::table('bajas_detalle', function (Blueprint $table) {
+        //     $table->string('observaciones')->nullable()->after('cantidad');
+        // });
+
+        if (Schema::hasTable('bajas_detalle') && !Schema::hasColumn('bajas_detalle', 'observaciones')) {
+            Schema::table('bajas_detalle', function (Blueprint $table) {
+                $table->string('observaciones')->nullable()->after('cantidad');
+            });
+        }
     }
 
     /**
@@ -25,8 +31,14 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('bajas_detalle', function (Blueprint $table) {
-            $table->dropColumn('observaciones');
-        });
+        // Schema::table('bajas_detalle', function (Blueprint $table) {
+        //     $table->dropColumn('observaciones');
+        // });
+
+        if (Schema::hasTable('bajas_detalle') && Schema::hasColumn('bajas_detalle', 'observaciones')) {
+            Schema::table('bajas_detalle', function (Blueprint $table) {
+                $table->dropColumn('observaciones');
+            });
+        }
     }
 };

@@ -13,9 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('audits', function (Blueprint $table) {
-            $table->softDeletes();
-        });
+        // Schema::table('audits', function (Blueprint $table) {
+        //     $table->softDeletes();
+        // });
+
+        if (Schema::hasTable('audits') && !Schema::hasColumn('audits', 'deleted_at')) {
+            Schema::table('audits', function (Blueprint $table) {
+                $table->softDeletes();
+            });
+        }
     }
 
     /**
@@ -25,8 +31,14 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('audits', function (Blueprint $table) {
-            $table->dropSoftDeletes();
-        });
+        // Schema::table('audits', function (Blueprint $table) {
+        //     $table->dropSoftDeletes();
+        // });
+
+        if (Schema::hasTable('audits') && Schema::hasColumn('audits', 'deleted_at')) {
+            Schema::table('audits', function (Blueprint $table) {
+                $table->dropSoftDeletes();
+            });
+        }
     }
 };
