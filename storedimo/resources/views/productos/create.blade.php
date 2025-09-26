@@ -97,7 +97,7 @@
         </div>
     </div>
 
-    @include('unidades_medida.modal_crear_umd')
+    @include('productos.modal_crear_umd')
 
     <!-- Modal Crear Categoría -->
     <div class="modal fade" id="modal_crear_categoria" tabindex="-1" aria-labelledby="modalCrearCategoriaLabel"
@@ -381,7 +381,7 @@
             // =============================================
 
             // formCrearUmd para cargar gif en el submit
-            $(document).on("submit", "form[id^='formCrearUmd']", function(e) {
+            $(document).on("submit", "form[id^='formCrearUmdProducto']", function(e) {
                 const form = $(this);
                 const submitButton = form.find('button[type="submit"]');
                 const cancelButton = form.find('button[type="button"]');

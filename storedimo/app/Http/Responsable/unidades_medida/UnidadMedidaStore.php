@@ -24,6 +24,7 @@ class UnidadMedidaStore implements Responsable
     {
         $umd = request('umd', null);
         $abreviaturaUmd = request('abreviatura_umd', null);
+        $tipoFormCrearUmd = request('tipoFormCrearUmd', null);
 
         try {
             $peticion = $this->clientApi->post($this->baseUri.'unidad_medida_store', [
@@ -39,7 +40,13 @@ class UnidadMedidaStore implements Responsable
 
             if(isset($respuesta->success) && $respuesta->success) {
                 alert()->success('Proceso Exitoso', 'Unidad de Medida creada satisfactoriamente');
-                return redirect()->to(route('unidades_medida.index'));
+
+                if ($tipoFormCrearUmd == 'formCrearUmd') {
+                    return redirect()->to(route('unidades_medida.index'));
+                } else {
+                    return redirect()->to(route('productos.create'));
+                }
+                
             }
         } catch (Exception $e) {
             alert()->error('Error', 'Exception creando la nueva unidad de medida, contacte a Soporte.');
