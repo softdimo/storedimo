@@ -207,12 +207,18 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
             // Route::post('guardar_datos_env', 'EmpresasController@guardarDatosEnv')->name('guardar_datos_env');
         });
 
+        // ========================================================================
+        // ========================================================================
+
         // Rutas roles y permisos
         Route::group(['namespace' => 'App\Http\Controllers\roles_permisos'], function () {
             Route::post('crear_rol', 'RolesPermisosController@guardarRol')->name('crear_rol');
             Route::post('crear_permiso', 'RolesPermisosController@guardarPermiso')->name('crear_permiso');
             Route::post('traer_permisos_usuario', 'RolesPermisosController@consultarPermisosPorUsuario')->name('traer_permisos_usuario');
         });
+
+        // ========================================================================
+        // ========================================================================
         
         // Abre automáticamente el archivo con los códigos QR del producto recién solicitado
         Route::get('/ver-pdf/{archivo}', function ($archivo) {
@@ -224,6 +230,9 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
         
             return response()->file($rutaPdf);
         })->name('ver.pdf');
+
+        // ========================================================================
+        // ========================================================================
 
         // Unidades de Medida
         Route::group(['namespace' => 'App\Http\Controllers\unidades_medida'], function () {

@@ -33,7 +33,7 @@
                             <div class="mt-3">
                                 <label for="abreviatura_umd">Abreviatura Unidad de Medida<span class="text-danger"> *</span></label>
                                 <input type="text" name="abreviatura_umd" id="abreviatura_umd" class="form-control" required
-                                    minlength="2" maxlength="100" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s'-]{3,100}$"
+                                    minlength="2" maxlength="100" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s'-]{2,100}$"
                                     title="Debe contener solo letras, espacios, guiones o apóstrofes (mínimo 2 caracteres)"
                                     placeholder="Ingrese Abreviatura Unidad de Medida">
                             </div>

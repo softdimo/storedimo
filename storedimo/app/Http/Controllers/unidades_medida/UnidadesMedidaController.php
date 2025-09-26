@@ -129,7 +129,7 @@ class UnidadesMedidaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($idProducto)
+    public function edit($idUmd)
     {
         try {
             if (!$this->checkDatabaseConnection())
@@ -146,9 +146,7 @@ class UnidadesMedidaController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
-                    $categorias = $this->categoriasTrait();
-                    $umd = $this->UmdTrait();
-                    return new UnidadMedidaEdit($idProducto, $categorias, $umd);
+                    return new UnidadMedidaEdit($idUmd);
                 }
             }
         } catch (Exception $e)
@@ -167,7 +165,7 @@ class UnidadesMedidaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update($idUmd)
     {
         try {
             if (!$this->checkDatabaseConnection()) {
@@ -183,8 +181,8 @@ class UnidadesMedidaController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
-                    $vista = new UnidadMedidaUpdate();
-                    return $this->validarAccesos($sesion[0], 28, $vista);
+                    $vista = new UnidadMedidaUpdate($idUmd);
+                    return $this->validarAccesos($sesion[0], 66, $vista);
                 }
             }
         } catch (Exception $e)
@@ -205,73 +203,5 @@ class UnidadesMedidaController extends Controller
     public function destroy()
     {
         //
-    }
-
-    // ======================================================================
-
-    // public function verificarUmd(Request $request)
-    // {
-    //     try
-    //     {
-    //         if (!$this->checkDatabaseConnection())
-    //         {
-    //             return view('db_conexion');
-    //         } else {
-    //             $sesion = $this->validarVariablesSesion();
-
-    //             if (empty($sesion[0]) || is_null($sesion[0]) &&
-    //                 empty($sesion[1]) || is_null($sesion[1]) &&
-    //                 empty($sesion[2]) || is_null($sesion[2]) && !$sesion[3])
-    //             {
-    //                 return redirect()->to(route('login'));
-    //             } else {
-    //                 $baseUri = env('BASE_URI');
-    //                 $clientApi = new Client(['base_uri' => $baseUri]);
-
-    //                 try {
-    //                     $nombreProducto = request('nombre_producto', null);
-    //                     $idCategoria = request('id_categoria', null);
-
-    //                     $verificarProducto = $clientApi->post($baseUri.'verificar_producto', [
-    //                         'query' => [
-    //                             'nombre_producto' => $nombreProducto,
-    //                             'id_categoria' => $idCategoria,
-    //                             'empresa_actual' => session('empresa_actual.id_empresa')
-    //                         ]
-    //                     ]);
-    //                     $resVerificarProducto = json_decode($verificarProducto->getBody()->getContents());
-        
-    //                     if( isset($resVerificarProducto) && !empty($resVerificarProducto) && !is_null($resVerificarProducto) ) {
-    //                         return response()->json('existe_producto');
-    //                     }
-    //                 } catch (Exception $e) {
-    //                     return response()->json('error_exception');
-    //                 }
-    //             }
-    //         }
-    //     } catch (Exception $e)
-    //     {
-    //         alert()->error("Exception Verificar unidad de medida!");
-    //         return redirect()->to(route('login'));
-    //     }
-    // }
-
-    // ======================================================================
-    
-    public function UmdTrait()
-    {
-        try
-        {
-            $response = $this->clientApi->get('umd_trait', [
-                'query' => ['empresa_actual' => session('empresa_actual.id_empresa')]
-            ]);
-
-            return json_decode($response->getBody()->getContents());
-
-        } catch (Exception $e)
-        {
-            alert()->error('Error', 'Error obteniendo unidades de medida');
-            return back();
-        }
     }
 }

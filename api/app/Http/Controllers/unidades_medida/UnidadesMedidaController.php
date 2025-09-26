@@ -80,7 +80,7 @@ class UnidadesMedidaController extends Controller
      */
     public function edit($idUmd)
     {
-        // return new UnidadMedidaEdit($idUmd);
+        return new UnidadMedidaEdit($idUmd);
     }
 
     // ======================================================================
@@ -95,7 +95,7 @@ class UnidadesMedidaController extends Controller
      */
     public function update(Request $request, $idUmd)
     {
-        // return new UnidadMedidaUpdate($request, $idUmd);
+        return new UnidadMedidaUpdate($request, $idUmd);
     }
 
     // ======================================================================
@@ -111,54 +111,4 @@ class UnidadesMedidaController extends Controller
     {
         // return new UnidadMedidaDestroy($idUmd);
     }
-    
-    // ======================================================================
-    // ======================================================================
-
-    // public function umdTrait(Request $request)
-    // {
-    //     // 1. Obtener ID de empresa del request (antes era empresa_actual completo)
-    //     $empresaId = $request->input('empresa_actual');
-
-    //     // 2. Buscar empresa completa usando el ID
-    //     $empresaActual = Empresa::find($empresaId);
-        
-    //     // Configurar conexión tenant si hay empresa
-    //     if ($empresaActual)
-    //     {
-    //         DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
-    //     }
-        
-    //     try
-    //     {
-    //         $umd = UnidadMedida::select(DB::raw("CONCAT(descripcion, ' (', abreviatura, ')') AS umd"), 'id')
-    //                             ->where('estado_id', 1)
-    //                             ->orderBy('id')
-    //                             ->pluck('umd', 'id');
-
-    //         // Retornamos la categoría si existe, de lo contrario retornamos null
-    //         if (isset($umd) && !is_null($umd) && !empty($umd))
-    //         {
-    //             // Restaurar conexión principal si se usó tenant
-    //             if ($empresaActual) {
-    //                 DatabaseConnectionHelper::restaurarConexionPrincipal();
-    //             }
-
-    //             return response()->json($umd);
-                
-    //         } else
-    //         {
-    //             return response(null, 200);
-    //         }
-
-    //     } catch (Exception $e) {
-    //         // Asegurar restauración de conexión principal en caso de error
-    //         if (isset($empresaActual))
-    //         {
-    //             DatabaseConnectionHelper::restaurarConexionPrincipal();
-    //         }
-            
-    //         return response()->json(['error_bd' => $e->getMessage()]);
-    //     }
-    // }
 }

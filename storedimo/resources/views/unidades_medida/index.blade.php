@@ -35,8 +35,7 @@
 
                 <div class="col-12 p-3" id="">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_umd"
-                            aria-describedby="productos">
+                        <table class="table table-striped table-bordered w-100 mb-0" id="tbl_umd" aria-describedby="umd">
                             <thead>
                                 <tr class="header-table text-center">
                                     <th class="align-middle">Id</th>
@@ -49,6 +48,9 @@
                             {{-- ============================== --}}
                             <tbody>
                                 @foreach ($unidadesMedida as $unidadMedida)
+                                    {{-- @php
+                                        dd($unidadMedida);
+                                    @endphp --}}
                                     <tr class="text-center">
                                         <td class="align-middle">{{ $unidadMedida->id }}</td>
                                         <td class="align-middle">{{ $unidadMedida->descripcion }}</td>
@@ -57,14 +59,14 @@
 
                                         @if ($unidadMedida->estado_id == 1 || $unidadMedida->estado_id == '1')
                                             <td class="align-middle">
-                                                <button
-                                                    class="btn btn-success rounded-circle btn-circle btn-editar-umd"
-                                                    data-id="{{ $unidadMedida->id }}" title="Editar">
+                                                <button class="btn btn-success rounded-circle btn-circle btn-editar-umd"
+                                                    data-id="{{ $unidadMedida->id }}" title="Editar Umd"
+                                                >
                                                     <i class="fa fa-pencil-square-o"></i>
                                                 </button>
                                                 {{-- ============================== --}}
                                                 <button class="btn btn-danger rounded-circle btn-circle btn-cambiar-estado"
-                                                    data-id="{{ $unidadMedida->id }}" title="Cambiar Estado">
+                                                    data-id="{{ $unidadMedida->id }}" title="Cambiar Estado Umd">
                                                     <i class="fa fa-solid fa-recycle"></i>
                                                 </button>
                                             </td>
@@ -87,19 +89,21 @@
     </div>
 
     {{-- INICIO Modal EDITAR UNIDAD DE MEDIDA --}}
-    <div class="modal fade" id="modalEditarUmd" tabindex="-1" data-bs-keyboard="false" data-bs-backdrop="static">
-        <div class="modal-dialog" style="min-width: 50%">
+    <div class="modal fade" id="modalEditarUmd" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog">
             <div class="modal-content p-3" id="modalEditarUmdContent">
                 {{-- El contenido AJAX se cargará aquí --}}
-            </div>
-        </div>
-    </div>
+            </div> {{-- modal-content --}}
+        </div> {{-- modal-dialog --}}
+    </div> {{-- modal fade --}}
     {{-- FINAL Modal EDITAR UNIDAD DE MEDIDA --}}
 
-    {{-- INICIO Modal UNIDAD DE MEDIDA --}}
+    {{-- ==================================================================================================== --}}
+
+    {{-- INICIO Modal ESTADO UNIDAD DE MEDIDA --}}
     <div class="modal fade" id="modalCambiarEstadoUmd" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
-            <div class="modal-content p-3" id="modalCambiarEstadoumdContent">
+            <div class="modal-content p-3" id="modalCambiarEstadoUmdContent">
                 {{-- El contenido AJAX se cargará aquí --}}
             </div> {{-- FIN modal-content --}}
         </div> {{-- FIN modal-dialog --}}
@@ -107,14 +111,16 @@
     {{-- FINAL Modal ESTADO UNIDAD DE MEDIDA --}}
 @stop
 
+{{-- ==================================================================================================== --}}
+{{-- ==================================================================================================== --}}
+
 @section('scripts')
     <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
     <script src="{{ asset('DataTables/Buttons-2.3.4/js/buttons.html5.min.js') }}"></script>
 
     <script>
         $(document).ready(function() {
-            // @if (isset($productos) && count($productos) > 0)
-            // INICIO DataTable Lista Productos
+            // INICIO DataTable Lista Unidades de medida
             $("#tbl_umd").DataTable({
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
@@ -124,13 +130,6 @@
                 },
                 bSort: true,
                 buttons: [
-                    // {
-                    //     text: 'PDF',
-                    //     className: 'btn btn-sm btn-danger',
-                    //     action: function() {
-                    //         window.open("{{ route('reporte_productos_pdf') }}", "_blank");
-                    //     }
-                    // },
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',
@@ -144,8 +143,7 @@
                 "pageLength": 10,
                 "scrollX": true,
             });
-            // @endif
-            // CIERRE DataTable Lista Productos
+            // CIERRE DataTable Lista Unidades de medida
 
             // ===========================================================
 
@@ -166,34 +164,25 @@
 
             // ===========================================================
 
-            $(document).on('click', '.btn-editar-umd', function() {
-                const idProducto = $(this).data('id');
+            $(document).on('click', '.btn-editar-umd', function () {
+                const idUmd = $(this).data('id');
 
                 $.ajax({
-                    url: `/unidades_medida/${id}/edit`,
+                    url: `/unidades_medida/${idUmd}/edit`,
                     type: 'GET',
                     data: {
                         '_token': "{{ csrf_token() }}",
-                        tipo_modal: 'editar'
+                        tipo_modal: 'editar_umd'
                     },
-                    beforeSend: function() {
+                    beforeSend: function () {
                         $('#modalEditarUmd').modal('show');
-                        $('#modalEditarUmdContent').html(
-                            '<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>'
-                        );
+                        $('#modalEditarUmdContent').html('<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>');
                     },
-                    success: function(html) {
+                    success: function (html) {
                         $('#modalEditarUmdContent').html(html);
 
-                        // Reinicializar select2 si lo usas en el modal
-                        // $('#modalEditarProducto .select2').select2({
-                        //     dropdownParent: $('#modalEditarProducto'),
-                        //     placeholder: 'Seleccionar...',
-                        //     width: '100%',
-                        //     allowClear: false
-                        // });
                     },
-                    error: function() {
+                    error: function () {
                         $('#modalEditarUmdContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');
                     }
                 });
@@ -203,7 +192,7 @@
             // ===========================================================
 
             // formEditarProducto para cargar gif en el submit
-            $(document).on("submit", "form[id^='formEditarUmd_']", function(e) {
+            $(document).on("submit", "form[id^='formEditUmd_']", function(e) {
                 const form = $(this);
                 const formId = form.attr('id'); // Obtenemos el ID del formulario
                 const id = formId.split('_')[1]; // Obtener el ID del formulario desde el ID del formulario
@@ -230,7 +219,7 @@
                     type: 'POST',
                     data: {
                         '_token': "{{ csrf_token() }}",
-                        tipo_modal: 'estado'
+                        tipo_modal: 'estado_umd'
                     },
                     beforeSend: function() {
                         $('#modalCambiarEstadoUmd').modal('show');

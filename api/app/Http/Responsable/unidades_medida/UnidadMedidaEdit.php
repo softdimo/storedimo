@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Http\Responsable\productos;
+namespace App\Http\Responsable\unidades_medida;
 
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
-use App\Models\Producto;
-use App\Helpers\DatabaseConnectionHelper;
+use App\Models\UnidadMedida;
 use App\Models\Empresa;
+use App\Helpers\DatabaseConnectionHelper;
 
-class ProductoEdit implements Responsable
+class UnidadMedidaEdit implements Responsable
 {
-    protected $idProducto;
+    protected $idUmd;
 
     // =========================================
 
-    public function __construct($idProducto)
+    public function __construct($idUmd)
     {
-        $this->idProducto = $idProducto;
+        $this->idUmd = $idUmd;
     }
 
     // =========================================
@@ -35,50 +35,41 @@ class ProductoEdit implements Responsable
             DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
         }
         
-        $idProducto = $this->idProducto;
+        $idUmd = $this->idUmd;
 
         try {
-            $producto = Producto::leftJoin('categorias', 'categorias.id_categoria', '=', 'productos.id_categoria')
+            $unidadMedida = UnidadMedida::leftJoin('estados', 'estados.id_estado', '=', 'unidades_medida.estado_id')
                 ->select(
-                    'id_producto',
-                    'imagen_producto',
-                    'nombre_producto',
-                    'categorias.id_categoria',
-                    'categorias.categoria',
+                    'id',
                     'descripcion',
-                    'stock_minimo',
-                    'precio_unitario',
-                    'precio_detal',
-                    'precio_por_mayor',
-                    'referencia',
-                    'fecha_vencimiento',
-                    'id_umd'
+                    'abreviatura',
+                    'estado_id',
+                    'estado'
                 )
-                ->where('id_producto', $idProducto)
+                ->where('id', $idUmd)
                 ->first();
 
-            if (isset($producto) && !is_null($producto) && !empty($producto)) {
+            if (isset($unidadMedida) && !is_null($unidadMedida) && !empty($unidadMedida)) {
                 // Restaurar conexión principal si se usó tenant
                 if ($empresaActual) {
                     DatabaseConnectionHelper::restaurarConexionPrincipal();
                 }
 
-                return response()->json($producto);
+                return response()->json($unidadMedida);
+                
             } else {
                 return response()->json([
                     'message' => 'No existe producto'
                 ], 404);
             }
-        } catch (Exception $e)
-        {
-            return response()->json($e);
+        } catch (Exception $e) {
             // Asegurar restauración de conexión principal en caso de error
             if (isset($empresaActual)) {
                 DatabaseConnectionHelper::restaurarConexionPrincipal();
             }
             
             return response()->json([
-                'message' => 'Error consultando la base de datos',
+                'message' => 'Error consultando la Umd en BD',
                 'error' => $e->getMessage(),
             ], 500);
         }
