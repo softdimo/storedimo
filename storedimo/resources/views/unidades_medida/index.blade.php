@@ -41,7 +41,7 @@
                                     <th class="align-middle">Id</th>
                                     <th class="align-middle">Descripción</th>
                                     <th class="align-middle">Abreviatura</th>
-                                    <th class="align-middle">Estado</th>
+                                    {{-- <th class="align-middle">Estado</th> --}}
                                     <th class="align-middle">Opciones</th>
                                 </tr>
                             </thead>
@@ -55,7 +55,7 @@
                                         <td class="align-middle">{{ $unidadMedida->id }}</td>
                                         <td class="align-middle">{{ $unidadMedida->descripcion }}</td>
                                         <td class="align-middle">{{ $unidadMedida->abreviatura }}</td>
-                                        <td class="align-middle">{{ $unidadMedida->estado }}</td>
+                                        {{-- <td class="align-middle">{{ $unidadMedida->estado }}</td> --}}
 
                                         <td class="align-middle">
                                             <button class="btn btn-success rounded-circle btn-circle btn-editar-umd"
