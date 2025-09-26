@@ -57,14 +57,21 @@
                                         <td class="align-middle">{{ $unidadMedida->abreviatura }}</td>
                                         <td class="align-middle">{{ $unidadMedida->estado }}</td>
 
-                                        @if ($unidadMedida->estado_id == 1 || $unidadMedida->estado_id == '1')
+                                        <td class="align-middle">
+                                            <button class="btn btn-success rounded-circle btn-circle btn-editar-umd"
+                                                data-id="{{ $unidadMedida->id }}" title="Editar Umd"
+                                            >
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </button>
+                                        </td>
+
+                                        {{-- @if ($unidadMedida->estado_id == 1 || $unidadMedida->estado_id == '1')
                                             <td class="align-middle">
                                                 <button class="btn btn-success rounded-circle btn-circle btn-editar-umd"
                                                     data-id="{{ $unidadMedida->id }}" title="Editar Umd"
                                                 >
                                                     <i class="fa fa-pencil-square-o"></i>
                                                 </button>
-                                                {{-- ============================== --}}
                                                 <button class="btn btn-danger rounded-circle btn-circle btn-cambiar-estado"
                                                     data-id="{{ $unidadMedida->id }}" title="Cambiar Estado Umd">
                                                     <i class="fa fa-solid fa-recycle"></i>
@@ -77,7 +84,7 @@
                                                     <i class="fa fa-solid fa-recycle"></i>
                                                 </button>
                                             </td>
-                                        @endif
+                                        @endif --}}
                                     </tr>
                                 @endforeach
                             </tbody>
