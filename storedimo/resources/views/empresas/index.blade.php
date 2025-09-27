@@ -189,22 +189,7 @@
                     url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
                 },
                 stripe: true,
-                buttons: [/* {
-                        extend: 'pdfHtml5',
-                        text: 'PDF',
-                        className: 'btn btn-sm btn-danger',
-                        orientation: 'landscape',
-                        pageSize: 'A3',
-                        title: 'Listado de Empresas',
-                        exportOptions: {
-                            columns: ':visible:not(:last-child)'
-                        },
-                        customize: function(doc) {
-                            const columnCount = $('#tbl_proveedores thead th').length;
-                            doc.pageSize = 'A4';
-                            doc.defaultStyle.fontSize = 12;
-                        }
-                    }, */
+                buttons: [
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',

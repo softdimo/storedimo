@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tipos_pago', function (Blueprint $table) {
-            $table->increments('id_tipo_pago');
-            $table->string('tipo_pago')->nullable();
-
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (!Schema::hasTable('tipos_pago'))
+        {
+            Schema::create('tipos_pago', function (Blueprint $table) {
+                $table->increments('id_tipo_pago');
+                $table->string('tipo_pago')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**
@@ -29,6 +31,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipos_pago');
+        if (Schema::hasTable('tipos_pago'))
+        {
+            Schema::dropIfExists('tipos_pago');
+        }
     }
 };

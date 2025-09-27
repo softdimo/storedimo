@@ -86,9 +86,9 @@
                                                 <i class="fa fa-eye"></i>
                                             </button>
 
-                                            <button title="Generar PDF" class="btn btn-success rounded-circle btn-circle text-white" id="modalPdfPrestamo_{{$prestamo->id_prestamo}}">
+                                            <!-- <button title="Generar PDF" class="btn btn-success rounded-circle btn-circle text-white" id="modalPdfPrestamo_{{$prestamo->id_prestamo}}">
                                                 <i class="fa fa-file-pdf-o"></i>
-                                            </button>
+                                            </button> -->
                                         </td>
                                     </tr>
                                 @endforeach
@@ -101,12 +101,12 @@
                     {{-- ========================================================= --}}
                     {{-- ========================================================= --}}
             
-                    <div class="mt-5 mb-2 d-flex justify-content-center">
+                    <!-- <div class="mt-5 mb-2 d-flex justify-content-center">
                         <button type="submit" class="btn rounded-2 me-3 text-white" style="background-color: #204D74" data-bs-toggle="modal" data-bs-target="#modalReportePrestamos">
                             <i class="fa fa-file-pdf-o"></i>
                             Reporte Préstamos
                         </button>
-                    </div>
+                    </div> -->
                 </div> {{-- FIN div_col-12 p-3 --}}
             </div> {{-- FIN div_p-0 --}}
         </div> {{-- FIN width: 80% --}}
@@ -156,12 +156,12 @@
                     {{-- ====================================================== --}}
                     {{-- ====================================================== --}}
 
-                    <div class="modal-footer border-0 d-flex justify-content-center mt-3">
+                    <!-- <div class="modal-footer border-0 d-flex justify-content-center mt-3">
                         <button type="submit" id="btn_reporte_prestamos"
                             class="btn btn-success" title="Guardar Configuración">
                             <i class="fa fa-file-pdf-o"> Generar Reporte</i>
                         </button>
-                    </div>
+                    </div> -->
                 </div> {{-- FIN Div rounded-top --}}
 
                 {{-- ====================================================== --}}

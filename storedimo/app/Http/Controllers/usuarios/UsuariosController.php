@@ -134,9 +134,6 @@ class UsuariosController extends Controller
                 } else
                 {
 
-                    $usuario = $this->queryUsuarioUpdate($idUsuario);
-                    return $this->validarAccesos($sesion[0], 10, $usuario);
-
                     // Recibe el tipo de modal desde la request
                     $tipoModal = $request->get('tipo_modal', 'editar_usuario'); // valor por defecto
 

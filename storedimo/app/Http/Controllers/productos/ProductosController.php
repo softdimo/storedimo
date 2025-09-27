@@ -315,6 +315,7 @@ class ProductosController extends Controller
                                 'empresa_actual' => session('empresa_actual.id_empresa')
                             ]
                         ]);
+                        
                         $resVerificarProducto = json_decode($verificarProducto->getBody()->getContents());
         
                         if( isset($resVerificarProducto) && !empty($resVerificarProducto) && !is_null($resVerificarProducto) ) {

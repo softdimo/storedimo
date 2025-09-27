@@ -13,11 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('pago_empleados', function (Blueprint $table) {
-            $table->unsignedInteger('id_tipo_pago')->nullable()->after('id_pago_empleado');
+        if (Schema::hasTable('pago_empleados'))
+        {
+            Schema::table('pago_empleados', function (Blueprint $table) {
+                $table->unsignedInteger('id_tipo_pago')->nullable()->after('id_pago_empleado');
 
-            $table->foreign('id_tipo_pago')->references('id_tipo_pago')->on('tipos_pago');
-        });
+                if (Schema::hasTable('tipos_pago'))
+                {
+                    $table->foreign('id_tipo_pago')->references('id_tipo_pago')->on('tipos_pago');
+                }
+            });
+        }
     }
 
     /**
@@ -27,8 +33,11 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('pago_empleados', function (Blueprint $table) {
-            $table->dropColumn('id_tipo_pago');
-        });
+        if (Schema::hasTable('pago_empleados'))
+        {
+            Schema::table('pago_empleados', function (Blueprint $table) {
+                $table->dropColumn('id_tipo_pago');
+            });
+        }
     }
 };

@@ -186,22 +186,7 @@
                     url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
                 },
                 bSort: true,
-                buttons: [{
-                        extend: 'pdfHtml5',
-                        text: 'PDF',
-                        className: 'btn btn-sm btn-danger',
-                        orientation: 'landscape',
-                        pageSize: 'A4',
-                        title: 'Listado de Proveedores',
-                        exportOptions: {
-                            columns: ':visible:not(:last-child)'
-                        },
-                        customize: function(doc) {
-                            const columnCount = $('#tbl_proveedores thead th').length;
-                            doc.pageSize = 'A5';
-                            doc.defaultStyle.fontSize = 12;
-                        }
-                    },
+                buttons: [
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',

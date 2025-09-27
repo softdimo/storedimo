@@ -77,9 +77,9 @@
                                                 <i class="fa fa-eye"></i>
                                             </button>
 
-                                            <button class="btn btn-success rounded-circle btn-circle text-white" title="Generar PDF">
+                                            <!-- <button class="btn btn-success rounded-circle btn-circle text-white" title="Generar PDF">
                                                 <i class="fa fa-file-pdf-o"></i>
-                                            </button>
+                                            </button> -->
                                         </td>
                                     </tr>
                                 @endforeach
@@ -92,12 +92,12 @@
                     {{-- ========================================================= --}}
                     {{-- ========================================================= --}}
             
-                    <div class="mt-5 mb-2 d-flex justify-content-center">
+                    <!-- <div class="mt-5 mb-2 d-flex justify-content-center">
                         <button class="btn rounded-2 me-3 text-white" type="submit" style="background-color: #204D74">
                             <i class="fa fa-file-pdf-o"></i>
                             Reporte Préstamos
                         </button>
-                    </div>
+                    </div> -->
                 </div> {{-- FIN div_campos_usuarios --}}
             </div> {{-- FIN div_crear_usuario --}}
         </div> {{-- FIN div 80%  --}}

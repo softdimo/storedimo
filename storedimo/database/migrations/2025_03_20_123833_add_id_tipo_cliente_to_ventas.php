@@ -13,11 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('ventas', function (Blueprint $table) {
-            $table->unsignedInteger('id_tipo_cliente')->nullable()->after('id_empresa');
+        if (Schema::hasTable('ventas'))
+        {
+            Schema::table('ventas', function (Blueprint $table) {
+                $table->unsignedInteger('id_tipo_cliente')->nullable()->after('id_empresa');
 
-            $table->foreign('id_tipo_cliente')->references('id_tipo_persona')->on('tipo_persona');
-        });
+                if (Schema::hasTable('tipo_persona'))
+                {
+                    $table->foreign('id_tipo_cliente')->references('id_tipo_persona')->on('tipo_persona');
+                }
+            });
+        }
     }
 
     /**
@@ -27,8 +33,11 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('ventas', function (Blueprint $table) {
-            $table->dropColumn('id_tipo_cliente');
-        });
+        if (Schema::hasTable('ventas'))
+        {
+            Schema::table('ventas', function (Blueprint $table) {
+                $table->dropColumn('id_tipo_cliente');
+            });
+        }
     }
 };

@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('pago_empleados', function (Blueprint $table) {
-            $table->string('valor_total')->nullable()->after('valor_cesantias');
-        });
+        if (Schema::hasTable('pago_empleados'))
+        {
+            Schema::table('pago_empleados', function (Blueprint $table) {
+                $table->string('valor_total')->nullable()->after('valor_cesantias');
+            });
+        }
     }
 
     /**
@@ -25,8 +28,11 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('pago_empleados', function (Blueprint $table) {
-            $table->dropColumn('valor_total');
-        });
+        if (Schema::hasTable('pago_empleados'))
+        {
+            Schema::table('pago_empleados', function (Blueprint $table) {
+                $table->dropColumn('valor_total');
+            });
+        }
     }
 };

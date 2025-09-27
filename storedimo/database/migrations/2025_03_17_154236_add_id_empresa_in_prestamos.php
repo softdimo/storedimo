@@ -13,11 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('prestamos', function (Blueprint $table) {
-            $table->unsignedInteger('id_empresa')->nullable()->after('id_prestamo');
+        if (Schema::hasTable('prestamos'))
+        {
+            Schema::table('prestamos', function (Blueprint $table) {
+                $table->unsignedInteger('id_empresa')->nullable()->after('id_prestamo');
 
-            $table->foreign('id_empresa')->references('id_empresa')->on('empresas');
-        });
+                if (Schema::hasTable('prestamos'))
+                {
+                    $table->foreign('id_empresa')->references('id_empresa')->on('empresas');
+                }
+            });
+        }
     }
 
     /**
@@ -27,8 +33,11 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('prestamos', function (Blueprint $table) {
-            $table->dropColumn('id_empresa');
-        });
+        if (Schema::hasTable('prestamos'))
+        {
+            Schema::table('prestamos', function (Blueprint $table) {
+                $table->dropColumn('id_empresa');
+            });
+        }
     }
 };

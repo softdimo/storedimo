@@ -142,14 +142,6 @@
                                     init: function(api, node, config) {
                                         $(node).removeClass('dt-button')
                                     }
-                                },
-                                {
-                                    extend: 'pdfHtml5',
-                                    text: 'PDF',
-                                    className: 'btn btn-sm btn-danger',
-                                    init: function(api, node, config) {
-                                        $(node).removeClass('dt-button')
-                                    }
                                 }
                                 ],
                                 "lengthMenu": [[10,25,50,100, -1], [10,25,50,100, 'TODOS']],

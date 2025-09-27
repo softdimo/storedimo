@@ -181,22 +181,7 @@
                     url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
                 },
                 bSort: true,
-                buttons: [{
-                        extend: 'pdfHtml5',
-                        text: 'PDF',
-                        className: 'btn btn-sm btn-danger',
-                        orientation: 'landscape',
-                        pageSize: 'A4', // se ajustará dinámicamente abajo
-                        title: 'Listado de Clientes',
-                        exportOptions: {
-                            columns: ':visible:not(:last-child)'
-                        },
-                        customize: function(doc) {
-                            const columnCount = $('#tbl_clientes thead th').length;
-                            doc.pageSize = 'A5';
-                            doc.defaultStyle.fontSize = 15;
-                        }
-                    },
+                buttons: [
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',

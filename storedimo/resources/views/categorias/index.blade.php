@@ -253,22 +253,6 @@
                 stripe: true,
                 bSort: true,
                 buttons: [
-                    // {
-                    //     extend: 'pdfHtml5',
-                    //     text: 'PDF',
-                    //     className: 'btn btn-sm btn-danger',
-                    //     orientation: 'landscape',
-                    //     pageSize: 'A4',
-                    //     title: 'Listado de Categorías',
-                    //     exportOptions: {
-                    //         columns: ':visible:not(:last-child)'
-                    //     },
-                    //     customize: function(doc) {
-                    //         const columnCount = $('#tbl_categorias thead th').length;
-                    //         doc.pageSize = 'A5';
-                    //         doc.defaultStyle.fontSize = 15;
-                    //     }
-                    // },
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',

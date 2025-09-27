@@ -77,12 +77,12 @@
                     {{-- ========================================================= --}}
                     {{-- ========================================================= --}}
             
-                    <div class="mt-5 mb-2 d-flex justify-content-center">
+                    <!-- <div class="mt-5 mb-2 d-flex justify-content-center">
                         <button class="btn rounded-2 me-3 text-white" type="submit" style="background-color: #286090">
                             <i class="fa fa-file-pdf-o"></i>
                             Reporte de Créditos
                         </button>
-                    </div>
+                    </div> -->
                 </div> {{-- FIN div_campos_usuarios --}}
             </div> {{-- FIN div_crear_usuario --}}
         </div>

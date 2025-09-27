@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('estados_prestamo', function (Blueprint $table) {
-            $table->increments('id_estado_prestamo');
-            $table->string('estado_prestamo')->nullable();
-
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (!Schema::hasTable('estados_prestamo'))
+        {
+            Schema::create('estados_prestamo', function (Blueprint $table) {
+                $table->increments('id_estado_prestamo');
+                $table->string('estado_prestamo')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**
@@ -29,6 +31,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('estados_prestamo');
+        if (Schema::hasTable('estados_prestamo'))
+        {
+            Schema::dropIfExists('estados_prestamo');
+        }
     }
 };

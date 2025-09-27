@@ -13,21 +13,27 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('empresas', function (Blueprint $table) {
-            $table->increments('id_empresa');
-            $table->string('nit_empresa')->nullable();
-            $table->string('nombre_empresa')->nullable();
-            $table->string('telefono_empresa')->nullable();
-            $table->string('celular_empresa')->nullable();
-            $table->string('email_empresa')->nullable();
-            $table->string('direccion_empresa')->nullable();
-            $table->unsignedInteger('id_estado')->nullable();
+        if (!Schema::hasTable('empresas'))
+        {
+            Schema::create('empresas', function (Blueprint $table) {
+                $table->increments('id_empresa');
+                $table->string('nit_empresa')->nullable();
+                $table->string('nombre_empresa')->nullable();
+                $table->string('telefono_empresa')->nullable();
+                $table->string('celular_empresa')->nullable();
+                $table->string('email_empresa')->nullable();
+                $table->string('direccion_empresa')->nullable();
+                $table->unsignedInteger('id_estado')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
 
-            $table->timestamps();
-            $table->softDeletes();
+                if (Schema::hasTable('estados'))
+                {
+                    $table->foreign('id_estado')->references('id_estado')->on('estados');
+                }
+            });
 
-            $table->foreign('id_estado')->references('id_estado')->on('estados');
-        });
+        }
     }
 
     /**
@@ -37,6 +43,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('empresas');
+        if (Schema::hasTable('empresas'))
+        {
+            Schema::dropIfExists('empresas');
+        }
     }
 };

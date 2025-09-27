@@ -13,25 +13,34 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pago_empleados', function (Blueprint $table) {
-            $table->increments('id_pago_empleado');
-            $table->dateTime('fecha_pago')->nullable();
-            $table->unsignedInteger('id_usuario')->nullable();
-            $table->string('valor_ventas')->nullable();
-            $table->string('valor_comision')->nullable();
-            $table->string('cantidad_dias')->nullable();
-            $table->string('valor_dia')->nullable();
-            $table->string('valor_prima')->nullable();
-            $table->string('valor_vacaciones')->nullable();
-            $table->string('valor_cesantias')->nullable();
-            $table->unsignedInteger('id_estado')->nullable();
+        if (!Schema::hasTable('pago_empleados'))
+        {
+            Schema::create('pago_empleados', function (Blueprint $table) {
+                $table->increments('id_pago_empleado');
+                $table->dateTime('fecha_pago')->nullable();
+                $table->unsignedInteger('id_usuario')->nullable();
+                $table->string('valor_ventas')->nullable();
+                $table->string('valor_comision')->nullable();
+                $table->string('cantidad_dias')->nullable();
+                $table->string('valor_dia')->nullable();
+                $table->string('valor_prima')->nullable();
+                $table->string('valor_vacaciones')->nullable();
+                $table->string('valor_cesantias')->nullable();
+                $table->unsignedInteger('id_estado')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
 
-            $table->timestamps();
-            $table->softDeletes();
-            
-            $table->foreign('id_usuario')->references('id_usuario')->on('usuarios');
-            $table->foreign('id_estado')->references('id_estado')->on('estados');
-        });
+                if (Schema::hasTable('usuarios'))
+                {
+                    $table->foreign('id_usuario')->references('id_usuario')->on('usuarios');
+                }
+
+                if (Schema::hasTable('estados'))
+                {
+                    $table->foreign('id_estado')->references('id_estado')->on('estados');
+                }
+            });
+        }
     }
 
     /**
@@ -41,6 +50,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pago_empleados');
+        if (Schema::hasTable('pago_empleados'))
+        {
+            Schema::dropIfExists('pago_empleados');
+        }
     }
 };

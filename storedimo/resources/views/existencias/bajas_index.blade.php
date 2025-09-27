@@ -150,13 +150,13 @@
                     {{-- ========================================================= --}}
                     {{-- ========================================================= --}}
 
-                    <div class="mt-5 mb-2 d-flex justify-content-center">
+                    <!-- <div class="mt-5 mb-2 d-flex justify-content-center">
                         <button type="button" class="btn rounded-2 me-3 text-white" style="background-color: #286090"
                             data-bs-toggle="modal" data-bs-target="#modalReporteBajas">
                             <i class="fa fa-file-pdf-o"></i>
                             Reporte Bajas
                         </button>
-                    </div>
+                    </div> -->
                 </div> {{-- FIN div_campos_usuarios --}}
             </div> {{-- FIN div_crear_usuario --}}
         </div>
@@ -166,7 +166,7 @@
     {{-- =============================================================== --}}
     {{-- =============================================================== --}}
 
-    {{-- INICIO Modal REPORTE VENTAS --}}
+    <!-- {{-- INICIO Modal REPORTE VENTAS --}}
     <div class="modal fade" id="modalReporteBajas" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content p-3">
@@ -216,7 +216,7 @@
 
                     {{-- ====================================================== --}}
                     {{-- ====================================================== --}}
-
+<!-- 
                     <div class="modal-footer border-0 d-flex justify-content-center mt-3">
                         <button type="submit" id="btn_reporte_ventas" class="btn btn-success">
                             <i class="fa fa-file-pdf-o"> Generar</i>
@@ -239,7 +239,7 @@
             </div> {{-- FIN modal-content --}}
         </div> {{-- FIN modal-dialog --}}
     </div> {{-- FIN modal --}}
-    {{-- FINAL Modal REPORTE VENTAS --}}
+    {{-- FINAL Modal REPORTE VENTAS --}} -->
 
     {{-- =============================================================== --}}
     {{-- =============================================================== --}}
@@ -273,22 +273,6 @@
                 stripe: true,
                 bSort: true,
                 buttons: [
-                    // {
-                    //     extend: 'pdfHtml5',
-                    //     text: 'PDF',
-                    //     className: 'btn btn-sm btn-danger',
-                    //     orientation: 'landscape',
-                    //     pageSize: 'A4',
-                    //     title: 'Listado de Bajas',
-                    //     exportOptions: {
-                    //         columns: ':visible:not(:last-child)'
-                    //     },
-                    //     customize: function(doc) {
-                    //         const columnCount = $('#tbl_bajas thead th').length;
-                    //         doc.pageSize = 'A5';
-                    //         doc.defaultStyle.fontSize = 12;
-                    //     }
-                    // },
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',

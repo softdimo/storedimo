@@ -187,13 +187,13 @@
                         </table>
                     </div>
 
-                    {{-- <div class="mt-5 mb-2 d-flex justify-content-center">
+                    <!-- <div class="mt-5 mb-2 d-flex justify-content-center">
                         <a href="{{ route('reporte_productos_pdf') }}" target="_blank"
                             class="btn rounded-2 me-3 text-white" style="background-color: #286090">
                             <i class="fa fa-file-pdf-o"></i>
                             Reporte Productos
                         </a>
-                    </div> --}}
+                    </div> -->
                 </div> {{-- FIN div_ --}}
             </div> {{-- FIN div_ --}}
         </div>
@@ -249,13 +249,6 @@
                 },
                 bSort: true,
                 buttons: [
-                    // {
-                    //     text: 'PDF',
-                    //     className: 'btn btn-sm btn-danger',
-                    //     action: function() {
-                    //         window.open("{{ route('reporte_productos_pdf') }}", "_blank");
-                    //     }
-                    // },
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',
@@ -487,10 +480,10 @@
             // ===========================================================
 
             // Abre automáticamente el archivo con los códigos QR del producto recién solicitado
-            let pdfUrl = "{{ session('pdfUrl') }}";
-            if (pdfUrl) {
-                window.open(pdfUrl, '_blank');
-            }
+            // let pdfUrl = "{{ session('pdfUrl') }}";
+            // if (pdfUrl) {
+            //     window.open(pdfUrl, '_blank');
+            // }
         }); //FIN Document.ready
 
         // =============================================

@@ -104,13 +104,13 @@
                     {{-- ========================================================= --}}
                     {{-- ========================================================= --}}
 
-                    {{-- <div class="mt-5 mb-2 d-flex justify-content-center">
+                    <!-- <div class="mt-5 mb-2 d-flex justify-content-center">
                         <button type="submit" class="btn rounded-2 me-3 text-white" style="background-color: #286090"
                             data-bs-toggle="modal" data-bs-target="#modalReporteVentas">
                             <i class="fa fa-file-pdf-o"></i>
                             Reporte Ventas
                         </button>
-                    </div> --}}
+                    </div> -->
                 </div> {{-- FIN div_campos_usuarios --}}
             </div> {{-- FIN div_crear_usuario --}}
         </div>
@@ -119,7 +119,7 @@
     {{-- =============================================================== --}}
     {{-- =============================================================== --}}
 
-    {{-- INICIO Modal REPORTE VENTAS --}}
+    <!-- {{-- INICIO Modal REPORTE VENTAS --}}
     <div class="modal fade" id="modalReporteVentas" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content p-3">
@@ -170,7 +170,7 @@
                     {{-- ====================================================== --}}
                     {{-- ====================================================== --}}
 
-                    <div class="modal-footer border-0 d-flex justify-content-center mt-3">
+                    <!-- <div class="modal-footer border-0 d-flex justify-content-center mt-3">
                         <button type="submit" id="btn_reporte_ventas" class="btn btn-success">
                             <i class="fa fa-file-pdf-o"> Generar Pdf Ventas</i>
                         </button>
@@ -191,7 +191,7 @@
                 </div>
             </div> {{-- FIN modal-content --}}
         </div> {{-- FIN modal-dialog --}}
-    </div> {{-- FIN modal --}}
+    </div> {{-- FIN modal --}} -->
     {{-- FINAL Modal REPORTE VENTAS --}}
 
     {{-- INICIO Modal DETALLE BAJA --}}
@@ -223,18 +223,6 @@
                 },
                 bSort: true,
                 buttons: [
-                    // {
-                    //     text: 'PDF',
-                    //     className: 'btn btn-sm btn-danger',
-                    //     action: function() {
-                    //         let modal = new bootstrap.Modal(document.getElementById(
-                    //             'modalReporteVentas'));
-                    //         modal.show();
-                    //     },
-                    //     init: function(api, node, config) {
-                    //         $(node).removeClass('dt-button');
-                    //     }
-                    // },
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',

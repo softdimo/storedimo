@@ -182,12 +182,12 @@
                         </table>
                     </div>
 
-                    {{-- <div class="mt-5 mb-2 d-flex justify-content-center">
+                    <!-- <div class="mt-5 mb-2 d-flex justify-content-center">
                         <button class="btn rounded-2 me-3 text-white" type="submit" style="background-color: #286090">
                             <i class="fa fa-file-pdf-o"></i>
                             Reporte PDF de Usuarios 1
                         </button>
-                    </div> --}}
+                    </div> -->
                 </div> {{-- FIN div_campos_usuarios --}}
             </div> {{-- FIN div_crear_usuario --}}
         </div>
@@ -235,17 +235,7 @@
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
                 },
-                buttons: [{
-                        extend: 'pdfHtml5',
-                        text: 'PDF',
-                        className: 'btn btn-sm btn-danger',
-                        orientation: 'landscape',
-                        pageSize: 'A3',
-                        title: 'Listado de Usuarios',
-                        exportOptions: {
-                            columns: ':visible:not(:last-child)'
-                        }
-                    },
+                buttons: [
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',

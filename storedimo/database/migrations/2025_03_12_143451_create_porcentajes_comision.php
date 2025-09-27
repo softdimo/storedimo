@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('porcentajes_comision', function (Blueprint $table) {
-            $table->increments('id_porcentaje_comision');
-            $table->string('porcentaje_comision')->nullable();
-
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (!Schema::hasTable('porcentajes_comision'))
+        {
+            Schema::create('porcentajes_comision', function (Blueprint $table) {
+                $table->increments('id_porcentaje_comision');
+                $table->string('porcentaje_comision')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**
@@ -29,6 +31,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('porcentajes_comision');
+        if (Schema::hasTable('porcentajes_comision'))
+        {
+            Schema::dropIfExists('porcentajes_comision');
+        }
     }
 };

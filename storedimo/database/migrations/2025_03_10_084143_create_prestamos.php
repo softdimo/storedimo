@@ -13,21 +13,30 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('prestamos', function (Blueprint $table) {
-            $table->increments('id_prestamo');
-            $table->unsignedInteger('id_estado_prestamo')->nullable();
-            $table->unsignedInteger('id_usuario')->nullable();
-            $table->string('valor_prestamo')->nullable();
-            $table->date('fecha_prestamo')->nullable();
-            $table->date('fecha_limite')->nullable();
-            $table->string('descripcion')->nullable();
+        if (!Schema::hasTable('prestamos'))
+        {
+            Schema::create('prestamos', function (Blueprint $table) {
+                $table->increments('id_prestamo');
+                $table->unsignedInteger('id_estado_prestamo')->nullable();
+                $table->unsignedInteger('id_usuario')->nullable();
+                $table->string('valor_prestamo')->nullable();
+                $table->date('fecha_prestamo')->nullable();
+                $table->date('fecha_limite')->nullable();
+                $table->string('descripcion')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
 
-            $table->timestamps();
-            $table->softDeletes();
-            
-            $table->foreign('id_estado_prestamo')->references('id_estado_prestamo')->on('estados_prestamo');
-            $table->foreign('id_usuario')->references('id_usuario')->on('usuarios');
-        });
+                if (Schema::hasTable('estados_prestamo'))
+                {
+                    $table->foreign('id_estado_prestamo')->references('id_estado_prestamo')->on('estados_prestamo');
+                }
+
+                if (Schema::hasTable('usuarios'))
+                {
+                    $table->foreign('id_usuario')->references('id_usuario')->on('usuarios');
+                }
+            });
+        }
     }
 
     /**
@@ -37,6 +46,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prestamos');
+        if (Schema::hasTable('prestamos'))
+        {
+            Schema::dropIfExists('prestamos');
+        }
     }
 };

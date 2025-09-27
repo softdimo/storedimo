@@ -13,12 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('pago_empleados', function (Blueprint $table) {
-            $table->unsignedInteger('id_periodo_pago')->nullable()->after('valor_comision');
-            $table->unsignedInteger('salario_neto')->nullable()->after('valor_cesantias');
+        if (Schema::hasTable('pago_empleados'))
+        {
+            Schema::table('pago_empleados', function (Blueprint $table) {
+                $table->unsignedInteger('id_periodo_pago')->nullable()->after('valor_comision');
+                $table->unsignedInteger('salario_neto')->nullable()->after('valor_cesantias');
 
-            $table->foreign('id_periodo_pago')->references('id_periodo_pago')->on('periodos_pago');
-        });
+                if (Schema::hasTable('periodos_pago'))
+                {
+                    $table->foreign('id_periodo_pago')->references('id_periodo_pago')->on('periodos_pago');
+                }
+            });
+        }
     }
 
     /**
@@ -28,9 +34,12 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('pago_empleados', function (Blueprint $table) {
-            $table->dropColumn('id_periodo_pago');
-            $table->dropColumn('salario_neto');
-        });
+        if (Schema::hasTable('pago_empleados'))
+        {
+            Schema::table('pago_empleados', function (Blueprint $table) {
+                $table->dropColumn('id_periodo_pago');
+                $table->dropColumn('salario_neto');
+            });
+        }
     }
 };

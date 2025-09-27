@@ -115,13 +115,13 @@
                         </table>
                     </div>
 
-                    <div class="mt-5 mb-2 d-flex justify-content-center">
+                    <!-- <div class="mt-5 mb-2 d-flex justify-content-center">
                         <button type="submit" class="btn rounded-2 me-3 text-white" style="background-color: #286090"
                             data-bs-toggle="modal" data-bs-target="#modalReporteCompras">
                             <i class="fa fa-file-pdf-o"></i>
                             Reporte Compras
                         </button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -130,7 +130,7 @@
     {{-- =============================================================== --}}
     {{-- =============================================================== --}}
 
-    {{-- INICIO Modal REPORTE COMPRAS --}}
+    <!-- {{-- INICIO Modal REPORTE COMPRAS --}}
     <div class="modal fade" id="modalReporteCompras" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content p-3">
@@ -181,14 +181,14 @@
                     {{-- ====================================================== --}}
                     {{-- ====================================================== --}}
 
-                    <div class="modal-footer border-0 d-flex justify-content-center mt-3">
+                    <!-- <div class="modal-footer border-0 d-flex justify-content-center mt-3">
                         <button type="submit" id="btn_reporte_compras" class="btn btn-success"
                             title="Guardar Configuración">
                             <i class="fa fa-file-pdf-o"> Generar Pdf Compras</i>
                         </button>
-                    </div>
+                    </div> -->
                     {!! Form::close() !!}
-                </div> {{-- FIN Div rounded-top --}}
+                <!-- </div> {{-- FIN Div rounded-top --}}
 
                 {{-- ====================================================== --}}
                 {{-- ====================================================== --}}
@@ -204,7 +204,7 @@
             </div> {{-- FIN modal-content --}}
         </div> {{-- FIN modal-dialog --}}
     </div> {{-- FIN modal --}}
-    {{-- FINAL Modal REPORTE COMPRAS --}}
+    {{-- FINAL Modal REPORTE COMPRAS --}} -->
 
     {{-- =============================================================== --}}
     {{-- =============================================================== --}}
@@ -247,22 +247,6 @@
                 },
                 bSort: true,
                 buttons: [
-                    // {
-                    //     extend: 'pdfHtml5',
-                    //     text: 'PDF',
-                    //     className: 'btn btn-sm btn-danger',
-                    //     orientation: 'landscape',
-                    //     pageSize: 'A4', // se ajustará dinámicamente abajo
-                    //     title: 'Listado de Empresas',
-                    //     exportOptions: {
-                    //         columns: ':visible:not(:last-child)'
-                    //     },
-                    //     customize: function(doc) {
-                    //         const columnCount = $('#tbl_categorias thead th').length;
-                    //         doc.pageSize = 'A5';
-                    //         doc.defaultStyle.fontSize = 15;
-                    //     }
-                    // },
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',
@@ -278,8 +262,6 @@
                 "ordering": false
             }); // CIERRE DataTable
 
-            // =========================================================================
-            // =========================================================================
             // =========================================================================
 
             // formAnularCompra para cargar gif en el submit
