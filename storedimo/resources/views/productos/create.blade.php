@@ -377,6 +377,25 @@
                 // Mostrar Spinner
                 loadingIndicator.show();
             });
+
+            // =============================================
+
+            // formCrearUmd para cargar gif en el submit
+            $(document).on("submit", "form[id^='formCrearUmdProducto']", function(e) {
+                const form = $(this);
+                const submitButton = form.find('button[type="submit"]');
+                const cancelButton = form.find('button[type="button"]');
+                const loadingIndicator = form.find("div[id^='loadingIndicatorUmdStore']");
+
+                // Mostrar Spinner
+                loadingIndicator.show();
+
+                // Dessactivar Botones
+                cancelButton.prop("disabled", true);
+                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+            });
+
+            // ===========================================================
         }); // FIN document.ready
 
         // =============================================

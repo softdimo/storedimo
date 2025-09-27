@@ -189,7 +189,7 @@
                     url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
                 },
                 stripe: true,
-                buttons: [{
+                buttons: [/* {
                         extend: 'pdfHtml5',
                         text: 'PDF',
                         className: 'btn btn-sm btn-danger',
@@ -204,7 +204,7 @@
                             doc.pageSize = 'A4';
                             doc.defaultStyle.fontSize = 12;
                         }
-                    },
+                    }, */
                     {
                         extend: 'excelHtml5',
                         text: 'Excel',

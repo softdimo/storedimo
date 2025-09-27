@@ -7,10 +7,10 @@
                 'route' => ['unidades_medida.store'],
                 'class' => 'mt-2',
                 'autocomplete' => 'off',
-                'id' => 'formCrearUmdProducto'])!!}
+                'id' => 'formCrearUmd'])!!}
                 @csrf
 
-                {{ Form::hidden('tipoFormCrearUmd', 'formCrearUmdProducto', ['class' => 'form-control', 'id' => 'formCrearUmdProducto']) }}
+                {{ Form::hidden('tipoFormCrearUmd', 'formCrearUmd', ['class' => 'form-control', 'id' => 'formCrearUmd']) }}
 
                 <div class="rounded-top" style="border: solid 1px #337AB7;">
                     <div class="rounded-top text-white text-center" style="background-color: #337AB7; border: solid 1px #337AB7;">

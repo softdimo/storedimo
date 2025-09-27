@@ -147,7 +147,7 @@
 
             <button type="button" class="btn rounded-2 text-white h-90 px-2" style="background-color: #337AB7; margin-bottom: 1px"
                 title="Crear UMD" data-bs-toggle="modal"
-                data-bs-target="#modal_crear_umd">
+                data-bs-target="#modalCrearUmd">
                 <i class="fa fa-plus plus"></i>
             </button>
         </div>

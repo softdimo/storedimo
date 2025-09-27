@@ -13,12 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tipos_bd', function (Blueprint $table) {
-            $table->increments('id_tipo_bd');
-            $table->string('tipo_bd')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        // Schema::create('tipos_bd', function (Blueprint $table) {
+        //     $table->increments('id_tipo_bd');
+        //     $table->string('tipo_bd')->nullable();
+        //     $table->timestamps();
+        //     $table->softDeletes();
+        // });
+
+        if (!Schema::hasTable('tipos_bd')) {
+            Schema::create('tipos_bd', function (Blueprint $table) {
+                $table->increments('id_tipo_bd');
+                $table->string('tipo_bd')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**
