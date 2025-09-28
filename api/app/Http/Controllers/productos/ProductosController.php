@@ -174,7 +174,8 @@ class ProductosController extends Controller
             DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
         }
 
-        try {
+        try
+        {
             $validarNombreProducto = Producto::leftjoin('categorias','categorias.id_categoria','=','productos.id_categoria')
                 ->select(
                     'id_producto',
@@ -196,17 +197,20 @@ class ProductosController extends Controller
                     'id_umd'
                 )
                 ->where('id_producto', $idProducto)
+                ->where('cantidad', '>', 0)
                 ->first();
 
             // Restaurar conexión principal si se usó tenant
-            if ($empresaActual) {
+            if ($empresaActual)
+            {
                 DatabaseConnectionHelper::restaurarConexionPrincipal();
             }
 
-            if ($validarNombreProducto) {
-            // if (isset($validarNombreProducto) && !is_null($validarNombreProducto) && !empty($validarNombreProducto)) {
+            if ($validarNombreProducto)
+            {
                 return response()->json($validarNombreProducto);
-            } else {
+            } else
+            {
                 return response(null, 200);
             }
 
@@ -220,16 +224,10 @@ class ProductosController extends Controller
         }
     }
 
-    // ======================================================================
-    // ======================================================================
-
     public function reporteProductosPdf()
     {
         return new ReporteProductosPdf();
     }
-
-    // ======================================================================
-    // ======================================================================
 
     /**
      * Valida que la referencia del producto no exista a la hora de crear un nuevo producto
@@ -262,9 +260,6 @@ class ProductosController extends Controller
             'valido' => !$existe
         ]);
     }
-
-    // ======================================================================
-    // ======================================================================
 
     public function productosTraitVentas(Request $request)
     {
@@ -311,9 +306,6 @@ class ProductosController extends Controller
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
-    
-    // ======================================================================
-    // ======================================================================
 
     public function productosTraitCompras(Request $request)
     {
@@ -360,9 +352,6 @@ class ProductosController extends Controller
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
-    
-    // ======================================================================
-    // ======================================================================
 
     public function productosTraitExistencias(Request $request)
     {

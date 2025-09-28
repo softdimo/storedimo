@@ -123,30 +123,38 @@ class CategoriasController extends Controller
         $empresaActual = Empresa::find($empresaId);
         
         // Configurar conexión tenant si hay empresa
-        if ($empresaActual) {
+        if ($empresaActual)
+        {
             DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
         }
         
         $categoria = request('categoria', null);
 
-        try {
-            $categoria = Categoria::where('categoria', $categoria)->first();
+        try
+        {
+            $categoria = Categoria::where('categoria', $categoria)
+                        ->first();
 
             // Restaurar conexión principal si se usó tenant
-            if ($empresaActual) {
+            if ($empresaActual)
+            {
                 DatabaseConnectionHelper::restaurarConexionPrincipal();
             }
 
             // Retornamos la categoría si existe, de lo contrario retornamos null
-            if ($categoria) {
+            if ($categoria)
+            {
                 return response()->json($categoria);
-            } else {
+            } else
+            {
                 return response(null, 200);
             }
 
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             // Asegurar restauración de conexión principal en caso de error
-            if (isset($empresaActual)) {
+            if (isset($empresaActual))
+            {
                 DatabaseConnectionHelper::restaurarConexionPrincipal();
             }
             
@@ -169,7 +177,8 @@ class CategoriasController extends Controller
             DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
         }
         
-        try {
+        try
+        {
             $categorias = Categoria::where('id_estado', 1)->orderBy('categoria')->pluck('categoria', 'id_categoria');
 
             // Retornamos la categoría si existe, de lo contrario retornamos null

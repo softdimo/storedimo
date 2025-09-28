@@ -12,7 +12,8 @@ class CategoriaDestroy implements Responsable
     {
         $idCategoria = request('id_categoria', null);
 
-        try {
+        try
+        {
             $baseUri = env('BASE_URI');
             $clientApi = new Client(['base_uri' => $baseUri]);
 
@@ -29,12 +30,14 @@ class CategoriaDestroy implements Responsable
 
             $respuesta = json_decode($response->getBody()->getContents());
 
-            if (isset($respuesta->success) && $respuesta->success === true) {
+            if (isset($respuesta->success) && $respuesta->success === true)
+            {
 
                 alert()->success('Proceso Exitoso', 'Estado cambiado satisfactoriamente');
                 return redirect()->to(route('categorias.index'));
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error('Error', 'Cambiando el estado de la categoría, contacte a Soporte.');
             return back();
         }

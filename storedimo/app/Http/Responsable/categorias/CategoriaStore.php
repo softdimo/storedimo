@@ -5,9 +5,12 @@ namespace App\Http\Responsable\categorias;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use GuzzleHttp\Client;
+use App\Traits\MetodosTrait;
 
 class CategoriaStore implements Responsable
 {
+    use MetodosTrait;
+
     protected $baseUri;
     protected $clientApi;
 
@@ -17,24 +20,22 @@ class CategoriaStore implements Responsable
         $this->clientApi = new Client(['base_uri' => $this->baseUri]);
     }
 
-    // ===================================================================
-    // ===================================================================
-
     public function toResponse($request)
     {
         $categoria = request('categoria', null);
         
-        $consultaCategoria = $this->consultaCategoria($categoria);
+        $consultaCategoria = $this->consultaCategoria($this->quitarCaracteresEspeciales(ucwords($categoria)));
         
         if(isset($consultaCategoria) && !empty($consultaCategoria) && !is_null($consultaCategoria))
         {
-            if ($request->ajax()) {
+            if ($request->ajax())
+            {
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Esta categoría ya existe.'
                 ]);
             }
-            alert()->info('Info', 'Esta categoría ya existe.');
+            alert()->info('Error', 'Esta categoría ya existe.');
             return back();
         } else
         {
@@ -43,7 +44,7 @@ class CategoriaStore implements Responsable
                 // Pasamos el id_estado de las nuevas categorías por default en 1 "activo"
                 $peticionCategoriaStore = $this->clientApi->post($this->baseUri.'categoria_store', [
                     'json' => [
-                        'categoria' => ucwords($categoria),
+                        'categoria' => $this->quitarCaracteresEspeciales(ucwords($categoria)),
                         'id_estado' => 1,
                         'id_audit' => session('id_usuario'),
                         'empresa_actual' => session('empresa_actual.id_empresa')
@@ -53,7 +54,8 @@ class CategoriaStore implements Responsable
     
                 if(isset($respuestaCategoriaStore) && !empty($respuestaCategoriaStore))
                 {
-                    if ($request->ajax()) {
+                    if ($request->ajax())
+                    {
                         return response()->json([
                             'status' => 'success',
                             'message' => 'Categoría creada satisfactoriamente',
@@ -78,11 +80,11 @@ class CategoriaStore implements Responsable
     }
 
     // ===================================================================
-    // ===================================================================
 
     public function consultaCategoria($categoria)
     {
-        try {
+        try
+        {
             $peticionConsultaCategoria = $this->clientApi->post($this->baseUri.'consulta_categoria', [
                 'json' => [
                     'categoria' => $categoria,
@@ -90,7 +92,8 @@ class CategoriaStore implements Responsable
                 ]
             ]);
             return json_decode($peticionConsultaCategoria->getBody()->getContents());
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error('Error', 'Error Exception, inténtelo de nuevo, si el problema persiste, contacte a Soporte.'.$e->getMessage());
             return back();
         }

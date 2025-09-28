@@ -25,9 +25,16 @@ class ProductoGenerarBarCode implements Responsable
         $rutaCodebarImage = storage_path("app/{$rutaTempArchivoCodebar}/{$nombreArchivoCodebar}.png");
         $rutaCodebarPdf = storage_path("app/{$rutaTempArchivoCodebar}/{$nombreArchivoCodebar}.pdf");
 
-        try {
+        try
+        {
             // Consultar Producto para infoQr
             $infoProducto = $this->consultarProducto($idProducto);
+
+           if($infoProducto == "error_cantidad")
+           {
+               alert()->error('Error', 'No se encontraron productos o no hay inventario para el producto seleccionado');
+               return back();
+           }
 
             // Generar los datos para el código QR
             $infoQr = json_encode([
@@ -45,7 +52,8 @@ class ProductoGenerarBarCode implements Responsable
             Storage::put("{$rutaTempArchivoCodebar}/{$nombreArchivoCodebar}.png", base64_decode($barcodeImageBase64));
 
             // Verificar que la imagen fue guardada correctamente
-            if (!file_exists($rutaCodebarImage)) {
+            if (!file_exists($rutaCodebarImage))
+            {
                 alert()->error('Error', 'No se pudo generar la imagen del código QR.');
                 return redirect()->to(route('productos.index'));
             }
@@ -61,7 +69,8 @@ class ProductoGenerarBarCode implements Responsable
             $xInicial = 5;
             $yInicial = 5;
 
-            for ($i = 0; $i < $cantidadBarcode; $i++) {
+            for ($i = 0; $i < $cantidadBarcode; $i++)
+            {
                 $x = $xInicial + ($i % $columnas) * $espaciadoX;
                 $y = $yInicial + (floor(($i % 12) / $columnas) * $espaciadoY);
 
@@ -79,7 +88,8 @@ class ProductoGenerarBarCode implements Responsable
             $pdfUrl = route('ver.pdf', ['archivo' => "{$nombreArchivoCodebar}.pdf"]);
             return redirect()->to(route('productos.index'))->with('pdfUrl', $pdfUrl);
 
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             dd($e);
             alert()->error('Error', 'Error al generar el código QR.');
             return redirect()->to(route('productos.index'));
@@ -88,7 +98,8 @@ class ProductoGenerarBarCode implements Responsable
 
     public function consultarProducto($idProducto)
     {
-        try {
+        try
+        {
             $baseUri = env('BASE_URI');
             $clientApi = new Client(['base_uri' => $baseUri]);
 
@@ -97,9 +108,19 @@ class ProductoGenerarBarCode implements Responsable
                     'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
-            return json_decode($peticion->getBody()->getContents());
 
-        } catch (Exception $e) {
+            $respuesta = $peticion->getBody()->getContents();
+
+            if(!is_null($respuesta) && !empty($respuesta))
+            {
+                return json_decode($respuesta);
+            } else
+            {
+               return "error_cantidad";
+            }
+
+        } catch (Exception $e)
+        {
             alert()->error('Error', 'Consultando el producto, contacte a Soporte.');
             return back();
         }

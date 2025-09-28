@@ -27,7 +27,8 @@ class CategoriasController extends Controller
      */
     public function index()
     {
-        try {
+        try
+        {
             if (!$this->checkDatabaseConnection()) {
                 return view('db_conexion');
             } else {
@@ -51,9 +52,6 @@ class CategoriasController extends Controller
         }
     }
 
-    // ======================================================================
-    // ======================================================================
-
     /**
      * Show the form for creating a new resource.
      *
@@ -63,9 +61,6 @@ class CategoriasController extends Controller
     {
         //
     }
-
-    // ======================================================================
-    // ======================================================================
 
     /**
      * Store a newly created resource in storage.
@@ -101,8 +96,6 @@ class CategoriasController extends Controller
         }
     }
 
-    // ======================================================================
-
     /**
      * Display the specified resource.
      *
@@ -113,9 +106,6 @@ class CategoriasController extends Controller
     {
         //
     }
-
-    // ======================================================================
-    // ======================================================================
 
     /**
      * Show the form for editing the specified resource.
@@ -149,9 +139,6 @@ class CategoriasController extends Controller
             return back();
         }
     }
-
-    // ======================================================================
-    // ======================================================================
 
     /**
      * Update the specified resource in storage.
@@ -187,9 +174,6 @@ class CategoriasController extends Controller
             return back();
         }
     }
-
-    // ======================================================================
-    // ======================================================================
 
     /**
      * Remove the specified resource from storage.

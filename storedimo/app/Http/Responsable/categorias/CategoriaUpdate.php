@@ -5,9 +5,11 @@ namespace App\Http\Responsable\categorias;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use GuzzleHttp\Client;
-
+use App\Traits\MetodosTrait;
 class CategoriaUpdate implements Responsable
 {
+    use MetodosTrait;
+
     protected $baseUri;
     protected $clientApi;
 
@@ -17,27 +19,24 @@ class CategoriaUpdate implements Responsable
         $this->clientApi = new Client(['base_uri' => $this->baseUri]);
     }
 
-    // ===================================================================
-    // ===================================================================
-
     public function toResponse($request)
     {
         $idCategoria = request('id_categoria', null);
         $categoria = request('categoria', null);
 
-        // ===================================================================
+        $consultaCategoria = $this->consultaCategoria($this->quitarCaracteresEspeciales(ucwords($categoria)));
 
-        $consultaCategoria = $this->consultaCategoria($categoria);
-
-        if(isset($consultaCategoria) && !empty($consultaCategoria) && !is_null($consultaCategoria)) {
-            alert()->info('Info', 'Esta categoría ya existe.');
+        if(isset($consultaCategoria) && !empty($consultaCategoria) && !is_null($consultaCategoria))
+        {
+            alert()->info('Error', 'Esta categoría ya existe.');
             return back();
         }
 
-        try {
+        try
+        {
             $peticionCategoriaUpdate = $this->clientApi->put($this->baseUri.'categoria_update/'.$idCategoria, [
                 'json' => [
-                    'categoria' => ucwords($categoria),
+                    'categoria' => $this->quitarCaracteresEspeciales(ucwords($categoria)),
                     'id_audit' => session('id_usuario'),
                     'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
@@ -67,9 +66,6 @@ class CategoriaUpdate implements Responsable
     {
         alert()->error('Error', $message);
     }
-
-    // ===================================================================
-    // ===================================================================
 
     public function consultaCategoria($categoria)
     {

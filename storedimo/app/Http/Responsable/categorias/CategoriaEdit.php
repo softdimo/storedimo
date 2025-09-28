@@ -15,12 +15,10 @@ class CategoriaEdit implements Responsable
         $this->idCategoria = $idCategoria;
     }
 
-    // ===================================================================
-    // ===================================================================
-
     public function toResponse($request)
     {
-        try {
+        try
+        {
             $baseUri = env('BASE_URI');
             $clientApi = new Client(['base_uri' => $baseUri]);
             

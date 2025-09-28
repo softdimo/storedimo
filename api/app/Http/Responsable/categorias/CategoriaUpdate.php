@@ -34,7 +34,8 @@ class CategoriaUpdate implements Responsable
         $id = $request->route('id');
         $categoria = Categoria::find($id);
 
-        if (isset($categoria) && !is_null($categoria) && !empty($categoria)) {
+        if (isset($categoria) && !is_null($categoria) && !empty($categoria))
+        {
             $categoria->categoria = $this->request->input('categoria');
             $categoria->update();
 
@@ -51,9 +52,4 @@ class CategoriaUpdate implements Responsable
             return abort(404, $message = 'No existe esta categoria');
         }
     }
-
-    // ===================================================================
-    // ===================================================================
-
-
 }

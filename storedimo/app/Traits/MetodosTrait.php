@@ -171,7 +171,8 @@ trait MetodosTrait
                 return json_decode($response->getBody()->getContents());
             });
 
-        } catch (RequestException $e) {
+        } catch (RequestException $e)
+        {
             return [];
         }
     }

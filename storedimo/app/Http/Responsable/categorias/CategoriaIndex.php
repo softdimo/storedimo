@@ -10,11 +10,10 @@ class CategoriaIndex implements Responsable
 {
     public function toResponse($request)
     {
-        try {
+        try
+        {
             $baseUri = env('BASE_URI');
             $clientApi = new Client(['base_uri' => $baseUri]);
-
-            // ==============================================================
             
             // Realiza la solicitud a la API
             $response = $clientApi->get($baseUri . 'categoria_index', [
@@ -25,7 +24,8 @@ class CategoriaIndex implements Responsable
             $categorias = json_decode($response->getBody()->getContents());
 
             return view('categorias.index', compact('categorias'));
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error('Error', 'Exception Index Categorias, contacte a Soporte.');
             return back();
         }

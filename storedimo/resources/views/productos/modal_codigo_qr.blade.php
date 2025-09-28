@@ -20,7 +20,7 @@
             {{ Form::hidden('referencia_input', isset($productoEdit) ? $productoEdit->referencia : null, ['class' => '', 'id' => 'referencia_input', 'required' => 'required']) }}
             {{ Form::hidden('nombre_producto_input', isset($productoEdit) ? $productoEdit->nombre_producto : null, ['class' => 'form-control', 'id' => 'nombre_producto_input', 'required' => 'required']) }}
         </div>
-        {{-- ====================================================== --}}
+
         <div class="modal-body p-0 m-0">
             <div class="m-0 p-4 d-flex justify-content-between">
                 <div class="">
@@ -43,18 +43,12 @@
         </div>
     </div>
 
-    {{-- ====================================================== --}}
-    {{-- ====================================================== --}}
-
     <!-- Contenedor para el GIF -->
     <div id="loadingIndicatorCodeBarProducto_{{ $productoEdit->id_producto }}"
         class="loadingIndicator">
         <img src="{{ asset('imagenes/loading.gif') }}"
             alt="Procesando...">
     </div>
-
-    {{-- ====================================================== --}}
-    {{-- ====================================================== --}}
 
     <div class="d-flex justify-content-end mt-3">
         <button type="button" class="btn btn-secondary"
