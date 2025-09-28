@@ -479,12 +479,6 @@
     </div>
     {{-- FINAL MODAL REGISTRAR PRODUCTO --}}
 
-    {{-- ==================================================================================== --}}
-    {{-- ==================================================================================== --}}
-    {{-- ==================================================================================== --}}
-    {{-- ==================================================================================== --}}
-    {{-- ==================================================================================== --}}
-
     {{-- INICIO Modal Ayuda de Registrar Productos --}}
     <div class="modal fade" id="mod_ayuda_registroProducto" data-bs-backdrop="static" data-bs-keyboard="false"
         tabindex="-1" aria-labelledby="staticBackdropLabel">
@@ -492,15 +486,10 @@
             <div class="modal-content p-3">
                 <div class="modal-header d-none"></div>
 
-                {{-- ====================================================== --}}
-                {{-- ====================================================== --}}
-
                 <div class="modal-body ">
                     <div class="rounded-top" style="background-color: #337AB7; border: solid 1px #337AB7;">
                         <h6 class="text-white p-2 m-0 text-center">Ayuda de Registrar Productos</h6>
                     </div>
-
-                    {{-- =================================== --}}
 
                     <div class="p-3" style="border: solid 1px #337AB7;" id="campos_producto">
                         <div class="row">
@@ -520,9 +509,6 @@
                     </div>
                 </div>
 
-                {{-- ====================================================== --}}
-                {{-- ====================================================== --}}
-
                 <div class="modal-footer border-0 justify-content-end">
                     <button type="button" class="btn text-white" style="background-color:#204d74"
                         data-bs-dismiss="modal"><i class="fa fa-check-circle" aria-hidden="true"> Aceptar</i></button>
@@ -532,12 +518,6 @@
     </div>
     {{-- FINAL MODAL Ayuda de Registrar Productos --}}
 
-    {{-- ==================================================================================== --}}
-    {{-- ==================================================================================== --}}
-    {{-- ==================================================================================== --}}
-    {{-- ==================================================================================== --}}
-    {{-- ==================================================================================== --}}
-
     {{-- INICIO Modal Ayuda Modificar Precios --}}
     <div class="modal fade" id="mod_ayuda_precios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel">
@@ -545,15 +525,10 @@
             <div class="modal-content p-3">
                 <div class="modal-header d-none"></div>
 
-                {{-- ====================================================== --}}
-                {{-- ====================================================== --}}
-
                 <div class="modal-body ">
                     <div class="rounded-top" style="background-color: #337AB7; border: solid 1px #337AB7;">
                         <h6 class="text-white p-2 m-0 text-center">Ayuda Modificación Precios</h6>
                     </div>
-
-                    {{-- =================================== --}}
 
                     <div class="p-3" style="border: solid 1px #337AB7;" id="campos_producto">
                         <div class="row">
@@ -571,9 +546,6 @@
                     </div>
                 </div>
 
-                {{-- ====================================================== --}}
-                {{-- ====================================================== --}}
-
                 <div class="modal-footer border-0 justify-content-end">
                     <button type="button" class="btn text-white" style="background-color:#204d74"
                         data-bs-dismiss="modal"><i class="fa fa-check-circle" aria-hidden="true"> Aceptar</i></button>
@@ -583,10 +555,6 @@
     </div>
     {{-- FINAL MODAL Ayuda Modificar Precios --}}
 @stop
-
-{{-- =============================================================== --}}
-{{-- =============================================================== --}}
-{{-- =============================================================== --}}
 
 @section('scripts')
     <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
@@ -620,7 +588,6 @@
             // INICIO - Consulta de los precios del productos
             $('#producto_venta').change(function() {
                 let idProducto = $('#producto_venta').val();
-                console.log(`Línea 623, id producto seleccionado ${idProducto}`);
 
                 let btn = $('#btnAgregarVenta');
                 let spinner = $("#loadingIndicatorAgregarVenta");
@@ -646,17 +613,12 @@
                             $('#cantidad_venta').val('');
                         },
                         success: function(respuesta) {
-                            console.log("Línea 649: consulta precios producto a vender", respuesta);
                             setTimeout(() => {
                                 $('#p_detal_venta').html(respuesta.precio_detal);
                                 $('#p_x_mayor_venta').html(respuesta.precio_por_mayor);
                                 $('#cantidad_producto').html(respuesta.cantidad);
 
                                 let idProducto = respuesta.id_producto;
-                                console.log(`Línea 656: respuesta Id Producto al consultar el seleccionado del select: ${idProducto}`);
-
-                                // ====================================================================
-                                // ====================================================================
 
                                 // NUEVO: restar del stock disponible lo ya agregado del mismo producto
                                 let cantidadAgregada = 0;
@@ -671,15 +633,11 @@
                                 if (disponible < 0) disponible = 0;
                                 $('#cantidad_producto').html(disponible);
 
-                                // ====================================================================
-                                // ====================================================================
-
                                 spinner.hide();
                                 btn.prop("disabled", false).html(`<i class="fa fa-plus plus"></i> Agregar`);
                             }, 1000);
                         },
                         error: function(xhr, status, error) {
-                            console.error("Error:", error);
                             spinner.hide();
                             btn.prop("disabled", false).html(
                                 `<i class="fa fa-plus plus"></i> Agregar`);
@@ -688,9 +646,6 @@
                 }
             });
             // FIN - Consulta de los precios del productos
-
-            // ===================================================================================
-            // ===================================================================================
 
             // INICIO - Validar la cantidad ingresada vs la cantidad disponible para vender el producto
             $('#cantidad_venta').blur(function() {
@@ -751,19 +706,20 @@
             // ===================================================================================
 
             // INICIO DataTable
-            let tablaDetalleVenta = $('#tabla_detalle_venta').DataTable({
-                dom: 'lrtip',
-                infoEmpty: 'No hay registros',
-                stripe: true,
-                bSort: false,
-                autoWidth: false,
-                scrollX: true,
-                pageLength: 10,
-                responsive: true,
-                language: {
-                    emptyTable: "No hay productos agregados"
-                }
-            }); // CIERRE DataTable
+            // let tablaDetalleVenta = $('#tabla_detalle_venta').DataTable({
+            //     dom: 'lrtip',
+            //     infoEmpty: 'No hay registros',
+            //     stripe: true,
+            //     bSort: false,
+            //     autoWidth: false,
+            //     scrollX: true,
+            //     pageLength: 10,
+            //     responsive: true,
+            //     language: {
+            //         emptyTable: "No hay productos agregados"
+            //     }
+            // }); 
+            // CIERRE DataTable
 
             // ===================================================================================
             // ===================================================================================
@@ -865,9 +821,6 @@
                 $('#sub_total_venta').val(totalVenta);
                 $('#total_venta').val(totalVenta);
             }
-
-            // ===================================================================================
-            // ===================================================================================
 
             window.eliminarProducto = function(index) {
                 productosAgregados.splice(index, 1);

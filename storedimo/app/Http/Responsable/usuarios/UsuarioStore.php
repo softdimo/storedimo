@@ -7,8 +7,11 @@ use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 use App\Models\Usuario;
+use App\Traits\MetodosTrait;
 class UsuarioStore implements Responsable
 {
+    use MetodosTrait;
+
     protected $baseUri;
     protected $clientApi;
 
@@ -95,15 +98,14 @@ class UsuarioStore implements Responsable
                 {
                     return $this->respuestaExito(
                         "Usuario creado satisfactoriamente.<br>
-                         El usuario es: <strong>" .  $resUsuarioStore->usuario->email . "</strong><br>
-                         Y la clave es: <strong>" . $resUsuarioStore->usuario->identificacion . "</strong>",
+                         El usuario es el correo: <strong>" .  $resUsuarioStore->usuario->email . "</strong><br>
+                         Y la clave es: <strong>El número de documento</strong>",
                         'usuarios.index'
                     );
                 }
 
             } catch (Exception $e)
             {
-                dd($e);
                 return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
             }
         }
@@ -128,18 +130,6 @@ class UsuarioStore implements Responsable
         } catch (Exception $e) {
             return $this->respuestaException('Exception, contacte a Soporte.' . $e->getMessage());
         }
-    }
-
-    private function quitarCaracteresEspeciales($cadena)
-    {
-        $no_permitidas = array("á", "é", "í", "ó", "ú", "Á", "É", "Í", "Ó", "Ú", "ñ", "À", "Ã", "Ì", "Ò", "Ù", "Ã™", "Ã ",
-                               "Ã¨", "Ã¬", "Ã²", "Ã¹", "ç", "Ç", "Ã¢", "ê", "Ã®", "Ã´", "Ã»", "Ã‚", "ÃŠ", "ÃŽ", "Ã”",
-                               "Ã›", "ü", "Ã¶", "Ã–", "Ã¯", "Ã¤", "«", "Ò", "Ã", "Ã„", "Ã‹", "ñ", "Ñ", "*");
-
-        $permitidas = array("a", "e", "i", "o", "u", "A", "E", "I", "O", "U", "n", "N", "A", "E", "I", "O", "U",
-                            "a", "e", "i", "o", "u", "c", "C", "a", "e", "i", "o", "u", "A", "E", "I", "O", "U",
-                            "u", "o", "O", "i", "a", "e", "U", "I", "A", "E", "n", "N", "");
-        return str_replace($no_permitidas, $permitidas, $cadena);
     }
 
     private function respuestaExito($mensaje, $ruta)

@@ -44,7 +44,8 @@ class UsuarioUpdate implements Responsable
             return back();
         } else { */
 
-            try {
+            try
+            {
                 $peticionUsuarioUpdate = $this->clientApi->put($this->baseUri.'administracion/usuario_update/'. $idUsuario, [
                     'json' => [
                         'id_tipo_persona' => $idTipoPersona,
@@ -78,9 +79,6 @@ class UsuarioUpdate implements Responsable
         // }
     }
 
-    // ===================================================================
-    // ===================================================================
-
     private function consultarId($identificacion)
     {
         $queryIdentificacion = $this->clientApi->post($this->baseUri.'administracion/query_identificacion', [
@@ -89,9 +87,6 @@ class UsuarioUpdate implements Responsable
         return json_decode($queryIdentificacion->getBody()->getContents());
     }
 
-    // ===================================================================
-    // ===================================================================
-
     // Método auxiliar para mensajes de exito
     private function respuestaExito($mensaje, $ruta)
     {
@@ -99,16 +94,12 @@ class UsuarioUpdate implements Responsable
         return redirect()->to(route($ruta));
     }
 
-    // ========================================================
-
     // Método auxiliar para manejar errores
     private function respuestaError($mensaje, $ruta)
     {
         alert()->error('Error', $mensaje);
         return redirect()->to(route($ruta));
     }
-
-    // ========================================================
 
     // Método auxiliar para manejar excepciones
     private function respuestaException($mensaje)

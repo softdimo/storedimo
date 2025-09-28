@@ -20,10 +20,6 @@ class RecuperarClaveUpdate implements Responsable
         $this->clientApi = new Client(['base_uri' => $this->baseUri]);
     }
 
-    // ===================================================================
-    // ===================================================================
-    // ===================================================================
-
     public function toResponse($request)
     {
         $usuIdRecuperarClave = request('id_usuario',null);
@@ -35,9 +31,6 @@ class RecuperarClaveUpdate implements Responsable
             alert()->error('Error','Ambas clave son requeridos!');
             return back();
         }
-
-        // ======================================================
-        // ======================================================
 
         $message = "";
 
@@ -62,7 +55,8 @@ class RecuperarClaveUpdate implements Responsable
                 } else {
                    $message .= 'Error al actualizar la clave, si el problema persiste, contacte a soporte.';
                 }
-            } catch (Exception $e) {
+            } catch (Exception $e)
+            {
                 $message .= 'Error Exception, si el problema persiste, contacte a soporte.';
             }
         }
@@ -70,10 +64,6 @@ class RecuperarClaveUpdate implements Responsable
         alert()->error('error', $message);
         return back();
     }
-
-    // ===================================================================
-    // ===================================================================
-    // ===================================================================
 
     private function validarContrasena($usuClaveNueva)
     {

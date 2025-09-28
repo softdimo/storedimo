@@ -27,19 +27,15 @@ class CambiarClave implements Responsable
         $nuevaClave = request('nueva_clave', null);
         $confirmarClave = request('confirmar_clave', null);
 
-        // ======================================================
-        // ======================================================
-
-        if(!isset($nuevaClave) || empty($nuevaClave) || is_null($nuevaClave) || !isset($confirmarClave) || empty($confirmarClave) || is_null($confirmarClave))
+        if(!isset($nuevaClave) || empty($nuevaClave) || is_null($nuevaClave) ||
+            !isset($confirmarClave) || empty($confirmarClave) || is_null($confirmarClave))
         {
             alert()->error('Error','Usuario y Clave son requeridos!');
             return back();
         }
 
-        // ======================================================
-        // ======================================================
-
-        if(isset($nuevaClave) || !empty($nuevaClave) || !is_null($nuevaClave) && isset($confirmarClave) || !empty($confirmarClave) || !is_null($confirmarClave))
+        if(isset($nuevaClave) || !empty($nuevaClave) || !is_null($nuevaClave) &&
+            isset($confirmarClave) || !empty($confirmarClave) || !is_null($confirmarClave))
         {
             if ($nuevaClave == $confirmarClave) {
 
@@ -86,10 +82,6 @@ class CambiarClave implements Responsable
             return back();
         }
     }
-    
-    // ===================================================================
-    // ===================================================================
-    // ===================================================================
 
     private function validarContrasena($nuevaClave)
     {

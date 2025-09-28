@@ -59,7 +59,8 @@ class LoginStore implements Responsable
             }
 
             // 4. Validar credenciales contra BD principal
-            if (!Hash::check($clave, $user['clave'])) {
+            if (!Hash::check($clave, $user['clave']))
+            {
                 $this->actualizarClaveFallas($user['id_usuario'], $user['clave_fallas'] + 1);
                 alert()->error('Error', 'Credenciales inválidas');
                 return back();
@@ -67,7 +68,7 @@ class LoginStore implements Responsable
 
             // 5. Verificar empresa asociada
             if (!isset($user['empresa'])) {
-                alert()->error('Error', 'Usuario no asociado a ninguna empresa');
+                alert()->error('Error', 'Usuario no esta asociado a ninguna empresa');
                 return back();
             }
 
@@ -163,7 +164,8 @@ class LoginStore implements Responsable
                     'id_audit' => $idUsuario
                 ]
             ]);
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error('Error actualizar clave fallas');
             return redirect()->route('login');
         }
