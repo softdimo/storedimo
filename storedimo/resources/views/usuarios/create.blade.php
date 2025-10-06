@@ -235,7 +235,7 @@
                     case '3': // NIT
                         return /^\d{6,10}$/;
                     case '2': // Pasaporte
-                        return /^[a-zA-Z0-9]{5,15}$/;
+                        return /^[a-zA-Z0-9]{10}$/;
                     case '4': // PEP u otros
                         return /^\d{7}$/;
                     default: // Por defecto: alfanumérico simple
@@ -276,6 +276,14 @@
                 if (tipoSeleccionado === '4') {
                     if (!/^\d{7}$/.test(documento)) {
                         mostrarError('El permiso especial debe tener exactamente 7 números.');
+                        documentoInput.value = '';
+                        return;
+                    }
+                }
+
+                if (tipoSeleccionado === '2') {
+                    if (!/^[a-zA-Z0-9]{10}$/.test(documento)) {
+                        mostrarError('El pasaporte debe tener exactamente 10 caracteres alfanuméricos.');
                         documentoInput.value = '';
                         return;
                     }
