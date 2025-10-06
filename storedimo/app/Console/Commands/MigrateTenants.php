@@ -46,7 +46,6 @@ class MigrateTenants extends Command
             $username = Crypt::decrypt($empresa->db_username);
             $password = Crypt::decrypt($empresa->db_password);
 
-            // dd($host, $database, $username, $password);
 
             $this->info("Migrando: {$empresa->nombre_empresa} ({$database})");
 

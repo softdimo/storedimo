@@ -90,7 +90,6 @@ class ProductoGenerarBarCode implements Responsable
 
         } catch (Exception $e)
         {
-            dd($e);
             alert()->error('Error', 'Error al generar el código QR.');
             return redirect()->to(route('productos.index'));
         }

@@ -27,7 +27,6 @@ class PrestamoCreate implements Responsable
             return view('prestamos.create', compact('usuariosPrestamosCreate'));
 
         } catch (Exception $e) {
-            dd($e);
             alert()->error('Error', 'Exception, contacte a Soporte.');
             return back();
         }

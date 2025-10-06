@@ -39,7 +39,6 @@ class CategoriaDestroy implements Responsable
         $idCategoria = $this->idCategoria;
 
         $categoria = Categoria::where('id_categoria', $idCategoria)->first();
-        // dd($categoria);
 
         $idEstado = $categoria->id_estado;
 

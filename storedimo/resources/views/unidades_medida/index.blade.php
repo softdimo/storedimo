@@ -48,9 +48,6 @@
                             {{-- ============================== --}}
                             <tbody>
                                 @foreach ($unidadesMedida as $unidadMedida)
-                                    {{-- @php
-                                        dd($unidadMedida);
-                                    @endphp --}}
                                     <tr class="text-center">
                                         <td class="align-middle">{{ $unidadMedida->id }}</td>
                                         <td class="align-middle">{{ $unidadMedida->descripcion }}</td>

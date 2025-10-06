@@ -27,7 +27,6 @@ class PagoEmpleadoCreate implements Responsable
             return view('pago_empleados.create', compact('pagoEmpleadosCreate'));
 
         } catch (Exception $e) {
-            dd($e);
             alert()->error('Error', 'Exception, contacte a Soporte.');
             return back();
         }

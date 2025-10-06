@@ -43,7 +43,6 @@ class BajaDetalle implements Responsable
 
             return view('existencias.modal_detalle_baja', compact('baja', 'bajaDetalles'));
         } catch (Exception $e) {
-            dd($e);
             alert()->error('Error', 'Exception Index Bajas, contacte a Soporte.');
             return back();
         }

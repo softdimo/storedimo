@@ -54,7 +54,6 @@ class RecuperarClave implements Responsable
                 return back();
             }
         } catch (Exception $e) {
-            dd($e);
             alert()->error('Error', 'Exception, error enviando el email, contacte a soporte.');
             return back();
         }

@@ -187,7 +187,6 @@ class FormatoInformes
 
         } catch (Exception $e)
         {
-            dd($e);
             logger()->error('Error en FormatoInformes: ' . $e->getMessage());
         }
     }

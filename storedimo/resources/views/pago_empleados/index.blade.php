@@ -59,7 +59,6 @@
                             <tbody>
                                 @foreach ($pagoEmpleadosIndex as $pagoEmpleado)
                                     @php
-                                        // dd($pagoEmpleado);
                                     @endphp
                                     <tr class="text-center">
                                         <td>{{$pagoEmpleado->tipo_documento}} - {{$pagoEmpleado->tipo_documento}}</td>

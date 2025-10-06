@@ -19,7 +19,6 @@ class PagoEmpleadoStore implements Responsable
 
     public function toResponse($request)
     {
-        // dd($request);
         
         $idUsuario = request('id_usuario', null);
         $identificacion = request('identificacion', null);
