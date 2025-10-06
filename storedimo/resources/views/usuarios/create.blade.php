@@ -237,9 +237,9 @@
                     case '2': // Pasaporte
                         return /^[a-zA-Z0-9]{5,15}$/;
                     case '4': // PEP u otros
-                        return /^(PEP|PE)?\d{6,10}$/i;
+                        return /^\d{7}$/;
                     default: // Por defecto: alfanumérico simple
-                        return /^[a-zA-Z0-9]+$/;
+                        return /^(PEP|PE)?\d{6,10}$/i;
                 }
             };
 
@@ -263,7 +263,7 @@
 
                 if (!tipoSeleccionado) {
                     mostrarError(
-                    'Seleccione un tipo de documento antes de ingresar la identificación.');
+                        'Seleccione un tipo de documento antes de ingresar la identificación.');
                     documentoInput.value = '';
                     return;
                 }
@@ -271,6 +271,14 @@
                 if (documento === '') {
                     mostrarError('Este campo es obligatorio.');
                     return;
+                }
+
+                if (tipoSeleccionado === '4') {
+                    if (!/^\d{7}$/.test(documento)) {
+                        mostrarError('El permiso especial debe tener exactamente 7 números.');
+                        documentoInput.value = '';
+                        return;
+                    }
                 }
 
                 if (!regex.test(documento)) {
