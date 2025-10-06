@@ -605,7 +605,6 @@
             });
 
             let idProducto = $('#id_producto').val();
-            console.log(idProducto);
 
             if (idProducto == '') {
                 $('#p_unitario').html(0);
@@ -617,7 +616,6 @@
             // INICIO - Validación Formulario Creación de Bajas de productos
             $('#id_producto').change(function() {
                 let idProducto = $('#id_producto').val();
-                console.log(idProducto);
 
                 let btn = $('#btn_add_entrada');
                 let spinner = $("#loadingIndicatorAgregarCompra");
@@ -642,8 +640,6 @@
                                 `<i class="fa fa-spinner fa-spin"></i> Procesando...`);
                         },
                         success: function(respuesta) {
-                            console.log(respuesta);
-                            console.log(respuesta.precio_unitario);
 
                             if (idProducto == '') {
                                 $('#p_unitario').html(0);
@@ -819,13 +815,6 @@
 
                 let pUnitario = parseFloat($('#p_unitario').text());
                 let cantidad = parseInt($('#cantidad').val());
-
-                console.log(`Id proveedor ${idTipoProveedor}`);
-                console.log(`nombre proveedor ${tipoProveedor}`);
-                console.log(`Id Producto ${idProducto}`);
-                console.log(`nombre Producto ${productoCompra}`);
-                console.log(`Precio Unitario ${pUnitario}`);
-                console.log(`Cantidad ${cantidad}`);
 
                 if (!idTipoProveedor || !idProducto || !cantidad) {
                     Swal.fire(

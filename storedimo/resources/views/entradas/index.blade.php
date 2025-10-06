@@ -310,11 +310,6 @@
                                 inputFecha[0].showPicker();
                             }
                         });
-
-                        // Evento para asegurarse de que la fecha se refleje
-                        inputFecha.on("change", function() {
-                            console.log("Fecha seleccionada:", inputFecha.val()); // Para depuración
-                        });
                     }
                 }
 

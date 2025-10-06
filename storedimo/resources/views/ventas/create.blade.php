@@ -768,7 +768,6 @@
                     subtotal: valorSubTotal,
                 };
                 productosAgregados.push(producto);
-                // console.log(productosAgregados);
 
                 actualizarDetalleVenta();
 

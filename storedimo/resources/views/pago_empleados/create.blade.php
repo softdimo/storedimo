@@ -412,7 +412,6 @@
 
                 if (selectTipoPago.length > 0) { // Al cargar el modal
                     let inputIdTipoPago = selectTipoPago.val(); // Obtener el valor actual del select
-                    console.log(`Id Tipo Pago al abrir el modal: ${inputIdTipoPago}`);
 
                     // Buscar los elementos dentro de este modal
                     let divIdentificacion = modal.find('[id^=div_identificacion]');
@@ -496,7 +495,6 @@
                     // Al cambiar el tipo de persona
                     selectTipoPago.change(function () {
                         let inputIdTipoPago = selectTipoPago.val(); // Obtener el valor actual del select al cambiar
-                        console.log(`cambio ${inputIdTipoPago}`);
 
                         let modal = $(this).closest('[id^="modalRegistrarPago_"]'); // Asegurar que buscamos dentro del modal correcto
 

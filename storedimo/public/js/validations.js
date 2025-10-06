@@ -63,8 +63,6 @@ function initPhoneValidation(inputSelector, errorSelector) {
         const value = $(this).val().trim();
         const errorMsg = $(errorSelector);
 
-        console.log('Valor ingresado:', value);
-
         errorMsg.text("").addClass("d-none");
 
         if (!value) return;
@@ -111,8 +109,6 @@ function initNitValidation(inputSelector, errorSelector) {
     $(document).on("blur", inputSelector, function() {
         const value = $(this).val().trim();
         const errorMsg = $(errorSelector);
-
-        console.log('NIT ingresado:', value);
 
         errorMsg.text("").addClass("d-none");
 

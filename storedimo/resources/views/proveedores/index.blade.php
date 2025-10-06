@@ -268,7 +268,6 @@
                         if (selectTipoPersona.length > 0) { // Al cargar el modal
                             let idTipoPersona = selectTipoPersona
                                 .val(); // Obtener el valor actual del select
-                            console.log(`Id Tipo Persona al abrir el modal: ${idTipoPersona}`);
 
                             // Buscar los elementos dentro de este modal
                             let divIdentificacion = modal.find('[id^=div_identificacion]');
@@ -354,7 +353,6 @@
                             selectTipoPersona.change(function() {
                                 let idTipoPersona = selectTipoPersona
                                     .val(); // Obtener el valor actual del select al cambiar
-                                console.log(`cambio ${idTipoPersona}`);
 
                                 let modal = $(
                                     '#modalEditarProveedor'
@@ -402,7 +400,6 @@
                                     '[id^=telefono_empresa]');
 
                                 if (idTipoPersona == 4) { // Proveedor-juridico
-                                    console.log(`juridico ${idTipoPersona}`);
                                     divIdentificacion.hide('slow');
                                     inputIdentificacion.removeAttr('required');
 
@@ -433,7 +430,6 @@
                                     inputNombreEmpresa.attr('required', true);
                                     inputTelefonoEmpresa.attr('required', true);
                                 } else {
-                                    console.log(`natural ${idTipoPersona}`);
                                     divIdentificacion.show('slow');
                                     inputIdentificacion.attr('required', true);
 

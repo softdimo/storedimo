@@ -142,7 +142,6 @@
 
 
             let idEstado = $('#id_estado').val();
-            console.log(idEstado);
 
             if (idEstado == 1 || idEstado == '') {
                 $('#div_fecha_terminacion_contrato').hide();
@@ -151,7 +150,6 @@
 
             $('#id_estado').change(function() {
                 let idEstado = $('#id_estado').val();
-                console.log(idEstado);
 
                 if (idEstado == 1) { // Activo
                     $('#div_fecha_terminacion_contrato').hide();

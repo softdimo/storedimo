@@ -222,8 +222,6 @@
                         'id_producto': idProducto
                     },
                     success: function(respuesta) {
-                        console.log(respuesta);
-                        console.log(respuesta.cantidad);
 
                         if (respuesta.cantidad == null || respuesta.cantidad < cantidad) {
                             Swal.fire('Cuidado!',
@@ -301,16 +299,13 @@
             $("#formRegistrarBajas").on("submit", function(event) {
                 // Si el submit no fue activado por el botón "Guardar", lo prevenimos
                 if (!event.originalEvent || event.originalEvent.submitter.id !== "guardarBajas") {
-                    console.log("Submit bloqueado porque no se hizo clic en 'Guardar'");
                     event.preventDefault();
                     return;
                 }
 
-                console.log("Formulario enviado correctamente");
             });
 
             $("#guardarBajas").click(function() {
-                console.log("Clic en 'Guardar', enviando formulario...");
                 $("#formRegistrarBajas").off("submit").submit(); // Forzar el envío del formulario
             });
 

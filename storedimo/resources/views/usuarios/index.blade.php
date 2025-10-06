@@ -408,7 +408,6 @@
                             selectEstado.change(function() {
                                 let idEstado = selectEstado
                                     .val(); // Obtener el valor actual del select al cambiar
-                                console.log(`cambio ${idEstado}`);
 
                                 let modal = $(
                                     '#modalEditarUsuario'

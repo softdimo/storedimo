@@ -287,10 +287,6 @@
                 let precioDetal = parseFloat($('#precio_detal').val()) || 0;
                 let precioPorMayor = parseFloat($('#precio_por_mayor').val()) || 0;
 
-                console.log(precioUnitario);
-                console.log(precioDetal);
-                console.log(precioPorMayor);
-
                 if (precioPorMayor <= precioUnitario || precioPorMayor >= precioDetal) {
                     Swal.fire(
                         'Cuidado!',
