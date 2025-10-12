@@ -89,8 +89,10 @@ class ProductosController extends Controller
                 {
                     $categorias = $this->categoriasTrait();
                     $umd = $this->UmdTrait();
+                    $proveedores = $this->proveedoresTrait();
                     view()->share('categorias', $categorias);
                     view()->share('umd', $umd);
+                    view()->share('proveedores', $proveedores);
                     $vista = 'productos.create';
                     return $this->validarAccesos($sesion[0], 20, $vista);
                 }
@@ -203,7 +205,8 @@ class ProductosController extends Controller
                 {
                     $categorias = $this->categoriasTrait();
                     $umd = $this->UmdTrait();
-                    return new ProductoEdit($idProducto, $categorias, $umd);
+                    $proveedores = $this->proveedoresTrait();
+                    return new ProductoEdit($idProducto, $categorias, $umd, $proveedores);
                 }
             }
         } catch (Exception $e)
@@ -530,6 +533,23 @@ class ProductosController extends Controller
         } catch (Exception $e)
         {
             alert()->error('Error', 'Error obteniendo unidades de medida');
+            return back();
+        }
+    }
+
+    public function proveedoresTrait()
+    {
+        try
+        {
+            $response = $this->clientApi->get('proveedores_trait', [
+                'query' => ['empresa_actual' => session('empresa_actual.id_empresa')]
+            ]);
+
+            return json_decode($response->getBody()->getContents());
+
+        } catch (Exception $e)
+        {
+            alert()->error('Error', 'Error obteniendo listado de proveedores');
             return back();
         }
     }

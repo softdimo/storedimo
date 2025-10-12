@@ -29,6 +29,7 @@ class ProductoIndex implements Responsable
                 ->leftJoin('estados', 'estados.id_estado', '=', 'productos.id_estado')
                 ->leftJoin('tipo_persona', 'tipo_persona.id_tipo_persona', '=', 'productos.id_tipo_persona')
                 ->join('unidades_medida', 'unidades_medida.id', '=', 'productos.id_umd')
+                ->leftJoin('proveedores', 'proveedores.id_proveedor', '=', 'productos.id_proveedor')
                 ->select(
                     'id_producto',
                     'imagen_producto',
@@ -40,6 +41,8 @@ class ProductoIndex implements Responsable
                     'precio_detal',
                     'precio_por_mayor',
                     'productos.descripcion',
+                    'proveedores.id_proveedor',
+                    'proveedores.nombres_proveedor',
                     'stock_minimo',
                     'productos.id_estado',
                     'estados.estado',
@@ -50,7 +53,7 @@ class ProductoIndex implements Responsable
                     'fecha_vencimiento',
                     'unidades_medida.descripcion AS umd'
                 )
-                ->orderBy('nombre_producto', 'asc')
+                ->orderBy('id_producto', 'desc')
                 ->get();
 
             if (isset($productos) && !is_null($productos) && !empty($productos))

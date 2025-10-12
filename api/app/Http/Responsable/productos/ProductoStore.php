@@ -36,6 +36,7 @@ class ProductoStore implements Responsable
         $referencia = request('referencia', null);
         $fechaVencimiento = request('fecha_vencimiento', null);
         $idUnidadMedida = request('id_umd', null);
+        $idProveedor = request('id_proveedor', null);
 
         // ================================================
 
@@ -53,10 +54,12 @@ class ProductoStore implements Responsable
                 'id_estado' => $idEstado,
                 'referencia' => $referencia,
                 'fecha_vencimiento' => $fechaVencimiento,
-                'id_umd' => $idUnidadMedida
+                'id_umd' => $idUnidadMedida,
+                'id_proveedor' => $idProveedor
             ]);
     
-            if (isset($nuevoProducto) && !is_null($nuevoProducto) && !empty($nuevoProducto)) {
+            if (isset($nuevoProducto) && !is_null($nuevoProducto) && !empty($nuevoProducto))
+            {
                 // Restaurar conexión principal si se usó tenant
                 if ($empresaActual) {
                     DatabaseConnectionHelper::restaurarConexionPrincipal();
@@ -64,7 +67,8 @@ class ProductoStore implements Responsable
 
                 return response()->json(['success' => true]);
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             // Asegurar restauración de conexión principal en caso de error
             if (isset($empresaActual)) {
                 DatabaseConnectionHelper::restaurarConexionPrincipal();

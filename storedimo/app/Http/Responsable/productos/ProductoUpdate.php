@@ -23,8 +23,7 @@ class ProductoUpdate implements Responsable
         $referenciaEdit = request('referenciaEdit', null);
         $fechaVencimientoEdit = request('fechaVencimientoEdit', null);
         $unidadMedida = request('id_umdEdit', null);
-
-        // ===================================================================
+        $proveedor = request('proveedorEdit', null);
 
         $imagenProductoBase64Edit = null;
 
@@ -74,7 +73,7 @@ class ProductoUpdate implements Responsable
             // Enviar la actualización solo con los datos necesarios
             $peticionProductoUpdate = $clientApi->put($baseUri.'producto_update/'.$idProducto, [
                 'json' => [
-                    'imagen_producto' => $imagenProductoBase64Edit ?? $productoActual->imagen_producto,
+                    'imagen_producto' => $imagenProductoBase64Edit ?? ($productoActual ? $productoActual->imagen_producto : null),
                     'nombre_producto' => $nombreProductoEdit ?? $productoActual->nombre_producto,
                     'id_categoria' => $categoriaEdit ?? $productoActual->id_categoria,
                     'descripcion' => $descripcionEdit ?? $productoActual->descripcion,
@@ -83,15 +82,14 @@ class ProductoUpdate implements Responsable
                     'precio_por_mayor' => $precioPorMayorEdit ?? $productoActual->precio_por_mayor,
                     'stock_minimo' => $stockMinimoEdit ?? $productoActual->stock_minimo,
                     'referencia' => $referenciaEdit ?? $productoActual->referencia,
-                    'fecha_vencimiento' => $fechaVencimientoEdit ?? $productoActual->fecha_vencimiento,
+                    'fecha_vencimiento' => $fechaVencimientoEdit ?? ($productoActual ? $productoActual->fecha_vencimiento : null),
                     'id_umd' => $unidadMedida ?? $productoActual->id_umd,
+                    'id_proveedor' => $proveedor ?? $productoActual->id_proveedor,
                     'id_audit' => session('id_usuario'),
                     'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $respuestaProductoUpdate = json_decode($peticionProductoUpdate->getBody()->getContents());
-
-            // ===================================================================
 
             if(isset($respuestaProductoUpdate) && !empty($respuestaProductoUpdate))
             {
@@ -104,6 +102,7 @@ class ProductoUpdate implements Responsable
                 }
             }
         } catch (Exception $e) {
+            dd($e);
             alert()->error('Error', 'Excepción, intente de nuevo, si el problema persiste, contacte a Soporte.');
             return back();
         }

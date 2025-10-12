@@ -11,12 +11,14 @@ class ProductoEdit implements Responsable
     protected $idProducto;
     protected $categorias;
     protected $unidaMedida;
+    protected $proveedor;
 
-    public function __construct($idProducto, $categorias, $umd)
+    public function __construct($idProducto, $categorias, $umd, $proveedor)
     {
         $this->idProducto = $idProducto;
         $this->categorias = $categorias;
         $this->unidaMedida = $umd;
+        $this->proveedor = $proveedor;
     }
 
     public function toResponse($request)
@@ -24,8 +26,10 @@ class ProductoEdit implements Responsable
         $idProducto = $this->idProducto;
         $categorias = $this->categorias;
         $unidaMedida = $this->unidaMedida;
+        $proveedor = $this->proveedor;
         view()->share('categorias', $categorias);
         view()->share('umd', $unidaMedida);
+        view()->share('proveedores', $proveedor);
         try
         {
             $baseUri = env('BASE_URI');

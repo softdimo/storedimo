@@ -50,6 +50,20 @@
                         ) !!}
                     </div>
                 </div>
+
+                <div class="col-12 col-md-6 mt-md-3">
+                    <div class="form-group d-flex flex-column">
+                        <label for="proveedorEdit" class=""
+                            style="font-size: 15px">Proveedor<span
+                                class="text-danger">*</span></label>
+                        {!! Form::select(
+                            'proveedorEdit',
+                            collect(['' => 'Seleccionar...'])->union($proveedores),
+                            isset($productoEdit) ? $productoEdit->id_proveedor : null,
+                            ['class' => 'form-select select2', 'id' => 'proveedorEdit', 'required' => 'required'],
+                        ) !!}
+                    </div>
+                </div>
                 {{-- =================== --}}
                 <div class="col-12 col-md-6 mt-md-3">
                     <div class="form-group d-flex flex-column">

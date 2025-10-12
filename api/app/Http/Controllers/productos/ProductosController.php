@@ -194,7 +194,8 @@ class ProductosController extends Controller
                     'cantidad',
                     'referencia',
                     'fecha_vencimiento',
-                    'id_umd'
+                    'id_umd',
+                    'id_proveedor'
                 )
                 ->where('id_producto', $idProducto)
                 ->where('cantidad', '>', 0)

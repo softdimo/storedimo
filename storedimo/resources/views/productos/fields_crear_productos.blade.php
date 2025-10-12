@@ -3,23 +3,34 @@
         Productos (Obligatorios * )</h5>
 
         
-    <div class="row m-0 p-3" id="div_campos_usuarios">
+    <div class="row m-0 p-3" id="div_campos_productos">
 
-        <div class="col-12 col-md-3">
-            <div class="form-group d-flex flex-column">
-                <label for="referencia" class="form-label">Referencia <span class="text-danger">*</span></label>
-                {!! Form::text('referencia', null, [
-                    'class' => 'form-control',
-                    'id' => 'referencia',
-                    'required' => 'required',
-                    'pattern' => '^[a-zA-Z0-9\-_#]{2,50}$',
-                    'title' => 'La referencia debe tener entre 2 y 50 caracteres. Puede incluir letras, números y los caracteres especiales - _ #',
-                    'maxlength' => '50',
-                    'minlength' => '2'
-                ]) !!}
-                <small id="reference-error" class="text-danger d-none">Esta referencia ya existe.</small>
-            </div>
+    <div class="col-12 col-md-3">
+        <div class="form-group d-flex flex-column">
+            <label for="id_proveedor" class="form-label">Proveedor <span class="text-danger">*</span></label>
+            {!! Form::select('id_proveedor', collect(['' => 'Seleccionar...'])->union($proveedores), null, [
+                'class' => 'form-select select2',
+                'id' => 'id_proveedor',
+                'required' => 'required',
+            ]) !!}
         </div>
+    </div>
+
+    <div class="col-12 col-md-3">
+        <div class="form-group d-flex flex-column">
+            <label for="referencia" class="form-label">Referencia <span class="text-danger">*</span></label>
+            {!! Form::text('referencia', null, [
+                'class' => 'form-control',
+                'id' => 'referencia',
+                'required' => 'required',
+                'pattern' => '^[a-zA-Z0-9\-_#]{2,50}$',
+                'title' => 'La referencia debe tener entre 2 y 50 caracteres. Puede incluir letras, números y los caracteres especiales - _ #',
+                'maxlength' => '50',
+                'minlength' => '2'
+            ]) !!}
+            <small id="reference-error" class="text-danger d-none">Esta referencia ya existe.</small>
+        </div>
+    </div>
 
         <div class="col-12 col-md-3">
             <div class="form-group d-flex flex-column">
@@ -56,7 +67,7 @@
 
         {{-- ======================= --}}
 
-        <div class="col-12 col-md-3">
+        <div class="col-12 col-md-3 mt-3">
             <div class="form-group d-flex flex-column">
                 <label for="precio_unitario" class="form-label">Precio Unitario <span
                         class="text-danger">*</span></label>

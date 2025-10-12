@@ -25,8 +25,7 @@ class ProductoStore implements Responsable
         $referencia = request('referencia', null);
         $fechaVencimiento = request('fecha_vencimiento', null);
         $idUnidadMedida = request('id_umd', null);
-
-        // ========================================================
+        $idProveedor = request('id_proveedor', null);
 
         $imagenProductoBase64 = null;
 
@@ -59,20 +58,19 @@ class ProductoStore implements Responsable
             }
         }
 
-        // ========================================================
-
-        if ( isset($formEntradas) && !is_null($formEntradas) && !empty($formEntradas) ) {
+        if ( isset($formEntradas) && !is_null($formEntradas) && !empty($formEntradas) )
+        {
             $formStore = $formEntradas;
-        } else {
+        } else
+        {
             $formStore = $formVentas;
         }
-        
-        // ========================================================
         
         $baseUri = env('BASE_URI');
         $clientApi = new Client(['base_uri' => $baseUri]);
 
-        try {
+        try
+        {
             $peticionProductoStore = $clientApi->post($baseUri.'producto_store', [
                 'json' => [
                     'id_tipo_persona' => $idTipoPersona,
@@ -88,6 +86,7 @@ class ProductoStore implements Responsable
                     'referencia' => $referencia,
                     'fecha_vencimiento' => $fechaVencimiento,
                     'id_umd' => $idUnidadMedida,
+                    'id_proveedor' => $idProveedor,
                     'id_audit' => session('id_usuario'),
                     'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
@@ -95,21 +94,24 @@ class ProductoStore implements Responsable
             
             $respuestaProductoStore = json_decode($peticionProductoStore->getBody()->getContents());
 
-            // ========================================================
-
-            if (isset($respuestaProductoStore) && !empty($respuestaProductoStore)) {
-                if ($formStore == 'crearProductoEntrada') {
+            if (isset($respuestaProductoStore) && !empty($respuestaProductoStore))
+            {
+                if ($formStore == 'crearProductoEntrada')
+                {
                     alert()->success('Proceso Exitoso', 'Producto creado satisfactoriamente');
                     return redirect()->to(route('entradas.create'));
-                } elseif ($formStore == 'crearProductoVenta'){
+                } elseif ($formStore == 'crearProductoVenta')
+                {
                     alert()->success('Proceso Exitoso', 'Producto creado satisfactoriamente');
                     return redirect()->to(route('ventas.create'));
-                } else {
+                } else
+                {
                     alert()->success('Proceso Exitoso', 'Producto creado satisfactoriamente');
                     return redirect()->to(route('productos.index'));
                 }
             }
-        } catch (Exception $e) {
+        } catch (Exception $e)
+        {
             alert()->error('Error', 'Creando el producto, si el problema persiste, contacte a Soporte.' . $e->getMessage());
             return back();
         }

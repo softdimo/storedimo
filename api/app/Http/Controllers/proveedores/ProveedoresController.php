@@ -188,7 +188,8 @@ class ProveedoresController extends Controller
         $empresaActual = Empresa::find($empresaId);
         
         // Configurar conexión tenant si hay empresa
-        if ($empresaActual) {
+        if ($empresaActual)
+        {
             DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
         }
         
@@ -214,7 +215,7 @@ class ProveedoresController extends Controller
                     return [$item->id_proveedor => $item->nombre_proveedor]; // Usamos id_persona como clave única
                 });
 
-            // Retornamos la categoría si existe, de lo contrario retornamos null
+            // Retornamosel proveedor si existe, de lo contrario retornamos null
             if (isset($proveedoresCompra) && !is_null($proveedoresCompra) && !empty($proveedoresCompra)) {
                 // Restaurar conexión principal si se usó tenant
                 if ($empresaActual) {

@@ -156,7 +156,8 @@
             });
 
             // Valido si el nombre del producto existe
-            $('#id_categoria').blur(function() {
+            $('#id_categoria').blur(function()
+            {
                 let nombreProducto = $('#nombre_producto').val();
                 let idCategoria = $('#id_categoria').val();
 
@@ -324,7 +325,8 @@
                     return;
                 }
 
-                try {
+                try
+                {
                     const response = await fetch("{{ route('verificar_referencia') }}", {
                         method: 'POST',
                         headers: {

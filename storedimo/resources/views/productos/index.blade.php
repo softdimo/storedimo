@@ -111,6 +111,7 @@
                                     <th class="align-middle">Nombre Producto</th>
                                     <th class="align-middle">Categoría</th>
                                     <th class="align-middle">Descripción</th>
+                                    <th class="align-middle">Proveedor</th>
                                     <th class="align-middle">Cantidad</th>
                                     <th class="align-middle">Stock Mínimo</th>
                                     <th class="align-middle">Fecha Vencimiento</th>
@@ -138,6 +139,7 @@
                                         <td class="align-middle">{{ $producto->nombre_producto }}</td>
                                         <td class="align-middle">{{ $producto->categoria }}</td>
                                         <td class="align-middle">{{ $producto->descripcion }}</td>
+                                        <td class="align-middle">{{ $producto->nombres_proveedor }}</td>
 
                                         @if (is_null($producto->cantidad))
                                             <td class="bg-warning-subtle align-middle">Sin compra realizada</td>
@@ -241,6 +243,7 @@
             // @if (isset($productos) && count($productos) > 0)
             // INICIO DataTable Lista Productos
             $("#tbl_productos").DataTable({
+                ordering: false,
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
                 stripe: true,
