@@ -141,7 +141,7 @@
         
         <div class="col-12 col-md-3 mt-3" id="div_db_connection">
             <div class="form-group d-flex flex-column">
-                <label for="id_tipo_bd" class="form-label">DB CONNECTION
+                <label for="id_tipo_bd" class="form-label">Db Connection
                     <span class="text-danger">*</span>
                 </label>
                 {!! Form::select('id_tipo_bd', collect(['' => 'Seleccionar...'])->union($tipos_bd), old('id_tipo_bd', isset($empresa) ? $empresa->id_tipo_bd : null), [
@@ -156,13 +156,14 @@
         
         <div class="col-12 col-md-3 mt-3" id="div_app_url">
             <div class="form-group d-flex flex-column">
-                <label for="db_host" class="form-label">DB HOST
+                <label for="db_host" class="form-label">Db Host
                     <span class="text-danger">*</span>
                 </label>
-                {!! Form::text('db_host', old('db_host', isset($empresa) ? Crypt::decrypt($empresa->db_host) : null), [
-                    'class' => 'form-control',
+                {!! Form::text('db_host', old('db_host', isset($empresa) ? Crypt::decrypt($empresa->db_host) : 'srv1999.hstgr.io'), [
+                    'class' => 'form-control bg-dark-subtle',
                     'id' => 'db_host',
                     'required' => 'required',
+                    'readonly' => 'readonly',
                 ]) !!}
             </div>
         </div>
@@ -171,7 +172,7 @@
         
         <div class="col-12 col-md-3 mt-3" id="div_db_database">
             <div class="form-group d-flex flex-column">
-                <label for="db_database" class="form-label">DB DATABASE
+                <label for="db_database" class="form-label">DbDatabase pre(u524250720_)
                     <span class="text-danger">*</span>
                 </label>
                 {!! Form::text('db_database', old('db_database', isset($empresa) ? Crypt::decrypt($empresa->db_database) : null), [
@@ -186,7 +187,7 @@
 
         <div class="col-12 col-md-3 mt-3" id="div_db_username">
             <div class="form-group d-flex flex-column">
-                <label for="db_username" class="form-label">DB USERNAME
+                <label for="db_username" class="form-label">DbUser pre(u524250720_)
                     <span class="text-danger">*</span>
                 </label>
                 {!! Form::text('db_username', old('db_username', isset($empresa) ? Crypt::decrypt($empresa->db_username) : null), [
@@ -201,7 +202,7 @@
         
         <div class="col-12 col-md-3 mt-3" id="div_db_password">
             <div class="form-group d-flex flex-column">
-                <label for="db_password" class="form-label">DB PASSWORD
+                <label for="db_password" class="form-label">Db Password
                     <span class="text-danger">*</span>
                 </label>
                 {!! Form::text('db_password', old('db_password', isset($empresa) ? Crypt::decrypt($empresa->db_password) : null), [
