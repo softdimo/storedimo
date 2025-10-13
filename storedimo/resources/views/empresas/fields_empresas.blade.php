@@ -239,7 +239,7 @@
                 <label for="id_estado" class="form-label">Estado
                     <span class="text-danger">*</span>
                 </label>
-                {!! Form::select('id_estado', collect(['' => 'Seleccionar...'])->union($estados), old('id_estado', isset($empresa) ? $empresa->id_estado : null), [
+                {!! Form::select('id_estado', collect(['' => 'Seleccionar...'])->union($estados), old('id_estado', isset($empresa) ? $empresa->id_estado : 1), [
                     'class' => 'form-select',
                     'id' => 'id_estado',
                     'required' => 'required',
