@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('rol')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (!Schema::hasTable('roles')) {
+            Schema::create('roles', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('rol')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
+        
     }
 
     /**
@@ -28,6 +31,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        if (Schema::hasTable('roles')) {
+            Schema::dropIfExists('roles');
+        }
     }
 };

@@ -13,21 +13,37 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('compras', function (Blueprint $table) {
-            $table->increments('id_compra');
-            $table->date('fecha_compra')->nullable();
-            $table->string('valor_compra')->nullable();
-            $table->unsignedInteger('id_proveedor')->nullable();
-            $table->unsignedInteger('id_usuario')->nullable();
-            $table->unsignedInteger('id_estado')->nullable();
+        if (!Schema::hasTable('compras')) {
+            Schema::create('compras', function (Blueprint $table) {
+                $table->increments('id_compra');
+                $table->date('fecha_compra')->nullable();
+                $table->string('valor_compra')->nullable();
+                $table->unsignedInteger('id_proveedor')->nullable();
+                $table->unsignedInteger('id_usuario')->nullable();
+                $table->unsignedInteger('id_estado')->nullable();
 
-            $table->timestamps();
-            $table->softDeletes();
+                $table->timestamps();
+                $table->softDeletes();
 
-            $table->foreign('id_proveedor')->references('id_persona')->on('personas');
-            $table->foreign('id_usuario')->references('id_usuario')->on('usuarios');
-            $table->foreign('id_estado')->references('id_estado')->on('estados');
-        });
+                if (Schema::hasTable('personas')) {
+                    $table->foreign('id_proveedor')
+                          ->references('id_persona')
+                          ->on('personas');
+                }
+
+                if (Schema::hasTable('usuarios')) {
+                    $table->foreign('id_usuario')
+                          ->references('id_usuario')
+                          ->on('usuarios');
+                }
+
+                if (Schema::hasTable('estados')) {
+                    $table->foreign('id_estado')
+                          ->references('id_estado')
+                          ->on('estados');
+                }
+            });
+        }
     }
 
     /**
@@ -37,6 +53,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('compras');
+        if (Schema::hasTable('compras')) {
+            Schema::dropIfExists('compras');
+        }
     }
 };

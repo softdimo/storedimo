@@ -13,11 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('compras', function (Blueprint $table) {
-            $table->unsignedInteger('id_producto')->nullable()->after('id_proveedor');
+        if (Schema::hasTable('compras')) {
+            Schema::table('compras', function (Blueprint $table) {
+                if (!Schema::hasColumn('compras', 'id_producto')) {
+                    $table->unsignedInteger('id_producto')->nullable()->after('id_proveedor');
 
-            $table->foreign('id_producto')->references('id_producto')->on('productos');
-        });
+                    if (Schema::hasTable('productos')) {
+                        $table->foreign('id_producto')
+                              ->references('id_producto')
+                              ->on('productos');
+                    }
+                }
+            });
+        }
     }
 
     /**
@@ -27,8 +35,13 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('compras', function (Blueprint $table) {
-            $table->dropColumn('id_producto');
-        });
+        if (Schema::hasTable('compras')) {
+            Schema::table('compras', function (Blueprint $table) {
+                if (Schema::hasColumn('compras', 'id_producto')) {
+                    $table->dropForeign(['id_producto']);
+                    $table->dropColumn('id_producto');
+                }
+            });
+        }
     }
 };

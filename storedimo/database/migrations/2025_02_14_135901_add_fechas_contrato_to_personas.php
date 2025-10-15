@@ -13,10 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('personas', function (Blueprint $table) {
-            $table->date('fecha_contrato')->nullable()->after('id_estado');
-            $table->date('fecha_terminacion_contrato')->nullable()->after('fecha_contrato');
-        });
+        if (Schema::hasTable('personas')) {
+            Schema::table('personas', function (Blueprint $table) {
+                if (!Schema::hasColumn('personas', 'fecha_contrato')) {
+                    $table->date('fecha_contrato')->nullable()->after('id_estado');
+                }
+
+                if (!Schema::hasColumn('personas', 'fecha_terminacion_contrato')) {
+                    $table->date('fecha_terminacion_contrato')->nullable()->after('fecha_contrato');
+                }
+            });
+        }
     }
 
     /**
@@ -26,9 +33,16 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('personas', function (Blueprint $table) {
-            $table->dropColumn('fecha_contrato');
-            $table->dropColumn('fecha_terminacion_contrato');
-        });
+        if (Schema::hasTable('personas')) {
+            Schema::table('personas', function (Blueprint $table) {
+                if (Schema::hasColumn('personas', 'fecha_terminacion_contrato')) {
+                    $table->dropColumn('fecha_terminacion_contrato');
+                }
+
+                if (Schema::hasColumn('personas', 'fecha_contrato')) {
+                    $table->dropColumn('fecha_contrato');
+                }
+            });
+        }
     }
 };

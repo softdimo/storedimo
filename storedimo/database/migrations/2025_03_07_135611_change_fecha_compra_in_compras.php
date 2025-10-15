@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('compras', function (Blueprint $table) {
-            $table->dateTime('fecha_compra')->nullable()->change();
-        });
+        if (Schema::hasTable('compras') && Schema::hasColumn('compras', 'fecha_compra')) {
+            Schema::table('compras', function (Blueprint $table) {
+                $table->dateTime('fecha_compra')->nullable()->change();
+            });
+        }
     }
 
     /**
@@ -25,8 +27,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('compras', function (Blueprint $table) {
-            //
-        });
+        if (Schema::hasTable('compras') && Schema::hasColumn('compras', 'fecha_compra')) {
+            Schema::table('compras', function (Blueprint $table) {
+                $table->date('fecha_compra')->nullable()->change();
+            });
+        }
     }
 };

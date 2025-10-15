@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('generos', function (Blueprint $table) {
-            $table->increments('id_genero');
-            $table->string('genero')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if ( !Schema::hasTable('generos') ) {
+            Schema::create('generos', function (Blueprint $table) {
+                $table->increments('id_genero');
+                $table->string('genero')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
+        
     }
 
     /**
@@ -28,6 +31,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('generos');
+        if ( Schema::hasTable('generos') ) {
+            Schema::dropIfExists('generos');
+        }    
     }
 };

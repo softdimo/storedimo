@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('estados', function (Blueprint $table) {
-            $table->increments('id_estado');
-            $table->string('estado')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (!Schema::hasTable('estados')){
+            Schema::create('estados', function (Blueprint $table) {
+                $table->increments('id_estado');
+                $table->string('estado')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
+        
     }
 
     /**
@@ -28,6 +31,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('estados');
+        if (Schema::hasTable('estados')) {
+            Schema::dropIfExists('estados');
+        }
+        
     }
 };

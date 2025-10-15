@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_persona', function (Blueprint $table) {
-            $table->increments('id_tipo_persona');
-            $table->string('tipo_persona')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if ( !Schema::hasTable('tipo_persona') ) {
+            Schema::create('tipo_persona', function (Blueprint $table) {
+                $table->increments('id_tipo_persona');
+                $table->string('tipo_persona')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
+        
     }
 
     /**
@@ -28,6 +31,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_persona');
+        if( Schema::hasTable('tipo_persona') ) {
+            Schema::dropIfExists('tipo_persona');
+        }
     }
 };

@@ -13,9 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('usuarios', function (Blueprint $table) {
-            $table->integer('clave_fallas')->nullable()->unsigned()->after('clave');
-        });
+        if (Schema::hasTable( 'usuarios') ) {
+            Schema::table('usuarios', function (Blueprint $table) {
+                if (!Schema::hasColumn('usuarios', 'clave_fallas')){
+                    $table->integer('clave_fallas')->nullable()->unsigned()->after('clave');
+                }
+                
+            });
+        }
+        
     }
 
     /**
@@ -25,8 +31,11 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('usuarios', function (Blueprint $table) {
-            $table->dropColumn('clave_fallas');
-        });
+        if (Schema::hasTable( 'usuarios') ) {
+            Schema::table('usuarios', function (Blueprint $table) {
+                $table->dropColumn('clave_fallas');
+            });
+        }
+        
     }
 };

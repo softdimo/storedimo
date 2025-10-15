@@ -13,11 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('personas', function (Blueprint $table) {
-            $table->string('nit_empresa')->nullable()->after('id_estado');
-            $table->string('nombre_empresa')->nullable()->after('nit_empresa');
-            $table->string('telefono_empresa')->nullable()->after('nombre_empresa');
-        });
+        if (Schema::hasTable('personas')) {
+            Schema::table('personas', function (Blueprint $table) {
+                if (!Schema::hasColumn('personas', 'nit_empresa')) {
+                    $table->string('nit_empresa')->nullable()->after('id_estado');
+                }
+
+                if (!Schema::hasColumn('personas', 'nombre_empresa')) {
+                    $table->string('nombre_empresa')->nullable()->after('nit_empresa');
+                }
+
+                if (!Schema::hasColumn('personas', 'telefono_empresa')) {
+                    $table->string('telefono_empresa')->nullable()->after('nombre_empresa');
+                }
+            });
+        }
     }
 
     /**
@@ -27,10 +37,14 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('personas', function (Blueprint $table) {
-            $table->dropColumn('nit_empresa');
-            $table->dropColumn('nombre_empresa');
-            $table->dropColumn('telefono_empresa');
-        });
+        if (Schema::hasTable('personas')) {
+            Schema::table('personas', function (Blueprint $table) {
+                foreach (['nit_empresa', 'nombre_empresa', 'telefono_empresa'] as $columna) {
+                    if (Schema::hasColumn('personas', $columna)) {
+                        $table->dropColumn($columna);
+                    }
+                }
+            });
+        }
     }
 };

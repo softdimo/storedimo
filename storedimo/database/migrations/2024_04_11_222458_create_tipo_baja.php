@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_baja', function (Blueprint $table) {
-            $table->increments('id_tipo_baja');
-            $table->string('tipo_baja')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if ( !Schema::hasTable('tipo_baja') ) {
+            Schema::create('tipo_baja', function (Blueprint $table) {
+                $table->increments('id_tipo_baja');
+                $table->string('tipo_baja')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
+        
     }
 
     /**
@@ -28,6 +31,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_baja');
+        if (Schema::hasTable('tipo_baja') ) {
+            Schema::dropIfExists('tipo_baja');
+        }
     }
 };

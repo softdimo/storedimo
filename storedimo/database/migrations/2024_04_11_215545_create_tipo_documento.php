@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_documento', function (Blueprint $table) {
-            $table->increments('id_tipo_documento');
-            $table->string('tipo_documento')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if ( !Schema::hasTable('tipo_documento') ) { 
+            Schema::create('tipo_documento', function (Blueprint $table) {
+                $table->increments('id_tipo_documento');
+                $table->string('tipo_documento')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
+        
     }
 
     /**
@@ -28,6 +31,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_documento');
+        if (Schema::hasTable('tipo_documento') ) {
+            Schema::dropIfExists('tipo_documento');
+        }
     }
 };

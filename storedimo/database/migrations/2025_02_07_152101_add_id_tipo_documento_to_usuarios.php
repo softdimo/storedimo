@@ -13,10 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('usuarios', function (Blueprint $table) {
-            $table->integer('id_tipo_documento')->nullable()->unsigned()->after('usuario');
-            $table->foreign('id_tipo_documento')->references('id_tipo_documento')->on('tipo_documento');
-        });
+        if (Schema::hasTable('usuarios')) {
+            Schema::table('usuarios', function (Blueprint $table) {
+                if (!Schema::hasColumn('usuarios', 'id_tipo_documento')) {
+                    $table->unsignedInteger('id_tipo_documento')->nullable()->after('usuario');
+
+                    if (Schema::hasTable('tipo_documento')) {
+                        $table->foreign('id_tipo_documento')
+                              ->references('id_tipo_documento')
+                              ->on('tipo_documento');
+                    }
+                }
+            });
+        }
     }
 
     /**
@@ -26,8 +35,14 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('usuarios', function (Blueprint $table) {
-            $table->dropColumn('id_tipo_documento');
-        });
+        if (Schema::hasTable('usuarios')) {
+            Schema::table('usuarios', function (Blueprint $table) {
+                if (Schema::hasColumn('usuarios', 'id_tipo_documento')) {
+                    $table->dropForeign(['id_tipo_documento']);
+                    $table->dropColumn('id_tipo_documento');
+                }
+            });
+        }
+        
     }
 };
