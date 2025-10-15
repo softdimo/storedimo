@@ -6,7 +6,6 @@ use Illuminate\Support\ServiceProvider;
 use Exception;
 use Illuminate\Support\Facades\View;
 use GuzzleHttp\Client;
-use App\Models\Usuario;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,30 +26,28 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('layouts.topbar', function ($view)
-        {
-            $baseUri = env('BASE_URI');
-            $clientApi = new Client(['base_uri' => $baseUri]);
-
-            // ==============================================================
+        \Illuminate\Support\Facades\View::composer('*', function ($view) {
             try {
+                $baseUri = env('BASE_URI');
+                $clientApi = new Client(['base_uri' => $baseUri]);
                 $idUsuario = session('id_usuario');
 
-                // Consultar el usuario en la base de datos
-                $peticionUsuarioLogueado = $clientApi->get($baseUri . 'administracion/consulta_usuario_logueado/'. $idUsuario, [
-                    'json' => []
-                ]);
-                $usuario = json_decode($peticionUsuarioLogueado->getBody()->getContents());
+                $logoEmpresa = asset('imagenes/logo_storedimo.png');
 
-                // Pasamos tanto el usuario como el logo a la vista
+                if (!$idUsuario) {
+                    $view->with('logoEmpresa', $logoEmpresa);
+                    return;
+                }
+
+                $response = $clientApi->get($baseUri . 'administracion/consulta_usuario_logueado/' . $idUsuario);
+                $usuario = json_decode($response->getBody()->getContents());
+
                 $view->with([
                     'usuarioLogueado' => $usuario,
-                    'logoEmpresa' => $usuario->logo_empresa ?? asset('imagenes/logo_storedimo.png')
+                    'logoEmpresa' => $usuario->logo_empresa ?? $logoEmpresa,
                 ]);
-               
-            } catch (Exception $e) {
-                alert()->error('Error, consultando el usuario logueado, contacte a Soporte.');
-                return back();
+            } catch (\Exception $e) {
+                $view->with('logoEmpresa', $logoEmpresa);
             }
         });
     }
