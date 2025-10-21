@@ -159,7 +159,7 @@
                 <label for="db_host" class="form-label">Db Host
                     <span class="text-danger">*</span>
                 </label>
-                {!! Form::text('db_host', old('db_host', isset($empresa) ? Crypt::decrypt($empresa->db_host) : 'srv1999.hstgr.io'), [
+                {!! Form::text('db_host', old('db_host', isset($empresa) ? Crypt::decrypt($empresa->db_host) : 'localhost'), [
                     'class' => 'form-control bg-dark-subtle',
                     'id' => 'db_host',
                     'required' => 'required',
