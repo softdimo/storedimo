@@ -18,7 +18,7 @@ class VentaIndex implements Responsable
             
             // Realiza la solicitud a la API
             $peticion = $clientApi->get($baseUri . 'venta_index', [
-                'json' => [
+                'query' => [
                     'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
