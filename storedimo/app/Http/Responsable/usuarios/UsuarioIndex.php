@@ -17,9 +17,8 @@ class UsuarioIndex implements Responsable
             
             // Realiza la solicitud a la API
             $response = $clientApi->get($baseUri . 'administracion/usuarios_index', [
-                'json' => [
-                    'empresa_actual' => session('empresa_actual'),
-                    'id_empresa_usuario' => session('id_empresa')
+                'query' => [
+                    'id_empresa_usuario' => session('empresa_actual.id_empresa')
                 ]
             ]);
             $usuarioIndex = json_decode($response->getBody()->getContents());

@@ -5,6 +5,8 @@ namespace App\Http\Responsable\usuarios;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use App\Models\Usuario;
+use App\Models\Empresa;
+use App\Helpers\DatabaseConnectionHelper;
 
 class UsuarioIndex implements Responsable
 {
@@ -13,6 +15,14 @@ class UsuarioIndex implements Responsable
         try {
             // Obtener id_empresa_usuario del request
             $idEmpresaUsuario = $request->input('id_empresa_usuario');
+
+            // 2. Buscar empresa completa usando el ID
+            $empresaActual = Empresa::find($idEmpresaUsuario);
+            
+            // Configurar conexión tenant si hay empresa
+            if ($empresaActual) {
+                DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
+            }
 
             $query = Usuario::leftjoin('roles', 'roles.id', '=', 'usuarios.id_rol')
                 ->leftjoin('estados', 'estados.id_estado', '=', 'usuarios.id_estado')
@@ -53,9 +63,19 @@ class UsuarioIndex implements Responsable
 
             $usuarios = $query->orderBy('nombre_usuario')->get();
 
+            // Restaurar conexión principal si se usó tenant
+            if ($empresaActual) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+
             return response()->json($usuarios);
             
         } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
             return response()->json([
                 'message' => 'Error en la consulta de la base de datos',
                 'error' => $e->getMessage(),
