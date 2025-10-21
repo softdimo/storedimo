@@ -33,11 +33,16 @@ class DatabaseConnectionHelper
             // 3️⃣ Determinar el host según el entorno
             // En local → usa el host del servidor remoto
             // En producción → desencripta el host guardado en base de datos (si existe)
-            $host = app()->environment('local')
-                ? 'srv1999.hstgr.io'
-                : (isset($empresa['db_host']) 
-                    ? self::safeDecrypt($empresa['db_host'])
-                    : env('DB_HOST', 'localhost'));
+            if (app()->environment('local')) {
+                // Entorno local → servidor remoto de desarrollo
+                $host = 'srv1999.hstgr.io';
+            } elseif (isset($empresa['db_host'])) {
+                // Entorno producción → desencripta el host almacenado en BD
+                $host = self::safeDecrypt($empresa['db_host']);
+            } else {
+                // Valor por defecto definido en .env o 'localhost'
+                $host = env('DB_HOST', 'localhost');
+            }
 
             // 4️⃣ Crear la configuración dinámica del tenant
             $config = [
