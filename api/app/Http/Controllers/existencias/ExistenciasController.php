@@ -263,7 +263,9 @@ class ExistenciasController extends Controller
         }
 
         try {
-            $productosStockMinimo = Producto::whereColumn('cantidad', '<', 'stock_minimo')->count();
+            $productosStockMinimo = Producto::where('id_estado', 1)
+            ->whereColumn('cantidad', '<', 'stock_minimo')
+            ->count();
 
             // Restaurar conexión principal si se usó tenant
             if ($empresaActual) {
