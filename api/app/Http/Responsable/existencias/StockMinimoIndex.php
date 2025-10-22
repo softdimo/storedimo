@@ -44,6 +44,7 @@ class StockMinimoIndex implements Responsable
                     'tipo_persona.id_tipo_persona',
                     'tipo_persona'
                 )
+                ->where('productos.id_estado', 1)
                 ->orderBy('nombre_producto', 'ASC')
                 ->whereColumn('productos.cantidad', '<', 'productos.stock_minimo')
                 ->get();
