@@ -25,7 +25,7 @@ class UnidadMedidaEdit implements Responsable
             $clientApi = new Client(['base_uri' => $baseUri]);
 
             $peticion = $clientApi->get($baseUri . 'unidad_medida_edit/'. $this->idUmd, [
-                'json' => [
+                'query' => [
                     'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
