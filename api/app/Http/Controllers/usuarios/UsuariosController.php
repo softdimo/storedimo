@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Exception;
 use App\Http\Responsable\usuarios\UsuarioIndex;
 use App\Http\Responsable\usuarios\UsuarioStore;
+use App\Http\Responsable\usuarios\UsuarioEdit;
 use App\Http\Responsable\usuarios\UsuarioUpdate;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Usuario;
@@ -71,9 +72,9 @@ class UsuariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($idUsuario)
     {
-        //
+        return new UsuarioEdit($idUsuario);
     }
 
     // ======================================================================

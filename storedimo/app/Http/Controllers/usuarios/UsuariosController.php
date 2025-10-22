@@ -8,6 +8,7 @@ use Exception;
 use App\Http\Responsable\usuarios\UsuarioIndex;
 use App\Http\Responsable\usuarios\UsuarioStore;
 use App\Http\Responsable\usuarios\UsuarioUpdate;
+use App\Http\Responsable\usuarios\UsuarioEdit;
 use GuzzleHttp\Client;
 use App\Traits\MetodosTrait;
 use Illuminate\Validation\ValidationException;
@@ -133,15 +134,7 @@ class UsuariosController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
-
-                    // Recibe el tipo de modal desde la request
-                    $tipoModal = $request->get('tipo_modal', 'editar_usuario'); // valor por defecto
-
-                    return match ($tipoModal)
-                    {
-                        'cambiar_clave' => view('usuarios.modal_cambiar_clave', compact('usuario')),
-                        default  => view('usuarios.modal_editar_usuario', compact('usuario')),
-                    };
+                    return new UsuarioEdit($idUsuario);
                 }
             }
         } catch (Exception $e)
