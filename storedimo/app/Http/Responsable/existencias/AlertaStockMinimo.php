@@ -18,7 +18,7 @@ class AlertaStockMinimo implements Responsable
             
             // Realiza la solicitud a la API
             $peticion = $clientApi->get($baseUri . 'alerta_stock_minimo', [
-                'json' => [
+                'query' => [
                     'empresa_actual' => session('empresa_actual.id_empresa')
                 ]
             ]);
