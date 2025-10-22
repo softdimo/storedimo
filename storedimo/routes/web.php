@@ -219,20 +219,6 @@ Route::middleware(['web', 'prevent-back-history'])->group(function () {
 
         // ========================================================================
         // ========================================================================
-        
-        // Abre automáticamente el archivo con los códigos QR del producto recién solicitado
-        Route::get('/ver-pdf/{archivo}', function ($archivo) {
-            $rutaPdf = storage_path("app/public/upfiles/productos/barcodes/{$archivo}");
-        
-            if (!file_exists($rutaPdf)) {
-                abort(404, "El archivo no existe.");
-            }
-        
-            return response()->file($rutaPdf);
-        })->name('ver.pdf');
-
-        // ========================================================================
-        // ========================================================================
 
         // Unidades de Medida
         Route::group(['namespace' => 'App\Http\Controllers\unidades_medida'], function () {

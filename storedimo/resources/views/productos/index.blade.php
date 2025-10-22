@@ -189,6 +189,12 @@
                         </table>
                     </div>
 
+                    @if(session('pdfUrl'))
+                        <script>
+                            window.open("{{ session('pdfUrl') }}", "_blank");
+                        </script>
+                    @endif
+
                     <!-- <div class="mt-5 mb-2 d-flex justify-content-center">
                         <a href="{{ route('reporte_productos_pdf') }}" target="_blank"
                             class="btn rounded-2 me-3 text-white" style="background-color: #286090">
