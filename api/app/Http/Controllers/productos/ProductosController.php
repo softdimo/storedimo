@@ -225,10 +225,82 @@ class ProductosController extends Controller
         }
     }
 
+    // ======================================================================
+    // ======================================================================
+
+    public function queryProductoUpdate(Request $request, $idProducto)
+    {
+        // 1. Obtener ID de empresa del request (antes era empresa_actual completo)
+        $empresaId = $request->input('empresa_actual');
+
+        // 2. Buscar empresa completa usando el ID
+        $empresaActual = Empresa::find($empresaId);
+        
+        // Configurar conexión tenant si hay empresa
+        if ($empresaActual) {
+            DatabaseConnectionHelper::configurarConexionTenant($empresaActual->toArray());
+        }
+
+        try
+        {
+            $queryProductoUpdate = Producto::leftjoin('categorias','categorias.id_categoria','=','productos.id_categoria')
+                ->select(
+                    'id_producto',
+                    'id_empresa',
+                    'imagen_producto',
+                    'nombre_producto',
+                    'categorias.id_categoria',
+                    'categoria',
+                    'precio_unitario',
+                    'precio_detal',
+                    'precio_por_mayor',
+                    'descripcion',
+                    'stock_minimo',
+                    'categorias.id_estado',
+                    'tamano',
+                    'cantidad',
+                    'referencia',
+                    'fecha_vencimiento',
+                    'id_umd',
+                    'id_proveedor'
+                )
+                ->where('id_producto', $idProducto)
+                ->first();
+
+            // Restaurar conexión principal si se usó tenant
+            if ($empresaActual)
+            {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+
+            if ($queryProductoUpdate)
+            {
+                return response()->json($queryProductoUpdate);
+            } else
+            {
+                return response(null, 200);
+            }
+
+        } catch (Exception $e) {
+            // Asegurar restauración de conexión principal en caso de error
+            if (isset($empresaActual)) {
+                DatabaseConnectionHelper::restaurarConexionPrincipal();
+            }
+            
+            return response()->json(['error_bd' => $e->getMessage()]);
+        }
+    }
+
+    // ======================================================================
+    // ======================================================================
+
     public function reporteProductosPdf()
     {
         return new ReporteProductosPdf();
     }
+
+    // ======================================================================
+    // ======================================================================
 
     /**
      * Valida que la referencia del producto no exista a la hora de crear un nuevo producto
@@ -261,6 +333,9 @@ class ProductosController extends Controller
             'valido' => !$existe
         ]);
     }
+
+    // ======================================================================
+    // ======================================================================
 
     public function productosTraitVentas(Request $request)
     {
@@ -308,6 +383,9 @@ class ProductosController extends Controller
         }
     }
 
+    // ======================================================================
+    // ======================================================================
+
     public function productosTraitCompras(Request $request)
     {
         // 1. Obtener ID de empresa del request (antes era empresa_actual completo)
@@ -353,6 +431,9 @@ class ProductosController extends Controller
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
+
+    // ======================================================================
+    // ======================================================================
 
     public function productosTraitExistencias(Request $request)
     {
@@ -400,6 +481,9 @@ class ProductosController extends Controller
             return response()->json(['error_bd' => $e->getMessage()]);
         }
     }
+
+    // ======================================================================
+    // ======================================================================
 
     public function consultarUmd(Request $request)
     {

@@ -97,6 +97,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->put('producto_update/{idProducto}', 'productos\ProductosController@update');
     $router->post('cambiar_estado_producto/{idProducto}', 'productos\ProductosController@destroy');
     $router->post('query_producto/{idProducto}', 'productos\ProductosController@queryProducto');
+    $router->get('query_producto_update/{idProducto}', 'productos\ProductosController@queryProductoUpdate');
     $router->get('reporte_productos_pdf', 'productos\ProductosController@reporteProductosPdf');
     $router->post('verificar_referencia', 'productos\ProductosController@referenceValidator');
     $router->get('productos_trait_ventas', 'productos\ProductosController@productosTraitVentas');
