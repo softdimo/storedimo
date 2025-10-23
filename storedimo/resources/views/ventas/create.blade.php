@@ -316,7 +316,7 @@
                         <div class="d-flex justify-content-end mt-4 p-3" style="">
                             <button type="submit" class="btn btn-success rounded-2 me-3" id="btn_registar_venta">
                                 <i class="fa fa-floppy-o"></i>
-                                Guardar
+                                Vender
                             </button>
                         </div>
                     </div> {{-- FIN div_derecho (Detalle Venta) --}}
@@ -591,6 +591,7 @@
 
                 let btn = $('#btnAgregarVenta');
                 let spinner = $("#loadingIndicatorAgregarVenta");
+                let btnRegistarVenta = $('#btn_registar_venta');
 
                 if (idProducto != '') {
                     $.ajax({
@@ -611,6 +612,9 @@
                             btn.prop("disabled", true).html(
                                 `<i class="fa fa-spinner fa-spin"></i> Procesando...`);
                             $('#cantidad_venta').val('');
+
+                            btnRegistarVenta.prop('disabled', true);
+                            
                         },
                         success: function(respuesta) {
                             setTimeout(() => {
@@ -635,6 +639,7 @@
 
                                 spinner.hide();
                                 btn.prop("disabled", false).html(`<i class="fa fa-plus plus"></i> Agregar`);
+                                btnRegistarVenta.prop('disabled', false);
                             }, 1000);
                         },
                         error: function(xhr, status, error) {
@@ -643,6 +648,10 @@
                                 `<i class="fa fa-plus plus"></i> Agregar`);
                         }
                     });
+                } else {
+                    $('#p_detal_venta').html(0);
+                    $('#p_x_mayor_venta').html(0);
+                    $('#cantidad_producto').html(0);
                 }
             });
             // FIN - Consulta de los precios del productos
@@ -706,19 +715,19 @@
             // ===================================================================================
 
             // INICIO DataTable
-            // let tablaDetalleVenta = $('#tabla_detalle_venta').DataTable({
-            //     dom: 'lrtip',
-            //     infoEmpty: 'No hay registros',
-            //     stripe: true,
-            //     bSort: false,
-            //     autoWidth: false,
-            //     scrollX: true,
-            //     pageLength: 10,
-            //     responsive: true,
-            //     language: {
-            //         emptyTable: "No hay productos agregados"
-            //     }
-            // }); 
+            let tablaDetalleVenta = $('#tabla_detalle_venta').DataTable({
+                dom: 'lrtip',
+                infoEmpty: 'No hay registros',
+                stripe: true,
+                bSort: false,
+                autoWidth: false,
+                scrollX: true,
+                pageLength: 10,
+                responsive: true,
+                language: {
+                    emptyTable: "No hay productos agregados"
+                }
+            });
             // CIERRE DataTable
 
             // ===================================================================================
@@ -770,6 +779,17 @@
                 productosAgregados.push(producto);
 
                 actualizarDetalleVenta();
+
+                let valorVenta = $('#total_venta').val();
+                let btnRegistarVenta = $('#btn_registar_venta');
+                console.log(valorVenta);
+                
+
+                if (valorVenta == '' || valorVenta == '0' || valorVenta == 0 ) {
+                    btnRegistarVenta.prop('disabled', true);
+                } else {
+                    btnRegistarVenta.prop('disabled', false);
+                }
 
                 // Limpia los campos después de agregar un producto exitosamente
                 $('#cantidad_venta').attr('required');
@@ -829,6 +849,17 @@
                 $('#p_x_mayor_venta').html(0); // Resetear precio mayorista
                 $('#cantidad_venta').val(''); // Limpiar cantidad
                 $('#cantidad_producto').html(0); // Limpiar cantidad disponible
+
+                let valorVenta = $('#total_venta').val();
+                let btnRegistarVenta = $('#btn_registar_venta');
+                console.log(valorVenta);
+                
+
+                if (valorVenta == '' || valorVenta == '0' || valorVenta == 0 ) {
+                    btnRegistarVenta.prop('disabled', true);
+                } else {
+                    btnRegistarVenta.prop('disabled', false);
+                }
             };
 
             // ===================================================================================
@@ -846,6 +877,20 @@
                     $('#plazo_credito').removeAttr('required');
                 }
             });
+
+            // ===================================================================================
+            // ===================================================================================
+
+            let valorVenta = $('#total_venta').val();
+            let btnRegistarVenta = $('#btn_registar_venta');
+            console.log(valorVenta);
+            
+
+            if (valorVenta == '' || valorVenta == '0' || valorVenta == 0 ) {
+                btnRegistarVenta.prop('disabled', true);
+            } else {
+                btnRegistarVenta.prop('disabled', false);
+            }
 
             // ===================================================================================
             // ===================================================================================
