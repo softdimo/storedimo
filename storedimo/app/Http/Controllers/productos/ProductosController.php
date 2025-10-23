@@ -415,7 +415,7 @@ class ProductosController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
-                    $queryValoresProducto = $this->clientApi->post($this->baseUri.'query_producto/'.$idProducto, [
+                    $queryValoresProducto = $this->clientApi->get($this->baseUri.'query_producto_update/'.$idProducto, [
                         'json' => [
                             'empresa_actual' => session('empresa_actual.id_empresa')
                         ]
