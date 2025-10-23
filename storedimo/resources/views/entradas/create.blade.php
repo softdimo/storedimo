@@ -210,9 +210,9 @@
                             {{-- ============ --}}
 
                             <div class="d-flex justify-content-end mb-5 p-3" style="">
-                                <button type="submit" class="btn btn-success rounded-2 me-3" id="btn_registar_compra>
+                                <button type="submit" class="btn btn-success rounded-2 me-3" id="btn_registar_compra">
                                     <i class="fa fa-floppy-o"></i>
-                                    Guardar
+                                    Comprar
                                 </button>
                             </div>
                         </div>
@@ -604,6 +604,9 @@
                 width: '100%'
             });
 
+            // ===================================================================================
+            // ===================================================================================
+
             let idProducto = $('#id_producto').val();
 
             if (idProducto == '') {
@@ -612,6 +615,9 @@
                 $('#p_x_mayor').html(0);
                 $('#btn_add_entrada').prop("disabled", true);
             }
+
+            // ===================================================================================
+            // ===================================================================================
 
             // INICIO - Validación Formulario Creación de Bajas de productos
             $('#id_producto').change(function() {
@@ -681,7 +687,8 @@
                 } // FIN if (idProducto != '')
             }); // FIN - Validación Formulario Creación de Bajas de productos $('#id_producto').change(function()
 
-            // ================================================
+            // ===================================================================================
+            // ===================================================================================
 
             // Modal modal_registroProducto (Store)
             $(document).on('shown.bs.modal', '[id^="modal_registroProducto"]', function() {
@@ -735,7 +742,8 @@
                 } // FIN inputPrecioUnitario.length > 0
             }); // FIN '[id^="modal_registroProducto"]').on('shown.bs.modal'
 
-            // ================================================
+            // ===================================================================================
+            // ===================================================================================
 
             // Modal modalModificarPrecios (Update)
             $(document).on('shown.bs.modal', '[id^="modalModificarPrecios"]', function() {
@@ -799,6 +807,9 @@
                 }
             }); // CIERRE DataTable
 
+            // ===================================================================================
+            // ===================================================================================
+
             // INICIO - Función para agregar fila x fila cada producto para comprar
             let totalVenta = 0;
             let indiceSiguienteFila = 0;
@@ -861,6 +872,17 @@
                 // Actualizar total
                 $('#valor_compra').val(totalVenta);
 
+                let valorCompra = $('#valor_compra').val();
+                let btnRegistarCompra = $('#btn_registar_compra');
+                console.log(valorCompra);
+                
+
+                if (valorCompra == '' || valorCompra == '0' || valorCompra == 0 ) {
+                    btnRegistarCompra.prop('disabled', true);
+                } else {
+                    btnRegistarCompra.prop('disabled', false);
+                }
+
                 $('#cantidad').attr('required');
 
                 $('#id_producto').val('').trigger('change'); // Reiniciar selección de producto
@@ -880,26 +902,63 @@
 
             $(document).on('click', '.btn-eliminar-fila', function() {
                 let idFila = $(this).data('id');
+                let row = $(`#row_${idFila}`);
+                let subtotalTexto = row.find('td:nth-child(3)').text().trim();
+                let subtotal = parseFloat(subtotalTexto) || 0;
 
-                // Obtener texto del subtotal y convertir a número
-                let subtotalTexto = $(`#row_${idFila} td:nth-child(3)`).text().trim();
-                let subtotal = parseFloat(subtotalTexto);
-
-                if (isNaN(subtotal)) {
-                    console.warn(
-                        `No se pudo obtener el subtotal de la fila ${idFila}. Valor leído: "${subtotalTexto}"`
-                    );
-                    subtotal = 0;
-                }
-
-                // Restar subtotal del total acumulado
                 totalVenta -= subtotal;
                 $('#valor_compra').val(totalVenta);
 
-                // Eliminar fila y sus inputs ocultos
-                $(`#row_${idFila}`).remove();
+                let btnRegistarCompra = $('#btn_registar_compra');
+                if (totalVenta <= 0) {
+                    btnRegistarCompra.prop('disabled', true);
+                    totalVenta = 0; // Evita negativos
+                    $('#valor_compra').val(0);
+                } else {
+                    btnRegistarCompra.prop('disabled', false);
+                }
+
+                // ✅ Eliminar correctamente la fila desde DataTables
+                tablaCompras.row(row).remove().draw();
+
+                // ✅ También eliminar los inputs ocultos
                 $(`#input_group_${idFila}`).remove();
             });
+
+
+            // $(document).on('click', '.btn-eliminar-fila', function() {
+            //     let idFila = $(this).data('id');
+
+            //     // Obtener texto del subtotal y convertir a número
+            //     let subtotalTexto = $(`#row_${idFila} td:nth-child(3)`).text().trim();
+            //     let subtotal = parseFloat(subtotalTexto);
+
+            //     if (isNaN(subtotal)) {
+            //         console.warn(
+            //             `No se pudo obtener el subtotal de la fila ${idFila}. Valor leído: "${subtotalTexto}"`
+            //         );
+            //         subtotal = 0;
+            //     }
+
+            //     // Restar subtotal del total acumulado
+            //     totalVenta -= subtotal;
+            //     $('#valor_compra').val(totalVenta);
+
+            //     let valorCompra = $('#valor_compra').val();
+            //     let btnRegistarCompra = $('#btn_registar_compra');
+            //     console.log(valorCompra);
+                
+
+            //     if (valorCompra == '' || valorCompra == '0' || valorCompra == 0 ) {
+            //         btnRegistarCompra.prop('disabled', true);
+            //     } else {
+            //         btnRegistarCompra.prop('disabled', false);
+            //     }
+
+            //     // Eliminar fila y sus inputs ocultos
+            //     $(`#row_${idFila}`).remove();
+            //     $(`#input_group_${idFila}`).remove();
+            // });
 
             // ===================================================================================
             // ===================================================================================
@@ -940,6 +999,20 @@
                 // Mostrar Spinner
                 loadingIndicator.show();
             });
+
+            // ===================================================================================
+            // ===================================================================================
+
+            let valorCompra = $('#valor_compra').val();
+            let btnRegistarCompra = $('#btn_registar_compra');
+            console.log(valorCompra);
+            
+
+            if (valorCompra == '' || valorCompra == '0' || valorCompra == 0 ) {
+                btnRegistarCompra.prop('disabled', true);
+            } else {
+                btnRegistarCompra.prop('disabled', false);
+            }
 
             // ===================================================================================
             // ===================================================================================

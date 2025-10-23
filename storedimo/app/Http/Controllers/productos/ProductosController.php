@@ -416,7 +416,7 @@ class ProductosController extends Controller
                 } else
                 {
                     $queryValoresProducto = $this->clientApi->get($this->baseUri.'query_producto_update/'.$idProducto, [
-                        'json' => [
+                        'query' => [
                             'empresa_actual' => session('empresa_actual.id_empresa')
                         ]
                     ]);
