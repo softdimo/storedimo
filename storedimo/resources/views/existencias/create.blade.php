@@ -116,6 +116,12 @@
                             </div>
 
                             <div class="mt-3">
+                                <label for="categoria" class="form-label">Categoría <span class="text-danger">*</span></label>
+                                {{ Form::text('categoria', null, ['class' => 'form-control bg-secondary-subtle', 'id' => 'categoria', 'readonly']) }}
+                                {{ Form::hidden('id_categoria', null, ['class' => 'form-control', 'id' => 'id_categoria']) }}
+                            </div>
+
+                            <div class="mt-3">
                                 <label for="cantidad" class="form-label">Cantidad <span class="text-danger">*</span></label>
                                 {!! Form::text('cantidad', null, [
                                     'class' => 'form-control',
@@ -164,9 +170,10 @@
                                 aria-describedby="categorias">
                                 <thead>
                                     <tr class="header-table text-center">
+                                        <th>Tipo de Baja</th>
                                         <th>Producto</th>
                                         <th>Cantidad</th>
-                                        <th>Tipo de Baja</th>
+                                        <th>Categoria</th>
                                         <th>Opción</th>
                                     </tr>
                                 </thead>
@@ -183,7 +190,7 @@
                             <div class="d-flex justify-content-end mb-5" style="">
                                 <button type="submit" class="btn btn-success rounded-2 me-3" id="guardarBajas">
                                     <i class="fa fa-floppy-o"></i>
-                                    Guardar
+                                    Dar de Baja
                                 </button>
                             </div>
                         </div>
@@ -209,6 +216,27 @@
                 width: '100%'
             });
 
+            // ===================================================================================
+            // ===================================================================================
+
+            // 1️⃣ Al cargar la página: desactivar el botón
+            $('#guardarBajas').prop('disabled', true);
+
+            // Función para verificar filas y habilitar/deshabilitar botón
+            // Cuenta únicamente las filas reales que hemos creado dinámicamente:
+            // las que tienen el atributo name="row_<indice>"
+            function verificarFilasBajas() {
+                let filasReales = $('#tbl_bajas tbody tr[name^="row_"]').length;
+                if (filasReales > 0) {
+                    $('#guardarBajas').prop('disabled', false);
+                } else {
+                    $('#guardarBajas').prop('disabled', true);
+                }
+            }
+
+            // ===================================================================================
+            // ===================================================================================
+
             $("#cantidad").blur(function() {
                 let idProducto = $('#producto').val();
                 let cantidad = $('#cantidad').val();
@@ -232,9 +260,24 @@
                     }
                 });
             });
+            
+            // ===================================================================================
+            // ===================================================================================
+
+            // Pasamos la lista completa de productos con categoría desde el backend
+            let productosData = @json($productosData);
+
+            $('#producto').on('change', function() {
+                let id = $(this).val();
+                let producto = productosData.find(p => p.id_producto == id);
+                $('#categoria').val(producto ? producto.categoria : '');
+                $('#id_categoria').val(producto ? producto.id_categoria : '');
+            });
 
             // ===================================================================================
             // ===================================================================================
+
+            
 
             // INICIO - Función para agregar fila x fila cada producto para dar de baja
             $("#btn_add_baja").click(function() {
@@ -243,6 +286,8 @@
                 let tipoBaja = $('#tipo_baja option:selected').text();
                 let idProducto = $('#producto').val();
                 let producto = $('#producto option:selected').text();
+                let idCategoria = $('#id_categoria').val();
+                let categoria = $('#categoria').val();
                 let cantidad = $('#cantidad').val();
                 let observaciones = $('#observaciones').val();
 
@@ -253,14 +298,16 @@
                         'error'
                     );
                 } else {
-                    var indiceSiguienteFila = $('#tbl_bajas tr').length;
+                    // var indiceSiguienteFila = $('#tbl_bajas tr').length;
+                    var indiceSiguienteFila = $('#tbl_bajas tbody tr[name^="row_"]').length;
 
                     // Crear una fila para la tabla
                     let fila = `
                         <tr class="" name="row_${indiceSiguienteFila}">
+                            <td class="text-center">${tipoBaja}</td>
                             <td class="text-center">${producto}</td>
                             <td class="text-center">${cantidad}</td>
-                            <td class="text-center">${tipoBaja}</td>
+                            <td class="text-center">${categoria}</td>
                             <td class="text-center">
                                 <button type="button" class="btn btn-danger rounded-circle btn-delete-baja" data-id="${indiceSiguienteFila}" title="Eliminar" style="background-color:red;">
                                     <i class="fa fa-trash"></i>
@@ -269,14 +316,16 @@
                         </tr>
                     `;
 
-                    $('#tbl_bajas').append(fila);
+                    // $('#tbl_bajas').append(fila);
+                    $('#tbl_bajas tbody').append(fila);
 
                     // Agregar inputs hidden dentro del formulario
                     let hiddenInputs = `
                         <div id="input_group_${indiceSiguienteFila}">
+                            <input type="hidden" name="id_tipo_baja[]" value="${idtipoBaja}">
                             <input type="hidden" name="id_producto[]" value="${idProducto}">
                             <input type="hidden" name="cantidad_baja[]" value="${cantidad}">
-                            <input type="hidden" name="id_tipo_baja[]" value="${idtipoBaja}">
+                            <input type="hidden" name="id_categoria_baja[]" value="${idCategoria}">
                             <input type="hidden" name="observaciones_baja[]" value="${observaciones}">
                         </div>
                     `;
@@ -288,6 +337,9 @@
                     
                     $('#cantidad').val('');
                     $('#observaciones').val('');
+
+                    // 2️⃣ Ejecutar la verificación después de agregar una baja
+                    verificarFilasBajas();
                 }
             });
             // FIN - Función para agregar fila x fila cada producto para dar de baja
@@ -317,6 +369,9 @@
                 let idBaja = $(this).data('id'); // Obtiene el ID de la fila
                 $(`tr[name="row_${idBaja}"]`).remove(); // Elimina la fila de la tabla
                 $(`#input_group_${idBaja}`).remove(); // Elimina los inputs hidden
+
+                // 3️⃣ Ejecutar la verificación después de eliminar una baja
+                verificarFilasBajas();
             });
 
             // ===================================================================================

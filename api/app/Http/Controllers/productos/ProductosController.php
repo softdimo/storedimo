@@ -449,15 +449,18 @@ class ProductosController extends Controller
         }
         
         try {
-            $productosExistencias = Producto::orderBy('nombre_producto')
+            $productosExistencias = Producto::leftJoin('categorias', 'categorias.id_categoria', '=', 'productos.id_categoria')
                 ->select(
+                    'id_producto',
                     DB::raw("CONCAT(referencia, ' - ', nombre_producto) AS nombre_producto"),
-                    'id_producto'
+                    'categorias.id_categoria',
+                    'categorias.categoria'
                 )
                 ->where('cantidad', '>', 0)
-                ->where('id_estado', 1)
+                ->where('productos.id_estado', 1)
                 ->orderBy('nombre_producto')
-                ->pluck('nombre_producto', 'id_producto');
+                ->get();
+                // ->pluck('nombre_producto', 'id_producto');
 
             // Retornamos la categoría si existe, de lo contrario retornamos null
             if (isset($productosExistencias) && !is_null($productosExistencias) && !empty($productosExistencias)) {

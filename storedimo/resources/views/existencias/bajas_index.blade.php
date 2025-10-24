@@ -271,7 +271,7 @@
                 dom: 'Blfrtip',
                 "infoEmpty": "No hay registros",
                 stripe: true,
-                bSort: true,
+                bSort: false,
                 buttons: [
                     {
                         extend: 'excelHtml5',
@@ -340,6 +340,28 @@
                     },
                     success: function(html) {
                         $('#modalDetalleBajaContent').html(html);
+
+                        // INICIO DataTable Detalle Bajas
+                        $("#tblDetalleBaja").DataTable({
+                            dom: 'Blfrtip',
+                            "infoEmpty": "No hay registros",
+                            stripe: true,
+                            bSort: false,
+                            buttons: [
+                                {
+                                    extend: 'excelHtml5',
+                                    text: 'Excel',
+                                    className: 'btn btn-sm btn-success mr-3',
+                                    customize: function(xlsx) {
+                                        var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                                        $('row:first c', sheet).attr('s', '42');
+                                    }
+                                }
+                            ],
+                            "pageLength": 25,
+                            "scrollX": true,
+                        });
+                        // CIERRE DataTable Detalle Bajas
                     },
                     error: function() {
                         $('#modalDetalleBajaContent').html(

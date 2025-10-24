@@ -64,8 +64,15 @@ class ExistenciasController extends Controller
                     return redirect()->to(route('login'));
                 } else
                 {
-                    $productos = $this->productosTrait();
-                    view()->share('productos', $productos);
+                    $productosData  = $this->productosTrait();
+                    // dd($productos);
+
+                    // Convertimos a formato para el Form::select
+                    $productos = collect($productosData)->pluck('nombre_producto', 'id_producto');
+
+                    // Compartimos ambos (el pluck y la lista completa)
+                    // view()->share('productos', $productos);
+                    view()->share(compact('productos', 'productosData'));
 
                     $vista = 'existencias.create';
                     return $this->validarAccesos($sesion[0], 13, $vista);
