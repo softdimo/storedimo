@@ -77,7 +77,7 @@ class PersonasController extends Controller
                 {
                     return redirect()->to(route('login'));
                 } else {
-                    $this->shareData();
+                    // $this->shareData();
 
                     $vista = 'personas.create';
                     return $this->validarAccesos($sesion[0], 23, $vista);
