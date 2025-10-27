@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Responsable;
 use App\Models\Producto;
 use App\Models\Empresa;
 use App\Helpers\DatabaseConnectionHelper;
+use Carbon\Carbon;
 
 class ProductoIndex implements Responsable
 {
@@ -58,6 +59,36 @@ class ProductoIndex implements Responsable
 
             if (isset($productos) && !is_null($productos) && !empty($productos))
             {
+                //Agregar el estado de vencimiento a cada producto
+                $productos = $productos->map(function ($producto) {
+                    if (!empty($producto->fecha_vencimiento)) {
+                        $hoy = Carbon::now();
+                        $vencimiento = Carbon::parse($producto->fecha_vencimiento);
+                        $diasRestantes = $hoy->diffInDays($vencimiento, false);
+
+                        if ($diasRestantes < 0) {
+                            $producto->estado_vencimiento = 'vencido';
+                        } elseif ($diasRestantes <= 30) {
+                            $producto->estado_vencimiento = 'próximo a vencer';
+                        } else {
+                            $producto->estado_vencimiento = 'vigente';
+                        }
+                    } else {
+                        // Si no tiene fecha de vencimiento, se deja en null
+                        $producto->estado_vencimiento = null;
+                    }
+
+                    return $producto;
+                });
+
+                // Restaurar conexión principal si se usó tenant
+                if ($empresaActual) {
+                    DatabaseConnectionHelper::restaurarConexionPrincipal();
+                }
+
+                // Retornar productos con su estado de vencimiento incluido
+                return response()->json($productos);
+            
                 // Restaurar conexión principal si se usó tenant
                 if ($empresaActual)
                 {

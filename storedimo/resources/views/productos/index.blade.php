@@ -115,6 +115,7 @@
                                     <th class="align-middle">Cantidad</th>
                                     <th class="align-middle">Stock Mínimo</th>
                                     <th class="align-middle">Fecha Vencimiento</th>
+                                    <th class="align-middle">Estado Vencimiento</th>
                                     <th class="align-middle">Unidad de Medida</th>
                                     <th class="align-middle">Estado</th>
                                     <th class="align-middle">Opciones</th>
@@ -152,6 +153,27 @@
                                         <td class="align-middle">{{ $producto->stock_minimo }}</td>
 
                                         <td class="align-middle">{{ $producto->fecha_vencimiento }}</td>
+
+                                        @if (!empty($producto->estado_vencimiento))
+                                            @if ($producto->estado_vencimiento === 'vencido')
+                                                <td class="bg-danger-subtle text-danger fw-semibold align-middle">
+                                                    {{ ucfirst($producto->estado_vencimiento) }}
+                                                </td>
+                                            @elseif ($producto->estado_vencimiento === 'próximo a vencer')
+                                                <td class="bg-warning-subtle text-warning fw-semibold align-middle">
+                                                    {{ ucfirst($producto->estado_vencimiento) }}
+                                                </td>
+                                            @elseif ($producto->estado_vencimiento === 'vigente')
+                                                <td class="bg-success-subtle text-success fw-semibold align-middle">
+                                                    {{ ucfirst($producto->estado_vencimiento) }}
+                                                </td>
+                                            @else
+                                                <td class="align-middle">{{ $producto->estado_vencimiento }}</td>
+                                            @endif
+                                        @else
+                                            <td class="align-middle">—</td>
+                                        @endif
+
                                         <td class="align-middle">{{ $producto->umd }}</td>
                                         <td class="align-middle">{{ $producto->estado }}</td>
 
@@ -189,19 +211,19 @@
                         </table>
                     </div>
 
-                    @if(session('pdfUrl'))
+                    @if (session('pdfUrl'))
                         <script>
                             window.open("{{ session('pdfUrl') }}", "_blank");
                         </script>
                     @endif
 
                     <!-- <div class="mt-5 mb-2 d-flex justify-content-center">
-                        <a href="{{ route('reporte_productos_pdf') }}" target="_blank"
-                            class="btn rounded-2 me-3 text-white" style="background-color: #286090">
-                            <i class="fa fa-file-pdf-o"></i>
-                            Reporte Productos
-                        </a>
-                    </div> -->
+                            <a href="{{ route('reporte_productos_pdf') }}" target="_blank"
+                                class="btn rounded-2 me-3 text-white" style="background-color: #286090">
+                                <i class="fa fa-file-pdf-o"></i>
+                                Reporte Productos
+                            </a>
+                        </div> -->
                 </div> {{-- FIN div_ --}}
             </div> {{-- FIN div_ --}}
         </div>
@@ -257,17 +279,15 @@
                     url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
                 },
                 bSort: true,
-                buttons: [
-                    {
-                        extend: 'excelHtml5',
-                        text: 'Excel',
-                        className: 'btn btn-sm btn-success mr-3',
-                        customize: function(xlsx) {
-                            var sheet = xlsx.xl.worksheets['sheet1.xml'];
-                            $('row:first c', sheet).attr('s', '42');
-                        }
+                buttons: [{
+                    extend: 'excelHtml5',
+                    text: 'Excel',
+                    className: 'btn btn-sm btn-success mr-3',
+                    customize: function(xlsx) {
+                        var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                        $('row:first c', sheet).attr('s', '42');
                     }
-                ],
+                }],
                 "pageLength": 10,
                 "scrollX": true,
             });
@@ -290,7 +310,7 @@
                         $('#modalEditarProducto').modal('show');
                         $('#modalEditarProductoContent').html(
                             '<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>'
-                            );
+                        );
                     },
                     success: function(html) {
                         $('#modalEditarProductoContent').html(html);
@@ -313,7 +333,7 @@
                             // Valido que el precio unitario sea menor que el precio al detal
                             inputPrecioDetal.on("blur", function() {
                                 let precioUnitario = parseFloat(inputPrecioUnitario
-                                .val()) || 0;
+                                    .val()) || 0;
                                 let precioDetal = parseFloat(inputPrecioDetal.val()) ||
                                     0;
 
@@ -332,11 +352,11 @@
                             // Valido que el precio por mayor sea mayor que el unitario y menor que el precio al detal
                             inputPrecioPorMayor.blur(function() {
                                 let precioUnitario = parseFloat(inputPrecioUnitario
-                                .val()) || 0;
+                                    .val()) || 0;
                                 let precioDetal = parseFloat(inputPrecioDetal.val()) ||
                                     0;
                                 let precioPorMayor = parseFloat(inputPrecioPorMayor
-                                .val()) || 0;
+                                    .val()) || 0;
 
                                 if (precioPorMayor <= precioUnitario ||
                                     precioPorMayor >= precioDetal) {
@@ -351,7 +371,9 @@
                         } // FIN inputPrecioUnitario.length > 0
                     },
                     error: function() {
-                        $('#modalEditarProductoContent').html('<div class="alert alert-danger">Error al cargar el formulario.</div>');
+                        $('#modalEditarProductoContent').html(
+                            '<div class="alert alert-danger">Error al cargar el formulario.</div>'
+                            );
                     }
                 });
             });
@@ -371,7 +393,8 @@
                 const cancelButton = $(`#btn_cancelar_producto_${id}`);
 
                 // Desactivar btns
-                submitButton.prop("disabled", true).html("Procesando... <i class='fa fa-spinner fa-spin'></i>");
+                submitButton.prop("disabled", true).html(
+                    "Procesando... <i class='fa fa-spinner fa-spin'></i>");
                 cancelButton.prop("disabled", true);
                 loadingIndicator.show();
             });
@@ -393,7 +416,7 @@
                         $('#modalCambiarEstadoProducto').modal('show');
                         $('#modalCambiarEstadoProductoContent').html(
                             '<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>'
-                            );
+                        );
                     },
                     success: function(html) {
                         $('#modalCambiarEstadoProductoContent').html(html);
@@ -401,7 +424,7 @@
                     error: function() {
                         $('#modalCambiarEstadoProductoContent').html(
                             '<div class="alert alert-danger">Error al cargar el formulario.</div>'
-                            );
+                        );
                     }
                 });
             });
@@ -446,7 +469,7 @@
                         $('#modalBarCodeProducto').modal('show');
                         $('#modalBarCodeProductoContent').html(
                             '<div class="text-center p-5"><i class="fa fa-spinner fa-spin fa-2x"></i> Cargando...</div>'
-                            );
+                        );
                     },
                     success: function(html) {
                         $('#modalBarCodeProductoContent').html(html);
@@ -454,7 +477,7 @@
                     error: function() {
                         $('#modalBarCodeProductoContent').html(
                             '<div class="alert alert-danger">Error al cargar el formulario.</div>'
-                            );
+                        );
                     }
                 });
             });
