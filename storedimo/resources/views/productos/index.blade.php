@@ -143,7 +143,7 @@
 
                                         @if (is_null($producto->cantidad))
                                             <td class="bg-warning-subtle align-middle">Sin compra realizada</td>
-                                        @elseif ($producto->cantidad < $producto->stock_minimo)
+                                        @elseif ($producto->cantidad <= $producto->stock_minimo)
                                             <td class="bg-danger-subtle align-middle">{{ $producto->cantidad }}</td>
                                         @else
                                             <td class="bg-success-subtle align-middle">{{ $producto->cantidad }}</td>
